@@ -19,5 +19,6 @@ public class BulletController
         bulletView.MoveBullet(direction, bulletModel.Force, bulletModel.DestroyTime);
 
     }
+
 	
 }

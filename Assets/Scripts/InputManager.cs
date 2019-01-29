@@ -17,7 +17,6 @@ public class InputManager : Singleton<InputManager> {
 	void Update () 
     {
         horizontalVal = Input.GetAxis("Horizontal1");
-        verticalVal = Input.GetAxis("Vertical1");
 
         if (horizontalVal != 0 || verticalVal != 0)
         {
