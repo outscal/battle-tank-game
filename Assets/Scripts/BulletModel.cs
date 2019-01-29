@@ -7,6 +7,7 @@ public class BulletModel
     public float Damage
     {
         get { return damage; }
+        protected set { damage = value; }
     }
 
     private float force = 10f;
@@ -14,12 +15,14 @@ public class BulletModel
     public float Force
     {
         get { return force; }
+        protected set { force = value; }
     }
 
-    private float destroyTime = 2f;
+    private float destroyTime = 1.5f;
 
     public float DestroyTime
     {
         get { return destroyTime; }
+        protected set { destroyTime = value; }
     }
 }

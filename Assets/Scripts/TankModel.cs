@@ -33,4 +33,11 @@ public class TankModel
         get { return fireRate; }
     }
 
+    //protected BulletType bulletType = BulletType.fast;
+
+    //public BulletType Bullet_Type
+    //{
+    //    get { return bulletType; }
+    //}
+
 }
