@@ -8,15 +8,14 @@ public class TankController
     public TankModel tankModel { get; private set; }
     public TankView tankView { get; private set; }
 
-    public TankController(bool _isPlayer)
+    public TankController()
     {
         GameObject prefab = Resources.Load<GameObject>("Tank");
         GameObject tankObj = GameObject.Instantiate<GameObject>(prefab);
 
         tankModel = new TankModel();
         tankView = tankObj.GetComponent<TankView>();
-        InputManager inputManager = tankView.gameObject.AddComponent<InputManager>();
-        inputManager.SetController(this);
+        InputManager.Instance.SetController(this);
 
     }
 

@@ -9,17 +9,12 @@ public class TankManager : Singleton<TankManager> {
 	// Use this for initialization
 	void Start () 
     {
-        //for (int i = 0; i < 5; i++)
-        //{
-        //    SpawnTank(false);
-        //}
-
-        SpawnTank(true);
+        SpawnTank();
 
     }
 	
-	private void SpawnTank(bool _isPlayer)
+	private void SpawnTank()
     {
-        tankController = new TankController(_isPlayer);
+        tankController = new TankController();
     }
 }
