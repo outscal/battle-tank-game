@@ -4,46 +4,38 @@ using UnityEngine;
 
 public class TankView : MonoBehaviour {
 
-    private bool move = false;
+    public TankController controller;
 
-	public void SetPosition(Vector3 _position)
-	{
-        transform.position = _position;
-	}
-
+    private float xAxis, yAxis;
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        if (controller.tankModel.isPlayer == true)
         {
+            xAxis = Input.GetAxis("Horizontal1");
+            yAxis = Input.GetAxis("Vertical1");
 
+            if (xAxis != 0 || yAxis != 0)
+            {
+                if (controller != null)
+                {
+                    controller.MovePlayer(xAxis, yAxis);
+                }
+            }
         }
-
-        if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.LeftArrow))
-        {
-
-        }
-
     }
 
-    IEnumerator MoveObj(bool _move)
+    public void Move(float hVal, float vVal, float speed, float rotateSpeed)
     {
-        move = _move;
-
-        while (move == true)
-        {
-
-
-
-        }
-
-        return null;
+        StartCoroutine(MoveObj(hVal, vVal, speed, rotateSpeed));
     }
 
-    IEnumerator StopObj(bool _move)
+    private IEnumerator MoveObj(float hVal, float vVal, float speed, float rotateSpeed)
     {
-        move = _move;
-        return null;
+        transform.Translate(vVal * Vector3.forward * speed * Time.deltaTime);
+        transform.Rotate(new Vector3(0, hVal, 0) * rotateSpeed);
+
+        yield return new WaitForEndOfFrame();
     }
 
 }
