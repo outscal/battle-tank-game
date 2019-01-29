@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankManager : MonoBehaviour {
+public class TankManager : Singleton<TankManager> {
 
     public TankController tankController { get; private set; }
-
-    public GameObject tankPrefab;
 
 	// Use this for initialization
 	void Start () 

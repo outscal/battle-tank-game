@@ -14,15 +14,20 @@ public class TankController
         GameObject tankObj = GameObject.Instantiate<GameObject>(prefab);
 
         tankModel = new TankModel();
-        tankModel.isPlayer = _isPlayer;
         tankView = tankObj.GetComponent<TankView>();
+        InputManager inputManager = tankView.gameObject.AddComponent<InputManager>();
+        inputManager.SetController(this);
 
-        tankView.controller = this;
     }
 
     public void MovePlayer(float hVal, float vVal)
     {
-        tankView.Move(hVal, vVal, tankModel.speed, tankModel.rotationSpeed);
+        tankView.MoveTank(hVal, vVal, tankModel.Speed, tankModel.RotationSpeed);
+    }
+
+    public void SpawnBullet()
+    {
+
     }
 	
 }

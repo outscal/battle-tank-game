@@ -4,38 +4,18 @@ using UnityEngine;
 
 public class TankView : MonoBehaviour {
 
-    public TankController controller;
+    [SerializeField]
+    private GameObject bulletSpawnPos;
 
-    private float xAxis, yAxis;
-
-    private void Update()
+    public GameObject BulletSpawnPos
     {
-        if (controller.tankModel.isPlayer == true)
-        {
-            xAxis = Input.GetAxis("Horizontal1");
-            yAxis = Input.GetAxis("Vertical1");
-
-            if (xAxis != 0 || yAxis != 0)
-            {
-                if (controller != null)
-                {
-                    controller.MovePlayer(xAxis, yAxis);
-                }
-            }
-        }
+        get { return bulletSpawnPos; }
     }
 
-    public void Move(float hVal, float vVal, float speed, float rotateSpeed)
-    {
-        StartCoroutine(MoveObj(hVal, vVal, speed, rotateSpeed));
-    }
-
-    private IEnumerator MoveObj(float hVal, float vVal, float speed, float rotateSpeed)
+    public void MoveTank(float hVal, float vVal, float speed, float rotateSpeed)
     {
         transform.Translate(vVal * Vector3.forward * speed * Time.deltaTime);
         transform.Rotate(new Vector3(0, hVal, 0) * rotateSpeed);
-
-        yield return new WaitForEndOfFrame();
     }
 
 }
