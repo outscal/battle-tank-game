@@ -27,7 +27,8 @@ public class TankController
 
     public void SpawnBullet()
     {
-
+        BulletManager.Instance.SpawnBullet(tankView.transform.forward, tankView.BulletSpawnPos.transform.position,
+                                           tankView.BulletSpawnPos.transform.eulerAngles);
     }
 	
 }

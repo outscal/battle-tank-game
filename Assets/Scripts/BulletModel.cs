@@ -2,7 +2,24 @@
 
 public class BulletModel
 {
-    public float damage;
-    public float moveSpeed;
-    public float destroyTime;
+    private float damage = 10f;
+
+    public float Damage
+    {
+        get { return damage; }
+    }
+
+    private float force = 10f;
+
+    public float Force
+    {
+        get { return force; }
+    }
+
+    private float destroyTime = 2f;
+
+    public float DestroyTime
+    {
+        get { return destroyTime; }
+    }
 }

@@ -6,19 +6,19 @@ public class BulletView : MonoBehaviour {
 
     private Rigidbody rb;
 
-    private void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
 
 
-    public void Move(Vector3 direction, float force, float destroyTime)
+    public void MoveBullet(Vector3 direction, float force, float destroyTime)
     {
         rb.AddForce(direction * force, ForceMode.Impulse);
-        StartCoroutine(MoveObj(destroyTime));
+        StartCoroutine(DestroyBullet(destroyTime));
     }
 
-    IEnumerator MoveObj(float destroyTime)
+    IEnumerator DestroyBullet(float destroyTime)
     {
         yield return new WaitForSeconds(destroyTime);
 
