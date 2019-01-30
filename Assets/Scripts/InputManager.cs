@@ -1,18 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InputManager : Singleton<InputManager> {
 
-    private PlayerController controller;
+    public PlayerController playerController { get; set; }
 
     private float horizontalVal, verticalVal;
 
-    public void SetController( PlayerController _controller)
-    {
-        controller = _controller;
-    }
-	
 	// Update is called once per frame
 	void Update () 
     {
@@ -21,16 +17,16 @@ public class InputManager : Singleton<InputManager> {
 
         if (horizontalVal != 0 || verticalVal != 0)
         {
-            if (controller != null)
+            if (playerController != null)
             {
-                controller.MovePlayer(horizontalVal, verticalVal);
+                playerController.MovePlayer(horizontalVal, verticalVal);
             }
         }
 
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            controller.SpawnBullet();
+            playerController.SpawnBullet();
         }
     }
 }

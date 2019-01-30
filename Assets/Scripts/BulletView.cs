@@ -6,6 +6,9 @@ public class BulletView : MonoBehaviour {
 
     private Rigidbody rb;
 
+    [HideInInspector]
+    public BulletController bulletController;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -21,7 +24,7 @@ public class BulletView : MonoBehaviour {
     IEnumerator DestroyBullet(float destroyTime)
     {
         yield return new WaitForSeconds(destroyTime);
-
+        bulletController.DestroyController();
         Destroy(gameObject);
     }
 

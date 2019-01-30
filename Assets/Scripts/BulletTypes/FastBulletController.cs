@@ -5,12 +5,19 @@ using UnityEngine;
 public class FastBulletController : BulletController
 {
 
-    public FastBulletController()
+    protected override BulletModel getBulletModel()
     {
-        bulletModel = new FastBulletModel();
-        GameObject prefab = Resources.Load<GameObject>("FastBullet");
-        GameObject bullet = GameObject.Instantiate<GameObject>(prefab);
-        bulletView = bullet.GetComponent<FastBulletView>();
+        return new FastBulletModel();
     }
 
+    protected override string BulletName()
+    {
+        string name = "FastBullet";
+        return name;
+    }
+
+    protected override BulletView getBulletView()
+    {
+        return bulletRef.GetComponent<FastBulletView>();
+    }
 }

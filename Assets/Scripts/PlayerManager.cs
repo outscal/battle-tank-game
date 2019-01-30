@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerManager : Singleton<PlayerManager> {
 
-    public PlayerController tankController { get; private set; }
+    public PlayerController playerController { get; private set; }
 
 	// Use this for initialization
 	void Start () 
@@ -15,6 +15,7 @@ public class PlayerManager : Singleton<PlayerManager> {
 	
 	private void SpawnTank()
     {
-        tankController = new PlayerController();
+        playerController = new PlayerController();
+        InputManager.Instance.playerController = playerController;
     }
 }

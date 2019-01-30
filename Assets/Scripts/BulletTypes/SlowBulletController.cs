@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class SlowBulletController : BulletController {
 
-    public SlowBulletController()
+    protected override BulletModel getBulletModel()
     {
-        bulletModel = new SlowBulletModel();
-        GameObject prefab = Resources.Load<GameObject>("SlowBullet");
-        GameObject bullet = GameObject.Instantiate<GameObject>(prefab);
-        bulletView = bullet.GetComponent<SlowBulletView>();
+        return new SlowBulletModel();
+    }
+
+    protected override string BulletName()
+    {
+        string name = "SlowBullet";
+        return name;
+    }
+
+    protected override BulletView getBulletView()
+    {
+        return bulletRef.GetComponent<SlowBulletView>();
     }
 }

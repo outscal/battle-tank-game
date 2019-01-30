@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class MediumBulletController : BulletController 
 {
-    public MediumBulletController()
+    protected override BulletModel getBulletModel()
     {
-        bulletModel = new MediumBulletModel();
-        GameObject prefab = Resources.Load<GameObject>("MediumBullet");
-        GameObject bullet = GameObject.Instantiate<GameObject>(prefab);
-        bulletView = bullet.GetComponent<MediumBulletView>();
+        return new MediumBulletModel();
     }
-	
+
+    protected override string BulletName()
+    {
+        string name = "MediumBullet";
+        return name;
+    }
+
+    protected override BulletView getBulletView()
+    {
+        return bulletRef.GetComponent<MediumBulletView>();
+    }
 }

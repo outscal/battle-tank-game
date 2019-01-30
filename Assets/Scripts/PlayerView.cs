@@ -18,6 +18,11 @@ public class PlayerView : MonoBehaviour {
         transform.Rotate(new Vector3(0, hVal, 0) * rotateSpeed);
     }
 
+    public void Shoot(BulletController bulletController)
+    {
+        bulletController.SpawnBullet(transform.forward, bulletSpawnPos.transform.position, transform.eulerAngles);
+    }
+
 }
 
 	

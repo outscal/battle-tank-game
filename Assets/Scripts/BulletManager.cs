@@ -7,7 +7,7 @@ public enum BulletType { slow, medium, fast }
 public class BulletManager : Singleton<BulletManager>
 {
     [SerializeField]
-    private BulletType bulletType = new BulletType();
+    private BulletType bulletType = BulletType.medium;
 
     public BulletType Bullet_Type
     {
@@ -17,7 +17,7 @@ public class BulletManager : Singleton<BulletManager>
     public BulletController bulletController { get; private set; }
 	
 
-    public void SpawnBullet(Vector3 direction, Vector3 spawnPos, Vector3 rotation)
+    public BulletController SpawnBullet()
     {
         if(bulletType == BulletType.fast)
             bulletController = new FastBulletController();
@@ -26,8 +26,13 @@ public class BulletManager : Singleton<BulletManager>
         else if (bulletType == BulletType.slow)
             bulletController = new SlowBulletController();
 
-        bulletController.SpawnBullet(direction, spawnPos, rotation);
+        return bulletController;
     }
 
+    public void RemoveController(BulletController bulletController)
+    {
+        this.bulletController = bulletController;
+        bulletController = null;
+    }
 
 }
