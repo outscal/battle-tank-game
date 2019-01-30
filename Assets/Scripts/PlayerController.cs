@@ -15,11 +15,13 @@ public class PlayerController
 
         playerModel = new PlayerModel();
         playerView = tankObj.GetComponent<PlayerView>();
+        playerView.SetController(this);
     }
 
     public void MovePlayer(float hVal, float vVal)
     {
-        playerView.MoveTank(hVal, vVal, playerModel.Speed, playerModel.RotationSpeed);
+        if (playerView != null)
+            playerView.MoveTank(hVal, vVal, playerModel.Speed, playerModel.RotationSpeed);
     }
 
     public void SpawnBullet()
@@ -27,6 +29,11 @@ public class PlayerController
         BulletController bulletController = BulletManager.Instance.SpawnBullet();
 
         playerView.Shoot(bulletController);
+    }
+
+    public void DestroyPlayer()
+    {
+        playerModel = null;
     }
 	
 }

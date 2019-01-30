@@ -29,10 +29,9 @@ public class BulletManager : Singleton<BulletManager>
         return bulletController;
     }
 
-    public void RemoveController(BulletController bulletController)
+    public void RemoveController(BulletController _bulletController)
     {
-        this.bulletController = bulletController;
-        bulletController = null;
+        _bulletController = null;
     }
 
 }

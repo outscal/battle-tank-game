@@ -42,7 +42,11 @@ namespace Enemy
         }
 
 
-
+        public void DestroyEnemy(EnemyController _enemyController)
+        {
+            _enemyController.DestroyEnemyModel();
+            _enemyController = null;
+        }
 
 
 

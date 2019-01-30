@@ -33,8 +33,13 @@ namespace Enemy
             enemyModel.scriptableObj = scriptableObjEnemy;
             GameObject enemy = GameObject.Instantiate<GameObject>(enemyModel.scriptableObj.enemyPrefab);
             enemyView = enemy.GetComponent<EnemyView>();
+            enemyView.SetEnemyController(this);
             enemy.transform.position = position;
         }
 
+        public void DestroyEnemyModel()
+        {
+            enemyModel = null;
+        }
     }
 }

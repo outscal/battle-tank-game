@@ -2,15 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyView : MonoBehaviour {
+namespace Enemy
+{
+    public class EnemyView : MonoBehaviour
+    {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        private EnemyController enemyController;
+
+        public void SetEnemyController(EnemyController enemyController)
+        {
+            this.enemyController = enemyController;
+        }
+
+        public void DestroyEnemy()
+        {
+            EnemyManager.Instance.DestroyEnemy(enemyController);
+            Destroy(gameObject);
+        }
+    }
 }

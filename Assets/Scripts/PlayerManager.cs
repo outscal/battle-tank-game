@@ -18,4 +18,10 @@ public class PlayerManager : Singleton<PlayerManager> {
         playerController = new PlayerController();
         InputManager.Instance.playerController = playerController;
     }
+
+    public void DestroyPlayer(PlayerController _playerController)
+    {
+        _playerController.DestroyPlayer();
+        _playerController = null;
+    }
 }

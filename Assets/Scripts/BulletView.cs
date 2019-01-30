@@ -14,6 +14,15 @@ public class BulletView : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            collision.gameObject.GetComponent<Enemy.EnemyView>().DestroyEnemy();
+        }
+
+        DestroyBullet();
+    }
 
     public void MoveBullet(Vector3 direction, float force, float destroyTime)
     {
@@ -21,11 +30,16 @@ public class BulletView : MonoBehaviour {
         StartCoroutine(DestroyBullet(destroyTime));
     }
 
+    public void DestroyBullet()
+    {
+        bulletController.DestroyController();
+        Destroy(gameObject);
+    }
+
     IEnumerator DestroyBullet(float destroyTime)
     {
         yield return new WaitForSeconds(destroyTime);
-        bulletController.DestroyController();
-        Destroy(gameObject);
+        DestroyBullet();
     }
 
 }
