@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankView : MonoBehaviour {
+public class PlayerView : MonoBehaviour {
 
     [SerializeField]
     private GameObject bulletSpawnPos;

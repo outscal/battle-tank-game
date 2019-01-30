@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class InputManager : Singleton<InputManager> {
 
-    private TankController controller;
+    private PlayerController controller;
 
     private float horizontalVal, verticalVal;
 
-    public void SetController( TankController _controller)
+    public void SetController( PlayerController _controller)
     {
         controller = _controller;
     }

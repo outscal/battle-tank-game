@@ -3,18 +3,18 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class TankController
+public class PlayerController
 {
-    public TankModel tankModel { get; private set; }
-    public TankView tankView { get; private set; }
+    public PlayerModel tankModel { get; private set; }
+    public PlayerView tankView { get; private set; }
 
-    public TankController()
+    public PlayerController()
     {
         GameObject prefab = Resources.Load<GameObject>("Tank");
         GameObject tankObj = GameObject.Instantiate<GameObject>(prefab);
 
-        tankModel = new TankModel();
-        tankView = tankObj.GetComponent<TankView>();
+        tankModel = new PlayerModel();
+        tankView = tankObj.GetComponent<PlayerView>();
         InputManager.Instance.SetController(this);
 
     }

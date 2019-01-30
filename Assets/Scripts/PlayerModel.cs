@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
-public class TankModel
+public class PlayerModel
 {
     private float speed = 3f;
 

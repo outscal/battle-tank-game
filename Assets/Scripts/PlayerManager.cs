@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankManager : Singleton<TankManager> {
+public class PlayerManager : Singleton<PlayerManager> {
 
-    public TankController tankController { get; private set; }
+    public PlayerController tankController { get; private set; }
 
 	// Use this for initialization
 	void Start () 
@@ -15,6 +15,6 @@ public class TankManager : Singleton<TankManager> {
 	
 	private void SpawnTank()
     {
-        tankController = new TankController();
+        tankController = new PlayerController();
     }
 }
