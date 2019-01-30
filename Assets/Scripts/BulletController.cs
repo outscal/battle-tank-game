@@ -14,8 +14,8 @@ public class BulletController
     public BulletController()
     {
         bulletModel = getBulletModel();
-        GameObject prefab = Resources.Load<GameObject>(BulletName());
-        bulletRef = GameObject.Instantiate<GameObject>(prefab);
+        GameObject getBulletPrefabResourceLocation = Resources.Load<GameObject>(BulletName());
+        bulletRef = GameObject.Instantiate<GameObject>(getBulletPrefabResourceLocation);
         bulletView = getBulletView();
         bulletView.bulletController = this;
     }
