@@ -44,6 +44,7 @@ namespace Player
             if (collision.gameObject.tag == "Enemy")
             {
                 playerHealth -= playerHealth;
+                //playerController.setPlayerHealth(playerHealth);
                 GameUI.Instance.UpdatePlayerHealth(playerHealth);
                 PlayerDie();
             }

@@ -8,11 +8,18 @@ using UI;
 
 namespace Player
 {
+    public class PlayerData
+    {
+        public int score, health;
+    }
+
     public class PlayerController
     {
         public PlayerModel playerModel { get; private set; }
         public PlayerView playerView { get; private set; }
         public InputComponent playerInput { get; private set; }
+
+        public PlayerData playerData { get; private set; }
 
         private float lastTime;
 
@@ -56,5 +63,17 @@ namespace Player
         {
 
         }
+
+        //public void setPlayerScore(int value)
+        //{
+        //    playerData.score = value;
+        //    Debug.Log("[PlayerController]: Score " + value);
+        //}
+
+        //public void setPlayerHealth(int value)
+        //{
+        //    playerData.health = value;
+        //    Debug.Log("[PlayerController]: Health " + value);
+        //}
     }
 }
