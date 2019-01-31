@@ -34,11 +34,9 @@ namespace Enemy
         {
             int r = Random.Range(0, scriptableObjEnemyList.enemyList.Count);
 
-            enemyType = (EnemyType)r;
-
             Vector3 randomPos = new Vector3(Random.Range(-10f, 10f), 0, Random.Range(-10f, 10f));
 
-            enemyController = new EnemyController(enemyType, randomPos);
+            enemyController = new EnemyController(scriptableObjEnemyList.enemyList[r], randomPos);
 
         }
 
