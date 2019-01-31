@@ -19,8 +19,11 @@ namespace Player
             get { return bulletSpawnPos; }
         }
 
-        public void SetController(PlayerController playerController)
+        private float playerHealth = 0;
+
+        public void SetController(PlayerController playerController, float health)
         {
+            playerHealth = health;
             this.playerController = playerController;
         }
 
@@ -39,14 +42,18 @@ namespace Player
         {
             if (collision.gameObject.tag == "Enemy")
             {
-                PlayerManager.Instance.DestroyPlayer(playerController);
 
-                PlayerDie();
+
+                if (playerHealth <= 0)
+                {
+                    PlayerDie();
+                }
             }
         }
 
         private void PlayerDie()
         {
+            PlayerManager.Instance.DestroyPlayer(playerController);
             Destroy(gameObject);
         }
     }

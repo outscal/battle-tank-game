@@ -15,6 +15,7 @@ namespace Enemy
 
         public EnemyType GetEnemyType { get { return enemyType; }}
 
+        [SerializeField]
         private ScriptableObjEnemyList scriptableObjEnemyList;
 
         public EnemyController enemyController { get; private set; }

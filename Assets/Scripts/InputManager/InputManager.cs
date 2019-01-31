@@ -9,30 +9,40 @@ namespace Inputs
 {
     public class InputManager : Singleton<InputManager>
     {
-
-        public PlayerController playerController { get; set; }
-
-        private float horizontalVal, verticalVal;
+        private List<InputComponent> inputComponentList = new List<InputComponent>();
 
         // Update is called once per frame
         void Update()
         {
-            horizontalVal = Input.GetAxis("Horizontal1");
-            verticalVal = Input.GetAxis("Vertical1");
-
-            if (horizontalVal != 0 || verticalVal != 0)
+            foreach (InputComponent inputComponent in inputComponentList)
             {
-                if (playerController != null)
+                inputComponent.OnUpdate();
+
+                if (inputComponent.horizontalVal != 0 || inputComponent.verticalVal != 0)
+                    Move(inputComponent.horizontalVal, inputComponent.verticalVal, inputComponent.GetController());
+
+                if (inputComponent.shoot == true)
                 {
-                    playerController.MovePlayer(horizontalVal, verticalVal);
+                    Shoot(inputComponent.GetController());
                 }
             }
 
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                playerController.SpawnBullet();
-            }
         }
+
+        void Move(float horizontal, float vertical, PlayerController playerController)
+        {
+            playerController.MovePlayer(horizontal, vertical);
+        }
+
+        void Shoot(PlayerController playerController)
+        {
+            playerController.SpawnBullet();
+        }
+
+        public  void AddInputComponent(InputComponent inputComponent)
+        {
+            inputComponentList.Add(inputComponent);
+        }
+
     }
 }

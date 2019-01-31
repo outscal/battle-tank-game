@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Bullet;
+using Inputs;
 
 namespace Player
 {
@@ -10,15 +11,22 @@ namespace Player
     {
         public PlayerModel playerModel { get; private set; }
         public PlayerView playerView { get; private set; }
+        public InputComponent playerInput { get; private set; }
 
-        public PlayerController()
+        private float lastTime;
+
+        public PlayerController(InputComponentScriptable inputComponentScriptable)
         {
             GameObject prefab = Resources.Load<GameObject>("Tank");
             GameObject tankObj = GameObject.Instantiate<GameObject>(prefab);
 
             playerModel = new PlayerModel();
+            playerInput = new InputComponent();
+            playerInput.SetController(this);
+            playerInput.SetInputComponentValues(inputComponentScriptable);
             playerView = tankObj.GetComponent<PlayerView>();
-            playerView.SetController(this);
+            playerView.SetController(this, playerModel.Health);
+            InputManager.Instance.AddInputComponent(playerInput);
         }
 
         public void MovePlayer(float hVal, float vVal)
@@ -29,9 +37,12 @@ namespace Player
 
         public void SpawnBullet()
         {
-            BulletController bulletController = BulletManager.Instance.SpawnBullet();
-
-            playerView.Shoot(bulletController);
+            if (Mathf.Abs(lastTime - Time.time) >= playerModel.FireRate)
+            {
+                lastTime = Time.time;
+                BulletController bulletController = BulletManager.Instance.SpawnBullet();
+                playerView.Shoot(bulletController);
+            }
         }
 
         public void DestroyPlayer()
@@ -39,5 +50,9 @@ namespace Player
             playerModel = null;
         }
 
+        public void DamagePlayer()
+        {
+
+        }
     }
 }

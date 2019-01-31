@@ -8,25 +8,36 @@ namespace Player
 {
     public class PlayerManager : Singleton<PlayerManager>
     {
+        public InputComponentScriptableList inputComponentScriptableList;
+
         public PlayerController playerController { get; private set; }
 
         // Use this for initialization
         void Start()
         {
-            SpawnTank();
-
+            SpawnPlayer();
         }
 
-        private void SpawnTank()
+        private void SpawnPlayer()
         {
-            playerController = new PlayerController();
-            InputManager.Instance.playerController = playerController;
+            if(inputComponentScriptableList==null)
+            {
+                Debug.Log("[PlayerManager] Missing InputComponentScriptableList");
+            }
+
+            int r = Random.Range(0, inputComponentScriptableList.inputComponentScriptables.Count);
+            playerController = new PlayerController(inputComponentScriptableList.inputComponentScriptables[r]);
         }
 
         public void DestroyPlayer(PlayerController _playerController)
         {
             _playerController.DestroyPlayer();
             _playerController = null;
+        }
+
+        public void DamagePlayer(PlayerController _playerController)
+        {
+
         }
     }
 }

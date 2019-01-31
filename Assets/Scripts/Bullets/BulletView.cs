@@ -25,7 +25,8 @@ namespace Bullet
                 collision.gameObject.GetComponent<Enemy.EnemyView>().DestroyEnemy();
             }
 
-            DestroyBullet();
+            if (collision.gameObject.tag != "Bullet")
+                DestroyBullet();
         }
 
         public void MoveBullet(Vector3 direction, float force, float destroyTime)

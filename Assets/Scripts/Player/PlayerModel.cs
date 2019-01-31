@@ -7,6 +7,13 @@ namespace Player
 {
     public class PlayerModel
     {
+        private float health = 5f;
+
+        public float Health
+        {
+            get { return health; }
+        }
+
         private float speed = 3f;
 
         public float Speed
