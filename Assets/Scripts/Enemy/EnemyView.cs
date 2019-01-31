@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Enemy
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class EnemyView : MonoBehaviour
     {
 
