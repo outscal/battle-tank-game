@@ -16,6 +16,7 @@ namespace Enemy
             GameObject enemy = GameObject.Instantiate<GameObject>(enemyModel.scriptableObj.enemyPrefab);
             enemyView = enemy.GetComponent<EnemyView>();
             enemyView.SetEnemyController(this);
+            enemyView.setHealth(enemyModel.scriptableObj.health);
             enemy.transform.position = position;
         }
 

@@ -8,7 +8,9 @@ namespace Enemy
     public class ScriptableObjEnemy : ScriptableObject
     {
         public float moveSpeed;
-        public float health;
+        public int health;
+        public int scoreIncrease;
         public GameObject enemyPrefab;
+        public int damage;
     }
 }

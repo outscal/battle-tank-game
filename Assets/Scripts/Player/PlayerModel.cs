@@ -7,9 +7,9 @@ namespace Player
 {
     public class PlayerModel
     {
-        private float health = 5f;
+        private int health = 5;
 
-        public float Health
+        public int Health
         {
             get { return health; }
         }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UI;
 
 namespace Enemy
 {
@@ -25,7 +26,8 @@ namespace Enemy
         public void DamageEnemy(int value)
         {
             health -= value;
-            if(value <= 0)
+            Debug.Log("[EnemyView] Value: " + value + " Health: " + health);
+            if(health <= 0)
             {
                 DestroyEnemy();
             }
@@ -33,8 +35,14 @@ namespace Enemy
 
         public void DestroyEnemy()
         {
+            GameUI.Instance.UpdatePlayerScore(enemyController.enemyModel.scriptableObj.scoreIncrease);
             EnemyManager.Instance.DestroyEnemy(enemyController);
             Destroy(gameObject);
+        }
+
+        public int DamageValue()
+        {
+            return enemyController.enemyModel.scriptableObj.damage;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Player;
 
 namespace Bullet
 {
@@ -13,6 +14,8 @@ namespace Bullet
 
         public GameObject bulletRef { get; private set; }
 
+        private PlayerController playerController;
+
         public BulletController()
         {
             bulletModel = getBulletModel();
@@ -22,8 +25,9 @@ namespace Bullet
             bulletView.bulletController = this;
         }
 
-        public void SpawnBullet(Vector3 direction, Vector3 spawnPos, Vector3 rotation)
+        public void SpawnBullet(Vector3 direction, Vector3 spawnPos, Vector3 rotation, PlayerController playerController)
         {
+            this.playerController = playerController;
             bulletView.transform.position = spawnPos;
             bulletView.transform.rotation = Quaternion.Euler(rotation);
             bulletView.MoveBullet(direction, bulletModel.Force, bulletModel.DestroyTime);

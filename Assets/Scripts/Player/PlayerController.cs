@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Bullet;
 using Inputs;
+using UI;
 
 namespace Player
 {
@@ -27,6 +28,7 @@ namespace Player
             playerView = tankObj.GetComponent<PlayerView>();
             playerView.SetController(this, playerModel.Health);
             InputManager.Instance.AddInputComponent(playerInput);
+            GameUI.Instance.SetPlayerHealth(playerModel.Health);
         }
 
         public void MovePlayer(float hVal, float vVal)

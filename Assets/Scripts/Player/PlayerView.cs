@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Bullet;
+using UI;
 
 namespace Player
 {
@@ -19,9 +20,9 @@ namespace Player
             get { return bulletSpawnPos; }
         }
 
-        private float playerHealth = 0;
+        private int playerHealth = 0;
 
-        public void SetController(PlayerController playerController, float health)
+        public void SetController(PlayerController playerController, int health)
         {
             playerHealth = health;
             this.playerController = playerController;
@@ -35,19 +36,16 @@ namespace Player
 
         public void Shoot(BulletController bulletController)
         {
-            bulletController.SpawnBullet(transform.forward, bulletSpawnPos.transform.position, transform.eulerAngles);
+            bulletController.SpawnBullet(transform.forward, bulletSpawnPos.transform.position, transform.eulerAngles, playerController);
         }
 
         private void OnCollisionEnter(Collision collision)
         {
             if (collision.gameObject.tag == "Enemy")
             {
-
-
-                if (playerHealth <= 0)
-                {
-                    PlayerDie();
-                }
+                playerHealth -= playerHealth;
+                GameUI.Instance.UpdatePlayerHealth(playerHealth);
+                PlayerDie();
             }
         }
 

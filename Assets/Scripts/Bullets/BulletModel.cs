@@ -4,9 +4,9 @@ namespace Bullet
 {
     public class BulletModel
     {
-        private float damage = 10f;
+        private int damage = 10;
 
-        public float Damage
+        public int Damage
         {
             get { return damage; }
             protected set { damage = value; }

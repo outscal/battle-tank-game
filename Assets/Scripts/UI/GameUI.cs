@@ -12,6 +12,16 @@ namespace UI
 
         private int playerScore = 0;
 
+        private void Start()
+        {
+            UpdatePlayerScore(playerScore);
+        }
+
+        public void SetPlayerHealth(int health)
+        {
+            UpdatePlayerHealth(health);
+        }
+
         public void UpdatePlayerScore(int value)
         {
             playerScore += value;
