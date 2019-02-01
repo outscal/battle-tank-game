@@ -11,26 +11,14 @@ namespace Enemy
 
         private EnemyController enemyController;
 
-        private int health;
-
         public void SetEnemyController(EnemyController enemyController)
         {
             this.enemyController = enemyController;
         }
 
-        public void setHealth(int health)
-        {
-            this.health = health;
-        }
-
         public void DamageEnemy(int value)
         {
-            health -= value;
-            Debug.Log("[EnemyView] Value: " + value + " Health: " + health);
-            if(health <= 0)
-            {
-                DestroyEnemy();
-            }
+            enemyController.TakeDamage(value);
         }
 
         public void DestroyEnemy()

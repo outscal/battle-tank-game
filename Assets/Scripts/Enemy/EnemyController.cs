@@ -13,11 +13,21 @@ namespace Enemy
         {
             enemyModel = new EnemyModel();
             enemyModel.scriptableObj = scriptableObjEnemy;
-            GameObject enemy = GameObject.Instantiate<GameObject>(enemyModel.scriptableObj.enemyPrefab);
+            GameObject enemy = GameObject.Instantiate<GameObject>(enemyModel.scriptableObj.enemyView.gameObject);
             enemyView = enemy.GetComponent<EnemyView>();
             enemyView.SetEnemyController(this);
-            enemyView.setHealth(enemyModel.scriptableObj.health);
             enemy.transform.position = position;
+            enemyModel.CurrentHealth = enemyModel.scriptableObj.health;
+        }
+
+        public void TakeDamage(int value)
+        {
+            enemyModel.CurrentHealth -= value;
+//            Debug.Log("[EnemyView] Value: " + value + " Health: " + enemyModel.CurrentHealth);
+            if (enemyModel.CurrentHealth <= 0)
+            {
+                enemyView.DestroyEnemy();
+            }
         }
 
         public void DestroyEnemyModel()

@@ -6,22 +6,27 @@ using Bullet;
 using Inputs;
 using UI;
 
+public class PlayerData
+{
+    public int score, health;
+}
+
 namespace Player
 {
-    public class PlayerData
-    {
-        public int score, health;
-    }
-
     public class PlayerController
     {
         public PlayerModel playerModel { get; private set; }
         public PlayerView playerView { get; private set; }
         public InputComponent playerInput { get; private set; }
 
-        public PlayerData playerData { get; private set; }
+        private PlayerData playerData = new PlayerData();
 
-        private float lastTime;
+        public PlayerData PlayerData
+        {
+            get { return playerData; }
+        }
+
+        private float lastFireTime;
 
         public PlayerController(InputComponentScriptable inputComponentScriptable)
         {
@@ -30,10 +35,10 @@ namespace Player
 
             playerModel = new PlayerModel();
             playerInput = new InputComponent();
-            playerInput.SetController(this);
-            playerInput.SetInputComponentValues(inputComponentScriptable);
+            playerInput.playerController = this;
+            playerInput.inputComponentScriptable = inputComponentScriptable;
             playerView = tankObj.GetComponent<PlayerView>();
-            playerView.SetController(this, playerModel.Health);
+            playerView.SetController(this);
             InputManager.Instance.AddInputComponent(playerInput);
             GameUI.Instance.SetPlayerHealth(playerModel.Health);
         }
@@ -46,9 +51,9 @@ namespace Player
 
         public void SpawnBullet()
         {
-            if (Mathf.Abs(lastTime - Time.time) >= playerModel.FireRate)
+            if (Mathf.Abs(lastFireTime - Time.time) >= playerModel.FireRate)
             {
-                lastTime = Time.time;
+                lastFireTime = Time.time;
                 BulletController bulletController = BulletManager.Instance.SpawnBullet();
                 playerView.Shoot(bulletController);
             }
@@ -59,21 +64,26 @@ namespace Player
             playerModel = null;
         }
 
-        public void DamagePlayer()
+        public void TakeDamage(int value)
         {
+            playerModel.Health -= value;
+            GameUI.Instance.UpdatePlayerHealth(value);
+            setPlayerHealth(playerModel.Health);
 
+            if (playerModel.Health <= 0)
+                playerView.PlayerDie();
         }
 
-        //public void setPlayerScore(int value)
-        //{
-        //    playerData.score = value;
-        //    Debug.Log("[PlayerController]: Score " + value);
-        //}
+        public void setPlayerScore(int value)
+        {
+            playerData.score = value;
+            Debug.Log("[PlayerController]: Score " + value);
+        }
 
-        //public void setPlayerHealth(int value)
-        //{
-        //    playerData.health = value;
-        //    Debug.Log("[PlayerController]: Health " + value);
-        //}
+        void setPlayerHealth(int value)
+        {
+            playerData.health = value;
+            Debug.Log("[PlayerController]: Health " + value);
+        }
     }
 }

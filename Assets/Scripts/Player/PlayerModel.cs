@@ -12,6 +12,7 @@ namespace Player
         public int Health
         {
             get { return health; }
+            set { health = value; }
         }
 
         private float speed = 3f;

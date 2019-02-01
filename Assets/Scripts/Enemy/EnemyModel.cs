@@ -8,5 +8,7 @@ namespace Enemy
     {
         public ScriptableObjEnemy scriptableObj;
 
+        public int CurrentHealth;
+
     }
 }

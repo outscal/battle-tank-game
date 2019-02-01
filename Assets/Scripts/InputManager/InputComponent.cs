@@ -7,27 +7,12 @@ namespace Inputs
 {
     public class InputComponent
     {
-        public float horizontalVal { get; private set; }
-        public float verticalVal { get; private set; }
-        public bool shoot { get; private set; }
+        private float horizontalVal { get; set; }
+        private float verticalVal { get; set; }
+        private bool shoot { get; set; }
 
-        private PlayerController playerController;
-        private InputComponentScriptable inputComponentScriptable;
-
-        public PlayerController GetController()
-        {
-            return playerController;
-        }
-
-        public void SetController(PlayerController playerController)
-        {
-            this.playerController = playerController;
-        }
-
-        public void SetInputComponentValues(InputComponentScriptable inputComponentScriptable)
-        {
-            this.inputComponentScriptable = inputComponentScriptable;
-        }
+        public PlayerController playerController { private get; set; }
+        public InputComponentScriptable inputComponentScriptable { private get; set; }
 
         public void OnUpdate()
         {
@@ -37,13 +22,16 @@ namespace Inputs
             TurnRight();
 
             if (Input.GetKeyDown(inputComponentScriptable.fireKey))
-            {
                 shoot = true;
-            }
-
-            if(Input.GetKeyUp(inputComponentScriptable.fireKey))
-            {
+            else if(Input.GetKeyUp(inputComponentScriptable.fireKey))
                 shoot = false;
+
+            if (horizontalVal != 0 || verticalVal != 0)
+                playerController.MovePlayer(horizontalVal, verticalVal);
+
+            if (shoot == true)
+            {
+                playerController.SpawnBullet();
             }
         }
 
@@ -78,7 +66,5 @@ namespace Inputs
             else if (Input.GetKeyUp(inputComponentScriptable.turnRightKey))
                 horizontalVal = 0;
         }
-
-
     }
 }

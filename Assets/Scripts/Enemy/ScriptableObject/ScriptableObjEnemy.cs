@@ -10,7 +10,7 @@ namespace Enemy
         public float moveSpeed;
         public int health;
         public int scoreIncrease;
-        public GameObject enemyPrefab;
+        public EnemyView enemyView;
         public int damage;
     }
 }
