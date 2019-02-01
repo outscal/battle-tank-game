@@ -6,10 +6,10 @@ using Bullet;
 using Inputs;
 using UI;
 
-public class PlayerData
-{
-    public int score, health;
-}
+//public class PlayerData
+//{
+//    public int score, health;
+//}
 
 namespace Player
 {
@@ -19,12 +19,12 @@ namespace Player
         public PlayerView playerView { get; private set; }
         public InputComponent playerInput { get; private set; }
 
-        private PlayerData playerData = new PlayerData();
+        //private PlayerData playerData = new PlayerData();
 
-        public PlayerData PlayerData
-        {
-            get { return playerData; }
-        }
+        //public PlayerData PlayerData
+        //{
+        //    get { return playerData; }
+        //}
 
         private float lastFireTime;
 
@@ -40,7 +40,7 @@ namespace Player
             playerView = tankObj.GetComponent<PlayerView>();
             playerView.SetController(this);
             InputManager.Instance.AddInputComponent(playerInput);
-            GameUI.Instance.SetPlayerHealth(playerModel.Health);
+            GameUI.Instance.UpdatePlayerHealth(playerModel.Health);
         }
 
         public void MovePlayer(float hVal, float vVal)
@@ -61,6 +61,7 @@ namespace Player
 
         public void DestroyPlayer()
         {
+            GameUI.Instance.GameOver();
             playerModel = null;
         }
 
@@ -71,18 +72,23 @@ namespace Player
             setPlayerHealth(playerModel.Health);
 
             if (playerModel.Health <= 0)
+            {
+                Debug.Log("[PlayerController]: Score " + playerModel.score);
+                Debug.Log("[PlayerController]: Health " + playerModel.Health);
                 playerView.PlayerDie();
+            }
         }
 
         public void setPlayerScore(int value)
         {
-            playerData.score = value;
+            playerModel.score = value;
+            GameUI.Instance.UpdatePlayerScore(value);
             Debug.Log("[PlayerController]: Score " + value);
         }
 
         void setPlayerHealth(int value)
         {
-            playerData.health = value;
+            playerModel.Health = value;
             Debug.Log("[PlayerController]: Health " + value);
         }
     }

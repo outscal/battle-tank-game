@@ -21,5 +21,10 @@ namespace Inputs
             inputComponentList.Add(inputComponent);
         }
 
+        public void EmptyInputComponentList()
+        {
+            inputComponentList.Clear();
+        }
+
     }
 }

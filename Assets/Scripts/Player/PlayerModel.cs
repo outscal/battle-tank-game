@@ -15,6 +15,7 @@ namespace Player
             set { health = value; }
         }
 
+        public int score = 0;
         private float speed = 3f;
 
         public float Speed

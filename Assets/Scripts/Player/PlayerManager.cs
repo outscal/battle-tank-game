@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Inputs;
 using Common;
+using UnityEngine.SceneManagement;
+using UI;
 
 namespace Player
 {
@@ -12,11 +14,24 @@ namespace Player
 
         public PlayerController playerController { get; private set; }
 
-        // Use this for initialization
-        void Start()
+        void OnEnable()
         {
-            SpawnPlayer();
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
+
+        void OnDisable()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (GameUI.Instance.GameState == GameState.Game)
+            {
+                SpawnPlayer();
+            }
+        }
+
 
         private void SpawnPlayer()
         {

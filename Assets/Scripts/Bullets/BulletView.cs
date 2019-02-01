@@ -22,7 +22,7 @@ namespace Bullet
         {
             if (collision.gameObject.tag == "Enemy")
             {
-                collision.gameObject.GetComponent<Enemy.EnemyView>().DamageEnemy(bulletController.bulletModel.Damage);
+                bulletController.DamageEnemy(collision.gameObject.GetComponent<Enemy.EnemyView>());
             }
 
             if (collision.gameObject.tag != "Bullet")

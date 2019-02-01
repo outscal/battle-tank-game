@@ -23,7 +23,8 @@ namespace Enemy
 
         public void DestroyEnemy()
         {
-            GameUI.Instance.UpdatePlayerScore(enemyController.enemyModel.scriptableObj.scoreIncrease);
+            //playerController.setPlayerScore(enemyController.getScoreIncreaser());
+            GameUI.Instance.UpdatePlayerScore(enemyController.getScoreIncreaser());
             EnemyManager.Instance.DestroyEnemy(enemyController);
             Destroy(gameObject);
         }

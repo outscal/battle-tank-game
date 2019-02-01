@@ -23,7 +23,6 @@ namespace Enemy
         public void TakeDamage(int value)
         {
             enemyModel.CurrentHealth -= value;
-//            Debug.Log("[EnemyView] Value: " + value + " Health: " + enemyModel.CurrentHealth);
             if (enemyModel.CurrentHealth <= 0)
             {
                 enemyView.DestroyEnemy();
@@ -33,6 +32,11 @@ namespace Enemy
         public void DestroyEnemyModel()
         {
             enemyModel = null;
+        }
+
+        public int getScoreIncreaser()
+        {
+            return enemyModel.scriptableObj.scoreIncrease;
         }
     }
 }
