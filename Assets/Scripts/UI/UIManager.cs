@@ -2,23 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Common;
-using BTScriptableObject;
 
 namespace UI
 {
-    public enum GameState { MainMenu, Game, GameOver }
-
     public class UIManager : Singleton<UIManager>
     {
-
-        [SerializeField] private DefaultScriptableObject defaultScriptableObject;
-
-        public DefaultScriptableObject DefaultScriptableObject { get { return defaultScriptableObject; }}
-
-        private GameState gameState = GameState.MainMenu;
-
-        public GameState GameState { get { return gameState; } }
-
+    
         public int playerScore = 0;
 
         public int hiScore { get; private set; }
@@ -37,10 +26,5 @@ namespace UI
                 hiScore = 0;
 
         }
-
-        public void UpdateGameState(GameState gameState)
-        {
-            this.gameState = gameState;
-        } 
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using BTManager;
 
 namespace UI
 {
@@ -22,15 +23,15 @@ namespace UI
 
         private void RespawnBtn()
         {
-            UIManager.Instance.UpdateGameState(GameState.Game);
-            SceneManager.LoadScene(UIManager.Instance.DefaultScriptableObject.gameScene);
+            GameManager.Instance.UpdateGameState(GameState.Game);
+            SceneManager.LoadScene(GameManager.Instance.DefaultScriptableObject.gameScene);
 
         }
 
         private void HomeBtn()
         {
-            UIManager.Instance.UpdateGameState(GameState.MainMenu);
-            SceneManager.LoadScene(UIManager.Instance.DefaultScriptableObject.mainScene);
+            GameManager.Instance.UpdateGameState(GameState.MainMenu);
+            SceneManager.LoadScene(GameManager.Instance.DefaultScriptableObject.mainScene);
         }
 
     }

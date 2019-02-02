@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Common;
+using BTManager;
 
 public enum EnemyType { Red, Blue, Yellow }
 
@@ -20,24 +21,28 @@ namespace Enemy
 
         public EnemyController enemyController { get; private set; }
 
+        private List<EnemyController> enemyList;
+
+        public List<EnemyController> EnemyList{ get { return enemyList; }}
+
         private void Awake()
         {
+            enemyList = new List<EnemyController>();
+
             if (scriptableObjEnemyList == null)
                 scriptableObjEnemyList = Resources.Load<ScriptableObjEnemyList>("EnemyListHolder");
-
-            for (int i = 0; i < totalEnemies; i++)
-            {
-                SpawnEnemy();
-            }
         }
 
         public void SpawnEnemy()
         {
             int r = Random.Range(0, scriptableObjEnemyList.enemyList.Count);
 
-            Vector3 randomPos = new Vector3(Random.Range(-30f, 30f), 0, Random.Range(-30f, 30f));
+            Vector3 randomPos = new Vector3(Random.Range(-GameManager.Instance.MapSize, GameManager.Instance.MapSize), 0,
+                                            Random.Range(-GameManager.Instance.MapSize, GameManager.Instance.MapSize));
 
             enemyController = new EnemyController(scriptableObjEnemyList.enemyList[r], randomPos);
+
+            enemyList.Add(enemyController);
 
         }
 

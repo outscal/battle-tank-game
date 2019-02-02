@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using BTManager;
 
 namespace UI
 {
@@ -24,9 +25,9 @@ namespace UI
 
         private void PlayBtn()
         {
-            UIManager.Instance.UpdateGameState(GameState.Game);
+            GameManager.Instance.UpdateGameState(GameState.Game);
 
-            SceneManager.LoadScene(UIManager.Instance.DefaultScriptableObject.gameScene);
+            SceneManager.LoadScene(GameManager.Instance.DefaultScriptableObject.gameScene);
         }
     }
 }

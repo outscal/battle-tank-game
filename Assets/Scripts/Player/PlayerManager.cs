@@ -14,26 +14,10 @@ namespace Player
 
         public PlayerController playerController { get; private set; }
 
-        void OnEnable()
-        {
-            SceneManager.sceneLoaded += OnSceneLoaded;
-        }
-
-        void OnDisable()
-        {
-            SceneManager.sceneLoaded -= OnSceneLoaded;
-        }
-
-        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            if (UIManager.Instance.GameState == GameState.Game)
-            {
-                SpawnPlayer();
-            }
-        }
 
 
-        private void SpawnPlayer()
+
+        public void SpawnPlayer()
         {
             if(inputComponentScriptableList==null)
             {
@@ -54,5 +38,7 @@ namespace Player
         {
 
         }
+
+        //public void 
     }
 }

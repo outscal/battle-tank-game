@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Common;
 using UnityEngine.SceneManagement;
-using Inputs;
+using BTManager;
 
 namespace UI
 {
@@ -39,8 +39,8 @@ namespace UI
         private IEnumerator GameOverCoroutine()
         {
             yield return new WaitForSeconds(1f);
-            UIManager.Instance.UpdateGameState(GameState.GameOver);
-            SceneManager.LoadScene(UIManager.Instance.DefaultScriptableObject.gameOverScene);
+            GameManager.Instance.UpdateGameState(GameState.GameOver);
+            SceneManager.LoadScene(GameManager.Instance.DefaultScriptableObject.gameOverScene);
         }  
 
     }
