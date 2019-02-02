@@ -20,12 +20,12 @@ namespace Bullet
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.tag == "Enemy")
+            if (collision.gameObject.GetComponent<Enemy.EnemyView>() != null)
             {
                 bulletController.DamageEnemy(collision.gameObject.GetComponent<Enemy.EnemyView>());
             }
 
-            if (collision.gameObject.tag != "Bullet")
+            if (collision.gameObject.GetComponent<Bullet.BulletView>() == null)
                 DestroyBullet();
         }
 

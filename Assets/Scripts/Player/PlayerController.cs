@@ -40,7 +40,7 @@ namespace Player
             playerView = tankObj.GetComponent<PlayerView>();
             playerView.SetController(this);
             InputManager.Instance.AddInputComponent(playerInput);
-            GameUI.Instance.UpdatePlayerHealth(playerModel.Health);
+            GameUI.InstanceClass.UpdatePlayerHealth(playerModel.Health);
         }
 
         public void MovePlayer(float hVal, float vVal)
@@ -61,14 +61,14 @@ namespace Player
 
         public void DestroyPlayer()
         {
-            GameUI.Instance.GameOver();
+            GameUI.InstanceClass.GameOver();
             playerModel = null;
         }
 
         public void TakeDamage(int value)
         {
             playerModel.Health -= value;
-            GameUI.Instance.UpdatePlayerHealth(value);
+            GameUI.InstanceClass.UpdatePlayerHealth(playerModel.Health);
             setPlayerHealth(playerModel.Health);
 
             if (playerModel.Health <= 0)
@@ -82,7 +82,7 @@ namespace Player
         public void setPlayerScore(int value)
         {
             playerModel.score = value;
-            GameUI.Instance.UpdatePlayerScore(value);
+            GameUI.InstanceClass.UpdatePlayerScore(value);
             Debug.Log("[PlayerController]: Score " + value);
         }
 

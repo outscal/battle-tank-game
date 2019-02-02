@@ -24,7 +24,7 @@ namespace Enemy
         public void DestroyEnemy()
         {
             //playerController.setPlayerScore(enemyController.getScoreIncreaser());
-            GameUI.Instance.UpdatePlayerScore(enemyController.getScoreIncreaser());
+            GameUI.InstanceClass.UpdatePlayerScore(enemyController.getScoreIncreaser());
             EnemyManager.Instance.DestroyEnemy(enemyController);
             Destroy(gameObject);
         }

@@ -26,7 +26,7 @@ namespace Player
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            if (GameUI.Instance.GameState == GameState.Game)
+            if (UIManager.Instance.GameState == GameState.Game)
             {
                 SpawnPlayer();
             }
