@@ -28,10 +28,11 @@ namespace Player
 
         private float lastFireTime;
 
-        public PlayerController(InputComponentScriptable inputComponentScriptable)
+        public PlayerController(InputComponentScriptable inputComponentScriptable, Vector3 position)
         {
             GameObject prefab = Resources.Load<GameObject>("Tank");
             GameObject tankObj = GameObject.Instantiate<GameObject>(prefab);
+            tankObj.transform.position = position;
 
             playerModel = new PlayerModel();
             playerInput = new InputComponent();
@@ -61,7 +62,7 @@ namespace Player
 
         public void DestroyPlayer()
         {
-            GameUI.InstanceClass.GameOver();
+            GameUI.InstanceClass.Respawn(playerInput);
             playerModel = null;
         }
 

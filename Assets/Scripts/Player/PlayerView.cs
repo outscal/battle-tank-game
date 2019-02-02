@@ -50,6 +50,14 @@ namespace Player
             PlayerManager.Instance.DestroyPlayer(playerController);
             Destroy(gameObject);
         }
+
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.up, PlayerManager.Instance.safeRadius);
+        }
+#endif
+
     }
 }
 	

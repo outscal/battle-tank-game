@@ -36,6 +36,12 @@ namespace UI
             StartCoroutine(GameOverCoroutine());
         }
 
+        public void Respawn(Inputs.InputComponent inputComponent)
+        {
+            Inputs.InputManager.Instance.RemoveInputComponent(inputComponent);
+            Player.PlayerManager.Instance.SpawnPlayer();
+        }
+
         private IEnumerator GameOverCoroutine()
         {
             yield return new WaitForSeconds(1f);

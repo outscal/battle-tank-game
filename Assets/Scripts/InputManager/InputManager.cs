@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Common;
+using UnityEngine;
 
 namespace Inputs
 {
@@ -19,6 +20,18 @@ namespace Inputs
         public  void AddInputComponent(InputComponent inputComponent)
         {
             inputComponentList.Add(inputComponent);
+        }
+
+        public void RemoveInputComponent(InputComponent inputComponent)
+        {
+            for (int i = 0; i < inputComponentList.Count; i++)
+            {
+                if (inputComponentList[i] == inputComponent)
+                {
+                    inputComponentList.RemoveAt(i);
+                    Debug.Log("[InputManager] Remove InputComponent at index " + i);
+                }
+            }
         }
 
         public void EmptyInputComponentList()
