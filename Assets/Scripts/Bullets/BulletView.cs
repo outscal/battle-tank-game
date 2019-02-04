@@ -20,9 +20,9 @@ namespace Bullet
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.GetComponent<Enemy.EnemyView>() != null)
+            if (collision.gameObject.GetComponent<Interfaces.ITakeDamage>() != null)
             {
-                bulletController.DamageEnemy(collision.gameObject.GetComponent<Enemy.EnemyView>());
+                collision.gameObject.GetComponent<Interfaces.ITakeDamage>().TakeDamage(bulletController.bulletModel.Damage);
             }
 
             if (collision.gameObject.GetComponent<Bullet.BulletView>() == null)

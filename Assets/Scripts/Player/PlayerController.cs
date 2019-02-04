@@ -6,11 +6,6 @@ using Bullet;
 using Inputs;
 using UI;
 
-//public class PlayerData
-//{
-//    public int score, health;
-//}
-
 namespace Player
 {
     public class PlayerController
@@ -19,12 +14,8 @@ namespace Player
         public PlayerView playerView { get; private set; }
         public InputComponent playerInput { get; private set; }
 
-        //private PlayerData playerData = new PlayerData();
-
-        //public PlayerData PlayerData
-        //{
-        //    get { return playerData; }
-        //}
+        public event Action<int> scoreUpdate;
+        public event Action<int> healthUpdate;
 
         private float lastFireTime;
 
@@ -41,7 +32,13 @@ namespace Player
             playerView = tankObj.GetComponent<PlayerView>();
             playerView.SetController(this);
             InputManager.Instance.AddInputComponent(playerInput);
-            GameUI.InstanceClass.UpdatePlayerHealth(playerModel.Health);
+            PlayerManager.Instance.playerSpawned += InvokeEvents;
+        }
+
+        private void InvokeEvents()
+        {
+            healthUpdate?.Invoke(playerModel.Health);
+            scoreUpdate?.Invoke(playerModel.score);
         }
 
         public void MovePlayer(float hVal, float vVal)
@@ -62,6 +59,7 @@ namespace Player
 
         public void DestroyPlayer()
         {
+            PlayerManager.Instance.playerSpawned -= InvokeEvents;
             GameUI.InstanceClass.Respawn(playerInput);
             playerModel = null;
         }
@@ -69,7 +67,7 @@ namespace Player
         public void TakeDamage(int value)
         {
             playerModel.Health -= value;
-            GameUI.InstanceClass.UpdatePlayerHealth(playerModel.Health);
+            healthUpdate?.Invoke(playerModel.Health);
             setPlayerHealth(playerModel.Health);
 
             if (playerModel.Health <= 0)
@@ -82,9 +80,9 @@ namespace Player
 
         public void setPlayerScore(int value)
         {
-            playerModel.score = value;
-            GameUI.InstanceClass.UpdatePlayerScore(value);
-            Debug.Log("[PlayerController]: Score " + value);
+            playerModel.score += value;
+            scoreUpdate?.Invoke(playerModel.score);
+            Debug.Log("[PlayerController]: Score " + playerModel.score);
         }
 
         void setPlayerHealth(int value)

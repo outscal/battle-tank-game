@@ -33,11 +33,6 @@ namespace Bullet
             bulletView.MoveBullet(direction, bulletModel.Force, bulletModel.DestroyTime);
         }
 
-        public void DamageEnemy(Enemy.EnemyView enemyView)
-        {
-            enemyView.DamageEnemy(bulletModel.Damage);
-        }
-
         public void DestroyController()
         {
             bulletModel = null;

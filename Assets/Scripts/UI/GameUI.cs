@@ -13,26 +13,43 @@ namespace UI
 
         [SerializeField] private Text playerScoreText, playerHealthText;
 
-        private void Start()
+        private void OnEnable()
         {
-            playerScoreText.text = "Player Score " + 0;
+            Player.PlayerManager.Instance.playerSpawned += GetPlayerEvents;
         }
 
-        public void UpdatePlayerScore(int value)
+        void GetPlayerEvents()
         {
-            UIManager.Instance.playerScore += value;
-            playerScoreText.text = "PlayerScore:" + UIManager.Instance.playerScore;
+            if (Player.PlayerManager.Instance.playerController == null)
+                Debug.Log("[GameUI] PlayerController is missing");
+            else if (Player.PlayerManager.Instance.playerController != null)
+                Debug.Log("[GameUI] PlayerController is present");
+
+            Player.PlayerManager.Instance.playerController.scoreUpdate += UpdatePlayerScore;
+            Player.PlayerManager.Instance.playerController.healthUpdate += UpdatePlayerHealth;
+            Debug.Log("[GameUI] Player Events Called");
+        }
+
+        void UpdatePlayerScore(int value)
+        {
+            UIManager.Instance.playerScore = value;
+            playerScoreText.text = "Player Score:" + UIManager.Instance.playerScore;
             if (UIManager.Instance.playerScore > UIManager.Instance.hiScore)
                 UIManager.Instance.SetHiScore(UIManager.Instance.playerScore);
+
+            Debug.Log("[GameUI] Score Updated");
         }
 
-        public void UpdatePlayerHealth(int value)
+        void UpdatePlayerHealth(int value)
         {
-            playerHealthText.text = "PlayerHealth:" + value;
+            playerHealthText.text = "Player Health:" + value;
+            Debug.Log("[GameUI] Health Updated");
         }
 
         public void GameOver()
         {
+            Player.PlayerManager.Instance.playerController.scoreUpdate -= UpdatePlayerScore;
+            Player.PlayerManager.Instance.playerController.healthUpdate -= UpdatePlayerHealth;
             StartCoroutine(GameOverCoroutine());
         }
 

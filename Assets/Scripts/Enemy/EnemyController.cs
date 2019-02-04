@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Enemy
 {
@@ -8,6 +9,8 @@ namespace Enemy
     {
         public EnemyView enemyView { get; private set; }
         public EnemyModel enemyModel { get; private set; }
+
+        public event Action DestroyEnemy;
 
         public EnemyController(ScriptableObjEnemy scriptableObjEnemy, Vector3 position)
         {
@@ -18,6 +21,7 @@ namespace Enemy
             enemyView.SetEnemyController(this);
             enemy.transform.position = position;
             enemyModel.CurrentHealth = enemyModel.scriptableObj.health;
+
         }
 
         public void TakeDamage(int value)
@@ -25,7 +29,7 @@ namespace Enemy
             enemyModel.CurrentHealth -= value;
             if (enemyModel.CurrentHealth <= 0)
             {
-                enemyView.DestroyEnemy();
+                DestroyEnemy?.Invoke();
             }
         }
 

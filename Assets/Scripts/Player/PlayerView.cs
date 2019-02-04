@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Bullet;
 using UI;
+using Interfaces;
 
 namespace Player
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerView : MonoBehaviour
+    public class PlayerView : MonoBehaviour, ITakeDamage
     {
 
         private PlayerController playerController;
@@ -55,6 +56,11 @@ namespace Player
         private void OnDrawGizmos()
         {
             UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.up, PlayerManager.Instance.safeRadius);
+        }
+
+        public void TakeDamage(int damage)
+        {
+            Debug.Log("Dont shoot friends");
         }
 #endif
 
