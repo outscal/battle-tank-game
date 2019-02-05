@@ -5,17 +5,21 @@ using UnityEngine.UI;
 using Common;
 using UnityEngine.SceneManagement;
 using BTManager;
+using System;
 
 namespace UI
 {
     public class GameUI : Instance<GameUI>
     {
 
-        [SerializeField] private Text playerScoreText, playerHealthText;
+        [SerializeField] private Text playerScoreText, playerHealthText, achievementText;
+
+        public event Action ScoreIncreased;
 
         private void OnEnable()
         {
             Player.PlayerManager.Instance.playerSpawned += GetPlayerEvents;
+            AchievementM.AchievementManager.Instance.AchievementUI += DisplayAchievement;
         }
 
         void GetPlayerEvents()
@@ -37,6 +41,7 @@ namespace UI
             if (UIManager.Instance.playerScore > UIManager.Instance.hiScore)
                 UIManager.Instance.SetHiScore(UIManager.Instance.playerScore);
 
+            ScoreIncreased?.Invoke();
             Debug.Log("[GameUI] Score Updated");
         }
 
@@ -65,6 +70,19 @@ namespace UI
             GameManager.Instance.UpdateGameState(GameState.GameOver);
             SceneManager.LoadScene(GameManager.Instance.DefaultScriptableObject.gameOverScene);
         }  
+
+        private void DisplayAchievement(string value)
+        {
+            achievementText.text = value;
+            StartCoroutine(AchievementCoroutine());
+        }
+
+        IEnumerator AchievementCoroutine()
+        {
+            achievementText.gameObject.SetActive(true);
+            yield return new WaitForSeconds(2);
+            achievementText.gameObject.SetActive(false);
+        }
 
     }
 }

@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Common;
+using AchievementM;
 
-public class ScoreManager : Singleton<ScoreManager> {
+public class HiScoreAchievementController {
 
-	 
-
+	
 }

@@ -21,6 +21,7 @@ namespace Player
         public PlayerController playerController { get; private set; }
 
         public event Action playerSpawned;
+        public event Action playerDestroyed;
 
         [SerializeField]
         private int maxIteration = 10;
@@ -48,6 +49,7 @@ namespace Player
 
         public void DestroyPlayer(PlayerController _playerController)
         {
+            playerDestroyed?.Invoke();
             _playerController.DestroyPlayer();
             _playerController = null;
         }

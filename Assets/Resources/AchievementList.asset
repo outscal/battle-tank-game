@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7298990e8b024b24a007128f92151dc, type: 3}
+  m_Name: AchievementList
+  m_EditorClassIdentifier: 
+  achievements:
+  - AchievementName: HiScore
+    achievementType: 0
+    achievementInfo:
+    - achievementTitle: Noob
+      achievementRequirement: 10
+      achievementStatus: 0
+    - achievementTitle: Pro
+      achievementRequirement: 20
+      achievementStatus: 0
+    - achievementTitle: Master
+      achievementRequirement: 30
+      achievementStatus: 0
+  - AchievementName: Games Played
+    achievementType: 1
+    achievementInfo:
+    - achievementTitle: Noob
+      achievementRequirement: 10
+      achievementStatus: 0
+    - achievementTitle: Pro
+      achievementRequirement: 50
+      achievementStatus: 0
+    - achievementTitle: Master
+      achievementRequirement: 100
+      achievementStatus: 0
+  - AchievementName: Enemy Killed
+    achievementType: 2
+    achievementInfo:
+    - achievementTitle: Noob
+      achievementRequirement: 2
+      achievementStatus: 0
+    - achievementTitle: Pro
+      achievementRequirement: 4
+      achievementStatus: 0
+    - achievementTitle: Master
+      achievementRequirement: 10
+      achievementStatus: 0

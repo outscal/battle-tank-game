@@ -15,6 +15,8 @@ namespace Enemy
         private int totalEnemies = 5;
         private EnemyType enemyType = EnemyType.Red;
 
+        public int enemiesKilled { get; private set; }
+
         public event Action enemySpawned;
         public event Action destroyEnemy;
 
@@ -56,6 +58,7 @@ namespace Enemy
 
         public void DestroyEnemy(EnemyController _enemyController)
         {
+            enemiesKilled++;
             EnemyDestroyed?.Invoke();
             enemyList.Remove(_enemyController);
             _enemyController.DestroyEnemyModel();

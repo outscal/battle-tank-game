@@ -4,6 +4,7 @@ using UnityEngine;
 using Common;
 using BTScriptableObject;
 using UnityEngine.SceneManagement;
+using System;
 
 namespace BTManager
 {
@@ -15,8 +16,12 @@ namespace BTManager
 
         public DefaultScriptableObject DefaultScriptableObject { get { return defaultScriptableObject; } }
 
+        public int gamesPlayed { get; private set; }
+
         [SerializeField]
         private float mapSize = 30f;
+
+        public event Action GameStarted;
 
         public float MapSize
         {
@@ -41,6 +46,9 @@ namespace BTManager
         {
             if (gameState == GameState.Game)
             {
+                gamesPlayed++;
+                PlayerPrefs.SetInt("GamesPlayed", gamesPlayed);
+                GameStarted?.Invoke();
                 for (int i = 0; i < 5; i++)
                 {
                     Enemy.EnemyManager.Instance.SpawnEnemy();
@@ -49,6 +57,12 @@ namespace BTManager
                 Player.PlayerManager.Instance.SpawnPlayer();
 
             }
+        }
+
+        private void Start()
+        {
+            if (PlayerPrefs.HasKey("GamesPlayed"))
+                gamesPlayed = PlayerPrefs.GetInt("GamesPlayed");
         }
 
         public void UpdateGameState(GameState gameState)
