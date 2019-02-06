@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using BTManager;
+using StateMachine;
 
 namespace UI
 {
@@ -25,9 +26,9 @@ namespace UI
 
         private void PlayBtn()
         {
-            GameManager.Instance.UpdateGameState(GameState.Game);
+            GameManager.Instance.UpdateGameState(new GamePlayState(GameManager.Instance.DefaultScriptableObject.gameScene));
 
-            SceneManager.LoadScene(GameManager.Instance.DefaultScriptableObject.gameScene);
+            //SceneManager.LoadScene(GameManager.Instance.DefaultScriptableObject.gameScene);
         }
     }
 }

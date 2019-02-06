@@ -6,6 +6,7 @@ using Common;
 using UnityEngine.SceneManagement;
 using BTManager;
 using System;
+using StateMachine;
 
 namespace UI
 {
@@ -67,7 +68,7 @@ namespace UI
         private IEnumerator GameOverCoroutine()
         {
             yield return new WaitForSeconds(1f);
-            GameManager.Instance.UpdateGameState(GameState.GameOver);
+            GameManager.Instance.UpdateGameState(new GameOverState());
             SceneManager.LoadScene(GameManager.Instance.DefaultScriptableObject.gameOverScene);
         }  
 
