@@ -5,6 +5,7 @@ using Inputs;
 using UI;
 using StateMachine;
 using System.Collections.Generic;
+using BTManager;
 
 namespace Player
 {
@@ -23,15 +24,20 @@ namespace Player
         public CharacterTakeDamageState characterTakeDamageState { get; private set; }
 
         public Dictionary<CharacterState, bool> playerStates;
+        GameObject prefab;
 
-        public PlayerController(InputComponentScriptable inputComponentScriptable, Vector3 position)
+        public PlayerController(InputComponentScriptable inputComponentScriptable, Vector3 position, GameObject tankPrefab)
         {
             playerStates = new Dictionary<CharacterState, bool>();
             characterIdleState = new CharacterIdleState();
             characterIdleState.OnStateEnter();
             playerStates.Add(characterIdleState, true);
 
-            GameObject prefab = Resources.Load<GameObject>("Tank");
+            if (tankPrefab == null)
+                prefab = Resources.Load<GameObject>("Tank");
+            else
+                prefab = tankPrefab;
+
             GameObject tankObj = GameObject.Instantiate<GameObject>(prefab);
             tankObj.transform.position = position;
 
@@ -55,7 +61,9 @@ namespace Player
         public void DestroyPlayer()
         {
             PlayerManager.Instance.playerSpawned -= InvokeEvents;
-            GameUI.InstanceClass.Respawn(playerInput);
+            //GameUI.InstanceClass.Respawn(playerInput);
+            GameManager.Instance.UpdateGameState(new GameOverState());
+
             playerModel = null;
         }
 

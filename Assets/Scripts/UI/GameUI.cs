@@ -15,12 +15,20 @@ namespace UI
 
         [SerializeField] private Text playerScoreText, playerHealthText, achievementText;
 
-        public event Action ScoreIncreased;
+        //public event Action ScoreIncreased;
+
+        private void OnDisable()
+        {
+            if (Player.PlayerManager.Instance != null)
+                Player.PlayerManager.Instance.playerSpawned -= GetPlayerEvents;
+            if (AchievementM.AchievementManager.Instance != null)
+                AchievementM.AchievementManager.Instance.AchievementUnlocked -= DisplayAchievement;
+        }
 
         private void OnEnable()
         {
             Player.PlayerManager.Instance.playerSpawned += GetPlayerEvents;
-            AchievementM.AchievementManager.Instance.AchievementUI += DisplayAchievement;
+            AchievementM.AchievementManager.Instance.AchievementUnlocked += DisplayAchievement;
         }
 
         void GetPlayerEvents()
@@ -42,7 +50,8 @@ namespace UI
             if (UIManager.Instance.playerScore > UIManager.Instance.hiScore)
                 UIManager.Instance.SetHiScore(UIManager.Instance.playerScore);
 
-            ScoreIncreased?.Invoke();
+            //ScoreIncreased?.Invoke();
+            UIManager.Instance.InvokeScoreIncreasedAction();
             Debug.Log("[GameUI] Score Updated");
         }
 

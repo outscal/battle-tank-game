@@ -4,6 +4,7 @@ using UnityEngine;
 using Common;
 using BTManager;
 using System;
+using Reward;
 
 namespace Player
 {
@@ -20,6 +21,8 @@ namespace Player
 
         public PlayerController playerController { get; private set; }
 
+        private GameObject playerPrefab;
+
         public event Action playerSpawned;
         public event Action playerDestroyed;
 
@@ -32,6 +35,11 @@ namespace Player
         public float safeRadius = 3f;
         public Vector3 safePos { get; private set; }
 
+        private void Start()
+        {
+            RewardManager.Instance.RewardButtonClicked += SetPlayerPrefab;
+        }
+
         public void SpawnPlayer()
         {
             if(inputComponentScriptableList==null)
@@ -42,7 +50,8 @@ namespace Player
             GetSafePosition();
 
             //int r = UnityEngine.Random.Range(0, inputComponentScriptableList.inputComponentScriptables.Count);
-            playerController = new PlayerController(inputComponentScriptableList.inputComponentScriptables[0], safePos);
+            playerController = new PlayerController(inputComponentScriptableList.inputComponentScriptables[0], 
+                                                    safePos, playerPrefab);
 
             playerSpawned?.Invoke();
         }
@@ -88,6 +97,11 @@ namespace Player
             float z = UnityEngine.Random.Range(-GameManager.Instance.MapSize, GameManager.Instance.MapSize);
 
             return new Vector3(x, y, z);
+        }
+
+        void SetPlayerPrefab(GameObject PlayerPrefab)
+        {
+            playerPrefab = PlayerPrefab;
         }
 
     }

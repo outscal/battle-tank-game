@@ -11,40 +11,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7298990e8b024b24a007128f92151dc, type: 3}
   m_Name: AchievementList
   m_EditorClassIdentifier: 
-  achievements:
+  achievementList:
   - AchievementName: HiScore
-    achievementType: 0
+    AchievementType: 0
     achievementInfo:
-    - achievementTitle: Noob
+      achievementTitle: Noob
       achievementRequirement: 10
       achievementStatus: 0
-    - achievementTitle: Pro
+  - AchievementName: HiScore
+    AchievementType: 0
+    achievementInfo:
+      achievementTitle: Pro
       achievementRequirement: 20
       achievementStatus: 0
-    - achievementTitle: Master
+  - AchievementName: HiScore
+    AchievementType: 0
+    achievementInfo:
+      achievementTitle: Master
       achievementRequirement: 30
       achievementStatus: 0
-  - AchievementName: Games Played
-    achievementType: 1
+  - AchievementName: GamesPlayed
+    AchievementType: 1
     achievementInfo:
-    - achievementTitle: Noob
+      achievementTitle: Noob
       achievementRequirement: 10
       achievementStatus: 0
-    - achievementTitle: Pro
-      achievementRequirement: 50
-      achievementStatus: 0
-    - achievementTitle: Master
-      achievementRequirement: 100
-      achievementStatus: 0
-  - AchievementName: Enemy Killed
-    achievementType: 2
+  - AchievementName: GamesPlayed
+    AchievementType: 1
     achievementInfo:
-    - achievementTitle: Noob
-      achievementRequirement: 2
+      achievementTitle: Pro
+      achievementRequirement: 20
       achievementStatus: 0
-    - achievementTitle: Pro
-      achievementRequirement: 4
+  - AchievementName: GamesPlayed
+    AchievementType: 1
+    achievementInfo:
+      achievementTitle: Master
+      achievementRequirement: 30
       achievementStatus: 0
-    - achievementTitle: Master
+  - AchievementName: Enemies Killed
+    AchievementType: 2
+    achievementInfo:
+      achievementTitle: Noob
+      achievementRequirement: 5
+      achievementStatus: 0
+  - AchievementName: Enemies Killed
+    AchievementType: 2
+    achievementInfo:
+      achievementTitle: Pro
       achievementRequirement: 10
+      achievementStatus: 0
+  - AchievementName: Enemies Killed
+    AchievementType: 2
+    achievementInfo:
+      achievementTitle: Master
+      achievementRequirement: 15
       achievementStatus: 0

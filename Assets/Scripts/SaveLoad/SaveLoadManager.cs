@@ -20,7 +20,7 @@ namespace SaveLoad
         void SaveAchievement(AchievementType achievementType, int achievementIndex)
         {
             PlayerPrefs.SetInt(achievementType.ToString() + "_" + achievementIndex.ToString(), 1);
-            //Debug.Log(achievementType.ToString() + "_" + achievementIndex.ToString() + " achievement Unlocked");
+            Debug.Log(achievementType.ToString() + "_" + achievementIndex.ToString() + " achievement Unlocked");
             AchievementUnlocked?.Invoke(achievementType, achievementIndex);
         }
 
@@ -30,7 +30,7 @@ namespace SaveLoad
             {
                 if(PlayerPrefs.GetInt(achievementType.ToString() + "_" + achievementIndex.ToString()) == 1)
                 {
-                    //Debug.Log(achievementType.ToString() + "_" + achievementIndex.ToString() + " already Unlocked");
+                    Debug.Log(achievementType.ToString() + "_" + achievementIndex.ToString() + " already Unlocked");
                 }
                 else
                     SaveAchievement(achievementType, achievementIndex);
@@ -40,6 +40,16 @@ namespace SaveLoad
                 Debug.Log("[SaveLoadManager] Saving Data");
                 SaveAchievement(achievementType, achievementIndex);
             }
+        }
+
+        public bool CheckAchievementUnlock(AchievementType achievementType, int achievementIndex)
+        {
+            bool unlocked = false;
+
+            if (PlayerPrefs.GetInt(achievementType.ToString() + "_" + achievementIndex.ToString()) == 1)
+                unlocked = true;
+
+            return unlocked;
         }
 
         private void OnApplicationQuit()

@@ -5,6 +5,8 @@ using BTScriptableObject;
 using Common;
 using System;
 using UI;
+using SaveLoad;
+using BTManager;
 
 namespace AchievementM
 {
@@ -13,73 +15,131 @@ namespace AchievementM
         [SerializeField]
         private AchievementScriptable achievementScriptable;
 
-        public AchievementController hiScoreController { get; private set; }
-        public AchievementController gamesPlayedController { get; private set; }
-        public AchievementController enemiesKilledController { get; private set; }
+        private List<Achievement> achievementList;
+
+        public List<Achievement> AchievementList { get { return achievementList; }}
 
         public event Action<AchievementType, int> AchievementCheck;
-        public event Action<string> AchievementUI;
+        public event Action<string> AchievementUnlocked;
 
-        // Use this for initialization
-        void Start()
+        bool initialized = false;
+
+        public void AchievmentInitialize()
         {
-            GameUI.InstanceClass.ScoreIncreased += ScoreIncreased;
+            if (initialized == false)
+            {
+                initialized = true;
+                BTManager.GameManager.Instance.GameStarted += InvoteDefaultEvents;
+                if (achievementScriptable != null)
+                {
+                    achievementList = new List<Achievement>();
+
+                    for (int i = 0; i < achievementScriptable.achievementList.Count; i++)
+                    {
+                        Achievement achievement = new Achievement();
+                        achievement = achievementScriptable.achievementList[i];
+                        bool unlocked = SaveLoadManager.Instance.CheckAchievementUnlock(achievement.AchievementType, i);
+
+                        if (unlocked == true)
+                            achievement.achievementInfo.achievementStatus = AchievementStatus.Unlocked;
+
+                        achievementList.Add(achievement);
+                    }
+                }
+                else
+                {
+                    Debug.Log("[Achievement Manager] missing scriptable object reference");
+                }
+            }
+            else
+            {
+                UpdateAchievement();
+            }
+        }
+
+        void UpdateAchievement()
+        {
+            for (int i = 0; i < achievementList.Count; i++)
+            {
+                Achievement achievement = new Achievement();
+                achievement = achievementScriptable.achievementList[i];
+                bool unlocked = SaveLoadManager.Instance.CheckAchievementUnlock(achievement.AchievementType, i);
+
+                if (unlocked == true)
+                    achievement.achievementInfo.achievementStatus = AchievementStatus.Unlocked;
+            }
+        }
+
+        private void InvoteDefaultEvents()
+        {
+            UIManager.Instance.ScoreIncreased += ScoreIncreased;
             Enemy.EnemyManager.Instance.EnemyDestroyed += EnemyKilled;
             BTManager.GameManager.Instance.GameStarted += GamesPlayed;
-            SaveLoad.SaveLoadManager.Instance.AchievementUnlocked += CallAchievementUI;
-
-
-            if (achievementScriptable != null)
-            {
-                hiScoreController       = new AchievementController(achievementScriptable, AchievementType.hiScore);
-                gamesPlayedController   = new AchievementController(achievementScriptable, AchievementType.gamesPlayed);
-                enemiesKilledController = new AchievementController(achievementScriptable, AchievementType.enemyKilled);
-            }
-            else 
-            {
-                Debug.Log("[Achievement Manager] missing scriptable object reference");
-            }
-
         }
 
         private void ScoreIncreased()
         {
-            hiScoreController.CheckAchievement(UIManager.Instance.playerScore);
+            CheckForAchievement(AchievementType.hiScore, UIManager.Instance.playerScore);
         }
 
         private void EnemyKilled()
         {
-            enemiesKilledController.CheckAchievement(Enemy.EnemyManager.Instance.enemiesKilled);
+            CheckForAchievement(AchievementType.enemyKilled, Enemy.EnemyManager.Instance.enemiesKilled);
         }
 
         private void GamesPlayed()
         {
-            gamesPlayedController.CheckAchievement(BTManager.GameManager.Instance.gamesPlayed);
+            CheckForAchievement(AchievementType.gamesPlayed, BTManager.GameManager.Instance.gamesPlayed);
         }
 
-        public void CheckAchievement(AchievementType achievementType, int achievementIndex)
+        void CheckForAchievement(AchievementType achievementType, int achievedVal)
         {
-            AchievementCheck?.Invoke(achievementType, achievementIndex);
-        }
-
-        private void CallAchievementUI(AchievementType achievementType, int achievementIndex)
-        {
-            for (int i = 0; i < achievementScriptable.achievements.Count; i++)
+            for (int i = 0; i < achievementList.Count; i++)
             {
-                if(achievementScriptable.achievements[i].achievementType == achievementType)
+                if (CheckAchievementType(achievementType, i))
                 {
-                    for (int k = 0; k < achievementScriptable.achievements[i].achievementInfo.Count; k++)
+                    if (AchievementLock(i) && AchievementThreshHold(achievedVal, i))
                     {
-                        if(k == achievementIndex)
-                        {
-                            string value = "Unlocked " + achievementType.ToString() + " Achievement. Title " +
-                                          achievementScriptable.achievements[i].achievementInfo[k].achievementTitle;
-                            AchievementUI?.Invoke(value);
-                        }
+                        string value = "Unlocked " + achievementType.ToString() + " Achievement. Title " +
+                                              achievementList[i].achievementInfo.achievementTitle;
+
+                        Achievement achievement = new Achievement();
+                        achievement = achievementList[i];
+                        achievement.achievementInfo.achievementStatus = AchievementStatus.Unlocked;
+
+                        achievementList[i] = achievement;
+                        AchievementUnlocked?.Invoke(value);
+                        AchievementCheck?.Invoke(achievementType, i);
                     }
                 }
             }
         }
+
+        private bool CheckAchievementType(AchievementType achievementType, int i)
+        {
+            return achievementList[i].AchievementType == achievementType;
+        }
+
+        private bool AchievementThreshHold(int achievedVal, int i)
+        {
+            return achievedVal >= achievementList[i].achievementInfo.achievementRequirement;
+        }
+
+        private bool AchievementLock(int i)
+        {
+            return achievementList[i].achievementInfo.achievementStatus == AchievementStatus.Locked;
+        }
+
+        public string GetAchievementName(int rewardIndex)
+        {
+            return achievementList[rewardIndex].AchievementType.ToString();
+        }
+
+        public string GetAchievementThreshHolder(int rewardIndex)
+        {
+            return achievementList[rewardIndex].achievementInfo.achievementRequirement.ToString();
+        }
+
 
     }
 }

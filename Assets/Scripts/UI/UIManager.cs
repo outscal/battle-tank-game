@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Common;
+using System;
 
 namespace UI
 {
@@ -11,6 +12,8 @@ namespace UI
         public int playerScore = 0;
 
         public int hiScore { get; private set; }
+
+        public event Action ScoreIncreased;
 
         public void SetHiScore(int value)
         {
@@ -24,7 +27,11 @@ namespace UI
                 hiScore = PlayerPrefs.GetInt("HiScore");
             else
                 hiScore = 0;
+        }
 
+        public void InvokeScoreIncreasedAction()
+        {
+            ScoreIncreased?.Invoke();
         }
     }
 }
