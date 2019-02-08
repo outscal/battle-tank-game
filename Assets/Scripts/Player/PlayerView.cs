@@ -4,13 +4,13 @@ using UnityEngine;
 using Bullet;
 using UI;
 using Interfaces;
+using StateMachine;
 
 namespace Player
 {
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerView : MonoBehaviour, ITakeDamage
     {
-
         private PlayerController playerController;
 
         [SerializeField]
@@ -20,7 +20,6 @@ namespace Player
         {
             get { return bulletSpawnPos; }
         }
-
 
         public void SetController(PlayerController playerController)
         {
@@ -38,11 +37,25 @@ namespace Player
             bulletController.SpawnBullet(transform.forward, bulletSpawnPos.transform.position, transform.eulerAngles, playerController);
         }
 
+        void Update()
+        {
+            foreach (CharacterState state in playerController.playerStates.Keys)
+            {
+                bool isActive;
+                playerController.playerStates.TryGetValue(state, out isActive);
+                if(isActive)
+                {
+                    state.OnUpdate();
+                }
+            }
+        }
+
         private void OnCollisionEnter(Collision collision)
         {
             if (collision.gameObject.tag == "Enemy")
             {
-                playerController.TakeDamage(playerController.playerModel.Health);
+                //playerController.TakeDamage(playerController.playerModel.Health);
+                playerController.setTakeDamageState();
             }
         }
 

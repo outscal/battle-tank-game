@@ -1,21 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using BTManager;
 
 namespace Bullet
 {
     [RequireComponent(typeof(Rigidbody))]
     public class BulletView : MonoBehaviour
     {
-
         private Rigidbody rb;
+        private Vector3 lastVelocity;
 
         [HideInInspector]
         public BulletController bulletController;
 
+        private float currentTime, destroyTime;
+
+        private bool paused = false;
+
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
+        }
+
+        private void Start()
+        {
+            GameManager.Instance.GamePaused += OnPause;
+            GameManager.Instance.GameUnpaused += OnUnPause;
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -29,22 +38,42 @@ namespace Bullet
                 DestroyBullet();
         }
 
+        private void Update()
+        {
+            if(paused == false)
+            {
+                currentTime += Time.deltaTime;
+                if (currentTime >= destroyTime)
+                    DestroyBullet();
+            }
+        }
+
         public void MoveBullet(Vector3 direction, float force, float destroyTime)
         {
             rb.AddForce(direction * force, ForceMode.Impulse);
-            StartCoroutine(DestroyBullet(destroyTime));
+            this.destroyTime = destroyTime;
         }
 
-        public void DestroyBullet()
+        private void DestroyBullet()
         {
+            GameManager.Instance.GamePaused -= OnPause;
+            GameManager.Instance.GameUnpaused -= OnUnPause;
             bulletController.DestroyController();
             Destroy(gameObject);
         }
 
-        IEnumerator DestroyBullet(float destroyTime)
+        private void OnPause()
         {
-            yield return new WaitForSeconds(destroyTime);
-            DestroyBullet();
+            lastVelocity = rb.velocity;
+            rb.isKinematic = true;
+            paused = true;
+        }
+
+        private void OnUnPause()
+        {
+            rb.isKinematic = false;
+            rb.velocity = lastVelocity;
+            paused = false;
         }
 
     }

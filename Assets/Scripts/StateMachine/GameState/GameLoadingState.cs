@@ -30,8 +30,7 @@ namespace StateMachine
                 if(asyncOperation.progress >= 0.9f)
                 {
                     asyncOperation.allowSceneActivation = true;
-                    gameStateType = GameStateTypeDefine();
-                    //GameManager.Instance.SetGameState();
+                    //gameStateType = GameStateTypeDefine();
                 }
             }
         }
@@ -41,10 +40,10 @@ namespace StateMachine
         //    base.OnStateExit();
         //}
 
-        protected override GameStateType GameStateTypeDefine()
-        {
-            return GameStateType.Loading;
-        }
+        //protected override GameStateType GameStateTypeDefine()
+        //{
+        //    return GameStateType.Loading;
+        //}
 
 
     }

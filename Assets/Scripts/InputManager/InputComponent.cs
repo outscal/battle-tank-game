@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Player;
+using StateMachine;
 
 namespace Inputs
 {
     public class InputComponent
     {
-        private float horizontalVal { get; set; }
-        private float verticalVal { get; set; }
+        public float horizontalVal { get; private set; }
+        public float verticalVal { get; private set; }
         private bool shoot { get; set; }
 
         public PlayerController playerController { private get; set; }
@@ -16,29 +17,49 @@ namespace Inputs
 
         public void OnUpdate()
         {
+            if (Input.GetKeyDown(inputComponentScriptable.fireKey))
+            {
+                //shoot = true;
+                playerController.setFireState();
+            }
+            else if (Input.GetKeyUp(inputComponentScriptable.fireKey))
+            {
+                //shoot = false;
+                playerController.SetStateFales(playerController.characterFireState);
+            }
+            //if (shoot == true)
+            //{
+            //    playerController.SpawnBullet();
+            //}
+
             MoveForward();
             MoveBackward();
             TurnLeft();
             TurnRight();
 
-            if (Input.GetKeyDown(inputComponentScriptable.fireKey))
-                shoot = true;
-            else if(Input.GetKeyUp(inputComponentScriptable.fireKey))
-                shoot = false;
+            //if (horizontalVal != 0 || verticalVal != 0)
+            //{
+            //    playerController.MovePlayer(horizontalVal, verticalVal);
+            //}
 
             if (horizontalVal != 0 || verticalVal != 0)
-                playerController.MovePlayer(horizontalVal, verticalVal);
-
-            if (shoot == true)
             {
-                playerController.SpawnBullet();
+                playerController.setMoveState();
             }
+            else if (horizontalVal == 0 && verticalVal == 0)
+            {
+                playerController.setIdleState();
+            }
+
+
         }
 
         void MoveForward()
         {
             if (Input.GetKeyDown(inputComponentScriptable.forwardKey))
+            {
                 verticalVal = 1;
+            }
             else if (Input.GetKeyUp(inputComponentScriptable.forwardKey))
                 verticalVal = 0;
         }
@@ -46,7 +67,9 @@ namespace Inputs
         void MoveBackward()
         {
             if (Input.GetKeyDown(inputComponentScriptable.backwardKey))
+            {
                 verticalVal = -1;
+            }
             else if (Input.GetKeyUp(inputComponentScriptable.backwardKey))
                 verticalVal = 0;
         }
@@ -54,7 +77,9 @@ namespace Inputs
         void TurnLeft()
         {
             if (Input.GetKeyDown(inputComponentScriptable.turnLeftKey))
+            {
                 horizontalVal = -1;
+            }
             else if (Input.GetKeyUp(inputComponentScriptable.turnLeftKey))
                 horizontalVal = 0;
         }
@@ -62,7 +87,9 @@ namespace Inputs
         void TurnRight()
         {
             if (Input.GetKeyDown(inputComponentScriptable.turnRightKey))
+            {
                 horizontalVal = 1;
+            }
             else if (Input.GetKeyUp(inputComponentScriptable.turnRightKey))
                 horizontalVal = 0;
         }

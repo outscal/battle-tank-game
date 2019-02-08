@@ -41,8 +41,8 @@ namespace Player
 
             GetSafePosition();
 
-            int r = UnityEngine.Random.Range(0, inputComponentScriptableList.inputComponentScriptables.Count);
-            playerController = new PlayerController(inputComponentScriptableList.inputComponentScriptables[r], safePos);
+            //int r = UnityEngine.Random.Range(0, inputComponentScriptableList.inputComponentScriptables.Count);
+            playerController = new PlayerController(inputComponentScriptableList.inputComponentScriptables[0], safePos);
 
             playerSpawned?.Invoke();
         }

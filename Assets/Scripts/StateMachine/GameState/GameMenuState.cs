@@ -31,17 +31,17 @@ namespace StateMachine
                 if (asyncOperation.progress >= 0.9f)
                 {
                     asyncOperation.allowSceneActivation = true;
-                    gameStateType = GameStateTypeDefine();
+                    //gameStateType = GameStateTypeDefine();
                     //GameManager.Instance.SetGameState();
                 }
             }
         }
 
 
-        protected override GameStateType GameStateTypeDefine()
-        {
-            return GameStateType.Lobby;
-        }
+        //protected override GameStateType GameStateTypeDefine()
+        //{
+        //    return GameStateType.Lobby;
+        //}
 
     }
 }

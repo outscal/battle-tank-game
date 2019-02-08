@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Common;
 using UnityEngine;
+using BTManager;
 
 namespace Inputs
 {
@@ -8,12 +9,23 @@ namespace Inputs
     {
         private List<InputComponent> inputComponentList = new List<InputComponent>();
 
+        private bool onPaused = false;
+
+        private void Start()
+        {
+            GameManager.Instance.GamePaused += OnPaused;
+            GameManager.Instance.GameUnpaused += OnUnPaused;
+        }
+
         // Update is called once per frame
         void Update()
         {
-            foreach (InputComponent inputComponent in inputComponentList)
+            if (onPaused == false)
             {
-                inputComponent.OnUpdate();
+                foreach (InputComponent inputComponent in inputComponentList)
+                {
+                    inputComponent.OnUpdate();
+                }
             }
         }
 
@@ -32,6 +44,16 @@ namespace Inputs
                     Debug.Log("[InputManager] Remove InputComponent at index " + i);
                 }
             }
+        }
+
+        void OnPaused()
+        {
+            onPaused = true;
+        }
+
+        void OnUnPaused()
+        {
+            onPaused = false;
         }
 
         public void EmptyInputComponentList()

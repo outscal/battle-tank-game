@@ -23,10 +23,14 @@ namespace BTManager
         public string nextScene { get; private set; }
         public string lastScene { get; private set; }
 
+        public bool gamePaused { get; private set; }
+
         [SerializeField]
         private float mapSize = 30f;
 
         public event Action GameStarted;
+        public event Action GamePaused;
+        public event Action GameUnpaused;
 
         public float MapSize
         {
@@ -38,36 +42,15 @@ namespace BTManager
             GameStarted?.Invoke();
         }
 
-        //private void OnEnable()
-        //{
-        //    SceneManager.sceneLoaded += OnSceneLoaded;
-        //}
+        public void PauseGame()
+        {
+            GamePaused?.Invoke();
+        }
 
-        //private void OnDisable()
-        //{
-        //    SceneManager.sceneLoaded -= OnSceneLoaded;
-        //}
-
-        //void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-        //{
-        //    if (currentState != null)
-        //    {
-        //        Debug.Log("[GameManager] " + currentState.gameStateType.ToString());
-        //        if (currentState.gameStateType == GameStateType.Game)
-        //        {
-        //            gamesPlayed++;
-        //            PlayerPrefs.SetInt("GamesPlayed", gamesPlayed);
-        //            GameStarted?.Invoke();
-        //            for (int i = 0; i < 5; i++)
-        //            {
-        //                Enemy.EnemyManager.Instance.SpawnEnemy();
-        //            }
-
-        //            Player.PlayerManager.Instance.SpawnPlayer();
-
-        //        }
-        //    }
-        //}
+        public void UnPauseGame()
+        {
+            GameUnpaused?.Invoke();
+        }
 
         private void Start()
         {
@@ -82,8 +65,22 @@ namespace BTManager
 
         private void Update()
         {
-            if (currentState != null)
+            if (currentState != null && gamePaused == false)
                 currentState.OnUpdate();
+
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                if(gamePaused == false)
+                {
+                    UpdateGameState(new GamePauseState());
+                }
+                else if (gamePaused == true)
+                {
+                    InterChangeState(currentState, lastState);
+                }
+
+                gamePaused = !gamePaused;
+            }
         }
 
         public void UpdateGameState(GameState state)
@@ -96,6 +93,18 @@ namespace BTManager
 
             if (currentState != null)
                 currentState.OnStateEnter();
+        }
+
+        /// <summary>
+        /// Inters the state of the change.
+        /// </summary>
+        /// <param name="stateOne">Current game state</param>
+        /// <param name="stateTwo">Last game state.</param>
+        void InterChangeState(GameState stateOne, GameState stateTwo)
+        {
+            this.currentState = stateTwo;
+            this.lastState = stateOne;
+            lastState.OnStateExit();
         }
 
         void SpawnGameElements()

@@ -50,10 +50,10 @@ namespace StateMachine
         //    base.OnStateExit();
         //}
 
-        protected override GameStateType GameStateTypeDefine()
-        {
-            return GameStateType.Game;
-        }
+        //protected override GameStateType GameStateTypeDefine()
+        //{
+        //    return GameStateType.Game;
+        //}
 
     }
 }
