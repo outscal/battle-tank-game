@@ -24,8 +24,6 @@ namespace Player
 
         public Dictionary<CharacterState, bool> playerStates;
 
-        private float lastFireTime;
-
         public PlayerController(InputComponentScriptable inputComponentScriptable, Vector3 position)
         {
             playerStates = new Dictionary<CharacterState, bool>();
@@ -52,24 +50,6 @@ namespace Player
         {
             healthUpdate?.Invoke(playerModel.Health);
             scoreUpdate?.Invoke(playerModel.score);
-        }
-
-        public void MovePlayer()
-        {
-            if (playerView != null)
-            {
-                playerView.MoveTank(playerInput.horizontalVal, playerInput.verticalVal, playerModel.Speed, playerModel.RotationSpeed);
-            }
-        }
-
-        public void SpawnBullet()
-        {
-            if (Mathf.Abs(lastFireTime - Time.time) >= playerModel.FireRate)
-            {
-                lastFireTime = Time.time;
-                BulletController bulletController = BulletManager.Instance.SpawnBullet();
-                playerView.Shoot(bulletController);
-            }
         }
 
         public void DestroyPlayer()

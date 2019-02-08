@@ -9,10 +9,14 @@ namespace StateMachine
     public class CharacterMoveState : CharacterState
     {
         private PlayerController playerController;
+        private InputComponent playerInput;
+        private PlayerModel playerModel;
 
         public CharacterMoveState(PlayerController playerController)
         {
             this.playerController = playerController;
+            playerInput = playerController.playerInput;
+            playerModel = playerController.playerModel;
         }
 
         public override void OnStateEnter()
@@ -27,7 +31,16 @@ namespace StateMachine
 
         public override void OnUpdate()
         {
-            playerController.MovePlayer();
+            MovePlayer();
+        }
+
+        public void MovePlayer()
+        {
+            if (playerController.playerView != null)
+            {
+                playerController.playerView.MoveTank(playerInput.horizontalVal, playerInput.verticalVal,
+                                                     playerModel.Speed, playerModel.RotationSpeed);
+            }
         }
 
     }

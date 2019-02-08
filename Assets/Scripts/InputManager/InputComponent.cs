@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Player;
-using StateMachine;
 
 namespace Inputs
 {
@@ -19,28 +16,17 @@ namespace Inputs
         {
             if (Input.GetKeyDown(inputComponentScriptable.fireKey))
             {
-                //shoot = true;
                 playerController.setFireState();
             }
             else if (Input.GetKeyUp(inputComponentScriptable.fireKey))
             {
-                //shoot = false;
                 playerController.SetStateFales(playerController.characterFireState);
             }
-            //if (shoot == true)
-            //{
-            //    playerController.SpawnBullet();
-            //}
 
             MoveForward();
             MoveBackward();
             TurnLeft();
             TurnRight();
-
-            //if (horizontalVal != 0 || verticalVal != 0)
-            //{
-            //    playerController.MovePlayer(horizontalVal, verticalVal);
-            //}
 
             if (horizontalVal != 0 || verticalVal != 0)
             {
@@ -50,8 +36,6 @@ namespace Inputs
             {
                 playerController.setIdleState();
             }
-
-
         }
 
         void MoveForward()

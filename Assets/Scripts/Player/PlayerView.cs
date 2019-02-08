@@ -54,7 +54,6 @@ namespace Player
         {
             if (collision.gameObject.tag == "Enemy")
             {
-                //playerController.TakeDamage(playerController.playerModel.Health);
                 playerController.setTakeDamageState();
             }
         }
