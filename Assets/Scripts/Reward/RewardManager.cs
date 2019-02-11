@@ -7,12 +7,14 @@ using UI;
 using Common;
 using System;
 using UnityEngine.UI;
+using SaveLoad;
 
 namespace Reward
 {
     public class RewardManager : Singleton<RewardManager>
     {
         public event Action<GameObject> RewardButtonClicked;
+        public event Action<string, bool> RewardUnlocked;
 
         [SerializeField]
         private GameObject buttonPrefab;
@@ -30,20 +32,53 @@ namespace Reward
         RectTransform unlockScroll;
         bool initialized = false;
 
+        void RewardInitialization()
+        {
+            if (initialized == false)
+            {
+                AchievementManager.Instance.AchievementCheck += UnlockedReward;
+                initialized = true;
+
+                rewardList = new List<RewardInfo>();
+                if (rewardScriptableObject.rewardsList.Count > 0)
+                {
+                    for (int i = 0; i < rewardScriptableObject.rewardsList.Count; i++)
+                    {
+                        RewardInfo rewardInfo = new RewardInfo();
+                        rewardInfo = rewardScriptableObject.rewardsList[i];
+                        string dataString = "Reward_" + i;
+                        bool unlocked = SaveLoadManager.Instance.GetRewardProgress(dataString, i);
+                        if (unlocked == true)
+                            rewardInfo.rewardStatus = RewardStatus.Unlocked;
+                        rewardList.Add(rewardInfo);
+                    }
+                }
+            }
+        }
+
+        void UnlockedReward(int rewardIndex)
+        {
+            if(rewardList.Count >= rewardIndex)
+            {
+                RewardInfo rewardInfo = new RewardInfo();
+                rewardInfo = rewardList[rewardIndex];
+                rewardInfo.rewardStatus = RewardStatus.Unlocked;
+                rewardList[rewardIndex] = rewardInfo;
+                string dataString = "Reward_" + rewardIndex;
+                RewardUnlocked?.Invoke(dataString, true);
+            }
+        }
+
         // Use this for initialization
         public void PopulateRewardButtons(RectTransform unlockScroll)
         {
+            RewardInitialization();
+
             this.unlockScroll = unlockScroll;
             rewardButtons = new List<RewardButton>();
 
-            rewardList = new List<RewardInfo>();
-            if (rewardScriptableObject.rewardsList.Count > 0)
+            if (rewardList.Count > 0)
             {
-                for (int i = 0; i < rewardScriptableObject.rewardsList.Count; i++)
-                {
-                    rewardList.Add(rewardScriptableObject.rewardsList[i]);
-                }
-
                 SpawnButtons();
             }
         }
@@ -69,12 +104,11 @@ namespace Reward
                     Debug.Log("[RewardManager] Error with Achievements Data");
                 }
 
-
                 rewardButton.transform.SetParent(unlockScroll);
                 rewardButtons.Add(rewardButton.GetComponent<RewardButton>());
                 rewardButtons[i].infoText.text = rewardInfo;
                 rewardButtons[i].button.interactable = false;
-                if (RewardBtnInteractableIfAchievementUnlocked(i))
+                if (RewardBtnInteractableIfUnlocked(i))
                 {
                     rewardButtons[i].infoText.text = "Unlocked";
                     rewardButtons[i].button.interactable = true;
@@ -90,7 +124,7 @@ namespace Reward
                 {
                     rewardButtons[i].infoText.text = rewardInfo;
                     rewardButtons[i].button.interactable = false;
-                    if (RewardBtnInteractableIfAchievementUnlocked(i))
+                    if (RewardBtnInteractableIfUnlocked(i))
                     {
                         rewardButtons[i].infoText.text = "Unlocked";
                         rewardButtons[i].button.interactable = true;
@@ -99,9 +133,9 @@ namespace Reward
             }
         }
 
-        private bool RewardBtnInteractableIfAchievementUnlocked(int i)
+        private bool RewardBtnInteractableIfUnlocked(int i)
         {
-            return AchievementManager.Instance.AchievementList[rewardList[i].achievementIndex].achievementInfo.achievementStatus == AchievementStatus.Unlocked;
+            return rewardList[i].rewardStatus == RewardStatus.Unlocked;
         }
 
         private bool AchivementListCountCheckWithRewardList(int i)
@@ -114,5 +148,6 @@ namespace Reward
             Debug.Log("Reward Button CLicked Index:" + rewardIndex);
             RewardButtonClicked?.Invoke(rewardList[rewardIndex].rewardPrefab);
         }
+
     }
 }

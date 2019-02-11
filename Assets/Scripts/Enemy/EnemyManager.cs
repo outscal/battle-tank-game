@@ -4,6 +4,7 @@ using UnityEngine;
 using Common;
 using BTManager;
 using System;
+using SaveLoad;
 
 public enum EnemyType { Red, Blue, Yellow }
 
@@ -19,6 +20,7 @@ namespace Enemy
 
         public event Action enemySpawned;
         public event Action destroyEnemy;
+        public event Action<int> EnemiesKillCount;
 
         public EnemyType GetEnemyType { get { return enemyType; }}
 
@@ -34,12 +36,20 @@ namespace Enemy
         public event Action EnemyDestroyed;
 
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             enemyList = new List<EnemyController>();
 //            enemyDestroyed += DestroyEnemy;
             if (scriptableObjEnemyList == null)
                 scriptableObjEnemyList = Resources.Load<ScriptableObjEnemyList>("EnemyListHolder");
+        }
+
+        private void Start()
+        {
+            enemiesKilled = SaveLoadManager.Instance.GetEnemiesKilledProgress();
+            Debug.Log("[EnemyManager] EnemiesKilled Count " + enemiesKilled);
         }
 
         public void SpawnEnemy()
@@ -60,6 +70,7 @@ namespace Enemy
         {
             enemiesKilled++;
             EnemyDestroyed?.Invoke();
+            EnemiesKillCount?.Invoke(enemiesKilled);
             enemyList.Remove(_enemyController);
             _enemyController.DestroyEnemyModel();
             _enemyController = null;

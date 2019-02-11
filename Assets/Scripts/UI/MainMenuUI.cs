@@ -36,5 +36,7 @@ namespace UI
         {
             GameManager.Instance.UpdateGameState(new GamePlayState(GameManager.Instance.DefaultScriptableObject.gameScene));
         }
+
+
     }
 }

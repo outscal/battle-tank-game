@@ -6,6 +6,7 @@ using BTScriptableObject;
 using UnityEngine.SceneManagement;
 using System;
 using StateMachine;
+using SaveLoad;
 
 namespace BTManager
 {
@@ -31,6 +32,7 @@ namespace BTManager
         public event Action GameStarted;
         public event Action GamePaused;
         public event Action GameUnpaused;
+        public event Action<int> GamesPlayedAdd;
 
         public float MapSize
         {
@@ -56,8 +58,9 @@ namespace BTManager
         {
             GameStarted += SpawnGameElements;
 
-            if (PlayerPrefs.HasKey("GamesPlayed"))
-                gamesPlayed = PlayerPrefs.GetInt("GamesPlayed");
+            gamesPlayed = SaveLoadManager.Instance.GetGamesPlayerProgress();
+
+            Debug.Log("[GameManager] GamesPlayed Count " + gamesPlayed);
 
             //nextScene = DefaultScriptableObject.mainScene.ToString();
             UpdateGameState(new GameLoadingState(defaultScriptableObject.mainScene));
@@ -109,8 +112,9 @@ namespace BTManager
 
         void SpawnGameElements()
         {
+
             gamesPlayed++;
-            PlayerPrefs.SetInt("GamesPlayed", gamesPlayed);
+            GamesPlayedAdd?.Invoke(gamesPlayed);
             for (int i = 0; i < 5; i++)
             {
                 Enemy.EnemyManager.Instance.SpawnEnemy();

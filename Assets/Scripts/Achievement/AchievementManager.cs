@@ -19,7 +19,7 @@ namespace AchievementM
 
         public List<Achievement> AchievementList { get { return achievementList; }}
 
-        public event Action<AchievementType, int> AchievementCheck;
+        public event Action<int> AchievementCheck;
         public event Action<string> AchievementUnlocked;
 
         bool initialized = false;
@@ -29,7 +29,7 @@ namespace AchievementM
             if (initialized == false)
             {
                 initialized = true;
-                BTManager.GameManager.Instance.GameStarted += InvoteDefaultEvents;
+                BTManager.GameManager.Instance.GameStarted += InvokeDefaultEvents;
                 if (achievementScriptable != null)
                 {
                     achievementList = new List<Achievement>();
@@ -38,8 +38,8 @@ namespace AchievementM
                     {
                         Achievement achievement = new Achievement();
                         achievement = achievementScriptable.achievementList[i];
-                        bool unlocked = SaveLoadManager.Instance.CheckAchievementUnlock(achievement.AchievementType, i);
-
+                        string dataString = "Achievement_" + i;
+                        bool unlocked = SaveLoadManager.Instance.GetAchievementProgress(dataString, i);
                         if (unlocked == true)
                             achievement.achievementInfo.achievementStatus = AchievementStatus.Unlocked;
 
@@ -51,26 +51,9 @@ namespace AchievementM
                     Debug.Log("[Achievement Manager] missing scriptable object reference");
                 }
             }
-            else
-            {
-                UpdateAchievement();
-            }
         }
 
-        void UpdateAchievement()
-        {
-            for (int i = 0; i < achievementList.Count; i++)
-            {
-                Achievement achievement = new Achievement();
-                achievement = achievementScriptable.achievementList[i];
-                bool unlocked = SaveLoadManager.Instance.CheckAchievementUnlock(achievement.AchievementType, i);
-
-                if (unlocked == true)
-                    achievement.achievementInfo.achievementStatus = AchievementStatus.Unlocked;
-            }
-        }
-
-        private void InvoteDefaultEvents()
+        private void InvokeDefaultEvents()
         {
             UIManager.Instance.ScoreIncreased += ScoreIncreased;
             Enemy.EnemyManager.Instance.EnemyDestroyed += EnemyKilled;
@@ -109,7 +92,7 @@ namespace AchievementM
 
                         achievementList[i] = achievement;
                         AchievementUnlocked?.Invoke(value);
-                        AchievementCheck?.Invoke(achievementType, i);
+                        AchievementCheck?.Invoke(i);
                     }
                 }
             }

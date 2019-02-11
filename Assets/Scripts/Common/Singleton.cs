@@ -26,7 +26,7 @@ namespace Common
             }
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             if (instance == null)
             {
