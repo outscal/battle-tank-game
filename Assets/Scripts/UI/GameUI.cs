@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using BTManager;
 using System;
 using StateMachine;
+using Player;
 
 namespace UI
 {
@@ -14,32 +15,56 @@ namespace UI
     {
 
         [SerializeField] private Text playerScoreText, playerHealthText, achievementText;
+        [SerializeField] private GameObject gameMenu, replayMenu;
+        [SerializeField] private Button exitReplayBtn;
 
         //public event Action ScoreIncreased;
 
         private void OnDisable()
         {
-            if (Player.PlayerManager.Instance != null)
-                Player.PlayerManager.Instance.playerSpawned -= GetPlayerEvents;
+            if (PlayerManager.Instance != null)
+                PlayerManager.Instance.playerSpawned -= GetPlayerEvents;
             if (AchievementM.AchievementManager.Instance != null)
                 AchievementM.AchievementManager.Instance.AchievementUnlocked -= DisplayAchievement;
         }
 
         private void OnEnable()
         {
-            Player.PlayerManager.Instance.playerSpawned += GetPlayerEvents;
+            PlayerManager.Instance.playerSpawned += GetPlayerEvents;
             AchievementM.AchievementManager.Instance.AchievementUnlocked += DisplayAchievement;
+        }
+
+        private void Start()
+        {
+            exitReplayBtn.onClick.AddListener(() => ExitReplay());
+
+            if(GameManager.Instance.currentState.gameStateType == GameStateType.Game)
+            {
+                gameMenu.SetActive(true);
+                replayMenu.SetActive(false);
+            }
+            else if (GameManager.Instance.currentState.gameStateType == GameStateType.Replay)
+            {
+                gameMenu.SetActive(false);
+                replayMenu.SetActive(true);
+            }
+        }
+
+        void ExitReplay()
+        {
+            GameManager.Instance.UpdateGameState(new GameOverState());
+            SceneManager.LoadScene(GameManager.Instance.DefaultScriptableObject.gameOverScene);
         }
 
         void GetPlayerEvents()
         {
-            if (Player.PlayerManager.Instance.playerController == null)
+            if (PlayerManager.Instance.playerController == null)
                 Debug.Log("[GameUI] PlayerController is missing");
-            else if (Player.PlayerManager.Instance.playerController != null)
+            else if (PlayerManager.Instance.playerController != null)
                 Debug.Log("[GameUI] PlayerController is present");
 
-            Player.PlayerManager.Instance.playerController.scoreUpdate += UpdatePlayerScore;
-            Player.PlayerManager.Instance.playerController.healthUpdate += UpdatePlayerHealth;
+            PlayerManager.Instance.playerController.scoreUpdate += UpdatePlayerScore;
+            PlayerManager.Instance.playerController.healthUpdate += UpdatePlayerHealth;
             Debug.Log("[GameUI] Player Events Called");
         }
 
@@ -63,22 +88,24 @@ namespace UI
 
         public void GameOver()
         {
-            Player.PlayerManager.Instance.playerController.scoreUpdate -= UpdatePlayerScore;
-            Player.PlayerManager.Instance.playerController.healthUpdate -= UpdatePlayerHealth;
+            PlayerManager.Instance.playerController.scoreUpdate -= UpdatePlayerScore;
+            PlayerManager.Instance.playerController.healthUpdate -= UpdatePlayerHealth;
+
             StartCoroutine(GameOverCoroutine());
         }
 
-        public void Respawn(Inputs.InputComponent inputComponent)
-        {
-            Inputs.InputManager.Instance.RemoveInputComponent(inputComponent);
-            Player.PlayerManager.Instance.SpawnPlayer();
-        }
+        //public void Respawn(Inputs.InputComponent inputComponent)
+        //{
+        //    Inputs.InputManager.Instance.RemoveInputComponent(inputComponent);
+        //    PlayerManager.Instance.SpawnPlayer();
+        //}
 
         private IEnumerator GameOverCoroutine()
         {
             yield return new WaitForSeconds(1f);
-            GameManager.Instance.UpdateGameState(new GameOverState());
-            SceneManager.LoadScene(GameManager.Instance.DefaultScriptableObject.gameOverScene);
+            //GameManager.Instance.UpdateGameState(new GameOverState());
+            GameManager.Instance.UpdateGameState(new GameReplayState(GameManager.Instance.DefaultScriptableObject.gameScene));
+            SceneManager.LoadScene(GameManager.Instance.DefaultScriptableObject.gameScene);
         }  
 
         private void DisplayAchievement(string value)

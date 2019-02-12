@@ -18,6 +18,10 @@ namespace Enemy
 
         public int enemiesKilled { get; private set; }
 
+        private List<Vector3> enemiesPosition;
+
+        public List<Vector3> EnemiesPosition{ get { return enemiesPosition; }}
+
         public event Action enemySpawned;
         public event Action destroyEnemy;
         public event Action<int> EnemiesKillCount;
@@ -40,7 +44,7 @@ namespace Enemy
         {
             base.Awake();
 
-            enemyList = new List<EnemyController>();
+            enemiesPosition = new List<Vector3>();
 //            enemyDestroyed += DestroyEnemy;
             if (scriptableObjEnemyList == null)
                 scriptableObjEnemyList = Resources.Load<ScriptableObjEnemyList>("EnemyListHolder");
@@ -48,21 +52,31 @@ namespace Enemy
 
         private void Start()
         {
+            GameManager.Instance.GameStarted += ResetEnemyList;
+            GameManager.Instance.ReplayGame += ResetEnemyList;
             enemiesKilled = SaveLoadManager.Instance.GetEnemiesKilledProgress();
             Debug.Log("[EnemyManager] EnemiesKilled Count " + enemiesKilled);
         }
 
-        public void SpawnEnemy()
+        void ResetEnemyList()
+        {
+            enemyList = new List<EnemyController>();
+        }
+
+        public void SpawnEnemy(Vector3 position)
         {
             int r = UnityEngine.Random.Range(0, scriptableObjEnemyList.enemyList.Count);
 
-            Vector3 randomPos = new Vector3(UnityEngine.Random.Range(-GameManager.Instance.MapSize, GameManager.Instance.MapSize), 0,
-                                            UnityEngine.Random.Range(-GameManager.Instance.MapSize, GameManager.Instance.MapSize));
 
-            enemyController = new EnemyController(scriptableObjEnemyList.enemyList[r], randomPos);
+            if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Game)
+            {
+                enemiesPosition.Add(position);
+                Debug.Log("[EnemyManager] EnemyPos Added: " + position);
+            }
+
+            enemyController = new EnemyController(scriptableObjEnemyList.enemyList[r], position);
             enemySpawned?.Invoke();
             enemyList.Add(enemyController);
-
         }
 
 

@@ -11,6 +11,7 @@ namespace StateMachine
         private PlayerController playerController;
 
         private float lastFireTime;
+        private int lastFrame;
 
         public CharacterFireState(PlayerController playerController)
         {
@@ -40,6 +41,19 @@ namespace StateMachine
                 lastFireTime = Time.time;
                 BulletController bulletController = BulletManager.Instance.SpawnBullet();
                 playerController.playerView.Shoot(bulletController);
+
+                lastFrame = Time.frameCount;
+            }
+
+            ExitState();
+        }
+
+        void ExitState()
+        {
+
+            if ((Time.frameCount - lastFrame) > 1)
+            {
+                playerController.SetStateFales(playerController.characterFireState);
             }
         }
 

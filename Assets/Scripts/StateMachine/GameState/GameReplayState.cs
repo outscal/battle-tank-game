@@ -1,26 +1,28 @@
-using System;
-using UnityEngine.SceneManagement;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace StateMachine
 {
-    public class GamePlayState: GameState
+    public class GameReplayState : GameState
     {
+
         public AsyncOperation asyncOperation { get; private set; }
 
         string sceneName;
-        bool gameStarted = false;
+        bool replayGame = false;
 
-        public GamePlayState(string sceneName)
+        public GameReplayState(string sceneName)
         {
-            gameStarted = false;
+            replayGame = false;
             this.sceneName = sceneName;
             //BTManager.GameManager.Instance.GameStarted
         }
 
         protected override GameStateType GameStateTypeDefine()
         {
-            return GameStateType.Game;
+            return GameStateType.Replay;
         }
 
         public override void OnStateEnter()
@@ -42,23 +44,13 @@ namespace StateMachine
             }
             else if (asyncOperation.isDone)
             {
-                if (gameStarted == false)
+
+                if (replayGame == false)
                 {
-                    gameStarted = true;
-                    BTManager.GameManager.Instance.OnGameStarted();
+                    replayGame = true;
+                    BTManager.GameManager.Instance.OnReplayGame();
                 }
             }
         }
-
-        //public override void OnStateExit()
-        //{
-        //    base.OnStateExit();
-        //}
-
-        //protected override GameStateType GameStateTypeDefine()
-        //{
-        //    return GameStateType.Game;
-        //}
-
     }
 }

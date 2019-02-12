@@ -1,13 +1,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System;
-using BTManager;
 
 namespace StateMachine
 {
     public class GameMenuState : GameState
     {
-
         public AsyncOperation asyncOperation { get; private set; }
 
         string sceneName;

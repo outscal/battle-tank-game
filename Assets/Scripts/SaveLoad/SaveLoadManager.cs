@@ -29,6 +29,10 @@ namespace SaveLoad
             {
                 saveLoadController = new PlayerPrefController();
             }
+            else if(saveMode == SaveMode.JsonData)
+            {
+                saveLoadController = new JsonController();
+            }
         }
 
         private void Start()

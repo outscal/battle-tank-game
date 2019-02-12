@@ -25,14 +25,12 @@ namespace UI
         private void RespawnBtn()
         {
             GameManager.Instance.UpdateGameState(new GamePlayState(GameManager.Instance.DefaultScriptableObject.gameScene));
-            //SceneManager.LoadScene(GameManager.Instance.DefaultScriptableObject.gameScene);
 
         }
 
         private void HomeBtn()
         {
             GameManager.Instance.UpdateGameState(new GameMenuState(GameManager.Instance.DefaultScriptableObject.mainScene));
-            //SceneManager.LoadScene(GameManager.Instance.DefaultScriptableObject.mainScene);
         }
 
     }

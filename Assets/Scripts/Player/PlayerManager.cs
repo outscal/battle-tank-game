@@ -26,6 +26,8 @@ namespace Player
         public event Action playerSpawned;
         public event Action playerDestroyed;
 
+        private Vector3 playerSpawnPos;
+
         [SerializeField]
         private int maxIteration = 10;
 
@@ -47,13 +49,19 @@ namespace Player
                 Debug.Log("[PlayerManager] Missing InputComponentScriptableList");
             }
 
-            GetSafePosition();
+            if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Game)
+                GetSafePosition();
+            else if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Replay)
+            safePos = playerSpawnPos;
+
+            //GetSafePosition();
 
             //int r = UnityEngine.Random.Range(0, inputComponentScriptableList.inputComponentScriptables.Count);
-            playerController = new PlayerController(inputComponentScriptableList.inputComponentScriptables[0], 
-                                                    safePos, playerPrefab);
+            playerController = new PlayerController(inputComponentScriptableList.inputComponentScriptables[0],
+                                                      safePos, playerPrefab);
 
             playerSpawned?.Invoke();
+   
         }
 
         public void DestroyPlayer(PlayerController _playerController)
@@ -87,6 +95,7 @@ namespace Player
                 }
             }
             //Debug.Log("[PlayerManager] Player Spawnpos " + pos);
+            playerSpawnPos = pos;
             safePos = pos;
         }
 

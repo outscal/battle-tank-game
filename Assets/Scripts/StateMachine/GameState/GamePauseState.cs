@@ -12,6 +12,11 @@ namespace StateMachine
             GameManager.Instance.PauseGame();
         }
 
+        protected override GameStateType GameStateTypeDefine()
+        {
+            return GameStateType.Pause;
+        }
+
         public override void OnStateExit()
         {
             GameManager.Instance.UnPauseGame();

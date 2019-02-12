@@ -16,6 +16,11 @@ namespace StateMachine
             this.sceneName = sceneName;
         }
 
+        protected override GameStateType GameStateTypeDefine()
+        {
+            return GameStateType.Loading;
+        }
+
         public override void OnStateEnter()
         {
             //SceneManager.LoadSceneAsync(sceneName);

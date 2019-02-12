@@ -33,6 +33,7 @@ namespace BTManager
         public event Action GamePaused;
         public event Action GameUnpaused;
         public event Action<int> GamesPlayedAdd;
+        public event Action ReplayGame;
 
         public float MapSize
         {
@@ -54,9 +55,15 @@ namespace BTManager
             GameUnpaused?.Invoke();
         }
 
+        public void OnReplayGame()
+        {
+            ReplayGame?.Invoke();
+        }
+
         private void Start()
         {
             GameStarted += SpawnGameElements;
+            ReplayGame += SpawnGameElements;
 
             gamesPlayed = SaveLoadManager.Instance.GetGamesPlayerProgress();
 
@@ -112,16 +119,37 @@ namespace BTManager
 
         void SpawnGameElements()
         {
+            if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Game)
+            {
+                gamesPlayed++;
+                GamesPlayedAdd?.Invoke(gamesPlayed);
+            }
 
-            gamesPlayed++;
-            GamesPlayedAdd?.Invoke(gamesPlayed);
             for (int i = 0; i < 5; i++)
             {
-                Enemy.EnemyManager.Instance.SpawnEnemy();
+                if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Game)
+                {
+                    Enemy.EnemyManager.Instance.SpawnEnemy(RandomPos());
+                }
+                else if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Replay)
+                {
+                    Vector3 randomPos = Enemy.EnemyManager.Instance.EnemiesPosition[i];
+                    Enemy.EnemyManager.Instance.SpawnEnemy(randomPos);
+                }
+
             }
 
             Player.PlayerManager.Instance.SpawnPlayer();
         }
 
+        Vector3 RandomPos()
+        {
+            Vector3 randomPos = new Vector3();
+
+            randomPos = new Vector3(UnityEngine.Random.Range(-MapSize, MapSize), 0,
+                                                UnityEngine.Random.Range(-MapSize, MapSize));
+
+            return randomPos;
+        }
     }
 }

@@ -4,6 +4,15 @@ using UnityEngine;
 
 namespace SaveLoad
 {
+    [System.Serializable]
+    public struct PlayerData
+    {
+        public int GamesPlayed;
+        public int EnemiesKilled;
+        public int PlayerDeath;
+        public int HighScore;
+    }
+
     public class SaveLoadController : ISaveLoad
     {
         public virtual void SetInt(string dataString, int value)
@@ -41,7 +50,7 @@ namespace SaveLoad
 
         public virtual void SaveAll()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Save All Data");
         }
     }
 }

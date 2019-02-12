@@ -18,10 +18,13 @@ namespace Player
         public event Action<int> scoreUpdate;
         public event Action<int> healthUpdate;
 
+        public CharacterState currentState { get; private set; }
         public CharacterIdleState characterIdleState { get; private set; }
         public CharacterMoveState characterMoveState { get; private set; }
         public CharacterFireState characterFireState { get; private set; }
         public CharacterTakeDamageState characterTakeDamageState { get; private set; }
+
+        public float horizontalVal, verticalVal;
 
         public Dictionary<CharacterState, bool> playerStates;
         GameObject prefab;
@@ -38,18 +41,31 @@ namespace Player
             else
                 prefab = tankPrefab;
 
+
+
             GameObject tankObj = GameObject.Instantiate<GameObject>(prefab);
             tankObj.transform.position = position;
 
             playerModel = new PlayerModel();
+            playerView = tankObj.GetComponent<PlayerView>();
+            playerView.SetController(this);
             playerInput = new InputComponent();
             playerInput.playerController = this;
             playerInput.inputComponentScriptable = inputComponentScriptable;
-            playerView = tankObj.GetComponent<PlayerView>();
-            playerView.SetController(this);
             InputManager.Instance.AddInputComponent(playerInput);
             PlayerManager.Instance.playerSpawned += InvokeEvents;
 
+        }
+
+        public void OnUpdate(List<InputAction> action)
+        {
+            if (action.Count > 0)
+            {
+                for (int i = 0; i < action.Count; i++)
+                {
+                    action[i].Execute();
+                }
+            }
         }
 
         private void InvokeEvents()
@@ -90,8 +106,10 @@ namespace Player
             playerModel.Health = value;
         }
 
-        public void setIdleState()
+        public void setIdleState(float hVal, float vVal)
         {
+            horizontalVal = hVal;
+            verticalVal = vVal;
             if (characterIdleState == null)
             {
                 characterIdleState = new CharacterIdleState();
@@ -109,18 +127,25 @@ namespace Player
             if (value == false)
             {
                 playerStates[characterIdleState] = true;
+                currentState = characterIdleState;
                 characterIdleState.OnStateEnter();
 
                 if (characterMoveState != null)
+                {
                     SetStateFales(characterMoveState);
+                }
             }
         }
 
-        public void setMoveState()
+        public void setMoveState(float hVal, float vVal)
         {
+            horizontalVal = hVal;
+            verticalVal = vVal;
+
             if (characterMoveState == null)
             {
                 characterMoveState = new CharacterMoveState(this);
+                currentState = characterMoveState;
                 playerStates.Add(characterMoveState, true);
                 characterMoveState.OnStateEnter();
                 if (characterIdleState != null)
@@ -146,6 +171,7 @@ namespace Player
             if (characterFireState == null)
             {
                 characterFireState = new CharacterFireState(this);
+                currentState = characterFireState;
                 playerStates.Add(characterFireState, true);
                 characterFireState.OnStateEnter();
             }
@@ -181,6 +207,16 @@ namespace Player
             }
         }
 
+        public Vector3 getSpawnPos()
+        {
+            return playerView.transform.position;
+        }
+
+        public void setSpawnPos(Vector3 pos)
+        {
+            playerView.transform.position = pos;
+        }
+
         public void SetStateFales(CharacterState characterState)
         {
             playerStates[characterState] = false;
@@ -188,7 +224,7 @@ namespace Player
 
             if(!playerStates.ContainsValue(true))
             {
-                setIdleState();
+                setIdleState(0, 0);
             }
         }
 

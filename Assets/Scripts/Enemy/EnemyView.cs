@@ -10,8 +10,6 @@ namespace Enemy
     [RequireComponent(typeof(Rigidbody))]
     public class EnemyView : MonoBehaviour, ITakeDamage
     {
-
-        public event Action increaseScore;
         private EnemyController enemyController;
 
         void Start()
