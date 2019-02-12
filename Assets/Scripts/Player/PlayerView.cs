@@ -5,6 +5,7 @@ using Bullet;
 using UI;
 using Interfaces;
 using StateMachine;
+using BTManager;
 
 namespace Player
 {
@@ -39,6 +40,7 @@ namespace Player
 
         void Update()
         {
+            if (GameManager.Instance.gamePaused == true) return;
             foreach (CharacterState state in playerController.playerStates.Keys)
             {
                 bool isActive;

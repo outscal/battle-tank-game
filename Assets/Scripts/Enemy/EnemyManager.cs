@@ -5,6 +5,7 @@ using Common;
 using BTManager;
 using System;
 using SaveLoad;
+using UnityEngine.SceneManagement;
 
 public enum EnemyType { Red, Blue, Yellow }
 
@@ -25,6 +26,7 @@ namespace Enemy
         public event Action enemySpawned;
         public event Action destroyEnemy;
         public event Action<int> EnemiesKillCount;
+        public event Action<Vector3> AlertMode;
 
         public EnemyType GetEnemyType { get { return enemyType; }}
 
@@ -39,11 +41,27 @@ namespace Enemy
 
         public event Action EnemyDestroyed;
 
+        private void OnEnable()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        private void OnDisable()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            Debug.LogWarning("[EnemyManager] Enemy List Count:" + enemyList.Count);
+            enemyList = new List<EnemyController>();
+        }
+
 
         protected override void Awake()
         {
             base.Awake();
-
+            enemyList = new List<EnemyController>();
             enemiesPosition = new List<Vector3>();
 //            enemyDestroyed += DestroyEnemy;
             if (scriptableObjEnemyList == null)
@@ -53,9 +71,14 @@ namespace Enemy
         private void Start()
         {
             GameManager.Instance.GameStarted += ResetEnemyList;
-            GameManager.Instance.ReplayGame += ResetEnemyList;
+            //GameManager.Instance.ReplayGame += ResetEnemyList;
             enemiesKilled = SaveLoadManager.Instance.GetEnemiesKilledProgress();
             Debug.Log("[EnemyManager] EnemiesKilled Count " + enemiesKilled);
+        }
+
+        public void AlertEnemies(Vector3 position)
+        {
+            AlertMode.Invoke(position);
         }
 
         void ResetEnemyList()
@@ -71,7 +94,6 @@ namespace Enemy
             if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Game)
             {
                 enemiesPosition.Add(position);
-                Debug.Log("[EnemyManager] EnemyPos Added: " + position);
             }
 
             enemyController = new EnemyController(scriptableObjEnemyList.enemyList[r], position);

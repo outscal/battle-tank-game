@@ -97,9 +97,10 @@ namespace Player
             //Debug.Log("[PlayerManager] Player Spawnpos " + pos);
             playerSpawnPos = pos;
             safePos = pos;
+            currentIteration = 0;
         }
 
-        private Vector3 RandomPos()
+        public Vector3 RandomPos()
         {
             float x = UnityEngine.Random.Range(-GameManager.Instance.MapSize, GameManager.Instance.MapSize);
             float y = 0;

@@ -16,7 +16,9 @@ namespace UI
 
         [SerializeField] private Text playerScoreText, playerHealthText, achievementText;
         [SerializeField] private GameObject gameMenu, replayMenu;
-        [SerializeField] private Button exitReplayBtn;
+        [SerializeField] private Button exitReplayBtn, speedUpReplayBtn, speedDownReplayBtn;
+
+        public int timeScaleMultiplier { get; private set; }
 
         //public event Action ScoreIncreased;
 
@@ -37,6 +39,8 @@ namespace UI
         private void Start()
         {
             exitReplayBtn.onClick.AddListener(() => ExitReplay());
+            speedUpReplayBtn.onClick.AddListener(() => SpeedUp());
+            speedDownReplayBtn.onClick.AddListener(() => SpeedDown());
 
             if(GameManager.Instance.currentState.gameStateType == GameStateType.Game)
             {
@@ -54,6 +58,24 @@ namespace UI
         {
             GameManager.Instance.UpdateGameState(new GameOverState());
             SceneManager.LoadScene(GameManager.Instance.DefaultScriptableObject.gameOverScene);
+        }
+
+        void SpeedUp()
+        {
+            if (timeScaleMultiplier < 4)
+            {
+                timeScaleMultiplier++;
+                Time.timeScale = timeScaleMultiplier;
+            }
+        }
+
+        void SpeedDown()
+        {
+            if (timeScaleMultiplier > 1)
+            {
+                timeScaleMultiplier--;
+                Time.timeScale = timeScaleMultiplier;
+            }
         }
 
         void GetPlayerEvents()

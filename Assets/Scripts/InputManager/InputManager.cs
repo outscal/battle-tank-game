@@ -48,46 +48,49 @@ namespace Inputs
         // Update is called once per frame
         void Update()
         {
-            if (onPaused == false)
+            if (GameManager.Instance.currentState.gameStateType == GameStateType.Game)
             {
-                if (GameManager.Instance.currentState.gameStateType == GameStateType.Game)
+                foreach (InputComponent inputComponent in inputComponentList)
                 {
-                    foreach (InputComponent inputComponent in inputComponentList)
-                    {
-                        inputComponent.OnUpdate();
+                    inputComponent.OnUpdate();
 
-                        if (savedQueueData.Count > 0)
-                        {
-                            QueueData currentFrameData = new QueueData();
-                            currentFrameData = savedQueueData.Dequeue();
-                            inputComponent.playerController.OnUpdate(currentFrameData.action);
-                        }
-                    }
-                }
-                else if(GameManager.Instance.currentState.gameStateType == GameStateType.Replay)
-                {
-                    Debug.Log("[InputManager] Replay Mode" + replayQueue.Count);
-                    //Debug.Log("[InputManager] Frame rate: " + ((Time.frameCount - replayFrame) - 1) + "/" + replayQueue.Peek().frameNo);
-                    if (replayQueue.Count > 0)
+                    if (savedQueueData.Count > 0)
                     {
-                        Debug.Log("[InputManager] Frame rate: " + ((Time.frameCount - replayFrame) - 1) + "/" + replayQueue.Peek().frameNo);
-                        if ((Time.frameCount - replayFrame) - 1 == replayQueue.Peek().frameNo)
-                        {
-                            QueueData currentFrameData = new QueueData();
-                            currentFrameData = replayQueue.Dequeue();
-                            PlayerManager.Instance.playerController.OnUpdate(currentFrameData.action);
-                            Debug.Log("[InputManager] Replay Mode" +
-                                      "Action:" + replayQueue.Peek().action);
-                        }
-                    }
-
-                    if (replayQueue.Count <= 0)
-                    {
-                        GameManager.Instance.UpdateGameState(new GameOverState());
-                        SceneManager.LoadScene(GameManager.Instance.DefaultScriptableObject.gameOverScene);
+                        QueueData currentFrameData = new QueueData();
+                        currentFrameData = savedQueueData.Dequeue();
+                        inputComponent.playerController.OnUpdate(currentFrameData.action);
                     }
                 }
             }
+            else if (GameManager.Instance.currentState.gameStateType == GameStateType.Replay)
+            {
+                //Debug.Log("[InputManager] Replay Mode" + replayQueue.Count);
+                //Debug.Log("[InputManager] Frame rate: " + ((Time.frameCount - replayFrame) - 1) + "/" + replayQueue.Peek().frameNo);
+                if (replayQueue.Count > 0)
+                {
+                    Debug.Log("[InputManager] Frame rate: " + ((Time.frameCount - replayFrame) - 1) + "/" + replayQueue.Peek().frameNo);
+                    if ((Time.frameCount - replayFrame) - 1 == replayQueue.Peek().frameNo)
+                    {
+                        QueueData currentFrameData = new QueueData();
+                        currentFrameData = replayQueue.Dequeue();
+                        PlayerManager.Instance.playerController.OnUpdate(currentFrameData.action);
+                        //Debug.Log("[InputManager] Replay Mode" +
+                                  //"Action:" + replayQueue.Peek().action);
+                    }
+                }
+
+                if (replayQueue.Count <= 0)
+                {
+                    GameManager.Instance.UpdateGameState(new GameOverState());
+                    SceneManager.LoadScene(GameManager.Instance.DefaultScriptableObject.gameOverScene);
+                }
+            }
+
+            if (GameManager.Instance.currentState.gameStateType == GameStateType.Pause)
+            {
+                replayFrame = (replayQueue.Peek().frameNo);
+            }
+
         }
 
         private int CurrentFrame(int frame)

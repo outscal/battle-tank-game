@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Player;
 using System.Collections.Generic;
+using BTManager;
 
 namespace Inputs
 {
@@ -21,6 +22,8 @@ namespace Inputs
 
         public void OnUpdate()
         {
+            if (GameManager.Instance.gamePaused == true) return;
+
             actions = new List<InputAction>();
 
             if(Input.GetKeyDown(inputComponentScriptable.fireKey))

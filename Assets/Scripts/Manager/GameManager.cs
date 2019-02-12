@@ -25,6 +25,7 @@ namespace BTManager
         public string lastScene { get; private set; }
 
         public bool gamePaused { get; private set; }
+        public int frameBeforePause { get; private set; }
 
         [SerializeField]
         private float mapSize = 30f;
@@ -83,6 +84,7 @@ namespace BTManager
                 if(gamePaused == false)
                 {
                     UpdateGameState(new GamePauseState());
+                    frameBeforePause = Time.frameCount;
                 }
                 else if (gamePaused == true)
                 {

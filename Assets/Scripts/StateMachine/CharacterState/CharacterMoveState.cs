@@ -38,7 +38,7 @@ namespace StateMachine
         {
             if (playerController.playerView != null)
             {
-                Debug.Log("[CharacterMoveState] Horizontal:" + playerController.horizontalVal + " Vertical:" + playerController.verticalVal);
+                //Debug.Log("[CharacterMoveState] Horizontal:" + playerController.horizontalVal + " Vertical:" + playerController.verticalVal);
                 playerController.playerView.MoveTank(playerController.horizontalVal, playerController.verticalVal,
                                                      playerModel.Speed, playerModel.RotationSpeed);
             }

@@ -24,6 +24,10 @@ namespace Player
         public CharacterFireState characterFireState { get; private set; }
         public CharacterTakeDamageState characterTakeDamageState { get; private set; }
 
+        public bool isDead { get; private set; }
+        private int deathCount = 0;
+        private float deathTime = 0;
+
         public float horizontalVal, verticalVal;
 
         public Dictionary<CharacterState, bool> playerStates;
@@ -41,14 +45,14 @@ namespace Player
             else
                 prefab = tankPrefab;
 
-
-
             GameObject tankObj = GameObject.Instantiate<GameObject>(prefab);
             tankObj.transform.position = position;
 
             playerModel = new PlayerModel();
             playerView = tankObj.GetComponent<PlayerView>();
             playerView.SetController(this);
+            //List<InputAction> actions = new List<InputAction>();
+            //actions.Add(new SpawnAction(playerView.transform.position));
             playerInput = new InputComponent();
             playerInput.playerController = this;
             playerInput.inputComponentScriptable = inputComponentScriptable;
@@ -59,12 +63,21 @@ namespace Player
 
         public void OnUpdate(List<InputAction> action)
         {
-            if (action.Count > 0)
+            if (GameManager.Instance.currentState.gameStateType == GameStateType.Pause) return;
+
+            if (isDead == false)
             {
-                for (int i = 0; i < action.Count; i++)
+                if (action.Count > 0)
                 {
-                    action[i].Execute();
+                    for (int i = 0; i < action.Count; i++)
+                    {
+                        action[i].Execute();
+                    }
                 }
+            }
+            else
+            {
+                Death();
             }
         }
 
@@ -83,6 +96,22 @@ namespace Player
             playerModel = null;
         }
 
+        void Death()
+        {
+            if ((Time.time - deathTime) > 2f)
+            {
+                isDead = false;
+                playerView.gameObject.SetActive(true);
+                PlayerManager.Instance.GetSafePosition();
+                //List<InputAction> actions = new List<InputAction>();
+                //actions.Add(new SpawnAction(PlayerManager.Instance.safePos));
+                //playerView.transform.position = PlayerManager.Instance.safePos;
+                playerModel.Health = 5;
+                healthUpdate?.Invoke(playerModel.Health);
+                setPlayerHealth(playerModel.Health);
+            }
+        }
+
         public void TakeDamage(int value)
         {
             playerModel.Health -= value;
@@ -91,7 +120,18 @@ namespace Player
 
             if (playerModel.Health <= 0)
             {
-                playerView.PlayerDie();
+                deathCount++;
+                //if (deathCount < 5)
+                //{
+                //    deathTime = Time.time;
+                //    isDead = true;
+                //    playerView.gameObject.SetActive(false);
+                //    List<InputAction> actions = new List<InputAction>();
+                //    actions.Add(new DeathAction());
+                //    InputManager.Instance.SaveCurrentQueueData(actions);
+                //}
+                //else
+                    playerView.PlayerDie();
             }
         }
 
