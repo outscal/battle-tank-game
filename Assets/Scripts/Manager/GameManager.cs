@@ -24,8 +24,6 @@ namespace BTManager
         public string nextScene { get; private set; }
         public string lastScene { get; private set; }
 
-        //public int frameBeforePause { get; private set; }
-
         [SerializeField]
         private float mapSize = 30f;
 
@@ -89,7 +87,6 @@ namespace BTManager
                 if(currentState.gameStateType != GameStateType.Pause)
                 {
                     UpdateGameState(new GamePauseState());
-                    //frameBeforePause = Time.frameCount;
                 }
                 else if (currentState.gameStateType == GameStateType.Pause)
                 {
@@ -132,31 +129,23 @@ namespace BTManager
 
             gameplayFrames = 0;
 
-            for (int i = 0; i < 5; i++)
-            {
-                if (currentState.gameStateType == GameStateType.Game)
-                {
-                    Enemy.EnemyManager.Instance.SpawnEnemy(RandomPos());
-                }
-                else if (currentState.gameStateType == GameStateType.Replay)
-                {
-                    Vector3 randomPos = Enemy.EnemyManager.Instance.EnemiesPosition[i];
-                    Enemy.EnemyManager.Instance.SpawnEnemy(randomPos);
-                }
+            //for (int i = 0; i < 1; i++)
+            //{
+            //    if (currentState.gameStateType == GameStateType.Game)
+            //    {
+            //        Enemy.EnemyManager.Instance.SpawnEnemy(RandomPos());
+            //    }
+            //    else if (currentState.gameStateType == GameStateType.Replay)
+            //    {
+            //        Vector3 randomPos = Enemy.EnemyManager.Instance.EnemiesPosition[i];
+            //        Enemy.EnemyManager.Instance.SpawnEnemy(randomPos);
+            //    }
 
-            }
+            //}
 
-            Player.PlayerManager.Instance.SpawnPlayer();
-        }
+            Enemy.EnemyManager.Instance.SpawnEnemy();
 
-        Vector3 RandomPos()
-        {
-            Vector3 randomPos = new Vector3();
-
-            randomPos = new Vector3(UnityEngine.Random.Range(-MapSize, MapSize), 0,
-                                                UnityEngine.Random.Range(-MapSize, MapSize));
-
-            return randomPos;
+            //Player.PlayerManager.Instance.SpawnPlayer();
         }
     }
 }

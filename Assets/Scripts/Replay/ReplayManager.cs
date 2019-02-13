@@ -20,13 +20,9 @@ namespace Replay
         public Queue<QueueData> savedQueueData;
         public Queue<QueueData> replayQueue;
 
-        [HideInInspector]
-        public int initialFrame, replayFrame;
-
         protected override void Awake()
         {
             base.Awake();
-            initialFrame = Time.frameCount;
             replayQueue = new Queue<QueueData>();
             savedQueueData = new Queue<QueueData>();
         }
@@ -34,11 +30,17 @@ namespace Replay
         private void Start()
         {
             GameManager.Instance.ReplayGame += ReplayGame;
+            GameManager.Instance.GameStarted += GameStart;
+        }
+
+        void GameStart()
+        {
+            replayQueue = new Queue<QueueData>();
+            Debug.LogWarning("Replay Queue Reset");
         }
 
         void ReplayGame()
         {
-            replayFrame = Time.frameCount;
             Debug.Log("[InputManager] Replay Queue Count:" + replayQueue.Count);
             savedQueueData = new Queue<QueueData>();
         }

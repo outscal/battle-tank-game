@@ -81,7 +81,6 @@ namespace Inputs
 
         void OnGameStart()
         {
-            ReplayManager.Instance.initialFrame = Time.frameCount;
             ReplayManager.Instance.replayQueue = new Queue<QueueData>();
             ReplayManager.Instance.savedQueueData = new Queue<QueueData>();
         }

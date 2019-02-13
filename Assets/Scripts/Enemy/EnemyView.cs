@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UI;
+using Player;
 using Interfaces;
 using System;
 using BTManager;
@@ -14,19 +14,36 @@ namespace Enemy
     {
         private EnemyController enemyController;
 
+        [SerializeField] private ChaseState chaseState;
+        [SerializeField] private PetrolState petrolState;
+
+        public ChaseState ChaseState { get { return chaseState; } }
+        public PetrolState PetrolState { get { return petrolState; } }
+
         [SerializeField]
         private float radius;
 
         public event Action<Vector3> TargetDetected;
+        public event Action<EnemyState> StateChangedEvent;
+
+        public Vector3 targetPos { get; private set; }
+
+        public int enemyIndex;
 
         void Start()
         {
             enemyController.DestroyEnemy += DestroyEnemy;
+            petrolState.enabled = true;
         }
 
         public void SetEnemyController(EnemyController enemyController)
         {
             this.enemyController = enemyController;
+        }
+
+        public void StateChangedMethod(EnemyState enemyState)
+        {
+            StateChangedEvent?.Invoke(enemyState);
         }
 
         private void DestroyEnemy()
@@ -46,25 +63,15 @@ namespace Enemy
         {
             if (GameManager.Instance.currentState.gameStateType == GameStateType.Replay) return;
 
-                if (transform != null)
-                transform.LookAt(targetPos);
+            this.targetPos = targetPos;
+            petrolState.enabled = false;
+            StateChangedEvent?.Invoke(EnemyState.chase);
         }
 
-        void Update()
+        void OnTriggerEnter(Collider other)
         {
-            DetectTarget();
-        }
-
-        void DetectTarget()
-        {
-            var hitCollider = Physics.OverlapSphere(transform.position, radius);
-            for (int i = 0; i < hitCollider.Length; i++)
-            {
-                if(hitCollider[i].GetComponent<Player.PlayerView>() != null)
-                {
-                    TargetDetected?.Invoke(hitCollider[i].transform.position);
-                }
-            }
+            if (other.GetComponent<PlayerView>() != null)
+                TargetDetected?.Invoke(other.transform.position);
         }
 
         public int DamageValue()
@@ -77,10 +84,13 @@ namespace Enemy
             enemyController.TakeDamage(damage);
         }
 
-
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
+            UnityEditor.Handles.color = Color.green;
+            UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.up, 15);
+
+            UnityEditor.Handles.color = Color.red;
             UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.up, radius);
         }
 #endif

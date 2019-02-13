@@ -5,14 +5,19 @@ using System;
 
 namespace Enemy
 {
+    public enum EnemyState { petrol, chase, coolDown }
+
     public class EnemyController
     {
         public EnemyView enemyView { get; private set; }
         public EnemyModel enemyModel { get; private set; }
 
         public event Action DestroyEnemy;
+        private EnemyState enemyState = EnemyState.petrol;
 
-        public EnemyController(ScriptableObjEnemy scriptableObjEnemy, Vector3 position)
+        private EnemyState lastStateView, currentStateView;
+
+        public EnemyController(ScriptableObjEnemy scriptableObjEnemy, Vector3 position, int enemyIndex)
         {
             EnemyManager.Instance.AlertMode += GetAlerted;
             enemyModel = new EnemyModel();
@@ -23,6 +28,8 @@ namespace Enemy
             enemy.transform.position = position;
             enemyModel.CurrentHealth = enemyModel.scriptableObj.health;
             enemyView.TargetDetected += SendAlert;
+            enemyView.StateChangedEvent += ChangeState;
+            enemyView.enemyIndex = enemyIndex;
         }
 
         public void TakeDamage(int value)
@@ -34,12 +41,31 @@ namespace Enemy
             }
         }
 
+        public void ChangeState(EnemyState enemyState)
+        {
+            lastStateView = currentStateView;
+
+            currentStateView = enemyState;
+
+            if (currentStateView == EnemyState.petrol)
+                enemyView.PetrolState.enabled = true;
+            else if (currentStateView == EnemyState.chase)
+                enemyView.ChaseState.enabled = true;
+        }
+
         public void DestroyEnemyModel()
         {
             enemyView.TargetDetected -= SendAlert;
-            EnemyManager.Instance.AlertMode -= GetAlerted;
+            //EnemyManager.Instance.AlertMode -= GetAlerted;
             enemyView.DestroyEnemyView();
             enemyModel = null;
+
+        }
+
+        public void RemoveAlertMode()
+        {
+            EnemyManager.Instance.AlertMode -= GetAlerted;
+            Debug.Log("[EnemyController] AlertMode removed");
         }
 
         void GetAlerted(Vector3 position)
