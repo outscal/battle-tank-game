@@ -2,6 +2,8 @@
 using Player;
 using System.Collections.Generic;
 using BTManager;
+using Replay;
+using StateMachine;
 
 namespace Inputs
 {
@@ -22,7 +24,7 @@ namespace Inputs
 
         public void OnUpdate()
         {
-            if (GameManager.Instance.gamePaused == true) return;
+            if (GameManager.Instance.currentState.gameStateType == GameStateType.Pause) return;
 
             actions = new List<InputAction>();
 
@@ -42,7 +44,7 @@ namespace Inputs
                     actions.Add(new IdleAction());
             }
 
-            InputManager.Instance.SaveCurrentQueueData(actions);
+            ReplayManager.Instance.SaveCurrentQueueData(actions);
         }
 
         void MoveForward()

@@ -24,11 +24,14 @@ namespace BTManager
         public string nextScene { get; private set; }
         public string lastScene { get; private set; }
 
-        public bool gamePaused { get; private set; }
-        public int frameBeforePause { get; private set; }
+        //public int frameBeforePause { get; private set; }
 
         [SerializeField]
         private float mapSize = 30f;
+
+        private int gameplayFrames = 0;
+
+        public int GamePlayFrames { get { return gamesPlayed; } }
 
         public event Action GameStarted;
         public event Action GamePaused;
@@ -70,28 +73,28 @@ namespace BTManager
 
             Debug.Log("[GameManager] GamesPlayed Count " + gamesPlayed);
 
-            //nextScene = DefaultScriptableObject.mainScene.ToString();
             UpdateGameState(new GameLoadingState(defaultScriptableObject.mainScene));
         }
 
         private void Update()
         {
-            if (currentState != null && gamePaused == false)
+            if (currentState != null && currentState.gameStateType != GameStateType.Pause)
+            {
                 currentState.OnUpdate();
+                gameplayFrames++;
+            }
 
             if (Input.GetKeyDown(KeyCode.P))
             {
-                if(gamePaused == false)
+                if(currentState.gameStateType != GameStateType.Pause)
                 {
                     UpdateGameState(new GamePauseState());
-                    frameBeforePause = Time.frameCount;
+                    //frameBeforePause = Time.frameCount;
                 }
-                else if (gamePaused == true)
+                else if (currentState.gameStateType == GameStateType.Pause)
                 {
                     InterChangeState(currentState, lastState);
                 }
-
-                gamePaused = !gamePaused;
             }
         }
 
@@ -121,19 +124,21 @@ namespace BTManager
 
         void SpawnGameElements()
         {
-            if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Game)
+            if (currentState.gameStateType == GameStateType.Game)
             {
                 gamesPlayed++;
                 GamesPlayedAdd?.Invoke(gamesPlayed);
             }
 
+            gameplayFrames = 0;
+
             for (int i = 0; i < 5; i++)
             {
-                if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Game)
+                if (currentState.gameStateType == GameStateType.Game)
                 {
                     Enemy.EnemyManager.Instance.SpawnEnemy(RandomPos());
                 }
-                else if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Replay)
+                else if (currentState.gameStateType == GameStateType.Replay)
                 {
                     Vector3 randomPos = Enemy.EnemyManager.Instance.EnemiesPosition[i];
                     Enemy.EnemyManager.Instance.SpawnEnemy(randomPos);

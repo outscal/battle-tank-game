@@ -40,7 +40,7 @@ namespace Player
 
         void Update()
         {
-            if (GameManager.Instance.gamePaused == true) return;
+            if (GameManager.Instance.currentState.gameStateType == GameStateType.Pause) return;
             foreach (CharacterState state in playerController.playerStates.Keys)
             {
                 bool isActive;
