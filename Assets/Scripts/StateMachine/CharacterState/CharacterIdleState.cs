@@ -7,12 +7,12 @@ namespace StateMachine
     {
         public override void OnStateEnter()
         {
-            Debug.Log("[CharacterIdleState] IdleState: OnStart");   
+            //Debug.Log("[CharacterIdleState] IdleState: OnStart");   
         }
 
         public override void OnStateExit()
         {
-            Debug.Log("[CharacterIdleState] IdleState: OnExit");
+            //Debug.Log("[CharacterIdleState] IdleState: OnExit");
         }
 
         public override void OnUpdate()

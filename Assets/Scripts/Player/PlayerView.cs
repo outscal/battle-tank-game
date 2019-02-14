@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Bullet;
-using UI;
 using Interfaces;
 using StateMachine;
-using BTManager;
+using Manager;
 
 namespace Player
 {

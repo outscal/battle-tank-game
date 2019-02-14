@@ -4,21 +4,25 @@ using UnityEngine;
 using Player;
 using Interfaces;
 using System;
-using BTManager;
+using Manager;
 using StateMachine;
+using UnityEngine.AI;
 
 namespace Enemy
 {
+    [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(Rigidbody))]
     public class EnemyView : MonoBehaviour, ITakeDamage
     {
         private EnemyController enemyController;
 
-        [SerializeField] private ChaseState chaseState;
-        [SerializeField] private PetrolState petrolState;
+        [SerializeField] private NavMeshAgent agent;
+        [SerializeField] private ChaseView chaseState;
+        [SerializeField] private PetrolView petrolState;
 
-        public ChaseState ChaseState { get { return chaseState; } }
-        public PetrolState PetrolState { get { return petrolState; } }
+        public NavMeshAgent Agent{ get { return agent; }}
+        public ChaseView ChaseState { get { return chaseState; } }
+        public PetrolView PetrolState { get { return petrolState; } }
 
         [SerializeField]
         private float radius;
@@ -32,8 +36,13 @@ namespace Enemy
 
         void Start()
         {
+            agent.speed = enemyController.enemyModel.scriptableObj.moveSpeed;
             enemyController.DestroyEnemy += DestroyEnemy;
-            petrolState.enabled = true;
+        }
+
+        public EnemyController GetEnemyController()
+        {
+            return enemyController;
         }
 
         public void SetEnemyController(EnemyController enemyController)
@@ -63,8 +72,9 @@ namespace Enemy
         {
             if (GameManager.Instance.currentState.gameStateType == GameStateType.Replay) return;
 
-            this.targetPos = targetPos;
             petrolState.enabled = false;
+            SetEnemyData(targetPos);
+            agent.destination = targetPos;
             StateChangedEvent?.Invoke(EnemyState.chase);
         }
 
@@ -82,6 +92,15 @@ namespace Enemy
         public void TakeDamage(int damage)
         {
             enemyController.TakeDamage(damage);
+        }
+
+        public void SetEnemyData(Vector3 positions)
+        {
+            EnemyData enemyData = new EnemyData();
+            enemyData.wayPoints = new List<Vector3>();
+            enemyData = EnemyManager.Instance.EnemyDatas[enemyIndex];
+            enemyData.wayPoints.Add(positions);
+            EnemyManager.Instance.EnemyDatas[enemyIndex] = enemyData;
         }
 
 #if UNITY_EDITOR

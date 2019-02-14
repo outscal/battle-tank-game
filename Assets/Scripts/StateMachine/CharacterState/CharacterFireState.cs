@@ -20,12 +20,12 @@ namespace StateMachine
 
         public override void OnStateEnter()
         {
-            Debug.Log("[CharacterFireState] FireState: OnStart");
+            //Debug.Log("[CharacterFireState] FireState: OnStart");
         }
 
         public override void OnStateExit()
         {
-            Debug.Log("[CharacterFireState] FireState: OnExit");
+            //Debug.Log("[CharacterFireState] FireState: OnExit");
         }
 
         public override void OnUpdate()

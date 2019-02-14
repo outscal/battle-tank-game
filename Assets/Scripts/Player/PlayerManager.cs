@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Common;
-using BTManager;
+using Manager;
 using System;
 using Reward;
 

@@ -1,17 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using BTManager;
+using Manager;
 
 namespace Enemy
 {
-    public class PetrolState : EnemyBaseStateView
+    public class PetrolView : EnemyBaseStateView
     {
         [SerializeField] private EnemyView enemyView;
 
         private List<Vector3> wayPointList;
 
         private int currentWayPointIndex;
+
+        private Vector3 currentTargetPos;
 
         [SerializeField]
         private float moveLimit;
@@ -22,6 +24,7 @@ namespace Enemy
         {
             base.OnEnable();
 
+            enemyView.ChaseState.enabled = false;
 
             Debug.Log(this.name + " is in PetrolState");
             wayPointList = new List<Vector3>();
@@ -37,8 +40,11 @@ namespace Enemy
             }
             else if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Replay)
             {
-                currentWayPointIndex = EnemyManager.Instance.EnemyDatas[enemyView.enemyIndex].wayPoints[replayIndexCOunt];
+                enemyView.Agent.destination = enemyView.GetEnemyController().EnemyData.wayPoints[replayIndexCOunt];
+                currentTargetPos = enemyView.GetEnemyController().EnemyData.wayPoints[replayIndexCOunt];
                 replayIndexCOunt++;
+                if (replayIndexCOunt > enemyView.GetEnemyController().EnemyData.wayPoints.Count)
+                    replayIndexCOunt = 0;
             }
         }
 
@@ -55,13 +61,11 @@ namespace Enemy
                 r = Random.Range(0, wayPointList.Count);
             }
             currentWayPointIndex = r;
+            enemyView.Agent.destination = wayPointList[currentWayPointIndex];
+            currentTargetPos = wayPointList[currentWayPointIndex];;
             if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Game)
             {
-                EnemyData enemyData = new EnemyData();
-                enemyData.wayPoints = new List<int>();
-                enemyData = EnemyManager.Instance.EnemyDatas[enemyView.enemyIndex];
-                enemyData.wayPoints.Add(r);
-                EnemyManager.Instance.EnemyDatas[enemyView.enemyIndex] = enemyData;
+                enemyView.SetEnemyData(wayPointList[currentWayPointIndex]);
             }
         }
 
@@ -72,23 +76,25 @@ namespace Enemy
 
             if (wayPointList.Count == 0) return;
 
-            if (Vector3.Distance(wayPointList[currentWayPointIndex], transform.position) < 1f)
+            if (Vector3.Distance(currentTargetPos, transform.position) < 1f)
             {
+                Debug.Log("[PetrolView] Target Changed 1");
+
                 if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Game)
                 {
+                    Debug.Log("[PetrolView] Target Changed");
                     SelectWayPoint();
                 }
                 else if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Replay)
                 {
-                    currentWayPointIndex = EnemyManager.Instance.EnemyDatas[enemyView.enemyIndex].wayPoints[replayIndexCOunt];
+                    enemyView.Agent.destination = enemyView.GetEnemyController().EnemyData.wayPoints[replayIndexCOunt];
+                    currentTargetPos = enemyView.GetEnemyController().EnemyData.wayPoints[replayIndexCOunt];
+                    Debug.Log("[PetrolView] Target Changed:" + currentTargetPos);
                     replayIndexCOunt++;
+                    if (replayIndexCOunt > enemyView.GetEnemyController().EnemyData.wayPoints.Count)
+                        replayIndexCOunt = 0;
                 }
             }
-
-            var direction = wayPointList[currentWayPointIndex] - transform.position;
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 1f * Time.deltaTime);
-            transform.Translate(new Vector3(0, 0, Time.deltaTime * 2f));
-
         }
     }
 }

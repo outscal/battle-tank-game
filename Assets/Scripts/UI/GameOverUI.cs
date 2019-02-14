@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using BTManager;
+using Manager;
 using StateMachine;
 
 namespace UI

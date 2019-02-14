@@ -5,7 +5,8 @@ using Inputs;
 using UI;
 using StateMachine;
 using System.Collections.Generic;
-using BTManager;
+using Manager;
+using CameraScripts;
 
 namespace Player
 {
@@ -58,7 +59,8 @@ namespace Player
             playerInput.inputComponentScriptable = inputComponentScriptable;
             InputManager.Instance.AddInputComponent(playerInput);
             PlayerManager.Instance.playerSpawned += InvokeEvents;
-
+            MiniMapCamera miniMapCamera = GameObject.FindObjectOfType<MiniMapCamera>();
+            miniMapCamera.SetMiniMaptarget(tankObj);
         }
 
         public void OnUpdate(List<InputAction> action)

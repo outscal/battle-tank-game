@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using BTManager;
+using Manager;
 
 namespace Bullet
 {

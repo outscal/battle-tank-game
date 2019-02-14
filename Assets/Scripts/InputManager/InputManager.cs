@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Common;
 using UnityEngine;
-using BTManager;
+using Manager;
 using Player;
 using StateMachine;
 using UnityEngine.SceneManagement;
@@ -44,7 +44,7 @@ namespace Inputs
             {
                 if (ReplayManager.Instance.replayQueue.Count > 0)
                 {
-                    Debug.Log("[InputManager] Frame rate: " + (GameManager.Instance.GamePlayFrames) + "/" + ReplayManager.Instance.replayQueue.Peek().frameNo);
+                    //Debug.Log("[InputManager] Frame rate: " + (GameManager.Instance.GamePlayFrames) + "/" + ReplayManager.Instance.replayQueue.Peek().frameNo);
                     if (GameManager.Instance.GamePlayFrames == ReplayManager.Instance.replayQueue.Peek().frameNo)
                     {
                         QueueData currentFrameData = new QueueData();

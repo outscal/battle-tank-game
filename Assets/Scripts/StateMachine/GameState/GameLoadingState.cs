@@ -1,6 +1,6 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
-using BTManager;
+using Manager;
 using System.Collections;
 
 namespace StateMachine

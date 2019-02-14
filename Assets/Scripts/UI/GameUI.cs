@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Common;
 using UnityEngine.SceneManagement;
-using BTManager;
+using Manager;
 using System;
 using StateMachine;
 using Player;

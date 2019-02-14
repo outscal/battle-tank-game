@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Common;
 using BTScriptableObject;
-using UnityEngine.SceneManagement;
 using System;
 using StateMachine;
 using SaveLoad;
 
-namespace BTManager
+namespace Manager
 {
     public class GameManager : Singleton<GameManager>
     {
@@ -129,23 +126,7 @@ namespace BTManager
 
             gameplayFrames = 0;
 
-            //for (int i = 0; i < 1; i++)
-            //{
-            //    if (currentState.gameStateType == GameStateType.Game)
-            //    {
-            //        Enemy.EnemyManager.Instance.SpawnEnemy(RandomPos());
-            //    }
-            //    else if (currentState.gameStateType == GameStateType.Replay)
-            //    {
-            //        Vector3 randomPos = Enemy.EnemyManager.Instance.EnemiesPosition[i];
-            //        Enemy.EnemyManager.Instance.SpawnEnemy(randomPos);
-            //    }
-
-            //}
-
             Enemy.EnemyManager.Instance.SpawnEnemy();
-
-            //Player.PlayerManager.Instance.SpawnPlayer();
         }
     }
 }

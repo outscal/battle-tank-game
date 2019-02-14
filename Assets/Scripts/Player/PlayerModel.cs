@@ -16,7 +16,7 @@ namespace Player
         }
 
         public int score = 0;
-        private float speed = 3f;
+        private float speed = 10f;
 
         public float Speed
         {

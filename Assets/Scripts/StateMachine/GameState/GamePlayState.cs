@@ -45,7 +45,7 @@ namespace StateMachine
                 if (gameStarted == false)
                 {
                     gameStarted = true;
-                    BTManager.GameManager.Instance.OnGameStarted();
+                    Manager.GameManager.Instance.OnGameStarted();
                 }
             }
         }

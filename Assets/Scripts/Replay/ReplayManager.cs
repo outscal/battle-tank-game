@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Common;
 using Inputs;
-using BTManager;
+using Manager;
 
 namespace Replay
 {

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Player;
 using System.Collections.Generic;
-using BTManager;
+using Manager;
 using Replay;
 using StateMachine;
 

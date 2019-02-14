@@ -6,7 +6,7 @@ using Common;
 using System;
 using UI;
 using SaveLoad;
-using BTManager;
+using Manager;
 
 namespace AchievementM
 {
@@ -29,7 +29,7 @@ namespace AchievementM
             if (initialized == false)
             {
                 initialized = true;
-                BTManager.GameManager.Instance.GameStarted += InvokeDefaultEvents;
+                Manager.GameManager.Instance.GameStarted += InvokeDefaultEvents;
                 if (achievementScriptable != null)
                 {
                     achievementList = new List<Achievement>();
@@ -57,7 +57,7 @@ namespace AchievementM
         {
             UIManager.Instance.ScoreIncreased += ScoreIncreased;
             Enemy.EnemyManager.Instance.EnemyDestroyed += EnemyKilled;
-            BTManager.GameManager.Instance.GameStarted += GamesPlayed;
+            Manager.GameManager.Instance.GameStarted += GamesPlayed;
         }
 
         private void ScoreIncreased()
@@ -72,7 +72,7 @@ namespace AchievementM
 
         private void GamesPlayed()
         {
-            CheckForAchievement(AchievementType.gamesPlayed, BTManager.GameManager.Instance.gamesPlayed);
+            CheckForAchievement(AchievementType.gamesPlayed, Manager.GameManager.Instance.gamesPlayed);
         }
 
         void CheckForAchievement(AchievementType achievementType, int achievedVal)

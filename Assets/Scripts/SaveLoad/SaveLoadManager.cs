@@ -6,7 +6,7 @@ using AchievementM;
 using BTScriptableObject;
 using System;
 using Reward;
-using BTManager;
+using Manager;
 using Enemy;
 
 namespace SaveLoad

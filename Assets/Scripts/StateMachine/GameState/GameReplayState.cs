@@ -48,7 +48,7 @@ namespace StateMachine
                 if (replayGame == false)
                 {
                     replayGame = true;
-                    BTManager.GameManager.Instance.OnReplayGame();
+                    Manager.GameManager.Instance.OnReplayGame();
                 }
             }
         }

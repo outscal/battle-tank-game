@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Manager;
 
 namespace Enemy
 {
@@ -15,10 +16,26 @@ namespace Enemy
         public event Action DestroyEnemy;
         private EnemyState enemyState = EnemyState.petrol;
 
+        public EnemyState EnemyState { get { return enemyState; } }
+
         private EnemyState lastStateView, currentStateView;
+
+        private EnemyData enemyData;
+
+        public EnemyData EnemyData { get { return enemyData; } }
 
         public EnemyController(ScriptableObjEnemy scriptableObjEnemy, Vector3 position, int enemyIndex)
         {
+            if(GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Replay)
+            {
+                enemyData = new EnemyData();
+                enemyData = EnemyManager.Instance.EnemyDatas[enemyIndex];
+                for (int i = 0; i < enemyData.wayPoints.Count; i++)
+                {
+                    Debug.Log("[EnemyController] WayPoint" + i + " " + enemyData.wayPoints[i]);
+                }
+            }
+
             EnemyManager.Instance.AlertMode += GetAlerted;
             enemyModel = new EnemyModel();
             enemyModel.scriptableObj = scriptableObjEnemy;
@@ -30,6 +47,7 @@ namespace Enemy
             enemyView.TargetDetected += SendAlert;
             enemyView.StateChangedEvent += ChangeState;
             enemyView.enemyIndex = enemyIndex;
+            ChangeState(EnemyState.petrol);
         }
 
         public void TakeDamage(int value)
@@ -56,10 +74,8 @@ namespace Enemy
         public void DestroyEnemyModel()
         {
             enemyView.TargetDetected -= SendAlert;
-            //EnemyManager.Instance.AlertMode -= GetAlerted;
             enemyView.DestroyEnemyView();
             enemyModel = null;
-
         }
 
         public void RemoveAlertMode()

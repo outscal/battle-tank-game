@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Common;
-using BTManager;
+using Manager;
 using System;
 using SaveLoad;
 using UnityEngine.SceneManagement;
@@ -17,7 +17,7 @@ namespace Enemy
     {
         public Vector3 enemySpawnPos;
         public int enemyType;
-        public List<int> wayPoints;
+        public List<Vector3> wayPoints;
     }
 
     public class EnemyManager : Singleton<EnemyManager>
@@ -123,7 +123,7 @@ namespace Enemy
                     EnemyData enemyData = new EnemyData();
                     enemyData.enemySpawnPos = position;
                     enemyData.enemyType = r;
-                    enemyData.wayPoints = new List<int>();
+                    enemyData.wayPoints = new List<Vector3>();
 
                     enemiesData.Add(enemyData);
 

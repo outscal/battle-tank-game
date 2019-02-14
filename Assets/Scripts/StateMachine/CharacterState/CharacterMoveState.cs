@@ -21,12 +21,12 @@ namespace StateMachine
 
         public override void OnStateEnter()
         {
-            Debug.Log("[CharacterMoveState] MoveState: OnStart");
+            //Debug.Log("[CharacterMoveState] MoveState: OnStart");
         }
 
         public override void OnStateExit()
         {
-            Debug.Log("[CharacterMoveState] MoveState: OnExit");
+            //Debug.Log("[CharacterMoveState] MoveState: OnExit");
         }
 
         public override void OnUpdate()

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using BTManager;
+using Manager;
 
 namespace Enemy
 {
-    public class ChaseState : EnemyBaseStateView
+    public class ChaseView : EnemyBaseStateView
     {
 
         [SerializeField] private EnemyView enemyView;
@@ -15,12 +15,13 @@ namespace Enemy
 
         protected override void OnEnable()
         {
-            //Debug.Log(this.name + " is in ChaseState");
+            base.OnEnable();
+
+            enemyView.PetrolState.enabled = false;
             transform.LookAt(enemyView.targetPos);
 
             if (Vector3.Distance(enemyView.targetPos,transform.position) > 15f)
             {
-                //StateUpdate?.Invoke(EnemyState.petrol);
                 enemyView.StateChangedMethod(EnemyState.petrol);
                 this.enabled = false;
             }
@@ -33,14 +34,8 @@ namespace Enemy
 
             if (Vector3.Distance(enemyView.targetPos, transform.position) <= 0.1f)
             {
-                //Debug.Log("Go to Petrol Mode");
                 enemyView.StateChangedMethod(EnemyState.petrol);
-                //StateUpdate?.Invoke(EnemyState.petrol);
                 this.enabled = false;
-            }
-            else
-            {
-                transform.Translate(0, 0, 2f * Time.deltaTime);
             }
         }
     }
