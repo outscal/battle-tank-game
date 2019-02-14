@@ -7,9 +7,9 @@ namespace Inputs
 {
     public class DeathAction : InputAction
     {
-        public override void Execute()
+        public override void Execute(int shooterID)
         {
-            PlayerManager.Instance.playerController.setIdleState(0, 0);
+            PlayerManager.Instance.playerControllerList[shooterID].setIdleState(0, 0);
         }
     }
 }

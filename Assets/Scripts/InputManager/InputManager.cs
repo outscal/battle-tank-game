@@ -34,6 +34,7 @@ namespace Inputs
 
                     if (ReplayManager.Instance.savedQueueData.Count > 0)
                     {
+                        Debug.Log("[InputManager] PlayerID:" + inputComponent.playerController.playerID);
                         QueueData currentFrameData = new QueueData();
                         currentFrameData = ReplayManager.Instance.savedQueueData.Dequeue();
                         inputComponent.playerController.OnUpdate(currentFrameData.action);
@@ -42,14 +43,18 @@ namespace Inputs
             }
             else if (GameManager.Instance.currentState.gameStateType == GameStateType.Replay)
             {
-                if (ReplayManager.Instance.replayQueue.Count > 0)
+                foreach (InputComponent inputComponent in inputComponentList)
                 {
-                    //Debug.Log("[InputManager] Frame rate: " + (GameManager.Instance.GamePlayFrames) + "/" + ReplayManager.Instance.replayQueue.Peek().frameNo);
-                    if (GameManager.Instance.GamePlayFrames == ReplayManager.Instance.replayQueue.Peek().frameNo)
+                    if (ReplayManager.Instance.replayQueue.Count > 0)
                     {
-                        QueueData currentFrameData = new QueueData();
-                        currentFrameData = ReplayManager.Instance.replayQueue.Dequeue();
-                        PlayerManager.Instance.playerController.OnUpdate(currentFrameData.action);
+                        //Debug.Log("[InputManager] Frame rate: " + (GameManager.Instance.GamePlayFrames) + "/" + ReplayManager.Instance.replayQueue.Peek().frameNo);
+                        if (GameManager.Instance.GamePlayFrames == ReplayManager.Instance.replayQueue.Peek().frameNo)
+                        {
+                            QueueData currentFrameData = new QueueData();
+                            currentFrameData = ReplayManager.Instance.replayQueue.Dequeue();
+                            if (currentFrameData.playerID == PlayerManager.Instance.playerControllerList[inputComponent.playerController.playerID].playerID)
+                                PlayerManager.Instance.playerControllerList[inputComponent.playerController.playerID].OnUpdate(currentFrameData.action);
+                        }
                     }
                 }
 
@@ -65,6 +70,7 @@ namespace Inputs
         public  void AddInputComponent(InputComponent inputComponent)
         {
             inputComponentList.Add(inputComponent);
+            Debug.Log("[InputManager] InputAdded");
         }
 
         public void RemoveInputComponent(InputComponent inputComponent)

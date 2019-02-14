@@ -13,7 +13,7 @@ namespace UI
 
         public int hiScore { get; private set; }
 
-        public event Action ScoreIncreased;
+        public event Action<int> ScoreIncreased;
 
         public void SetHiScore(int value)
         {
@@ -29,9 +29,9 @@ namespace UI
                 hiScore = 0;
         }
 
-        public void InvokeScoreIncreasedAction()
+        public void InvokeScoreIncreasedAction(int playerID)
         {
-            ScoreIncreased?.Invoke();
+            ScoreIncreased?.Invoke(playerID);
         }
     }
 }

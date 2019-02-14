@@ -78,19 +78,19 @@ namespace UI
             }
         }
 
-        void GetPlayerEvents()
+        void GetPlayerEvents(int playerID)
         {
-            if (PlayerManager.Instance.playerController == null)
+            if (PlayerManager.Instance.playerControllerList == null)
                 Debug.Log("[GameUI] PlayerController is missing");
-            else if (PlayerManager.Instance.playerController != null)
+            else if (PlayerManager.Instance.playerControllerList != null)
                 Debug.Log("[GameUI] PlayerController is present");
 
-            PlayerManager.Instance.playerController.scoreUpdate += UpdatePlayerScore;
-            PlayerManager.Instance.playerController.healthUpdate += UpdatePlayerHealth;
+            PlayerManager.Instance.playerControllerList[playerID].scoreUpdate += UpdatePlayerScore;
+            PlayerManager.Instance.playerControllerList[playerID].healthUpdate += UpdatePlayerHealth;
             Debug.Log("[GameUI] Player Events Called");
         }
 
-        void UpdatePlayerScore(int value)
+        void UpdatePlayerScore(int value, int playerID)
         {
             UIManager.Instance.playerScore = value;
             playerScoreText.text = "Player Score:" + UIManager.Instance.playerScore;
@@ -98,20 +98,26 @@ namespace UI
                 UIManager.Instance.SetHiScore(UIManager.Instance.playerScore);
 
             //ScoreIncreased?.Invoke();
-            UIManager.Instance.InvokeScoreIncreasedAction();
+            UIManager.Instance.InvokeScoreIncreasedAction(playerID);
             Debug.Log("[GameUI] Score Updated");
         }
 
-        void UpdatePlayerHealth(int value)
+        void UpdatePlayerHealth(int value, int playerID)
         {
             playerHealthText.text = "Player Health:" + value;
             Debug.Log("[GameUI] Health Updated");
         }
 
+        public void PlayerDestroyed(int playerID)
+        {
+            PlayerManager.Instance.playerControllerList[playerID].scoreUpdate -= UpdatePlayerScore;
+            PlayerManager.Instance.playerControllerList[playerID].healthUpdate -= UpdatePlayerHealth;
+        }
+
         public void GameOver()
         {
-            PlayerManager.Instance.playerController.scoreUpdate -= UpdatePlayerScore;
-            PlayerManager.Instance.playerController.healthUpdate -= UpdatePlayerHealth;
+            //PlayerManager.Instance.playerControllerList[playerID].scoreUpdate -= UpdatePlayerScore;
+            //PlayerManager.Instance.playerControllerList[playerID].healthUpdate -= UpdatePlayerHealth;
 
             StartCoroutine(GameOverCoroutine());
         }

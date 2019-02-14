@@ -44,7 +44,7 @@ namespace Inputs
                     actions.Add(new IdleAction());
             }
 
-            ReplayManager.Instance.SaveCurrentQueueData(actions);
+            ReplayManager.Instance.SaveCurrentQueueData(actions, playerController.playerID);
         }
 
         void MoveForward()

@@ -45,12 +45,13 @@ namespace Replay
             savedQueueData = new Queue<QueueData>();
         }
 
-        public void SaveCurrentQueueData(List<InputAction> inputActions)
+        public void SaveCurrentQueueData(List<InputAction> inputActions, int playerID)
         {
             QueueData queueData = new QueueData();
             queueData.frameNo = GameManager.Instance.GamePlayFrames;
             queueData.action = new List<InputAction>();
             queueData.action = inputActions;
+            queueData.playerID = playerID;
 
             replayQueue.Enqueue(queueData);
             savedQueueData.Enqueue(queueData);

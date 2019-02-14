@@ -69,7 +69,7 @@ namespace Player
             UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.up, PlayerManager.Instance.safeRadius);
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(int damage, int shooterID)
         {
             Debug.Log("Dont shoot friends");
         }

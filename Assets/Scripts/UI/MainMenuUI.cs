@@ -28,8 +28,8 @@ namespace UI
             hiScoreText.text = "HiScore: " + UIManager.Instance.hiScore;
             playButton.onClick.AddListener(() => PlayBtn());
 
-            AchievementM.AchievementManager.Instance.AchievmentInitialize();
-            RewardManager.Instance.PopulateRewardButtons(unlockScroll);
+            AchievementM.AchievementManager.Instance.AchievmentInitialize(0);
+            RewardManager.Instance.PopulateRewardButtons(unlockScroll, 0);
         }
 
         private void PlayBtn()

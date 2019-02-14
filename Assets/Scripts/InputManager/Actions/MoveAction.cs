@@ -15,9 +15,9 @@ namespace Inputs
             verticalVal = vVal;
         }
 
-        public override void Execute()
+        public override void Execute(int shooterID)
         {
-            PlayerManager.Instance.playerController.setMoveState(horizontalVal, verticalVal);
+            PlayerManager.Instance.playerControllerList[shooterID].setMoveState(horizontalVal, verticalVal);
         }
     }
 }

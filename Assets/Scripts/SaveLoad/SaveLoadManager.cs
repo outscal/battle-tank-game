@@ -65,44 +65,46 @@ namespace SaveLoad
             return saveLoadController.GetInt("EnemiesKilled");
         }
 
-        void SaveAchievement(int achievementIndex)
+        void SaveAchievement(int achievementIndex, int playerID)
         {
-            string dataString = "Achievement_" + achievementIndex.ToString();
+            string dataString = "Achievement_" + playerID + "_" + achievementIndex.ToString();
             saveLoadController.SetBool(dataString, true);
 
-            Debug.Log("Achievement_" + achievementIndex.ToString() + " achievement Unlocked");
+            Debug.Log("Achievement_" + playerID + "_" + achievementIndex.ToString() + " achievement Unlocked");
         }
 
-        void LoadAchievement(int achievementIndex)
+        void LoadAchievement(int achievementIndex, int playerID)
         {
-            string dataString = "Achievement_" + achievementIndex.ToString();
+            string dataString = "Achievement_" + playerID + "_" + achievementIndex.ToString();
 
             bool unlocked = saveLoadController.GetBool(dataString);
 
-            if(unlocked)
+            if (unlocked)
             {
-                Debug.Log("Achievement_" + achievementIndex.ToString() + " already Unlocked");
+                Debug.Log("Achievement_" + playerID + "_" + achievementIndex.ToString() + " already Unlocked");
             }
             else
-                SaveAchievement(achievementIndex);
+                SaveAchievement(achievementIndex, playerID);
         }
 
-        public bool GetAchievementProgress(string dataString, int achievementIndex)
+        public bool GetAchievementProgress(int achievementIndex, int playerID)
         {
             bool unlocked = false;
-
+            string dataString = "Achievement_" + playerID + "_" + achievementIndex.ToString();
             unlocked = saveLoadController.GetBool(dataString);
 
             return unlocked;
         }
 
-        void SaveReward(string stringData, bool value)
+        void SaveReward(int rewardIndex, int playerID)
         {
-            saveLoadController.SetBool(stringData, value);
+            string dataString = "Reward_" + playerID + "_" + rewardIndex.ToString();
+            saveLoadController.SetBool(dataString, true);
         }
-        public bool GetRewardProgress(string dataString, int rewardIndex)
+        public bool GetRewardProgress(int rewardIndex, int playerID)
         {
             bool unlocked = false;
+            string dataString = "Reward_" + playerID + "_" + rewardIndex.ToString();
             return saveLoadController.GetBool(dataString);
         }
 

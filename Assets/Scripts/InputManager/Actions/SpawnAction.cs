@@ -14,10 +14,10 @@ namespace Inputs
             this.spawnPos = spawnPos;
         }
 
-        public override void Execute()
+        public override void Execute(int shooterID)
         {
-            PlayerManager.Instance.playerController.setIdleState(0, 0);
-            PlayerManager.Instance.playerController.setSpawnPos(spawnPos);
+            PlayerManager.Instance.playerControllerList[shooterID].setIdleState(0, 0);
+            PlayerManager.Instance.playerControllerList[shooterID].setSpawnPos(spawnPos);
             Debug.Log("[SpawnAction] Position:" + spawnPos);
         }
     }

@@ -6,6 +6,6 @@ namespace Inputs
 {
     public abstract class InputAction
     {
-        public abstract void Execute();
+        public abstract void Execute(int shooterID);
     }
 }

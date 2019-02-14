@@ -5,6 +5,7 @@ using Common;
 using Manager;
 using System;
 using Reward;
+using StateMachine;
 
 namespace Player
 {
@@ -19,12 +20,15 @@ namespace Player
     {
         public InputComponentScriptableList inputComponentScriptableList;
 
-        public PlayerController playerController { get; private set; }
+        public List<PlayerController> playerControllerList { get; private set; }
+
+        [SerializeField]
+        private int totalPlayers = 1;
 
         private GameObject playerPrefab;
 
-        public event Action playerSpawned;
-        public event Action playerDestroyed;
+        public event Action<int> playerSpawned;
+        public event Action<int> playerDestroyed;
 
         private Vector3 playerSpawnPos;
 
@@ -36,6 +40,12 @@ namespace Player
 
         public float safeRadius = 3f;
         public Vector3 safePos { get; private set; }
+
+        protected override void Awake()
+        {
+            base.Awake();
+            playerControllerList = new List<PlayerController>();
+        }
 
         private void Start()
         {
@@ -49,26 +59,37 @@ namespace Player
                 Debug.Log("[PlayerManager] Missing InputComponentScriptableList");
             }
 
-            if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Game)
-                GetSafePosition();
-            else if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Replay)
-            safePos = playerSpawnPos;
+            for (int i = 0; i < totalPlayers; i++)
+            {
+                Debug.Log("[PlayerManager] PlayerSpawned");
+                if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Game)
+                    GetSafePosition();
+                else if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Replay)
+                    safePos = playerSpawnPos;
 
-            //GetSafePosition();
+                //GetSafePosition();
 
-            //int r = UnityEngine.Random.Range(0, inputComponentScriptableList.inputComponentScriptables.Count);
-            playerController = new PlayerController(inputComponentScriptableList.inputComponentScriptables[0],
-                                                      safePos, playerPrefab);
+                PlayerController playerController = new PlayerController(inputComponentScriptableList.inputComponentScriptables[i],
+                                                                         safePos, playerPrefab);
+                playerControllerList.Add(playerController);
 
-            playerSpawned?.Invoke();
+                playerSpawned?.Invoke(i);
+            }
    
         }
 
         public void DestroyPlayer(PlayerController _playerController)
         {
-            playerDestroyed?.Invoke();
+            playerDestroyed?.Invoke(_playerController.playerID);
             _playerController.DestroyPlayer();
+            playerControllerList.RemoveAt(_playerController.playerID);
             _playerController = null;
+
+            if(playerControllerList.Count <= 0)
+            {
+                GameManager.Instance.UpdateGameState(new GameOverState());
+            }
+
         }
 
         public void GetSafePosition()

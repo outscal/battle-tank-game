@@ -30,6 +30,8 @@ namespace Enemy
         public event Action<Vector3> TargetDetected;
         public event Action<EnemyState> StateChangedEvent;
 
+        public int shooterID { get; private set; }
+
         public Vector3 targetPos { get; private set; }
 
         public int enemyIndex;
@@ -57,7 +59,7 @@ namespace Enemy
 
         private void DestroyEnemy()
         {
-            Player.PlayerManager.Instance.playerController.setPlayerScore(enemyController.getScoreIncreaser());
+            Player.PlayerManager.Instance.playerControllerList[shooterID].setPlayerScore(enemyController.getScoreIncreaser());
             EnemyManager.Instance.DestroyEnemy(enemyController);
             enemyController.DestroyEnemy -= DestroyEnemy;
             Destroy(gameObject);
@@ -89,11 +91,6 @@ namespace Enemy
             return enemyController.enemyModel.scriptableObj.damage;
         }
 
-        public void TakeDamage(int damage)
-        {
-            enemyController.TakeDamage(damage);
-        }
-
         public void SetEnemyData(Vector3 positions)
         {
             EnemyData enemyData = new EnemyData();
@@ -111,6 +108,12 @@ namespace Enemy
 
             UnityEditor.Handles.color = Color.red;
             UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.up, radius);
+        }
+
+        public void TakeDamage(int damage, int shooterID)
+        {
+            enemyController.TakeDamage(damage);
+            this.shooterID = shooterID;
         }
 #endif
 

@@ -16,8 +16,8 @@ namespace Player
         public PlayerView playerView { get; private set; }
         public InputComponent playerInput { get; private set; }
 
-        public event Action<int> scoreUpdate;
-        public event Action<int> healthUpdate;
+        public event Action<int, int> scoreUpdate;
+        public event Action<int, int> healthUpdate;
 
         public CharacterState currentState { get; private set; }
         public CharacterIdleState characterIdleState { get; private set; }
@@ -25,6 +25,7 @@ namespace Player
         public CharacterFireState characterFireState { get; private set; }
         public CharacterTakeDamageState characterTakeDamageState { get; private set; }
 
+        public int playerID { get; private set; }
         public bool isDead { get; private set; }
         private int deathCount = 0;
         private float deathTime = 0;
@@ -73,7 +74,7 @@ namespace Player
                 {
                     for (int i = 0; i < action.Count; i++)
                     {
-                        action[i].Execute();
+                        action[i].Execute(playerID);
                     }
                 }
             }
@@ -83,17 +84,18 @@ namespace Player
             }
         }
 
-        private void InvokeEvents()
+        private void InvokeEvents(int playerID)
         {
-            healthUpdate?.Invoke(playerModel.Health);
-            scoreUpdate?.Invoke(playerModel.score);
+            this.playerID = playerID;
+            healthUpdate?.Invoke(playerModel.Health, playerID);
+            scoreUpdate?.Invoke(playerModel.score, playerID);
         }
 
         public void DestroyPlayer()
         {
             PlayerManager.Instance.playerSpawned -= InvokeEvents;
             //GameUI.InstanceClass.Respawn(playerInput);
-            GameManager.Instance.UpdateGameState(new GameOverState());
+            //GameManager.Instance.UpdateGameState(new GameOverState());
 
             playerModel = null;
         }
@@ -109,7 +111,7 @@ namespace Player
                 //actions.Add(new SpawnAction(PlayerManager.Instance.safePos));
                 //playerView.transform.position = PlayerManager.Instance.safePos;
                 playerModel.Health = 5;
-                healthUpdate?.Invoke(playerModel.Health);
+                healthUpdate?.Invoke(playerModel.Health, playerID);
                 setPlayerHealth(playerModel.Health);
             }
         }
@@ -117,7 +119,7 @@ namespace Player
         public void TakeDamage(int value)
         {
             playerModel.Health -= value;
-            healthUpdate?.Invoke(playerModel.Health);
+            healthUpdate?.Invoke(playerModel.Health, playerID);
             setPlayerHealth(playerModel.Health);
 
             if (playerModel.Health <= 0)
@@ -140,7 +142,7 @@ namespace Player
         public void setPlayerScore(int value)
         {
             playerModel.score += value;
-            scoreUpdate?.Invoke(playerModel.score);
+            scoreUpdate?.Invoke(playerModel.score, playerID);
         }
 
         void setPlayerHealth(int value)

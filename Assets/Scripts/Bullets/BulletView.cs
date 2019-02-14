@@ -15,6 +15,7 @@ namespace Bullet
         private float currentTime, destroyTime;
 
         private bool paused = false;
+        public int shooterID;
 
         private void Awake()
         {
@@ -31,7 +32,7 @@ namespace Bullet
         {
             if (collision.gameObject.GetComponent<Interfaces.ITakeDamage>() != null)
             {
-                collision.gameObject.GetComponent<Interfaces.ITakeDamage>().TakeDamage(bulletController.bulletModel.Damage);
+                collision.gameObject.GetComponent<Interfaces.ITakeDamage>().TakeDamage(bulletController.bulletModel.Damage, shooterID);
             }
 
             if (collision.gameObject.GetComponent<Bullet.BulletView>() == null)

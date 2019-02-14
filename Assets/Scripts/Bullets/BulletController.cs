@@ -22,6 +22,7 @@ namespace Bullet
             GameObject prefab = Resources.Load<GameObject>(BulletName());
             bulletRef = GameObject.Instantiate<GameObject>(prefab);
             bulletView = getBulletView();
+            bulletView.shooterID = playerController.playerID;
             bulletView.bulletController = this;
         }
 

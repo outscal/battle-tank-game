@@ -14,7 +14,7 @@ namespace Reward
     public class RewardManager : Singleton<RewardManager>
     {
         public event Action<GameObject> RewardButtonClicked;
-        public event Action<string, bool> RewardUnlocked;
+        public event Action<int, int> RewardUnlocked;
 
         [SerializeField]
         private GameObject buttonPrefab;
@@ -32,7 +32,7 @@ namespace Reward
         RectTransform unlockScroll;
         bool initialized = false;
 
-        void RewardInitialization()
+        void RewardInitialization(int playerID)
         {
             if (initialized == false)
             {
@@ -46,8 +46,7 @@ namespace Reward
                     {
                         RewardInfo rewardInfo = new RewardInfo();
                         rewardInfo = rewardScriptableObject.rewardsList[i];
-                        string dataString = "Reward_" + i;
-                        bool unlocked = SaveLoadManager.Instance.GetRewardProgress(dataString, i);
+                        bool unlocked = SaveLoadManager.Instance.GetRewardProgress(i, playerID);
                         if (unlocked == true)
                             rewardInfo.rewardStatus = RewardStatus.Unlocked;
                         rewardList.Add(rewardInfo);
@@ -56,23 +55,22 @@ namespace Reward
             }
         }
 
-        void UnlockedReward(int rewardIndex)
+        void UnlockedReward(int rewardIndex, int playerID)
         {
-            if(rewardList.Count >= rewardIndex)
+            if (rewardList.Count >= rewardIndex)
             {
                 RewardInfo rewardInfo = new RewardInfo();
                 rewardInfo = rewardList[rewardIndex];
                 rewardInfo.rewardStatus = RewardStatus.Unlocked;
                 rewardList[rewardIndex] = rewardInfo;
-                string dataString = "Reward_" + rewardIndex;
-                RewardUnlocked?.Invoke(dataString, true);
+                RewardUnlocked?.Invoke(rewardIndex, playerID);
             }
         }
 
         // Use this for initialization
-        public void PopulateRewardButtons(RectTransform unlockScroll)
+        public void PopulateRewardButtons(RectTransform unlockScroll,int playerID)
         {
-            RewardInitialization();
+            RewardInitialization(playerID);
 
             this.unlockScroll = unlockScroll;
             rewardButtons = new List<RewardButton>();

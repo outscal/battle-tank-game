@@ -6,6 +6,6 @@ namespace Interfaces
 {
     public interface ITakeDamage
     {
-        void TakeDamage(int damage);
+        void TakeDamage(int damage, int shooterID);
     }
 }

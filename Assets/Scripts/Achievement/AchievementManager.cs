@@ -19,12 +19,12 @@ namespace AchievementM
 
         public List<Achievement> AchievementList { get { return achievementList; }}
 
-        public event Action<int> AchievementCheck;
+        public event Action<int, int> AchievementCheck;
         public event Action<string> AchievementUnlocked;
 
         bool initialized = false;
 
-        public void AchievmentInitialize()
+        public void AchievmentInitialize(int playerID)
         {
             if (initialized == false)
             {
@@ -38,8 +38,7 @@ namespace AchievementM
                     {
                         Achievement achievement = new Achievement();
                         achievement = achievementScriptable.achievementList[i];
-                        string dataString = "Achievement_" + i;
-                        bool unlocked = SaveLoadManager.Instance.GetAchievementProgress(dataString, i);
+                        bool unlocked = SaveLoadManager.Instance.GetAchievementProgress(i, playerID);
                         if (unlocked == true)
                             achievement.achievementInfo.achievementStatus = AchievementStatus.Unlocked;
 
@@ -60,22 +59,22 @@ namespace AchievementM
             Manager.GameManager.Instance.GameStarted += GamesPlayed;
         }
 
-        private void ScoreIncreased()
+        private void ScoreIncreased(int playerID)
         {
-            CheckForAchievement(AchievementType.hiScore, UIManager.Instance.playerScore);
+            CheckForAchievement(AchievementType.hiScore, UIManager.Instance.playerScore, playerID);
         }
 
-        private void EnemyKilled()
+        private void EnemyKilled(int playerID)
         {
-            CheckForAchievement(AchievementType.enemyKilled, Enemy.EnemyManager.Instance.enemiesKilled);
+            CheckForAchievement(AchievementType.enemyKilled, Enemy.EnemyManager.Instance.enemiesKilled, playerID);
         }
 
         private void GamesPlayed()
         {
-            CheckForAchievement(AchievementType.gamesPlayed, Manager.GameManager.Instance.gamesPlayed);
+            CheckForAchievement(AchievementType.gamesPlayed, Manager.GameManager.Instance.gamesPlayed, 0);
         }
 
-        void CheckForAchievement(AchievementType achievementType, int achievedVal)
+        void CheckForAchievement(AchievementType achievementType, int achievedVal, int playerID)
         {
             for (int i = 0; i < achievementList.Count; i++)
             {
@@ -92,7 +91,7 @@ namespace AchievementM
 
                         achievementList[i] = achievement;
                         AchievementUnlocked?.Invoke(value);
-                        AchievementCheck?.Invoke(i);
+                        AchievementCheck?.Invoke(i, playerID);
                     }
                 }
             }

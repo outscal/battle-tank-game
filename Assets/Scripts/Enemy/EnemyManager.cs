@@ -49,7 +49,7 @@ namespace Enemy
 
         public List<EnemyController> EnemyList{ get { return enemyList; }}
 
-        public event Action EnemyDestroyed;
+        public event Action<int> EnemyDestroyed;
 
         private void OnEnable()
         {
@@ -150,7 +150,7 @@ namespace Enemy
         public void DestroyEnemy(EnemyController _enemyController)
         {
             enemiesKilled++;
-            EnemyDestroyed?.Invoke();
+            EnemyDestroyed?.Invoke(_enemyController.enemyView.shooterID);
             EnemiesKillCount?.Invoke(enemiesKilled);
             enemyList.Remove(_enemyController);
             _enemyController.RemoveAlertMode();
