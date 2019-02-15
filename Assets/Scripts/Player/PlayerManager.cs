@@ -6,6 +6,7 @@ using Manager;
 using System;
 using Reward;
 using StateMachine;
+using UI;
 
 namespace Player
 {
@@ -24,6 +25,8 @@ namespace Player
 
         [SerializeField]
         private int totalPlayers = 1;
+
+        public int TotalPlayer { get { return totalPlayers; } }
 
         private GameObject playerPrefab;
 
@@ -78,12 +81,12 @@ namespace Player
                 //GetSafePosition();
 
                 PlayerController playerController = new PlayerController(inputComponentScriptableList.inputComponentScriptables[i],
-                                                                         safePos, playerPrefab);
+                                                                         safePos, playerPrefab, i);
                 playerControllerList.Add(playerController);
 
                 playerSpawned?.Invoke(i);
             }
-   
+
         }
 
         public void DestroyPlayer(PlayerController _playerController)

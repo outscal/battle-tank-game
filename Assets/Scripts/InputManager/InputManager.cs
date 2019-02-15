@@ -56,24 +56,21 @@ namespace Inputs
                     if (ReplayManager.Instance.replayQueue.Count > 0)
                     {
                         //Debug.Log("[InputManager] Frame rate: " + (GameManager.Instance.GamePlayFrames) + "/" + ReplayManager.Instance.replayQueue.Peek().frameNo);
-                        if (GameManager.Instance.GamePlayFrames == ReplayManager.Instance.replayQueue.Peek().frameNo)
+                        if (ReplayManager.Instance.replayQueue.Peek().frameNo == GameManager.Instance.GamePlayFrames)
                         {
                             QueueData currentFrameData;// = new QueueData();
                             currentFrameData = ReplayManager.Instance.replayQueue.Dequeue();
 
                             Debug.Log("[InputManager] Data Frame:" + currentFrameData.frameNo +
                                       " Game Frame " + GameManager.Instance.GamePlayFrames);
-                            if (currentFrameData.frameNo == GameManager.Instance.GamePlayFrames)
+                            foreach (var playerData in currentFrameData.playerQueueDatas)
                             {
-                                foreach (var playerData in currentFrameData.playerQueueDatas)
-                                {
-                                    if (playerData.playerID == _playerController.playerID)
-                                        _playerController.OnUpdate(playerData.action);
-                                }
+                                if (playerData.playerID == _playerController.playerID)
+                                    _playerController.OnUpdate(playerData.action);
                             }
 
                             //if (currentFrameData.playerID == PlayerManager.Instance.playerControllerList[inputComponent.playerController.playerID].playerID)
-                                //PlayerManager.Instance.playerControllerList[inputComponent.playerController.playerID].OnUpdate(currentFrameData.action);
+                            //PlayerManager.Instance.playerControllerList[inputComponent.playerController.playerID].OnUpdate(currentFrameData.action);
                         }
                     }
                 }

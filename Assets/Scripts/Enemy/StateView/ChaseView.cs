@@ -30,7 +30,18 @@ namespace Enemy
         // Update is called once per frame
         void Update()
         {
-            if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Pause) return;
+            if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Pause)
+            {
+                if (enemyView.Agent.isStopped == false)
+                    enemyView.Agent.isStopped = true;
+
+                return;
+            }
+            else if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Game)
+            {
+                if (enemyView.Agent.isStopped == true)
+                    enemyView.Agent.isStopped = false;
+            }
 
             if (Vector3.Distance(enemyView.targetPos, transform.position) <= 0.1f)
             {

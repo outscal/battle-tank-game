@@ -72,11 +72,22 @@ namespace Enemy
         // Update is called once per frame
         void Update()
         {
-            if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Pause) return;
+            if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Pause)
+            {
+                if (enemyView.Agent.isStopped == false)
+                    enemyView.Agent.isStopped = true;
+
+                return;
+            }
+            else if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Game)
+            {
+                if (enemyView.Agent.isStopped == true)
+                    enemyView.Agent.isStopped = false;
+            }
 
             if (wayPointList.Count == 0) return;
 
-            if (Vector3.Distance(currentTargetPos, transform.position) < 1f)
+            if (enemyView.Agent.remainingDistance < 1f)
             {
                 Debug.Log("[PetrolView] Target Changed 1");
 

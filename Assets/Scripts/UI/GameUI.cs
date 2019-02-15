@@ -8,15 +8,25 @@ using Manager;
 using System;
 using StateMachine;
 using Player;
+using TMPro;
+using CameraScripts;
 
 namespace UI
 {
     public class GameUI : Instance<GameUI>
     {
 
-        [SerializeField] private Text playerScoreText, playerHealthText, achievementText;
-        [SerializeField] private GameObject gameMenu, replayMenu;
+        [SerializeField] private Text achievementText;
+        [SerializeField] private GameObject gameMenuHolder, replayMenu;
         [SerializeField] private Button exitReplayBtn, speedUpReplayBtn, speedDownReplayBtn;
+        [SerializeField] private PlayerUI playerUIPrefab;
+        [SerializeField] private MiniMapCamera miniMapCameraPrefab;
+
+        private List<PlayerUI> playerUIs;
+        private List<MiniMapCamera> miniMapCameras;
+        private List<Camera> playerCameras;
+
+        //[SerializeField] private Camera camera
 
         public int timeScaleMultiplier { get; private set; }
 
@@ -25,7 +35,9 @@ namespace UI
         private void OnDisable()
         {
             if (PlayerManager.Instance != null)
+            {
                 PlayerManager.Instance.playerSpawned -= GetPlayerEvents;
+            }
             if (AchievementM.AchievementManager.Instance != null)
                 AchievementM.AchievementManager.Instance.AchievementUnlocked -= DisplayAchievement;
         }
@@ -38,21 +50,42 @@ namespace UI
 
         private void Start()
         {
+            playerUIs = new List<PlayerUI>();
+            miniMapCameras = new List<MiniMapCamera>();
+            playerCameras = new List<Camera>();
+
             exitReplayBtn.onClick.AddListener(() => ExitReplay());
             speedUpReplayBtn.onClick.AddListener(() => SpeedUp());
             speedDownReplayBtn.onClick.AddListener(() => SpeedDown());
 
-            if(GameManager.Instance.currentState.gameStateType == GameStateType.Game)
+            if (GameManager.Instance.currentState.gameStateType == GameStateType.Game)
             {
-                gameMenu.SetActive(true);
+                gameMenuHolder.SetActive(true);
                 replayMenu.SetActive(false);
             }
             else if (GameManager.Instance.currentState.gameStateType == GameStateType.Replay)
             {
-                gameMenu.SetActive(false);
+                gameMenuHolder.SetActive(false);
                 replayMenu.SetActive(true);
             }
         }
+
+        public void SetUpUI(int playerCount, int playerID, PlayerView view)
+        {
+            PlayerUI playerUI = Instantiate(playerUIPrefab);
+            playerUI.gameObject.transform.SetParent(gameMenuHolder.transform);
+            playerUIs.Add(playerUI);
+
+            MiniMapCamera mapCamera = Instantiate(miniMapCameraPrefab);
+            miniMapCameras.Add(mapCamera);
+            mapCamera.SetMiniMaptarget(view.gameObject);
+
+            playerCameras.Add(view.PlayerCam);
+
+            playerCameras[playerID].rect = new Rect(0.5f * playerID, 0, 0.5f * (1 + playerID), 1);
+            Debug.Log("[GameUI] PlayerID:" + playerID);
+        }
+
 
         void ExitReplay()
         {
@@ -93,7 +126,8 @@ namespace UI
         void UpdatePlayerScore(int value, int playerID)
         {
             UIManager.Instance.playerScore = value;
-            playerScoreText.text = "Player Score:" + UIManager.Instance.playerScore;
+            playerUIs[playerID].setScore(value);
+            //playerScoreText.text = "Player Score:" + UIManager.Instance.playerScore;
             if (UIManager.Instance.playerScore > UIManager.Instance.hiScore)
                 UIManager.Instance.SetHiScore(UIManager.Instance.playerScore);
 
@@ -104,7 +138,8 @@ namespace UI
 
         void UpdatePlayerHealth(int value, int playerID)
         {
-            playerHealthText.text = "Player Health:" + value;
+            playerUIs[playerID].setHealth(value);
+            //playerHealthText.text = "Player Health:" + value;
             Debug.Log("[GameUI] Health Updated");
         }
 

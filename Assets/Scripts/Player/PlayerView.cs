@@ -13,6 +13,9 @@ namespace Player
 
         [SerializeField]
         private GameObject bulletSpawnPos;
+        [SerializeField] private Camera playerCam;
+
+        public Camera PlayerCam { get { return playerCam; }}
 
         public GameObject BulletSpawnPos
         {
@@ -59,6 +62,7 @@ namespace Player
 
         public void PlayerDie()
         {
+            playerCam.transform.parent = null;
             PlayerManager.Instance.DestroyPlayer(playerController);
             Destroy(gameObject);
         }

@@ -35,7 +35,7 @@ namespace Player
         public Dictionary<CharacterState, bool> playerStates;
         GameObject prefab;
 
-        public PlayerController(InputComponentScriptable inputComponentScriptable, Vector3 position, GameObject tankPrefab)
+        public PlayerController(InputComponentScriptable inputComponentScriptable, Vector3 position, GameObject tankPrefab, int playerID)
         {
             playerStates = new Dictionary<CharacterState, bool>();
             characterIdleState = new CharacterIdleState();
@@ -53,6 +53,7 @@ namespace Player
             playerModel = new PlayerModel();
             playerView = tankObj.GetComponent<PlayerView>();
             playerView.SetController(this);
+
             //List<InputAction> actions = new List<InputAction>();
             //actions.Add(new SpawnAction(playerView.transform.position));
             playerInput = new InputComponent();
@@ -60,8 +61,8 @@ namespace Player
             playerInput.inputComponentScriptable = inputComponentScriptable;
             InputManager.Instance.AddInputComponent(playerInput);
             PlayerManager.Instance.playerSpawned += InvokeEvents;
-            MiniMapCamera miniMapCamera = GameObject.FindObjectOfType<MiniMapCamera>();
-            miniMapCamera.SetMiniMaptarget(tankObj);
+
+            GameUI.InstanceClass.SetUpUI(PlayerManager.Instance.TotalPlayer, playerID, playerView);
         }
 
         public void OnUpdate(List<InputAction> action)
