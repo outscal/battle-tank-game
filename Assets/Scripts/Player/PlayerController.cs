@@ -74,7 +74,7 @@ namespace Player
                 {
                     for (int i = 0; i < action.Count; i++)
                     {
-                        action[i].Execute(playerID);
+                        action[i].Execute(this);
                     }
                 }
             }

@@ -7,16 +7,22 @@ using Manager;
 
 namespace Replay
 {
-    public struct QueueData
+    public struct PlayerQueueData
     {
-        public int frameNo;
         public List<InputAction> action;
         public int playerID;
     }
 
+    public struct QueueData
+    {
+        public int frameNo;
+        public List<PlayerQueueData> playerQueueDatas;
+        //public List<InputAction> action;
+        //public int playerID;
+    }
+
     public class ReplayManager : Singleton<ReplayManager>
     {
-
         public Queue<QueueData> savedQueueData;
         public Queue<QueueData> replayQueue;
 
@@ -45,16 +51,29 @@ namespace Replay
             savedQueueData = new Queue<QueueData>();
         }
 
-        public void SaveCurrentQueueData(List<InputAction> inputActions, int playerID)
+        public void SaveCurrentQueueData(List<InputAction> inputActions, int playerID, int frameNo)
         {
-            QueueData queueData = new QueueData();
-            queueData.frameNo = GameManager.Instance.GamePlayFrames;
-            queueData.action = new List<InputAction>();
-            queueData.action = inputActions;
-            queueData.playerID = playerID;
+            QueueData queueData;
+            if (savedQueueData.Count > 0 && savedQueueData.Peek().frameNo == frameNo)
+            {
+                queueData = savedQueueData.Peek();
 
-            replayQueue.Enqueue(queueData);
-            savedQueueData.Enqueue(queueData);
+            }
+            else
+            {
+                queueData = new QueueData();
+                queueData.playerQueueDatas = new List<PlayerQueueData>();
+                queueData.frameNo = frameNo;
+                savedQueueData.Enqueue(queueData);
+                replayQueue.Enqueue(queueData);
+            }
+
+            PlayerQueueData playerQueueData = new PlayerQueueData();
+
+            playerQueueData.action = inputActions;
+            playerQueueData.playerID = playerID;
+
+            queueData.playerQueueDatas.Add(playerQueueData);
         }
 
     }

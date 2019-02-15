@@ -22,13 +22,13 @@ namespace Bullet
             GameObject prefab = Resources.Load<GameObject>(BulletName());
             bulletRef = GameObject.Instantiate<GameObject>(prefab);
             bulletView = getBulletView();
-            bulletView.shooterID = playerController.playerID;
             bulletView.bulletController = this;
         }
 
         public void SpawnBullet(Vector3 direction, Vector3 spawnPos, Vector3 rotation, PlayerController playerController)
         {
             this.playerController = playerController;
+            bulletView.shooterID = playerController.playerID;
             bulletView.transform.position = spawnPos;
             bulletView.transform.rotation = Quaternion.Euler(rotation);
             bulletView.MoveBullet(direction, bulletModel.Force, bulletModel.DestroyTime);

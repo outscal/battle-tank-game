@@ -28,32 +28,52 @@ namespace Inputs
         {
             if (GameManager.Instance.currentState.gameStateType == GameStateType.Game)
             {
-                foreach (InputComponent inputComponent in inputComponentList)
+                foreach (PlayerController _playerController in PlayerManager.Instance.playerControllerList)
                 {
-                    inputComponent.OnUpdate();
+                    List<InputAction> actions = _playerController.playerInput.OnUpdate();
+
+                    if (actions.Count > 0)
+                        ReplayManager.Instance.SaveCurrentQueueData(actions, _playerController.playerID, GameManager.Instance.GamePlayFrames);
 
                     if (ReplayManager.Instance.savedQueueData.Count > 0)
                     {
-                        Debug.Log("[InputManager] PlayerID:" + inputComponent.playerController.playerID);
-                        QueueData currentFrameData = new QueueData();
+                        QueueData currentFrameData;// = new QueueData();
                         currentFrameData = ReplayManager.Instance.savedQueueData.Dequeue();
-                        inputComponent.playerController.OnUpdate(currentFrameData.action);
+
+                        foreach (var playerData in currentFrameData.playerQueueDatas)
+                        {
+                            if (playerData.playerID == _playerController.playerID)
+                                _playerController.OnUpdate(playerData.action);
+                        }
+                            
                     }
                 }
             }
             else if (GameManager.Instance.currentState.gameStateType == GameStateType.Replay)
             {
-                foreach (InputComponent inputComponent in inputComponentList)
+                foreach (PlayerController _playerController in PlayerManager.Instance.playerControllerList)
                 {
                     if (ReplayManager.Instance.replayQueue.Count > 0)
                     {
                         //Debug.Log("[InputManager] Frame rate: " + (GameManager.Instance.GamePlayFrames) + "/" + ReplayManager.Instance.replayQueue.Peek().frameNo);
                         if (GameManager.Instance.GamePlayFrames == ReplayManager.Instance.replayQueue.Peek().frameNo)
                         {
-                            QueueData currentFrameData = new QueueData();
+                            QueueData currentFrameData;// = new QueueData();
                             currentFrameData = ReplayManager.Instance.replayQueue.Dequeue();
-                            if (currentFrameData.playerID == PlayerManager.Instance.playerControllerList[inputComponent.playerController.playerID].playerID)
-                                PlayerManager.Instance.playerControllerList[inputComponent.playerController.playerID].OnUpdate(currentFrameData.action);
+
+                            Debug.Log("[InputManager] Data Frame:" + currentFrameData.frameNo +
+                                      " Game Frame " + GameManager.Instance.GamePlayFrames);
+                            if (currentFrameData.frameNo == GameManager.Instance.GamePlayFrames)
+                            {
+                                foreach (var playerData in currentFrameData.playerQueueDatas)
+                                {
+                                    if (playerData.playerID == _playerController.playerID)
+                                        _playerController.OnUpdate(playerData.action);
+                                }
+                            }
+
+                            //if (currentFrameData.playerID == PlayerManager.Instance.playerControllerList[inputComponent.playerController.playerID].playerID)
+                                //PlayerManager.Instance.playerControllerList[inputComponent.playerController.playerID].OnUpdate(currentFrameData.action);
                         }
                     }
                 }

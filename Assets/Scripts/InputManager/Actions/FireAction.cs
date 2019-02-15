@@ -7,10 +7,10 @@ namespace Inputs
 {
     public class FireAction : InputAction
     {
-        public override void Execute(int shooterID)
+        public override void Execute(PlayerController playerController)
         {
-            PlayerManager.Instance.playerControllerList[shooterID].setFireState();
-            //playerController.setFireState();
+            //PlayerManager.Instance.playerControllerList[shooterID].setFireState();
+            playerController.setFireState();
         }
     }
 }

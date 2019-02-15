@@ -22,10 +22,8 @@ namespace Inputs
         //    actions.Add(new SpawnAction(playerController.getSpawnPos()));
         //}
 
-        public void OnUpdate()
+        public List<InputAction> OnUpdate()
         {
-            if (GameManager.Instance.currentState.gameStateType == GameStateType.Pause) return;
-
             actions = new List<InputAction>();
 
             if(Input.GetKeyDown(inputComponentScriptable.fireKey))
@@ -44,7 +42,8 @@ namespace Inputs
                     actions.Add(new IdleAction());
             }
 
-            ReplayManager.Instance.SaveCurrentQueueData(actions, playerController.playerID);
+            return actions;
+            //ReplayManager.Instance.SaveCurrentQueueData(actions, playerController.playerID, GameManager.Instance.GamePlayFrames);
         }
 
         void MoveForward()

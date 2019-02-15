@@ -6,7 +6,7 @@ namespace Inputs
 {
     public class DoNothingAction : InputAction
     {
-        public override void Execute(int shooterID)
+        public override void Execute(Player.PlayerController playerController)
         {
 
         }

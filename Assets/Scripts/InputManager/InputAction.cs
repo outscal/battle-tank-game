@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Player;
 
 namespace Inputs
 {
     public abstract class InputAction
     {
-        public abstract void Execute(int shooterID);
+        public abstract void Execute(PlayerController playerController);
     }
 }

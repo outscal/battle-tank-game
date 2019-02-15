@@ -30,7 +30,7 @@ namespace Player
         public event Action<int> playerSpawned;
         public event Action<int> playerDestroyed;
 
-        private Vector3 playerSpawnPos;
+        private List<Vector3> playerSpawnPosList;
 
         [SerializeField]
         private int maxIteration = 10;
@@ -54,18 +54,26 @@ namespace Player
 
         public void SpawnPlayer()
         {
-            if(inputComponentScriptableList==null)
+            playerControllerList = new List<PlayerController>();
+            if (inputComponentScriptableList==null)
             {
                 Debug.Log("[PlayerManager] Missing InputComponentScriptableList");
+            }
+
+            if(GameManager.Instance.currentState.gameStateType == GameStateType.Game)
+            {
+                playerSpawnPosList = new List<Vector3>();
             }
 
             for (int i = 0; i < totalPlayers; i++)
             {
                 Debug.Log("[PlayerManager] PlayerSpawned");
                 if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Game)
+                {
                     GetSafePosition();
+                }
                 else if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Replay)
-                    safePos = playerSpawnPos;
+                    safePos = playerSpawnPosList[i];
 
                 //GetSafePosition();
 
@@ -80,9 +88,10 @@ namespace Player
 
         public void DestroyPlayer(PlayerController _playerController)
         {
+            Inputs.InputManager.Instance.RemoveInputComponent(_playerController.playerInput);
             playerDestroyed?.Invoke(_playerController.playerID);
             _playerController.DestroyPlayer();
-            playerControllerList.RemoveAt(_playerController.playerID);
+            RemovePlayerController(_playerController);
             _playerController = null;
 
             if(playerControllerList.Count <= 0)
@@ -90,6 +99,18 @@ namespace Player
                 GameManager.Instance.UpdateGameState(new GameOverState());
             }
 
+        }
+
+        public void RemovePlayerController(PlayerController playerController)
+        {
+            for (int i = 0; i < playerControllerList.Count; i++)
+            {
+                if (playerControllerList[i] == playerController)
+                {
+                    playerControllerList.RemoveAt(i);
+                    Debug.Log("[InputManager] Remove InputComponent at index " + i);
+                }
+            }
         }
 
         public void GetSafePosition()
@@ -116,7 +137,7 @@ namespace Player
                 }
             }
             //Debug.Log("[PlayerManager] Player Spawnpos " + pos);
-            playerSpawnPos = pos;
+            playerSpawnPosList.Add(pos);
             safePos = pos;
             currentIteration = 0;
         }

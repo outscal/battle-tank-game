@@ -7,9 +7,9 @@ namespace Inputs
 {
     public class IdleAction : InputAction
     {
-        public override void Execute(int shooterID)
+        public override void Execute(PlayerController playerController)
         {
-            PlayerManager.Instance.playerControllerList[shooterID].setIdleState(0, 0);
+            playerController.setIdleState(0, 0);
         }
     }
 }
