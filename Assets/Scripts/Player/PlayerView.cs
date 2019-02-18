@@ -15,7 +15,7 @@ namespace Player
         private GameObject bulletSpawnPos;
         [SerializeField] private Camera playerCam;
 
-        public Camera PlayerCam { get { return playerCam; }}
+        public Camera PlayerCam { get { return playerCam; } }
 
         public GameObject BulletSpawnPos
         {

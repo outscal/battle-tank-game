@@ -26,7 +26,7 @@ namespace Manager
 
         private int gameplayFrames = 0;
 
-        public int GamePlayFrames { get { return gamesPlayed; } }
+        public int GamePlayFrames { get { return gameplayFrames; } }
 
         public event Action GameStarted;
         public event Action GamePaused;

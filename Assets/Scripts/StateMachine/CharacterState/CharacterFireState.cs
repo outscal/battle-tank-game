@@ -21,6 +21,7 @@ namespace StateMachine
         public override void OnStateEnter()
         {
             //Debug.Log("[CharacterFireState] FireState: OnStart");
+            //SpawnBullet();
         }
 
         public override void OnStateExit()
@@ -30,7 +31,6 @@ namespace StateMachine
 
         public override void OnUpdate()
         {
-            //playerController.SpawnBullet();
             SpawnBullet();
         }
 
@@ -43,17 +43,6 @@ namespace StateMachine
                 playerController.playerView.Shoot(bulletController);
 
                 lastFrame = Time.frameCount;
-            }
-
-            ExitState();
-        }
-
-        void ExitState()
-        {
-
-            if ((Time.frameCount - lastFrame) > 1)
-            {
-                playerController.SetStateFales(playerController.characterFireState);
             }
         }
 

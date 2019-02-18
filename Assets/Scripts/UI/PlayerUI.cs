@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -9,8 +10,12 @@ namespace UI
     {
         [SerializeField] private TextMeshProUGUI healthText, scoreText;
         [SerializeField] private GameObject MiniMap;
+        [SerializeField] private RawImage rawImage;
 
-        public GameObject MiniMapObj { get { return MiniMap; } }
+        public void SetMiniMap(Camera miniMapCam)
+        {
+            rawImage.texture = miniMapCam.targetTexture;
+        }
 
         public void setHealth(int health)
         {

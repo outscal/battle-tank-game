@@ -59,7 +59,15 @@ namespace Enemy
 
         private void DestroyEnemy()
         {
-            Player.PlayerManager.Instance.playerControllerList[shooterID].setPlayerScore(enemyController.getScoreIncreaser());
+            for (int i = 0; i < Player.PlayerManager.Instance.playerControllerList.Count; i++)
+            {
+                if(Player.PlayerManager.Instance.playerControllerList[i].playerID == shooterID)
+                {
+                    Player.PlayerManager.Instance.playerControllerList[i].setPlayerScore(enemyController.getScoreIncreaser());
+                    break;
+                }
+            }
+
             EnemyManager.Instance.DestroyEnemy(enemyController);
             enemyController.DestroyEnemy -= DestroyEnemy;
             Destroy(gameObject);

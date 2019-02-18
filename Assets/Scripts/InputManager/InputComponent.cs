@@ -17,11 +17,6 @@ namespace Inputs
         public PlayerController playerController { get; set; }
         public InputComponentScriptable inputComponentScriptable { private get; set; }
 
-        //public InputComponent()
-        //{
-        //    actions.Add(new SpawnAction(playerController.getSpawnPos()));
-        //}
-
         public List<InputAction> OnUpdate()
         {
             actions = new List<InputAction>();
@@ -29,6 +24,10 @@ namespace Inputs
             if(Input.GetKeyDown(inputComponentScriptable.fireKey))
             {
                 actions.Add(new FireAction());
+            }
+            else if (Input.GetKeyUp(inputComponentScriptable.fireKey))
+            {
+                playerController.SetStateFales(playerController.characterFireState);
             }
 
             MoveForward();

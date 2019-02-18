@@ -26,17 +26,13 @@ namespace UI
         private List<MiniMapCamera> miniMapCameras;
         private List<Camera> playerCameras;
 
-        //[SerializeField] private Camera camera
-
         public int timeScaleMultiplier { get; private set; }
-
-        //public event Action ScoreIncreased;
 
         private void OnDisable()
         {
             if (PlayerManager.Instance != null)
             {
-                PlayerManager.Instance.playerSpawned -= GetPlayerEvents;
+                PlayerManager.Instance.playerDataEvent -= GetPlayerEvents;
             }
             if (AchievementM.AchievementManager.Instance != null)
                 AchievementM.AchievementManager.Instance.AchievementUnlocked -= DisplayAchievement;
@@ -44,7 +40,7 @@ namespace UI
 
         private void OnEnable()
         {
-            PlayerManager.Instance.playerSpawned += GetPlayerEvents;
+            PlayerManager.Instance.playerDataEvent += GetPlayerEvents;
             AchievementM.AchievementManager.Instance.AchievementUnlocked += DisplayAchievement;
         }
 
@@ -79,13 +75,16 @@ namespace UI
             MiniMapCamera mapCamera = Instantiate(miniMapCameraPrefab);
             miniMapCameras.Add(mapCamera);
             mapCamera.SetMiniMaptarget(view.gameObject);
+            mapCamera.GetComponent<Camera>().targetTexture = Resources.Load("MinimapTex" + (playerID + 1)) as RenderTexture;
+            Debug.Log("MinimapTex" + (playerID + 1));
+
+            playerUI.SetMiniMap(mapCamera.GetComponent<Camera>());
 
             playerCameras.Add(view.PlayerCam);
 
-            playerCameras[playerID].rect = new Rect(0.5f * playerID, 0, 0.5f * (1 + playerID), 1);
+            playerCameras[playerID].rect = new Rect((1f / playerCount) * playerID, 0, 1f / playerCount, 1);
             Debug.Log("[GameUI] PlayerID:" + playerID);
         }
-
 
         void ExitReplay()
         {
@@ -111,62 +110,30 @@ namespace UI
             }
         }
 
-        void GetPlayerEvents(int playerID)
+        void GetPlayerEvents(PlayerData playerData)
         {
-            if (PlayerManager.Instance.playerControllerList == null)
-                Debug.Log("[GameUI] PlayerController is missing");
-            else if (PlayerManager.Instance.playerControllerList != null)
-                Debug.Log("[GameUI] PlayerController is present");
+            UIManager.Instance.playerScore = playerData.playerScore;
+            playerUIs[playerData.playerID].setScore(playerData.playerScore);
 
-            PlayerManager.Instance.playerControllerList[playerID].scoreUpdate += UpdatePlayerScore;
-            PlayerManager.Instance.playerControllerList[playerID].healthUpdate += UpdatePlayerHealth;
-            Debug.Log("[GameUI] Player Events Called");
-        }
-
-        void UpdatePlayerScore(int value, int playerID)
-        {
-            UIManager.Instance.playerScore = value;
-            playerUIs[playerID].setScore(value);
-            //playerScoreText.text = "Player Score:" + UIManager.Instance.playerScore;
             if (UIManager.Instance.playerScore > UIManager.Instance.hiScore)
                 UIManager.Instance.SetHiScore(UIManager.Instance.playerScore);
 
-            //ScoreIncreased?.Invoke();
-            UIManager.Instance.InvokeScoreIncreasedAction(playerID);
-            Debug.Log("[GameUI] Score Updated");
-        }
+            UIManager.Instance.InvokeScoreIncreasedAction(playerData.playerID);
+            Debug.Log("[GameUI] Score UpdatedPlayerID:" + playerData.playerID);
 
-        void UpdatePlayerHealth(int value, int playerID)
-        {
-            playerUIs[playerID].setHealth(value);
+            playerUIs[playerData.playerID].setHealth((int)playerData.playerHealth);
             //playerHealthText.text = "Player Health:" + value;
-            Debug.Log("[GameUI] Health Updated");
-        }
-
-        public void PlayerDestroyed(int playerID)
-        {
-            PlayerManager.Instance.playerControllerList[playerID].scoreUpdate -= UpdatePlayerScore;
-            PlayerManager.Instance.playerControllerList[playerID].healthUpdate -= UpdatePlayerHealth;
+            Debug.Log("[GameUI] Health Updated PlayerID:" + playerData.playerID);
         }
 
         public void GameOver()
         {
-            //PlayerManager.Instance.playerControllerList[playerID].scoreUpdate -= UpdatePlayerScore;
-            //PlayerManager.Instance.playerControllerList[playerID].healthUpdate -= UpdatePlayerHealth;
-
             StartCoroutine(GameOverCoroutine());
         }
-
-        //public void Respawn(Inputs.InputComponent inputComponent)
-        //{
-        //    Inputs.InputManager.Instance.RemoveInputComponent(inputComponent);
-        //    PlayerManager.Instance.SpawnPlayer();
-        //}
 
         private IEnumerator GameOverCoroutine()
         {
             yield return new WaitForSeconds(1f);
-            //GameManager.Instance.UpdateGameState(new GameOverState());
             GameManager.Instance.UpdateGameState(new GameReplayState(GameManager.Instance.DefaultScriptableObject.gameScene));
             SceneManager.LoadScene(GameManager.Instance.DefaultScriptableObject.gameScene);
         }  

@@ -6,7 +6,6 @@ using UI;
 using StateMachine;
 using System.Collections.Generic;
 using Manager;
-using CameraScripts;
 
 namespace Player
 {
@@ -16,8 +15,7 @@ namespace Player
         public PlayerView playerView { get; private set; }
         public InputComponent playerInput { get; private set; }
 
-        public event Action<int, int> scoreUpdate;
-        public event Action<int, int> healthUpdate;
+        public event Action<PlayerData> playerDataEvent;
 
         public CharacterState currentState { get; private set; }
         public CharacterIdleState characterIdleState { get; private set; }
@@ -31,12 +29,14 @@ namespace Player
         private float deathTime = 0;
 
         public float horizontalVal, verticalVal;
+        PlayerData playerData;
 
         public Dictionary<CharacterState, bool> playerStates;
         GameObject prefab;
 
-        public PlayerController(InputComponentScriptable inputComponentScriptable, Vector3 position, GameObject tankPrefab, int playerID)
+        public PlayerController(InputComponentScriptable inputComponentScriptable, Vector3 position, GameObject tankPrefab, int _playerID)
         {
+            playerData = new PlayerData();
             playerStates = new Dictionary<CharacterState, bool>();
             characterIdleState = new CharacterIdleState();
             characterIdleState.OnStateEnter();
@@ -49,19 +49,16 @@ namespace Player
 
             GameObject tankObj = GameObject.Instantiate<GameObject>(prefab);
             tankObj.transform.position = position;
-
+            this.playerID = _playerID;
+            playerData.playerID = _playerID;
             playerModel = new PlayerModel();
             playerView = tankObj.GetComponent<PlayerView>();
             playerView.SetController(this);
 
-            //List<InputAction> actions = new List<InputAction>();
-            //actions.Add(new SpawnAction(playerView.transform.position));
             playerInput = new InputComponent();
             playerInput.playerController = this;
             playerInput.inputComponentScriptable = inputComponentScriptable;
             InputManager.Instance.AddInputComponent(playerInput);
-            PlayerManager.Instance.playerSpawned += InvokeEvents;
-
             GameUI.InstanceClass.SetUpUI(PlayerManager.Instance.TotalPlayer, playerID, playerView);
         }
 
@@ -85,19 +82,15 @@ namespace Player
             }
         }
 
-        private void InvokeEvents(int playerID)
+        public void SendPlayerData()
         {
-            this.playerID = playerID;
-            healthUpdate?.Invoke(playerModel.Health, playerID);
-            scoreUpdate?.Invoke(playerModel.score, playerID);
+            playerData.playerScore = playerModel.score;
+            playerData.playerHealth = playerModel.Health;
+            playerDataEvent?.Invoke(playerData);
         }
 
         public void DestroyPlayer()
         {
-            PlayerManager.Instance.playerSpawned -= InvokeEvents;
-            //GameUI.InstanceClass.Respawn(playerInput);
-            //GameManager.Instance.UpdateGameState(new GameOverState());
-
             playerModel = null;
         }
 
@@ -108,11 +101,7 @@ namespace Player
                 isDead = false;
                 playerView.gameObject.SetActive(true);
                 PlayerManager.Instance.GetSafePosition();
-                //List<InputAction> actions = new List<InputAction>();
-                //actions.Add(new SpawnAction(PlayerManager.Instance.safePos));
-                //playerView.transform.position = PlayerManager.Instance.safePos;
                 playerModel.Health = 5;
-                healthUpdate?.Invoke(playerModel.Health, playerID);
                 setPlayerHealth(playerModel.Health);
             }
         }
@@ -120,35 +109,27 @@ namespace Player
         public void TakeDamage(int value)
         {
             playerModel.Health -= value;
-            healthUpdate?.Invoke(playerModel.Health, playerID);
+            if (playerModel.Health < 0)
+                playerModel.Health = 0;
+                
             setPlayerHealth(playerModel.Health);
 
             if (playerModel.Health <= 0)
             {
-                deathCount++;
-                //if (deathCount < 5)
-                //{
-                //    deathTime = Time.time;
-                //    isDead = true;
-                //    playerView.gameObject.SetActive(false);
-                //    List<InputAction> actions = new List<InputAction>();
-                //    actions.Add(new DeathAction());
-                //    InputManager.Instance.SaveCurrentQueueData(actions);
-                //}
-                //else
-                    playerView.PlayerDie();
+                playerView.PlayerDie();
             }
         }
 
         public void setPlayerScore(int value)
         {
             playerModel.score += value;
-            scoreUpdate?.Invoke(playerModel.score, playerID);
+            SendPlayerData();
         }
 
         void setPlayerHealth(int value)
         {
             playerModel.Health = value;
+            SendPlayerData();
         }
 
         public void setIdleState(float hVal, float vVal)

@@ -43,7 +43,7 @@ namespace Enemy
                     enemyView.Agent.isStopped = false;
             }
 
-            if (Vector3.Distance(enemyView.targetPos, transform.position) <= 0.1f)
+            if (enemyView.Agent.remainingDistance <= 0.5f)
             {
                 enemyView.StateChangedMethod(EnemyState.petrol);
                 this.enabled = false;

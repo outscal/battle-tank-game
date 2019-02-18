@@ -17,6 +17,14 @@ namespace Player
         public Vector3 position;
     }
 
+    [System.Serializable]
+    public struct PlayerData
+    {
+        public int playerID;
+        public int playerScore;
+        public float playerHealth;
+    }
+
     public class PlayerManager : Singleton<PlayerManager>
     {
         public InputComponentScriptableList inputComponentScriptableList;
@@ -30,7 +38,7 @@ namespace Player
 
         private GameObject playerPrefab;
 
-        public event Action<int> playerSpawned;
+        public event Action<PlayerData> playerDataEvent;
         public event Action<int> playerDestroyed;
 
         private List<Vector3> playerSpawnPosList;
@@ -58,7 +66,7 @@ namespace Player
         public void SpawnPlayer()
         {
             playerControllerList = new List<PlayerController>();
-            if (inputComponentScriptableList==null)
+            if (inputComponentScriptableList == null)
             {
                 Debug.Log("[PlayerManager] Missing InputComponentScriptableList");
             }
@@ -67,10 +75,10 @@ namespace Player
             {
                 playerSpawnPosList = new List<Vector3>();
             }
-
+            int controlIndex = 0;
             for (int i = 0; i < totalPlayers; i++)
             {
-                Debug.Log("[PlayerManager] PlayerSpawned");
+                //Debug.Log("[PlayerManager] PlayerSpawned");
                 if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Game)
                 {
                     GetSafePosition();
@@ -80,17 +88,29 @@ namespace Player
 
                 //GetSafePosition();
 
-                PlayerController playerController = new PlayerController(inputComponentScriptableList.inputComponentScriptables[i],
+                PlayerController playerController = new PlayerController(inputComponentScriptableList.inputComponentScriptables[controlIndex],
                                                                          safePos, playerPrefab, i);
                 playerControllerList.Add(playerController);
 
-                playerSpawned?.Invoke(i);
+                playerController.playerDataEvent += CreatePlayerData;
+                playerController.SendPlayerData();
+
+                //CreatePlayerData(i, playerController.playerModel.Health, playerController.playerModel.score);
+                controlIndex++;
+                if (controlIndex >= inputComponentScriptableList.inputComponentScriptables.Count)
+                    controlIndex = 0;
             }
 
         }
 
+        void CreatePlayerData(PlayerData playerData)
+        {
+            playerDataEvent?.Invoke(playerData);
+        }
+
         public void DestroyPlayer(PlayerController _playerController)
         {
+            _playerController.playerDataEvent -= CreatePlayerData;
             Inputs.InputManager.Instance.RemoveInputComponent(_playerController.playerInput);
             playerDestroyed?.Invoke(_playerController.playerID);
             _playerController.DestroyPlayer();
@@ -111,7 +131,8 @@ namespace Player
                 if (playerControllerList[i] == playerController)
                 {
                     playerControllerList.RemoveAt(i);
-                    Debug.Log("[InputManager] Remove InputComponent at index " + i);
+                    //Debug.Log("[InputManager] Remove InputComponent at index " + i);
+                    break;
                 }
             }
         }

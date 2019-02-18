@@ -87,7 +87,7 @@ namespace Enemy
 
             if (wayPointList.Count == 0) return;
 
-            if (enemyView.Agent.remainingDistance < 1f)
+            if (enemyView.Agent.remainingDistance <= 0.5f)
             {
                 Debug.Log("[PetrolView] Target Changed 1");
 

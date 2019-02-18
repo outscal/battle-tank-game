@@ -51,14 +51,19 @@ namespace Inputs
             }
             else if (GameManager.Instance.currentState.gameStateType == GameStateType.Replay)
             {
-                foreach (PlayerController _playerController in PlayerManager.Instance.playerControllerList)
+                if (ReplayManager.Instance.replayQueue.Count > 0)
                 {
-                    if (ReplayManager.Instance.replayQueue.Count > 0)
+                    //Debug.Log("[InputManager] Frame rate: " + (GameManager.Instance.GamePlayFrames) + "/" + ReplayManager.Instance.replayQueue.Peek().frameNo);
+                    if (ReplayManager.Instance.replayQueue.Peek().frameNo == GameManager.Instance.GamePlayFrames)
                     {
-                        //Debug.Log("[InputManager] Frame rate: " + (GameManager.Instance.GamePlayFrames) + "/" + ReplayManager.Instance.replayQueue.Peek().frameNo);
-                        if (ReplayManager.Instance.replayQueue.Peek().frameNo == GameManager.Instance.GamePlayFrames)
+                        //QueueData currentFrameData;
+                        //currentFrameData = ReplayManager.Instance.replayQueue.Dequeue();
+                        //List<PlayerQueueData> playerQueueDatas = currentFrameData.playerQueueDatas;
+
+                        foreach (PlayerController _playerController in PlayerManager.Instance.playerControllerList)
                         {
-                            QueueData currentFrameData;// = new QueueData();
+
+                            QueueData currentFrameData;
                             currentFrameData = ReplayManager.Instance.replayQueue.Dequeue();
 
                             Debug.Log("[InputManager] Data Frame:" + currentFrameData.frameNo +
@@ -72,6 +77,11 @@ namespace Inputs
                             //if (currentFrameData.playerID == PlayerManager.Instance.playerControllerList[inputComponent.playerController.playerID].playerID)
                             //PlayerManager.Instance.playerControllerList[inputComponent.playerController.playerID].OnUpdate(currentFrameData.action);
                         }
+                    }
+                    else
+                    {
+                        Debug.Log("[InputManager] Data Frame:" + ReplayManager.Instance.replayQueue.Peek().frameNo +
+                                      " Game Frame " + GameManager.Instance.GamePlayFrames);
                     }
                 }
 
