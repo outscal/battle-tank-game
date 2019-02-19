@@ -1,15 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Interfaces;
 using Manager;
 
 namespace StateMachine
 {
     public class GamePauseState : GameState
     {
+        private IGameManager gameManager;
+
         public override void OnStateEnter()
         {
-            GameManager.Instance.PauseGame();
+            if (gameManager == null)
+                gameManager = StartService.Instance.GetService<IGameManager>();
+
+            gameManager.PauseGame();
         }
 
         protected override GameStateType GameStateTypeDefine()
@@ -19,7 +22,7 @@ namespace StateMachine
 
         public override void OnStateExit()
         {
-            GameManager.Instance.UnPauseGame();
+            gameManager.UnPauseGame();
         }
 
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Interfaces;
 
 namespace StateMachine
 {
@@ -12,6 +13,7 @@ namespace StateMachine
 
         string sceneName;
         bool replayGame = false;
+        private IGameManager gameManager;
 
         public GameReplayState(string sceneName)
         {
@@ -27,6 +29,9 @@ namespace StateMachine
 
         public override void OnStateEnter()
         {
+            if (gameManager == null)
+                gameManager = StartService.Instance.GetService<IGameManager>();
+
             //SceneManager.LoadSceneAsync(sceneName);
             asyncOperation = SceneManager.LoadSceneAsync(sceneName);
             asyncOperation.allowSceneActivation = false;
@@ -48,7 +53,7 @@ namespace StateMachine
                 if (replayGame == false)
                 {
                     replayGame = true;
-                    Manager.GameManager.Instance.OnReplayGame();
+                    gameManager.OnReplayGame();
                 }
             }
         }

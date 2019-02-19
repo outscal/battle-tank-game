@@ -20,7 +20,7 @@ namespace UI
 
         void RewardButtonMth()
         {
-            RewardManager.Instance.RewardButtonMth(rewardIndex);
+            RewardUI.InstanceClass.RewardButtonMth(rewardIndex);
         }
 
     }

@@ -8,16 +8,14 @@ using Common;
 using System;
 using UnityEngine.UI;
 using SaveLoad;
+using Interfaces;
 
 namespace Reward
 {
-    public class RewardManager : Singleton<RewardManager>
+    public class RewardManager : IReward
     {
         public event Action<GameObject> RewardButtonClicked;
         public event Action<int, int> RewardUnlocked;
-
-        [SerializeField]
-        private GameObject buttonPrefab;
 
         [SerializeField]
         private RewardScriptableObject rewardScriptableObject;
@@ -26,17 +24,19 @@ namespace Reward
 
         public List<RewardInfo> RewardList { get { return rewardList; } }
 
-        private List<RewardButton> rewardButtons;
-        string rewardInfo;
-
-        RectTransform unlockScroll;
         bool initialized = false;
+        private IAchievement achievementManager;
 
-        void RewardInitialization(int playerID)
+        public void RewardInitialization(int playerID)
         {
+            if (rewardScriptableObject == null)
+                rewardScriptableObject = Resources.Load<RewardScriptableObject>("RewardList");
+
             if (initialized == false)
             {
-                AchievementManager.Instance.AchievementCheck += UnlockedReward;
+                if (achievementManager == null)
+                    achievementManager = StartService.Instance.GetService<IAchievement>();
+                achievementManager.AchievementCheck += UnlockedReward;
                 initialized = true;
 
                 rewardList = new List<RewardInfo>();
@@ -67,85 +67,9 @@ namespace Reward
             }
         }
 
-        // Use this for initialization
-        public void PopulateRewardButtons(RectTransform unlockScroll,int playerID)
+        public void OnUpdate()
         {
-            RewardInitialization(playerID);
 
-            this.unlockScroll = unlockScroll;
-            rewardButtons = new List<RewardButton>();
-
-            if (rewardList.Count > 0)
-            {
-                SpawnButtons();
-            }
         }
-
-        void SpawnButtons()
-        {
-            unlockScroll.sizeDelta = new Vector2((unlockScroll.sizeDelta.x + 10) * rewardList.Count,
-                                                          unlockScroll.sizeDelta.y);
-
-            for (int i = 0; i < rewardList.Count; i++)
-            {
-                GameObject rewardButton = Instantiate(buttonPrefab);
-                rewardButton.name += "_" + i;
-
-                if (AchivementListCountCheckWithRewardList(i))
-                {
-                    rewardInfo = "Unlock AT " + AchievementManager.Instance.GetAchievementName(rewardList[i].achievementIndex) + " " +
-                                                 AchievementManager.Instance.GetAchievementThreshHolder(rewardList[i].achievementIndex);
-                    rewardButton.GetComponent<RewardButton>().rewardIndex = i;
-                }
-                else
-                {
-                    Debug.Log("[RewardManager] Error with Achievements Data");
-                }
-
-                rewardButton.transform.SetParent(unlockScroll);
-                rewardButtons.Add(rewardButton.GetComponent<RewardButton>());
-                rewardButtons[i].infoText.text = rewardInfo;
-                rewardButtons[i].button.interactable = false;
-                if (RewardBtnInteractableIfUnlocked(i))
-                {
-                    rewardButtons[i].infoText.text = "Unlocked";
-                    rewardButtons[i].button.interactable = true;
-                }
-            }
-        }
-
-        void UpdateRewardButtons()
-        {
-            if(rewardButtons.Count >= rewardList.Count)
-            {
-                for (int i = 0; i < rewardList.Count; i++)
-                {
-                    rewardButtons[i].infoText.text = rewardInfo;
-                    rewardButtons[i].button.interactable = false;
-                    if (RewardBtnInteractableIfUnlocked(i))
-                    {
-                        rewardButtons[i].infoText.text = "Unlocked";
-                        rewardButtons[i].button.interactable = true;
-                    }
-                }
-            }
-        }
-
-        private bool RewardBtnInteractableIfUnlocked(int i)
-        {
-            return rewardList[i].rewardStatus == RewardStatus.Unlocked;
-        }
-
-        private bool AchivementListCountCheckWithRewardList(int i)
-        {
-            return AchievementManager.Instance.AchievementList.Count >= rewardList[i].achievementIndex;
-        }
-
-        public void RewardButtonMth(int rewardIndex)
-        {
-            Debug.Log("Reward Button CLicked Index:" + rewardIndex);
-            RewardButtonClicked?.Invoke(rewardList[rewardIndex].rewardPrefab);
-        }
-
     }
 }

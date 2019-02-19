@@ -10,6 +10,7 @@ using StateMachine;
 using Player;
 using TMPro;
 using CameraScripts;
+using Interfaces;
 
 namespace UI
 {
@@ -26,6 +27,9 @@ namespace UI
         private List<MiniMapCamera> miniMapCameras;
         private List<Camera> playerCameras;
 
+        private IAchievement achievementManager;
+        private IGameManager gameManager;
+
         public int timeScaleMultiplier { get; private set; }
 
         private void OnDisable()
@@ -34,18 +38,25 @@ namespace UI
             {
                 PlayerManager.Instance.playerDataEvent -= GetPlayerEvents;
             }
-            if (AchievementM.AchievementManager.Instance != null)
-                AchievementM.AchievementManager.Instance.AchievementUnlocked -= DisplayAchievement;
+            //if (AchievementM.AchievementManager.Instance != null)
+                //AchievementM.AchievementManager.Instance.AchievementUnlocked -= DisplayAchievement;
         }
 
         private void OnEnable()
         {
             PlayerManager.Instance.playerDataEvent += GetPlayerEvents;
-            AchievementM.AchievementManager.Instance.AchievementUnlocked += DisplayAchievement;
         }
 
         private void Start()
         {
+            if (achievementManager == null)
+                achievementManager = StartService.Instance.GetService<IAchievement>();
+
+            if (gameManager == null)
+                gameManager = StartService.Instance.GetService<IGameManager>();
+
+            achievementManager.AchievementUnlocked += DisplayAchievement;
+
             playerUIs = new List<PlayerUI>();
             miniMapCameras = new List<MiniMapCamera>();
             playerCameras = new List<Camera>();
@@ -54,12 +65,12 @@ namespace UI
             speedUpReplayBtn.onClick.AddListener(() => SpeedUp());
             speedDownReplayBtn.onClick.AddListener(() => SpeedDown());
 
-            if (GameManager.Instance.currentState.gameStateType == GameStateType.Game)
+            if (gameManager.GetCurrentState().gameStateType == GameStateType.Game)
             {
                 gameMenuHolder.SetActive(true);
                 replayMenu.SetActive(false);
             }
-            else if (GameManager.Instance.currentState.gameStateType == GameStateType.Replay)
+            else if (gameManager.GetCurrentState().gameStateType == GameStateType.Replay)
             {
                 gameMenuHolder.SetActive(false);
                 replayMenu.SetActive(true);
@@ -88,8 +99,8 @@ namespace UI
 
         void ExitReplay()
         {
-            GameManager.Instance.UpdateGameState(new GameOverState());
-            SceneManager.LoadScene(GameManager.Instance.DefaultScriptableObject.gameOverScene);
+            gameManager.UpdateGameState(new GameOverState());
+            SceneManager.LoadScene(gameManager.GetDefaultScriptable().gameOverScene);
         }
 
         void SpeedUp()
@@ -134,8 +145,8 @@ namespace UI
         private IEnumerator GameOverCoroutine()
         {
             yield return new WaitForSeconds(1f);
-            GameManager.Instance.UpdateGameState(new GameReplayState(GameManager.Instance.DefaultScriptableObject.gameScene));
-            SceneManager.LoadScene(GameManager.Instance.DefaultScriptableObject.gameScene);
+            gameManager.UpdateGameState(new GameReplayState(gameManager.GetDefaultScriptable().gameScene));
+            SceneManager.LoadScene(gameManager.GetDefaultScriptable().gameScene);
         }  
 
         private void DisplayAchievement(string value)

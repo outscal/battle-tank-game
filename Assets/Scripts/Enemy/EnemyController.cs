@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Manager;
+using Interfaces;
 
 namespace Enemy
 {
@@ -24,19 +25,28 @@ namespace Enemy
 
         public EnemyData EnemyData { get { return enemyData; } }
 
+        private IGameManager gameManager;
+        private IEnemy enemyManager;
+
         public EnemyController(ScriptableObjEnemy scriptableObjEnemy, Vector3 position, int enemyIndex)
         {
-            if(GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Replay)
+            if (gameManager == null)
+                gameManager = StartService.Instance.GetService<IGameManager>();
+
+            if (enemyManager == null)
+                enemyManager = StartService.Instance.GetService<IEnemy>();
+
+            if (gameManager.GetCurrentState().gameStateType == StateMachine.GameStateType.Replay)
             {
                 enemyData = new EnemyData();
-                enemyData = EnemyManager.Instance.EnemyDatas[enemyIndex];
+                enemyData = enemyManager.GetEnemyData(enemyIndex);
                 for (int i = 0; i < enemyData.wayPoints.Count; i++)
                 {
                     Debug.Log("[EnemyController] WayPoint" + i + " " + enemyData.wayPoints[i]);
                 }
             }
 
-            EnemyManager.Instance.AlertMode += GetAlerted;
+            enemyManager.AlertMode += GetAlerted;
             enemyModel = new EnemyModel();
             enemyModel.scriptableObj = scriptableObjEnemy;
             GameObject enemy = GameObject.Instantiate<GameObject>(enemyModel.scriptableObj.enemyView.gameObject);
@@ -80,7 +90,7 @@ namespace Enemy
 
         public void RemoveAlertMode()
         {
-            EnemyManager.Instance.AlertMode -= GetAlerted;
+            enemyManager.AlertMode -= GetAlerted;
             Debug.Log("[EnemyController] AlertMode removed");
         }
 
@@ -91,7 +101,7 @@ namespace Enemy
 
         void SendAlert(Vector3 position)
         {
-            EnemyManager.Instance.AlertEnemies(position);
+            enemyManager.AlertEnemies(position);
         }
 
         public int getScoreIncreaser()

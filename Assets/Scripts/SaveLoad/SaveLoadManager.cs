@@ -8,6 +8,7 @@ using System;
 using Reward;
 using Manager;
 using Enemy;
+using Interfaces;
 
 namespace SaveLoad
 {
@@ -20,16 +21,20 @@ namespace SaveLoad
         private SaveMode saveMode = SaveMode.PlayerPrefs;
 
         private ISaveLoad saveLoadController;
+        private IAchievement achievementManager;
+        private IReward rewardManager; 
+        private IGameManager gameManager;
+        private IEnemy enemyManager;
 
-        protected override void Awake()
+        protected override void OnInitialized()
         {
-            base.Awake();
+            base.OnInitialized();
 
             if (saveMode == SaveMode.PlayerPrefs)
             {
                 saveLoadController = new PlayerPrefController();
             }
-            else if(saveMode == SaveMode.JsonData)
+            else if (saveMode == SaveMode.JsonData)
             {
                 saveLoadController = new JsonController();
             }
@@ -37,10 +42,22 @@ namespace SaveLoad
 
         private void Start()
         {
-            AchievementManager.Instance.AchievementCheck += LoadAchievement;
-            RewardManager.Instance.RewardUnlocked += SaveReward;
-            GameManager.Instance.GamesPlayedAdd += SaveGamesPlayedProgress;
-            EnemyManager.Instance.EnemiesKillCount += SaveEnemiesKilledProgress;
+            if (gameManager == null)
+                gameManager = StartService.Instance.GetService<IGameManager>();
+
+            if (achievementManager == null)
+                achievementManager = StartService.Instance.GetService<IAchievement>();
+
+            if (rewardManager == null)
+                rewardManager = StartService.Instance.GetService<IReward>();
+
+            if (enemyManager == null)
+                enemyManager = StartService.Instance.GetService<IEnemy>();
+
+            achievementManager.AchievementCheck += LoadAchievement;
+            rewardManager.RewardUnlocked += SaveReward;
+            gameManager.GamesPlayedAdd += SaveGamesPlayedProgress;
+            enemyManager.EnemiesKillCount += SaveEnemiesKilledProgress;
         }
 
         void SaveGamesPlayedProgress(int value)

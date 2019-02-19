@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Player;
 using Bullet;
+using Interfaces;
 
 namespace StateMachine
 {
@@ -13,6 +14,8 @@ namespace StateMachine
         private float lastFireTime;
         private int lastFrame;
 
+        private IBullet bulletManager;
+
         public CharacterFireState(PlayerController playerController)
         {
             this.playerController = playerController;
@@ -20,6 +23,8 @@ namespace StateMachine
 
         public override void OnStateEnter()
         {
+            if (bulletManager == null)
+                bulletManager = StartService.Instance.GetService<IBullet>();
             //Debug.Log("[CharacterFireState] FireState: OnStart");
             //SpawnBullet();
         }
@@ -39,7 +44,7 @@ namespace StateMachine
             if (Mathf.Abs(lastFireTime - Time.time) >= playerController.playerModel.FireRate)
             {
                 lastFireTime = Time.time;
-                BulletController bulletController = BulletManager.Instance.SpawnBullet();
+                BulletController bulletController = bulletManager.SpawnBullet();
                 playerController.playerView.Shoot(bulletController);
 
                 lastFrame = Time.frameCount;

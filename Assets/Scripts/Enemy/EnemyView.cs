@@ -36,8 +36,14 @@ namespace Enemy
 
         public int enemyIndex;
 
+        private IGameManager gameManager;
+        private IEnemy enemyManager;
+
         void Start()
         {
+            if (gameManager == null)
+                gameManager = StartService.Instance.GetService<IGameManager>();
+
             agent.speed = enemyController.enemyModel.scriptableObj.moveSpeed;
             enemyController.DestroyEnemy += DestroyEnemy;
         }
@@ -61,14 +67,14 @@ namespace Enemy
         {
             for (int i = 0; i < Player.PlayerManager.Instance.playerControllerList.Count; i++)
             {
-                if(Player.PlayerManager.Instance.playerControllerList[i].playerID == shooterID)
+                if(PlayerManager.Instance.playerControllerList[i].playerID == shooterID)
                 {
-                    Player.PlayerManager.Instance.playerControllerList[i].setPlayerScore(enemyController.getScoreIncreaser());
+                    PlayerManager.Instance.playerControllerList[i].setPlayerScore(enemyController.getScoreIncreaser());
                     break;
                 }
             }
 
-            EnemyManager.Instance.DestroyEnemy(enemyController);
+            enemyManager.DestroyEnemy(enemyController);
             enemyController.DestroyEnemy -= DestroyEnemy;
             Destroy(gameObject);
         }
@@ -80,7 +86,7 @@ namespace Enemy
 
         public void FollowTarget(Vector3 targetPos)
         {
-            if (GameManager.Instance.currentState.gameStateType == GameStateType.Replay) return;
+            if (gameManager.GetCurrentState().gameStateType == GameStateType.Replay) return;
 
             petrolState.enabled = false;
             SetEnemyData(targetPos);
@@ -101,11 +107,14 @@ namespace Enemy
 
         public void SetEnemyData(Vector3 positions)
         {
+            if (enemyManager == null)
+                enemyManager = StartService.Instance.GetService<IEnemy>();
+
             EnemyData enemyData = new EnemyData();
             enemyData.wayPoints = new List<Vector3>();
-            enemyData = EnemyManager.Instance.EnemyDatas[enemyIndex];
+            enemyData = enemyManager.GetEnemyData(enemyIndex);
             enemyData.wayPoints.Add(positions);
-            EnemyManager.Instance.EnemyDatas[enemyIndex] = enemyData;
+            enemyManager.SetEnemyData(enemyIndex, enemyData);
         }
 
 #if UNITY_EDITOR

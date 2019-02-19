@@ -15,11 +15,18 @@ namespace Player
         private GameObject bulletSpawnPos;
         [SerializeField] private Camera playerCam;
 
+        private IGameManager gameManager;
         public Camera PlayerCam { get { return playerCam; } }
 
         public GameObject BulletSpawnPos
         {
             get { return bulletSpawnPos; }
+        }
+
+        private void Start()
+        {
+            if (gameManager == null)
+                gameManager = StartService.Instance.GetService<IGameManager>();
         }
 
         public void SetController(PlayerController playerController)
@@ -40,7 +47,7 @@ namespace Player
 
         void Update()
         {
-            if (GameManager.Instance.currentState.gameStateType == GameStateType.Pause) return;
+            if (gameManager.GetCurrentState().gameStateType == GameStateType.Pause) return;
             foreach (CharacterState state in playerController.playerStates.Keys)
             {
                 bool isActive;

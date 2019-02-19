@@ -26,7 +26,12 @@ namespace Common
             }
         }
 
-        protected virtual void Awake()
+        private void Awake()
+        {
+            OnInitialized();
+        }
+
+        protected virtual void OnInitialized()
         {
             if (instance == null)
             {

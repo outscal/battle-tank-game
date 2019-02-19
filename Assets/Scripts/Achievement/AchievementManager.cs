@@ -7,29 +7,42 @@ using System;
 using UI;
 using SaveLoad;
 using Manager;
+using Interfaces;
+using Enemy;
 
 namespace AchievementM
 {
-    public class AchievementManager : Singleton<AchievementManager>
+    public class AchievementManager : IAchievement
     {
-        [SerializeField]
+        //[SerializeField]
         private AchievementScriptable achievementScriptable;
 
         private List<Achievement> achievementList;
 
-        public List<Achievement> AchievementList { get { return achievementList; }}
+        public List<Achievement> AchievementList { get { return achievementList; } }
 
         public event Action<int, int> AchievementCheck;
         public event Action<string> AchievementUnlocked;
 
+        private IGameManager gameManager;
+        private IEnemy enemyManager;
+
         bool initialized = false;
+
+        public AchievementManager()
+        {
+            achievementScriptable = Resources.Load<AchievementScriptable>("AchievementList");
+
+            if (gameManager == null)
+                gameManager = StartService.Instance.GetService<IGameManager>();
+        }
 
         public void AchievmentInitialize(int playerID)
         {
             if (initialized == false)
             {
                 initialized = true;
-                Manager.GameManager.Instance.GameStarted += InvokeDefaultEvents;
+                gameManager.GameStarted += InvokeDefaultEvents;
                 if (achievementScriptable != null)
                 {
                     achievementList = new List<Achievement>();
@@ -55,8 +68,12 @@ namespace AchievementM
         private void InvokeDefaultEvents()
         {
             UIManager.Instance.ScoreIncreased += ScoreIncreased;
-            Enemy.EnemyManager.Instance.EnemyDestroyed += EnemyKilled;
-            Manager.GameManager.Instance.GameStarted += GamesPlayed;
+
+            if (enemyManager == null)
+                enemyManager = StartService.Instance.GetService<IEnemy>();
+
+            enemyManager.EnemyDestroyed += EnemyKilled;
+            gameManager.GameStarted += GamesPlayed;
         }
 
         private void ScoreIncreased(int playerID)
@@ -66,12 +83,12 @@ namespace AchievementM
 
         private void EnemyKilled(int playerID)
         {
-            CheckForAchievement(AchievementType.enemyKilled, Enemy.EnemyManager.Instance.enemiesKilled, playerID);
+            CheckForAchievement(AchievementType.enemyKilled, enemyManager.GetEnemiesKilled(), playerID);
         }
 
         private void GamesPlayed()
         {
-            CheckForAchievement(AchievementType.gamesPlayed, Manager.GameManager.Instance.gamesPlayed, 0);
+            CheckForAchievement(AchievementType.gamesPlayed, gameManager.GetGamesPlayed(), 0);
         }
 
         void CheckForAchievement(AchievementType achievementType, int achievedVal, int playerID)
@@ -122,6 +139,9 @@ namespace AchievementM
             return achievementList[rewardIndex].achievementInfo.achievementRequirement.ToString();
         }
 
+        public void OnUpdate()
+        {
 
+        }
     }
 }

@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Common;
 using Inputs;
-using Manager;
+using Interfaces;
 
 namespace Replay
 {
@@ -17,37 +16,36 @@ namespace Replay
     {
         public int frameNo;
         public List<PlayerQueueData> playerQueueDatas;
-        //public List<InputAction> action;
-        //public int playerID;
     }
 
-    public class ReplayManager : Singleton<ReplayManager>
+    public class ReplayManager : IReplay
     {
-        public Queue<QueueData> savedQueueData;
-        public Queue<QueueData> replayQueue;
+        private Queue<QueueData> savedQueueData;
+        private Queue<QueueData> replayQueueData;
 
-        protected override void Awake()
+        private IGameManager gameManager;
+
+        public ReplayManager()
         {
-            base.Awake();
-            replayQueue = new Queue<QueueData>();
+            replayQueueData = new Queue<QueueData>();
             savedQueueData = new Queue<QueueData>();
-        }
 
-        private void Start()
-        {
-            GameManager.Instance.ReplayGame += ReplayGame;
-            GameManager.Instance.GameStarted += GameStart;
+            if (gameManager == null)
+                gameManager = StartService.Instance.GetService<IGameManager>();
+
+            gameManager.ReplayGame += ReplayGame;
+            gameManager.GameStarted += GameStart;
         }
 
         void GameStart()
         {
-            replayQueue = new Queue<QueueData>();
+            replayQueueData = new Queue<QueueData>();
             Debug.LogWarning("Replay Queue Reset");
         }
 
         void ReplayGame()
         {
-            Debug.Log("[InputManager] Replay Queue Count:" + replayQueue.Count);
+            Debug.Log("[InputManager] Replay Queue Count:" + replayQueueData.Count);
             savedQueueData = new Queue<QueueData>();
         }
 
@@ -65,7 +63,7 @@ namespace Replay
                 queueData.playerQueueDatas = new List<PlayerQueueData>();
                 queueData.frameNo = frameNo;
                 savedQueueData.Enqueue(queueData);
-                replayQueue.Enqueue(queueData);
+                replayQueueData.Enqueue(queueData);
             }
 
             PlayerQueueData playerQueueData = new PlayerQueueData();
@@ -76,5 +74,29 @@ namespace Replay
             queueData.playerQueueDatas.Add(playerQueueData);
         }
 
+        public void OnUpdate()
+        {
+
+        }
+
+        public Queue<QueueData> GetSavedQueueData()
+        {
+            return savedQueueData;
+        }
+
+        public Queue<QueueData> GetReplayQueueData()
+        {
+            return replayQueueData;
+        }
+
+        public void SetSavedQueueData(Queue<QueueData> queueDatas)
+        {
+            savedQueueData = queueDatas;
+        }
+
+        public void SetReplayQueueData(Queue<QueueData> queueDatas)
+        {
+            replayQueueData = queueDatas;
+        }
     }
 }

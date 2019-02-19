@@ -6,6 +6,7 @@ using UI;
 using StateMachine;
 using System.Collections.Generic;
 using Manager;
+using Interfaces;
 
 namespace Player
 {
@@ -33,9 +34,17 @@ namespace Player
 
         public Dictionary<CharacterState, bool> playerStates;
         GameObject prefab;
+        private IGameManager gameManager;
+        private IInput inputManager;
 
         public PlayerController(InputComponentScriptable inputComponentScriptable, Vector3 position, GameObject tankPrefab, int _playerID)
         {
+            if (gameManager == null)
+                gameManager = StartService.Instance.GetService<IGameManager>();
+
+            if (inputManager == null)
+                inputManager = StartService.Instance.GetService<IInput>();
+
             playerData = new PlayerData();
             playerStates = new Dictionary<CharacterState, bool>();
             characterIdleState = new CharacterIdleState();
@@ -58,13 +67,13 @@ namespace Player
             playerInput = new InputComponent();
             playerInput.playerController = this;
             playerInput.inputComponentScriptable = inputComponentScriptable;
-            InputManager.Instance.AddInputComponent(playerInput);
+            inputManager.AddInputComponent(playerInput);
             GameUI.InstanceClass.SetUpUI(PlayerManager.Instance.TotalPlayer, playerID, playerView);
         }
 
         public void OnUpdate(List<InputAction> action)
         {
-            if (GameManager.Instance.currentState.gameStateType == GameStateType.Pause) return;
+            if (gameManager.GetCurrentState().gameStateType == GameStateType.Pause) return;
 
             if (isDead == false)
             {

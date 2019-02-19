@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Manager;
+using Interfaces;
 
 namespace Enemy
 {
@@ -13,9 +14,14 @@ namespace Enemy
 
         public event Action<EnemyState> StateUpdate;
 
+        private IGameManager gameManager;
+
         protected override void OnEnable()
         {
             base.OnEnable();
+
+            if (gameManager == null)
+                gameManager = StartService.Instance.GetService<IGameManager>();
 
             enemyView.PetrolState.enabled = false;
             transform.LookAt(enemyView.targetPos);
@@ -30,14 +36,14 @@ namespace Enemy
         // Update is called once per frame
         void Update()
         {
-            if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Pause)
+            if (gameManager.GetCurrentState().gameStateType == StateMachine.GameStateType.Pause)
             {
                 if (enemyView.Agent.isStopped == false)
                     enemyView.Agent.isStopped = true;
 
                 return;
             }
-            else if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Game)
+            else if (gameManager.GetCurrentState().gameStateType == StateMachine.GameStateType.Game)
             {
                 if (enemyView.Agent.isStopped == true)
                     enemyView.Agent.isStopped = false;

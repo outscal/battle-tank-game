@@ -4,29 +4,26 @@ using BTScriptableObject;
 using System;
 using StateMachine;
 using SaveLoad;
+using Interfaces;
+using Enemy;
 
 namespace Manager
 {
-    public class GameManager : Singleton<GameManager>
+    public class GameManager : IGameManager
     {
-        [SerializeField] private DefaultScriptableObject defaultScriptableObject;
+        private DefaultScriptableObject defaultScriptableObject;
 
-        public DefaultScriptableObject DefaultScriptableObject { get { return defaultScriptableObject; } }
+        private int gamesPlayed;
 
-        public int gamesPlayed { get; private set; }
+        GameState lastState = new GameState();
+        GameState currentState = new GameState();
 
-        public GameState lastState { get; private set; }
-        public GameState currentState { get; private set; }
+        string nextScene;
+        string lastScene;
 
-        public string nextScene { get; private set; }
-        public string lastScene { get; private set; }
+        float mapSize = 30f;
 
-        [SerializeField]
-        private float mapSize = 30f;
-
-        private int gameplayFrames = 0;
-
-        public int GamePlayFrames { get { return gameplayFrames; } }
+        int gameplayFrames = 0;
 
         public event Action GameStarted;
         public event Action GamePaused;
@@ -34,10 +31,7 @@ namespace Manager
         public event Action<int> GamesPlayedAdd;
         public event Action ReplayGame;
 
-        public float MapSize
-        {
-            get { return mapSize; }
-        }
+        private IEnemy enemyManager;
 
         public void OnGameStarted()
         {
@@ -59,10 +53,16 @@ namespace Manager
             ReplayGame?.Invoke();
         }
 
-        private void Start()
+        public GameManager()
         {
+            defaultScriptableObject = Resources.Load<DefaultScriptableObject>("DefaultData");
+
             GameStarted += SpawnGameElements;
             ReplayGame += SpawnGameElements;
+            currentState = new GameState();
+            currentState.gameStateType = GameStateType.Loading;
+
+            Debug.Log("[GameManager] CurrentState:" + currentState.gameStateType);
 
             gamesPlayed = SaveLoadManager.Instance.GetGamesPlayerProgress();
 
@@ -71,7 +71,7 @@ namespace Manager
             UpdateGameState(new GameLoadingState(defaultScriptableObject.mainScene));
         }
 
-        private void Update()
+        public void OnUpdate()
         {
             if (currentState != null && currentState.gameStateType != GameStateType.Pause)
             {
@@ -109,7 +109,7 @@ namespace Manager
         /// </summary>
         /// <param name="stateOne">Current game state</param>
         /// <param name="stateTwo">Last game state.</param>
-        void InterChangeState(GameState stateOne, GameState stateTwo)
+        public void InterChangeState(GameState stateOne, GameState stateTwo)
         {
             this.currentState = stateTwo;
             this.lastState = stateOne;
@@ -126,7 +126,50 @@ namespace Manager
 
             gameplayFrames = 0;
 
-            Enemy.EnemyManager.Instance.SpawnEnemy();
+            if (enemyManager == null)
+                enemyManager = StartService.Instance.GetService<IEnemy>();
+
+            enemyManager.SpawnEnemy();
+        }
+
+        public int GetGamesPlayed()
+        {
+            return gamesPlayed;
+        }
+
+        public string GetNextScene()
+        {
+            return nextScene;
+        }
+
+        public string GetLastScene()
+        {
+            return lastScene;
+        }
+
+        public float GetMapSize()
+        {
+            return mapSize;
+        }
+
+        public int GetGamesFrame()
+        {
+            return gameplayFrames;
+        }
+
+        public GameState GetCurrentState()
+        {
+            return currentState;
+        }
+
+        public GameState GetLastState()
+        {
+            return lastState;
+        }
+
+        public DefaultScriptableObject GetDefaultScriptable()
+        {
+            return defaultScriptableObject;
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Player;
+using Interfaces;
 
 namespace Bullet
 {
@@ -15,9 +16,13 @@ namespace Bullet
         public GameObject bulletRef { get; private set; }
 
         private PlayerController playerController;
+        private IBullet bulletManager;
 
         public BulletController()
         {
+            if (bulletManager == null)
+                bulletManager = StartService.Instance.GetService<IBullet>();
+
             bulletModel = getBulletModel();
             GameObject prefab = Resources.Load<GameObject>(BulletName());
             bulletRef = GameObject.Instantiate<GameObject>(prefab);
@@ -37,7 +42,7 @@ namespace Bullet
         public void DestroyController()
         {
             bulletModel = null;
-            BulletManager.Instance.RemoveController(this);
+            bulletManager.DestroyBullet(this);
         }
 
         protected virtual BulletModel getBulletModel()

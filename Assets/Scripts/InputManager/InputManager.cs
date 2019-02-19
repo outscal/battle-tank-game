@@ -6,55 +6,61 @@ using Player;
 using StateMachine;
 using UnityEngine.SceneManagement;
 using Replay;
+using Interfaces;
 
 namespace Inputs
 {
-    public class InputManager : Singleton<InputManager>
+    public class InputManager : IInput
     {
         private List<InputComponent> inputComponentList = new List<InputComponent>();
 
-        protected override void Awake()
-        {
-            base.Awake();
-        }
+        private IGameManager gameManager;
+        private IReplay replayManager;
 
-        private void Start()
+        public InputManager()
         {
-            GameManager.Instance.GameStarted += OnGameStart;
+            if (gameManager == null)
+                gameManager = StartService.Instance.GetService<IGameManager>();
+
+            if (replayManager == null)
+                replayManager = StartService.Instance.GetService<IReplay>();
+
+            Debug.Log("[InputManager]" + gameManager);
+            gameManager.GameStarted += OnGameStart;
         }
 
         // Update is called once per frame
-        void Update()
+        public void OnUpdate()
         {
-            if (GameManager.Instance.currentState.gameStateType == GameStateType.Game)
+            if (gameManager.GetCurrentState().gameStateType == GameStateType.Game)
             {
                 foreach (PlayerController _playerController in PlayerManager.Instance.playerControllerList)
                 {
                     List<InputAction> actions = _playerController.playerInput.OnUpdate();
 
                     if (actions.Count > 0)
-                        ReplayManager.Instance.SaveCurrentQueueData(actions, _playerController.playerID, GameManager.Instance.GamePlayFrames);
+                        replayManager.SaveCurrentQueueData(actions, _playerController.playerID, gameManager.GetGamesFrame());
 
-                    if (ReplayManager.Instance.savedQueueData.Count > 0)
+                    if (replayManager.GetSavedQueueData().Count > 0)
                     {
                         QueueData currentFrameData;// = new QueueData();
-                        currentFrameData = ReplayManager.Instance.savedQueueData.Dequeue();
+                        currentFrameData = replayManager.GetSavedQueueData().Dequeue();
 
                         foreach (var playerData in currentFrameData.playerQueueDatas)
                         {
                             if (playerData.playerID == _playerController.playerID)
                                 _playerController.OnUpdate(playerData.action);
                         }
-                            
+
                     }
                 }
             }
-            else if (GameManager.Instance.currentState.gameStateType == GameStateType.Replay)
+            else if (gameManager.GetCurrentState().gameStateType == GameStateType.Replay)
             {
-                if (ReplayManager.Instance.replayQueue.Count > 0)
+                if (replayManager.GetReplayQueueData().Count > 0)
                 {
                     //Debug.Log("[InputManager] Frame rate: " + (GameManager.Instance.GamePlayFrames) + "/" + ReplayManager.Instance.replayQueue.Peek().frameNo);
-                    if (ReplayManager.Instance.replayQueue.Peek().frameNo == GameManager.Instance.GamePlayFrames)
+                    if (replayManager.GetReplayQueueData().Peek().frameNo == gameManager.GetGamesFrame())
                     {
                         //QueueData currentFrameData;
                         //currentFrameData = ReplayManager.Instance.replayQueue.Dequeue();
@@ -64,10 +70,10 @@ namespace Inputs
                         {
 
                             QueueData currentFrameData;
-                            currentFrameData = ReplayManager.Instance.replayQueue.Dequeue();
+                            currentFrameData = replayManager.GetReplayQueueData().Dequeue();
 
                             Debug.Log("[InputManager] Data Frame:" + currentFrameData.frameNo +
-                                      " Game Frame " + GameManager.Instance.GamePlayFrames);
+                                      " Game Frame " + gameManager.GetGamesFrame());
                             foreach (var playerData in currentFrameData.playerQueueDatas)
                             {
                                 if (playerData.playerID == _playerController.playerID)
@@ -80,15 +86,15 @@ namespace Inputs
                     }
                     else
                     {
-                        Debug.Log("[InputManager] Data Frame:" + ReplayManager.Instance.replayQueue.Peek().frameNo +
-                                      " Game Frame " + GameManager.Instance.GamePlayFrames);
+                        Debug.Log("[InputManager] Data Frame:" + replayManager.GetReplayQueueData().Peek().frameNo +
+                                  " Game Frame " + gameManager.GetGamesFrame());
                     }
                 }
 
-                if (ReplayManager.Instance.replayQueue.Count <= 0)
+                if (replayManager.GetReplayQueueData().Count <= 0)
                 {
-                    GameManager.Instance.UpdateGameState(new GameOverState());
-                    SceneManager.LoadScene(GameManager.Instance.DefaultScriptableObject.gameOverScene);
+                    gameManager.UpdateGameState(new GameOverState());
+                    SceneManager.LoadScene(gameManager.GetDefaultScriptable().gameOverScene);
                 }
             }
 
@@ -114,14 +120,13 @@ namespace Inputs
 
         void OnGameStart()
         {
-            ReplayManager.Instance.replayQueue = new Queue<QueueData>();
-            ReplayManager.Instance.savedQueueData = new Queue<QueueData>();
+            replayManager.SetReplayQueueData(new Queue<QueueData>());
+            replayManager.SetSavedQueueData(new Queue<QueueData>());
         }
 
         public void EmptyInputComponentList()
         {
             inputComponentList.Clear();
         }
-
     }
 }

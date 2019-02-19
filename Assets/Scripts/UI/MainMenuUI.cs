@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using AchievementM;
 using Manager;
 using StateMachine;
 using Common;
 using Reward;
+using Interfaces;
 
 namespace UI
 {
@@ -19,22 +20,28 @@ namespace UI
         [SerializeField]
         private Text hiScoreText;
 
-        [SerializeField]
-        private RectTransform unlockScroll;
+        private IAchievement achievementManager;
+        private IGameManager gameManager;
 
         // Use this for initialization
         void Start()
         {
+            if (gameManager == null)
+                gameManager = StartService.Instance.GetService<IGameManager>();
+
             hiScoreText.text = "HiScore: " + UIManager.Instance.hiScore;
             playButton.onClick.AddListener(() => PlayBtn());
 
-            AchievementM.AchievementManager.Instance.AchievmentInitialize(0);
-            RewardManager.Instance.PopulateRewardButtons(unlockScroll, 0);
+            if (achievementManager == null)
+                achievementManager = StartService.Instance.GetService<IAchievement>();
+
+            achievementManager.AchievmentInitialize(0);
+            RewardUI.InstanceClass.PopulateRewardButtons(0);
         }
 
         private void PlayBtn()
         {
-            GameManager.Instance.UpdateGameState(new GamePlayState(GameManager.Instance.DefaultScriptableObject.gameScene));
+            gameManager.UpdateGameState(new GamePlayState(gameManager.GetDefaultScriptable().gameScene));
         }
 
 

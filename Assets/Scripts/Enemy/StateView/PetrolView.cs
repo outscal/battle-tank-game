@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Manager;
+using Interfaces;
 
 namespace Enemy
 {
@@ -20,9 +21,14 @@ namespace Enemy
 
         private int replayIndexCOunt = 0;
 
+        private IGameManager gameManager;
+
         protected override void OnEnable()
         {
             base.OnEnable();
+
+            if (gameManager == null)
+                gameManager = StartService.Instance.GetService<IGameManager>();
 
             enemyView.ChaseState.enabled = false;
 
@@ -34,11 +40,11 @@ namespace Enemy
                 wayPointList.Add(wayPoint.GetComponent<Transform>().position);
             }
 
-            if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Game)
+            if (gameManager.GetCurrentState().gameStateType == StateMachine.GameStateType.Game)
             {
                 SelectWayPoint();
             }
-            else if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Replay)
+            else if (gameManager.GetCurrentState().gameStateType == StateMachine.GameStateType.Replay)
             {
                 enemyView.Agent.destination = enemyView.GetEnemyController().EnemyData.wayPoints[replayIndexCOunt];
                 currentTargetPos = enemyView.GetEnemyController().EnemyData.wayPoints[replayIndexCOunt];
@@ -63,7 +69,7 @@ namespace Enemy
             currentWayPointIndex = r;
             enemyView.Agent.destination = wayPointList[currentWayPointIndex];
             currentTargetPos = wayPointList[currentWayPointIndex];;
-            if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Game)
+            if (gameManager.GetCurrentState().gameStateType == StateMachine.GameStateType.Game)
             {
                 enemyView.SetEnemyData(wayPointList[currentWayPointIndex]);
             }
@@ -72,14 +78,14 @@ namespace Enemy
         // Update is called once per frame
         void Update()
         {
-            if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Pause)
+            if (gameManager.GetCurrentState().gameStateType == StateMachine.GameStateType.Pause)
             {
                 if (enemyView.Agent.isStopped == false)
                     enemyView.Agent.isStopped = true;
 
                 return;
             }
-            else if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Game)
+            else if (gameManager.GetCurrentState().gameStateType == StateMachine.GameStateType.Game)
             {
                 if (enemyView.Agent.isStopped == true)
                     enemyView.Agent.isStopped = false;
@@ -91,12 +97,12 @@ namespace Enemy
             {
                 Debug.Log("[PetrolView] Target Changed 1");
 
-                if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Game)
+                if (gameManager.GetCurrentState().gameStateType == StateMachine.GameStateType.Game)
                 {
                     Debug.Log("[PetrolView] Target Changed");
                     SelectWayPoint();
                 }
-                else if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Replay)
+                else if (gameManager.GetCurrentState().gameStateType == StateMachine.GameStateType.Replay)
                 {
                     enemyView.Agent.destination = enemyView.GetEnemyController().EnemyData.wayPoints[replayIndexCOunt];
                     currentTargetPos = enemyView.GetEnemyController().EnemyData.wayPoints[replayIndexCOunt];

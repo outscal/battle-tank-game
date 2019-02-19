@@ -7,6 +7,8 @@ using System;
 using Reward;
 using StateMachine;
 using UI;
+using Interfaces;
+using Audio;
 
 namespace Player
 {
@@ -40,6 +42,7 @@ namespace Player
 
         public event Action<PlayerData> playerDataEvent;
         public event Action<int> playerDestroyed;
+        public event Action<AudioName> playerDestroyedAudioEvent;
 
         private List<Vector3> playerSpawnPosList;
 
@@ -52,15 +55,32 @@ namespace Player
         public float safeRadius = 3f;
         public Vector3 safePos { get; private set; }
 
-        protected override void Awake()
+        private IGameManager gameManager;
+        private IReward rewardManager;
+        private IInput inputManager;
+        private IEnemy enemyManager;
+
+        protected override void OnInitialized()
         {
-            base.Awake();
+            base.OnInitialized();
             playerControllerList = new List<PlayerController>();
         }
 
         private void Start()
         {
-            RewardManager.Instance.RewardButtonClicked += SetPlayerPrefab;
+            if (gameManager == null)
+                gameManager = StartService.Instance.GetService<IGameManager>();
+
+            if (rewardManager == null)
+                rewardManager = StartService.Instance.GetService<IReward>();
+
+            if (inputManager == null)
+                inputManager = StartService.Instance.GetService<IInput>();
+
+            if (enemyManager == null)
+                enemyManager = StartService.Instance.GetService<IEnemy>();
+
+            rewardManager.RewardButtonClicked += SetPlayerPrefab;
         }
 
         public void SpawnPlayer()
@@ -71,7 +91,7 @@ namespace Player
                 Debug.Log("[PlayerManager] Missing InputComponentScriptableList");
             }
 
-            if(GameManager.Instance.currentState.gameStateType == GameStateType.Game)
+            if(gameManager.GetCurrentState().gameStateType == GameStateType.Game)
             {
                 playerSpawnPosList = new List<Vector3>();
             }
@@ -79,11 +99,11 @@ namespace Player
             for (int i = 0; i < totalPlayers; i++)
             {
                 //Debug.Log("[PlayerManager] PlayerSpawned");
-                if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Game)
+                if (gameManager.GetCurrentState().gameStateType == GameStateType.Game)
                 {
                     GetSafePosition();
                 }
-                else if (GameManager.Instance.currentState.gameStateType == StateMachine.GameStateType.Replay)
+                else if (gameManager.GetCurrentState().gameStateType == GameStateType.Replay)
                     safePos = playerSpawnPosList[i];
 
                 //GetSafePosition();
@@ -111,7 +131,7 @@ namespace Player
         public void DestroyPlayer(PlayerController _playerController)
         {
             _playerController.playerDataEvent -= CreatePlayerData;
-            Inputs.InputManager.Instance.RemoveInputComponent(_playerController.playerInput);
+            inputManager.RemoveInputComponent(_playerController.playerInput);
             playerDestroyed?.Invoke(_playerController.playerID);
             _playerController.DestroyPlayer();
             RemovePlayerController(_playerController);
@@ -119,8 +139,10 @@ namespace Player
 
             if(playerControllerList.Count <= 0)
             {
-                GameManager.Instance.UpdateGameState(new GameOverState());
+                gameManager.UpdateGameState(new GameOverState());
             }
+
+            playerDestroyedAudioEvent?.Invoke(AudioName.TankExplosion);
 
         }
 
@@ -141,7 +163,7 @@ namespace Player
         {
             currentIteration++;
             Vector3 pos = RandomPos();
-            foreach (Enemy.EnemyController enemy in Enemy.EnemyManager.Instance.EnemyList)
+            foreach (Enemy.EnemyController enemy in enemyManager.GetEnemyControllerList())
             {
                 float distance = Vector3.Distance(pos, enemy.enemyView.transform.position);
                 //Debug.Log("[PlayerManager] Distance " + distance);
@@ -168,9 +190,9 @@ namespace Player
 
         public Vector3 RandomPos()
         {
-            float x = UnityEngine.Random.Range(-GameManager.Instance.MapSize, GameManager.Instance.MapSize);
+            float x = UnityEngine.Random.Range(-gameManager.GetMapSize(), gameManager.GetMapSize());
             float y = 0;
-            float z = UnityEngine.Random.Range(-GameManager.Instance.MapSize, GameManager.Instance.MapSize);
+            float z = UnityEngine.Random.Range(-gameManager.GetMapSize(), gameManager.GetMapSize());
 
             return new Vector3(x, y, z);
         }

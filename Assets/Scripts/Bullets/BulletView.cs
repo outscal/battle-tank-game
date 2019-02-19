@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Manager;
+using Interfaces;
 
 namespace Bullet
 {
@@ -17,6 +18,8 @@ namespace Bullet
         private bool paused = false;
         public int shooterID;
 
+        private IGameManager gameManager;
+
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
@@ -24,8 +27,11 @@ namespace Bullet
 
         private void Start()
         {
-            GameManager.Instance.GamePaused += OnPause;
-            GameManager.Instance.GameUnpaused += OnUnPause;
+            if (gameManager == null)
+                gameManager = StartService.Instance.GetService<IGameManager>();
+
+            gameManager.GamePaused += OnPause;
+            gameManager.GameUnpaused += OnUnPause;
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -57,8 +63,8 @@ namespace Bullet
 
         private void DestroyBullet()
         {
-            GameManager.Instance.GamePaused -= OnPause;
-            GameManager.Instance.GameUnpaused -= OnUnPause;
+            gameManager.GamePaused -= OnPause;
+            gameManager.GameUnpaused -= OnUnPause;
             bulletController.DestroyController();
             Destroy(gameObject);
         }

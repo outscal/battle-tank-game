@@ -1,6 +1,7 @@
 using System;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using Interfaces;
 
 namespace StateMachine
 {
@@ -10,6 +11,7 @@ namespace StateMachine
 
         string sceneName;
         bool gameStarted = false;
+        private IGameManager gameManager;
 
         public GamePlayState(string sceneName)
         {
@@ -25,6 +27,9 @@ namespace StateMachine
 
         public override void OnStateEnter()
         {
+            if (gameManager == null)
+                gameManager = StartService.Instance.GetService<IGameManager>();
+
             //SceneManager.LoadSceneAsync(sceneName);
             asyncOperation = SceneManager.LoadSceneAsync(sceneName);
             asyncOperation.allowSceneActivation = false;
@@ -45,7 +50,7 @@ namespace StateMachine
                 if (gameStarted == false)
                 {
                     gameStarted = true;
-                    Manager.GameManager.Instance.OnGameStarted();
+                    gameManager.OnGameStarted();
                 }
             }
         }

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Manager;
 using StateMachine;
+using Interfaces;
 
 namespace UI
 {
@@ -14,9 +15,13 @@ namespace UI
         [SerializeField]
         private Button respawnBtn, homeBtn;
         [SerializeField] private Text gameOverScoreText;
+        private IGameManager gameManager;
 
         public void Start()
         {
+            if (gameManager == null)
+                gameManager = StartService.Instance.GetService<IGameManager>();
+
             respawnBtn.onClick.AddListener(() => RespawnBtn());
             homeBtn.onClick.AddListener(() => HomeBtn());
             gameOverScoreText.text = "PlayerScore: " + UIManager.Instance.playerScore;
@@ -24,13 +29,13 @@ namespace UI
 
         private void RespawnBtn()
         {
-            GameManager.Instance.UpdateGameState(new GamePlayState(GameManager.Instance.DefaultScriptableObject.gameScene));
+            gameManager.UpdateGameState(new GamePlayState(gameManager.GetDefaultScriptable().gameScene));
 
         }
 
         private void HomeBtn()
         {
-            GameManager.Instance.UpdateGameState(new GameMenuState(GameManager.Instance.DefaultScriptableObject.mainScene));
+            gameManager.UpdateGameState(new GameMenuState(gameManager.GetDefaultScriptable().mainScene));
         }
 
     }
