@@ -9,7 +9,7 @@ namespace Enemy
 {
     public enum EnemyState { petrol, chase, coolDown }
 
-    public class EnemyController
+    public class EnemyController : IPoolable
     {
         public EnemyView enemyView { get; private set; }
         public EnemyModel enemyModel { get; private set; }
@@ -28,7 +28,7 @@ namespace Enemy
         private IGameManager gameManager;
         private IEnemy enemyManager;
 
-        public EnemyController(ScriptableObjEnemy scriptableObjEnemy, Vector3 position, int enemyIndex)
+        public EnemyController()
         {
             if (gameManager == null)
                 gameManager = StartService.Instance.GetService<IGameManager>();
@@ -36,28 +36,49 @@ namespace Enemy
             if (enemyManager == null)
                 enemyManager = StartService.Instance.GetService<IEnemy>();
 
+            //enemyManager.AlertMode += GetAlerted;
+            //gameManager.game
+        }
+
+        public void SetEnemyPosition(Vector3 position)
+        {
+            enemyView.transform.position = position;
+        }
+
+        public void SetEnemyModel(ScriptableObjEnemy scriptableObjEnemy)
+        {
+            if(enemyModel == null)
+            {
+                enemyModel = new EnemyModel();
+                enemyModel.scriptableObj = scriptableObjEnemy;
+                enemyModel.CurrentHealth = enemyModel.scriptableObj.health;
+            }
+            if (enemyView == null)
+            {
+                GameObject enemy = GameObject.Instantiate<GameObject>(enemyModel.scriptableObj.enemyView.gameObject);
+                enemyView = enemy.GetComponent<EnemyView>();
+                enemyView.SetEnemyController(this);
+            }
+
+            enemyManager.AlertMode += GetAlerted;
+            enemyView.TargetDetected += SendAlert;
+            enemyView.StateChangedEvent += ChangeState;
+            ChangeState(EnemyState.petrol);
+        }
+
+        public void SetEnemyIndex(int enemyIndex)
+        {
+            enemyView.enemyIndex = enemyIndex;
+
             if (gameManager.GetCurrentState().gameStateType == StateMachine.GameStateType.Replay)
             {
                 enemyData = new EnemyData();
                 enemyData = enemyManager.GetEnemyData(enemyIndex);
-                for (int i = 0; i < enemyData.wayPoints.Count; i++)
-                {
-                    Debug.Log("[EnemyController] WayPoint" + i + " " + enemyData.wayPoints[i]);
-                }
+                //for (int i = 0; i < enemyData.wayPoints.Count; i++)
+                //{
+                //    Debug.Log("[EnemyController] WayPoint" + i + " " + enemyData.wayPoints[i]);
+                //}
             }
-
-            enemyManager.AlertMode += GetAlerted;
-            enemyModel = new EnemyModel();
-            enemyModel.scriptableObj = scriptableObjEnemy;
-            GameObject enemy = GameObject.Instantiate<GameObject>(enemyModel.scriptableObj.enemyView.gameObject);
-            enemyView = enemy.GetComponent<EnemyView>();
-            enemyView.SetEnemyController(this);
-            enemy.transform.position = position;
-            enemyModel.CurrentHealth = enemyModel.scriptableObj.health;
-            enemyView.TargetDetected += SendAlert;
-            enemyView.StateChangedEvent += ChangeState;
-            enemyView.enemyIndex = enemyIndex;
-            ChangeState(EnemyState.petrol);
         }
 
         public void TakeDamage(int value)
@@ -65,7 +86,8 @@ namespace Enemy
             enemyModel.CurrentHealth -= value;
             if (enemyModel.CurrentHealth <= 0)
             {
-                DestroyEnemy?.Invoke();
+                Reset();
+                //DestroyEnemy?.Invoke();
             }
         }
 
@@ -81,17 +103,10 @@ namespace Enemy
                 enemyView.ChaseState.enabled = true;
         }
 
-        public void DestroyEnemyModel()
-        {
-            enemyView.TargetDetected -= SendAlert;
-            enemyView.DestroyEnemyView();
-            enemyModel = null;
-        }
-
         public void RemoveAlertMode()
         {
             enemyManager.AlertMode -= GetAlerted;
-            Debug.Log("[EnemyController] AlertMode removed");
+            //Debug.Log("[EnemyController] AlertMode removed");
         }
 
         void GetAlerted(Vector3 position)
@@ -107,6 +122,15 @@ namespace Enemy
         public int getScoreIncreaser()
         {
             return enemyModel.scriptableObj.scoreIncrease;
+        }
+
+        public void Reset()
+        {
+            enemyView.TargetDetected -= SendAlert;
+            enemyView.StateChangedEvent -= ChangeState;
+            enemyManager.AlertMode -= GetAlerted;
+            enemyView.ResetEnemyView();
+            //enemyModel = null;
         }
     }
 }

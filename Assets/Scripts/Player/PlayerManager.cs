@@ -139,6 +139,7 @@ namespace Player
 
             if(playerControllerList.Count <= 0)
             {
+                gameManager.OnGameOver();
                 gameManager.UpdateGameState(new GameOverState());
             }
 

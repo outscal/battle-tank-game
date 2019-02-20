@@ -17,7 +17,7 @@ namespace Interfaces
 
         void AlertEnemies(Vector3 position);
         void SpawnEnemy();
-        void DestroyEnemy(EnemyController _enemyController);
+        void Reset(EnemyController _enemyController);
 
         int GetEnemiesKilled();
         List<EnemyController> GetEnemyControllerList();

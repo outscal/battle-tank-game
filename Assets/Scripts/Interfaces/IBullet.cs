@@ -11,7 +11,7 @@ namespace Interfaces
     {
         event Action<AudioName> BulletSpawnEvent;
 
-        BulletController SpawnBullet();
-        void DestroyBullet(BulletController bulletController);
+        BulletController SpawnBullet(BulletType bulletType);
+        void ResetBullet(BulletController bulletController);
     }
 }

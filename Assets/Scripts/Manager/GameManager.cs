@@ -30,8 +30,14 @@ namespace Manager
         public event Action GameUnpaused;
         public event Action<int> GamesPlayedAdd;
         public event Action ReplayGame;
+        public event Action GameOver;
 
         private IEnemy enemyManager;
+
+        public void OnGameOver()
+        {
+            GameOver?.Invoke();
+        }
 
         public void OnGameStarted()
         {

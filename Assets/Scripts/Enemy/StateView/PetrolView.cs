@@ -32,7 +32,7 @@ namespace Enemy
 
             enemyView.ChaseState.enabled = false;
 
-            Debug.Log(this.name + " is in PetrolState");
+            //Debug.Log(this.name + " is in PetrolState");
             wayPointList = new List<Vector3>();
 
             foreach (var wayPoint in FindObjectsOfType<WayPoints>())
@@ -95,18 +95,18 @@ namespace Enemy
 
             if (enemyView.Agent.remainingDistance <= 0.5f)
             {
-                Debug.Log("[PetrolView] Target Changed 1");
+                //Debug.Log("[PetrolView] Target Changed 1");
 
                 if (gameManager.GetCurrentState().gameStateType == StateMachine.GameStateType.Game)
                 {
-                    Debug.Log("[PetrolView] Target Changed");
+                    //Debug.Log("[PetrolView] Target Changed");
                     SelectWayPoint();
                 }
                 else if (gameManager.GetCurrentState().gameStateType == StateMachine.GameStateType.Replay)
                 {
                     enemyView.Agent.destination = enemyView.GetEnemyController().EnemyData.wayPoints[replayIndexCOunt];
                     currentTargetPos = enemyView.GetEnemyController().EnemyData.wayPoints[replayIndexCOunt];
-                    Debug.Log("[PetrolView] Target Changed:" + currentTargetPos);
+                    //Debug.Log("[PetrolView] Target Changed:" + currentTargetPos);
                     replayIndexCOunt++;
                     if (replayIndexCOunt > enemyView.GetEnemyController().EnemyData.wayPoints.Count)
                         replayIndexCOunt = 0;

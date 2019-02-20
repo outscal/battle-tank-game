@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Manager;
 using Interfaces;
+using Extensions;
 
 namespace Bullet
 {
@@ -36,13 +37,13 @@ namespace Bullet
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.GetComponent<Interfaces.ITakeDamage>() != null)
+            if (collision.gameObject.GetComponent<ITakeDamage>() != null)
             {
-                collision.gameObject.GetComponent<Interfaces.ITakeDamage>().TakeDamage(bulletController.bulletModel.Damage, shooterID);
+                collision.gameObject.GetComponent<ITakeDamage>().TakeDamage(bulletController.bulletModel.Damage, shooterID);
             }
 
-            if (collision.gameObject.GetComponent<Bullet.BulletView>() == null)
-                DestroyBullet();
+            if (collision.gameObject.GetComponent<BulletView>() == null)
+                bulletController.Reset();
         }
 
         private void Update()
@@ -51,7 +52,7 @@ namespace Bullet
             {
                 currentTime += Time.deltaTime;
                 if (currentTime >= destroyTime)
-                    DestroyBullet();
+                    bulletController.Reset();
             }
         }
 
@@ -61,12 +62,15 @@ namespace Bullet
             this.destroyTime = destroyTime;
         }
 
-        private void DestroyBullet()
+        public void ResetBulletView()
         {
             gameManager.GamePaused -= OnPause;
             gameManager.GameUnpaused -= OnUnPause;
-            bulletController.DestroyController();
-            Destroy(gameObject);
+            currentTime = 0;
+            rb.angularVelocity = Vector3.zero;
+            rb.velocity = Vector3.zero;
+            gameObject.SetActive(false);
+            //Destroy(gameObject);
         }
 
         private void OnPause()

@@ -40,12 +40,12 @@ namespace Replay
         void GameStart()
         {
             replayQueueData = new Queue<QueueData>();
-            Debug.LogWarning("Replay Queue Reset");
+            //Debug.LogWarning("Replay Queue Reset");
         }
 
         void ReplayGame()
         {
-            Debug.Log("[InputManager] Replay Queue Count:" + replayQueueData.Count);
+            //Debug.Log("[InputManager] Replay Queue Count:" + replayQueueData.Count);
             savedQueueData = new Queue<QueueData>();
         }
 

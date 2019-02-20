@@ -33,7 +33,7 @@ namespace Audio
             StartService.Instance.GetService<IEnemy>().DestroyEnemySoundFX += PlayAudioOneShot;
             Player.PlayerManager.Instance.playerDestroyedAudioEvent += PlayAudioOneShot;
 
-            //PlayAudio(AudioName.Background);
+            PlayAudio(AudioName.Background);
         }
 
         public void OnUpdate()

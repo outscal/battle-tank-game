@@ -74,14 +74,15 @@ namespace Enemy
                 }
             }
 
-            enemyManager.DestroyEnemy(enemyController);
+            enemyManager.Reset(enemyController);
             enemyController.DestroyEnemy -= DestroyEnemy;
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
 
-        public void DestroyEnemyView()
+        public void ResetEnemyView()
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            //Destroy(gameObject);
         }
 
         public void FollowTarget(Vector3 targetPos)

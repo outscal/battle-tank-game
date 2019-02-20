@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Player;
 using Interfaces;
+using ObjectPooling;
 
 namespace Bullet
 {
-    public class BulletController
+    public class BulletController : IPoolable
     {
         public BulletModel bulletModel { get; protected set; }
         public BulletView bulletView { get; protected set; }
@@ -33,16 +34,11 @@ namespace Bullet
         public void SpawnBullet(Vector3 direction, Vector3 spawnPos, Vector3 rotation, PlayerController playerController)
         {
             this.playerController = playerController;
+            bulletView.gameObject.SetActive(true);
             bulletView.shooterID = playerController.playerID;
             bulletView.transform.position = spawnPos;
             bulletView.transform.rotation = Quaternion.Euler(rotation);
             bulletView.MoveBullet(direction, bulletModel.Force, bulletModel.DestroyTime);
-        }
-
-        public void DestroyController()
-        {
-            bulletModel = null;
-            bulletManager.DestroyBullet(this);
         }
 
         protected virtual BulletModel getBulletModel()
@@ -61,5 +57,11 @@ namespace Bullet
             return bulletRef.GetComponent<BulletView>();
         }
 
+        public void Reset()
+        {
+            //bulletModel = null;
+            bulletView.ResetBulletView();
+            bulletManager.ResetBullet(this);
+        }
     }
 }

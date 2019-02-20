@@ -9,6 +9,8 @@ using UnityEngine.SceneManagement;
 using StateMachine;
 using Interfaces;
 using Audio;
+using ObjectPooling;
+using Player;
 
 public enum EnemyType { Red, Blue, Yellow }
 
@@ -45,10 +47,13 @@ namespace Enemy
 
         public EnemyController enemyController { get; private set; }
 
+        private ObjectPool<EnemyController> objectPool= new ObjectPool<EnemyController>();
+
         private List<EnemyController> enemyList;
 
         public event Action<int> EnemyDestroyed;
 
+        private GameObject enemyPoolHolder;
         private IGameManager gameManager;
 
         public EnemyManager()
@@ -63,13 +68,25 @@ namespace Enemy
             if (gameManager == null)
                 gameManager = StartService.Instance.GetService<IGameManager>();
 
+            gameManager.GameOver += GameOver;
             enemiesKilled = SaveLoadManager.Instance.GetEnemiesKilledProgress();
-            Debug.Log("[EnemyManager] EnemiesKilled Count " + enemiesKilled);
+            //Debug.Log("[EnemyManager] EnemiesKilled Count " + enemiesKilled);
         }
 
         public void AlertEnemies(Vector3 position)
         {
             AlertMode.Invoke(position);
+        }
+
+        void GameOver()
+        {
+            for (int i = 0; i < enemyList.Count; i++)
+            {
+                enemyList[i].RemoveAlertMode();
+                enemyList[i].Reset();
+                objectPool.ReturnObjToPool(enemyList[i]);
+                enemyList[i].enemyView.gameObject.SetActive(false);
+            }
         }
 
         void ResetEnemyList()
@@ -85,6 +102,13 @@ namespace Enemy
         public void SpawnEnemy()
         {
             ResetEnemyList();
+
+            if(enemyPoolHolder == null)
+            {
+                enemyPoolHolder = new GameObject();
+                enemyPoolHolder.name = "EnemyPoolHolder";
+                GameObject.DontDestroyOnLoad(enemyPoolHolder);
+            }
 
             if (gameManager.GetCurrentState().gameStateType == GameStateType.Game)
             {
@@ -109,7 +133,13 @@ namespace Enemy
 
                     enemiesData.Add(enemyData);
 
-                    enemyController = new EnemyController(scriptableObjEnemyList.enemyList[r], position, i);
+                    //enemyController = new EnemyController();
+                    enemyController = objectPool.GetFromPool<EnemyController>();
+                    enemyController.SetEnemyModel(scriptableObjEnemyList.enemyList[r]);
+                    enemyController.SetEnemyIndex(i);
+                    enemyController.SetEnemyPosition(position);
+                    enemyController.enemyView.gameObject.SetActive(true);
+                    enemyController.enemyView.transform.SetParent(enemyPoolHolder.transform);
                     enemySpawned?.Invoke();
                     enemyList.Add(enemyController);
                 }
@@ -118,7 +148,12 @@ namespace Enemy
                     Vector3 randomPos = enemiesData[i].enemySpawnPos;
                     r = enemiesData[i].enemyType;
 
-                    enemyController = new EnemyController(scriptableObjEnemyList.enemyList[r], randomPos, i);
+                    //enemyController = new EnemyController();
+                    enemyController = objectPool.GetFromPool<EnemyController>();
+                    enemyController.SetEnemyModel(scriptableObjEnemyList.enemyList[r]);
+                    enemyController.SetEnemyIndex(i);
+                    enemyController.SetEnemyPosition(randomPos);
+                    enemyController.enemyView.gameObject.SetActive(true);
                     enemySpawned?.Invoke();
                     enemyList.Add(enemyController);
                     //Enemy.EnemyManager.Instance.SpawnEnemy();
@@ -126,18 +161,21 @@ namespace Enemy
             }
 
             Player.PlayerManager.Instance.SpawnPlayer();
+
+            Debug.Log("<color=red>[EnemyManager] EnemyCount:</color>" + enemyPoolHolder.transform.childCount
+                      + " Time:" + Time.time);
         }
 
-
-        public void DestroyEnemy(EnemyController _enemyController)
+        public void Reset(EnemyController _enemyController)
         {
             enemiesKilled++;
             EnemyDestroyed?.Invoke(_enemyController.enemyView.shooterID);
             EnemiesKillCount?.Invoke(enemiesKilled);
             enemyList.Remove(_enemyController);
             _enemyController.RemoveAlertMode();
-            _enemyController.DestroyEnemyModel();
-            _enemyController = null;
+            _enemyController.Reset();
+            //_enemyController = null;
+            objectPool.ReturnObjToPool(_enemyController);
             DestroyEnemySoundFX?.Invoke(AudioName.TankExplosion);
         }
 

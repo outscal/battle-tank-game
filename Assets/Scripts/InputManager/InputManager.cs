@@ -25,7 +25,7 @@ namespace Inputs
             if (replayManager == null)
                 replayManager = StartService.Instance.GetService<IReplay>();
 
-            Debug.Log("[InputManager]" + gameManager);
+            //Debug.Log("[InputManager]" + gameManager);
             gameManager.GameStarted += OnGameStart;
         }
 
@@ -72,8 +72,8 @@ namespace Inputs
                             QueueData currentFrameData;
                             currentFrameData = replayManager.GetReplayQueueData().Dequeue();
 
-                            Debug.Log("[InputManager] Data Frame:" + currentFrameData.frameNo +
-                                      " Game Frame " + gameManager.GetGamesFrame());
+                            //Debug.Log("[InputManager] Data Frame:" + currentFrameData.frameNo +
+                                      //" Game Frame " + gameManager.GetGamesFrame());
                             foreach (var playerData in currentFrameData.playerQueueDatas)
                             {
                                 if (playerData.playerID == _playerController.playerID)
@@ -86,13 +86,14 @@ namespace Inputs
                     }
                     else
                     {
-                        Debug.Log("[InputManager] Data Frame:" + replayManager.GetReplayQueueData().Peek().frameNo +
-                                  " Game Frame " + gameManager.GetGamesFrame());
+                        //Debug.Log("[InputManager] Data Frame:" + replayManager.GetReplayQueueData().Peek().frameNo +
+                                  //" Game Frame " + gameManager.GetGamesFrame());
                     }
                 }
 
                 if (replayManager.GetReplayQueueData().Count <= 0)
                 {
+                    gameManager.OnGameOver();
                     gameManager.UpdateGameState(new GameOverState());
                     SceneManager.LoadScene(gameManager.GetDefaultScriptable().gameOverScene);
                 }
@@ -103,7 +104,7 @@ namespace Inputs
         public  void AddInputComponent(InputComponent inputComponent)
         {
             inputComponentList.Add(inputComponent);
-            Debug.Log("[InputManager] InputAdded");
+            //Debug.Log("[InputManager] InputAdded");
         }
 
         public void RemoveInputComponent(InputComponent inputComponent)
@@ -113,7 +114,7 @@ namespace Inputs
                 if (inputComponentList[i] == inputComponent)
                 {
                     inputComponentList.RemoveAt(i);
-                    Debug.Log("[InputManager] Remove InputComponent at index " + i);
+                    //Debug.Log("[InputManager] Remove InputComponent at index " + i);
                 }
             }
         }

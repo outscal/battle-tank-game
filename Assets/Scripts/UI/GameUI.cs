@@ -87,18 +87,19 @@ namespace UI
             miniMapCameras.Add(mapCamera);
             mapCamera.SetMiniMaptarget(view.gameObject);
             mapCamera.GetComponent<Camera>().targetTexture = Resources.Load("MinimapTex" + (playerID + 1)) as RenderTexture;
-            Debug.Log("MinimapTex" + (playerID + 1));
+            //Debug.Log("MinimapTex" + (playerID + 1));
 
             playerUI.SetMiniMap(mapCamera.GetComponent<Camera>());
 
             playerCameras.Add(view.PlayerCam);
 
             playerCameras[playerID].rect = new Rect((1f / playerCount) * playerID, 0, 1f / playerCount, 1);
-            Debug.Log("[GameUI] PlayerID:" + playerID);
+            //Debug.Log("[GameUI] PlayerID:" + playerID);
         }
 
         void ExitReplay()
         {
+            gameManager.OnGameOver();
             gameManager.UpdateGameState(new GameOverState());
             SceneManager.LoadScene(gameManager.GetDefaultScriptable().gameOverScene);
         }
@@ -130,11 +131,11 @@ namespace UI
                 UIManager.Instance.SetHiScore(UIManager.Instance.playerScore);
 
             UIManager.Instance.InvokeScoreIncreasedAction(playerData.playerID);
-            Debug.Log("[GameUI] Score UpdatedPlayerID:" + playerData.playerID);
+            //Debug.Log("[GameUI] Score UpdatedPlayerID:" + playerData.playerID);
 
             playerUIs[playerData.playerID].setHealth((int)playerData.playerHealth);
             //playerHealthText.text = "Player Health:" + value;
-            Debug.Log("[GameUI] Health Updated PlayerID:" + playerData.playerID);
+            //Debug.Log("[GameUI] Health Updated PlayerID:" + playerData.playerID);
         }
 
         public void GameOver()

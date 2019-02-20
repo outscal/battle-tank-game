@@ -44,7 +44,7 @@ namespace StateMachine
             if (Mathf.Abs(lastFireTime - Time.time) >= playerController.playerModel.FireRate)
             {
                 lastFireTime = Time.time;
-                BulletController bulletController = bulletManager.SpawnBullet();
+                BulletController bulletController = bulletManager.SpawnBullet(BulletType.medium);
                 playerController.playerView.Shoot(bulletController);
 
                 lastFrame = Time.frameCount;

@@ -16,7 +16,7 @@ namespace StateMachine
 
         public override void OnStateEnter()
         {
-            Debug.Log("[CharacterDamageState] DamageState: OnStart");
+            //Debug.Log("[CharacterDamageState] DamageState: OnStart");
             playerController.TakeDamage(2);
 
             playerController.SetStateFales(playerController.characterTakeDamageState);
@@ -24,7 +24,7 @@ namespace StateMachine
 
         public override void OnStateExit()
         {
-            Debug.Log("[CharacterDamageState] DamageState: OnExit");
+            //Debug.Log("[CharacterDamageState] DamageState: OnExit");
         }
 
         public override void OnUpdate()

@@ -93,22 +93,25 @@ namespace AchievementM
 
         void CheckForAchievement(AchievementType achievementType, int achievedVal, int playerID)
         {
-            for (int i = 0; i < achievementList.Count; i++)
+            if (gameManager.GetCurrentState().gameStateType == StateMachine.GameStateType.Game)
             {
-                if (CheckAchievementType(achievementType, i))
+                for (int i = 0; i < achievementList.Count; i++)
                 {
-                    if (AchievementLock(i) && AchievementThreshHold(achievedVal, i))
+                    if (CheckAchievementType(achievementType, i))
                     {
-                        string value = "Unlocked " + achievementType.ToString() + " Achievement. Title " +
-                                              achievementList[i].achievementInfo.achievementTitle;
+                        if (AchievementLock(i) && AchievementThreshHold(achievedVal, i))
+                        {
+                            string value = "Unlocked " + achievementType.ToString() + " Achievement. Title " +
+                                                  achievementList[i].achievementInfo.achievementTitle;
 
-                        Achievement achievement = new Achievement();
-                        achievement = achievementList[i];
-                        achievement.achievementInfo.achievementStatus = AchievementStatus.Unlocked;
+                            Achievement achievement = new Achievement();
+                            achievement = achievementList[i];
+                            achievement.achievementInfo.achievementStatus = AchievementStatus.Unlocked;
 
-                        achievementList[i] = achievement;
-                        AchievementUnlocked?.Invoke(value);
-                        AchievementCheck?.Invoke(i, playerID);
+                            achievementList[i] = achievement;
+                            AchievementUnlocked?.Invoke(value);
+                            AchievementCheck?.Invoke(i, playerID);
+                        }
                     }
                 }
             }

@@ -9,12 +9,14 @@ namespace Interfaces
 {
     public interface IGameManager : IService
     {
+        event Action GameOver;
         event Action GameStarted;
         event Action GamePaused;
         event Action GameUnpaused;
         event Action<int> GamesPlayedAdd;
         event Action ReplayGame;
 
+        void OnGameOver();
         void OnGameStarted();
 
         void PauseGame();
