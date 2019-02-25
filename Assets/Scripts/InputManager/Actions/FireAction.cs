@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Player;
 
-namespace Inputs
+namespace InputControls
 {
     public class FireAction : InputAction
     {

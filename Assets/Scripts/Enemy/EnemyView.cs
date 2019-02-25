@@ -69,7 +69,7 @@ namespace Enemy
             {
                 if(PlayerManager.Instance.playerControllerList[i].playerID == shooterID)
                 {
-                    PlayerManager.Instance.playerControllerList[i].setPlayerScore(enemyController.getScoreIncreaser());
+                    PlayerManager.Instance.playerControllerList[i].setPlayerScore(5);
                     break;
                 }
             }

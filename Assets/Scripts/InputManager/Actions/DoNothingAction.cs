@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Inputs
+namespace InputControls
 {
     public class DoNothingAction : InputAction
     {

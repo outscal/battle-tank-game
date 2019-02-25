@@ -85,7 +85,7 @@ namespace UI
 
             MiniMapCamera mapCamera = Instantiate(miniMapCameraPrefab);
             miniMapCameras.Add(mapCamera);
-            mapCamera.SetMiniMaptarget(view.gameObject);
+            mapCamera.SetMiniMaptarget(view.transform);
             mapCamera.GetComponent<Camera>().targetTexture = Resources.Load("MinimapTex" + (playerID + 1)) as RenderTexture;
             //Debug.Log("MinimapTex" + (playerID + 1));
 
@@ -124,6 +124,7 @@ namespace UI
 
         void GetPlayerEvents(PlayerData playerData)
         {
+            Debug.Log("[GameUI]IncreaseScore");
             UIManager.Instance.playerScore = playerData.playerScore;
             playerUIs[playerData.playerID].setScore(playerData.playerScore);
 

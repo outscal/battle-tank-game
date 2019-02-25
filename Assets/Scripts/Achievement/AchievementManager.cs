@@ -19,8 +19,6 @@ namespace AchievementM
 
         private List<Achievement> achievementList;
 
-        public List<Achievement> AchievementList { get { return achievementList; } }
-
         public event Action<int, int> AchievementCheck;
         public event Action<string> AchievementUnlocked;
 
@@ -42,7 +40,7 @@ namespace AchievementM
             if (initialized == false)
             {
                 initialized = true;
-                gameManager.GameStarted += InvokeDefaultEvents;
+                gameManager.GameStarted += RegisterGameEvents;
                 if (achievementScriptable != null)
                 {
                     achievementList = new List<Achievement>();
@@ -65,7 +63,7 @@ namespace AchievementM
             }
         }
 
-        private void InvokeDefaultEvents()
+        private void RegisterGameEvents()
         {
             UIManager.Instance.ScoreIncreased += ScoreIncreased;
 
@@ -145,6 +143,11 @@ namespace AchievementM
         public void OnUpdate()
         {
 
+        }
+
+        public int GetAchievementCount()
+        {
+            return achievementList.Count;
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using Bullet;
-using Inputs;
+using InputControls;
 using UI;
 using StateMachine;
 using System.Collections.Generic;
@@ -131,6 +131,7 @@ namespace Player
 
         public void setPlayerScore(int value)
         {
+            Debug.Log("[PlayerController] 1 IncreaseScore" + value);
             playerModel.score += value;
             SendPlayerData();
         }

@@ -10,6 +10,7 @@ namespace Interfaces
         event Action<int, int> AchievementCheck;
         event Action<string> AchievementUnlocked;
 
+        int GetAchievementCount();
         void AchievmentInitialize(int playerID);
     }
 }

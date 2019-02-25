@@ -7,9 +7,9 @@ namespace CameraScripts
 {
     public class MiniMapCamera : MonoBehaviour
     {
-        private GameObject followTarget;
+        private Transform followTarget;
 
-        public void SetMiniMaptarget(GameObject followTarget)
+        public void SetMiniMaptarget(Transform followTarget)
         {
             this.followTarget = followTarget;
             transform.position = new Vector3(followTarget.transform.position.x, transform.position.y,

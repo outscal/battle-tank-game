@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Inputs;
+using InputControls;
 using Player;
 
 namespace StateMachine

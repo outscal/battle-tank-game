@@ -99,7 +99,7 @@ public class RewardUI : Instance<RewardUI>
 
     private bool AchivementListCountCheckWithRewardList(int i)
     {
-        return achievementManager.AchievementList.Count >= rewardManager.RewardList[i].achievementIndex;
+        return achievementManager.GetAchievementCount() >= rewardManager.RewardList[i].achievementIndex;
     }
 
     public void RewardButtonMth(int rewardIndex)

@@ -29,7 +29,6 @@ namespace SaveLoad
         protected override void OnInitialized()
         {
             base.OnInitialized();
-
             if (saveMode == SaveMode.PlayerPrefs)
             {
                 saveLoadController = new PlayerPrefController();
@@ -40,7 +39,7 @@ namespace SaveLoad
             }
         }
 
-        private void Start()
+        public void Start()
         {
             if (gameManager == null)
                 gameManager = StartService.Instance.GetService<IGameManager>();
@@ -130,5 +129,9 @@ namespace SaveLoad
             saveLoadController.SaveAll();
         }
 
+        public void OnUpdate()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

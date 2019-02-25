@@ -167,7 +167,7 @@ bool castDenseScreenSpaceRay
         // More-vertical line. Create a permutation that swaps x and y in the output
         permute = true;
 
-        // Directly swizzle the inputs
+        // Directly swizzle the InputControls
         delta = delta.yx;
         P1 = P1.yx;
         P0 = P0.yx;

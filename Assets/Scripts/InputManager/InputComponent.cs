@@ -5,18 +5,23 @@ using Manager;
 using Replay;
 using StateMachine;
 
-namespace Inputs
+namespace InputControls
 {
     public class InputComponent
     {
         public float horizontalVal { get; private set; }
         public float verticalVal { get; private set; }
         private bool shoot { get; set; }
-
+        private Joystick joystick;
         List<InputAction> actions;
         public PlayerController playerController { get; set; }
         public InputComponentScriptable inputComponentScriptable { private get; set; }
 
+        private bool useJoystick = false;
+        public void setJoyStick(Joystick _joystick)
+        {
+            joystick = _joystick;
+        }
         public List<InputAction> OnUpdate()
         {
             actions = new List<InputAction>();
@@ -47,57 +52,90 @@ namespace Inputs
 
         void MoveForward()
         {
-            if (Input.GetKeyDown(inputComponentScriptable.forwardKey))
+            if(useJoystick == false)
             {
-                verticalVal = 1;
-                actions.Add(new MoveAction(playerController.horizontalVal, verticalVal));
+                if (Input.GetKeyDown(inputComponentScriptable.forwardKey))
+                {
+                    verticalVal = 1;
+                    actions.Add(new MoveAction(playerController.horizontalVal, verticalVal));
+                }
+                else if (Input.GetKeyUp(inputComponentScriptable.forwardKey))
+                {
+                    verticalVal = 0;
+                    actions.Add(new MoveAction(playerController.horizontalVal, verticalVal));
+                }
             }
-            else if (Input.GetKeyUp(inputComponentScriptable.forwardKey))
+            else
             {
-                verticalVal = 0;
-                actions.Add(new MoveAction(playerController.horizontalVal, verticalVal));
+                actions.Add(new MoveAction(playerController.horizontalVal, joystick.Vertical));   
+        
             }
         }
 
         void MoveBackward()
         {
-            if (Input.GetKeyDown(inputComponentScriptable.backwardKey))
+            if(useJoystick == false)
             {
-                verticalVal = -1;
-                actions.Add(new MoveAction(playerController.horizontalVal, verticalVal));
+                if (Input.GetKeyDown(inputComponentScriptable.backwardKey))
+                {
+                    verticalVal = -1;
+                    actions.Add(new MoveAction(playerController.horizontalVal, verticalVal));
+                }
+                else if (Input.GetKeyUp(inputComponentScriptable.backwardKey))
+                {
+                    verticalVal = 0;
+                    actions.Add(new MoveAction(playerController.horizontalVal, verticalVal));
+                }
             }
-            else if (Input.GetKeyUp(inputComponentScriptable.backwardKey))
+            else
             {
-                verticalVal = 0;
-                actions.Add(new MoveAction(playerController.horizontalVal, verticalVal));
+                actions.Add(new MoveAction(playerController.horizontalVal, joystick.Vertical));   
+        
             }
+
         }
 
         void TurnLeft()
         {
-            if (Input.GetKeyDown(inputComponentScriptable.turnLeftKey))
+            if(useJoystick == false)
             {
-                horizontalVal = -1;
-                actions.Add(new MoveAction(horizontalVal, playerController.verticalVal));
+                if (Input.GetKeyDown(inputComponentScriptable.turnLeftKey))
+                {
+                    horizontalVal = -1;
+                    actions.Add(new MoveAction(horizontalVal, playerController.verticalVal));
+                }
+                else if (Input.GetKeyUp(inputComponentScriptable.turnLeftKey))
+                {
+                    horizontalVal = 0;
+                    actions.Add(new MoveAction(horizontalVal, playerController.verticalVal));
+                }
             }
-            else if (Input.GetKeyUp(inputComponentScriptable.turnLeftKey))
+            else
             {
-                horizontalVal = 0;
-                actions.Add(new MoveAction(horizontalVal, playerController.verticalVal));
+                actions.Add(new MoveAction(joystick.Horizontal, playerController.verticalVal));   
+        
             }
         }
 
         void TurnRight()
         {
-            if (Input.GetKeyDown(inputComponentScriptable.turnRightKey))
+            if(useJoystick == false)
             {
-                horizontalVal = 1;
-                actions.Add(new MoveAction(horizontalVal, playerController.verticalVal));
+                if (Input.GetKeyDown(inputComponentScriptable.turnRightKey))
+                {
+                    horizontalVal = 1;
+                    actions.Add(new MoveAction(horizontalVal, playerController.verticalVal));
+                }
+                else if (Input.GetKeyUp(inputComponentScriptable.turnRightKey))
+                {
+                    horizontalVal = 0;
+                    actions.Add(new MoveAction(horizontalVal, playerController.verticalVal));
+                }
             }
-            else if (Input.GetKeyUp(inputComponentScriptable.turnRightKey))
+            else
             {
-                horizontalVal = 0;
-                actions.Add(new MoveAction(horizontalVal, playerController.verticalVal));
+                actions.Add(new MoveAction(joystick.Horizontal, playerController.verticalVal));   
+        
             }
         }
     }

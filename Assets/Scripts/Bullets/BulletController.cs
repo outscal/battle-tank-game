@@ -12,7 +12,7 @@ namespace Bullet
         public BulletModel bulletModel { get; protected set; }
         public BulletView bulletView { get; protected set; }
 
-        private BulletType bulletType = BulletType.medium;
+        private BulletType bulletType = BulletType.fast;
 
         public GameObject bulletRef { get; private set; }
 

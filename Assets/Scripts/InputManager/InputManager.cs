@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 using Replay;
 using Interfaces;
 
-namespace Inputs
+namespace InputControls
 {
     public class InputManager : IInput
     {

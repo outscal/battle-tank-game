@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Common;
-using Inputs;
+using InputControls;
 using Interfaces;
 
 namespace Replay

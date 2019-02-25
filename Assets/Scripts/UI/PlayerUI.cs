@@ -24,6 +24,8 @@ namespace UI
 
         public void setScore(int score)
         {
+            Debug.Log("[PLayerUI]IncreaseScore: " + score);
+
             scoreText.text = "Score:" + score;
         }
 

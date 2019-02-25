@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Replay;
-using Inputs;
+using InputControls;
 
 namespace Interfaces
 {

@@ -72,7 +72,7 @@ namespace Manager
 
             gamesPlayed = SaveLoadManager.Instance.GetGamesPlayerProgress();
 
-            Debug.Log("[GameManager] GamesPlayed Count " + gamesPlayed);
+            //Debug.Log("[GameManager] GamesPlayed Count " + gamesPlayed);
 
             UpdateGameState(new GameLoadingState(defaultScriptableObject.mainScene));
         }
@@ -140,6 +140,7 @@ namespace Manager
 
         public int GetGamesPlayed()
         {
+            //gamesPlayed = StartService.Instance.GetService<ISaveManager>().GetGamesPlayerProgress();
             return gamesPlayed;
         }
 

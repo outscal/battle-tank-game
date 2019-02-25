@@ -4,14 +4,14 @@ using UnityEngine;
 
 public interface ISaveLoad
 {
-    void SetInt(string dataString, int value);
-    int GetInt(string dataString);
+    void SetInt(string dataID, int value);
+    int GetInt(string dataID);
 
-    void SetString(string dataString, string value);
-    string GetString(string dataString);
+    void SetString(string dataID, string value);
+    string GetString(string dataID);
 
-    void SetBool(string dataString, bool value);
-    bool GetBool(string dataString);
+    void SetBool(string dataID, bool value);
+    bool GetBool(string dataID);
 
     void SaveAll();
 
