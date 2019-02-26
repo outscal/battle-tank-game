@@ -15,15 +15,11 @@ namespace InputControls
         private List<InputComponent> inputComponentList = new List<InputComponent>();
 
         private IGameManager gameManager;
-        private IReplay replayManager;
 
         public InputManager()
         {
             if (gameManager == null)
                 gameManager = StartService.Instance.GetService<IGameManager>();
-
-            if (replayManager == null)
-                replayManager = StartService.Instance.GetService<IReplay>();
 
             //Debug.Log("[InputManager]" + gameManager);
             gameManager.GameStarted += OnGameStart;
@@ -39,12 +35,12 @@ namespace InputControls
                     List<InputAction> actions = _playerController.playerInput.OnUpdate();
 
                     if (actions.Count > 0)
-                        replayManager.SaveCurrentQueueData(actions, _playerController.playerID, gameManager.GetGamesFrame());
+                        StartService.Instance.GetService<IReplay>().SaveCurrentQueueData(actions, _playerController.playerID, gameManager.GetGamesFrame());
 
-                    if (replayManager.GetSavedQueueData().Count > 0)
+                    if (StartService.Instance.GetService<IReplay>().GetSavedQueueData().Count > 0)
                     {
                         QueueData currentFrameData;// = new QueueData();
-                        currentFrameData = replayManager.GetSavedQueueData().Dequeue();
+                        currentFrameData = StartService.Instance.GetService<IReplay>().GetSavedQueueData().Dequeue();
 
                         foreach (var playerData in currentFrameData.playerQueueDatas)
                         {
@@ -57,10 +53,10 @@ namespace InputControls
             }
             else if (gameManager.GetCurrentState().gameStateType == GameStateType.Replay)
             {
-                if (replayManager.GetReplayQueueData().Count > 0)
+                if (StartService.Instance.GetService<IReplay>().GetReplayQueueData().Count > 0)
                 {
                     //Debug.Log("[InputManager] Frame rate: " + (GameManager.Instance.GamePlayFrames) + "/" + ReplayManager.Instance.replayQueue.Peek().frameNo);
-                    if (replayManager.GetReplayQueueData().Peek().frameNo == gameManager.GetGamesFrame())
+                    if (StartService.Instance.GetService<IReplay>().GetReplayQueueData().Peek().frameNo == gameManager.GetGamesFrame())
                     {
                         //QueueData currentFrameData;
                         //currentFrameData = ReplayManager.Instance.replayQueue.Dequeue();
@@ -70,7 +66,7 @@ namespace InputControls
                         {
 
                             QueueData currentFrameData;
-                            currentFrameData = replayManager.GetReplayQueueData().Dequeue();
+                            currentFrameData = StartService.Instance.GetService<IReplay>().GetReplayQueueData().Dequeue();
 
                             //Debug.Log("[InputManager] Data Frame:" + currentFrameData.frameNo +
                                       //" Game Frame " + gameManager.GetGamesFrame());
@@ -91,7 +87,7 @@ namespace InputControls
                     }
                 }
 
-                if (replayManager.GetReplayQueueData().Count <= 0)
+                if (StartService.Instance.GetService<IReplay>().GetReplayQueueData().Count <= 0)
                 {
                     gameManager.OnGameOver();
                     gameManager.UpdateGameState(new GameOverState());
@@ -121,8 +117,8 @@ namespace InputControls
 
         void OnGameStart()
         {
-            replayManager.SetReplayQueueData(new Queue<QueueData>());
-            replayManager.SetSavedQueueData(new Queue<QueueData>());
+            StartService.Instance.GetService<IReplay>().SetReplayQueueData(new Queue<QueueData>());
+            StartService.Instance.GetService<IReplay>().SetSavedQueueData(new Queue<QueueData>());
         }
 
         public void EmptyInputComponentList()

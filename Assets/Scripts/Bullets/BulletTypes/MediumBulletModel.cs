@@ -10,7 +10,7 @@ namespace Bullet.BulletTypes
         public MediumBulletModel()
         {
             Damage = 10;
-            Force = 10;
+            Force = 30;
             DestroyTime = 1.5f;
         }
     }

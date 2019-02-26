@@ -124,7 +124,6 @@ namespace UI
 
         void GetPlayerEvents(PlayerData playerData)
         {
-            Debug.Log("[GameUI]IncreaseScore");
             UIManager.Instance.playerScore = playerData.playerScore;
             playerUIs[playerData.playerID].setScore(playerData.playerScore);
 

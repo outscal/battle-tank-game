@@ -10,7 +10,7 @@ namespace Bullet.BulletTypes
         public SlowBulletModel()
         {
             Damage = 15;
-            Force = 5;
+            Force = 20;
             DestroyTime = 3f;
         }
     }

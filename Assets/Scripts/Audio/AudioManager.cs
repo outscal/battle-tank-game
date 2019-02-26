@@ -49,7 +49,6 @@ namespace Audio
                 if (audioName == audioData[i].audioName)
                 {
                     audioClip = audioData[i].audioClip;
-                    Debug.Log("[AudioManager]" + audioClip.name);
                     break;
                 }
             }

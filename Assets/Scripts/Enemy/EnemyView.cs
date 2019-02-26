@@ -69,17 +69,18 @@ namespace Enemy
             {
                 if(PlayerManager.Instance.playerControllerList[i].playerID == shooterID)
                 {
-                    PlayerManager.Instance.playerControllerList[i].setPlayerScore(5);
+                    PlayerManager.Instance.playerControllerList[i].setPlayerScore(enemyController.GetScoreIncreaser());
                     break;
                 }
             }
 
-            enemyManager.Reset(enemyController);
-            enemyController.DestroyEnemy -= DestroyEnemy;
+            //enemyManager.Reset(enemyController);
+            //enemyController.DestroyEnemy -= DestroyEnemy;
+            ResetEnemyView();
             //Destroy(gameObject);
         }
 
-        public void ResetEnemyView()
+        private void ResetEnemyView()
         {
             gameObject.SetActive(false);
             //Destroy(gameObject);
@@ -118,6 +119,12 @@ namespace Enemy
             enemyManager.SetEnemyData(enemyIndex, enemyData);
         }
 
+        public void TakeDamage(int damage, int shooterID)
+        {
+            enemyController.TakeDamage(damage);
+            this.shooterID = shooterID;
+        }
+
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
@@ -126,12 +133,6 @@ namespace Enemy
 
             UnityEditor.Handles.color = Color.red;
             UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.up, radius);
-        }
-
-        public void TakeDamage(int damage, int shooterID)
-        {
-            enemyController.TakeDamage(damage);
-            this.shooterID = shooterID;
         }
 #endif
 

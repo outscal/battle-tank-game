@@ -9,7 +9,7 @@ namespace Bullet.BulletTypes
         public FastBulletModel()
         {
             Damage = 5;
-            Force = 20;
+            Force = 40;
             DestroyTime = 1f;
         }
     }

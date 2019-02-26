@@ -86,8 +86,8 @@ namespace Enemy
             enemyModel.CurrentHealth -= value;
             if (enemyModel.CurrentHealth <= 0)
             {
+                DestroyEnemy?.Invoke();
                 Reset();
-                //DestroyEnemy?.Invoke();
             }
         }
 
@@ -129,8 +129,13 @@ namespace Enemy
             enemyView.TargetDetected -= SendAlert;
             enemyView.StateChangedEvent -= ChangeState;
             enemyManager.AlertMode -= GetAlerted;
-            enemyView.ResetEnemyView();
+            //enemyView.ResetEnemyView();
             //enemyModel = null;
+        }
+
+        public int GetScoreIncreaser()
+        {
+            return enemyModel.scriptableObj.scoreIncrease;
         }
     }
 }

@@ -93,6 +93,7 @@ namespace Player
 
         public void SendPlayerData()
         {
+            playerData.playerID = playerID;
             playerData.playerScore = playerModel.score;
             playerData.playerHealth = playerModel.Health;
             playerDataEvent?.Invoke(playerData);
@@ -131,7 +132,6 @@ namespace Player
 
         public void setPlayerScore(int value)
         {
-            Debug.Log("[PlayerController] 1 IncreaseScore" + value);
             playerModel.score += value;
             SendPlayerData();
         }

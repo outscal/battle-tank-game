@@ -74,15 +74,15 @@ namespace Player
             Destroy(gameObject);
         }
 
+        public void TakeDamage(int damage, int shooterID)
+        {
+            Debug.Log("Dont shoot friends");
+        }
+
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.up, PlayerManager.Instance.safeRadius);
-        }
-
-        public void TakeDamage(int damage, int shooterID)
-        {
-            Debug.Log("Dont shoot friends");
         }
 #endif
 

@@ -15,7 +15,7 @@ namespace UI
     {
 
         [SerializeField]
-        private Button playButton;
+        private Button playButton,exitButton;
 
         [SerializeField]
         private Text hiScoreText;
@@ -31,6 +31,7 @@ namespace UI
 
             hiScoreText.text = "HiScore: " + UIManager.Instance.hiScore;
             playButton.onClick.AddListener(() => PlayBtn());
+            exitButton.onClick.AddListener(() => ExitBtn());
 
             if (achievementManager == null)
                 achievementManager = StartService.Instance.GetService<IAchievement>();
@@ -44,6 +45,10 @@ namespace UI
             gameManager.UpdateGameState(new GamePlayState(gameManager.GetDefaultScriptable().gameScene));
         }
 
+        private void ExitBtn()
+        {
+            Application.Quit();
+        }
 
     }
 }
