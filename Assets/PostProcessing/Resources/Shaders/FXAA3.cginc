@@ -51,8 +51,8 @@ Then include this file,
 
 (3.)
 Then call the FXAA pixel shader from within your desired shader.
-Look at the FXAA Quality FxaaPixelShader() for docs on inputs.
-As for FXAA 3.11 all inputs for all shaders are the same
+Look at the FXAA Quality FxaaPixelShader() for docs on InputControls.
+As for FXAA 3.11 all InputControls for all shaders are the same
 to enable easy porting between platforms.
 
 return FxaaPixelShader(...);
@@ -65,7 +65,7 @@ Or use,
 
 (5.)
 Setup engine to provide the following constants
-which are used in the FxaaPixelShader() inputs,
+which are used in the FxaaPixelShader() InputControls,
 
 FxaaFloat2 fxaaQualityRcpFrame,
 FxaaFloat4 fxaaConsoleRcpFrameOpt,
@@ -79,12 +79,12 @@ FxaaFloat fxaaConsoleEdgeThreshold,
 FxaaFloat fxaaConsoleEdgeThresholdMin,
 FxaaFloat4 fxaaConsole360ConstDir
 
-Look at the FXAA Quality FxaaPixelShader() for docs on inputs.
+Look at the FXAA Quality FxaaPixelShader() for docs on InputControls.
 
 (6.)
 Have FXAA vertex shader run as a full screen triangle,
 and output "pos" and "fxaaConsolePosPos"
-such that inputs in the pixel shader provide,
+such that InputControls in the pixel shader provide,
 
 // {xy} = center of pixel
 FxaaFloat2 pos,
@@ -337,7 +337,7 @@ FXAA CONSOLE PS3 - TUNING KNOBS
 //
 // 8.0 is sharper
 // 4.0 is softer
-// 2.0 is really soft (good for vector graphics inputs)
+// 2.0 is really soft (good for vector graphics InputControls)
 //
 #if 1
 #define FXAA_CONSOLE__PS3_EDGE_SHARPNESS 8.0
@@ -377,7 +377,7 @@ FXAA CONSOLE PS3 - TUNING KNOBS
 /*============================================================================
 FXAA QUALITY - TUNING KNOBS
 ------------------------------------------------------------------------------
-NOTE the other tuning knobs are now in the shader function inputs!
+NOTE the other tuning knobs are now in the shader function InputControls!
 ============================================================================*/
 #ifndef FXAA_QUALITY__PRESET
 //
@@ -836,7 +836,7 @@ FxaaFloat4 FxaaPixelShader(
     // For all other platforms can be a non-power of two.
     //   8.0 is sharper (default!!!)
     //   4.0 is softer
-    //   2.0 is really soft (good only for vector graphics inputs)
+    //   2.0 is really soft (good only for vector graphics InputControls)
     FxaaFloat fxaaConsoleEdgeSharpness,
     //
     // Only used on FXAA Console.
@@ -1270,7 +1270,7 @@ Either are higher qualilty and almost as fast as this on modern PC GPUs.
 #if (FXAA_PC_CONSOLE == 1)
 /*--------------------------------------------------------------------------*/
 FxaaFloat4 FxaaPixelShader(
-    // See FXAA Quality FxaaPixelShader() source for docs on Inputs!
+    // See FXAA Quality FxaaPixelShader() source for docs on InputControls!
     FxaaFloat2 pos,
     FxaaFloat4 fxaaConsolePosPos,
     FxaaTex tex,
@@ -1368,7 +1368,7 @@ If it does not work, please let me know so I can fix it.
 /*--------------------------------------------------------------------------*/
 [reduceTempRegUsage(4)]
 float4 FxaaPixelShader(
-    // See FXAA Quality FxaaPixelShader() source for docs on Inputs!
+    // See FXAA Quality FxaaPixelShader() source for docs on InputControls!
     FxaaFloat2 pos,
     FxaaFloat4 fxaaConsolePosPos,
     FxaaTex tex,
@@ -1616,7 +1616,7 @@ Results 13 cycles, 3 r regs, 923,076,923 pixels/s
 #pragma texformat default RGBA8
 /*==========================================================================*/
 half4 FxaaPixelShader(
-    // See FXAA Quality FxaaPixelShader() source for docs on Inputs!
+    // See FXAA Quality FxaaPixelShader() source for docs on InputControls!
     FxaaFloat2 pos,
     FxaaFloat4 fxaaConsolePosPos,
     FxaaTex tex,
@@ -1927,7 +1927,7 @@ Results 15 cycles, 3 r regs, 800,000,000 pixels/s
 #pragma texformat default RGBA8
 /*==========================================================================*/
 half4 FxaaPixelShader(
-    // See FXAA Quality FxaaPixelShader() source for docs on Inputs!
+    // See FXAA Quality FxaaPixelShader() source for docs on InputControls!
     FxaaFloat2 pos,
     FxaaFloat4 fxaaConsolePosPos,
     FxaaTex tex,
