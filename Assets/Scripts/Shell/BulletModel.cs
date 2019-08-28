@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TankBattle.Tank
+namespace TankBattle.Bullet
 {
-    public class TankModel
+    public class BulletModel
     {
-        private int speed;
-
-        public TankModel()
+        public BulletModel()
         {
 
         }
+
     }
 }
