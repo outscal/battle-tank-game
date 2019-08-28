@@ -2,7 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankController
+namespace TankBattle.Tank
 {
-
+    public class TankController
+    {
+        private TankModel tankModel;
+        private TankView tankView;
+        public TankController(TankView _tankPrefab)
+        {
+            tankModel = new TankModel();
+            tankView = GameObject.Instantiate<TankView>(_tankPrefab, Vector3.zero, Quaternion.identity);
+        }
+    }
 }

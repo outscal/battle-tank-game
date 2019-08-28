@@ -4,16 +4,15 @@ using UnityEngine;
 
 namespace TankBattle.Tank
 {
-    public class TankService : GenericMonoSingleton<TankService>
+    public class TankView : MonoBehaviour
     {
-        public TankView tankPrefab;
-
+        // Start is called before the first frame update
         void Start()
         {
-            //creating a tank
-            TankController _tankController = new TankController(tankPrefab);
+        
         }
 
+        // Update is called once per frame
         void Update()
         {
         
