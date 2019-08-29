@@ -27,12 +27,41 @@ namespace TankBattle.Tank
             {
                 playerTank.FireBullet();
             }
+
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                Debug.Log("Generate Enemy tank");
+                SpawnEnemyTank();
+            }
+
+            if(Input.GetKeyDown(KeyCode.W))
+            {
+                playerTank.MoveForward();
+            }
+            if(Input.GetKeyDown(KeyCode.S))
+            {
+                playerTank.MoveBackWard();
+            }
+            if(Input.GetKeyDown(KeyCode.A))
+            {
+                playerTank.TurnLeft();
+            }
+            if(Input.GetKeyDown(KeyCode.D))
+            {
+                playerTank.TurnRight();
+            }
         }
 
         public void CreatePlayerTank()
         {
             //creating a tank
-            playerTank = new TankController(tankPrefab);
+            playerTank = new TankController(tankPrefab, Vector3.zero);
+        }
+
+        public void SpawnEnemyTank()
+        {
+            Vector3 randomPosition = Vector3.zero + new Vector3(Random.Range(-10,10), 0, Random.Range(-10,10));
+            new TankController(tankPrefab, randomPosition);
         }
     }
 }

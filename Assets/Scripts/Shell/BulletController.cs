@@ -13,6 +13,19 @@ namespace TankBattle.Bullet
         {
             bulletModel = new BulletModel();
             bulletView = GameObject.Instantiate<BulletView>(_prefab, _position, _rotation);
+            bulletView.SetController(this);
+            bulletView.GetComponent<Rigidbody>().AddForce(bulletView.transform.forward * 1000);
+        }
+
+        public void DestroyBullet()
+        {
+            bulletModel = null;
+            GameObject.Destroy(bulletView.gameObject);
+        }
+
+        public int GetBulletDamagePower()
+        {
+            return bulletModel.damage;
         }
 
     }
