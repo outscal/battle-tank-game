@@ -6,7 +6,7 @@ namespace TankBattle.Tank
 {
     public class TankView : MonoBehaviour
     {
-        // Start is called before the first frame update
+        private TankController controller;
         void Start()
         {
         
@@ -16,6 +16,16 @@ namespace TankBattle.Tank
         void Update()
         {
         
+        }
+
+        public void SetController(TankController _controller)
+        {
+            controller = _controller;
+        }
+
+        public TankController GetController()
+        {
+            return controller;
         }
     }
 }

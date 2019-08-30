@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TankBattle.Tank;
 
 namespace TankBattle.Bullet
 {
@@ -8,13 +9,15 @@ namespace TankBattle.Bullet
     {
         private BulletView bulletView;
         private BulletModel bulletModel;
+        public TankController sourceTank;
 
-        public BulletController(BulletView _prefab, Vector3 _position, Quaternion _rotation)
+        public BulletController(BulletView _prefab, Vector3 _position, Quaternion _rotation, TankController _sourceTank)
         {
             bulletModel = new BulletModel();
             bulletView = GameObject.Instantiate<BulletView>(_prefab, _position, _rotation);
             bulletView.SetController(this);
             bulletView.GetComponent<Rigidbody>().AddForce(bulletView.transform.forward * 1000);
+            sourceTank = _sourceTank;
         }
 
         public void DestroyBullet()

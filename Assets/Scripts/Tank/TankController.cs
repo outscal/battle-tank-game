@@ -16,6 +16,7 @@ namespace TankBattle.Tank
         {
             tankModel = new TankModel();
             tankView = GameObject.Instantiate<TankView>(_tankPrefab, position, Quaternion.identity);
+            tankView.SetController(this);
             bulletService = GameObject.FindObjectOfType<BulletService>();
             tankRigidBody = tankView.GetComponent<Rigidbody>();
         }
@@ -23,7 +24,7 @@ namespace TankBattle.Tank
         public void FireBullet()
         {
             Vector3 offsetHeight = new Vector3(0,1.8f,0);
-            bulletService.TriggerBullet(tankView.transform.position + offsetHeight, tankView.transform.rotation);
+            bulletService.TriggerBullet(tankView.transform.position + offsetHeight, tankView.transform.rotation, this);
         }
 
         public void ApplyDamage(int damage)

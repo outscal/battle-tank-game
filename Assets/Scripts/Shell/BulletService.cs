@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TankBattle.Tank;
 
 namespace TankBattle.Bullet
 {
@@ -18,9 +19,9 @@ namespace TankBattle.Bullet
 
         }
 
-        public void TriggerBullet(Vector3 _Initialposition, Quaternion _rotation)
+        public void TriggerBullet(Vector3 _Initialposition, Quaternion _rotation, TankController sourceTank)
         {
-            new BulletController(bulletPrefab, _Initialposition, _rotation);
+            new BulletController(bulletPrefab, _Initialposition, _rotation, sourceTank);
         }
     }
 }

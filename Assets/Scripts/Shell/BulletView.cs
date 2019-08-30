@@ -23,9 +23,10 @@ namespace TankBattle.Bullet
             controller = _controller;
         }
 
-        void OnCollisionExit(Collision c)
+
+        private void OnTriggerExit(Collider collider) 
         {
-            if (c.collider.tag == "GameBoundary")
+            if (collider.gameObject.tag == "GameBoundary")
             {
                 if (controller != null)
                 {
@@ -34,17 +35,23 @@ namespace TankBattle.Bullet
             }
         }
 
-        void OnCollisionEnter(Collision c) 
+
+        private void OnTriggerEnter(Collider collision)
         {
-            if (c.collider.name == "Tank")
+            if (collision.gameObject.tag == "Tank")
             {
-                TankController _tankController = c.gameObject.GetComponent<TankController>();
-                _tankController.ApplyDamage(controller.GetBulletDamagePower());
-            }
-            if (controller != null)
+                TankController colliderTank = collision.gameObject.GetComponent<TankView>().GetController();
+                if(colliderTank != controller.sourceTank)
                 {
-                    controller.DestroyBullet();
+                    colliderTank.ApplyDamage(controller.GetBulletDamagePower());
+                    
+                    if (controller != null)
+                    {
+                        controller.DestroyBullet();
+                    }
                 }
+            }
         }
+            
     }
 }
