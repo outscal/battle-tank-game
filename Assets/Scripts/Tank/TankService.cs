@@ -34,19 +34,19 @@ namespace TankBattle.Tank
                 SpawnEnemyTank();
             }
 
-            if(Input.GetKeyDown(KeyCode.W))
+            if(Input.GetKey(KeyCode.W))
             {
                 playerTank.MoveForward();
             }
-            if(Input.GetKeyDown(KeyCode.S))
+            if(Input.GetKey(KeyCode.S))
             {
                 playerTank.MoveBackWard();
             }
-            if(Input.GetKeyDown(KeyCode.A))
+            if(Input.GetKey(KeyCode.A))
             {
                 playerTank.TurnLeft();
             }
-            if(Input.GetKeyDown(KeyCode.D))
+            if(Input.GetKey(KeyCode.D))
             {
                 playerTank.TurnRight();
             }
