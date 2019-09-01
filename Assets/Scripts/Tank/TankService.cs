@@ -14,11 +14,14 @@ namespace TankBattle.Tank
     {
         public TankView tankPrefab;
 
+        private ScreenOverlayManager hudManager;
+
         private TankController playerTank;
 
         void Start()
         {
             CreatePlayerTank();
+            hudManager = GameObject.FindObjectOfType<ScreenOverlayManager>();
         }
 
         void Update()
@@ -44,12 +47,14 @@ namespace TankBattle.Tank
             }
             if(Input.GetKey(KeyCode.A))
             {
-                playerTank.TurnLeft();
+                playerTank.TurnRight();
             }
             if(Input.GetKey(KeyCode.D))
             {
-                playerTank.TurnRight();
+                playerTank.TurnLeft();
             }
+
+            UpdatePlayerTankValues();
         }
 
         public void CreatePlayerTank()
@@ -62,6 +67,11 @@ namespace TankBattle.Tank
         {
             Vector3 randomPosition = Vector3.zero + new Vector3(Random.Range(-10,10), 0, Random.Range(-10,10));
             new TankController(tankPrefab, randomPosition);
+        }
+
+        public void UpdatePlayerTankValues()
+        {
+            hudManager.SetTankHealthTo(playerTank.GetTankHealth());
         }
     }
 }

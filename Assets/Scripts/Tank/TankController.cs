@@ -7,6 +7,7 @@ namespace TankBattle.Tank
 {
     public class TankController
     {
+        private ScreenOverlayManager hudManager;
         private TankModel tankModel;
         private TankView tankView;
         private BulletService bulletService;
@@ -25,6 +26,11 @@ namespace TankBattle.Tank
         {
             Vector3 offsetHeight = new Vector3(0,1.8f,0);
             bulletService.TriggerBullet(tankView.transform.position + offsetHeight, tankView.transform.rotation, this);
+        }
+
+        public int GetTankHealth()
+        {
+            return tankModel.health;
         }
 
         public void ApplyDamage(int damage)
