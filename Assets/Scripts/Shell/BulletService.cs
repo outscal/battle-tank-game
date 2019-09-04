@@ -7,7 +7,7 @@ namespace TankBattle.Bullet
 {
     public class BulletService : GenericMonoSingleton<BulletService>
     {
-        public BulletView bulletPrefab;
+        public BulletScriptableObject bulletScriptableObject;
 
         void Start()
         {
@@ -21,7 +21,7 @@ namespace TankBattle.Bullet
 
         public void TriggerBullet(Vector3 _Initialposition, Quaternion _rotation, TankController sourceTank)
         {
-            new BulletController(bulletPrefab, _Initialposition, _rotation, sourceTank);
+            new BulletController(bulletScriptableObject, _Initialposition, _rotation, sourceTank);
         }
     }
 }

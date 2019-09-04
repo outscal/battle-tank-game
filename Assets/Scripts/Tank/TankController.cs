@@ -13,10 +13,10 @@ namespace TankBattle.Tank
         private BulletService bulletService;
 
         private Rigidbody tankRigidBody;
-        public TankController(TankView _tankPrefab, Vector3 position)
+        public TankController(TankScriptableObject _tankScriptableObject, Vector3 position)
         {
-            tankModel = new TankModel();
-            tankView = GameObject.Instantiate<TankView>(_tankPrefab, position, Quaternion.identity);
+            tankModel = new TankModel(_tankScriptableObject);
+            tankView = GameObject.Instantiate<TankView>(tankModel.tankPrefab, position, Quaternion.identity);
             tankView.SetController(this);
             bulletService = GameObject.FindObjectOfType<BulletService>();
             tankRigidBody = tankView.GetComponent<Rigidbody>();
@@ -59,11 +59,11 @@ namespace TankBattle.Tank
         }
         public void TurnLeft()
         {
-            tankView.transform.Rotate(Vector3.up*2);
+            tankView.transform.Rotate(Vector3.up*tankModel.turningTorque);
         }
         public void TurnRight()
         {
-            tankView.transform.Rotate(Vector3.up*-2);
+            tankView.transform.Rotate(Vector3.up*-tankModel.turningTorque);
         }
     }
 }

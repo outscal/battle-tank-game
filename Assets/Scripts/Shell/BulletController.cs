@@ -11,10 +11,10 @@ namespace TankBattle.Bullet
         private BulletModel bulletModel;
         public TankController sourceTank;
 
-        public BulletController(BulletView _prefab, Vector3 _position, Quaternion _rotation, TankController _sourceTank)
+        public BulletController(BulletScriptableObject _bulletScriptableObject, Vector3 _position, Quaternion _rotation, TankController _sourceTank)
         {
-            bulletModel = new BulletModel();
-            bulletView = GameObject.Instantiate<BulletView>(_prefab, _position, _rotation);
+            bulletModel = new BulletModel(_bulletScriptableObject);
+            bulletView = GameObject.Instantiate<BulletView>(bulletModel.bulletPrefab, _position, _rotation);
             bulletView.SetController(this);
             bulletView.GetComponent<Rigidbody>().AddForce(bulletView.transform.forward * 1000);
             sourceTank = _sourceTank;

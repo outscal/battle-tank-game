@@ -7,9 +7,11 @@ namespace TankBattle.Bullet
     public class BulletModel
     {
         public int damage = 10;
-        public BulletModel()
+        public BulletView bulletPrefab;
+        public BulletModel(BulletScriptableObject _bulletScriptableObject)
         {
-
+            damage = _bulletScriptableObject.damage;
+            bulletPrefab = _bulletScriptableObject.bulletPrefab;
         }
 
     }

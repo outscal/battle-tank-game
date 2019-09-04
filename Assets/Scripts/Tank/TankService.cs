@@ -12,7 +12,8 @@ namespace TankBattle.Tank
 
     public class TankService : GenericMonoSingleton<TankService>
     {
-        public TankView tankPrefab;
+        public TankScriptableObject playerTankScriptableObject;
+        public TankScriptableObject enemyTankScriptableObject;
 
         private ScreenOverlayManager hudManager;
 
@@ -60,13 +61,13 @@ namespace TankBattle.Tank
         public void CreatePlayerTank()
         {
             //creating a tank
-            playerTank = new TankController(tankPrefab, Vector3.zero);
+            playerTank = new TankController(playerTankScriptableObject, Vector3.zero);
         }
 
         public void SpawnEnemyTank()
         {
             Vector3 randomPosition = Vector3.zero + new Vector3(Random.Range(-10,10), 0, Random.Range(-10,10));
-            new TankController(tankPrefab, randomPosition);
+            new TankController(enemyTankScriptableObject, randomPosition);
         }
 
         public void UpdatePlayerTankValues()

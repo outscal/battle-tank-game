@@ -502,8 +502,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4866fb33dac2e145ad5d9e5912e7b91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankPrefab: {fileID: 4449161195600054473, guid: 50f9ffe84e4bff64594bcb81d85adf7a,
-    type: 3}
+  playerTankScriptableObject: {fileID: 11400000, guid: 9256696870961ed4f8b9c8bf7d575167,
+    type: 2}
+  enemyTankScriptableObject: {fileID: 11400000, guid: 8d3ef2bb1b7470f4b842528a3ca23556,
+    type: 2}
 --- !u!4 &634578360
 Transform:
   m_ObjectHideFlags: 0
@@ -738,8 +740,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 556ab21cf85c8a64caeff0b97a7201f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 4849146645458740267, guid: 44c720195dd225949aaf6bbbc731606d,
-    type: 3}
+  bulletScriptableObject: {fileID: 11400000, guid: 61bb2d33c8af15045a2bd5f21144666a,
+    type: 2}
 --- !u!1 &1509345498
 GameObject:
   m_ObjectHideFlags: 0
