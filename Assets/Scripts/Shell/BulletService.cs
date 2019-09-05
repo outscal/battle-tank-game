@@ -7,17 +7,8 @@ namespace TankBattle.Bullet
 {
     public class BulletService : GenericMonoSingleton<BulletService>
     {
-        public BulletScriptableObject bulletScriptableObject;
-
-        void Start()
-        {
-
-        }
-
-        void Update()
-        {
-
-        }
+        [SerializeField]
+        private BulletScriptableObject bulletScriptableObject;
 
         public void TriggerBullet(Vector3 _Initialposition, Quaternion _rotation, TankController sourceTank)
         {

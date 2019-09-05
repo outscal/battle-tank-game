@@ -12,8 +12,11 @@ namespace TankBattle.Tank
 
     public class TankService : GenericMonoSingleton<TankService>
     {
-        public TankScriptableObject playerTankScriptableObject;
-        public TankScriptableObject enemyTankScriptableObject;
+        [SerializeField]
+        private TankScriptableObject playerTankScriptableObject;
+
+        [SerializeField]
+        private TankScriptableObject enemyTankScriptableObject;
 
         private ScreenOverlayManager hudManager;
 

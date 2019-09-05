@@ -7,16 +7,7 @@ namespace TankBattle.Bullet
 {
     public class BulletView : MonoBehaviour
     {
-        private BulletController controller = null;
-        void Start()
-        {
-        
-        }
-
-        void Update()
-        {
-        
-        }
+        private BulletController controller;
 
         public void SetController(BulletController _controller)
         {

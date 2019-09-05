@@ -6,12 +6,15 @@ namespace TankBattle.Tank
 {
     public class TankModel
     {
-        public float speed;
-
-        public float turningTorque;
-        public int health;
-        public TankType tankType;
-        public TankView tankPrefab;
+        private float speed;
+        public float Speed {get {return speed;}}
+        private float turningTorque;
+        public float TurningTorque {get{ return turningTorque;}}
+        private int health;
+        public int Health {get{ return health;} set{health = value;}}
+        private TankType tankType;
+        private TankView tankPrefab;
+        public TankView TankPrefab{get{return tankPrefab;}}
 
         public TankModel(TankScriptableObject _tankScriptableObject)
         {

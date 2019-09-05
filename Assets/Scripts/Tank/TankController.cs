@@ -7,19 +7,15 @@ namespace TankBattle.Tank
 {
     public class TankController
     {
-        private ScreenOverlayManager hudManager;
         private TankModel tankModel;
         private TankView tankView;
-        private BulletService bulletService;
-
-        private Rigidbody tankRigidBody;
+        private readonly BulletService bulletService;
         public TankController(TankScriptableObject _tankScriptableObject, Vector3 position)
         {
             tankModel = new TankModel(_tankScriptableObject);
-            tankView = GameObject.Instantiate<TankView>(tankModel.tankPrefab, position, Quaternion.identity);
+            tankView = GameObject.Instantiate<TankView>(tankModel.TankPrefab, position, Quaternion.identity);
             tankView.SetController(this);
             bulletService = GameObject.FindObjectOfType<BulletService>();
-            tankRigidBody = tankView.GetComponent<Rigidbody>();
         }
 
         public void FireBullet()
@@ -30,13 +26,13 @@ namespace TankBattle.Tank
 
         public int GetTankHealth()
         {
-            return tankModel.health;
+            return tankModel.Health;
         }
 
         public void ApplyDamage(int damage)
         {
-            tankModel.health -= damage;
-            if(tankModel.health <= 0)
+            tankModel.Health -= damage;
+            if(tankModel.Health <= 0)
             {
                 DestroyTank();
             }
@@ -51,19 +47,19 @@ namespace TankBattle.Tank
 
         public void MoveForward()
         {
-            tankView.transform.position = tankView.transform.position + (tankView.transform.forward * tankModel.speed);
+            tankView.transform.position = tankView.transform.position + (tankView.transform.forward * tankModel.Speed);
         }
         public void MoveBackWard()
         {
-            tankView.transform.position = tankView.transform.position + (tankView.transform.forward * -tankModel.speed);
+            tankView.transform.position = tankView.transform.position + (tankView.transform.forward * -tankModel.Speed);
         }
         public void TurnLeft()
         {
-            tankView.transform.Rotate(Vector3.up*tankModel.turningTorque);
+            tankView.transform.Rotate(Vector3.up*tankModel.TurningTorque);
         }
         public void TurnRight()
         {
-            tankView.transform.Rotate(Vector3.up*-tankModel.turningTorque);
+            tankView.transform.Rotate(Vector3.up*-tankModel.TurningTorque);
         }
     }
 }

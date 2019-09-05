@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class ScreenOverlayManager : GenericMonoSingleton<ScreenOverlayManager>
 {
-    public GameObject TankHealthsliderObject;
+    [SerializeField]
+    private GameObject TankHealthsliderObject;
 
     private Slider tankHealthBar;
     
@@ -17,10 +18,5 @@ public class ScreenOverlayManager : GenericMonoSingleton<ScreenOverlayManager>
     public void SetTankHealthTo(float healthPercent)
     {
         tankHealthBar.value = healthPercent;
-    }
-
-    void Update()
-    {
-        
     }
 }

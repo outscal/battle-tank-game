@@ -6,8 +6,10 @@ namespace TankBattle.Bullet
 {
     public class BulletModel
     {
-        public int damage = 10;
-        public BulletView bulletPrefab;
+        private int damage;
+        public int Damage{get{return damage;}}
+        private BulletView bulletPrefab;
+        public BulletView BulletPrefab{get{return bulletPrefab;}}
         public BulletModel(BulletScriptableObject _bulletScriptableObject)
         {
             damage = _bulletScriptableObject.damage;
