@@ -14,7 +14,6 @@ namespace TankBattle.Bullet
             controller = _controller;
         }
 
-
         private void OnTriggerExit(Collider collider) 
         {
             if (collider.gameObject.tag == "GameBoundary")
@@ -25,7 +24,6 @@ namespace TankBattle.Bullet
                 }
             }
         }
-
 
         private void OnTriggerEnter(Collider collision)
         {
@@ -42,7 +40,6 @@ namespace TankBattle.Bullet
                     }
                 }
             }
-        }
-            
+        }   
     }
 }

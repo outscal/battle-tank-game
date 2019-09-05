@@ -31,6 +31,5 @@ namespace TankBattle.Bullet
         {
             return bulletModel.Damage;
         }
-
     }
 }
