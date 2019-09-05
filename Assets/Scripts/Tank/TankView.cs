@@ -7,16 +7,6 @@ namespace TankBattle.Tank
     public class TankView : MonoBehaviour
     {
         private TankController controller;
-        void Start()
-        {
-        
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
 
         public void SetController(TankController _controller)
         {
