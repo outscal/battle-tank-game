@@ -32,7 +32,7 @@ namespace TankBattle.Bullet
                 TankController colliderTank = collision.gameObject.GetComponent<TankView>().GetController();
                 if(colliderTank != controller.sourceTank)
                 {
-                    colliderTank.ApplyDamage(controller.GetBulletDamagePower());
+                    colliderTank.ApplyDamage(controller.GetBulletDamagePower(), controller.sourceTank);
                     
                     if (controller != null)
                     {

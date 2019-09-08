@@ -15,6 +15,8 @@ namespace TankBattle.Tank
         private TankType tankType;
         private TankView tankPrefab;
         public TankView TankPrefab{get{return tankPrefab; }}
+        private int kills;
+        public int Kills{get{return kills; } set{kills = value; }}
 
         public TankModel(TankScriptableObject _tankScriptableObject)
         {
@@ -23,6 +25,7 @@ namespace TankBattle.Tank
             turningTorque = _tankScriptableObject.turningTorque;
             tankType = _tankScriptableObject.tankType;
             tankPrefab = _tankScriptableObject.tankPrefab;
+            kills = 0;
         }
     }
 }
