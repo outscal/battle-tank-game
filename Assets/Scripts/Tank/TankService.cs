@@ -18,13 +18,10 @@ namespace TankBattle.Tank
         [SerializeField]
         private TankScriptableObject enemyTankScriptableObject;
 
-        private ScreenOverlayManager hudManager;
-
         private TankController playerTank;
 
         void Start()
         {
-            hudManager = GameObject.FindObjectOfType<ScreenOverlayManager>();
             CreatePlayerTank();
         }
 
@@ -63,7 +60,7 @@ namespace TankBattle.Tank
         {
             //creating a tank
             playerTank = new TankController(playerTankScriptableObject, Vector3.zero);
-            hudManager.SetPlayerTankController(playerTank);
+            ScreenOverlayManager.Instance.SetPlayerTankController(playerTank);
         }
 
         public void SpawnEnemyTank()

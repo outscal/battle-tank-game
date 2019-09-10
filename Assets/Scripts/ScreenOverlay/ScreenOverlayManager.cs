@@ -7,18 +7,11 @@ using TankBattle.Tank;
 public class ScreenOverlayManager : GenericMonoSingleton<ScreenOverlayManager>
 {
     [SerializeField]
-    private GameObject TankHealthsliderObject;
-
-    [SerializeField]
     private Text scoreText;
 
+    [SerializeField]
     private Slider tankHealthBar;
     private TankController playerTankController;
-    
-    void Start()
-    {
-        tankHealthBar = TankHealthsliderObject.GetComponent<Slider>();
-    }
 
     public void SetPlayerTankController(TankController _controller)
     {

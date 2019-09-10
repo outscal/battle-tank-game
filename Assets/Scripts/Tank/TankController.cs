@@ -7,23 +7,19 @@ namespace TankBattle.Tank
 {
     public class TankController
     {
-        private ScreenOverlayManager gameUIService;
         private TankModel tankModel;
         private TankView tankView;
-        private readonly BulletService bulletService;
         public TankController(TankScriptableObject _tankScriptableObject, Vector3 position)
         {
             tankModel = new TankModel(_tankScriptableObject);
             tankView = GameObject.Instantiate<TankView>(tankModel.TankPrefab, position, Quaternion.identity);
             tankView.SetController(this);
-            bulletService = GameObject.FindObjectOfType<BulletService>();
-            gameUIService = GameObject.FindObjectOfType<ScreenOverlayManager>();
         }
 
         public void FireBullet()
         {
             Vector3 offsetHeight = new Vector3(0,1.8f,0);
-            bulletService.TriggerBullet(tankView.transform.position + offsetHeight, tankView.transform.rotation, this);
+            BulletService.Instance.TriggerBullet(tankView.transform.position + offsetHeight, tankView.transform.rotation, this);
         }
 
         public int GetTankHealth()
@@ -39,12 +35,13 @@ namespace TankBattle.Tank
         public void ApplyDamage(int damage, TankController sourceTank)
         {
             tankModel.Health -= damage;
-            gameUIService.UpdateUIHealthBar();
             if(tankModel.Health <= 0)
             {
+                tankModel.Health = 0; //avoiding negative health
                 sourceTank.AddKill();
                 DestroyTank();
             }
+            ScreenOverlayManager.Instance.UpdateUIHealthBar();
         }
 
         public void DestroyTank()
@@ -57,7 +54,7 @@ namespace TankBattle.Tank
         public void AddKill()
         {
             tankModel.Kills++;
-            gameUIService.UpdateUIScore();
+            ScreenOverlayManager.Instance.UpdateUIScore();
         }
 
         public void MoveForward()

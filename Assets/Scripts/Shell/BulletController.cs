@@ -16,7 +16,6 @@ namespace TankBattle.Bullet
             bulletModel = new BulletModel(_bulletScriptableObject);
             bulletView = GameObject.Instantiate<BulletView>(bulletModel.BulletPrefab, _position, _rotation);
             bulletView.SetController(this);
-            bulletView.GetComponent<Rigidbody>().AddForce(bulletView.transform.forward * 1000);
             sourceTank = _sourceTank;
         }
 

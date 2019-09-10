@@ -9,6 +9,10 @@ namespace TankBattle.Bullet
     {
         private BulletController controller;
 
+        public void Start() {
+            GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
+        }
+
         public void SetController(BulletController _controller)
         {
             controller = _controller;
@@ -16,7 +20,7 @@ namespace TankBattle.Bullet
 
         private void OnTriggerExit(Collider collider) 
         {
-            if (collider.gameObject.tag == "GameBoundary")
+            if (collider.gameObject.layer == 8)
             {
                 if (controller != null)
                 {

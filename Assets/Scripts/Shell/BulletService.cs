@@ -10,9 +10,9 @@ namespace TankBattle.Bullet
         [SerializeField]
         private BulletScriptableObject bulletScriptableObject;
 
-        public void TriggerBullet(Vector3 _Initialposition, Quaternion _rotation, TankController sourceTank)
+        public void TriggerBullet(Vector3 _initialposition, Quaternion _rotation, TankController _sourceTank)
         {
-            new BulletController(bulletScriptableObject, _Initialposition, _rotation, sourceTank);
+            new BulletController(bulletScriptableObject, _initialposition, _rotation, _sourceTank);
         }
     }
 }

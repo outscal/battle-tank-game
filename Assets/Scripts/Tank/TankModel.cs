@@ -10,22 +10,20 @@ namespace TankBattle.Tank
         public float Speed {get {return speed; }}
         private float turningTorque;
         public float TurningTorque {get{ return turningTorque; }}
-        private int health;
-        public int Health {get{ return health;} set{health = value; }}
+        public int Health {get; set;}
         private TankType tankType;
         private TankView tankPrefab;
         public TankView TankPrefab{get{return tankPrefab; }}
-        private int kills;
-        public int Kills{get{return kills; } set{kills = value; }}
+        public int Kills{get; set;}
 
         public TankModel(TankScriptableObject _tankScriptableObject)
         {
             speed = _tankScriptableObject.speed;
-            health = _tankScriptableObject.health;
+            Health = _tankScriptableObject.health;
             turningTorque = _tankScriptableObject.turningTorque;
             tankType = _tankScriptableObject.tankType;
             tankPrefab = _tankScriptableObject.tankPrefab;
-            kills = 0;
+            Kills = 0;
         }
     }
 }
