@@ -17,5 +17,10 @@ namespace TankBattle.Tank
         {
             return controller;
         }
+
+        public void DestroyTankView()
+        {
+            Destroy(gameObject);
+        }
     }
 }

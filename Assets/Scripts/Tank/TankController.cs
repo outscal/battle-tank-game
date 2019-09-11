@@ -47,7 +47,7 @@ namespace TankBattle.Tank
         public void DestroyTank()
         {
             tankModel = null;
-            GameObject.Destroy(tankView.gameObject);
+            tankView.DestroyTankView();
             tankView = null;
         }
 

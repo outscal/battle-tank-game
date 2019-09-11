@@ -18,6 +18,11 @@ namespace TankBattle.Bullet
             controller = _controller;
         }
 
+        public void DestroyBulletView()
+        {
+            Destroy(gameObject);
+        }
+
         private void OnTriggerExit(Collider collider) 
         {
             if (collider.gameObject.layer == 8)

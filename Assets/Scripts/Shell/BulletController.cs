@@ -22,7 +22,7 @@ namespace TankBattle.Bullet
         public void DestroyBullet()
         {
             bulletModel = null;
-            GameObject.Destroy(bulletView.gameObject);
+            bulletView.DestroyBulletView();
             bulletView = null;
         }
 
