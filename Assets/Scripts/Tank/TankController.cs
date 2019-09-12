@@ -32,8 +32,11 @@ namespace TankBattle.Tank
             return tankModel.Kills;
         }
 
-        public void ApplyDamage(int damage, TankController sourceTank)
+        public bool ApplyDamage(int damage, TankController sourceTank)
         {
+            if(sourceTank == this)
+                return false;//initially the bullets spawns inside tank and triggers collission
+
             tankModel.Health -= damage;
             if(tankModel.Health <= 0)
             {
@@ -42,6 +45,8 @@ namespace TankBattle.Tank
                 DestroyTank();
             }
             ScreenOverlayManager.Instance.UpdateUIHealthBar();
+
+            return true;
         }
 
         public void DestroyTank()

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TankBattle.Tank
 {
-    public class TankView : MonoBehaviour
+    public class TankView : MonoBehaviour, IDamageable
     {
         private TankController controller;
 
@@ -21,6 +21,15 @@ namespace TankBattle.Tank
         public void DestroyTankView()
         {
             Destroy(gameObject);
+        }
+
+        public bool TakeDamage(int _damage, TankController _sourceTank)
+        {
+            if (controller != null)
+            {
+                return controller.ApplyDamage(_damage, _sourceTank);
+            }
+            return false;
         }
     }
 }
