@@ -21,14 +21,15 @@ namespace TankBattle.Tank
         private void SetNewTargetPosition()
         {
             currentTargetPos =  TankBattleUtilities.GetAPointInRange(-10, 10, 0, 0, -10, 10);
-            tankController.AimTo(currentTargetPos);
+            this.transform.rotation = Quaternion.LookRotation(currentTargetPos);
         }
 
         public void Update() 
         {
             if(this.transform.position != currentTargetPos)
             {
-                this.transform.position = Vector3.MoveTowards(this.transform.position, currentTargetPos, 3*Time.deltaTime);
+                this.transform.rotation = Quaternion.LookRotation(currentTargetPos);
+                this.transform.position = Vector3.MoveTowards(this.transform.position, currentTargetPos, 1*Time.deltaTime);
             }
             else
             {
