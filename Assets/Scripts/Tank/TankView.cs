@@ -31,5 +31,10 @@ namespace TankBattle.Tank
             }
             return false;
         }
+
+        public void AimTo(Vector3 target)
+        {
+            transform.rotation = Quaternion.LookRotation(target, Vector3.up);
+        }
     }
 }

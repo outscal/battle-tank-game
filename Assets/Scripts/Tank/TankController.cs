@@ -9,6 +9,8 @@ namespace TankBattle.Tank
     {
         private TankModel tankModel;
         private TankView tankView;
+        private TankBotState currentState;
+        private bool isBotTank = false;
         public TankController(TankScriptableObject _tankScriptableObject, Vector3 position)
         {
             tankModel = new TankModel(_tankScriptableObject);
@@ -77,6 +79,30 @@ namespace TankBattle.Tank
         public void TurnRight()
         {
             tankView.transform.Rotate(Vector3.up*-tankModel.TurningTorque);
+        }
+
+        public void EnableBotBehaviour(TankBotState initialState)
+        {
+            isBotTank = true;
+            SetTankBotState(initialState);
+        }
+
+        public void SetTankBotState(TankBotState newState)
+        {
+            if (!isBotTank)
+                return;
+
+            if (currentState != null)
+            {
+                currentState.OnExitState();
+            }
+            currentState = newState;
+            currentState.OnEnterState(this);
+        }
+
+        public void AimTo(Vector3 target)
+        {
+            tankView.AimTo(target);
         }
     }
 }

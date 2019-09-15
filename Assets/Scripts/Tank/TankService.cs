@@ -18,6 +18,9 @@ namespace TankBattle.Tank
         [SerializeField]
         private TankScriptableObject enemyTankScriptableObject;
 
+        [SerializeField]
+        private PatrollingState initialBotState; 
+
         private TankController playerTank;
 
         void Start()
@@ -66,7 +69,8 @@ namespace TankBattle.Tank
         public void SpawnEnemyTank()
         {
             Vector3 randomPosition = Vector3.zero + new Vector3(Random.Range(-10,10), 0, Random.Range(-10,10));
-            new TankController(enemyTankScriptableObject, randomPosition);
+            TankController tankBot = new TankController(enemyTankScriptableObject, randomPosition);
+            tankBot.EnableBotBehaviour(initialBotState);
         }
     }
 }
