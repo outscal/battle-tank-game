@@ -7,9 +7,11 @@ namespace TankBattle.Tank
     public class TankBotState : MonoBehaviour
     {
         protected TankController tankController;
-        public virtual void OnEnterState(TankController _tankController)
+        protected TankView tankView;
+        public virtual void OnEnterState(TankController _tankController, TankView _tankView)
         {
             tankController = _tankController;
+            tankView = _tankView;
             this.enabled = true;
         }
 

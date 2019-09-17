@@ -32,9 +32,9 @@ namespace TankBattle.Tank
             return false;
         }
 
-        public void AimTo(Vector3 target)
+        public void LookTo(Vector3 direction)
         {
-            transform.rotation = Quaternion.LookRotation(target, Vector3.up);
+            gameObject.transform.LookAt(direction);
         }
     }
 }

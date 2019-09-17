@@ -6,9 +6,9 @@ namespace TankBattle.Tank
 {
     public class ChasingState : TankBotState
     {
-        public override void OnEnterState(TankController _tankController)
+        public override void OnEnterState(TankController _tankController, TankView _tankView)
         {
-            base.OnEnterState(_tankController);
+            base.OnEnterState(_tankController, _tankView);
         }
 
         public override void OnExitState()

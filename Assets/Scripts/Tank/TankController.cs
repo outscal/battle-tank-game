@@ -7,10 +7,11 @@ namespace TankBattle.Tank
 {
     public class TankController
     {
+        private bool isBotTank = false;
+        public bool IsBotTank {get {return isBotTank; }}
+        private TankBotState currentBotState;
         private TankModel tankModel;
         private TankView tankView;
-        private TankBotState currentState;
-        private bool isBotTank = false;
         public TankController(TankScriptableObject _tankScriptableObject, Vector3 position)
         {
             tankModel = new TankModel(_tankScriptableObject);
@@ -66,7 +67,7 @@ namespace TankBattle.Tank
 
         public void MoveForward()
         {
-            tankView.transform.position = tankView.transform.position + (tankView.transform.forward * tankModel.Speed);
+            tankView.gameObject.transform.position = tankView.gameObject.transform.position + (tankView.gameObject.transform.forward * tankModel.Speed);
         }
         public void MoveBackWard()
         {
@@ -81,28 +82,32 @@ namespace TankBattle.Tank
             tankView.transform.Rotate(Vector3.up*-tankModel.TurningTorque);
         }
 
-        public void EnableBotBehaviour(TankBotState initialState)
+        public void MoveTo(Vector3 destination)
+        {
+            tankView.transform.position = destination;
+        }
+        public void LookTo(Vector3 direction)
+        {
+            tankView.LookTo(direction);
+        }
+
+        public void EnableBotBehaviour()
         {
             isBotTank = true;
-            SetTankBotState(initialState);
+            SetTankBotState(tankView.GetComponent<PatrollingState>());
         }
 
         public void SetTankBotState(TankBotState newState)
         {
-            if (!isBotTank)
+            if (!IsBotTank)
                 return;
 
-            if (currentState != null)
+            if (currentBotState != null)
             {
-                currentState.OnExitState();
+                currentBotState.OnExitState();
             }
-            currentState = newState;
-            currentState.OnEnterState(this);
-        }
-
-        public void AimTo(Vector3 target)
-        {
-            tankView.AimTo(target);
+            currentBotState = newState;
+            currentBotState.OnEnterState(this, tankView);
         }
     }
 }

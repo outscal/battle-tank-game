@@ -7,9 +7,9 @@ namespace TankBattle.Tank
     public class PatrollingState : TankBotState
     {
         private Vector3 currentTargetPos;
-        public override void OnEnterState(TankController _tankController)
+        public override void OnEnterState(TankController _tankController, TankView _tankView)
         {
-            base.OnEnterState(_tankController);
+            base.OnEnterState(_tankController, _tankView);
             SetNewTargetPosition();
         }
 
@@ -21,15 +21,15 @@ namespace TankBattle.Tank
         private void SetNewTargetPosition()
         {
             currentTargetPos =  TankBattleUtilities.GetAPointInRange(-10, 10, 0, 0, -10, 10);
-            this.transform.rotation = Quaternion.LookRotation(currentTargetPos);
+            tankController.LookTo(currentTargetPos);
         }
 
-        public void Update() 
+        private void Update() 
         {
-            if(this.transform.position != currentTargetPos)
+            Vector3 currentPosition = tankView.transform.position;
+            if(currentPosition != currentTargetPos)
             {
-                this.transform.rotation = Quaternion.LookRotation(currentTargetPos);
-                this.transform.position = Vector3.MoveTowards(this.transform.position, currentTargetPos, 1*Time.deltaTime);
+                tankController.MoveTo(Vector3.MoveTowards(currentPosition, currentTargetPos, Time.deltaTime));
             }
             else
             {
