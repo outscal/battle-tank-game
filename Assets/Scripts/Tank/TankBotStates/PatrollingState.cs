@@ -20,7 +20,7 @@ namespace TankBattle.Tank
 
         private void SetNewTargetPosition()
         {
-            currentTargetPos =  TankBattleUtilities.GetAPointInRange(-10, 10, 0, 0, -10, 10);
+            currentTargetPos =  TankBattleUtilities.GetAPointInRange(-30, 30, 0, 0, -30, 30);
             tankController.LookTo(currentTargetPos);
         }
 
@@ -35,6 +35,15 @@ namespace TankBattle.Tank
             {
                 SetNewTargetPosition();
             }
+
+            TankController nearestPlayerTank = TankService.Instance.GetNearestPlayerTank(tankController);
+            if (Vector3.Distance(nearestPlayerTank.GetTankPosition(), tankController.GetTankPosition()) < TankService.Instance.BotTankPropScriptableObject.EnemyDetectionRadius)
+            {
+                ChasingState chasingBehaviour = tankView.GetComponent<ChasingState>();
+                chasingBehaviour.TargetTank = nearestPlayerTank;
+                tankController.SetTankBotState(chasingBehaviour);
+            }
+            
         }
     }
 }

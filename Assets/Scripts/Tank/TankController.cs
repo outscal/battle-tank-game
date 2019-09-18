@@ -8,6 +8,7 @@ namespace TankBattle.Tank
     public class TankController
     {
         private bool isBotTank = false;
+        private bool isLoaded;
         public bool IsBotTank {get {return isBotTank; }}
         private TankBotState currentBotState;
         private TankModel tankModel;
@@ -17,12 +18,25 @@ namespace TankBattle.Tank
             tankModel = new TankModel(_tankScriptableObject);
             tankView = GameObject.Instantiate<TankView>(tankModel.TankPrefab, position, Quaternion.identity);
             tankView.SetController(this);
+            isLoaded = true;
         }
 
         public void FireBullet()
         {
-            Vector3 offsetHeight = new Vector3(0,1.8f,0);
-            BulletService.Instance.TriggerBullet(tankView.transform.position + offsetHeight, tankView.transform.rotation, this);
+            if (isLoaded)
+            {
+                Vector3 offsetHeight = new Vector3(0,1.8f,0);
+                BulletService.Instance.TriggerBullet(tankView.transform.position + offsetHeight, tankView.transform.rotation, this);
+                isLoaded = false;
+                Reload();
+                
+            }
+        }
+
+        private async void Reload()
+        {
+            // await Task.Delay(1);
+            isLoaded = true;
         }
 
         public int GetTankHealth()
@@ -108,6 +122,11 @@ namespace TankBattle.Tank
             }
             currentBotState = newState;
             currentBotState.OnEnterState(this, tankView);
+        }
+
+        public Vector3 GetTankPosition()
+        {
+            return tankView.transform.position;
         }
     }
 }

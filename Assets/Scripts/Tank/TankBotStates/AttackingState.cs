@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TankBattle.Tank
 {
-    public class ChasingState : TankBotState
+    public class AttackingState : TankBotState
     {
         private TankController targetTank;
         public TankController TargetTank {set { targetTank = value; }}
@@ -22,18 +22,14 @@ namespace TankBattle.Tank
         {
             if (targetTank != null && (Vector3.Distance(targetTank.GetTankPosition(), tankController.GetTankPosition()) < TankService.Instance.BotTankPropScriptableObject.AttackTriggerDistance))
             {
-                AttackingState attackingBehaviour = tankView.GetComponent<AttackingState>();
-                attackingBehaviour.TargetTank = targetTank;
-                tankController.SetTankBotState(attackingBehaviour);
-            }
-            else if (targetTank != null && (Vector3.Distance(targetTank.GetTankPosition(), tankController.GetTankPosition()) < TankService.Instance.BotTankPropScriptableObject.EnemyDetectionRadius))
-            {
                 tankController.LookTo(targetTank.GetTankPosition());
-                tankController.MoveTo(Vector3.MoveTowards(tankView.transform.position, targetTank.GetTankPosition(), Time.deltaTime));
+                tankController.FireBullet();
             }
             else
             {
-                tankController.SetTankBotState(tankView.GetComponent<PatrollingState>());
+                ChasingState chasingBehaviour = tankView.GetComponent<ChasingState>();
+                chasingBehaviour.TargetTank = targetTank;
+                tankController.SetTankBotState(chasingBehaviour);
             }
         }
     }
