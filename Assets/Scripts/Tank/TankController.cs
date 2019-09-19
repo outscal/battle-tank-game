@@ -7,9 +7,9 @@ namespace TankBattle.Tank
 {
     public class TankController
     {
+        public bool IsBotTank {get {return isBotTank; }}
         private bool isBotTank = false;
         private bool isLoaded;
-        public bool IsBotTank {get {return isBotTank; }}
         private TankBotState currentBotState;
         private TankModel tankModel;
         private TankView tankView;
@@ -108,10 +108,10 @@ namespace TankBattle.Tank
         public void EnableBotBehaviour()
         {
             isBotTank = true;
-            SetTankBotState(tankView.GetComponent<PatrollingState>());
+            ChangeState(tankView.GetComponent<PatrollingState>());
         }
 
-        public void SetTankBotState(TankBotState newState)
+        public void ChangeState(TankBotState newState)
         {
             if (!IsBotTank)
                 return;
@@ -127,6 +127,22 @@ namespace TankBattle.Tank
         public Vector3 GetTankPosition()
         {
             return tankView.transform.position;
+        }
+
+        public bool IsTargetTankInShootingRange(TankController targetTank)
+        {
+            if(Vector3.Distance(GetTankPosition(), targetTank.GetTankPosition()) < tankModel.ShootingRange)
+                return true;
+            else
+                return false;
+        }
+
+        public bool IsTargetTankInDetectionRange(TankController targetTank)
+        {
+            if(Vector3.Distance(GetTankPosition(), targetTank.GetTankPosition()) < tankModel.EnemyDetectionRange)
+                return true;
+            else
+                return false;
         }
     }
 }

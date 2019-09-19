@@ -7,33 +7,32 @@ namespace TankBattle.Tank
     public class ChasingState : TankBotState
     {
         private TankController targetTank;
-        public TankController TargetTank {set { targetTank = value; }}
-        public override void OnEnterState(TankController _tankController, TankView _tankView)
+        public TankController GetTargetTank() 
         {
-            base.OnEnterState(_tankController, _tankView);
+            return targetTank;
         }
 
-        public override void OnExitState()
+        public void SetTargetTank(TankController _controller) 
         {
-            base.OnExitState();
+            targetTank = _controller;
         }
 
         public void Update() 
         {
-            if (targetTank != null && (Vector3.Distance(targetTank.GetTankPosition(), tankController.GetTankPosition()) < TankService.Instance.BotTankPropScriptableObject.AttackTriggerDistance))
+            if (targetTank != null && tankController.IsTargetTankInShootingRange(targetTank))
             {
                 AttackingState attackingBehaviour = tankView.GetComponent<AttackingState>();
-                attackingBehaviour.TargetTank = targetTank;
-                tankController.SetTankBotState(attackingBehaviour);
+                attackingBehaviour.SetTargetTank(targetTank);
+                tankController.ChangeState(attackingBehaviour);
             }
-            else if (targetTank != null && (Vector3.Distance(targetTank.GetTankPosition(), tankController.GetTankPosition()) < TankService.Instance.BotTankPropScriptableObject.EnemyDetectionRadius))
+            else if (targetTank != null && tankController.IsTargetTankInDetectionRange(targetTank))
             {
                 tankController.LookTo(targetTank.GetTankPosition());
                 tankController.MoveTo(Vector3.MoveTowards(tankView.transform.position, targetTank.GetTankPosition(), Time.deltaTime));
             }
             else
             {
-                tankController.SetTankBotState(tankView.GetComponent<PatrollingState>());
+                tankController.ChangeState(tankView.GetComponent<PatrollingState>());
             }
         }
     }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankBattleUtilities
+public static class TankBattleUtilities
 {
     public static Vector3 GetAPointInRange(float minX, float maxX, float minY, float maxY, float minZ, float maxZ)
     {

@@ -13,11 +13,6 @@ namespace TankBattle.Tank
             SetNewTargetPosition();
         }
 
-        public override void OnExitState()
-        {
-            base.OnExitState();
-        }
-
         private void SetNewTargetPosition()
         {
             currentTargetPos =  TankBattleUtilities.GetAPointInRange(-30, 30, 0, 0, -30, 30);
@@ -27,7 +22,7 @@ namespace TankBattle.Tank
         private void Update() 
         {
             Vector3 currentPosition = tankView.transform.position;
-            if(currentPosition != currentTargetPos)
+            if(Vector3.Distance(currentPosition, currentTargetPos) > 0.1f)
             {
                 tankController.MoveTo(Vector3.MoveTowards(currentPosition, currentTargetPos, Time.deltaTime));
             }
@@ -37,11 +32,11 @@ namespace TankBattle.Tank
             }
 
             TankController nearestPlayerTank = TankService.Instance.GetNearestPlayerTank(tankController);
-            if (Vector3.Distance(nearestPlayerTank.GetTankPosition(), tankController.GetTankPosition()) < TankService.Instance.BotTankPropScriptableObject.EnemyDetectionRadius)
+            if (tankController.IsTargetTankInDetectionRange(nearestPlayerTank))
             {
                 ChasingState chasingBehaviour = tankView.GetComponent<ChasingState>();
-                chasingBehaviour.TargetTank = nearestPlayerTank;
-                tankController.SetTankBotState(chasingBehaviour);
+                chasingBehaviour.SetTargetTank(nearestPlayerTank);
+                tankController.ChangeState(chasingBehaviour);
             }
             
         }

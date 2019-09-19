@@ -7,20 +7,14 @@ namespace TankBattle.Tank
     public class AttackingState : TankBotState
     {
         private TankController targetTank;
-        public TankController TargetTank {set { targetTank = value; }}
-        public override void OnEnterState(TankController _tankController, TankView _tankView)
+        public void SetTargetTank(TankController _controller)
         {
-            base.OnEnterState(_tankController, _tankView);
-        }
-
-        public override void OnExitState()
-        {
-            base.OnExitState();
+            targetTank = _controller;
         }
 
         public void Update() 
         {
-            if (targetTank != null && (Vector3.Distance(targetTank.GetTankPosition(), tankController.GetTankPosition()) < TankService.Instance.BotTankPropScriptableObject.AttackTriggerDistance))
+            if (targetTank != null && tankController.IsTargetTankInShootingRange(targetTank))
             {
                 tankController.LookTo(targetTank.GetTankPosition());
                 tankController.FireBullet();
@@ -28,8 +22,8 @@ namespace TankBattle.Tank
             else
             {
                 ChasingState chasingBehaviour = tankView.GetComponent<ChasingState>();
-                chasingBehaviour.TargetTank = targetTank;
-                tankController.SetTankBotState(chasingBehaviour);
+                chasingBehaviour.SetTargetTank(targetTank);
+                tankController.ChangeState(chasingBehaviour);
             }
         }
     }
