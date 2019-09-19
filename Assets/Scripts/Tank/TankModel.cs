@@ -8,6 +8,10 @@ namespace TankBattle.Tank
     {
         private float speed;
         public float Speed {get {return speed; }}
+        private float shootingRange;
+        public float ShootingRange {get{ return shootingRange; }}
+        private float enemyDetectionRange;
+        public float EnemyDetectionRange {get{ return enemyDetectionRange; }}
         private float turningTorque;
         public float TurningTorque {get{ return turningTorque; }}
         public int Health {get; set;}
@@ -23,6 +27,8 @@ namespace TankBattle.Tank
             turningTorque = _tankScriptableObject.turningTorque;
             tankType = _tankScriptableObject.tankType;
             tankPrefab = _tankScriptableObject.tankPrefab;
+            shootingRange = _tankScriptableObject.shootingRange;
+            enemyDetectionRange = _tankScriptableObject.enemyDetectionRadius;
             Kills = 0;
         }
     }

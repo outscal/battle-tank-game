@@ -11,6 +11,8 @@ namespace  TankBattle.Tank
         public float speed;
         public float turningTorque;
         public int health;
+        public float enemyDetectionRadius;
+        public float shootingRange;
         public TankType tankType;
         public TankView tankPrefab;
     }

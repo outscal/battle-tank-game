@@ -31,5 +31,10 @@ namespace TankBattle.Tank
             }
             return false;
         }
+
+        public void LookTo(Vector3 direction)
+        {
+            gameObject.transform.LookAt(direction);
+        }
     }
 }

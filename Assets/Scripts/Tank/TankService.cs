@@ -17,6 +17,9 @@ namespace TankBattle.Tank
 
         [SerializeField]
         private TankScriptableObject enemyTankScriptableObject;
+        [SerializeField]
+        private TankBotProperties botTankPropScriptableObject;
+        public TankBotProperties BotTankPropScriptableObject {get {return botTankPropScriptableObject; }}
 
         private TankController playerTank;
 
@@ -34,7 +37,6 @@ namespace TankBattle.Tank
 
             if (Input.GetKeyDown(KeyCode.T))
             {
-                Debug.Log("Generate Enemy tank");
                 SpawnEnemyTank();
             }
 
@@ -65,8 +67,15 @@ namespace TankBattle.Tank
 
         public void SpawnEnemyTank()
         {
-            Vector3 randomPosition = Vector3.zero + new Vector3(Random.Range(-10,10), 0, Random.Range(-10,10));
-            new TankController(enemyTankScriptableObject, randomPosition);
+            Vector3 randomPosition = Vector3.zero + new Vector3(Random.Range(-30,30), 0, Random.Range(-30,30));
+            TankController tankBot = new TankController(enemyTankScriptableObject, randomPosition);
+            tankBot.EnableBotBehaviour();
+        }
+
+        public TankController GetNearestPlayerTank(TankController tankController)
+        {
+            //implement the logic for multiple player tanks
+            return playerTank;
         }
     }
 }
