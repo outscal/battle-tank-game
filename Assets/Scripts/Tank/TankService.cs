@@ -17,9 +17,6 @@ namespace TankBattle.Tank
 
         [SerializeField]
         private TankScriptableObject enemyTankScriptableObject;
-        [SerializeField]
-        private TankBotProperties botTankPropScriptableObject;
-        public TankBotProperties BotTankPropScriptableObject {get {return botTankPropScriptableObject; }}
 
         private TankController playerTank;
 

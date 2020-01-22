@@ -35,7 +35,7 @@ namespace TankBattle.Tank
 
         private async void Reload()
         {
-            // await Task.Delay(1);
+            // await Task.Delay(TimeSpan.FromSeconds(1));
             isLoaded = true;
         }
 
