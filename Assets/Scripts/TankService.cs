@@ -2,9 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankService : MonoSingletonGeneric
+public class TankService : MonoSingletonGeneric<TankService>
 {
     public TankView tankView;
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
 
     private void Start()
     {
