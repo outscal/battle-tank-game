@@ -16,7 +16,6 @@ public class BulletView : MonoBehaviour
 
     public void SetBulletDetails(BulletModel model)
     {
-
         bulletSpeed = model.Speed;
     }
 
