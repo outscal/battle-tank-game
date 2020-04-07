@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankModel 
+public class BulletModel 
 {
-    public TankModel(int speed, float health)
+   public BulletModel(int speed)
     {
         Speed = speed;
-        Health = health;
     }
 
     public int Speed { get; }
-    public float Health { get; }
 }

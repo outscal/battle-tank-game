@@ -11,10 +11,14 @@ public class TankService : MonoSingletonGeneric<TankService>
         base.Awake();
     }
 
+    public void fire() 
+    {
+        BulletService.Instance.spawnBullet();
+    }
 
     private void Start()
     {
-        TankModel model = new TankModel(5, 100f);
+        TankModel model = new TankModel(250,100, 100f, Color.blue);
         TankController tank = new TankController(model, tankView);
     }
 
