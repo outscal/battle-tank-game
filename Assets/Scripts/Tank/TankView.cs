@@ -10,24 +10,24 @@ public class TankView : MonoBehaviour
     private int rotatingSpeed;
     private int movingSpeed;
     private float healthCount;
+    private float bulletDamage;
     public Renderer[] rend;
     private Material mat;
     private Color tankColor;
     private Vector3 currentEulerAngles;
     private Vector3 currentTankSpeed;
     public Rigidbody rb;
+    public Transform bulletSpawner;
 
-    private void Start()
-    {
+   
 
-    }
-
-    public void SetModel(TankModel model)
+    public void SetViewDetails(TankModel model)
     {
         movingSpeed = model.MoveingSpeed;
         rotatingSpeed = model.MoveingSpeed;
         healthCount = model.Health;
         tankColor = model.TankColor;
+        bulletDamage = model.BulletDamage;
 
         SetTankColor();
     }
@@ -51,7 +51,7 @@ public class TankView : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            TankService.Instance.fire();
+            TankService.Instance.fire(bulletSpawner, bulletDamage);
         }
     }
 

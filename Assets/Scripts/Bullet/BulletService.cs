@@ -10,13 +10,12 @@ public class BulletService : MonoSingletonGeneric<BulletService>
     protected override void Awake()
     {
         base.Awake();
-      
     }
 
-    public void spawnBullet()
+    public void spawnBullet(Transform bulletSpawner, float bulletDamage )
     {
-        BulletModel bulletModel = new BulletModel(20);
-        BulletController bullet = new BulletController(bulletModel, bulletView, this);
+        BulletModel bulletModel = new BulletModel(20, bulletDamage);
+        BulletController bullet = new BulletController(bulletModel, bulletView, bulletSpawner);
     }
 
 }
