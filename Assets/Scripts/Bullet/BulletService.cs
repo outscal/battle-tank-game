@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletService : MonoSingletonGeneric<BulletService>
+
+namespace TankGame.Bullet
 {
-    public BulletView bulletView;
-    private Vector3 spawnPos;
-
-    protected override void Awake()
+    public class BulletService : MonoSingletonGeneric<BulletService>
     {
-        base.Awake();
-    }
+        public BulletView bulletView;
+        private Vector3 spawnPos;
 
-    public void spawnBullet(Transform bulletSpawner, float bulletDamage )
-    {
-        BulletModel bulletModel = new BulletModel(20, bulletDamage);
-        BulletController bullet = new BulletController(bulletModel, bulletView, bulletSpawner);
-    }
+        protected override void Awake()
+        {
+            base.Awake();
+        }
 
+        public void spawnBullet(Transform bulletSpawner, float bulletDamage)
+        {
+            BulletModel bulletModel = new BulletModel(20, bulletDamage);
+            BulletController bullet = new BulletController(bulletModel, bulletView, bulletSpawner);
+        }
+    }
 }

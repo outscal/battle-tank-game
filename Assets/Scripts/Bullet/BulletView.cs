@@ -2,41 +2,58 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletView : MonoBehaviour
+namespace TankGame.Bullet
 {
-    private int bulletSpeed;
-    private float bulletDamage;
-    public Rigidbody rb;
-    public ParticleSystem bombExplosion;
-    
-    public void SetBulletDetails(BulletModel model)
+
+    public class BulletView : MonoBehaviour
     {
-        bulletSpeed = model.Speed;
-        bulletDamage = model.Damage;
-    }
+        private int bulletSpeed;
+        private float bulletDamage;
+        public Rigidbody rb;
+        public ParticleSystem bombExplosion;
+        private Vector3 spawnerPOS;
 
-    private void OnCollisionEnter(Collision collision)
-    {   
-        //Instantiate(bombExplosion, transform.position, transform.rotation);
-        bombExplosion.Play();
-        if(collision.rigidbody != null )
+        private void Start()
         {
-            collision.rigidbody.AddExplosionForce(2f,collision.transform.position,0.5f);
+            getSpeed();
         }
-        else
+
+        public void SetBulletDetails(BulletModel model, Vector3 spawnerPos)
         {
-            rb.AddExplosionForce(2f, collision.transform.position, 1f);
+            bulletSpeed = model.Speed;
+            bulletDamage = model.Damage;
+            spawnerPOS = spawnerPos;
+            Debug.Log("setbullet details " + bulletSpeed);
+        }
+
+        private void getSpeed()
+        {
+            rb.velocity = new Vector3(0, 0, spawnerPOS.z) * bulletSpeed;
+            //Debug.Log("get speed function speed " + bulletSpeed);
+            //Debug.Log("get speed function rb velocity " + rb.velocity);
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            //Instantiate(bombExplosion, transform.position, transform.rotation);
+            bombExplosion.Play();
+            if (collision.rigidbody != null)
+            {
+                collision.rigidbody.AddExplosionForce(2f, collision.transform.position, 1f);
+            }
+            else
+            {
+                rb.AddExplosionForce(2f, collision.transform.position, 1f);
+
+            }
+            StartCoroutine(destroy());
+        }
+
+        IEnumerator destroy()
+        {
+            yield return new WaitForSeconds(0.2f);
+            Destroy(gameObject);
 
         }
-        StartCoroutine(destroy());
     }
-
-    IEnumerator  destroy()
-    {
-        yield return new WaitForSeconds(0.2f);
-        Destroy(gameObject);
-
-    }
-
-
 }

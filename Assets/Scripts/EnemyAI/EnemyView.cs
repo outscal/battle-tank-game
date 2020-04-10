@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TankGame.Tank
+namespace TankGame.Enemy
 {
-    public class TankView : MonoBehaviour
+    public class EnemyView : MonoBehaviour
     {
-
         private float horizontalInput;
         private float verticalInput;
         private int rotatingSpeed;
@@ -22,13 +21,13 @@ namespace TankGame.Tank
         public Transform bulletSpawner;
 
 
-        public void SetViewDetails(TankModel model)
+        public void SetViewDetails(EnemyModel model)
         {
-            movingSpeed = model.MoveingSpeed;
-            rotatingSpeed = model.MoveingSpeed;
-            healthCount = model.Health;
-            tankColor = model.TankColor;
-            bulletDamage = model.BulletDamage;
+            movingSpeed = model.EnemySpeed;
+            rotatingSpeed = model.EnemyRotation;
+            healthCount = model.EnemyHealth;
+            tankColor = model.EnemyColor;
+            bulletDamage = model.EnemyDamage;
 
             SetTankColor();
         }
@@ -43,26 +42,26 @@ namespace TankGame.Tank
         }
         private void FixedUpdate()
         {
-            horizontalInput = Input.GetAxisRaw("HorizontalUI");
-            verticalInput = Input.GetAxisRaw("VerticalUI");
+            //horizontalInput = Input.GetAxisRaw("HorizontalUI");
+            //verticalInput = Input.GetAxisRaw("VerticalUI");
             moveTank();
         }
 
-        private void Update()
-        {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                TankService.Instance.fire(bulletSpawner, bulletDamage);
-            }
-        }
+        //private void Update()
+        //{
+        //    if (Input.GetButtonDown("Fire1"))
+        //    {
+        //        EnemyService.Instance.fire(bulletSpawner, bulletDamage);
+        //    }
+        //}
 
         private void moveTank()
         {
-            currentEulerAngles += new Vector3(0, horizontalInput, 0) * Time.deltaTime * rotatingSpeed;
+            currentEulerAngles += new Vector3(0, 1, 0) * Time.deltaTime * rotatingSpeed;
             transform.eulerAngles = currentEulerAngles;
             //currentTankSpeed += new Vector3(0, 0, verticalInput) * Time.deltaTime * movingSpeed;
             //transform.forward = currentTankSpeed;
-            rb.velocity = transform.forward * verticalInput * Time.deltaTime * movingSpeed;
+            rb.velocity = transform.forward * 1 * Time.deltaTime * movingSpeed;
 
         }
 

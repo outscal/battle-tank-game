@@ -2,21 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankModel 
+namespace TankGame.Tank
 {
-    public TankModel(int moveingSpeed, int rotatingSpeed, float health,float bulletDamage, Color tankColor)
+    public class TankModel
     {
-       
-        MoveingSpeed = moveingSpeed;
-        RotatingSpeed = rotatingSpeed;
-        Health = health;
-        BulletDamage = bulletDamage;
-        TankColor = tankColor;
-    }
+        public TankModel(int moveingSpeed, int rotatingSpeed, float health, float bulletDamage, Color tankColor)
+        {
+            MoveingSpeed = moveingSpeed;
+            RotatingSpeed = rotatingSpeed;
+            Health = health;
+            BulletDamage = bulletDamage;
+            TankColor = tankColor;
+        }
 
-    public int MoveingSpeed { get; }
-    public int RotatingSpeed { get; }
-    public float Health { get; }
-    public float BulletDamage { get; }
-    public Color TankColor { get; }
+        public int MoveingSpeed { get; }
+        public int RotatingSpeed { get; }
+        public float Health { get; }
+        public float BulletDamage { get; }
+        public Color TankColor { get; }
+    }
 }

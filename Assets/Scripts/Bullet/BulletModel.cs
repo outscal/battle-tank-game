@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletModel 
+namespace TankGame.Bullet
 {
-   public BulletModel(int speed, float damage)
+    public class BulletModel
     {
-        Speed = speed;
-        Damage = damage;
-    }
+        public BulletModel(int speed, float damage)
+        {
+            Speed = speed;
+            Damage = damage;
+        }
 
-    public int Speed { get; }
-    public float Damage { get; }
+        public int Speed { get; }
+        public float Damage { get; }
+    }
 }

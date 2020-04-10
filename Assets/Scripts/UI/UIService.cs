@@ -2,27 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TankGame.Spawner;
 
-public class UIService : MonoSingletonGeneric<UIService>
+namespace TankGame.UI
 {
-    public Button[] buttons;
-
-    protected override void Awake()
+    public class UIService : MonoSingletonGeneric<UIService>
     {
-        base.Awake();
-    }
+        public Button[] buttons;
 
-    private void Start()
-    {
-        for (int i = 0; i < buttons.Length; i++)
+        protected override void Awake()
         {
-            int buttonIndex = i; //(important) for closure error, first capture the data
-            buttons[buttonIndex].onClick.AddListener(() => generateTank(buttonIndex)); 
+            base.Awake();
         }
-    }
 
-    private void generateTank(int tankSerialNumber)
-    {
-        SpawnerService.Instance.SpawnTanks(tankSerialNumber);  // passing button number for arrays of tank details
+        private void Start()
+        {
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                int buttonIndex = i; //(important) for closure error, first capture the data
+                buttons[buttonIndex].onClick.AddListener(() => generateTank(buttonIndex));
+            }
+        }
+
+        private void generateTank(int tankSerialNumber)
+        {
+            SpawnerService.Instance.SpawnTanks(tankSerialNumber);  // passing button number for arrays of tank details
+        }
     }
 }
