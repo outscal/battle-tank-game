@@ -6,13 +6,13 @@ namespace TankGame.Enemy
 {
     public class EnemyModel
     {
-        public EnemyModel(int enemySpeed, int enemyRotation, float enemyHealth, float enemyDamage, Color enemyColor  )
+        public EnemyModel(EnemyScriptableObject enemy )
         {
-            EnemySpeed = enemySpeed;
-            EnemyRotation = enemyRotation;
-            EnemyHealth = enemyHealth;
-            EnemyDamage = enemyDamage;
-            EnemyColor = enemyColor;
+            EnemySpeed = enemy.TankSpeed;
+            EnemyRotation = enemy.TankRotationSpeed;
+            EnemyHealth = enemy.TankHealth;
+            //EnemyDamage = enemy
+            EnemyColor = enemy.TankColor;
         }
 
         public int EnemySpeed { get; }

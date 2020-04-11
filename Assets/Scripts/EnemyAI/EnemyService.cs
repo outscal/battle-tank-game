@@ -9,9 +9,10 @@ namespace TankGame.Enemy
     {
 
         public EnemyView enemyView;
-        public Color[] enemyColor;
-        public float[] enemyHealth;
-        public float[] enemyDamage;
+        public EnemyScriptableObjectList EnemyList;
+        //public Color[] enemyColor;
+        //public float[] enemyHealth;
+        //public float[] enemyDamage;
 
         private void Start()
         {
@@ -23,9 +24,10 @@ namespace TankGame.Enemy
             BulletService.Instance.spawnBullet(bulletSpawn, bulletDamange);
         } 
 
-        public void SpawnEnemy(Vector3 enemySpawnerPos, Quaternion enemySpawnerRotation, int enemyNumber)
+        public void SpawnEnemy(Vector3 enemySpawnerPos, Quaternion enemySpawnerRotation, int enemyIndex)
+
         {
-            EnemyModel model = new EnemyModel(250, 100, enemyHealth[enemyNumber], enemyDamage[enemyNumber], enemyColor[enemyNumber]);
+            EnemyModel model = new EnemyModel(EnemyList.enemyScriptableObject[enemyIndex]);
             EnemyController controller = new EnemyController(model, enemyView, enemySpawnerPos, enemySpawnerRotation);
         }
 

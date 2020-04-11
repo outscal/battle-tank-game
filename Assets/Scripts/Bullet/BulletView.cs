@@ -15,7 +15,8 @@ namespace TankGame.Bullet
 
         private void Start()
         {
-            getSpeed();
+            //getSpeed();
+            
         }
 
         public void SetBulletDetails(BulletModel model, Vector3 spawnerPos)

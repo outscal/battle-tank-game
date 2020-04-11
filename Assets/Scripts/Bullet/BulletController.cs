@@ -13,9 +13,10 @@ namespace TankGame.Bullet
 
             BulletPrefab = GameObject.Instantiate(bulletPrefab, spawner.transform.position, spawner.transform.rotation);
             Rigidbody rb = BulletPrefab.GetComponent<Rigidbody>();
-            //rb.velocity = spawner.transform.forward * BulletModel.Speed;
-            bulletPrefab.SetBulletDetails(BulletModel, spawner.transform.position);
+            rb.velocity = spawner.transform.forward * BulletModel.Speed;
+            //bulletPrefab.SetBulletDetails(BulletModel, spawner.transform.position);
             Debug.Log("controller speed" + BulletModel.Speed);
+            
         }
 
         public BulletModel BulletModel { get; }

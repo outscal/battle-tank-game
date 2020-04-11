@@ -938,18 +938,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyView: {fileID: 283503263170130840, guid: f00c25f0ca6f37943a566c43bb270d35,
     type: 3}
-  enemyColor:
-  - {r: 0.8490566, g: 0.59674263, b: 0.6089628, a: 0}
-  - {r: 1, g: 0.9496023, b: 0, a: 0}
-  - {r: 0, g: 0.8105297, b: 1, a: 0}
-  enemyHealth:
-  - 100
-  - 100
-  - 100
-  enemyDamage:
-  - 0
-  - 0
-  - 0
+  EnemyList: {fileID: 11400000, guid: 257f7bf04745bcd419a77b64a72a4b5a, type: 2}
 --- !u!4 &1103016789
 Transform:
   m_ObjectHideFlags: 0
@@ -1295,7 +1284,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1320,7 +1309,7 @@ Transform:
   m_GameObject: {fileID: 1391056259}
   m_LocalRotation: {x: 0.000000007450581, y: -0.0000000037252903, z: -0.000000014901161,
     w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: -65}
+  m_LocalPosition: {x: -0, y: 3.03, z: -65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1771596987}
