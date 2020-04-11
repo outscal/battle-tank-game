@@ -1,14 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Bullet;
 
-public class TankService : MonoSingletonGeneric<TankService>
+namespace Tank
 {
-    public TankView tankView;
-
-    void Start()
+    public class TankService : MonoSingletonGeneric<TankService>
     {
-        TankModel model = new TankModel(5, 100f);
-        TankController tank = new TankController(model, tankView);
+        public TankView tankView;
+
+        protected override void Awake()
+        {
+            base.Awake();
+        }
+
+        void Start()
+        {
+            TankModel model = new TankModel(5, 100f, 180f, 1, 0.2f, 15f, KeyCode.F);
+            TankController tank = new TankController(model, tankView);
+        }
+
+
+        public void Fire(Transform bulletTransform, float bulletDamange)
+        {
+            BulletService.Instance.SpawnBullet(bulletTransform, bulletDamange);
+        }
     }
 }
