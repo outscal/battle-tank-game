@@ -13,7 +13,7 @@ public class TankService : MonoSingletonGeneric<TankService>
 
     private TankController CreateNewTank()
     {
-        TankModel tankModel = new TankModel();
+        TankModel tankModel = new TankModel(15f);
         TankController tankController = new TankController(tankModel, tankView);
         return tankController;
     }
