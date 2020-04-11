@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scripts.Commons
+namespace Commons
 {
     public class GenericSingleton<T> : MonoBehaviour where T : GenericSingleton<T>
     {
         private static T Instance;
         public static T instance { get { return Instance; } }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             if (Instance == null)
             {
@@ -18,7 +18,7 @@ namespace Scripts.Commons
             else
             {
                 Debug.LogError(Instance + "is Tring to create another instance");
-                Destroy(gameObject);
+                Destroy(this);
             }
         }
     }
