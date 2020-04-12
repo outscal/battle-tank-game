@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankModel : MonoBehaviour
+public class TankModel
 {
-    // Start is called before the first frame update
-    void Start()
+    public TankModel(float speed)
     {
-        
+        Debug.Log("Tank model created");
+        Speed = speed;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public float Speed { get; }
 }
