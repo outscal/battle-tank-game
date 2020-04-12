@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TankView : MonoBehaviour
 {
-    public TankController tankController;
+    TankController tankController;
     void Start()
     {
         Debug.Log("Tank View created");
@@ -18,9 +18,7 @@ public class TankView : MonoBehaviour
         float vertical = Input.GetAxisRaw("Vertical1");
         //Debug.Log("tha value of vertical: " + vertical);
         Vector3 position = transform.position;
-        //transform.position = tankController.moveTankInHorizontalDirection(horizontal, position);
-        //transform.position = tankController.moveTankInVerticalDirection(vertical, position);
-        transform.position = tankController.moveTank(horizontal, vertical, position);
+        transform.position = tankController.MoveTank(horizontal, vertical, position);
     }
 
     public void SetTankController(TankController tc)

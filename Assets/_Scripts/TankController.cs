@@ -5,25 +5,24 @@ using UnityEngine;
 
 public class TankController
 {
-    public TankModel tankModel { get; }
-    public TankView tankView { get; }
+    public TankModel TankModel { get; }
+    public TankView TankView { get; }
 
     public TankController(TankModel tankModel, TankView tankView)
     {
         Debug.Log("tank controller created");
-        this.tankModel = tankModel;
-        this.tankView = GameObject.Instantiate<TankView>(tankView);
+        TankModel = tankModel;
+        TankView = GameObject.Instantiate<TankView>(tankView);
 
         //this.tankView.tankController = this;
-        this.tankView.SetTankController(this);
-        //GameObject go = GameObject.Instantiate(tankView);
+        TankView.SetTankController(this);
     }
 
-    public Vector3 moveTank(float horizontal, float vertical, Vector3 position)
+    public Vector3 MoveTank(float horizontal, float vertical, Vector3 position)
     {
         Debug.Log("Function called");
-        position.x += horizontal * tankModel.Speed * Time.deltaTime;
-        position.z += vertical * tankModel.Speed * Time.deltaTime;
+        position.x += horizontal * TankModel.Speed * Time.deltaTime;
+        position.z += vertical * TankModel.Speed * Time.deltaTime;
         return position;
     }
 }
