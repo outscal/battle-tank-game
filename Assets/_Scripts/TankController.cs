@@ -25,4 +25,12 @@ public class TankController
         position.z += vertical * TankModel.Speed * Time.deltaTime;
         return position;
     }
+
+    public float GetTargetRotation(float horizontal, float vertical)
+    {
+        Vector2 inputDir = (new Vector2(horizontal, vertical)).normalized;
+        float targetRotation;
+        targetRotation = Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg;
+        return targetRotation;
+    }
 }
