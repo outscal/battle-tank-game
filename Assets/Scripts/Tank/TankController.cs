@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TankGame.Bullet;
 
 namespace TankGame.Tank
 {
@@ -12,6 +12,12 @@ namespace TankGame.Tank
             TankModel = tankModel;
             TankView = GameObject.Instantiate<TankView>(tankPrefab, spawner.transform.position, spawner.transform.rotation);
             TankView.SetViewDetails(tankModel);
+            TankView.InitialiseController(this);
+        }
+
+        public void fire(Transform bulletSpawn, float bulletDamange)
+        {
+            BulletService.Instance.spawnBullet(bulletSpawn, bulletDamange);
         }
 
         public TankModel TankModel { get; }

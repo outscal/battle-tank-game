@@ -21,3 +21,12 @@ public enum BulletView
 
     }
 
+public enum TankView
+    {
+        None = 0,
+        FirstTank = 1,
+        SecondTank = 2,
+        ThirdTank = 3
+
+    }
+

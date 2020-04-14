@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TankGame.Enemy;
 
 namespace TankGame.Bullet
 {
@@ -12,40 +13,47 @@ namespace TankGame.Bullet
         public Rigidbody rb;
         public ParticleSystem bombExplosion;
         private Vector3 spawnerPOS;
+        private float damage;
+        private BulletController controller;
 
         private void Start()
         {
-            //getSpeed();
-            
+            //setSpeed();
         }
 
-        public void SetBulletDetails(BulletModel model, Vector3 spawnerPos)
+        public void SetBulletDetails(BulletModel model, float healthDamage)
         {
             bulletSpeed = model.Speed;
             bulletDamage = model.Damage;
-            spawnerPOS = spawnerPos;
-            Debug.Log("setbullet details " + bulletSpeed);
+            //spawnerPOS = spawnerPos;
+            damage = healthDamage;
         }
 
-        private void getSpeed()
+        public void InitializeController(BulletController bulletController)
+        {
+             controller = bulletController;
+        }
+
+        private void setSpeed()
         {
             rb.velocity = new Vector3(0, 0, spawnerPOS.z) * bulletSpeed;
-            //Debug.Log("get speed function speed " + bulletSpeed);
-            //Debug.Log("get speed function rb velocity " + rb.velocity);
+
         }
 
         private void OnCollisionEnter(Collision collision)
         {
             //Instantiate(bombExplosion, transform.position, transform.rotation);
             bombExplosion.Play();
-            if (collision.rigidbody != null)
+            Collider[] colliders = Physics.OverlapSphere(collision.transform.position, 5f);
+            foreach (Collider hit in colliders)
             {
-                collision.rigidbody.AddExplosionForce(2f, collision.transform.position, 1f);
-            }
-            else
-            {
-                rb.AddExplosionForce(2f, collision.transform.position, 1f);
-
+                EnemyView enemy = hit.GetComponent<EnemyView>();
+                if (enemy != null)
+                {
+                    enemy.ApplyDamage(damage);
+                }
+                   
+                    
             }
             StartCoroutine(destroy());
         }

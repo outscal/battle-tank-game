@@ -19,7 +19,12 @@ namespace TankGame.Enemy
         private Vector3 currentTankSpeed;
         public Rigidbody rb;
         public Transform bulletSpawner;
+        private EnemyController controller;
 
+        public void InitializeController(EnemyController enemyController)
+        {
+             controller = enemyController;
+        }
 
         public void SetViewDetails(EnemyModel model)
         {
@@ -45,6 +50,11 @@ namespace TankGame.Enemy
             //horizontalInput = Input.GetAxisRaw("HorizontalUI");
             //verticalInput = Input.GetAxisRaw("VerticalUI");
             moveTank();
+        }
+
+        public void ApplyDamage(float damage)
+        {
+            controller.TakeDamage(damage);
         }
 
         //private void Update()

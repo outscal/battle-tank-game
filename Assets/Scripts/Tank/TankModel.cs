@@ -6,13 +6,13 @@ namespace TankGame.Tank
 {
     public class TankModel
     {
-        public TankModel(int moveingSpeed, int rotatingSpeed, float health, float bulletDamage, Color tankColor)
+        public TankModel(TankScriptableObject tank)
         {
-            MoveingSpeed = moveingSpeed;
-            RotatingSpeed = rotatingSpeed;
-            Health = health;
-            BulletDamage = bulletDamage;
-            TankColor = tankColor;
+            MoveingSpeed = tank.movingSpeed;
+            RotatingSpeed = tank.rotatingSpeed;
+            Health = tank.health;
+            BulletDamage = tank.damage;
+            TankColor = tank.tankColor;
         }
 
         public int MoveingSpeed { get; }

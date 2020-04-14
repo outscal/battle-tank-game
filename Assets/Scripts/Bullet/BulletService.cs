@@ -7,6 +7,8 @@ namespace TankGame.Bullet
 {
     public class BulletService : MonoSingletonGeneric<BulletService>
     {
+
+        public BulletScriptableObjectList bulletList;
         public BulletView bulletView;
         private Vector3 spawnPos;
 
@@ -17,8 +19,8 @@ namespace TankGame.Bullet
 
         public void spawnBullet(Transform bulletSpawner, float bulletDamage)
         {
-            BulletModel bulletModel = new BulletModel(20, bulletDamage);
-            BulletController bullet = new BulletController(bulletModel, bulletView, bulletSpawner);
+            BulletModel bulletModel = new BulletModel(bulletList.bulletScriptableObject[0]);
+            BulletController bullet = new BulletController(bulletModel, bulletView, bulletSpawner, bulletDamage);
         }
     }
 }

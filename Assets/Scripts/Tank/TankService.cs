@@ -8,9 +8,11 @@ namespace TankGame.Tank
     public class TankService : MonoSingletonGeneric<TankService>
     {
         public TankView tankView;
-        public Color[] tankColor;
-        public float[] tankHealth;
-        public float[] bulletDamage;
+        public TankScriptableObjectList tankList;
+
+        //public Color[] tankColor;
+        //public float[] tankHealth;
+        //public float[] bulletDamage;
 
         protected override void Awake()
         {
@@ -24,7 +26,7 @@ namespace TankGame.Tank
 
         public void SpawnTankPrefab(Transform spawner, int tankSerial)
         {
-            TankModel model = new TankModel(250, 100, tankHealth[tankSerial], bulletDamage[tankSerial], tankColor[tankSerial]);
+            TankModel model = new TankModel(tankList.tankScriptableObject[0]);
             TankController tank = new TankController(model, tankView, spawner);
         }
     }

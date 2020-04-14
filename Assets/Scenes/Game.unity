@@ -230,12 +230,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tankView: {fileID: 5409420481812584149, guid: 37ec6bd1f2ff5c441915b1cad1274844,
     type: 3}
-  tankColor:
-  - {r: 0.3066038, g: 0.31147903, b: 1, a: 0}
-  tankHealth:
-  - 100
-  bulletDamage:
-  - 50
+  tankList: {fileID: 11400000, guid: 3351db8c33f4a204c98ac4c1a72f140d, type: 2}
 --- !u!4 &25575262
 Transform:
   m_ObjectHideFlags: 0
@@ -427,6 +422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e68fc39506c1194cbb2726d90d83bf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletList: {fileID: 11400000, guid: 167e15e8d4416a84bbbe058f46c55967, type: 2}
   bulletView: {fileID: 5734809742957511160, guid: 770c1dcb40979b94c9732714851b6a83,
     type: 3}
 --- !u!4 &144700747
@@ -1131,7 +1127,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1304999364}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24328132, guid: 86a7353f2579d476fbaa7f161c2e5d00,
     type: 2}
@@ -1284,7 +1280,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1364,7 +1360,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.87934446}
   m_AnchorMax: {x: 0.13036232, y: 0.994}
-  m_AnchoredPosition: {x: 1.0479736, y: 0.33000183}
+  m_AnchoredPosition: {x: 1.0479736, y: 0.3300171}
   m_SizeDelta: {x: 1.4000015, y: -0.059999466}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1414328116
@@ -1536,6 +1532,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1771596987}
+  - component: {fileID: 1771596988}
   m_Layer: 0
   m_Name: CameraRig
   m_TagString: Untagged
@@ -1551,13 +1548,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1771596986}
   m_LocalRotation: {x: 0.29619816, y: 0.46984637, z: -0.1710101, w: 0.81379765}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -38.7, y: 24.7, z: -9.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1391056264}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1771596988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771596986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 631bff88f701abf45835bfea92cf56bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTarget: {fileID: 0}
 --- !u!1 &2135436838
 GameObject:
   m_ObjectHideFlags: 0

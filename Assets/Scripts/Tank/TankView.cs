@@ -20,10 +20,12 @@ namespace TankGame.Tank
         private Vector3 currentTankSpeed;
         public Rigidbody rb;
         public Transform bulletSpawner;
+        private TankController controller;
 
 
         public void SetViewDetails(TankModel model)
         {
+            Camera.main.GetComponentInParent<CamaeraFollow>().setTarget(gameObject.transform);
             movingSpeed = model.MoveingSpeed;
             rotatingSpeed = model.MoveingSpeed;
             healthCount = model.Health;
@@ -41,6 +43,12 @@ namespace TankGame.Tank
                 mat.color = tankColor;
             }
         }
+
+        public void InitialiseController(TankController tankController)
+        {
+            controller = tankController;
+        }
+
         private void FixedUpdate()
         {
             horizontalInput = Input.GetAxisRaw("HorizontalUI");
@@ -52,7 +60,7 @@ namespace TankGame.Tank
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                TankService.Instance.fire(bulletSpawner, bulletDamage);
+                controller.fire(bulletSpawner, bulletDamage);
             }
         }
 
