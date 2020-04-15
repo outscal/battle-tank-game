@@ -11,9 +11,7 @@ namespace TankGame.Tank
         public TankView tankView;
         public TankScriptableObjectList tankList;
 
-        //public Color[] tankColor;
-        //public float[] tankHealth;
-        //public float[] bulletDamage;
+        
 
         protected override void Awake()
         {

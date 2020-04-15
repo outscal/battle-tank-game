@@ -60,8 +60,6 @@ namespace TankGame.Bullet
                     EnemyView enemy = hit.GetComponent<EnemyView>();
                     if (enemy != null)
                     {
-                        //enemy.ApplyDamage(damage);
-                        //EnemyTankType enemyType =  enemy.tankType;
                         controller.ApplyEnemyDamage(damage, enemy);
                     }
                 }
@@ -72,7 +70,6 @@ namespace TankGame.Bullet
                         TankView tank = hit.GetComponent<TankView>();
                         if (tank != null)
                         {
-                            //PlayerTankView playerType = tank.
                             Debug.Log("player is hit");
                             controller.ApplyPlayerDamage(damage, tank);
                         }
@@ -81,14 +78,8 @@ namespace TankGame.Bullet
                 controller.DestroyBulletView(this);
             }
 
-            //StartCoroutine(destroy());
         }
 
-        //IEnumerator destroy()
-        //{
-        //    yield return new WaitForSeconds(0.2f);
-        //    Destroy(gameObject);
-
-        //}
+       
     }
 }

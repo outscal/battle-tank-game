@@ -23,8 +23,6 @@ namespace TankGame.Spawner
         {
             for (int i = 0; i < enemySpawners.Length; i++)
             {
-                //    model[i] = new SpawnerModel(spawners[i].transform.position);
-                //    SpawnerController spawnerController = new SpawnerController(model[i], spawnerView);
                 SpawnEnemyTanks(i);
             }
             for (int i = 0; i < tankSpawners.Length; i++)

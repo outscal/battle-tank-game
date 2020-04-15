@@ -31,11 +31,7 @@ namespace TankGame.Enemy
             EnemyController controller = new EnemyController(model, enemyView, enemySpawnerPos, enemySpawnerRotation, EnemyList.enemyScriptableObject[enemyIndex]);
         }
 
-        //public void TakeDamage(EnemyView enemy, float damage)
-        //{
-        //    enemy.Damage(damage);
-        //}
-
+        
         public void DestroyView(EnemyView enemyView)
         {
             ParticleService.Instance.CreateTankExplosion(enemyView.transform.position, enemyView.transform.rotation);

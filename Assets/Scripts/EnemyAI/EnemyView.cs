@@ -80,8 +80,7 @@ namespace TankGame.Enemy
         }
         private void FixedUpdate()
         {
-            //horizontalInput = Input.GetAxisRaw("HorizontalUI");
-            //verticalInput = Input.GetAxisRaw("VerticalUI");
+            
             moveTank();
         }
 
@@ -98,14 +97,6 @@ namespace TankGame.Enemy
         {
             EnemyService.Instance.fire(bulletSpawner, bulletDamage);
         }
-
-        //private void Update()
-        //{
-        //    if (Input.GetButtonDown("Fire1"))
-        //    {
-        //        EnemyService.Instance.fire(bulletSpawner, bulletDamage);
-        //    }
-        //}
 
         private void moveTank()
         {

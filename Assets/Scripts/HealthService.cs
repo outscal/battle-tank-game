@@ -12,6 +12,7 @@ public class HealthService : MonoSingletonGeneric<HealthService>
     {
         enemy.GetController().TakeDamage(enemy, damage);
     }
+
     public void DeductPlayerHealth(TankView tank, float damage)
     {
         tank.GetController().TakeDamage(tank, damage);

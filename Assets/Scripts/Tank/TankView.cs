@@ -29,7 +29,6 @@ namespace TankGame.Tank
             Camera.main.GetComponentInParent<CamaeraFollow>().setTarget(gameObject.transform);
 
             SetTankSpeed(model.MovingSpeed, model.RotatingSpeed);
-            //SetFireRate(model.);
             SetTankHealth(model.Health);
             SetTankDamage(model.BulletDamage);
             SetTankColor(model.TankColor);
