@@ -296,7 +296,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1304999364}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24328132, guid: 86a7353f2579d476fbaa7f161c2e5d00,
     type: 2}
@@ -576,7 +576,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99d9ec7a50f15704f9519806b2dd5376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankView: {fileID: 1839371410, guid: 10cd3eb393aca9b4aaa56e6761dff386, type: 3}
+  TankPrefab: {fileID: 1839371410, guid: 10cd3eb393aca9b4aaa56e6761dff386, type: 3}
+  TankParent: {fileID: 1046570644}
 --- !u!1 &2076877954
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,3 +654,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletView: {fileID: 1392694802, guid: d738684034a43864fa4edae269d07a74, type: 3}
+  BulletParent: {fileID: 1046570644}

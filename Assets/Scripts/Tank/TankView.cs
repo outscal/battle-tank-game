@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-
 namespace Tank
 {
     [RequireComponent(typeof(Rigidbody))]
@@ -36,12 +35,9 @@ namespace Tank
 
         private void InitAllVariables()
         {
+            transform.SetParent(tankController.TankParent);
             m_PlayerNumber = tankController.GetModel().M_PlayerNumber;
             m_Rigidbody = GetComponent<Rigidbody>();
-            m_Speed = tankController.GetModel().Speed;
-            m_TurnSpeed = tankController.GetModel().M_TurnSpeed;
-            m_PitchRange = tankController.GetModel().M_PitchRange;
-            m_particleSystems = GetComponentsInChildren<ParticleSystem>();
             m_FireButton = tankController.GetModel().FireKey;
 
             m_Rigidbody.isKinematic = false;
@@ -82,7 +78,8 @@ namespace Tank
         {
             ChekingPlayerInput();
 
-            EngineAudio();
+            tankController.PlayEngineAudio(m_MovementInputValue, m_TurnInputValue, m_MovementAudio,
+                                       m_EngineDriving, m_EngineIdling, m_OriginalPitch);
         }
 
 
@@ -93,58 +90,16 @@ namespace Tank
 
             if (Input.GetKeyDown(m_FireButton))
             {
-                tankController.Fire(m_FireTransform, 0);
-            }
-        }
-
-
-        private void EngineAudio()
-        {
-            if (Mathf.Abs(m_MovementInputValue) < 0.1f && Mathf.Abs(m_TurnInputValue) < 0.1f)
-            {
-                if (m_MovementAudio.clip == m_EngineDriving)
-                {
-                    m_MovementAudio.clip = m_EngineIdling;
-                    m_MovementAudio.pitch = Random.Range(m_OriginalPitch - m_PitchRange, m_OriginalPitch + m_PitchRange);
-                    m_MovementAudio.Play();
-                }
-            }
-            else
-            {
-                if (m_MovementAudio.clip == m_EngineIdling)
-                {
-                    m_MovementAudio.clip = m_EngineDriving;
-                    m_MovementAudio.pitch = Random.Range(m_OriginalPitch - m_PitchRange, m_OriginalPitch + m_PitchRange);
-                    m_MovementAudio.Play();
-                }
+                tankController.FireBullet(m_FireTransform, 0);
             }
         }
 
 
         private void FixedUpdate()
         {
-            Move();
-            Turn();
-        }
+            tankController.TankMove(m_Rigidbody, transform, m_MovementInputValue);
 
-
-        private void Move()
-        {
-
-            Vector3 movement = transform.forward * m_MovementInputValue * m_Speed * Time.deltaTime;
-
-
-            m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
-        }
-
-
-        private void Turn()
-        {
-            float turn = m_TurnInputValue * m_TurnSpeed * Time.deltaTime;
-
-            Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
-
-            m_Rigidbody.MoveRotation(m_Rigidbody.rotation * turnRotation);
+            tankController.TankTurn(m_Rigidbody, m_TurnInputValue);
         }
     }
 }

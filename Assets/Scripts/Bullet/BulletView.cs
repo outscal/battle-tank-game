@@ -12,11 +12,11 @@ namespace Bullet
     {
         public LayerMask m_TankMask;                        
         public ParticleSystem m_ExplosionParticles;         
-        public AudioSource m_ExplosionAudio;                
+        public AudioSource m_ExplosionAudio;
 
-        private Rigidbody bulletBody;
-        private float m_MaxDamage = 100f;                   
-        private float m_LaunchForce = 15f;                   
+        public Rigidbody bulletBody;
+        public float m_LaunchForce = 15f;
+        private float m_MaxDamage = 100f;                                    
         private float m_ExplosionForce = 1000f;              
         private float m_MaxLifeTime = 2f;                    
         private float m_ExplosionRadius = 5f;                
@@ -29,13 +29,13 @@ namespace Bullet
             InitAllVariables();
         }
 
+
         private void InitAllVariables()
         {
             m_MaxDamage = bulletController.GetModel().BulletDamange;
             bulletBody = GetComponent<Rigidbody>();
-            bulletController.MoveBullet(bulletBody, m_LaunchForce);
+            transform.SetParent(bulletController.BulletParent);
         }
-
 
 
         private void Start()
@@ -45,6 +45,12 @@ namespace Bullet
 
 
         private void OnTriggerEnter(Collider other)
+        {
+            BulletHitProcess();
+        }
+
+
+        private void BulletHitProcess()
         {
             Collider[] colliders = Physics.OverlapSphere(transform.position, m_ExplosionRadius, m_TankMask);
 
@@ -67,7 +73,7 @@ namespace Bullet
                 targetHealth.TakeDamage(damage);
             }
 
-            m_ExplosionParticles.transform.parent = null;
+            m_ExplosionParticles.transform.SetParent(bulletController.BulletParent);
 
             m_ExplosionParticles.Play();
 

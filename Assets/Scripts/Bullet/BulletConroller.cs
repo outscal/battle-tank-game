@@ -6,10 +6,10 @@ namespace Bullet
 {
     public class BulletConroller
     {
-        public BulletConroller(BulletModel bulletModel, BulletView bulletPrefab)
+        public BulletConroller(BulletModel bulletModel, BulletView bulletPrefab, Transform bulletParent)
         {
             BulletModel = bulletModel;
-
+            BulletParent = bulletParent;
             BulletView = GameObject.Instantiate<BulletView>
                 (bulletPrefab, bulletModel.SpawnTransform.position, bulletModel.SpawnTransform.rotation);
             BulletView.Initialize(this);
@@ -18,18 +18,13 @@ namespace Bullet
         }
 
         public BulletModel BulletModel { get; }
+        public Transform BulletParent { get; }
         public BulletView BulletView { get; }
 
 
         public BulletModel GetModel()
         {
             return BulletModel;
-        }
-
-
-        public void MoveBullet(Rigidbody bulletBody, float launchForce)
-        {
-            bulletBody.velocity = launchForce * BulletModel.SpawnTransform.forward;
         }
     }
 }
