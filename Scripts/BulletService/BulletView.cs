@@ -7,23 +7,17 @@ namespace BulletServices
     public class BulletView : MonoBehaviour
     {
         private BulletController bullerController;
-
-
-
-        public void GetBulletController(BulletController _bulletController)
+        public void SetBulletController(BulletController _bulletController)
         {
             bullerController = _bulletController;
         }
 
         private void Update()
         {
-            Movement();
+            bullerController.Movement();
         }
 
-        private void Movement()
-        {
-            bullerController.bulletService.transform.Translate(Vector3.forward * bullerController.bulletModel.speed * Time.deltaTime);
-        }
+
     }
 
 }

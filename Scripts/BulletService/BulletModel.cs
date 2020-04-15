@@ -8,17 +8,17 @@ namespace BulletServices
     {
         public float speed { get; private set; }
         public float damage { get; private set; }
-        public Transform shootPoint { get; private set; }
+
         private BulletController bulletController;
 
-        public BulletModel(float _speed, float _damage, Transform _shootPoint)
+        public BulletModel(float _speed, float _damage)
         {
             speed = _speed;
             damage = _damage;
-            shootPoint = _shootPoint;
+
         }
 
-        public void GetBulletController(BulletController _bulletController)
+        public void SetBulletController(BulletController _bulletController)
         {
             bulletController = _bulletController;
         }
