@@ -7,19 +7,23 @@ namespace TankGame.Enemy
 {
     public class EnemyController
     {
-        public EnemyController(EnemyModel enemyModel, EnemyView enemyView, Vector3 spawnerPos, Quaternion spawnerRotation)
+        public EnemyController(EnemyModel enemyModel, EnemyView enemyView, Vector3 spawnerPos, Quaternion spawnerRotation, EnemyScriptableObject enemyScriptableObject)
         {
             EnemyModel = enemyModel;
             SpawnerPos = spawnerPos;
             EnemyView = GameObject.Instantiate<EnemyView>(enemyView, SpawnerPos, spawnerRotation);
-            EnemyView.SetViewDetails(EnemyModel);
+            EnemyView.SetViewDetails(EnemyModel, enemyScriptableObject);
             EnemyView.InitializeController(this);
         }
         
-        public void TakeDamage(float damage)
+        public void TakeDamage(EnemyView enemy, float damage)
         {
-            //EnemyModel.EnemyHealth -= damage;
+            enemy.ApplyEnemyDamage(damage);
+        }
 
+        public void DestroyEnemyView(EnemyView enemyView)
+        {
+            EnemyService.Instance.DestroyView(enemyView);
         }
         public EnemyView EnemyView { get; }
         public EnemyModel EnemyModel { get; }

@@ -17,10 +17,17 @@ namespace TankGame.Bullet
             base.Awake();
         }
 
-        public void spawnBullet(Transform bulletSpawner, float bulletDamage)
+        public BulletController spawnBullet(Transform bulletSpawner, float bulletDamage)
         {
             BulletModel bulletModel = new BulletModel(bulletList.bulletScriptableObject[0]);
             BulletController bullet = new BulletController(bulletModel, bulletView, bulletSpawner, bulletDamage);
+            return bullet;
+        }
+
+        public void DestroyView(BulletView bullet)
+        {
+            ParticleService.Instance.CreateBulletExplosion(bullet.transform.position, bullet.transform.rotation);
+            Destroy(bullet.gameObject, 0.1f);
         }
     }
 }

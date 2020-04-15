@@ -13,6 +13,7 @@ namespace TankGame.Tank
         private int movingSpeed;
         private float healthCount;
         private float bulletDamage;
+        private float fireRateDelay;
         public Renderer[] rend;
         private Material mat;
         private Color tankColor;
@@ -26,16 +27,33 @@ namespace TankGame.Tank
         public void SetViewDetails(TankModel model)
         {
             Camera.main.GetComponentInParent<CamaeraFollow>().setTarget(gameObject.transform);
-            movingSpeed = model.MoveingSpeed;
-            rotatingSpeed = model.MoveingSpeed;
-            healthCount = model.Health;
-            tankColor = model.TankColor;
-            bulletDamage = model.BulletDamage;
 
-            SetTankColor();
+            SetTankSpeed(model.MovingSpeed, model.RotatingSpeed);
+            //SetFireRate(model.);
+            SetTankHealth(model.Health);
+            SetTankDamage(model.BulletDamage);
+            SetTankColor(model.TankColor);
         }
 
-        private void SetTankColor()
+        public void SetTankSpeed(int Speed, int Rotation)
+        {
+            movingSpeed = Speed;
+            rotatingSpeed = Rotation;
+        }
+        public void SetFireRate(float FireRateDelay)
+        {
+            fireRateDelay = FireRateDelay;
+        }
+
+        public void SetTankHealth(float Health)
+        {
+            healthCount = Health;
+        }
+        public void SetTankDamage(float Damage)
+        {
+            bulletDamage = Damage;
+        }
+        private void SetTankColor(Color tankColor)
         {
             for (int i = 0; i < rend.Length; i++)
             {
@@ -47,6 +65,20 @@ namespace TankGame.Tank
         public void InitialiseController(TankController tankController)
         {
             controller = tankController;
+        }
+
+        public TankController GetController()
+        {
+            return controller;
+        }
+
+        public void ApplyPlayerTankDamage(float damage)
+        {
+            healthCount -= damage;
+            if (healthCount <= 0)
+            {
+                controller.DestroyTankView(this);
+            }
         }
 
         private void FixedUpdate()

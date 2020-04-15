@@ -10,6 +10,7 @@ namespace TankGame.Enemy
         private float verticalInput;
         private int rotatingSpeed;
         private int movingSpeed;
+        private float fireRateDelay;
         private float healthCount;
         private float bulletDamage;
         public Renderer[] rend;
@@ -20,25 +21,57 @@ namespace TankGame.Enemy
         public Rigidbody rb;
         public Transform bulletSpawner;
         private EnemyController controller;
-
+       [HideInInspector]
+        public EnemyTankType tankType;
+        private EnemyScriptableObject ResetEnemyObject;
         public void InitializeController(EnemyController enemyController)
         {
              controller = enemyController;
         }
 
-        public void SetViewDetails(EnemyModel model)
+        public EnemyController GetController()
         {
-            movingSpeed = model.EnemySpeed;
-            rotatingSpeed = model.EnemyRotation;
-            healthCount = model.EnemyHealth;
-            tankColor = model.EnemyColor;
-            bulletDamage = model.EnemyDamage;
-
-            SetTankColor();
+            return controller;
         }
 
-        private void SetTankColor()
+        private void Start()
         {
+            InvokeRepeating("FireBullet",1f,fireRateDelay);
+        }
+        public void SetViewDetails(EnemyModel model, EnemyScriptableObject enemyScriptableObject)
+        {
+            tankType = model.EnemyTankType;
+
+            SetTankSpeed(model.EnemySpeed, model.EnemyRotation);
+            SetFireRate(model.EnemyFireRateDelay);
+            SetTankHealth(model.EnemyHealth);
+            SetTankDamage(model.EnemyDamage);
+            SetTankColor(model.EnemyColor);
+        }
+
+        public void SetTankSpeed(int EnemySpeed, int EnemyRotation)
+        {
+            movingSpeed = EnemySpeed;
+            rotatingSpeed = EnemyRotation;
+        }
+        public void SetFireRate(float FireRateDelay)
+        {
+            fireRateDelay = FireRateDelay;
+        }
+
+        public void SetTankHealth(float EnemyHealth)
+        {
+            healthCount = EnemyHealth;
+        }
+        public void SetTankDamage(float EnemyDamage)
+        {
+            bulletDamage = EnemyDamage;
+        }
+
+        private void SetTankColor(Color EnemyColor)
+
+        {
+            tankColor = EnemyColor;
             for (int i = 0; i < rend.Length; i++)
             {
                 mat = rend[i].material;
@@ -52,9 +85,18 @@ namespace TankGame.Enemy
             moveTank();
         }
 
-        public void ApplyDamage(float damage)
+        public void ApplyEnemyDamage(float damage)
         {
-            controller.TakeDamage(damage);
+            healthCount -= damage;
+            if (healthCount <= 0)
+            {
+                controller.DestroyEnemyView(this);
+            }
+        }
+
+        private void FireBullet()
+        {
+            EnemyService.Instance.fire(bulletSpawner, bulletDamage);
         }
 
         //private void Update()

@@ -8,14 +8,14 @@ namespace TankGame.Tank
     {
         public TankModel(TankScriptableObject tank)
         {
-            MoveingSpeed = tank.movingSpeed;
+            MovingSpeed = tank.movingSpeed;
             RotatingSpeed = tank.rotatingSpeed;
             Health = tank.health;
             BulletDamage = tank.damage;
             TankColor = tank.tankColor;
         }
 
-        public int MoveingSpeed { get; }
+        public int MovingSpeed { get; }
         public int RotatingSpeed { get; }
         public float Health { get; }
         public float BulletDamage { get; }

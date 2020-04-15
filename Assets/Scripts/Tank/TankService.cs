@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TankGame.Bullet;
+using TankGame.Spawner;
 
 namespace TankGame.Tank
 {
@@ -23,11 +24,24 @@ namespace TankGame.Tank
         {
             BulletService.Instance.spawnBullet(bulletSpawn, bulletDamange);
         }
+        public void DestroyView(TankView tankView)
+        {
+            ParticleService.Instance.CreateTankExplosion(tankView.transform.position, tankView.transform.rotation);
 
-        public void SpawnTankPrefab(Transform spawner, int tankSerial)
+            Destroy(tankView.gameObject, 0.1f);
+            StartCoroutine(RestartTank());
+        }
+
+        IEnumerator RestartTank()
+        {
+            yield return new WaitForSeconds(3f);
+            SpawnerService.Instance.SpawnTanks(0);
+        }
+        public TankController SpawnTankPrefab(Transform spawner, int tankSerial)
         {
             TankModel model = new TankModel(tankList.tankScriptableObject[0]);
             TankController tank = new TankController(model, tankView, spawner);
+            return tank;
         }
     }
 }

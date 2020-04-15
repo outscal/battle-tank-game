@@ -20,6 +20,16 @@ namespace TankGame.Tank
             BulletService.Instance.spawnBullet(bulletSpawn, bulletDamange);
         }
 
+        public void TakeDamage(TankView tank, float damage)
+        {
+            tank.ApplyPlayerTankDamage(damage);
+        }
+
+        public void DestroyTankView(TankView tankView)
+        {
+            TankService.Instance.DestroyView(tankView);
+        }
+
         public TankModel TankModel { get; }
         public TankView TankView { get; }
     }

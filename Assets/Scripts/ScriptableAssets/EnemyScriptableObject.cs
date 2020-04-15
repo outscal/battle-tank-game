@@ -9,8 +9,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyScriptableObject", menuName = "ScriptableObject/NewEnemyScriptableObject")]
 public class EnemyScriptableObject : ScriptableObject
 {
-    public EnemyTankView enemy;
+    public EnemyTankType EnemyType;
+    public int FireRateDelay;
     public string TankName;
+    public float TankDamge;
     public int TankSpeed;
     public int TankRotationSpeed;
     public float TankHealth;
@@ -38,7 +40,7 @@ public class BulletScriptableObjectList : ScriptableObject
 [CreateAssetMenu(fileName = "BulletScriptableObject", menuName = "ScriptableObject/BulletScriptableObject")]
 public class BulletScriptableObject : ScriptableObject
 {
-    public BulletView bullet;
+    public BulletType BulletType;
     public int bulletSpeed;
 
 }
@@ -57,7 +59,7 @@ public class TankScriptableObjectList : ScriptableObject
 [CreateAssetMenu(fileName = "TankScriptableObject", menuName = "ScriptableObject/TankScriptableObject")]
 public class TankScriptableObject : ScriptableObject
 {
-    public TankView tankType;
+    public PlayerTankType TankType;
     public int movingSpeed;
     public int rotatingSpeed;
     public float health;

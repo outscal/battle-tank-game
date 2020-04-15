@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-    public enum EnemyTankView
+    public enum EnemyTankType
     {
         None = 0,
         Pink = 1,
@@ -12,7 +12,7 @@ using UnityEngine;
         SkyBlue = 3
 
     }
-public enum BulletView
+public enum BulletType
     {
         None = 0,
         LowDamage = 1,
@@ -21,7 +21,7 @@ public enum BulletView
 
     }
 
-public enum TankView
+public enum PlayerTankType
     {
         None = 0,
         FirstTank = 1,

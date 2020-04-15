@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TankGame.Tank;
+using TankGame.Enemy;
 
 namespace TankGame.Bullet
 {
@@ -19,9 +21,18 @@ namespace TankGame.Bullet
             
         }
 
-        public void ApplyDamage()
+        public void DestroyBulletView(BulletView bullet)
         {
-           
+            BulletService.Instance.DestroyView(bullet);
+        }
+
+        public void ApplyEnemyDamage(float damage, EnemyView enemyTank)
+        {
+            HealthService.Instance.DeductEnemyHealth( enemyTank, damage);
+        }
+        public void ApplyPlayerDamage(float damage, TankView playerTank)
+        {
+            HealthService.Instance.DeductPlayerHealth( playerTank, damage);
         }
 
         public BulletModel BulletModel { get; }
