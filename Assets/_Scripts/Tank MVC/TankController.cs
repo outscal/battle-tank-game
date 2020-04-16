@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class TankController
 {
+    TankService tankService;
     public TankModel TankModel { get; }
     public TankView TankView { get; }
 
@@ -32,5 +33,15 @@ public class TankController
         float targetRotation;
         targetRotation = Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg;
         return targetRotation;
+    }
+
+    public void SetTankService(TankService ts)
+    {
+        tankService = ts;
+    }
+
+    public void FireBullet(Vector3 position, Vector3 tankRotation)
+    {
+        tankService.FireBullet(position, tankRotation);
     }
 }
