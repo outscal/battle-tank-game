@@ -17,9 +17,9 @@ namespace Bullet
         }
 
 
-        public BulletConroller GetBullet(Transform bulletTransform, float bulletDamange)
+        public BulletConroller GetBullet(Transform bulletTransform, float tankDamageBooster)
         {
-            BulletModel bulletmodel = new BulletModel(bulletTransform, 10, bulletDamange);
+            BulletModel bulletmodel = new BulletModel(bulletTransform, 10, tankDamageBooster);
             BulletConroller bulletController = new BulletConroller(bulletmodel, bulletView, BulletParent);
             return bulletController;
         }

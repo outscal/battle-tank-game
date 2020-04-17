@@ -2,8 +2,7 @@
 
 namespace Tank
 {
-    [RequireComponent(typeof(Rigidbody))]
-    [RequireComponent(typeof(AudioSource))]
+    [RequireComponent(typeof(AudioSource), typeof(Rigidbody), typeof(TankHealth))]
     public class TankView : MonoBehaviour
     {
         public Transform m_FireTransform;
@@ -39,7 +38,7 @@ namespace Tank
             m_PlayerNumber = tankController.GetModel().M_PlayerNumber;
             m_Rigidbody = GetComponent<Rigidbody>();
             m_FireButton = tankController.GetModel().FireKey;
-
+            GetComponent<TankHealth>().Initialize(tankController.GetModel().Health);
             m_Rigidbody.isKinematic = false;
 
             m_MovementInputValue = 0f;
@@ -90,7 +89,7 @@ namespace Tank
 
             if (Input.GetKeyDown(m_FireButton))
             {
-                tankController.FireBullet(m_FireTransform, 0);
+                tankController.FireBullet(m_FireTransform);
             }
         }
 

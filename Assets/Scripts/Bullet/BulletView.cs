@@ -16,7 +16,7 @@ namespace Bullet
 
         public Rigidbody bulletBody;
         public float m_LaunchForce = 15f;
-        private float m_MaxDamage = 100f;                                    
+        private float m_MaxDamage = 50f;                                    
         private float m_ExplosionForce = 1000f;              
         private float m_MaxLifeTime = 2f;                    
         private float m_ExplosionRadius = 5f;                
@@ -32,7 +32,6 @@ namespace Bullet
 
         private void InitAllVariables()
         {
-            m_MaxDamage = bulletController.GetModel().BulletDamange;
             bulletBody = GetComponent<Rigidbody>();
             transform.SetParent(bulletController.BulletParent);
         }
@@ -68,8 +67,10 @@ namespace Bullet
                 if (!targetHealth)
                     continue;
 
-                float damage = CalculateDamage(targetRigidbody.position);
+                float damage = bulletController.CalculateDamage(targetRigidbody.position,
+                                     transform.position, m_ExplosionRadius, m_MaxDamage);
 
+                damage += bulletController.GetModel().TankDamageBooster;
                 targetHealth.TakeDamage(damage);
             }
 
@@ -85,20 +86,5 @@ namespace Bullet
             Destroy(gameObject);
         }
 
-
-        private float CalculateDamage(Vector3 targetPosition)
-        {
-            Vector3 explosionToTarget = targetPosition - transform.position;
-
-            float explosionDistance = explosionToTarget.magnitude;
-
-            float relativeDistance = (m_ExplosionRadius - explosionDistance) / m_ExplosionRadius;
-
-            float damage = relativeDistance * m_MaxDamage;
-
-            damage = Mathf.Max(0f, damage);
-
-            return damage;
-        }
     }
 }

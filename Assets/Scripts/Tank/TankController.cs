@@ -9,7 +9,8 @@ namespace Tank
         {
             TankModel = tankModel;
             TankParent = tankParent;
-            TankView = GameObject.Instantiate<TankView>(tankPrefab);
+            TankView = GameObject.Instantiate<TankView>(tankPrefab, 
+                                  tankModel.M_SpawnPoint.position, tankModel.M_SpawnPoint.rotation);
             TankView.Initialize(this);
         }
 
@@ -24,10 +25,10 @@ namespace Tank
         }
 
 
-        public void FireBullet(Transform bulletTransform, float bulletDamange)
+        public void FireBullet(Transform bulletTransform)
         {
-            BulletConroller bulletConroller = BulletService.Instance.GetBullet(bulletTransform, bulletDamange);
-            bulletConroller.BulletView.bulletBody.velocity = bulletConroller.BulletView.m_LaunchForce * bulletTransform.forward;
+            BulletConroller bulletConroller = BulletService.Instance.GetBullet(bulletTransform, TankModel.TankDamageBooster);
+            bulletConroller.FireBullet(bulletTransform);
         }
 
 

@@ -1,13 +1,18 @@
 ﻿using UnityEngine;
 
 using Generic;
+using System.Collections.Generic;
 
 namespace Tank
 {
     public class TankService : MonoSingletonGeneric<TankService>
     {
-        public TankView TankPrefab;
+        
         public Transform TankParent;
+
+        public List<TankScriptableObj> tankScriptableObjs;
+
+        private TankView TankPrefab;
 
         protected override void Awake()
         {
@@ -16,7 +21,17 @@ namespace Tank
 
         void Start()
         {
-            TankModel tankModel = new TankModel(5, 100f, 180f, 1, 0.2f, 15f, KeyCode.F);
+            for (int i = 0; i < tankScriptableObjs.Count; i++)
+            {
+                SpawnTank(i);
+            }
+            
+        }
+
+        void SpawnTank(int tankIndex)
+        {
+            TankModel tankModel = new TankModel(tankScriptableObjs[tankIndex]);
+            TankPrefab = tankModel.M_TankView;
             TankController TankObj = new TankController(tankModel, TankPrefab, TankParent);
         }
 

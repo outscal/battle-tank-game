@@ -5,7 +5,7 @@ namespace Tank
 {
     public class TankHealth : MonoBehaviour
     {
-        public float m_StartingHealth = 100f;              
+        public float m_StartingHealth;              
         public Slider m_Slider;                             
         public Image m_FillImage;                           
         public Color m_FullHealthColor = Color.green;       
@@ -20,19 +20,21 @@ namespace Tank
         private bool m_Dead;                                
 
 
-        private void Awake ()
+        public void Initialize (float health)
         {
             m_ExplosionParticles = Instantiate (m_ExplosionPrefab).GetComponent<ParticleSystem> ();
 
             m_ExplosionAudio = m_ExplosionParticles.GetComponent<AudioSource> ();
 
             m_ExplosionParticles.gameObject.SetActive (false);
+            m_StartingHealth = health;
+            SetTankHealth(health);
         }
 
 
-        private void OnEnable()
+        private void SetTankHealth(float health)
         {
-            m_CurrentHealth = m_StartingHealth;
+            m_CurrentHealth = health;
             m_Dead = false;
 
             SetHealthUI();
