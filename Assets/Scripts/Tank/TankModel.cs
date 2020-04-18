@@ -17,7 +17,7 @@ namespace TankGame.Tank
 
         public int MovingSpeed { get; }
         public int RotatingSpeed { get; }
-        public float Health { get; }
+        public float Health { get; set; }
         public float BulletDamage { get; }
         public Color TankColor { get; }
     }

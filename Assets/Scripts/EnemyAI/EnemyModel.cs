@@ -21,7 +21,7 @@ namespace TankGame.Enemy
         public float EnemyFireRateDelay { get; }
         public int EnemySpeed { get; }
         public int EnemyRotation { get; }
-        public float EnemyHealth { get; }
+        public float EnemyHealth { get; set; }
         public float EnemyDamage { get; }
         public Color EnemyColor { get; }
     }

@@ -4751,6 +4751,8 @@ GameObject:
   - component: {fileID: 283503263170130840}
   - component: {fileID: 6196383262613363529}
   - component: {fileID: 593306871051849256}
+  - component: {fileID: 3923257624509966874}
+  - component: {fileID: 4765675588941540830}
   m_Layer: 0
   m_Name: EnemyView
   m_TagString: Untagged
@@ -4792,6 +4794,10 @@ MonoBehaviour:
   - {fileID: 6724751896313025074}
   rb: {fileID: 6196383262613363529}
   bulletSpawner: {fileID: 963644038469831945}
+  tankType: 0
+  startingState: {fileID: 3923257624509966874}
+  patrolingState: {fileID: 3923257624509966874}
+  chasingState: {fileID: 4765675588941540830}
 --- !u!54 &6196383262613363529
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4821,6 +4827,33 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.5871853, y: 1.0941744, z: 2.0518804}
   m_Center: {x: -0.0064590573, y: 0.50954604, z: 0.009300947}
+--- !u!114 &3923257624509966874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6724751896315022656}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cac1bea44130b1342b472de72791f9cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changedColor: {r: 0.34588033, g: 0.3443396, b: 1, a: 0}
+--- !u!114 &4765675588941540830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6724751896315022656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eedb8fa35b9e3524580dab6026403e8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changedColor: {r: 0.7830189, g: 0.14404595, b: 0.14404595, a: 0}
+  chasingColor: {r: 1, g: 0.95988226, b: 0.2971698, a: 0}
 --- !u!1 &6724751896315022658
 GameObject:
   m_ObjectHideFlags: 0

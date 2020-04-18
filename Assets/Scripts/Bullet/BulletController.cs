@@ -26,15 +26,15 @@ namespace TankGame.Bullet
             BulletService.Instance.DestroyView(bullet);
         }
 
-        public void ApplyEnemyDamage(float damage, EnemyView enemyTank)
-        {
-            HealthService.Instance.DeductEnemyHealth( enemyTank, damage);
-        }
+        //public void ApplyEnemyDamage(float damage, EnemyView enemyTank)
+        //{
+        //    HealthService.Instance.DeductEnemyHealth( enemyTank, damage);
+        //}
 
-        public void ApplyPlayerDamage(float damage, TankView playerTank)
-        {
-            HealthService.Instance.DeductPlayerHealth( playerTank, damage);
-        }
+        //public void ApplyPlayerDamage(float damage, TankView playerTank)
+        //{
+        //    HealthService.Instance.DeductPlayerHealth( playerTank, damage);
+        //}
 
         public BulletModel BulletModel { get; }
         public BulletView BulletView { get; }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TankGame.Enemy
 {
-    public class EnemyView : MonoBehaviour
+    public class EnemyView : MonoBehaviour, IDamagable
     {
         private float horizontalInput;
         private float verticalInput;
@@ -23,7 +23,12 @@ namespace TankGame.Enemy
         private EnemyController controller;
        [HideInInspector]
         public EnemyTankType tankType;
-        private EnemyScriptableObject ResetEnemyObject;
+        private EnemyState currentState;
+        [SerializeField]
+        private EnemyState startingState;
+        public EnemyPatroling patrolingState;
+        public EnemyChasing chasingState;
+
         public void InitializeController(EnemyController enemyController)
         {
              controller = enemyController;
@@ -36,6 +41,7 @@ namespace TankGame.Enemy
 
         private void Start()
         {
+            ChangeState(startingState);
             InvokeRepeating("FireBullet",1f,fireRateDelay);
         }
         public void SetViewDetails(EnemyModel model, EnemyScriptableObject enemyScriptableObject)
@@ -68,8 +74,7 @@ namespace TankGame.Enemy
             bulletDamage = EnemyDamage;
         }
 
-        private void SetTankColor(Color EnemyColor)
-
+        public void SetTankColor(Color EnemyColor)
         {
             tankColor = EnemyColor;
             for (int i = 0; i < rend.Length; i++)
@@ -83,15 +88,19 @@ namespace TankGame.Enemy
             
             moveTank();
         }
-
-        public void ApplyEnemyDamage(float damage)
+        public void TakeDamage(float damage)
         {
-            healthCount -= damage;
-            if (healthCount <= 0)
-            {
-                controller.DestroyEnemyView(this);
-            }
+            controller.ApplyDamage(damage,this); 
         }
+
+        //public void ApplyEnemyDamage(float damage)
+        //{
+        //    healthCount -= damage;
+        //    if (healthCount <= 0)
+        //    {
+        //        controller.DestroyEnemyView(this);
+        //    }
+        //}
 
         private void FireBullet()
         {
@@ -105,7 +114,16 @@ namespace TankGame.Enemy
             //currentTankSpeed += new Vector3(0, 0, verticalInput) * Time.deltaTime * movingSpeed;
             //transform.forward = currentTankSpeed;
             rb.velocity = transform.forward * 1 * Time.deltaTime * movingSpeed;
+        }
 
+        public void ChangeState(EnemyState newState)
+        {
+            if(currentState != null)
+            {
+                currentState.OnExitState(); // to clear all running states and coroutines
+            }
+            currentState = newState;
+            currentState.OnEnterState();
         }
 
     }

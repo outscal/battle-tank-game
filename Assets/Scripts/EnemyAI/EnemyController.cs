@@ -16,15 +16,22 @@ namespace TankGame.Enemy
             EnemyView.InitializeController(this);
         }
         
-        public void TakeDamage(EnemyView enemy, float damage)
+        public void ApplyDamage(float damage, EnemyView enemy)
         {
-            enemy.ApplyEnemyDamage(damage);
+            if((EnemyModel.EnemyHealth - damage) <= 0)
+            {
+            EnemyService.Instance.DestroyView(enemy);
+            }
+            else
+            {
+                EnemyModel.EnemyHealth -= damage;
+                EnemyView.SetTankHealth(EnemyModel.EnemyHealth);
+            }
+
+
         }
 
-        public void DestroyEnemyView(EnemyView enemyView)
-        {
-            EnemyService.Instance.DestroyView(enemyView);
-        }
+     
         public EnemyView EnemyView { get; }
         public EnemyModel EnemyModel { get; }
         public Vector3 SpawnerPos { get; }

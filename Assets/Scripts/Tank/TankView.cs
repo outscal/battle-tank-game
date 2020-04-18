@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TankGame.Tank
 {
-    public class TankView : MonoBehaviour
+    public class TankView : MonoBehaviour, IDamagable
     {
 
         private float horizontalInput;
@@ -71,14 +71,19 @@ namespace TankGame.Tank
             return controller;
         }
 
-        public void ApplyPlayerTankDamage(float damage)
+        public void TakeDamage(float damage)
         {
-            healthCount -= damage;
-            if (healthCount <= 0)
-            {
-                controller.DestroyTankView(this);
-            }
+            controller.ApplyDamage(damage, this);
         }
+        //public void ApplyPlayerTankDamage(float damage)
+        //{
+        //    healthCount -= damage;
+        //    if (healthCount <= 0)
+        //    {
+        //        controller.DestroyTankView(this);
+        //    }
+            
+        //}
 
         private void FixedUpdate()
         {

@@ -53,29 +53,36 @@ namespace TankGame.Bullet
 
             //Instantiate(bombExplosion, transform.position, transform.rotation);
             Collider[] colliders = Physics.OverlapSphere(collision.transform.position, 2f);
+            controller.DestroyBulletView(this);
             foreach (Collider hit in colliders)
             {
-                if (hit.GetComponent<EnemyView>())
-                {
-                    EnemyView enemy = hit.GetComponent<EnemyView>();
-                    if (enemy != null)
-                    {
-                        controller.ApplyEnemyDamage(damage, enemy);
-                    }
+
+                IDamagable damagable = hit.gameObject.GetComponent<IDamagable>();
+                if(damagable != null){
+                    damagable.TakeDamage(damage);
                 }
-                else
-                {
-                    if (hit.GetComponent<TankView>())
-                    {
-                        TankView tank = hit.GetComponent<TankView>();
-                        if (tank != null)
-                        {
-                            Debug.Log("player is hit");
-                            controller.ApplyPlayerDamage(damage, tank);
-                        }
-                    }
-                }
-                controller.DestroyBulletView(this);
+
+
+                //if (hit.GetComponent<EnemyView>())
+                //{
+                //    EnemyView enemy = hit.GetComponent<EnemyView>();
+                //    if (enemy != null)
+                //    {
+                //        controller.ApplyEnemyDamage(damage, enemy);
+                //    }
+                //}
+                //else
+                //{
+                //    if (hit.GetComponent<TankView>())
+                //    {
+                //        TankView tank = hit.GetComponent<TankView>();
+                //        if (tank != null)
+                //        {
+                //            Debug.Log("player is hit");
+                //            controller.ApplyPlayerDamage(damage, tank);
+                //        }
+                //    }
+                //}
             }
 
         }
