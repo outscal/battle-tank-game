@@ -15,10 +15,11 @@ namespace TankServices
         public float rotationSpeed { get; private set; }
         public float fireRate { get; private set; }
         public float health { get; private set; }
+        public Material redMat { get; private set; }
+        public Material blueMat { get; private set; }
+        public Material greenMat { get; private set; }
 
-
-
-        public TankModel(TankScriptableObject tankScriptable)
+        public TankModel(TankScriptableObject tankScriptable, TankScriptableObjectList tankList)
         {
             //type
             tankType = tankScriptable.tankType;
@@ -30,12 +31,13 @@ namespace TankServices
             health = tankScriptable.health;
 
             //colors
-
+            redMat = tankList.redMat;
+            blueMat = tankList.blueMat;
+            greenMat = tankList.greenMat;
         }
-        public void GetTankController(TankController _tankController)
+        public void SetTankController(TankController _tankController)
         {
             tankController = _tankController;
         }
-
     }
 }
