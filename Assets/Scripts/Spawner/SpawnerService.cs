@@ -14,6 +14,7 @@ namespace TankGame.Spawner
         public Transform[] enemySpawners;
         private Transform enemySpawnersTransform;
         public Transform environment;
+        private int childContetnt;
 
         protected override void Awake()
         {
@@ -30,6 +31,7 @@ namespace TankGame.Spawner
             {
                 SpawnTanks(i);
             }
+
         }
 
         public void DestroyEverything()
@@ -56,6 +58,8 @@ namespace TankGame.Spawner
             foreach (Transform child in environment)
             {
                 yield return new WaitForSeconds(0.7f);
+                Debug.Log("Object= " + childContetnt);
+                childContetnt++;
                 foreach (Transform item in child)
                 {
                 ParticleService.Instance.CreateTankExplosion(item.transform.position, item.transform.rotation);

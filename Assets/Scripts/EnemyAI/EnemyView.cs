@@ -21,17 +21,19 @@ namespace TankGame.Enemy
         public Rigidbody rb;
         public Transform bulletSpawner;
         private EnemyController controller;
-       [HideInInspector]
+        [HideInInspector]
         public EnemyTankType tankType;
         private EnemyState currentState;
         [SerializeField]
         private EnemyState startingState;
         public EnemyPatroling patrolingState;
         public EnemyChasing chasingState;
+        private float patrolingTime = 7f;
+        private float speedMUltiplier;
 
         public void InitializeController(EnemyController enemyController)
         {
-             controller = enemyController;
+            controller = enemyController;
         }
 
         public EnemyController GetController()
@@ -42,7 +44,7 @@ namespace TankGame.Enemy
         private void Start()
         {
             ChangeState(startingState);
-            InvokeRepeating("FireBullet",1f,fireRateDelay);
+            //InvokeRepeating("FireBullet",1f,fireRateDelay);
         }
         public void SetViewDetails(EnemyModel model, EnemyScriptableObject enemyScriptableObject)
         {
@@ -86,11 +88,11 @@ namespace TankGame.Enemy
         }
         private void FixedUpdate()
         {
-            moveTank();
+            //moveTank();
         }
         public void TakeDamage(float damage)
         {
-            controller.ApplyDamage(damage,this); 
+            controller.ApplyDamage(damage, this);
         }
 
         //public void ApplyEnemyDamage(float damage)
@@ -116,9 +118,47 @@ namespace TankGame.Enemy
             rb.velocity = transform.forward * 1 * Time.deltaTime * movingSpeed;
         }
 
+        public void StopPatroling()
+        {
+            StopAllCoroutines();
+            rb.velocity = new Vector3(0, 0, 0);
+        }
+
+        public void StartPatroling()
+        {
+            StartCoroutine(Patroling());
+        }
+
+        IEnumerator Patroling()
+        {
+            while (currentState == patrolingState)
+            {
+                yield return new WaitForSeconds(patrolingTime);
+                yield return StartCoroutine(ForwardPatroling());
+                yield return new WaitForSeconds(patrolingTime);
+                yield return StartCoroutine(BackwardPatroling());
+            }
+        }
+
+        IEnumerator ForwardPatroling()
+        {
+            Debug.Log("forward patroling");
+            transform.eulerAngles = currentEulerAngles + new Vector3(0, 180, 0);
+            rb.velocity += transform.forward * 1 * Time.deltaTime * movingSpeed;
+            yield return null;
+        }
+        IEnumerator BackwardPatroling()
+        {
+            Debug.Log("backward patroling");
+            transform.eulerAngles = currentEulerAngles - new Vector3(0, 180, 0);
+            rb.velocity += transform.forward * 1 * Time.deltaTime * movingSpeed;
+            yield return null;
+        }
+
+
         public void ChangeState(EnemyState newState)
         {
-            if(currentState != null)
+            if (currentState != null)
             {
                 currentState.OnExitState(); // to clear all running states and coroutines
             }

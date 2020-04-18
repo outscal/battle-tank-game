@@ -4753,6 +4753,7 @@ GameObject:
   - component: {fileID: 593306871051849256}
   - component: {fileID: 3923257624509966874}
   - component: {fileID: 4765675588941540830}
+  - component: {fileID: 2754939383871297476}
   m_Layer: 0
   m_Name: EnemyView
   m_TagString: Untagged
@@ -4854,6 +4855,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   changedColor: {r: 0.7830189, g: 0.14404595, b: 0.14404595, a: 0}
   chasingColor: {r: 1, g: 0.95988226, b: 0.2971698, a: 0}
+--- !u!135 &2754939383871297476
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6724751896315022656}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 15
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &6724751896315022658
 GameObject:
   m_ObjectHideFlags: 0
