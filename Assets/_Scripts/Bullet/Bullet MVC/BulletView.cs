@@ -28,6 +28,23 @@ namespace Bullet.View
             //transform.position = position;
 
             transform.Translate(Vector3.forward * bulletController.BulletModel.Speed * Time.deltaTime);
+
+            CheckBulletBounds();
+
+        }
+
+        private void CheckBulletBounds()
+        {
+            if((Mathf.Abs(transform.position.x) > 48f) || (Mathf.Abs(transform.position.z) > 48f)){
+                DestroyBullet();
+            }
+        }
+
+        private void DestroyBullet()
+        {
+            Debug.Log("bullet view destroyed...");
+            bulletController.DestroyController();
+            Destroy(gameObject);
         }
 
         public void SetBulletController(BulletController bc)

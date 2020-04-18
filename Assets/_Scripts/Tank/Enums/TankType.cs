@@ -2,10 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TankType
+public enum PlayerTankType
 {
-    None,
+    None, // grey
     Red,
     Green,
     Blue
+}
+
+public enum EnemyTankType
+{
+    None,
+    Black
 }

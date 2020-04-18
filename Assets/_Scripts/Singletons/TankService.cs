@@ -17,7 +17,7 @@ namespace Tank.Service
 
         public TankScriptableObject[] tankConfigurations;
 
-        TankType tankType;
+        PlayerTankType tankType;
 
         //private void Start()
         //{
@@ -34,22 +34,22 @@ namespace Tank.Service
             //logic to set tankType vairiable.
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                tankType = TankType.Red;
+                tankType = PlayerTankType.Red;
                 CreateNewTank();
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                tankType = TankType.Green;
+                tankType = PlayerTankType.Green;
                 CreateNewTank();
             }
             else if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                tankType = TankType.Blue;
+                tankType = PlayerTankType.Blue;
                 CreateNewTank();
             }
             else if(Input.GetKeyDown(KeyCode.Alpha0))
             {
-                tankType = TankType.None;
+                tankType = PlayerTankType.None;
                 CreateNewTank();
             }
         }

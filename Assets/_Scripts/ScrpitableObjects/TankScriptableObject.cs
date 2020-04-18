@@ -8,7 +8,7 @@ namespace Tank.ScriptableObjects
     public class TankScriptableObject : ScriptableObject
     {
         public string TankName;
-        public TankType TankType;
+        public PlayerTankType TankType;
         public float Speed;
     }
 }

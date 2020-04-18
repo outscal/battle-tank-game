@@ -26,7 +26,7 @@ namespace Tank.Controller
 
         public Vector3 MoveTank(float horizontal, float vertical, Vector3 position)
         {
-            Debug.Log("Function called");
+            //Debug.Log("Function called");
             position.x += horizontal * TankModel.Speed * Time.deltaTime;
             position.z += vertical * TankModel.Speed * Time.deltaTime;
             return position;

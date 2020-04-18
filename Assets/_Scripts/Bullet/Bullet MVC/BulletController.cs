@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Bullet.Model;
 using Bullet.View;
+using Bullet.Service;
 
 namespace Bullet.Controller
 {
     public class BulletController
     {
+        public BulletService BulletService;
         public BulletModel BulletModel { get; }
         public BulletView BulletView { get; }
 
@@ -24,6 +26,17 @@ namespace Bullet.Controller
         public void FireBullet(Vector3 tankRotation)
         {
             BulletView.FireBullet(tankRotation);
+        }
+
+        public void DestroyController()
+        {
+            Debug.Log("bullet controller destroyed...");
+            BulletService.DestroyControllerAndModel();
+        }
+
+        public void SetBulletService(BulletService bs)
+        {
+            BulletService = bs;
         }
     }
 }

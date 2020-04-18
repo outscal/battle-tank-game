@@ -10,19 +10,19 @@ namespace Tank.Model
 
         public TankModel(TankScriptableObject tankConfigurations)
         {
-            Debug.Log("Tank model created!!!!!!");
+            Debug.Log("Tank model created");
             TankType = tankConfigurations.TankType;
             Speed = tankConfigurations.Speed;
         }
 
-        public TankModel(TankType tankType, float speed)
+        public TankModel(PlayerTankType tankType, float speed)
         {
             Debug.Log("Tank model created");
             TankType = tankType;
             Speed = speed;
         }
 
-        public TankType TankType { get; }
+        public PlayerTankType TankType { get; }
         public float Speed { get; }
     }
 }

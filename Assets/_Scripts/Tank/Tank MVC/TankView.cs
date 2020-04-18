@@ -8,7 +8,7 @@ namespace Tank.View
 {
     public class TankView : MonoBehaviour
     {
-        public TankType TankType;
+        public PlayerTankType TankType;
         TankController tankController;
 
         void Start()

@@ -4,6 +4,7 @@ using UnityEngine;
 using Bullet.Controller;
 using Bullet.View;
 using Bullet.Model;
+using System;
 
 namespace Bullet.Service
 {
@@ -17,6 +18,17 @@ namespace Bullet.Service
             BulletController bulletController = new BulletController(bulletModel, BulletView, position);
             bulletController.FireBullet(tankRotation); // this statement violates the single responsibility principle.
                                                        //return bulletController;
+
+            bulletController.SetBulletService(this);
         }
+
+        public void DestroyControllerAndModel()
+        {
+            Debug.Log("bullet controller and model destroyed...");
+
+            //return true;
+        }
+
+        //bullet model and controller needs to be destroyed inside the service.
     }
 }
