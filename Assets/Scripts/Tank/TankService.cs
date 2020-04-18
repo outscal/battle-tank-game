@@ -25,7 +25,6 @@ namespace TankGame.Tank
         public void DestroyView(TankView tankView)
         {
             ParticleService.Instance.CreateTankExplosion(tankView.transform.position, tankView.transform.rotation);
-
             Destroy(tankView.gameObject, 0.1f);
             //StartCoroutine(RestartTank());
             StartCoroutine(DestroySsceneObjects());
@@ -37,11 +36,11 @@ namespace TankGame.Tank
             SpawnerService.Instance.DestroyEverything();
         }
 
-        IEnumerator RestartTank()
-        {
-            yield return new WaitForSeconds(3f);
-            SpawnerService.Instance.SpawnTanks(0);
-        }
+        //IEnumerator RestartTank()
+        //{
+        //    yield return new WaitForSeconds(3f);
+        //    SpawnerService.Instance.SpawnTanks(0);
+        //}
         public TankController SpawnTankPrefab(Transform spawner, int tankSerial)
         {
             TankModel model = new TankModel(tankList.tankScriptableObject[0]);

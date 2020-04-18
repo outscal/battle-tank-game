@@ -75,6 +75,8 @@ namespace TankGame.Tank
         {
             controller.ApplyDamage(damage, this);
         }
+
+
         //public void ApplyPlayerTankDamage(float damage)
         //{
         //    healthCount -= damage;

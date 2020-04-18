@@ -55,7 +55,6 @@ namespace TankGame.Enemy
             SetTankColor(model.EnemyColor);
         }
 
-        
 
         public void SetTankSpeed(int EnemySpeed, int EnemyRotation)
         {
@@ -87,7 +86,6 @@ namespace TankGame.Enemy
         }
         private void FixedUpdate()
         {
-            
             moveTank();
         }
         public void TakeDamage(float damage)

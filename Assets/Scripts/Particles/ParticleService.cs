@@ -6,7 +6,6 @@ public class ParticleService : MonoSingletonGeneric<ParticleService>
 {
     public ParticleSystem[] particleEffect;
 
-
     public void CreateBulletExplosion(Vector3 spawnPosition, Quaternion spawnRotation)
     {
         Instantiate(particleEffect[0], spawnPosition, spawnRotation);

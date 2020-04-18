@@ -59,6 +59,10 @@ namespace TankGame.Enemy
             Destroy(enemyView.gameObject, 0.1f);
         }
 
+
+
+
+
         //public void TakeDamage(EnemyView enemy, float damage)
         //{
         //    for (int i = 0; i < EnemyList.enemyScriptableObject.Length; i++)

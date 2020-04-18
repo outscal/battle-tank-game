@@ -62,14 +62,7 @@ namespace TankGame.Spawner
                 Destroy(child.gameObject);
                 }
             }
-            //GameObject[] enviroChildren = environment.gameObject.GetComponentsInChildren<GameObject>();
-            //foreach (GameObject child in enviroChildren)
-            //{
-            //    yield return new WaitForSeconds(0.7f);
-            //    ParticleService.Instance.CreateTankExplosion(child.transform.position, child.transform.rotation);
-            //    Destroy(child, 0.1f);
-
-            //}
+           
         }
 
         public void SpawnTanks(int tankNumber)

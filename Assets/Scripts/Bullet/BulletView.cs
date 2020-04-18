@@ -71,18 +71,7 @@ namespace TankGame.Bullet
                 //        controller.ApplyEnemyDamage(damage, enemy);
                 //    }
                 //}
-                //else
-                //{
-                //    if (hit.GetComponent<TankView>())
-                //    {
-                //        TankView tank = hit.GetComponent<TankView>();
-                //        if (tank != null)
-                //        {
-                //            Debug.Log("player is hit");
-                //            controller.ApplyPlayerDamage(damage, tank);
-                //        }
-                //    }
-                //}
+                
             }
 
         }
