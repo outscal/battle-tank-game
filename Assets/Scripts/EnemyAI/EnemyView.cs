@@ -55,6 +55,8 @@ namespace TankGame.Enemy
             SetTankColor(model.EnemyColor);
         }
 
+        
+
         public void SetTankSpeed(int EnemySpeed, int EnemyRotation)
         {
             movingSpeed = EnemySpeed;

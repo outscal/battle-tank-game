@@ -10,6 +10,7 @@ namespace TankGame.Enemy
 
         public EnemyView enemyView;
         public EnemyScriptableObjectList EnemyList;
+        private Coroutine coroutine;
         //public Color[] enemyColor;
         //public float[] enemyHealth;
         //public float[] enemyDamage;
@@ -31,7 +32,26 @@ namespace TankGame.Enemy
             EnemyController controller = new EnemyController(model, enemyView, enemySpawnerPos, enemySpawnerRotation, EnemyList.enemyScriptableObject[enemyIndex]);
         }
 
-        
+        public void DestroyAllEnemies()
+        {
+            if(coroutine != null)
+            {
+                StopCoroutine(DestroyAllViews());
+            }
+          coroutine =  StartCoroutine(DestroyAllViews());
+        }
+
+        IEnumerator DestroyAllViews()
+        {
+            EnemyView[] enemy = GameObject.FindObjectsOfType<EnemyView>();
+            foreach (EnemyView enemyTank in enemy)
+            {
+                yield return new WaitForSeconds(1f);
+                ParticleService.Instance.CreateTankExplosion(enemyTank.transform.position, enemyTank.transform.rotation);
+                Destroy(enemyTank.gameObject, 0.1f);
+            }
+        }
+
         public void DestroyView(EnemyView enemyView)
         {
             ParticleService.Instance.CreateTankExplosion(enemyView.transform.position, enemyView.transform.rotation);

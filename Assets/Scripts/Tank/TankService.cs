@@ -27,7 +27,14 @@ namespace TankGame.Tank
             ParticleService.Instance.CreateTankExplosion(tankView.transform.position, tankView.transform.rotation);
 
             Destroy(tankView.gameObject, 0.1f);
-            StartCoroutine(RestartTank());
+            //StartCoroutine(RestartTank());
+            StartCoroutine(DestroySsceneObjects());
+        }
+
+        IEnumerator DestroySsceneObjects()
+        {
+            yield return new WaitForSeconds(3f);
+            SpawnerService.Instance.DestroyEverything();
         }
 
         IEnumerator RestartTank()
