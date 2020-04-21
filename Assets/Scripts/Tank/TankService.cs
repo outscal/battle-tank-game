@@ -9,7 +9,7 @@ namespace Tank
     {
         
         public Transform TankParent;
-
+        public List<TankController> Tanks = new List<TankController>();
         public List<TankScriptableObj> tankScriptableObjs;
 
         private TankView TankPrefab;
@@ -33,7 +33,21 @@ namespace Tank
             TankModel tankModel = new TankModel(tankScriptableObjs[tankIndex]);
             TankPrefab = tankModel.M_TankView;
             TankController TankObj = new TankController(tankModel, TankPrefab, TankParent);
+            Tanks.Add(TankObj);
         }
 
+
+        public void DestroyTank(TankController tank)
+        {
+            tank.KillTank();
+            for (int i = 0; i < Tanks.Count; i++)
+            {
+                if(Tanks[i] == tank)
+                {
+                    Tanks.Remove(Tanks[i]);
+                }
+            }
+            tank = null;
+        }
     }
 }

@@ -10,9 +10,9 @@ namespace Tank
         public Image m_FillImage;                           
         public Color m_FullHealthColor = Color.green;       
         public Color m_ZeroHealthColor = Color.red;         
-        public GameObject m_ExplosionPrefab;                
-        
-        
+        public GameObject m_ExplosionPrefab;
+
+        private IController controller;
         private AudioSource m_ExplosionAudio;               
         private ParticleSystem m_ExplosionParticles;        
         [SerializeField]
@@ -20,15 +20,14 @@ namespace Tank
         private bool m_Dead;                                
 
 
-        public void Initialize (float health)
+        public void Initialize (IController _controller)
         {
+            controller = _controller;
             m_ExplosionParticles = Instantiate (m_ExplosionPrefab).GetComponent<ParticleSystem> ();
 
-            m_ExplosionAudio = m_ExplosionParticles.GetComponent<AudioSource> ();
-
             m_ExplosionParticles.gameObject.SetActive (false);
-            m_StartingHealth = health;
-            SetTankHealth(health);
+            m_StartingHealth = controller.GetModel().M_Health;
+            SetTankHealth(m_StartingHealth);
         }
 
 
@@ -43,15 +42,16 @@ namespace Tank
 
         public void TakeDamage (float amount)
         {
+            //Debug.Log("m_CurrentHealth " + m_CurrentHealth, this);
             m_CurrentHealth -= amount;
 
             SetHealthUI ();
 
-            if (m_CurrentHealth <= 0f && !m_Dead)
+            if (m_CurrentHealth <= 0f)
             {
-                OnDeath ();
+                controller.OnDeath (m_ExplosionParticles, transform.position);
             }
-        }
+        } 
 
 
         private void SetHealthUI ()
@@ -59,21 +59,6 @@ namespace Tank
             m_Slider.value = m_CurrentHealth;
 
             m_FillImage.color = Color.Lerp (m_ZeroHealthColor, m_FullHealthColor, m_CurrentHealth / m_StartingHealth);
-        }
-
-
-        private void OnDeath ()
-        {
-            m_Dead = true;
-
-            m_ExplosionParticles.transform.position = transform.position;
-            m_ExplosionParticles.gameObject.SetActive (true);
-
-            m_ExplosionParticles.Play ();
-
-            m_ExplosionAudio.Play();
-
-            gameObject.SetActive (false);
         }
     }
 }

@@ -34,11 +34,12 @@ namespace Tank
 
         private void InitAllVariables()
         {
-            transform.SetParent(tankController.TankParent);
+            transform.SetParent(tankController.C_TankParent);
             m_PlayerNumber = tankController.GetModel().M_PlayerNumber;
             m_Rigidbody = GetComponent<Rigidbody>();
             m_FireButton = tankController.GetModel().FireKey;
-            GetComponent<TankHealth>().Initialize(tankController.GetModel().Health);
+            GetComponent<TankHealth>().Initialize(tankController);
+            //Debug.Log("Health " + tankController.GetModel().Health, this);
             m_Rigidbody.isKinematic = false;
 
             m_MovementInputValue = 0f;
@@ -100,5 +101,6 @@ namespace Tank
 
             tankController.TankTurn(m_Rigidbody, m_TurnInputValue);
         }
+
     }
 }

@@ -8,6 +8,7 @@ namespace Bullet
 {
     public class BulletService : MonoSingletonGeneric<BulletService>
     {
+        public List<BulletController> Bullets = new List<BulletController>();
         public BulletView bulletView;
         public Transform BulletParent;
 
@@ -17,11 +18,27 @@ namespace Bullet
         }
 
 
-        public BulletConroller GetBullet(Transform bulletTransform, float tankDamageBooster)
+        public BulletController GetBullet(Transform bulletTransform, float tankDamageBooster)
         {
             BulletModel bulletmodel = new BulletModel(bulletTransform, 10, tankDamageBooster);
-            BulletConroller bulletController = new BulletConroller(bulletmodel, bulletView, BulletParent);
+            BulletController bulletController = new BulletController(bulletmodel, bulletView, BulletParent);
+            Bullets.Add(bulletController);
             return bulletController;
         }
+
+
+        public void DestroyBullet(BulletController bullet)
+        {
+            bullet.KillBullet();
+            for (int i = 0; i < Bullets.Count; i++)
+            {
+                if (Bullets[i] == bullet)
+                {
+                    Bullets.Remove(Bullets[i]);
+                }
+            }
+            bullet = null;
+        }
+
     }
 }

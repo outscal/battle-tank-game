@@ -15,15 +15,14 @@ namespace Bullet
         public AudioSource m_ExplosionAudio;
 
         public Rigidbody bulletBody;
-        public float m_LaunchForce = 15f;
-        private float m_MaxDamage = 50f;                                    
-        private float m_ExplosionForce = 1000f;              
+        private float m_MaxDamage = 10f;                                    
+        private float m_ExplosionForce = 100f;              
         private float m_MaxLifeTime = 2f;                    
         private float m_ExplosionRadius = 5f;                
-        private BulletConroller bulletController;
+        private BulletController bulletController;
 
 
-        public void Initialize(BulletConroller bulletController)
+        public void Initialize(BulletController bulletController)
         {
             this.bulletController = bulletController;
             InitAllVariables();
@@ -33,7 +32,7 @@ namespace Bullet
         private void InitAllVariables()
         {
             bulletBody = GetComponent<Rigidbody>();
-            transform.SetParent(bulletController.BulletParent);
+            transform.SetParent(bulletController.C_BulletParent);
         }
 
 
@@ -45,6 +44,7 @@ namespace Bullet
 
         private void OnTriggerEnter(Collider other)
         {
+            //Debug.Log("OnTriggerEnter " + other, this);
             BulletHitProcess();
         }
 
@@ -52,11 +52,11 @@ namespace Bullet
         private void BulletHitProcess()
         {
             Collider[] colliders = Physics.OverlapSphere(transform.position, m_ExplosionRadius, m_TankMask);
-
+            //Debug.Log("colliders " + colliders.Length, this);
             for (int i = 0; i < colliders.Length; i++)
             {
                 Rigidbody targetRigidbody = colliders[i].GetComponent<Rigidbody>();
-
+                //Debug.Log("targetRigidbody " + targetRigidbody, this);
                 if (!targetRigidbody)
                     continue;
 
@@ -74,7 +74,7 @@ namespace Bullet
                 targetHealth.TakeDamage(damage);
             }
 
-            m_ExplosionParticles.transform.SetParent(bulletController.BulletParent);
+            m_ExplosionParticles.transform.SetParent(bulletController.C_BulletParent);
 
             m_ExplosionParticles.Play();
 
@@ -83,7 +83,7 @@ namespace Bullet
             ParticleSystem.MainModule mainModule = m_ExplosionParticles.main;
             Destroy(m_ExplosionParticles.gameObject, mainModule.duration);
 
-            Destroy(gameObject);
+            BulletService.Instance.DestroyBullet(bulletController);
         }
 
     }
