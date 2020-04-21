@@ -9,14 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dba1f2a3fbf00d147a083c4ff6c91a24, type: 3}
-  m_Name: RedTankSO
+  m_Script: {fileID: 11500000, guid: 16e9b33933f2a6248b36d19b7d67bf33, type: 3}
+  m_Name: NormalEnemySO
   m_EditorClassIdentifier: 
-  tankType: 1
-  tankView: {fileID: 6652000942803677053, guid: 3405bd501ffbbea428c44ae40a6188c0,
+  enemyType: 2
+  enemyView: {fileID: 5179792892772031961, guid: 3d5f92d0687a67445813e5d5e2ec0b0c,
     type: 3}
-  health: 75
-  movementSpeed: 20
-  rotationSpeed: 125
-  fireRate: 0.25
+  health: 40
+  movementSpeed: 40
+  rotationSpeed: 80
+  patrollingRadius: 30
+  patrolTime: 10
+  fireRate: 0.5
+  attackDistace: 5
   bulletType: {fileID: 11400000, guid: b0f2c2ddca7b55444845206d3060c682, type: 2}

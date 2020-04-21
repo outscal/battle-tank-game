@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using BulletServices;
+using TankSO;
+using BulletSO;
 
 namespace TankServices
 {
@@ -12,19 +14,11 @@ namespace TankServices
             tankModel = _tankModel;
             tankView = GameObject.Instantiate<TankView>(_tankView);
             CameraController.instance.SetTarget(tankView.transform);
-            //we create a controller then we spawn the view and as view 
-            //can be controlled as per constraints in scriptable objects that 
-            //is why we instantiate so we will use this MVC to instantiate a 3 
-            //similar tank view with different properties of health , damage,etc
 
-            //we can reference of the TankView vai Instantiating bcoz View has Mono as Parent
-            // this method cannot be applied to take ref. of model.
-            tankView.GetTankController(this);
-            tankModel.GetTankController(this);
-
-
+            tankView.SetTankController(this);
+            tankModel.SetTankController(this);
+            tankView.ChangeColor();
         }
-
 
         public TankModel tankModel { get; }
         public TankView tankView { get; }
@@ -41,7 +35,7 @@ namespace TankServices
 
         public void ShootBullet()
         {
-            BulletService.instance.CreateBullet(this);
+            BulletService.instance.CreateBullet(GetFiringPosition(), GetFiringAngle(), GetBullet());
         }
         public Vector3 GetFiringPosition()
         {
@@ -50,6 +44,10 @@ namespace TankServices
         public Quaternion GetFiringAngle()
         {
             return tankView.transform.rotation;
+        }
+        public BulletScriptableObject GetBullet()
+        {
+            return TankService.instance.tankScriptable.bulletType;
         }
     }
 }
