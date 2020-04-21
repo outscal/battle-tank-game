@@ -10,8 +10,8 @@ namespace TankGame.Tank
     {
         public TankView tankView;
         public TankScriptableObjectList tankList;
-
-        
+        public List<TankController> tanks = new List<TankController>();
+        TankController controller;
 
         protected override void Awake()
         {
@@ -29,6 +29,11 @@ namespace TankGame.Tank
             //StartCoroutine(RestartTank());
             StartCoroutine(DestroySsceneObjects());
         }
+      
+        public TankView GetCurrentPlayer()
+        {
+            return tanks[0].GetTankView();
+        }
 
         IEnumerator DestroySsceneObjects()
         {
@@ -41,11 +46,12 @@ namespace TankGame.Tank
         //    yield return new WaitForSeconds(3f);
         //    SpawnerService.Instance.SpawnTanks(0);
         //}
-        public TankController SpawnTankPrefab(Transform spawner, int tankSerial)
+        public void SpawnTankPrefab(Transform spawner, int tankSerial)
         {
             TankModel model = new TankModel(tankList.tankScriptableObject[0]);
             TankController tank = new TankController(model, tankView, spawner);
-            return tank;
+            tanks.Add(tank);
+            //return tank;
         }
     }
 }

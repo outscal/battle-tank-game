@@ -28,14 +28,13 @@ namespace TankGame.Enemy
         private EnemyState startingState;
         public EnemyPatroling patrolingState;
         public EnemyChasing chasingState;
-        private float patrolingTime = 7f;
+        public EnemyAttacking attackingState;
         private float speedMUltiplier;
 
         public void InitializeController(EnemyController enemyController)
         {
             controller = enemyController;
         }
-
         public EnemyController GetController()
         {
             return controller;
@@ -44,11 +43,12 @@ namespace TankGame.Enemy
         private void Start()
         {
             ChangeState(startingState);
-            //InvokeRepeating("FireBullet",1f,fireRateDelay);
+            //InvokeRepeating("FireBullet", 1f, fireRateDelay);
         }
         public void SetViewDetails(EnemyModel model, EnemyScriptableObject enemyScriptableObject)
         {
             tankType = model.EnemyTankType;
+            
 
             SetTankSpeed(model.EnemySpeed, model.EnemyRotation);
             SetFireRate(model.EnemyFireRateDelay);
@@ -56,7 +56,6 @@ namespace TankGame.Enemy
             SetTankDamage(model.EnemyDamage);
             SetTankColor(model.EnemyColor);
         }
-
 
         public void SetTankSpeed(int EnemySpeed, int EnemyRotation)
         {
@@ -68,6 +67,10 @@ namespace TankGame.Enemy
             fireRateDelay = FireRateDelay;
         }
 
+        public float GetFireRate()
+        {
+            return fireRateDelay;
+        }
         public void SetTankHealth(float EnemyHealth)
         {
             healthCount = EnemyHealth;
@@ -104,12 +107,13 @@ namespace TankGame.Enemy
         //    }
         //}
 
-        private void FireBullet()
+        public void FireBullet()
         {
             EnemyService.Instance.fire(bulletSpawner, bulletDamage);
+            //Debug.Log("enemy view bullet");
         }
 
-        private void moveTank()
+        public void moveTank()
         {
             currentEulerAngles += new Vector3(0, 1, 0) * Time.deltaTime * rotatingSpeed;
             transform.eulerAngles = currentEulerAngles;
@@ -117,44 +121,6 @@ namespace TankGame.Enemy
             //transform.forward = currentTankSpeed;
             rb.velocity = transform.forward * 1 * Time.deltaTime * movingSpeed;
         }
-
-        public void StopPatroling()
-        {
-            StopAllCoroutines();
-            rb.velocity = new Vector3(0, 0, 0);
-        }
-
-        public void StartPatroling()
-        {
-            StartCoroutine(Patroling());
-        }
-
-        IEnumerator Patroling()
-        {
-            while (currentState == patrolingState)
-            {
-                yield return new WaitForSeconds(patrolingTime);
-                yield return StartCoroutine(ForwardPatroling());
-                yield return new WaitForSeconds(patrolingTime);
-                yield return StartCoroutine(BackwardPatroling());
-            }
-        }
-
-        IEnumerator ForwardPatroling()
-        {
-            Debug.Log("forward patroling");
-            transform.eulerAngles = currentEulerAngles + new Vector3(0, 180, 0);
-            rb.velocity += transform.forward * 1 * Time.deltaTime * movingSpeed;
-            yield return null;
-        }
-        IEnumerator BackwardPatroling()
-        {
-            Debug.Log("backward patroling");
-            transform.eulerAngles = currentEulerAngles - new Vector3(0, 180, 0);
-            rb.velocity += transform.forward * 1 * Time.deltaTime * movingSpeed;
-            yield return null;
-        }
-
 
         public void ChangeState(EnemyState newState)
         {

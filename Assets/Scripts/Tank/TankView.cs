@@ -26,7 +26,7 @@ namespace TankGame.Tank
 
         public void SetViewDetails(TankModel model)
         {
-            Camera.main.GetComponentInParent<CamaeraFollow>().setTarget(gameObject.transform);
+            //Camera.main.GetComponentInParent<CamaeraFollow>().setTarget(gameObject.transform);
 
             SetTankSpeed(model.MovingSpeed, model.RotatingSpeed);
             SetTankHealth(model.Health);
@@ -76,7 +76,10 @@ namespace TankGame.Tank
             controller.ApplyDamage(damage, this);
         }
 
-
+        public TankView GetView()
+        {
+            return this;
+        }
         //public void ApplyPlayerTankDamage(float damage)
         //{
         //    healthCount -= damage;
@@ -84,7 +87,7 @@ namespace TankGame.Tank
         //    {
         //        controller.DestroyTankView(this);
         //    }
-            
+
         //}
 
         private void FixedUpdate()

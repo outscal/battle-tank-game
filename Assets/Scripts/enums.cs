@@ -30,3 +30,12 @@ public enum PlayerTankType
 
     }
 
+public enum EnemyStates
+{
+    None = 0,
+    Idle=1,
+    Patroling=2,
+    Chasing=3,
+    Attacking =4
+}
+

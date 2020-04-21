@@ -121,7 +121,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: ee6cbe6877ea9e54eb7cf0fba29f894b, type: 2}
 --- !u!1 &20740384
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,7 +584,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Spawn tank 1
+  m_Text: Restart
 --- !u!222 &315690614
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1154,6 +1154,10 @@ PrefabInstance:
     - target: {fileID: 1303396459364388, guid: 0aac6aef14f064c3fb626270cff2683b, type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1303396459364388, guid: 0aac6aef14f064c3fb626270cff2683b, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1312344720711240, guid: 0aac6aef14f064c3fb626270cff2683b, type: 3}
       propertyPath: m_Layer
@@ -1943,7 +1947,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1967,7 +1971,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1391056259}
   m_LocalRotation: {x: 0.00000041723243, y: -0, z: 0.000000014901158, w: 1}
-  m_LocalPosition: {x: -0, y: -6.1, z: -272.5}
+  m_LocalPosition: {x: -0, y: -0.2, z: -272.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1771596987}
@@ -2004,7 +2008,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1414328115
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2103,7 +2107,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1414328116}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1583994644}
+        m_MethodName: RestartLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1583994643
 GameObject:
   m_ObjectHideFlags: 0
@@ -2217,7 +2232,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1771596986}
   m_LocalRotation: {x: 0.40075353, y: 0.40883982, z: -0.20653298, w: 0.79346764}
-  m_LocalPosition: {x: -52.3, y: 39.5, z: -19.5}
+  m_LocalPosition: {x: -34.2, y: 55.9, z: -6.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1391056264}
@@ -2236,7 +2251,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 631bff88f701abf45835bfea92cf56bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTarget: {fileID: 0}
 --- !u!1 &2055783868
 GameObject:
   m_ObjectHideFlags: 0
@@ -2325,7 +2339,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2135436838}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 107.41518, y: 195.32465, z: -58.631104}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

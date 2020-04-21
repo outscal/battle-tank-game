@@ -34,7 +34,10 @@ namespace TankGame.Tank
             }
         }
 
-      
+        public TankView GetTankView()
+        {
+            return TankView.GetView();
+        }
 
         public TankModel TankModel { get; }
         public TankView TankView { get; }
