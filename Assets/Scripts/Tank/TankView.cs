@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+using Generic;
 
 namespace Tank
 {
     [RequireComponent(typeof(AudioSource), typeof(Rigidbody), typeof(TankHealth))]
-    public class TankView : MonoBehaviour
+    public class TankView : MonoBehaviour, Destructable
     {
         public Transform m_FireTransform;
         public AudioSource m_MovementAudio;

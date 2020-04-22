@@ -10,7 +10,7 @@ namespace Enemy
         public EnemyController(EnemyModel enemyModel, EnemyView enemyPrefab, Transform enemyParent)
         {
             C_EnemyModel = enemyModel;
-            C_TankParent = enemyParent;
+            C_EnemyParent = enemyParent;
             C_EnemyView = GameObject.Instantiate<EnemyView>(enemyPrefab,
                                   enemyModel.M_SpawnPoint.position, enemyModel.M_SpawnPoint.rotation);
             C_EnemyView.Initialize(this);
@@ -19,16 +19,30 @@ namespace Enemy
 
         public EnemyModel C_EnemyModel { get; private set; }
         public EnemyView C_EnemyView { get; private set; }
-        public Transform C_TankParent { get; }
+        public Transform C_EnemyParent { get; private set; }
 
         public IModel GetModel()
         {
             return C_EnemyModel;
         }
 
+
+        public void KillTank()
+        {
+            Object.Destroy(C_EnemyView.gameObject);
+            C_EnemyModel = null;
+            C_EnemyView = null;
+            C_EnemyParent = null;
+        }
+
         public void OnDeath(ParticleSystem m_ExplosionParticles, Vector3 tankPosition)
         {
-            throw new System.NotImplementedException();
+            m_ExplosionParticles.transform.position = tankPosition;
+            m_ExplosionParticles.gameObject.SetActive(true);
+
+            m_ExplosionParticles.Play();
+
+            EnemyService.Instance.DestroyEnemy(this);
         }
     }
 }

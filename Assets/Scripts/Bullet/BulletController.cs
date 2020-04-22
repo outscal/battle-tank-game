@@ -18,7 +18,7 @@ namespace Bullet
 
         public BulletModel C_BulletModel { get; private set; }
         public BulletView C_BulletView { get; private set; }
-        public Transform C_BulletParent { get; }
+        public Transform C_BulletParent { get; private set; }
 
 
         public BulletModel GetModel()
@@ -37,6 +37,7 @@ namespace Bullet
             Object.Destroy(C_BulletView.gameObject);
             C_BulletModel = null;
             C_BulletView = null;
+            C_BulletParent = null;
         }
 
         public float CalculateDamage(Vector3 targetPosition, Vector3 bulletPosition, 

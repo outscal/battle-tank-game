@@ -5,9 +5,9 @@ namespace Tank
 
     public class TankModel : IModel
     {
-
         public TankModel(TankScriptableObj tankScriptableObj)
         {
+            M_TankTypes = tankScriptableObj.tankTypes;
             M_Speed = tankScriptableObj.TankSpeed;
             M_Health = tankScriptableObj.Health;
             M_TankDamageBooster = tankScriptableObj.TankDamageBooster;
@@ -20,6 +20,7 @@ namespace Tank
             M_SpawnPoint = tankScriptableObj.TankSpawnPoint;
          }
 
+        public TankTypes M_TankTypes;
         public int M_Speed { get; }
         public float M_Health { get; }
         public float M_TankDamageBooster { get; }

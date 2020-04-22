@@ -8,6 +8,7 @@ namespace Enemy
     {
         public EnemyModel(EnemyScriptableObj enemyScriptableObj)
         {
+            M_EnemyType = enemyScriptableObj.enemyType;
             M_Speed = enemyScriptableObj.EnemyTankSpeed;
             M_Health = enemyScriptableObj.Health;
             M_TankDamageBooster = enemyScriptableObj.EnemyDamageBooster;
@@ -19,6 +20,7 @@ namespace Enemy
             M_SpawnPoint = enemyScriptableObj.EnemySpawnPoint;
         }
 
+        public EnemyType M_EnemyType;
         public int M_Speed { get; }
         public float M_Health { get; }
         public float M_TankDamageBooster { get; }
@@ -29,7 +31,7 @@ namespace Enemy
         public EnemyView M_EnemyView { get; }
         public Transform M_SpawnPoint { get; }
 
-        // Not Used//////////////////////
+        // Not Used here//////////////////////
         public int M_PlayerNumber { get; }
         public KeyCode FireKey { get; }
         ////////////////////////////////

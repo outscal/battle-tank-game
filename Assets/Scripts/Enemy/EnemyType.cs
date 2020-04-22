@@ -1,7 +1,9 @@
 ﻿
 namespace Enemy
 {
-    public class EnemyType
+    public enum EnemyType
     {
+        None,
+        Black
     }
 }

@@ -1,23 +1,23 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Tank
+namespace Generic
 {
     public class TankHealth : MonoBehaviour
-    {
-        public float m_StartingHealth;              
+    {           
         public Slider m_Slider;                             
         public Image m_FillImage;                           
         public Color m_FullHealthColor = Color.green;       
         public Color m_ZeroHealthColor = Color.red;         
         public GameObject m_ExplosionPrefab;
 
+        private float m_StartingHealth;
         private IController controller;
         private AudioSource m_ExplosionAudio;               
         private ParticleSystem m_ExplosionParticles;        
         [SerializeField]
         private float m_CurrentHealth;                      
-        private bool m_Dead;                                
+        //private bool m_Dead;                                
 
 
         public void Initialize (IController _controller)
@@ -27,6 +27,7 @@ namespace Tank
 
             m_ExplosionParticles.gameObject.SetActive (false);
             m_StartingHealth = controller.GetModel().M_Health;
+
             SetTankHealth(m_StartingHealth);
         }
 
@@ -34,7 +35,7 @@ namespace Tank
         private void SetTankHealth(float health)
         {
             m_CurrentHealth = health;
-            m_Dead = false;
+            //m_Dead = false;
 
             SetHealthUI();
         }

@@ -9,8 +9,9 @@ namespace Enemy
     {
 
         public Transform EnamyParent;
-        public List<EnemyController> Enamies = new List<EnemyController>();
+        public List<EnemyController> Enemies = new List<EnemyController>();
         public List<EnemyScriptableObj> EnamyScriptableObjs;
+        public KeyCode EnemySpawnKey;
 
         private EnemyView EnamyPrafab;
 
@@ -22,19 +23,47 @@ namespace Enemy
 
         private void Start()
         {
-            for (int i = 0; i < EnamyScriptableObjs.Count; i++)
+        }
+
+        private void CheckingForSpawnInput()
+        {
+            if(Input.GetKeyDown(EnemySpawnKey))
             {
-                SpawnEnamy(i);
+                for (int i = 0; i < EnamyScriptableObjs.Count; i++)
+                {
+                    SpawnEnamy(i);
+                }
             }
+
+        }
+
+        private void Update()
+        {
+            CheckingForSpawnInput();
         }
 
 
-        void SpawnEnamy(int enamyIndex)
+        void SpawnEnamy(int enemyIndex)
         {
-            //EnamyModel enamyModel = new EnamyModel(EnamyScriptableObjs[enamyIndex]);
-            //EnamyPrafab = enamyModel.M_EnamyView;
-            //EnamyController EnamyObj = new EnamyController(enamyModel, EnamyPrafab, EnamyParent);
-            //Enamies.Add(EnamyObj);
+            EnemyModel enemyModel = new EnemyModel(EnamyScriptableObjs[enemyIndex]);
+            EnamyPrafab = enemyModel.M_EnemyView;
+            EnemyController EnemyObj = new EnemyController(enemyModel, EnamyPrafab, EnamyParent);
+            Enemies.Add(EnemyObj);
+            //Debug.Log("M_Health " + enemyModel.M_Health);
+        }
+
+
+        public void DestroyEnemy(EnemyController enemyTank)
+        {
+            enemyTank.KillTank();
+            for (int i = 0; i < Enemies.Count; i++)
+            {
+                if (Enemies[i] == enemyTank)
+                {
+                    Enemies.Remove(Enemies[i]);
+                }
+            }
+            enemyTank = null;
         }
 
     }

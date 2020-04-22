@@ -16,7 +16,7 @@ namespace Tank
 
         public TankModel C_TankModel { get; private set; }
         public TankView C_TankView { get; private set; }
-        public Transform C_TankParent { get; }
+        public Transform C_TankParent { get; private set; }
 
         public IModel GetModel()
         {
@@ -79,6 +79,7 @@ namespace Tank
             Object.Destroy(C_TankView.gameObject);
             C_TankModel = null;
             C_TankView = null;
+            C_TankParent = null;
         }
 
 
