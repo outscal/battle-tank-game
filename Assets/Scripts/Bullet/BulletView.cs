@@ -16,15 +16,18 @@ namespace TankGame.Bullet
         //private Vector3 spawnerPOS;
         private float damage;
         private BulletController controller;
-       
+        private BulletModel model;
+        private BulletType bulletType;
+               
 
         private void Start()
         {
             //setSpeed();
         }
 
-        public void SetBulletDetails(BulletModel model, float healthDamage)
+        public void SetBulletDetails( float healthDamage)
         {
+            model = controller.BulletModel;
             bulletSpeed = model.Speed;
             //bulletDamage = model.Damage;
             //spawnerPOS = spawnerPos;
@@ -44,7 +47,12 @@ namespace TankGame.Bullet
         private void setSpeed()
         {
             //rb.velocity = new Vector3(0, 0, spawnerPOS.z) * bulletSpeed;
+        }
 
+        public void Destroy()
+        {
+            ParticleService.Instance.CreateBulletExplosion(this.transform.position, this.transform.rotation);
+            Destroy(gameObject, 0.1f);
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -53,7 +61,7 @@ namespace TankGame.Bullet
 
             //Instantiate(bombExplosion, transform.position, transform.rotation);
             Collider[] colliders = Physics.OverlapSphere(collision.transform.position, 2f);
-            controller.DestroyBulletView(this);
+            controller.DestroyBulletView();
             foreach (Collider hit in colliders)
             {
 

@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TankGame.Tank
 {
     public class TankView : MonoBehaviour, IDamagable
     {
-
         private float horizontalInput;
         private float verticalInput;
         private int rotatingSpeed;
@@ -22,12 +22,17 @@ namespace TankGame.Tank
         public Rigidbody rb;
         public Transform bulletSpawner;
         private TankController controller;
+        public Slider slider;
+        private TankModel model;
 
-
-        public void SetViewDetails(TankModel model)
+        public void InitialiseController(TankController tankController)
         {
-            //Camera.main.GetComponentInParent<CamaeraFollow>().setTarget(gameObject.transform);
+            controller = tankController;
+        }
 
+        public void SetViewDetails()
+        {
+            model = controller.TankModel;
             SetTankSpeed(model.MovingSpeed, model.RotatingSpeed);
             SetTankHealth(model.Health);
             SetTankDamage(model.BulletDamage);
@@ -47,6 +52,12 @@ namespace TankGame.Tank
         public void SetTankHealth(float Health)
         {
             healthCount = Health;
+            SetHealthBar();
+        }
+
+        private void SetHealthBar()
+        {
+            slider.value = healthCount;
         }
         public void SetTankDamage(float Damage)
         {
@@ -61,11 +72,6 @@ namespace TankGame.Tank
             }
         }
 
-        public void InitialiseController(TankController tankController)
-        {
-            controller = tankController;
-        }
-
         public TankController GetController()
         {
             return controller;
@@ -73,7 +79,13 @@ namespace TankGame.Tank
 
         public void TakeDamage(float damage)
         {
-            controller.ApplyDamage(damage, this);
+            controller.ApplyDamage(damage);
+        }
+
+        public void Destroy()
+        {
+            ParticleService.Instance.CreateTankExplosion(this.transform.position, this.transform.transform.rotation);
+            Destroy(gameObject, 0.1f);
         }
 
         public TankView GetView()
@@ -87,13 +99,12 @@ namespace TankGame.Tank
         //    {
         //        controller.DestroyTankView(this);
         //    }
-
         //}
 
         private void FixedUpdate()
         {
-            horizontalInput = Input.GetAxisRaw("HorizontalUI");
-            verticalInput = Input.GetAxisRaw("VerticalUI");
+            horizontalInput = Input.GetAxisRaw("Horizontal1");
+            verticalInput = Input.GetAxisRaw("Vertical1");
             moveTank();
         }
 
@@ -112,8 +123,6 @@ namespace TankGame.Tank
             //currentTankSpeed += new Vector3(0, 0, verticalInput) * Time.deltaTime * movingSpeed;
             //transform.forward = currentTankSpeed;
             rb.velocity = transform.forward * verticalInput * Time.deltaTime * movingSpeed;
-
         }
-
     }
 }

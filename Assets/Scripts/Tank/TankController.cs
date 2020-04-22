@@ -11,8 +11,8 @@ namespace TankGame.Tank
         {
             TankModel = tankModel;
             TankView = GameObject.Instantiate<TankView>(tankPrefab, spawner.transform.position, spawner.transform.rotation);
-            TankView.SetViewDetails(tankModel);
             TankView.InitialiseController(this);
+            TankView.SetViewDetails();
         }
 
         public void fire(Transform bulletSpawn, float bulletDamange)
@@ -20,18 +20,27 @@ namespace TankGame.Tank
             BulletService.Instance.spawnBullet(bulletSpawn, bulletDamange);
         }
 
-        public void ApplyDamage( float damage, TankView tank)
+        public void ApplyDamage( float damage)
         {
            if((TankModel.Health-damage)<= 0)
             {
-                TankService.Instance.DestroyView(tank);
+                DestroyView();
             }
             else
             {
                 TankModel.Health -= damage;
                 TankView.SetTankHealth(TankModel.Health);
-                Debug.Log(TankModel.Health);
             }
+        }
+
+        public void DestroyView()
+        {
+            TankService.Instance.DestroyTank(this);
+        }
+        public void Destroy()
+        {
+            TankView.Destroy();
+            TankModel = null;
         }
 
         public TankView GetTankView()
@@ -39,7 +48,7 @@ namespace TankGame.Tank
             return TankView.GetView();
         }
 
-        public TankModel TankModel { get; }
+        public TankModel TankModel { get; set; }
         public TankView TankView { get; }
     }
 }

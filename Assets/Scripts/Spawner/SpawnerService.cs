@@ -59,7 +59,6 @@ namespace TankGame.Spawner
             foreach (Transform child in environment)
             {
                 yield return new WaitForSeconds(0.7f);
-                Debug.Log("Object= " + childContetnt);
                 childContetnt++;
                 foreach (Transform item in child)
                 {

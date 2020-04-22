@@ -9,6 +9,7 @@ namespace TankGame.Bullet
     {
 
         public BulletScriptableObjectList bulletList;
+        public List<BulletController> bullets = new List<BulletController>();
         public BulletView bulletView;
         private Vector3 spawnPos;
 
@@ -21,13 +22,19 @@ namespace TankGame.Bullet
         {
             BulletModel bulletModel = new BulletModel(bulletList.bulletScriptableObject[0]);
             BulletController bullet = new BulletController(bulletModel, bulletView, bulletSpawner, bulletDamage);
+            bullets.Add(bullet);
             return bullet;
         }
 
-        public void DestroyView(BulletView bullet)
+        public void DestroyView(BulletController controller)
         {
-            ParticleService.Instance.CreateBulletExplosion(bullet.transform.position, bullet.transform.rotation);
-            Destroy(bullet.gameObject, 0.1f);
+            for (int i = 0; i < bullets.Count; i++)
+            {
+                if(controller == bullets[i])
+                {
+                    controller.Destroy();
+                }
+            }
         }
     }
 }

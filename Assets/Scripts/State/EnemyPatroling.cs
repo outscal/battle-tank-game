@@ -77,6 +77,7 @@ public class EnemyPatroling : EnemyState
     {
         if (other.GetComponent<TankView>())
         {
+            Debug.Log("exited");
             enemyView.ChangeState(enemyView.patrolingState);
             currentState = EnemyStates.Patroling;
         }

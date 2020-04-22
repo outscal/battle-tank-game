@@ -6,13 +6,14 @@ namespace TankGame.Bullet
 {
     public class BulletModel
     {
-        public BulletModel(BulletScriptableObject bullet)
+        public BulletModel(BulletScriptableObject bullet  )
         {
             Speed = bullet.bulletSpeed;
-          
+            BulletType = bullet.BulletType;
         }
 
         public int Speed { get; }
         public float Damage { get; }
+        public BulletType BulletType { get; }
     }
 }

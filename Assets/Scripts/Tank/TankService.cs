@@ -22,11 +22,16 @@ namespace TankGame.Tank
         {
             BulletService.Instance.spawnBullet(bulletSpawn, bulletDamange);
         }
-        public void DestroyView(TankView tankView)
+        public void DestroyTank(TankController controller)
         {
-            ParticleService.Instance.CreateTankExplosion(tankView.transform.position, tankView.transform.rotation);
-            Destroy(tankView.gameObject, 0.1f);
             //StartCoroutine(RestartTank());
+            for (int i = 0; i < tanks.Count; i++)
+            {
+                if(controller == tanks[i])
+                {
+                    controller.Destroy();
+                }
+            }
             StartCoroutine(DestroySsceneObjects());
         }
       

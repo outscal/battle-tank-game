@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TankGame.Enemy
 {
@@ -24,12 +25,13 @@ namespace TankGame.Enemy
         [HideInInspector]
         public EnemyTankType tankType;
         private EnemyState currentState;
-        [SerializeField]
         private EnemyState startingState;
         public EnemyPatroling patrolingState;
         public EnemyChasing chasingState;
         public EnemyAttacking attackingState;
         private float speedMUltiplier;
+        public Slider slider;
+        private EnemyModel model;
 
         public void InitializeController(EnemyController enemyController)
         {
@@ -42,13 +44,14 @@ namespace TankGame.Enemy
 
         private void Start()
         {
+            startingState = patrolingState;  // setting patroling state as starting state
             ChangeState(startingState);
             //InvokeRepeating("FireBullet", 1f, fireRateDelay);
         }
-        public void SetViewDetails(EnemyModel model, EnemyScriptableObject enemyScriptableObject)
+        public void SetViewDetails( )
         {
+            model = controller.EnemyModel;  
             tankType = model.EnemyTankType;
-            
 
             SetTankSpeed(model.EnemySpeed, model.EnemyRotation);
             SetFireRate(model.EnemyFireRateDelay);
@@ -74,7 +77,14 @@ namespace TankGame.Enemy
         public void SetTankHealth(float EnemyHealth)
         {
             healthCount = EnemyHealth;
+            SetHealthBar();
         }
+
+        private void SetHealthBar()
+        {
+            slider.value = healthCount;
+        }
+
         public void SetTankDamage(float EnemyDamage)
         {
             bulletDamage = EnemyDamage;
@@ -95,9 +105,14 @@ namespace TankGame.Enemy
         }
         public void TakeDamage(float damage)
         {
-            controller.ApplyDamage(damage, this);
+            controller.ApplyDamage(damage);
         }
 
+        public void Destroy()
+        {
+            ParticleService.Instance.CreateTankExplosion(this.transform.position, this.transform.transform.rotation);
+            Destroy(gameObject, 0.1f);
+        }
         //public void ApplyEnemyDamage(float damage)
         //{
         //    healthCount -= damage;
