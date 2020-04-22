@@ -24,6 +24,7 @@ namespace TankSO
         [Header("Shooting Vars")]
         public float fireRate;
         public BulletScriptableObject bulletType;
+        public Material material;
 
     }
 
@@ -31,8 +32,6 @@ namespace TankSO
     public class TankScriptableObjectList : ScriptableObject
     {
         public TankScriptableObject[] tanks;
-        public Material blueMat;
-        public Material greenMat;
-        public Material redMat;
+
     }
 }

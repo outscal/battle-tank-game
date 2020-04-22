@@ -58,35 +58,27 @@ namespace TankServices
                 tankController.ShootBullet();
             }
         }
-        public void ChangeColor()
+        public void ChangeColor(Material material)
         {
-            if (tankController.tankModel.tankType == TankType.BlueTank)
+            for (int i = 0; i < childs.Length; i++)
             {
-                for (int i = 0; i < childs.Length; i++)
-                {
-                    childs[i].material = tankController.tankModel.blueMat;
-                }
-            }
-            else if (tankController.tankModel.tankType == TankType.GreenTank)
-            {
-                for (int i = 0; i < childs.Length; i++)
-                {
-                    childs[i].material = tankController.tankModel.greenMat;
-                }
-            }
-            else if (tankController.tankModel.tankType == TankType.RedTank)
-            {
-                for (int i = 0; i < childs.Length; i++)
-                {
-                    childs[i].material = tankController.tankModel.redMat;
-                }
+                childs[i].material = material;
             }
         }
         private void OnCollisionEnter(Collision other)
         {
             if (other.gameObject.GetComponent<BulletView>() != null)
             {
-                Destroy(other.gameObject);
+                tankController.OnCollisionWithBullet(other.gameObject.GetComponent<BulletView>());
+            }
+        }
+        public void DestroyView()
+        {
+            for (int i = 0; i < childs.Length; i++)
+            {
+                childs[i] = null;
+                tankController = null;
+                BulletShootPoint = null;
                 Destroy(this.gameObject);
             }
         }

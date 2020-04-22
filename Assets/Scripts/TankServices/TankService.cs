@@ -12,6 +12,7 @@ namespace TankServices
     {
         public TankScriptableObjectList tankList;
         public TankScriptableObject tankScriptable { get; private set; }
+        private List<TankController> tanks = new List<TankController>();
 
         private void Start()
         {
@@ -27,6 +28,20 @@ namespace TankServices
 
             TankModel tankModel = new TankModel(tankScriptable, tankList);
             TankController controller = new TankController(tankModel, tankScriptable.tankView);
+            tanks.Add(controller);
+        }
+
+        public void DestroyTank(TankController tank)
+        {
+            tank.DestroyController();
+            for (int i = 0; i < tanks.Count; i++)
+            {
+                if (tanks[i] == tank)
+                {
+                    tanks[i] = null;
+                    tanks.Remove(tank);
+                }
+            }
         }
     }
 }

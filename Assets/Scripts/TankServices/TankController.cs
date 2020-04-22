@@ -9,6 +9,10 @@ namespace TankServices
 {
     public class TankController
     {
+
+        public TankModel tankModel { get; private set; }
+        public TankView tankView { get; private set; }
+
         public TankController(TankModel _tankModel, TankView _tankView) //constructor
         {
             tankModel = _tankModel;
@@ -17,12 +21,8 @@ namespace TankServices
 
             tankView.SetTankController(this);
             tankModel.SetTankController(this);
-            tankView.ChangeColor();
+            tankView.ChangeColor(tankModel.material);
         }
-
-        public TankModel tankModel { get; }
-        public TankView tankView { get; }
-
         public void Move(float movement, float movementSpeed)
         {
             tankView.transform.Translate(Vector3.forward * movement * movementSpeed * Time.deltaTime);
@@ -47,7 +47,22 @@ namespace TankServices
         }
         public BulletScriptableObject GetBullet()
         {
-            return TankService.instance.tankScriptable.bulletType;
+            return tankModel.bulletType;
+        }
+
+        public void DestroyController()
+        {
+            tankModel.DestroyModel();
+            tankView.DestroyView();
+            tankModel = null;
+            tankView = null;
+        }
+
+        public void OnCollisionWithBullet(BulletView bullet)
+        {
+            //bullets referece is passed for later use like adding damage to Tank kind of something
+            TankService.instance.DestroyTank(this);
+            BulletService.instance.DestroyBullet(bullet.bulletController);
         }
     }
 }
