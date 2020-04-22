@@ -7,12 +7,12 @@ namespace Enemy
 {
     public class EnemyController : IController
     {
-        public EnemyController(EnemyModel enemyModel, EnemyView enemyPrefab, Transform enemyParent)
+        public EnemyController(EnemyModel enemyModel, EnemyView enemyPrefab, Transform enemyParent, Vector3 spawnPos)
         {
             C_EnemyModel = enemyModel;
             C_EnemyParent = enemyParent;
             C_EnemyView = GameObject.Instantiate<EnemyView>(enemyPrefab,
-                                  enemyModel.M_SpawnPoint.position, enemyModel.M_SpawnPoint.rotation);
+                                  spawnPos, enemyModel.M_SpawnPointSafe.rotation);
             C_EnemyView.Initialize(this);
         }
 
@@ -21,9 +21,22 @@ namespace Enemy
         public EnemyView C_EnemyView { get; private set; }
         public Transform C_EnemyParent { get; private set; }
 
+
         public IModel GetModel()
         {
             return C_EnemyModel;
+        }
+
+
+        private Vector3 GetRandomPos()
+        {
+            float X_Pos = Random.Range(C_EnemyModel.M_EnemySpawnPoint1.position.x,
+                C_EnemyModel.M_EnemySpawnPoint2.position.x);
+            float Z_Pos = Random.Range(C_EnemyModel.M_EnemySpawnPoint1.position.z, 
+                C_EnemyModel.M_EnemySpawnPoint2.position.z);
+
+            Vector3 randomPos = new Vector3(X_Pos,0,Z_Pos);
+            return randomPos;
         }
 
 

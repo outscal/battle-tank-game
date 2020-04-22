@@ -7,7 +7,6 @@ namespace Enemy
 {
     public class EnemyService : MonoSingletonGeneric<EnemyService>
     {
-
         public Transform EnamyParent;
         public List<EnemyController> Enemies = new List<EnemyController>();
         public List<EnemyScriptableObj> EnamyScriptableObjs;
@@ -21,21 +20,19 @@ namespace Enemy
         }
 
 
-        private void Start()
-        {
-        }
-
         private void CheckingForSpawnInput()
         {
-            if(Input.GetKeyDown(EnemySpawnKey))
+            if (Input.GetKeyDown(EnemySpawnKey))
             {
                 for (int i = 0; i < EnamyScriptableObjs.Count; i++)
                 {
-                    SpawnEnamy(i);
+                    SpawnEnamy(i, GetRandomPos(EnamyScriptableObjs[i].EnemySpawnPoint1.position,
+                                               EnamyScriptableObjs[i].EnemySpawnPoint2.position));
                 }
             }
 
         }
+
 
         private void Update()
         {
@@ -43,13 +40,24 @@ namespace Enemy
         }
 
 
-        void SpawnEnamy(int enemyIndex)
+        void SpawnEnamy(int enemyIndex, Vector3 spawnPos)
         {
             EnemyModel enemyModel = new EnemyModel(EnamyScriptableObjs[enemyIndex]);
             EnamyPrafab = enemyModel.M_EnemyView;
-            EnemyController EnemyObj = new EnemyController(enemyModel, EnamyPrafab, EnamyParent);
+            EnemyController EnemyObj = new EnemyController(enemyModel, EnamyPrafab, EnamyParent, spawnPos);
             Enemies.Add(EnemyObj);
-            //Debug.Log("M_Health " + enemyModel.M_Health);
+        }
+
+
+        private Vector3 GetRandomPos(Vector3 enemySpawnPoint1, Vector3 enemySpawnPoint2)
+        {
+            float X_Pos = Random.Range(enemySpawnPoint1.x,
+                enemySpawnPoint2.x);
+            float Z_Pos = Random.Range(enemySpawnPoint1.z,
+                enemySpawnPoint2.z);
+
+            Vector3 randomPos = new Vector3(X_Pos, 0, Z_Pos);
+            return randomPos;
         }
 
 
@@ -64,8 +72,16 @@ namespace Enemy
                 }
             }
             enemyTank = null;
+
+            SpawnEnemyOnSafePosition();
         }
 
+
+        private void SpawnEnemyOnSafePosition()
+        {
+            if (Enemies.Count < 1)
+                SpawnEnamy(0, EnamyScriptableObjs[0].EnemySpawnSafe.position);
+        }
     }
 }
 

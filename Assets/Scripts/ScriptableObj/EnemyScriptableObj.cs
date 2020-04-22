@@ -8,7 +8,9 @@ public class EnemyScriptableObj : ScriptableObject
 {
     public EnemyType enemyType;
     public EnemyView enemyView;
-    public Transform EnemySpawnPoint;
+    public Transform EnemySpawnSafe;
+    public Transform EnemySpawnPoint1;
+    public Transform EnemySpawnPoint2;
     [Range(1, 10)]
     public float EnemyDamageBooster;
     [Range(1, 100)]

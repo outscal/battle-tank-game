@@ -17,7 +17,9 @@ namespace Enemy
             M_PitchRange = enemyScriptableObj.PitchRange;
             M_BulletLaunchForce = enemyScriptableObj.BulletLaunchForce;
             M_EnemyView = enemyScriptableObj.enemyView;
-            M_SpawnPoint = enemyScriptableObj.EnemySpawnPoint;
+            M_SpawnPointSafe = enemyScriptableObj.EnemySpawnSafe;
+            M_EnemySpawnPoint1 = enemyScriptableObj.EnemySpawnPoint1;
+            M_EnemySpawnPoint2 = enemyScriptableObj.EnemySpawnPoint2;
         }
 
         public EnemyType M_EnemyType;
@@ -29,7 +31,9 @@ namespace Enemy
         public float M_BulletLaunchForce { get; }
         public float M_TurnSpeed { get; }
         public EnemyView M_EnemyView { get; }
-        public Transform M_SpawnPoint { get; }
+        public Transform M_SpawnPointSafe { get; }
+        public Transform M_EnemySpawnPoint1 { get; }
+        public Transform M_EnemySpawnPoint2 { get; }
 
         // Not Used here//////////////////////
         public int M_PlayerNumber { get; }
