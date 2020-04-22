@@ -92,5 +92,20 @@ namespace EnemyServices
             Vector3 newDestination = GetRandomPosition();
             view.navMeshAgent.SetDestination(newDestination);
         }
+        public void OnCollisionWithBullet(BulletView bullet)
+        {
+            EnemyService.instance.DestroyEnemy(this);
+            BulletService.instance.DestroyBullet(bullet.bulletController);
+        }
+
+        public void DestoryController()
+        {
+            model.DestroyModel();
+            view.DestroyView();
+
+
+            model = null;
+            view = null;
+        }
     }
 }

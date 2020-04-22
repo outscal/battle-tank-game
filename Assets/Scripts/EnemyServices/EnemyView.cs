@@ -11,8 +11,8 @@ namespace EnemyServices
         public Transform shootingPoint;
         private EnemyController controller;
         public NavMeshAgent navMeshAgent { get; private set; }
+
         public bool playerDetected; //{ get; private set; }
-        private Transform tank;
 
 
         private void Awake()
@@ -34,17 +34,13 @@ namespace EnemyServices
         private void OnTriggerEnter(Collider other)
         {
             if (other.GetComponent<TankView>() != null)
-            {
                 playerDetected = true;
-                Debug.Log(playerDetected);
-            }
         }
         private void OnCollisionEnter(Collision other)
         {
             if (other.gameObject.GetComponent<BulletView>() != null)
             {
-                Destroy(other.gameObject);
-                Destroy(this.gameObject);
+                controller.OnCollisionWithBullet(other.gameObject.GetComponent<BulletView>());
             }
         }
 
@@ -59,6 +55,16 @@ namespace EnemyServices
         public Transform GetTank()
         {
             return TankService.instance.tankScriptable.tankView.transform;
+        }
+        public void DestroyView()
+        {
+            // doubt ?? if we miss something to set to null?? then what are the consecuences ?? how to deal with it?? any solution? 
+            shootingPoint = null;
+            controller = null;
+            navMeshAgent = null;
+
+
+            Destroy(this.gameObject);
         }
     }
 }

@@ -22,6 +22,13 @@ namespace BulletServices
         {
             bulletView.transform.Translate(Vector3.forward * bulletModel.speed * Time.deltaTime);
         }
+        public void DestroyController()
+        {
+            bulletView.DestroyView();
+            bulletModel.DestroyModel();
+            bulletView = null;
+            bulletModel = null;
+        }
 
     }
 }

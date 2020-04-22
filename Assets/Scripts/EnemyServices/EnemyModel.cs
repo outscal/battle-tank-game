@@ -42,5 +42,10 @@ namespace EnemyServices
         {
             controller = _controller;
         }
+        public void DestroyModel()
+        {
+            bullet = null;
+            controller = null;
+        }
     }
 }

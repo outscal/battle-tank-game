@@ -10,6 +10,7 @@ namespace EnemyServices
     {
         public EnemykScriptableObjectList enemyTypes;
         [HideInInspector] public EnemyScriptableObject enemy;
+        private List<EnemyController> enemies = new List<EnemyController>();
 
         private void Start()
         {
@@ -21,6 +22,21 @@ namespace EnemyServices
             enemy = enemyTypes.enemies[0];
             EnemyModel enemyModel = new EnemyModel(enemy);
             EnemyController controller = new EnemyController(enemy.enemyView, enemyModel);
+            enemies.Add(controller);
+        }
+
+        public void DestroyEnemy(EnemyController enemy)
+        {
+            enemy.DestoryController();
+
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                if (enemy == enemies[i])
+                {
+                    enemies[i] = null;
+                    enemies.Remove(enemies[i]);
+                }
+            }
         }
     }
 }

@@ -6,20 +6,38 @@ namespace BulletServices
 {
     public class BulletView : MonoBehaviour
     {
-        private BulletController bullerController;
+        public BulletController bulletController { get; private set; }
+        private Coroutine destroy;
         public void SetBulletController(BulletController _bulletController)
         {
-            bullerController = _bulletController;
+            bulletController = _bulletController;
         }
 
         private void Update()
         {
-            bullerController.Movement();
+            bulletController.Movement();
         }
         private void Start()
         {
-            Destroy(this.gameObject, 2f);
+            if (destroy == null)
+                destroy = StartCoroutine(DestroyAfterSomeTime());
+        }
+
+        public void DestroyView()
+        {
+            bulletController = null;
+            if (destroy != null)
+            {
+                StopCoroutine(destroy);
+                destroy = null;
+            }
+
+            Destroy(this.gameObject);
+        }
+        private IEnumerator DestroyAfterSomeTime()
+        {
+            yield return new WaitForSeconds(5f);
+            BulletService.instance.DestroyBullet(bulletController);
         }
     }
-
 }

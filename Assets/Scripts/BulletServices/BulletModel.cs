@@ -10,7 +10,6 @@ namespace BulletServices
         public float speed { get; private set; }
         public float damage { get; private set; }
         public BulletType type;
-
         private BulletController bulletController;
 
         public BulletModel(BulletScriptableObject bullet)
@@ -24,5 +23,11 @@ namespace BulletServices
         {
             bulletController = _bulletController;
         }
+
+        public void DestroyModel()
+        {
+            bulletController = null;
+        }
     }
+
 }
