@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.AI;
 using TankServices;
 using BulletServices;
+using VFXServices;
 namespace EnemyServices
 {
     public class EnemyView : MonoBehaviour
@@ -28,7 +29,8 @@ namespace EnemyServices
         {
             Debug.Log(controller.currentState);
             controller.Movement();
-            controller.Attack();
+            if (playerDetected)
+                controller.Attack();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -49,7 +51,6 @@ namespace EnemyServices
             if (other.GetComponent<TankView>() != null)
             {
                 playerDetected = false;
-                Debug.Log(playerDetected);
             }
         }
         public Transform GetTank()
@@ -62,6 +63,7 @@ namespace EnemyServices
             shootingPoint = null;
             controller = null;
             navMeshAgent = null;
+            VFXService.instance.TankExplosionEffects(transform.position);
 
 
             Destroy(this.gameObject);

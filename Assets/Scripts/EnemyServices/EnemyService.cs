@@ -11,6 +11,7 @@ namespace EnemyServices
         public EnemykScriptableObjectList enemyTypes;
         [HideInInspector] public EnemyScriptableObject enemy;
         private List<EnemyController> enemies = new List<EnemyController>();
+        private Coroutine respawn;
 
         private void Start()
         {
@@ -36,6 +37,19 @@ namespace EnemyServices
                     enemies[i] = null;
                     enemies.Remove(enemies[i]);
                 }
+            }
+            respawn = StartCoroutine(RespawnEnemy());
+
+        }
+
+        private IEnumerator RespawnEnemy()
+        {
+            yield return new WaitForSeconds(4f);
+            CreateEnemy();
+            if (respawn != null)
+            {
+                StopCoroutine(respawn);
+                respawn = null;
             }
         }
     }

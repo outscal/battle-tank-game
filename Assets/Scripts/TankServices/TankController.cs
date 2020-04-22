@@ -2,8 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using BulletServices;
-using TankSO;
 using BulletSO;
+
 
 namespace TankServices
 {
@@ -63,6 +63,7 @@ namespace TankServices
             //bullets referece is passed for later use like adding damage to Tank kind of something
             TankService.instance.DestroyTank(this);
             BulletService.instance.DestroyBullet(bullet.bulletController);
+
         }
     }
 }

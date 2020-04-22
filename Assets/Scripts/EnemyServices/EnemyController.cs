@@ -54,7 +54,7 @@ namespace EnemyServices
 
         public void Attack()
         {
-            if (model.attackDist <= Vector3.Distance(view.transform.position, view.GetTank().position))
+            if (model.attackDist >= Vector3.Distance(view.transform.position, view.GetTank().position))
             {
                 currentState = States.attacking;
                 if (canFire < Time.time)

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using VFXServices;
 
 namespace BulletServices
 {
@@ -31,9 +32,11 @@ namespace BulletServices
                 StopCoroutine(destroy);
                 destroy = null;
             }
-
+            VFXService.instance.BulletEffects(transform.position);
             Destroy(this.gameObject);
         }
+
+
         private IEnumerator DestroyAfterSomeTime()
         {
             yield return new WaitForSeconds(5f);

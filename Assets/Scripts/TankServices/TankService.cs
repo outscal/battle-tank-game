@@ -13,6 +13,7 @@ namespace TankServices
         public TankScriptableObjectList tankList;
         public TankScriptableObject tankScriptable { get; private set; }
         private List<TankController> tanks = new List<TankController>();
+        private Coroutine respawn;
 
         private void Start()
         {
@@ -41,6 +42,18 @@ namespace TankServices
                     tanks[i] = null;
                     tanks.Remove(tank);
                 }
+            }
+            if (respawn == null)
+                StartCoroutine(RespawnTank());
+        }
+        private IEnumerator RespawnTank()
+        {
+            yield return new WaitForSeconds(4f);
+            CreateTank();
+            if (respawn != null)
+            {
+                StopCoroutine(respawn);
+                respawn = null;
             }
         }
     }

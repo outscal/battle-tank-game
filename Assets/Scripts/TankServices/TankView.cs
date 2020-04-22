@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using BulletServices;
+using VFXServices;
 
 namespace TankServices
 {
@@ -79,6 +80,7 @@ namespace TankServices
                 childs[i] = null;
                 tankController = null;
                 BulletShootPoint = null;
+                VFXService.instance.TankExplosionEffects(transform.position);
                 Destroy(this.gameObject);
             }
         }
