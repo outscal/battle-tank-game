@@ -1,28 +1,29 @@
 ﻿using UnityEngine;
 using Generic;
+using System.Collections;
 
 namespace Tank
 {
     [RequireComponent(typeof(AudioSource), typeof(Rigidbody), typeof(TankHealth))]
-    public class TankView : MonoBehaviour, Destructable
+    public class TankView : MonoBehaviour, IDestructable
     {
-        public Transform m_FireTransform;
-        public AudioSource m_MovementAudio;
-        public AudioClip m_EngineIdling;
-        public AudioClip m_EngineDriving;
-        public ParticleSystem[] m_particleSystems;
+        public Transform FireTransform;
+        public AudioSource MovementAudio;
+        public AudioClip EngineIdling;
+        public AudioClip EngineDriving;
+        public ParticleSystem[] ParticleSystems;
 
-        private string m_MovementAxisName;
-        private string m_TurnAxisName;
-        private Rigidbody m_Rigidbody;
-        private float m_MovementInputValue;
-        private float m_TurnInputValue;
-        private float m_OriginalPitch;
-        private float m_PitchRange;
-        private float m_TurnSpeed;
-        private float m_Speed;
-        private int m_PlayerNumber;
-        private KeyCode m_FireButton;
+        private string movementAxisName;
+        private string turnAxisName;
+        private Rigidbody tankBody;
+        private float movementInputValue;
+        private float turnInputValue;
+        private float originalPitch;
+        private float pitchRange;
+        private float turnSpeed;
+        private float speed;
+        private int playerNumber;
+        private KeyCode fireButton;
         private TankController tankController;
 
 
@@ -35,21 +36,21 @@ namespace Tank
 
         private void InitAllVariables()
         {
-            transform.SetParent(tankController.C_TankParent);
-            m_PlayerNumber = tankController.GetModel().M_PlayerNumber;
-            m_Rigidbody = GetComponent<Rigidbody>();
-            m_FireButton = tankController.GetModel().FireKey;
+            transform.SetParent(tankController.TankParent);
+            playerNumber = tankController.GetModel().PlayerNumber;
+            tankBody = GetComponent<Rigidbody>();
+            fireButton = tankController.GetModel().FireKey;
             GetComponent<TankHealth>().Initialize(tankController);
-            //Debug.Log("Health " + tankController.GetModel().Health, this);
-            m_Rigidbody.isKinematic = false;
 
-            m_MovementInputValue = 0f;
-            m_TurnInputValue = 0f;
+            tankBody.isKinematic = false;
+
+            movementInputValue = 0f;
+            turnInputValue = 0f;
 
             
-            for (int i = 0; i < m_particleSystems.Length; ++i)
+            for (int i = 0; i < ParticleSystems.Length; ++i)
             {
-                m_particleSystems[i].Play();
+                ParticleSystems[i].Play();
             }
         }
 
@@ -57,21 +58,21 @@ namespace Tank
 
         private void OnDisable()
         {
-            m_Rigidbody.isKinematic = true;
+            tankBody.isKinematic = true;
 
-            for (int i = 0; i < m_particleSystems.Length; ++i)
+            for (int i = 0; i < ParticleSystems.Length; ++i)
             {
-                m_particleSystems[i].Stop();
+                ParticleSystems[i].Stop();
             }
         }
 
 
         private void Start()
         {
-            m_MovementAxisName = Constants.VerticalInput + m_PlayerNumber;
-            m_TurnAxisName = Constants.HorizontalInput + m_PlayerNumber;
+            movementAxisName = Constants.VerticalInput + playerNumber;
+            turnAxisName = Constants.HorizontalInput + playerNumber;
 
-            m_OriginalPitch = m_MovementAudio.pitch;
+            originalPitch = MovementAudio.pitch;
         }
 
 
@@ -79,29 +80,28 @@ namespace Tank
         {
             ChekingPlayerInput();
 
-            tankController.PlayEngineAudio(m_MovementInputValue, m_TurnInputValue, m_MovementAudio,
-                                       m_EngineDriving, m_EngineIdling, m_OriginalPitch);
+            tankController.PlayEngineAudio(movementInputValue, turnInputValue, MovementAudio,
+                                       EngineDriving, EngineIdling, originalPitch);
         }
 
 
         private void ChekingPlayerInput()
         {
-            m_MovementInputValue = Input.GetAxis(m_MovementAxisName);
-            m_TurnInputValue = Input.GetAxis(m_TurnAxisName);
+            movementInputValue = Input.GetAxis(movementAxisName);
+            turnInputValue = Input.GetAxis(turnAxisName);
 
-            if (Input.GetKeyDown(m_FireButton))
+            if (Input.GetKeyDown(fireButton))
             {
-                tankController.FireBullet(m_FireTransform);
+                tankController.FireBullet(FireTransform);
             }
         }
 
 
         private void FixedUpdate()
         {
-            tankController.TankMove(m_Rigidbody, transform, m_MovementInputValue);
+            tankController.TankMove(tankBody, transform, movementInputValue);
 
-            tankController.TankTurn(m_Rigidbody, m_TurnInputValue);
+            tankController.TankTurn(tankBody, turnInputValue);
         }
-
     }
 }

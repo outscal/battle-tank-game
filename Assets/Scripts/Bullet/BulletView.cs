@@ -1,24 +1,16 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Generic;
-
+using System.Collections;
+using Singalton;
 
 namespace Bullet
 {
-    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Rigidbody), typeof(AudioSource))]
     public class BulletView : MonoBehaviour
     {
-        public LayerMask m_TankMask;                        
-        public ParticleSystem m_ExplosionParticles;         
-        public AudioSource m_ExplosionAudio;
-
+        public LayerMask TankMask;                        
         public Rigidbody bulletBody;
-        private float m_MaxDamage = 10f;                                    
-        private float m_ExplosionForce = 100f;              
-        private float m_MaxLifeTime = 2f;                    
-        private float m_ExplosionRadius = 5f;                
+
         private BulletController bulletController;
 
 
@@ -32,58 +24,69 @@ namespace Bullet
         private void InitAllVariables()
         {
             bulletBody = GetComponent<Rigidbody>();
-            transform.SetParent(bulletController.C_BulletParent);
+            transform.SetParent(bulletController.BulletParent);
+            SoundManager.Instance.PlaySoundClip(ClipName.ShotFiring);
+            StartCoroutine(AutoDestroy());
         }
 
 
-        private void Start()
+        IEnumerator AutoDestroy()
         {
-            Destroy(gameObject, m_MaxLifeTime);
+            yield return new WaitForSeconds(bulletController.GetModel().MaxLifeTime);
+            bulletController.DestroyBulletChain();
         }
 
 
         private void OnTriggerEnter(Collider other)
         {
-            //Debug.Log("OnTriggerEnter " + other, this);
             BulletHitProcess();
         }
 
 
         private void BulletHitProcess()
         {
-            Collider[] colliders = Physics.OverlapSphere(transform.position, m_ExplosionRadius, m_TankMask);
-            //Debug.Log("colliders " + colliders.Length, this);
+            Collider[] colliders = Physics.OverlapSphere(transform.position, 
+                            bulletController.GetModel().ExplosionRadius, TankMask);
+
             for (int i = 0; i < colliders.Length; i++)
             {
                 Rigidbody targetRigidbody = colliders[i].GetComponent<Rigidbody>();
-                //Debug.Log("targetRigidbody " + targetRigidbody, this);
+
                 if (!targetRigidbody)
                     continue;
 
-                targetRigidbody.AddExplosionForce(m_ExplosionForce, transform.position, m_ExplosionRadius);
+                targetRigidbody.AddExplosionForce(bulletController.GetModel().ExplosionForce, 
+                            transform.position, bulletController.GetModel().ExplosionRadius);
 
                 TankHealth targetHealth = targetRigidbody.GetComponent<TankHealth>();
 
                 if (!targetHealth)
                     continue;
 
-                float damage = bulletController.CalculateDamage(targetRigidbody.position,
-                                     transform.position, m_ExplosionRadius, m_MaxDamage);
+                float damage = bulletController.CalculateDamage(targetRigidbody.position, transform.position);
 
                 damage += bulletController.GetModel().TankDamageBooster;
                 targetHealth.TakeDamage(damage);
             }
 
-            m_ExplosionParticles.transform.SetParent(bulletController.C_BulletParent);
+            //ExplosionParticles.transform.SetParent(bulletController.BulletParent);
 
-            m_ExplosionParticles.Play();
+            //ExplosionParticles.Play();
+            VFXManager.Instance.PlayVFXClip(VFXName.BulletExplosion, 
+                    transform.position, bulletController.BulletParent);
 
-            m_ExplosionAudio.Play();
+            SoundManager.Instance.PlaySoundClip(ClipName.BulletExplosion);
 
-            ParticleSystem.MainModule mainModule = m_ExplosionParticles.main;
-            Destroy(m_ExplosionParticles.gameObject, mainModule.duration);
+            //ParticleSystem.MainModule mainModule = ExplosionParticles.main;
+            //Destroy(ExplosionParticles.gameObject, mainModule.duration);
 
-            BulletService.Instance.DestroyBullet(bulletController);
+            bulletController.DestroyBulletChain();
+        }
+
+
+        public void KillView()
+        {
+            Destroy(gameObject);
         }
 
     }

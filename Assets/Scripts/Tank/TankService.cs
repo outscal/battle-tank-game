@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
-
 using Generic;
 using System.Collections.Generic;
+using System.Collections;
+using ScriptableObj;
 
 namespace Tank
 {
@@ -10,7 +11,7 @@ namespace Tank
         
         public Transform TankParent;
         public List<TankController> Tanks = new List<TankController>();
-        public List<TankScriptableObj> tankScriptableObjs;
+        public List<TankScriptableObj> TankScriptableObjs;
 
         private TankView TankPrefab;
 
@@ -21,7 +22,7 @@ namespace Tank
 
         void Start()
         {
-            for (int i = 0; i < tankScriptableObjs.Count; i++)
+            for (int i = 0; i < TankScriptableObjs.Count; i++)
             {
                 SpawnTank(i);
             }
@@ -30,8 +31,8 @@ namespace Tank
 
         void SpawnTank(int tankIndex)
         {
-            TankModel tankModel = new TankModel(tankScriptableObjs[tankIndex]);
-            TankPrefab = tankModel.M_TankView;
+            TankModel tankModel = new TankModel(TankScriptableObjs[tankIndex]);
+            TankPrefab = tankModel.TankView;
             TankController TankObj = new TankController(tankModel, TankPrefab, TankParent);
             Tanks.Add(TankObj);
         }
@@ -47,7 +48,20 @@ namespace Tank
                     Tanks.Remove(Tanks[i]);
                 }
             }
+            StartCoroutine(Haltgame(0.2f));
             tank = null;
+        }
+
+
+        public IEnumerator Haltgame(float scaleValue)
+        {
+            Debug.Log("Haltgame "  + scaleValue);
+            Time.timeScale = scaleValue;
+            yield return new WaitForSeconds(.2f);
+
+            scaleValue += .2f;
+            if (scaleValue < 1)
+                StartCoroutine(Haltgame(scaleValue));
         }
     }
 }

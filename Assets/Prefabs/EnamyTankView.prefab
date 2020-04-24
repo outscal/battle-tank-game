@@ -5847,13 +5847,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a13e54acaae3ce7448ff270e327e5629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FireTransform: {fileID: 6354478377212611774}
-  m_MovementAudio: {fileID: 2652147738060060063}
-  m_EngineIdling: {fileID: 8300000, guid: 4932ab25b84dd7649b80af68a9660ddc, type: 3}
-  m_EngineDriving: {fileID: 8300000, guid: d7ca9fb5aa30155449192b23d7fb3336, type: 3}
-  m_particleSystems:
-  - {fileID: 8257618626457346784}
-  - {fileID: 8754219466493783127}
+  FireTransform: {fileID: 6354478377212611774}
+  MovementAudio: {fileID: 2652147738060060063}
+  EngineIdling: {fileID: 8300000, guid: 4932ab25b84dd7649b80af68a9660ddc, type: 3}
+  EngineDriving: {fileID: 8300000, guid: d7ca9fb5aa30155449192b23d7fb3336, type: 3}
+  particleSystems: []
 --- !u!114 &988030001078030353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5866,13 +5864,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3207ce6b06ad6e44baf80c7f834b1257, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_StartingHealth: 100
-  m_Slider: {fileID: 8002826366189194357}
-  m_FillImage: {fileID: 5506497394568668105}
-  m_FullHealthColor: {r: 0, g: 1, b: 0, a: 1}
-  m_ZeroHealthColor: {r: 1, g: 0, b: 0, a: 1}
-  m_ExplosionPrefab: {fileID: 151086, guid: ee49a9a8678ecf8468eb488e1ac8d42b, type: 3}
-  m_CurrentHealth: 0
+  Slider: {fileID: 8002826366189194357}
+  FillImage: {fileID: 5506497394568668105}
+  FullHealthColor: {r: 0, g: 1, b: 0, a: 1}
+  ZeroHealthColor: {r: 1, g: 0, b: 0, a: 1}
+  ExplosionPrefab: {fileID: 151086, guid: ee49a9a8678ecf8468eb488e1ac8d42b, type: 3}
+  currentHealth: 0
 --- !u!1 &7546445178913825465
 GameObject:
   m_ObjectHideFlags: 0

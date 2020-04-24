@@ -4,8 +4,8 @@ using UnityEngine;
 
 public interface IModel
 {
-    int M_Speed { get; }
-    float M_Health { get; }
-    int M_PlayerNumber { get; }
+    int Speed { get; }
+    float Health { get; }
+    int PlayerNumber { get; }
     KeyCode FireKey { get; }
 }

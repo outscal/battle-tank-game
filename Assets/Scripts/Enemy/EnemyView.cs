@@ -9,13 +9,13 @@ namespace Enemy
     [RequireComponent(typeof(AudioSource), typeof(Rigidbody), typeof(TankHealth))]
     public class EnemyView : MonoBehaviour
     {
-        public Transform m_FireTransform;
-        public AudioSource m_MovementAudio;
-        public AudioClip m_EngineIdling;
-        public AudioClip m_EngineDriving;
-        public ParticleSystem[] m_particleSystems;
+        public Transform FireTransform;
+        public AudioSource MovementAudio;
+        public AudioClip EngineIdling;
+        public AudioClip EngineDriving;
+        public ParticleSystem[] particleSystems;
 
-        private Rigidbody m_Rigidbody;
+        private Rigidbody enemyBody;
         EnemyController enemyController;
 
         internal void Initialize(EnemyController controller)
@@ -27,15 +27,15 @@ namespace Enemy
 
         private void InitAllVariables()
         {
-            transform.SetParent(enemyController.C_EnemyParent);
-            m_Rigidbody = GetComponent<Rigidbody>();
+            transform.SetParent(enemyController.EnemyParent);
+            enemyBody = GetComponent<Rigidbody>();
             GetComponent<TankHealth>().Initialize(enemyController);
             //Debug.Log("Health " + tankController.GetModel().Health, this);
-            m_Rigidbody.isKinematic = false;
+            enemyBody.isKinematic = false;
 
-            for (int i = 0; i < m_particleSystems.Length; ++i)
+            for (int i = 0; i < particleSystems.Length; ++i)
             {
-                m_particleSystems[i].Play();
+                particleSystems[i].Play();
             }
         }
 
@@ -48,7 +48,7 @@ namespace Enemy
 
         private void OnCollisionEnter(Collision collision)
         {
-            if(collision.gameObject.GetComponent<TankView>())
+            if(collision.gameObject.GetComponent<IDestructable>() != null)
             {
                 TankHealth targetHealth = collision.gameObject.GetComponent<TankHealth>();
                 targetHealth.TakeDamage(100);

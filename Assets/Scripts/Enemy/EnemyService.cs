@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Generic;
+using ScriptableObj;
 
 namespace Enemy
 {
     public class EnemyService : MonoSingletonGeneric<EnemyService>
     {
         public Transform EnamyParent;
-        public List<EnemyController> Enemies = new List<EnemyController>();
         public List<EnemyScriptableObj> EnamyScriptableObjs;
         public KeyCode EnemySpawnKey;
 
-        private EnemyView EnamyPrafab;
+        private List<EnemyController> Enemies = new List<EnemyController>();
 
         protected override void Awake()
         {
@@ -43,8 +43,7 @@ namespace Enemy
         void SpawnEnamy(int enemyIndex, Vector3 spawnPos)
         {
             EnemyModel enemyModel = new EnemyModel(EnamyScriptableObjs[enemyIndex]);
-            EnamyPrafab = enemyModel.M_EnemyView;
-            EnemyController EnemyObj = new EnemyController(enemyModel, EnamyPrafab, EnamyParent, spawnPos);
+            EnemyController EnemyObj = new EnemyController(enemyModel, enemyModel.EnemyView, EnamyParent, spawnPos);
             Enemies.Add(EnemyObj);
         }
 

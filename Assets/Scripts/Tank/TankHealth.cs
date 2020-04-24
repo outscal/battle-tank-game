@@ -1,41 +1,38 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Generic
 {
     public class TankHealth : MonoBehaviour
     {           
-        public Slider m_Slider;                             
-        public Image m_FillImage;                           
-        public Color m_FullHealthColor = Color.green;       
-        public Color m_ZeroHealthColor = Color.red;         
-        public GameObject m_ExplosionPrefab;
+        public Slider Slider;                             
+        public Image FillImage;                           
+        public Color FullHealthColor = Color.green;       
+        public Color ZeroHealthColor = Color.red;         
+        //public GameObject ExplosionPrefab;
 
-        private float m_StartingHealth;
+        private float startingHealth;
         private IController controller;
-        private AudioSource m_ExplosionAudio;               
-        private ParticleSystem m_ExplosionParticles;        
+        //private ParticleSystem explosionParticles;        
         [SerializeField]
-        private float m_CurrentHealth;                      
-        //private bool m_Dead;                                
-
+        private float currentHealth;                                                   
 
         public void Initialize (IController _controller)
         {
             controller = _controller;
-            m_ExplosionParticles = Instantiate (m_ExplosionPrefab).GetComponent<ParticleSystem> ();
+            //explosionParticles = Instantiate (ExplosionPrefab).GetComponent<ParticleSystem> ();
 
-            m_ExplosionParticles.gameObject.SetActive (false);
-            m_StartingHealth = controller.GetModel().M_Health;
+            //explosionParticles.gameObject.SetActive (false);
+            startingHealth = controller.GetModel().Health;
 
-            SetTankHealth(m_StartingHealth);
+            SetTankHealth(startingHealth);
         }
 
 
         private void SetTankHealth(float health)
         {
-            m_CurrentHealth = health;
-            //m_Dead = false;
+            currentHealth = health;
 
             SetHealthUI();
         }
@@ -43,23 +40,22 @@ namespace Generic
 
         public void TakeDamage (float amount)
         {
-            //Debug.Log("m_CurrentHealth " + m_CurrentHealth, this);
-            m_CurrentHealth -= amount;
+            currentHealth -= amount;
 
             SetHealthUI ();
 
-            if (m_CurrentHealth <= 0f)
+            if (currentHealth <= 0f)
             {
-                controller.OnDeath (m_ExplosionParticles, transform.position);
+                controller.OnDeath (transform.position);
             }
-        } 
+        }
 
 
         private void SetHealthUI ()
         {
-            m_Slider.value = m_CurrentHealth;
+            Slider.value = currentHealth;
 
-            m_FillImage.color = Color.Lerp (m_ZeroHealthColor, m_FullHealthColor, m_CurrentHealth / m_StartingHealth);
+            FillImage.color = Color.Lerp (ZeroHealthColor, FullHealthColor, currentHealth / startingHealth);
         }
     }
 }

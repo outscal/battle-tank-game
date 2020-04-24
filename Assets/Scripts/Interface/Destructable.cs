@@ -2,6 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface Destructable
+public interface IDestructable
 {
 }

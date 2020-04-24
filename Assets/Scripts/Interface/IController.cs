@@ -5,6 +5,6 @@ using Tank;
 
 public interface IController
 {
-    void OnDeath(ParticleSystem m_ExplosionParticles, Vector3 tankPosition);
+    void OnDeath(Vector3 tankPosition);
     IModel GetModel();
 }
