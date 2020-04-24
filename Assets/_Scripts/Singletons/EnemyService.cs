@@ -31,7 +31,6 @@ namespace Enemy.Service
         {
             EnemyModel enemyModel = new EnemyModel();
             EnemyController enemyController = new EnemyController(enemyModel, EnemyView);
-            enemyController.SetEnemyService(this);
             return enemyController;
         }
 

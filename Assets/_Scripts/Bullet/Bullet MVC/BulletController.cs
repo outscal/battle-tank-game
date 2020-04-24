@@ -10,7 +10,6 @@ namespace Bullet.Controller
 {
     public class BulletController
     {
-        public BulletService BulletService;
         public BulletModel BulletModel { get; }
         public BulletView BulletView { get; }
 
@@ -31,12 +30,7 @@ namespace Bullet.Controller
         public void DestroyController()
         {
             Debug.Log("bullet controller destroyed...");
-            BulletService.DestroyControllerAndModel();
-        }
-
-        public void SetBulletService(BulletService bs)
-        {
-            BulletService = bs;
+            BulletService.Instance.DestroyControllerAndModel();
         }
     }
 }

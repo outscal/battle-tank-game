@@ -9,7 +9,6 @@ namespace Enemy.Controller
 {
     public class EnemyController
     {
-        EnemyService enemyService;
         public EnemyModel EnemyModel { get; }
         public EnemyView EnemyView { get; }
 
@@ -26,14 +25,9 @@ namespace Enemy.Controller
             //to be implemented
         }
 
-        public void SetEnemyService(EnemyService es)
-        {
-            enemyService = es;
-        }
-
         public void FireBullet()
         {
-            enemyService.FireBullet();
+            EnemyService.Instance.FireBullet();
         }
     }
 }

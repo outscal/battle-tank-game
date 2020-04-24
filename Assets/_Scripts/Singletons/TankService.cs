@@ -7,22 +7,28 @@ using Tank.View;
 using Tank.Model;
 using Tank.ScriptableObjects;
 using Bullet.Service;
+using Bullet.Controller;
 
 namespace Tank.Service
 {
     public class TankService : MonoSingletonGeneric<TankService>
     {
         public TankView[] tankView;
+        Dictionary<PlayerTankType, TankView> tankPrefab = new Dictionary<PlayerTankType, TankView>();
+        //Dictionary<PlayerTankType, TankView> tankPrefab = new Dictionary<PlayerTankType, TankView>();
         public BulletService BulletService;
 
         public TankScriptableObject[] tankConfigurations;
 
         PlayerTankType tankType;
 
-        //private void Start()
-        //{
-              //SelectTankType();
-        //}
+        private void Start()
+        {
+            for(int i = 0; i < tankView.Length; i++)
+            {
+                tankPrefab.Add((PlayerTankType)i, tankView[i]);
+            }
+        }
 
         private void Update()
         {
@@ -59,15 +65,19 @@ namespace Tank.Service
             TankScriptableObject tankScriptableObject = tankConfigurations[(int)tankType]; // which tank needs to be created 
             TankModel tankModel = new TankModel(tankScriptableObject);
 
-            //TankModel tankModel = new TankModel(TankType.None, 15f);
-            TankController tankController = new TankController(tankModel, tankView);
-            tankController.SetTankService(this);
+            TankController tankController = new TankController(tankModel, tankPrefab);
             return tankController;
         }
 
         public void FireBullet(Vector3 position, Vector3 tankRotation)
         {
-            BulletService.CreateNewBullet(position, tankRotation);
+            //BulletService.CreateNewBullet(position, tankRotation);
+        }
+
+        public BulletController GetBullet(Vector3 position)
+        {
+            BulletController bulletController = BulletService.PleaseGiveMeBullet(position);
+            return bulletController;
         }
     }
 }
