@@ -1,96 +1,102 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Tank.Service;
+using Tank.Controller;
+using Tank.Model;
 
-public class TankView : MonoBehaviour
+namespace Tank.View
 {
-  private TankController tankController;
-
-  private float health;
-  private float speed;
-  private float turn;
-
-  private Rigidbody rb;
-
-    void Start()
+    public class TankView : MonoBehaviour
     {
-		Debug.Log("Tank view created");
-    rb = GetComponent<Rigidbody>();
-    }
+        private TankController tankController;
 
-    void Update()
-    {
-      tank_Movement();
-      //Fire();
-    }
+        private float health;
+        private float speed;
+        private float turn;
 
-    private void tank_Movement()
-    {
-      Vector3 position = transform.position;
-      Quaternion rotation = transform.rotation;
+        private Rigidbody rb;
 
-      float Turning = Input.GetAxis("HorizontalUI");
-      float Accelerate = Input.GetAxis("VerticalUI");
-    
-      if(Accelerate > 0)
-      {
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
-      }
-
-      if(Accelerate < 0)
-      {
-        transform.Translate(-Vector3.forward * speed * Time.deltaTime);
-      }
-
-      if(Turning > 0)
-      {
-        transform.Rotate(Vector3.up * turn * Time.deltaTime);
-      }
-
-      if(Turning < 0 )
-      {
-        transform.Rotate(-Vector3.up * turn * Time.deltaTime);
-      }
-      
-    }
-
-    public void OnCollisionEnter(Collision coll)
-    {
-      if(coll.gameObject.GetComponent<Bullet_Service>() != null)
-      {
-        reduce_Health();
-        if(health < 10)
+        void Start()
         {
-          tankController= null;
+            Debug.Log("Tank view created");
+            rb = GetComponent<Rigidbody>();
         }
-      }
-    }
 
-    public void reduce_Health()
-    {
-      if(health > 10)
-      {
-        health -= 10;
-      }
-    }
+        void Update()
+        {
+            tank_Movement();
+            //Fire();
+        }
 
-    public void setController(TankController t_Controller)
-    {
-      tankController = t_Controller;
-    }
+        private void tank_Movement()
+        {
+            Vector3 position = transform.position;
+            Quaternion rotation = transform.rotation;
 
-    public void sethealth(float p_Health)
-    {
-      health = p_Health;
-    }
+            float Turning = Input.GetAxis("HorizontalUI");
+            float Accelerate = Input.GetAxis("VerticalUI");
 
-    public void setSpeed(float p_Speed)
-    {
-      speed = p_Speed;
-    }
-    
-    public void setTurn(float p_turn)
-    {
-      turn = p_turn;
+            if (Accelerate > 0)
+            {
+                transform.Translate(Vector3.forward * speed * Time.deltaTime);
+            }
+
+            if (Accelerate < 0)
+            {
+                transform.Translate(-Vector3.forward * speed * Time.deltaTime);
+            }
+
+            if (Turning > 0)
+            {
+                transform.Rotate(Vector3.up * turn * Time.deltaTime);
+            }
+
+            if (Turning < 0)
+            {
+                transform.Rotate(-Vector3.up * turn * Time.deltaTime);
+            }
+
+        }
+
+        public void OnCollisionEnter(Collision coll)
+        {
+            if (coll.gameObject.GetComponent<Bullet_Service>() != null)
+            {
+                reduce_Health();
+                if (health < 10)
+                {
+                    tankController = null;
+                }
+            }
+        }
+
+        public void reduce_Health()
+        {
+            if (health > 10)
+            {
+                health -= 10;
+            }
+        }
+
+        public void setController(TankController t_Controller)
+        {
+            tankController = t_Controller;
+        }
+
+        public void sethealth(float p_Health)
+        {
+            health = p_Health;
+        }
+
+        public void setSpeed(float p_Speed)
+        {
+            speed = p_Speed;
+        }
+
+        public void setTurn(float p_turn)
+        {
+            turn = p_turn;
+        }
     }
 }

@@ -1,19 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Tank.Controller;
+using Tank.Model;
+using Tank.View;
 
-public class TankService : MonoSingletonGeneric<TankService>
+namespace Tank.Service
 {
-	public TankView tankView;
-
-	private void Start()
+	public class TankService : MonoSingletonGeneric<TankService>
 	{
-		CreatTank();
-	}
+		public TankView tankView;
 
-	private void CreatTank()
-	{
-		TankModel model = new TankModel(10f, 200f, 100f);
-		TankController tank = new TankController(model, tankView);
+		private void Start()
+		{
+			CreatTank();
+		}
+
+		private void CreatTank()
+		{
+			TankModel model = new TankModel(10f, 200f, 100f);
+			TankController tank = new TankController(model, tankView);
+		}
 	}
 }

@@ -1,16 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Tank.Service;
+using Tank.Controller;
+using Tank.View;
 
-public class TankModel
+namespace Tank.Model
 {
-	public TankModel(float speed, float turn, float health)
+	public class TankModel
 	{
-		Speed = speed;
-		Turn = turn;
-		Health = health;
+		public TankModel(float speed, float turn, float health)
+		{
+			Speed = speed;
+			Turn = turn;
+			Health = health;
+		}
+		public float Speed { get; }
+		public float Turn { get; }
+		public float Health { get; }
 	}
-	public float Speed { get; }
-	public float Turn { get; }
-	public float Health { get; }
 }
