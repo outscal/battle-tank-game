@@ -55,5 +55,11 @@ namespace Enemy
             }
         }
 
+
+        public void KillView()
+        {
+            Destroy(gameObject);
+        }
+
     }
 }

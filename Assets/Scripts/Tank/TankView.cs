@@ -103,5 +103,10 @@ namespace Tank
 
             tankController.TankTurn(tankBody, turnInputValue);
         }
+
+        public void KillView()
+        {
+            Destroy(gameObject);
+        }
     }
 }

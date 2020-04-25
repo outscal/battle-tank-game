@@ -8,22 +8,18 @@ namespace Generic
     {           
         public Slider Slider;                             
         public Image FillImage;                           
-        public Color FullHealthColor = Color.green;       
-        public Color ZeroHealthColor = Color.red;         
-        //public GameObject ExplosionPrefab;
+        public Color FullHealthColor = Color.green;  
+        public Color ZeroHealthColor = Color.red;
 
         private float startingHealth;
         private IController controller;
-        //private ParticleSystem explosionParticles;        
         [SerializeField]
         private float currentHealth;                                                   
 
         public void Initialize (IController _controller)
         {
             controller = _controller;
-            //explosionParticles = Instantiate (ExplosionPrefab).GetComponent<ParticleSystem> ();
 
-            //explosionParticles.gameObject.SetActive (false);
             startingHealth = controller.GetModel().Health;
 
             SetTankHealth(startingHealth);

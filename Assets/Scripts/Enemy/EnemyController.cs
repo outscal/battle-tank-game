@@ -31,7 +31,7 @@ namespace Enemy
 
         public void KillTank()
         {
-            Object.Destroy(EnemyView.gameObject);
+            EnemyView.KillView();
             EnemyModel = null;
             EnemyView = null;
             EnemyParent = null;
@@ -39,10 +39,6 @@ namespace Enemy
 
         public void OnDeath(Vector3 tankPosition)
         {
-            //m_ExplosionParticles.transform.position = tankPosition;
-            //m_ExplosionParticles.gameObject.SetActive(true);
-
-            //m_ExplosionParticles.Play();
             VFXManager.Instance.PlayVFXClip(VFXName.TankExplosion, tankPosition, EnemyParent);
             SoundManager.Instance.PlaySoundClip(ClipName.TankExplosion);
             EnemyService.Instance.DestroyEnemy(this);
