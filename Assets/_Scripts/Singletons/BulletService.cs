@@ -11,22 +11,26 @@ namespace Bullet.Service
     public class BulletService : MonoSingletonGeneric<BulletService>
     {
         public BulletView BulletView;
+        BulletModel bulletModel;
+        BulletController bulletController;
 
         public BulletController CreateNewBullet(Vector3 position)
         {
-            BulletModel bulletModel = new BulletModel(30f, 10f, new Vector3(0f, 1.6f, 0f)); // total health will be 100
-            BulletController bulletController = new BulletController(bulletModel, BulletView, position);
-            //bulletController.FireBullet(tankRotation); // this statement violates the single responsibility principle.
-                                                       //return bulletController;
-
+            bulletModel = new BulletModel(30f, 10f, new Vector3(0f, 1.6f, 1.35f)); // total health will be 100
+            bulletController = new BulletController(bulletModel, BulletView, position);
             return bulletController;
+        }
+
+        public void DestroyBullet()
+        {
+            bulletController.DestroyBulletView();
         }
 
         public void DestroyControllerAndModel()
         {
             Debug.Log("bullet controller and model destroyed...");
-
-            //return true;
+            bulletModel = null;
+            bulletController = null;
         }
 
         public BulletController PleaseGiveMeBullet(Vector3 position)

@@ -18,9 +18,9 @@ namespace Enemy.View
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.T))
             {
-                enemyController.FireBullet();
+                enemyController.FireBullet(transform.position, transform.eulerAngles);
             }
         }
 
@@ -28,7 +28,7 @@ namespace Enemy.View
         {
             if (collision.gameObject.GetComponent<BulletView>() != null)
             {
-                Debug.Log("if function called");
+                //Debug.Log("if function called");
                 DestroyEnemy();
                 DestroyBullet();
             }
@@ -36,14 +36,14 @@ namespace Enemy.View
 
         private void DestroyEnemy()
         {
-            Debug.Log("Destroy Enemy");
+            Debug.Log("Enemy view destroyed");
+            enemyController.DestroyController();
+            Destroy(gameObject);
         }
 
         private void DestroyBullet()
         {
-            Debug.Log("bullet view destroyed...");
-            //bulletController.DestroyController();
-            //Destroy(gameObject);
+            enemyController.DestroyBullet();
         }
 
         public void SetEnemyController(EnemyController ec)

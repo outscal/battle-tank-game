@@ -48,33 +48,7 @@ namespace Bullet.View
             }
         }
 
-        //private void OnCollisionEnter(Collision collision)
-        //{
-        //    if (collision.gameObject.CompareTag("Boundaries"))
-        //    {
-        //        Debug.Log("Destroy Bullet");
-        //        //DestroyBullet();
-        //    }
-        //}
-
-        //private void OnCollisionEnter(Collision collision)
-        //{
-        //    Debug.Log("function called");
-
-        //    if (collision.gameObject.GetComponent<EnemyView>() != null)
-        //    {
-        //        Debug.Log("if function called");
-        //        DestroyEnemy();
-        //        DestroyBullet();
-        //    }
-        //}
-
-        //private void DestroyEnemy()
-        //{
-        //    Debug.Log("Destroy Enemy");
-        //}
-
-        private void DestroyBullet()
+        public void DestroyBullet()
         {
             Debug.Log("bullet view destroyed...");
             bulletController.DestroyController();

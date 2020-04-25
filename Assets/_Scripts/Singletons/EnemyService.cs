@@ -6,13 +6,15 @@ using Enemy.View;
 using Enemy.Model;
 using Bullet.Service;
 using System;
+using Bullet.Controller;
 
 namespace Enemy.Service
 {
     public class EnemyService : MonoSingletonGeneric<EnemyService>
     {
         public EnemyView EnemyView;
-        public BulletService BulletService;
+        EnemyModel enemyModel;
+        EnemyController enemyController;
 
         private void Update()
         {
@@ -29,14 +31,27 @@ namespace Enemy.Service
 
         private EnemyController CreateNewEnemy()
         {
-            EnemyModel enemyModel = new EnemyModel();
-            EnemyController enemyController = new EnemyController(enemyModel, EnemyView);
+            enemyModel = new EnemyModel();
+            enemyController = new EnemyController(enemyModel, EnemyView);
             return enemyController;
         }
 
-        public void FireBullet()
+        public BulletController GetBullet(Vector3 position)
         {
-            Debug.Log("communicate with the bullet service to fire bullets at the player.");
+            BulletController bulletController = BulletService.Instance.PleaseGiveMeBullet(position);
+            return bulletController;
+        }
+
+        public void DestroyBullet()
+        {
+            BulletService.Instance.DestroyBullet();
+        }
+
+        public void DestroyControllerAndModel()
+        {
+            Debug.Log("enemy controller and model destroyed");
+            enemyController = null;
+            enemyModel = null;
         }
     }
 }

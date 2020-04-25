@@ -14,9 +14,9 @@ namespace Tank.Service
     public class TankService : MonoSingletonGeneric<TankService>
     {
         public TankView[] tankView;
+        TankModel tankModel;
+        TankController tankController;
         Dictionary<PlayerTankType, TankView> tankPrefab = new Dictionary<PlayerTankType, TankView>();
-        //Dictionary<PlayerTankType, TankView> tankPrefab = new Dictionary<PlayerTankType, TankView>();
-        public BulletService BulletService;
 
         public TankScriptableObject[] tankConfigurations;
 
@@ -63,20 +63,27 @@ namespace Tank.Service
         private TankController CreateNewTank()
         {
             TankScriptableObject tankScriptableObject = tankConfigurations[(int)tankType]; // which tank needs to be created 
-            TankModel tankModel = new TankModel(tankScriptableObject);
+            tankModel = new TankModel(tankScriptableObject);
 
-            TankController tankController = new TankController(tankModel, tankPrefab);
+            tankController = new TankController(tankModel, tankPrefab);
             return tankController;
         }
 
-        public void FireBullet(Vector3 position, Vector3 tankRotation)
+        public void DestroyBullet()
         {
-            //BulletService.CreateNewBullet(position, tankRotation);
+            BulletService.Instance.DestroyBullet();
+        }
+
+        public void DestroyControllerAndModel()
+        {
+            Debug.Log("tank controller and model destroyed");
+            tankModel = null;
+            tankController = null;
         }
 
         public BulletController GetBullet(Vector3 position)
         {
-            BulletController bulletController = BulletService.PleaseGiveMeBullet(position);
+            BulletController bulletController = BulletService.Instance.PleaseGiveMeBullet(position);
             return bulletController;
         }
     }

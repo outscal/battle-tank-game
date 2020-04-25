@@ -4,6 +4,8 @@ using UnityEngine;
 using Enemy.Service;
 using Enemy.View;
 using Enemy.Model;
+using System;
+using Bullet.Controller;
 
 namespace Enemy.Controller
 {
@@ -25,9 +27,20 @@ namespace Enemy.Controller
             //to be implemented
         }
 
-        public void FireBullet()
+        public void FireBullet(Vector3 position, Vector3 tankRotation)
         {
-            EnemyService.Instance.FireBullet();
+            BulletController bulletController = EnemyService.Instance.GetBullet(position);
+            bulletController.FireBullet(tankRotation);
+        }
+
+        public void DestroyController()
+        {
+            EnemyService.Instance.DestroyControllerAndModel();
+        }
+
+        public void DestroyBullet()
+        {
+            EnemyService.Instance.DestroyBullet();
         }
     }
 }

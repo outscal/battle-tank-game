@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Tank.Controller;
+using Bullet.View;
 
 namespace Tank.View
 {
@@ -33,6 +34,27 @@ namespace Tank.View
                 tankController.FireBullet(transform.position, transform.eulerAngles);
             }
 
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.GetComponent<BulletView>() != null)
+            {
+                DestroyPlayer();
+                DestroyBullet();
+            }
+        }
+
+        private void DestroyBullet()
+        {
+            tankController.DestroyBullet();
+        }
+
+        private void DestroyPlayer()
+        {
+            Debug.Log("tank view destroyed");
+            tankController.DestroyController();
+            Destroy(gameObject);
         }
 
         public void SetTankController(TankController tc)
