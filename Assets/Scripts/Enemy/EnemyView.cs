@@ -6,7 +6,7 @@ using Tank;
 
 namespace Enemy
 {
-    [RequireComponent(typeof(AudioSource), typeof(Rigidbody), typeof(TankHealth))]
+    [RequireComponent(typeof(AudioSource), typeof(Rigidbody), typeof(EnemyHealth))]
     public class EnemyView : MonoBehaviour
     {
         public Transform FireTransform;
@@ -29,8 +29,8 @@ namespace Enemy
         {
             transform.SetParent(enemyController.EnemyParent);
             enemyBody = GetComponent<Rigidbody>();
-            GetComponent<TankHealth>().Initialize(enemyController);
-            //Debug.Log("Health " + tankController.GetModel().Health, this);
+            GetComponent<EnemyHealth>().Initialize(enemyController);
+
             enemyBody.isKinematic = false;
 
             for (int i = 0; i < particleSystems.Length; ++i)
@@ -48,10 +48,10 @@ namespace Enemy
 
         private void OnCollisionEnter(Collision collision)
         {
-            if(collision.gameObject.GetComponent<IDestructable>() != null)
+            if(collision.gameObject.GetComponent<TankHealth>() != null)
             {
-                TankHealth targetHealth = collision.gameObject.GetComponent<TankHealth>();
-                targetHealth.TakeDamage(100);
+                TankHealth destructable = collision.gameObject.GetComponent<TankHealth>();
+                destructable.TakeDamage(100);
             }
         }
 

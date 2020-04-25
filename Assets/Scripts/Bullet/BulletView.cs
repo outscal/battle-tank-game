@@ -2,6 +2,7 @@
 using Generic;
 using System.Collections;
 using Singalton;
+using Enemy;
 
 namespace Bullet
 {
@@ -58,9 +59,9 @@ namespace Bullet
                 targetRigidbody.AddExplosionForce(bulletController.GetModel().ExplosionForce, 
                             transform.position, bulletController.GetModel().ExplosionRadius);
 
-                TankHealth targetHealth = targetRigidbody.GetComponent<TankHealth>();
+                EnemyHealth targetHealth = targetRigidbody.GetComponent<EnemyHealth>();
 
-                if (!targetHealth)
+                if (targetHealth == null)
                     continue;
 
                 float damage = bulletController.CalculateDamage(targetRigidbody.position, transform.position);
@@ -69,16 +70,10 @@ namespace Bullet
                 targetHealth.TakeDamage(damage);
             }
 
-            //ExplosionParticles.transform.SetParent(bulletController.BulletParent);
-
-            //ExplosionParticles.Play();
             VFXManager.Instance.PlayVFXClip(VFXName.BulletExplosion, 
                     transform.position, bulletController.BulletParent);
 
             SoundManager.Instance.PlaySoundClip(ClipName.BulletExplosion);
-
-            //ParticleSystem.MainModule mainModule = ExplosionParticles.main;
-            //Destroy(ExplosionParticles.gameObject, mainModule.duration);
 
             bulletController.DestroyBulletChain();
         }

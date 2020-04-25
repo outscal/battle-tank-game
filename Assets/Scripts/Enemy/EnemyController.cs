@@ -31,16 +31,16 @@ namespace Enemy
 
         public void KillTank()
         {
+            VFXManager.Instance.PlayVFXClip(VFXName.TankExplosion, EnemyView.transform.position, EnemyParent);
+            SoundManager.Instance.PlaySoundClip(ClipName.TankExplosion);
             EnemyView.KillView();
             EnemyModel = null;
             EnemyView = null;
             EnemyParent = null;
         }
 
-        public void OnDeath(Vector3 tankPosition)
+        public void OnDeath()
         {
-            VFXManager.Instance.PlayVFXClip(VFXName.TankExplosion, tankPosition, EnemyParent);
-            SoundManager.Instance.PlaySoundClip(ClipName.TankExplosion);
             EnemyService.Instance.DestroyEnemy(this);
         }
     }

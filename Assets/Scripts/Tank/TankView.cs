@@ -5,7 +5,7 @@ using System.Collections;
 namespace Tank
 {
     [RequireComponent(typeof(AudioSource), typeof(Rigidbody), typeof(TankHealth))]
-    public class TankView : MonoBehaviour, IDestructable
+    public class TankView : MonoBehaviour
     {
         public Transform FireTransform;
         public AudioSource MovementAudio;

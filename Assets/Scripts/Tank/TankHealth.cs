@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Generic
+namespace Tank
 {
     public class TankHealth : MonoBehaviour
     {           
@@ -12,11 +12,11 @@ namespace Generic
         public Color ZeroHealthColor = Color.red;
 
         private float startingHealth;
-        private IController controller;
+        private TankController controller;
         [SerializeField]
         private float currentHealth;                                                   
 
-        public void Initialize (IController _controller)
+        public void Initialize (TankController _controller)
         {
             controller = _controller;
 
@@ -42,7 +42,7 @@ namespace Generic
 
             if (currentHealth <= 0f)
             {
-                controller.OnDeath (transform.position);
+                controller.OnDeath ();
             }
         }
 

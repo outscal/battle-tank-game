@@ -38,6 +38,7 @@ namespace Bullet
                 if (Bullets[i] == bullet)
                 {
                     Bullets.Remove(Bullets[i]);
+                    break;
                 }
             }
             bullet = null;

@@ -3,6 +3,7 @@ using Generic;
 using System.Collections.Generic;
 using System.Collections;
 using ScriptableObj;
+using Enemy;
 
 namespace Tank
 {
@@ -46,22 +47,26 @@ namespace Tank
                 if(Tanks[i] == tank)
                 {
                     Tanks.Remove(Tanks[i]);
+                    break;
                 }
             }
-            StartCoroutine(Haltgame(0.2f));
+            
             tank = null;
+            StartCoroutine(Haltgame(0.2f));
+            StartCoroutine(EnemyService.Instance.DestroyAllEnemies());
         }
 
 
         public IEnumerator Haltgame(float scaleValue)
         {
-            Debug.Log("Haltgame "  + scaleValue);
+            //Debug.Log("Haltgame "  + scaleValue);
             Time.timeScale = scaleValue;
-            yield return new WaitForSeconds(.2f);
+            yield return new WaitForSeconds(.5f);
 
             scaleValue += .2f;
             if (scaleValue < 1)
                 StartCoroutine(Haltgame(scaleValue));
         }
+
     }
 }

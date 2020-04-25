@@ -5,6 +5,6 @@ using Tank;
 
 public interface IController
 {
-    void OnDeath(Vector3 tankPosition);
+    void OnDeath();
     IModel GetModel();
 }

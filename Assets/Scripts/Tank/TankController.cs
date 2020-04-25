@@ -78,6 +78,8 @@ namespace Tank
 
         public void KillTank()
         {
+            VFXManager.Instance.PlayVFXClip(VFXName.TankExplosion, TankView.transform.position, TankParent);
+            SoundManager.Instance.PlaySoundClip(ClipName.TankExplosion);
             TankView.KillView();
             TankModel = null;
             TankView = null;
@@ -85,10 +87,8 @@ namespace Tank
         }
 
 
-        public void OnDeath(Vector3 tankPosition)
+        public void OnDeath()
         {
-            VFXManager.Instance.PlayVFXClip(VFXName.TankExplosion, tankPosition, TankParent);
-            SoundManager.Instance.PlaySoundClip(ClipName.TankExplosion);
             TankService.Instance.DestroyTank(this);
         }
 
