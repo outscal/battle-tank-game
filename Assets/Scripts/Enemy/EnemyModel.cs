@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using ScriptableObj;
 
 namespace Enemy
 {
-    public class EnemyModel : IModel
+    public class EnemyModel
     {
         public EnemyModel(EnemyScriptableObj enemyScriptableObj)
         {
@@ -35,10 +33,5 @@ namespace Enemy
         public Transform SpawnPointSafe { get; }
         public Transform EnemySpawnPoint1 { get; }
         public Transform EnemySpawnPoint2 { get; }
-
-        // Not Used here//////////////////////
-        public int PlayerNumber { get; }
-        public KeyCode FireKey { get; }
-        ////////////////////////////////
     }
 }

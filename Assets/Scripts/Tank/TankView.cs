@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
-using Generic;
-using System.Collections;
+
 
 namespace Tank
 {

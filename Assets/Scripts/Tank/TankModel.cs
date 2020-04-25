@@ -4,7 +4,7 @@ using ScriptableObj;
 namespace Tank
 {
 
-    public class TankModel : IModel
+    public class TankModel
     {
         public TankModel(TankScriptableObj tankScriptableObj)
         {

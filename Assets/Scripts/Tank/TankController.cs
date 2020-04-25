@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Tank
 {
-    public class TankController : IController
+    public class TankController 
     {
         public TankController(TankModel tankModel, TankView tankPrefab, Transform tankParent)
         {
@@ -20,7 +20,7 @@ namespace Tank
         public TankView TankView { get; private set; }
         public Transform TankParent { get; private set; }
 
-        public IModel GetModel()
+        public TankModel GetModel()
         {
             return TankModel;
         }

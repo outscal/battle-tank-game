@@ -1,12 +1,9 @@
 ﻿using Singalton;
-using System.Collections;
-using System.Collections.Generic;
-using Tank;
 using UnityEngine;
 
 namespace Enemy
 {
-    public class EnemyController : IController
+    public class EnemyController
     {
         public EnemyController(EnemyModel enemyModel, EnemyView enemyPrefab, Transform enemyParent, Vector3 spawnPos)
         {
@@ -23,7 +20,7 @@ namespace Enemy
         public Transform EnemyParent { get; private set; }
 
 
-        public IModel GetModel()
+        public EnemyModel GetModel()
         {
             return EnemyModel;
         }
