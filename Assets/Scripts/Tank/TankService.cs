@@ -59,7 +59,6 @@ namespace Tank
 
         public IEnumerator Haltgame(float scaleValue)
         {
-            //Debug.Log("Haltgame "  + scaleValue);
             Time.timeScale = scaleValue;
             yield return new WaitForSeconds(.5f);
 

@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Tank
 {
-    public class TankHealth : MonoBehaviour
+    public class TankHealth : MonoBehaviour, IDestructable
     {           
         public Slider Slider;                             
         public Image FillImage;                           

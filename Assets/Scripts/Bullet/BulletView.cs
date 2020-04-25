@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
-using Generic;
 using System.Collections;
 using Singalton;
-using Enemy;
 
 namespace Bullet
 {
@@ -59,7 +57,7 @@ namespace Bullet
                 targetRigidbody.AddExplosionForce(bulletController.GetModel().ExplosionForce, 
                             transform.position, bulletController.GetModel().ExplosionRadius);
 
-                EnemyHealth targetHealth = targetRigidbody.GetComponent<EnemyHealth>();
+                IDestructable targetHealth = targetRigidbody.GetComponent<IDestructable>();
 
                 if (targetHealth == null)
                     continue;

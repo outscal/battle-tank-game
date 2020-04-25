@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Generic;
-using Tank;
+﻿using UnityEngine;
+
 
 namespace Enemy
 {
@@ -48,9 +45,9 @@ namespace Enemy
 
         private void OnCollisionEnter(Collision collision)
         {
-            if(collision.gameObject.GetComponent<TankHealth>() != null)
+            if(collision.gameObject.GetComponent<IDestructable>() != null)
             {
-                TankHealth destructable = collision.gameObject.GetComponent<TankHealth>();
+                IDestructable destructable = collision.gameObject.GetComponent<IDestructable>();
                 destructable.TakeDamage(100);
             }
         }
