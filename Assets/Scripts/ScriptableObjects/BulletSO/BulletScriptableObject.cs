@@ -20,6 +20,5 @@ namespace BulletSO
     public class BulletScriptableObjectList : ScriptableObject
     {
         public BulletScriptableObject[] bulletsTypes;
-
     }
 }

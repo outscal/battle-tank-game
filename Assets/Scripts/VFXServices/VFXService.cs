@@ -12,14 +12,14 @@ namespace VFXServices
 
         public void TankExplosionEffects(Vector3 position)
         {
-            var go = Instantiate(tankExplosion, position, Quaternion.identity);
-            Destroy(go, 1f);
+            GameObject gameObject = Instantiate(tankExplosion, position, Quaternion.identity);
+            Destroy(gameObject, 1f);
         }
 
         public void BulletEffects(Vector3 position)
         {
-            var go = Instantiate(bulletExplosion, position, Quaternion.identity);
-            Destroy(go, 1f);
+            GameObject gameObject = Instantiate(bulletExplosion, position, Quaternion.identity);
+            Destroy(gameObject, 1f);
         }
     }
 }

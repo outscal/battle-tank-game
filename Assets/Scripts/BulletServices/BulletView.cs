@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using VFXServices;
+using System.Threading.Tasks;
+using System;
 
 namespace BulletServices
 {
@@ -14,33 +16,23 @@ namespace BulletServices
             bulletController = _bulletController;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             bulletController.Movement();
         }
-        private void Start()
+        private async void Start()
         {
-            if (destroy == null)
-                destroy = StartCoroutine(DestroyAfterSomeTime());
+            //write synchronous stuff for start() above this line --^
+            await Task.Delay(TimeSpan.FromSeconds(2f));
+            if (this != null)
+                BulletService.instance.DestroyBullet(bulletController);
         }
 
         public void DestroyView()
         {
             bulletController = null;
-            if (destroy != null)
-            {
-                StopCoroutine(destroy);
-                destroy = null;
-            }
             VFXService.instance.BulletEffects(transform.position);
             Destroy(this.gameObject);
-        }
-
-
-        private IEnumerator DestroyAfterSomeTime()
-        {
-            yield return new WaitForSeconds(5f);
-            BulletService.instance.DestroyBullet(bulletController);
         }
     }
 }

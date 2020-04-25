@@ -9,28 +9,33 @@ namespace TankServices
 {
     public class TankController
     {
-
         public TankModel tankModel { get; private set; }
         public TankView tankView { get; private set; }
+        private Rigidbody rigidbody;
 
         public TankController(TankModel _tankModel, TankView _tankView) //constructor
         {
             tankModel = _tankModel;
             tankView = GameObject.Instantiate<TankView>(_tankView);
             CameraController.instance.SetTarget(tankView.transform);
+            rigidbody = tankView.GetComponent<Rigidbody>();
 
             tankView.SetTankController(this);
             tankModel.SetTankController(this);
             tankView.ChangeColor(tankModel.material);
         }
+
         public void Move(float movement, float movementSpeed)
         {
-            tankView.transform.Translate(Vector3.forward * movement * movementSpeed * Time.deltaTime);
+            Vector3 move = tankView.transform.transform.position += tankView.transform.forward * movement * movementSpeed * Time.fixedDeltaTime;
+            rigidbody.MovePosition(move);
         }
 
         public void Rotate(float rotation, float rotateSpeed)
         {
-            tankView.transform.Rotate(Vector3.up * rotation * rotateSpeed * Time.deltaTime);
+            Vector3 vector = new Vector3(0f, rotation * rotateSpeed, 0f);
+            Quaternion deltaRotation = Quaternion.Euler(vector * Time.fixedDeltaTime);
+            rigidbody.MoveRotation(rigidbody.rotation * deltaRotation);
         }
 
         public void ShootBullet()
@@ -56,6 +61,7 @@ namespace TankServices
             tankView.DestroyView();
             tankModel = null;
             tankView = null;
+            rigidbody = null;
         }
 
         public void OnCollisionWithBullet(BulletView bullet)
@@ -63,7 +69,6 @@ namespace TankServices
             //bullets referece is passed for later use like adding damage to Tank kind of something
             TankService.instance.DestroyTank(this);
             BulletService.instance.DestroyBullet(bullet.bulletController);
-
         }
     }
 }
