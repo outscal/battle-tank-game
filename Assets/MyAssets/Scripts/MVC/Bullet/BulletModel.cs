@@ -1,13 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Bullet.Service;
+using Bullet.Controller;
+using Bullet.View;
 
-public class BulletModel
+namespace Bullet.Model
 {
-    public BulletModel(float Damage)
+    public class BulletModel
     {
-        damage = Damage;
-    }
+        public BulletModel(float damage)
+        {
+            Damage = damage;
+        }
 
-    public float damage { get; }
+        public float Damage { get; }
+    }
 }

@@ -1,14 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Bullet.Controller;
+using Bullet.Model;
+using Bullet.View;
 
-public class Bullet_Service : MonoSingletonGeneric<Bullet_Service>
+namespace Bullet.Service
 {
-    public BulletView bulletView;
-
-    void Start()
+    public class Bullet_Service : MonoSingletonGeneric<Bullet_Service>
     {
-        BulletModel b_Model = new BulletModel(10);
-        BulletController b_Controller = new BulletController(b_Model, bulletView);
+        public BulletView bulletView;
+
+        void Start()
+        {
+            BulletModel b_Model = new BulletModel(10);
+            BulletController b_Controller = new BulletController(b_Model, bulletView);
+        }
     }
 }

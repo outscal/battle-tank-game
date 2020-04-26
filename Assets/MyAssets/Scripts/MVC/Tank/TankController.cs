@@ -4,6 +4,8 @@ using UnityEngine;
 using Tank.Service;
 using Tank.Model;
 using Tank.View;
+using Bullet.Controller;
+using System;
 
 namespace Tank.Controller
 {
@@ -18,13 +20,24 @@ namespace Tank.Controller
 			//TankView = go.GetComponent<TankView>();
 
 			TankView = GameObject.Instantiate<TankView>(tankPrefab);
-			TankView.setController(this);
-			TankView.sethealth(TankModel.Health);
-			TankView.setSpeed(TankModel.Speed);
-			TankView.setTurn(TankModel.Turn);
+			TankView.SetController(this);
+			TankView.Sethealth(TankModel.Health);
+			TankView.SetSpeed(TankModel.Speed);
+			TankView.SetTurn(TankModel.Turn);
 
 			Debug.Log("Tank View Created");
 		}
+
+		internal static void GetBulletModel(Transform firingLocation)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void GetBulletModel()
+		{
+
+		}
+
 		public TankModel TankModel { get; }
 		public TankView TankView { get; }
 	}

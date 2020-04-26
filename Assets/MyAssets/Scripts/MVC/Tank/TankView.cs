@@ -4,36 +4,40 @@ using UnityEngine;
 using Tank.Service;
 using Tank.Controller;
 using Tank.Model;
+using Bullet.Service;
 
 namespace Tank.View
 {
     public class TankView : MonoBehaviour
     {
         private TankController tankController;
-
         private float health;
         private float speed;
         private float turn;
 
-        private Rigidbody rb;
+        public Transform firingLocation;
 
         void Start()
         {
             Debug.Log("Tank view created");
-            rb = GetComponent<Rigidbody>();
         }
 
         void Update()
         {
             tank_Movement();
-            //Fire();
+            Fire();
+        }
+
+        private void Fire()
+        {
+            if(Input.GetKeyDown(KeyCode.F))
+            {
+                TankController.GetBulletModel(Transform firingLocation);
+            }
         }
 
         private void tank_Movement()
         {
-            Vector3 position = transform.position;
-            Quaternion rotation = transform.rotation;
-
             float Turning = Input.GetAxis("HorizontalUI");
             float Accelerate = Input.GetAxis("VerticalUI");
 
@@ -79,22 +83,22 @@ namespace Tank.View
             }
         }
 
-        public void setController(TankController t_Controller)
+        public void SetController(TankController t_Controller)
         {
             tankController = t_Controller;
         }
 
-        public void sethealth(float p_Health)
+        public void Sethealth(float p_Health)
         {
             health = p_Health;
         }
 
-        public void setSpeed(float p_Speed)
+        public void SetSpeed(float p_Speed)
         {
             speed = p_Speed;
         }
 
-        public void setTurn(float p_turn)
+        public void SetTurn(float p_turn)
         {
             turn = p_turn;
         }

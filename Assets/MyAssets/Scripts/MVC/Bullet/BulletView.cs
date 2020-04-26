@@ -1,24 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Bullet.Service;
+using Bullet.Controller;
+using Bullet.Model;
 
-public class BulletView : MonoBehaviour
+namespace Bullet.View
 {
-    private BulletController bulletController;
-
-    void Start()
+    public class BulletView : MonoBehaviour
     {
-        
-    }
+        private BulletController bulletController;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+        void Start()
+        {
 
-    public void setController(BulletController b_Controller)
-    {
-        bulletController = b_Controller;
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
+
+        public void setController(BulletController b_Controller)
+        {
+            bulletController = b_Controller;
+        }
     }
 }

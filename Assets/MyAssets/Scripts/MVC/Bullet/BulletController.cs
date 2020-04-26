@@ -1,19 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Bullet.Service;
+using Bullet.Model;
+using Bullet.View;
 
-public class BulletController
+namespace Bullet.Controller
 {
-    public BulletController(BulletModel bulletModel, BulletView bulletPrefab)
+    public class BulletController
     {
-        BulletModel = bulletModel;
+        public BulletController(BulletModel bulletModel, BulletView bulletPrefab)
+        {
+            BulletModel = bulletModel;
 
-        BulletView = GameObject.Instantiate<BulletView>(bulletPrefab);
+            BulletView = GameObject.Instantiate<BulletView>(bulletPrefab);
 
-    //BulletView = GameObject.Instantiate<BulletView>(bulletPrefab);
-    BulletView.setController(this);    
+            //BulletView = GameObject.Instantiate<BulletView>(bulletPrefab);
+            BulletView.setController(this);
+        }
+
+        public BulletModel BulletModel { get; }
+        public BulletView BulletView { get; }
     }
-
-    public BulletModel BulletModel{ get; }
-    public BulletView BulletView{ get; }    
 }
