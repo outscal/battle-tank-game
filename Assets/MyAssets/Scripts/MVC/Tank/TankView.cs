@@ -32,7 +32,7 @@ namespace Tank.View
         {
             if(Input.GetKeyDown(KeyCode.F))
             {
-                TankController.GetBulletModel(Transform firingLocation);
+                TankController.GetBulletModel(Transform firinLocation);
             }
         }
 

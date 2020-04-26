@@ -28,9 +28,9 @@ namespace Tank.Controller
 			Debug.Log("Tank View Created");
 		}
 
-		internal static void GetBulletModel(Transform firingLocation)
+		internal static void GetBulletModel()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		public void GetBulletModel()
