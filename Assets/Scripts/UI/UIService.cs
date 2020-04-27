@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TankGame.Spawner;
+using System;
 
 namespace TankGame.UI
 {
@@ -14,9 +15,9 @@ namespace TankGame.UI
         {
             base.Awake();
         }
-
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             for (int i = 0; i < buttons.Length; i++)
             {
                 int buttonIndex = i; //(important) for closure error, first capture the data

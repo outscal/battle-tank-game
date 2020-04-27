@@ -16,17 +16,14 @@ public class EnemyPatroling : EnemyState
     private Rigidbody rb;
     private float speed = 200f;
     private float resetTankTimer;
+   
 
     public override void OnEnterState()
     {
         base.OnEnterState();
-        enemyPos = transform.position;
+        enemyPos = enemyView.transform.position;
         patrolPosition = new Vector3(Random.Range(enemyPos.x + 10, enemyPos.x - 10), enemyPos.y, Random.Range(enemyPos.z + 10, enemyPos.z - 10));
-        enemyView.SetTankColor(changedColor);
-        if (chasingZone.activeSelf == false)
-          {
-                chasingZone.SetActive(true);
-          }
+        //enemyView.SetTankColor(changedColor);
         currentState = EnemyStates.Patroling;
     }
    
@@ -49,17 +46,17 @@ public class EnemyPatroling : EnemyState
     private void MoveTank()
     {
         resetTankTimer += Time.deltaTime;
-        if (Vector3.Distance(transform.position, patrolPosition) > 1 & resetTankTimer <5)
+        if (Vector3.Distance(enemyView.transform.position, patrolPosition) > 1 & resetTankTimer <5)
         {
             newDirection = patrolPosition - transform.position;
             Quaternion rotation = Quaternion.LookRotation(newDirection);
-            transform.rotation = rotation;
-            enemyView.rb.velocity = transform.forward * 1 * Time.deltaTime * speed;
+            enemyView.transform.rotation = rotation;
+            enemyView.rb.velocity = enemyView.transform.forward * 1 * Time.deltaTime * speed;
         }
         else
         {
             resetTankTimer = 0;
-            enemyPos = transform.position;
+            enemyPos = enemyView.transform.position;
             patrolPosition = new Vector3(Random.Range(enemyPos.x +10 , enemyPos.x - 10), enemyPos.y, Random.Range(enemyPos.z + 10, enemyPos.z - 10));
         }
     }
@@ -77,7 +74,6 @@ public class EnemyPatroling : EnemyState
     {
         if (other.GetComponent<TankView>())
         {
-            Debug.Log("exited");
             enemyView.ChangeState(enemyView.patrolingState);
             currentState = EnemyStates.Patroling;
         }

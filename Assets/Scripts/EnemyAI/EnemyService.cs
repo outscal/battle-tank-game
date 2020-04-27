@@ -2,30 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TankGame.Bullet;
+using System;
 
 namespace TankGame.Enemy
 {
     public class EnemyService : MonoSingletonGeneric<EnemyService>
     {
-
+        public event Action OnDeath;
         public EnemyView enemyView;
         public EnemyScriptableObjectList EnemyList;
         public List<EnemyController> enemyTanks = new List<EnemyController>();
         private Coroutine coroutine;
-        //public Color[] enemyColor;
-        //public float[] enemyHealth;
-        //public float[] enemyDamage;
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             //SpawnEnemy();
         }
 
         public void fire(Transform bulletSpawn, float bulletDamange)
         {
             BulletService.Instance.spawnBullet(bulletSpawn, bulletDamange);
-        } 
-        
+        }
+
         public void SpawnEnemy(Vector3 enemySpawnerPos, Quaternion enemySpawnerRotation, int enemyIndex)
 
         {
@@ -36,11 +35,11 @@ namespace TankGame.Enemy
 
         public void DestroyAllEnemies()
         {
-            if(coroutine != null)
+            if (coroutine != null)
             {
                 StopCoroutine(DestroyAllViews());
             }
-          coroutine =  StartCoroutine(DestroyAllViews());
+            coroutine = StartCoroutine(DestroyAllViews());
         }
 
         IEnumerator DestroyAllViews()
@@ -57,9 +56,11 @@ namespace TankGame.Enemy
         {
             for (int i = 0; i < enemyTanks.Count; i++)
             {
-                if(controller == enemyTanks[i])
+                if (controller == enemyTanks[i])
                 {
-                    controller.Destroy();   
+                    controller.Destroy();
+                    OnDeath?.Invoke();
+
                 }
             }
         }

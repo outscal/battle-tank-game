@@ -4749,8 +4749,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6546399223773778029}
   - component: {fileID: 253635307937915879}
+  - component: {fileID: 1411559768283843904}
   m_Layer: 0
-  m_Name: ChasingZone
+  m_Name: PatrolingZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4783,6 +4784,21 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 15
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &1411559768283843904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086989320364642174}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cac1bea44130b1342b472de72791f9cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyView: {fileID: 283503263170130840}
+  changedColor: {r: 0.064257726, g: 0.7169812, b: 0.21502374, a: 0}
+  chasingZone: {fileID: 1086989320364642174}
 --- !u!1 &1329059397274205680
 GameObject:
   m_ObjectHideFlags: 0
@@ -5027,13 +5043,14 @@ GameObject:
   m_Component:
   - component: {fileID: 515026939838252586}
   - component: {fileID: 2548628993171695060}
+  - component: {fileID: 1303061256910430371}
   m_Layer: 0
-  m_Name: AttackingExitZone
+  m_Name: AttackingZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &515026939838252586
 Transform:
   m_ObjectHideFlags: 0
@@ -5061,6 +5078,21 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 7.9
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &1303061256910430371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4819121519912501463}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09642d120e11d684c88533b2992f0c98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyView: {fileID: 283503263170130840}
+  changedColor: {r: 1, g: 0.1462264, b: 0.1462264, a: 0}
+  attackingExitZone: {fileID: 4819121519912501463}
 --- !u!1 &4825667882765429106
 GameObject:
   m_ObjectHideFlags: 0
@@ -5182,8 +5214,6 @@ GameObject:
   - component: {fileID: 283503263170130840}
   - component: {fileID: 6196383262613363529}
   - component: {fileID: 593306871051849256}
-  - component: {fileID: 3923257624509966874}
-  - component: {fileID: 4765675588941540830}
   - component: {fileID: 8480227600122322086}
   m_Layer: 0
   m_Name: EnemyView
@@ -5231,10 +5261,9 @@ MonoBehaviour:
   rb: {fileID: 6196383262613363529}
   bulletSpawner: {fileID: 963644038469831945}
   tankType: 0
-  startingState: {fileID: 3923257624509966874}
-  patrolingState: {fileID: 3923257624509966874}
-  chasingState: {fileID: 4765675588941540830}
-  attackingState: {fileID: 0}
+  patrolingState: {fileID: 1411559768283843904}
+  chasingState: {fileID: 5546615002645103186}
+  attackingState: {fileID: 1303061256910430371}
   slider: {fileID: 6793901017558891838}
 --- !u!54 &6196383262613363529
 Rigidbody:
@@ -5265,35 +5294,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.5871853, y: 1.0941744, z: 2.0518804}
   m_Center: {x: -0.0064590573, y: 0.50954604, z: 0.009300947}
---- !u!114 &3923257624509966874
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6724751896315022656}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cac1bea44130b1342b472de72791f9cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  changedColor: {r: 0.34588033, g: 0.3443396, b: 1, a: 0}
-  chasingZone: {fileID: 1086989320364642174}
---- !u!114 &4765675588941540830
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6724751896315022656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eedb8fa35b9e3524580dab6026403e8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  changedColor: {r: 0.7830189, g: 0.14404595, b: 0.14404595, a: 0}
-  chasingColor: {r: 0.9170768, g: 1, b: 0.10849059, a: 0}
-  attackingZone: {fileID: 8487547589918001629}
 --- !u!195 &8480227600122322086
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5885,13 +5885,14 @@ GameObject:
   m_Component:
   - component: {fileID: 5699859870586454367}
   - component: {fileID: 6638670226962101981}
+  - component: {fileID: 5546615002645103186}
   m_Layer: 0
-  m_Name: AttackingZone
+  m_Name: ChasingZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5699859870586454367
 Transform:
   m_ObjectHideFlags: 0
@@ -5919,6 +5920,22 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 8
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &5546615002645103186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8487547589918001629}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eedb8fa35b9e3524580dab6026403e8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyView: {fileID: 283503263170130840}
+  changedColor: {r: 0.9588527, g: 1, b: 0.41037738, a: 0}
+  attackingZone: {fileID: 8487547589918001629}
+  enemyAgent: {fileID: 8480227600122322086}
 --- !u!1 &8691730012477069131
 GameObject:
   m_ObjectHideFlags: 0

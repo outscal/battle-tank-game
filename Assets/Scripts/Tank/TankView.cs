@@ -118,6 +118,7 @@ namespace TankGame.Tank
 
         private void moveTank()
         {
+            controller.PlaySound(PlayerSfx.Walk, false);
             currentEulerAngles += new Vector3(0, horizontalInput, 0) * Time.deltaTime * rotatingSpeed;
             transform.eulerAngles = currentEulerAngles;
             //currentTankSpeed += new Vector3(0, 0, verticalInput) * Time.deltaTime * movingSpeed;

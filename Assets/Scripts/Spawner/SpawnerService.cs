@@ -22,7 +22,7 @@ namespace TankGame.Spawner
             base.Awake();
         }
 
-        private void Start()
+        protected override void Start()
         {
             for (int i = 0; i < enemySpawners.Length; i++)
             {

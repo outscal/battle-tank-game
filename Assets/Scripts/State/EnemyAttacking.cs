@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TankGame.Tank;
+using TankGame.Enemy;
 
 public class EnemyAttacking : EnemyState
 {
@@ -9,10 +10,11 @@ public class EnemyAttacking : EnemyState
     private TankView target;
     public GameObject attackingExitZone;
 
+
     public override void OnEnterState()
     {
         base.OnEnterState();
-        attackingExitZone.SetActive(true);
+        enemyView.SetTankColor(changedColor);
         target = TankService.Instance.GetCurrentPlayer();
         newDirection = target.transform.position - transform.position;
         InvokeRepeating("Fire", 1f, enemyView.GetFireRate());
@@ -27,17 +29,25 @@ public class EnemyAttacking : EnemyState
     public override void OnExitState()
     {
         base.OnExitState();
-        attackingExitZone.SetActive(false);
-        StopAllCoroutines();
+        CancelInvoke();
     }
     private void FixedUpdate()
     {
-        newDirection =target.transform.position - transform.position;
-        Quaternion rotation = Quaternion.LookRotation(newDirection);
-        transform.rotation = rotation;
+        if (target != null)
+        {
+            newDirection = target.transform.position - transform.position;
+            Quaternion rotation = Quaternion.LookRotation(newDirection);
+           enemyView.transform.rotation = rotation;
+        }
     }
 
-   
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.GetComponent<TankView>())
+    //    {
+    //        enemyView.ChangeState(enemyView.attackingState);
+    //    }
+    //}
 
     private void OnTriggerExit(Collider other)
     {

@@ -12,7 +12,7 @@ namespace TankGame.Bullet
         {
             BulletModel = bulletModel;
             Vector3 newPos = spawner.transform.position;
-            
+
             BulletView = GameObject.Instantiate(bulletView, spawner.transform.position, spawner.transform.rotation);
             Rigidbody rb = BulletView.GetComponent<Rigidbody>();
             rb.velocity = spawner.transform.forward * BulletModel.Speed;
@@ -23,13 +23,19 @@ namespace TankGame.Bullet
 
         public void DestroyBulletView()
         {
-            BulletService.Instance.DestroyView(this);
+            if (BulletView != null)
+            {
+                BulletService.Instance.DestroyView(this);
+            }
         }
 
         public void Destroy()
         {
-            BulletModel = null;
-            BulletView.Destroy();
+            if (BulletView != null)
+            {
+                BulletModel = null;
+                BulletView.Destroy();
+            }
         }
 
         //public void ApplyEnemyDamage(float damage, EnemyView enemyTank)

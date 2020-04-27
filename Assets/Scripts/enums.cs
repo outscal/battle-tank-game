@@ -39,3 +39,40 @@ public enum EnemyStates
     Attacking = 4
 }
 
+public enum PlayerSfx
+{
+    Idle,
+    Walk,
+    Fire,
+    EnemyKill,
+    Death,
+}
+public enum CollectibleSfx
+{
+    Coin,
+    Key,
+    Life,
+}
+
+public enum GameEffects
+{
+
+}
+
+public enum UISfx
+{
+    ButtonClick,
+    NextLevl,
+    Restart,
+    PopUp,
+}
+public enum GameSfx
+{
+    Intro,
+    MainMenu,
+    GameBg,
+    GameOver,
+    LevelComplete,
+    GameComplete,
+
+}
