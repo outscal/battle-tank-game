@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TankGame.Event;
 
 
 namespace TankGame.Bullet
@@ -12,9 +13,11 @@ namespace TankGame.Bullet
         public List<BulletController> bullets = new List<BulletController>();
         public BulletView bulletView;
         private Vector3 spawnPos;
+        private int bulletCounter=0;
 
         protected override void Awake()
         {
+            
             base.Awake();
         }
 
@@ -33,8 +36,20 @@ namespace TankGame.Bullet
                 if(controller == bullets[i])
                 {
                     controller.Destroy();
+                    SetBulletCounter();
+                    bullets[i] = null;
                 }
             }
         }
+
+        private void SetBulletCounter()
+        {
+            bulletCounter++;
+            if(bulletCounter%100 == 0)
+            {
+                EventService.Instance.OnBulletAchievment(bulletCounter);
+            }
+        }
+
     }
 }

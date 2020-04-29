@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TankGame.Tank;
 using TankGame.Enemy;
+using TankGame.UI;
 
 namespace TankGame.Spawner
 {
@@ -24,15 +25,21 @@ namespace TankGame.Spawner
 
         protected override void Start()
         {
-            for (int i = 0; i < enemySpawners.Length; i++)
-            {
-                SpawnEnemyTanks(i);
-            }
+            UIService.Instance.SetIntroText();
+            StartCoroutine(Spawning());
+        }
+
+        IEnumerator Spawning()
+        {
+            yield return new WaitForSeconds(2f);
             for (int i = 0; i < tankSpawners.Length; i++)
             {
                 SpawnTanks(i);
             }
-
+            for (int i = 0; i < enemySpawners.Length; i++)
+            {
+                SpawnEnemyTanks(i);
+            }
         }
 
         public void DestroyEverything()

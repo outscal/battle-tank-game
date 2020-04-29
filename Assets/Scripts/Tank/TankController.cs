@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TankGame.Bullet;
+using TankGame.Event;
 
 namespace TankGame.Tank
 {
@@ -13,16 +14,12 @@ namespace TankGame.Tank
             TankView = GameObject.Instantiate<TankView>(tankPrefab, spawner.transform.position, spawner.transform.rotation);
             TankView.InitialiseController(this);
             TankView.SetViewDetails();
-            PlaySound(PlayerSfx.Idle, false);
-
         }
 
         public void PlaySound(PlayerSfx sfxIndex, bool isLoop)
         {
             SoundManager.Instance.playPlayerSound(sfxIndex, false);
         }
-        
-
 
         public void fire(Transform bulletSpawn, float bulletDamange)
         {
@@ -36,13 +33,13 @@ namespace TankGame.Tank
             {
                 if ((TankModel.Health - damage) <= 0)
                 {
-                    
-                        DestroyView();
+                    DestroyView();
                 }
                 else
                 {
-                        TankModel.Health -= damage;
-                        TankView.SetTankHealth(TankModel.Health);
+                    TankModel.Health -= damage;
+                    Debug.Log(TankModel.Health);
+                    TankView.SetTankHealth(TankModel.Health);
                 }
             }
             return;

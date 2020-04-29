@@ -19,7 +19,7 @@ public class EnemyPatroling : EnemyState
    
 
     public override void OnEnterState()
-    {
+    {   
         base.OnEnterState();
         enemyPos = enemyView.transform.position;
         patrolPosition = new Vector3(Random.Range(enemyPos.x + 10, enemyPos.x - 10), enemyPos.y, Random.Range(enemyPos.z + 10, enemyPos.z - 10));

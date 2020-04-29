@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TankGame.Bullet;
+using TankGame.Event;
 using System;
 
 namespace TankGame.Enemy
 {
     public class EnemyService : MonoSingletonGeneric<EnemyService>
     {
-        public event Action OnDeath;
         public EnemyView enemyView;
         public EnemyScriptableObjectList EnemyList;
         public List<EnemyController> enemyTanks = new List<EnemyController>();
         private Coroutine coroutine;
+        private int enemyDeathCounter=0;
 
         protected override void Start()
         {
@@ -29,7 +30,7 @@ namespace TankGame.Enemy
 
         {
             EnemyModel model = new EnemyModel(EnemyList.enemyScriptableObject[enemyIndex]);
-            EnemyController controller = new EnemyController(model, enemyView, enemySpawnerPos, enemySpawnerRotation, EnemyList.enemyScriptableObject[enemyIndex]);
+            EnemyController controller = new EnemyController(model, enemyView, enemySpawnerPos, enemySpawnerRotation, enemyIndex, EnemyList.enemyScriptableObject[enemyIndex]);
             enemyTanks.Add(controller);
         }
 
@@ -57,14 +58,33 @@ namespace TankGame.Enemy
             for (int i = 0; i < enemyTanks.Count; i++)
             {
                 if (controller == enemyTanks[i])
-                {
+                {   
                     controller.Destroy();
-                    OnDeath?.Invoke();
-
+                    SetEnemyCounter(controller);
+                    enemyTanks[i] = null;
                 }
             }
         }
 
+        private void SetEnemyCounter(EnemyController currController)
+        {
+            
+            enemyDeathCounter++;
+            EventService.Instance.OnEnemyDeath(enemyDeathCounter);
+            SpawnEnemyAgain(currController);
+
+            if (enemyDeathCounter%5 == 0)
+            {
+                EventService.Instance.OnEnemyKillAchievment(enemyDeathCounter);
+            }
+        }
+
+        async void SpawnEnemyAgain(EnemyController currController)
+        {
+            await new WaitForSeconds(2f);
+            SpawnEnemy(currController.SpawnerPos, currController.SpawnerRotation, currController.EnemyNumber);
+
+        }
 
 
 

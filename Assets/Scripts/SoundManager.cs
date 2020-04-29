@@ -5,6 +5,7 @@ using System;
 using TankGame.Tank;
 using TankGame.Enemy;
 using TankGame.Bullet;
+using TankGame.Event;
 
 public class SoundManager : MonoSingletonGeneric<SoundManager>
 {
@@ -32,7 +33,7 @@ public class SoundManager : MonoSingletonGeneric<SoundManager>
     protected override void Start()
     {
         base.Start();
-        TankService.Instance.PlayerSpawn += GetPLayerAudioSource;
+        EventService.Instance.PlayerSpawn += GetPLayerAudioSource;
     }
 
 

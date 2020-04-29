@@ -2,17 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TankGame.Tank;
+using TankGame.Event;
 
 public class CamaeraFollow : MonoBehaviour
 {
-    private TankView playerTarget;
+    private TankView player;
     private Vector3 posDifference;
 
     void Start()
     {
-        playerTarget = TankService.Instance.GetCurrentPlayer();
+        EventService.Instance.PlayerSpawn += GetPLayer;
+
     }
 
+    private void GetPLayer()
+    {
+        player = TankService.Instance.GetCurrentPlayer();
+        if (player != null)
+        {
+            player = TankService.Instance.GetCurrentPlayer();
+            posDifference = player.transform.position - transform.position;
+        }
+        else
+        {
+            Debug.Log("player is null");
+        }
+    }
 
     private void Update()
     {
@@ -21,9 +36,10 @@ public class CamaeraFollow : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(playerTarget != null)
+        if(player != null)
         {
-        transform.position =  playerTarget.transform.position + posDifference;
+            //posDifference = playerTarget.transform.position - transform.position;
+            transform.position = player.transform.position ;
         }
     }
 
