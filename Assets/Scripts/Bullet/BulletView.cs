@@ -60,7 +60,7 @@ namespace TankGame.Bullet
             //CheckCollision collisionCheck = new CheckCollision(collision, damage);
 
             //Instantiate(bombExplosion, transform.position, transform.rotation);
-            Collider[] colliders = Physics.OverlapSphere(collision.transform.position, 2f);
+            Collider[] colliders = Physics.OverlapSphere(collision.transform.position, 0.1f);
             controller.DestroyBulletView();
             foreach (Collider hit in colliders)
             {

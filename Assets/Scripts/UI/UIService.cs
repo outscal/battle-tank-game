@@ -47,7 +47,7 @@ namespace TankGame.UI
         async void ShowAchievmentUnlock(int deathCount)
         {
             enemyKillAchievmentText.gameObject.SetActive(true);
-            enemyKillAchievmentText.text = "Congracts! " + deathCount + " New Achievment Unlocked.";
+            enemyKillAchievmentText.text = "Congracts! " + deathCount + "Kills, New Achievment Unlocked.";
             await new WaitForSeconds(2f);
             enemyKillAchievmentText.gameObject.SetActive(false);
         }
@@ -56,11 +56,10 @@ namespace TankGame.UI
         async void ShowBulletFired(int bulletCount)
         {
             bulletAchievmentText.gameObject.SetActive(true);
-            bulletAchievmentText.text = "Amazing! " + bulletCount + " Are Fired";
+            bulletAchievmentText.text = "Amazing! " + bulletCount + "Bullets Are Fired";
             await new WaitForSeconds(2f);
             bulletAchievmentText.gameObject.SetActive(false);
         }
-
 
 
         async void CallIntroTexts()
@@ -71,10 +70,7 @@ namespace TankGame.UI
             introTexts[1].gameObject.SetActive(true);
             await new WaitForSeconds(1.0f);
             introTexts[1].gameObject.SetActive(false);
-
         }
-
-
 
         private void generateTank(int tankSerialNumber)
         {
