@@ -10,7 +10,6 @@ namespace Bullet.Service
     public class Bullet_Service : MonoSingletonGeneric<Bullet_Service>
     {
         public BulletView bulletView;
-
         void Start()
         {
             BulletModel b_Model = new BulletModel(10f);

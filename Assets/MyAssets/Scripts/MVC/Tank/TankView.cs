@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Tank.Service;
-using Tank.Controller;
 using Tank.Model;
+using Tank.Controller;
 using Bullet.Service;
 
 namespace Tank.View

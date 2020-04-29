@@ -11,7 +11,6 @@ namespace Bullet.View
     public class BulletView : MonoBehaviour
     {
         private BulletController bulletController;
-
         void Start()
         {
 

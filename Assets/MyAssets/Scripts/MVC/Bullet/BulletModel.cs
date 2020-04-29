@@ -5,6 +5,7 @@ using Bullet.Service;
 using Bullet.Controller;
 using Bullet.View;
 
+
 namespace Bullet.Model
 {
     public class BulletModel

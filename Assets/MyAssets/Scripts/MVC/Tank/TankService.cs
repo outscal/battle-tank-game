@@ -20,7 +20,6 @@ namespace Tank.Service
 		{
 			StartGame();
 		}
-
 		public void StartGame()
 		{
 			for(int i = 0; i < 2; i++)
