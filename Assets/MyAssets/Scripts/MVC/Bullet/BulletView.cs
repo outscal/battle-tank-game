@@ -7,6 +7,7 @@ using Bullet.Model;
 
 namespace Bullet.View
 {
+    //public TankType tankType;
     public class BulletView : MonoBehaviour
     {
         private BulletController bulletController;

@@ -13,7 +13,7 @@ namespace Bullet.Service
 
         void Start()
         {
-            BulletModel b_Model = new BulletModel(10);
+            BulletModel b_Model = new BulletModel(10f);
             BulletController b_Controller = new BulletController(b_Model, bulletView);
         }
     }

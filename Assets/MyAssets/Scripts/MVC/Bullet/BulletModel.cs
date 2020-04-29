@@ -12,8 +12,10 @@ namespace Bullet.Model
         public BulletModel(float damage)
         {
             Damage = damage;
+            //BulletType = bulletType;
         }
 
         public float Damage { get; }
+        //public BulletType BulletType { get; }
     }
 }

@@ -15,7 +15,7 @@ public class MonoSingletonGeneric<T> : MonoBehaviour where T: MonoSingletonGener
 		}
 		else
 		{
-			Debug.LogError("Someone trying to create a duplicate singleton");
+			//Debug.LogError("Someone trying to create a duplicate singleton");
 			Destroy(this);
 		}
 	}

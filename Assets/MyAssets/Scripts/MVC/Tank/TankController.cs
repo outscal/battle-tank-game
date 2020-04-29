@@ -16,7 +16,7 @@ namespace Tank.Controller
 		{
 			TankModel = tankModel;
 
-			//GameObject go = GaemObject.Instantiate(tankPrefab);
+			//GameObject go = GameObject.Instantiate(tankPrefab);
 			//TankView = go.GetComponent<TankView>();
 
 			TankView = GameObject.Instantiate<TankView>(tankPrefab);
@@ -27,17 +27,6 @@ namespace Tank.Controller
 
 			Debug.Log("Tank View Created");
 		}
-
-		internal static void GetBulletModel()
-		{
-			
-		}
-
-		public void GetBulletModel()
-		{
-
-		}
-
 		public TankModel TankModel { get; }
 		public TankView TankView { get; }
 	}

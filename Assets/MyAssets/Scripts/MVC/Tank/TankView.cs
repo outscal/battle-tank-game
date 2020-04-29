@@ -10,6 +10,8 @@ namespace Tank.View
 {
     public class TankView : MonoBehaviour
     {
+        public TankType tankType;
+
         private TankController tankController;
         private float health;
         private float speed;
@@ -24,7 +26,7 @@ namespace Tank.View
 
         void Update()
         {
-            tank_Movement();
+            Tank_Movement();
             Fire();
         }
 
@@ -32,11 +34,11 @@ namespace Tank.View
         {
             if(Input.GetKeyDown(KeyCode.F))
             {
-                TankController.GetBulletModel(Transform firinLocation);
+                //TankController.GetBulletModel(Transform firinLocation);
             }
         }
 
-        private void tank_Movement()
+        private void Tank_Movement()
         {
             float Turning = Input.GetAxis("HorizontalUI");
             float Accelerate = Input.GetAxis("VerticalUI");
