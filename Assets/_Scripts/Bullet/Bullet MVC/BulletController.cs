@@ -15,7 +15,7 @@ namespace Bullet.Controller
 
         public BulletController(BulletModel bulletModel, BulletView bulletView, Vector3 position)
         {
-            Debug.Log("Bullet Controller created");
+            //Debug.Log("Bullet Controller created");
             BulletModel = bulletModel;
             BulletView = GameObject.Instantiate<BulletView>(bulletView, position + bulletModel.OffsetY, new Quaternion(0f, 0f, 0f, 0f));
             BulletView.SetBulletController(this);
@@ -26,10 +26,10 @@ namespace Bullet.Controller
             BulletView.FireBullet(tankRotation);
         }
 
-        public void DestroyBulletView()
-        {
-            BulletView.DestroyBullet();
-        }
+        //public void DestroyBulletView()
+        //{
+        //    BulletView.DestroyBullet();
+        //}
 
         public void DestroyController()
         {

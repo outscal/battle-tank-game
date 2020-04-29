@@ -9,7 +9,7 @@ namespace Bullet.Model
     {
         public BulletModel(float speed, float damage, Vector3 offsetY)
         {
-            Debug.Log("Bullet Model created");
+            //Debug.Log("Bullet Model created");
             Speed = speed;
             Damage = damage;
             OffsetY = offsetY;

@@ -8,7 +8,7 @@ namespace Enemy.Model
     {
         public EnemyModel()
         {
-            Debug.Log("enemy model created");
+            //Debug.Log("enemy model created");
         }
     }
 }

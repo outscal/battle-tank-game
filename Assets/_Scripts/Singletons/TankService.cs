@@ -8,6 +8,9 @@ using Tank.Model;
 using Tank.ScriptableObjects;
 using Bullet.Service;
 using Bullet.Controller;
+using ParticleSystem.Service;
+using ParticleSystem.Controller;
+using Enemy.Service;
 
 namespace Tank.Service
 {
@@ -69,21 +72,32 @@ namespace Tank.Service
             return tankController;
         }
 
-        public void DestroyBullet()
+        public void DestroyAllEnemies()
         {
-            BulletService.Instance.DestroyBullet();
+            EnemyService.Instance.DestroyAll();
+        }
+
+        public ParticleEffectController GetParticleEffect(Vector3 position)
+        {
+            ParticleEffectController particleEffectController = ParticleEffectService.Instance.GetParticleEffect(position);
+            return particleEffectController;
         }
 
         public void DestroyControllerAndModel()
         {
-            Debug.Log("tank controller and model destroyed");
+            //Debug.Log("tank controller and model destroyed");
             tankModel = null;
             tankController = null;
         }
 
-        public BulletController GetBullet(Vector3 position)
+        public void DestroyParticleEffect()
         {
-            BulletController bulletController = BulletService.Instance.PleaseGiveMeBullet(position);
+            ParticleEffectService.Instance.DestroyParticleEffect();
+        }
+
+        public BulletController GetBullet(Vector3 position, Vector3 tankRotation)
+        {
+            BulletController bulletController = BulletService.Instance.PleaseGiveMeBullet(position, tankRotation);
             return bulletController;
         }
     }

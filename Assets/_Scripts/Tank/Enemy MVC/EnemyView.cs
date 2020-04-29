@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Bullet.View;
 using Enemy.Controller;
+using Tank.View;
 using UnityEngine;
 
 namespace Enemy.View
@@ -13,7 +14,7 @@ namespace Enemy.View
 
         private void Start()
         {
-            Debug.Log("Enemy View Created");
+            //Debug.Log("Enemy View Created");
         }
 
         private void Update()
@@ -30,25 +31,31 @@ namespace Enemy.View
             {
                 //Debug.Log("if function called");
                 DestroyEnemy();
-                DestroyBullet();
+                //DestroyBullet();
             }
         }
 
         private void DestroyEnemy()
         {
-            Debug.Log("Enemy view destroyed");
+            //Debug.Log("Enemy view destroyed");
+            enemyController.SetOffParticleEffect(transform.position);
             enemyController.DestroyController();
             Destroy(gameObject);
-        }
-
-        private void DestroyBullet()
-        {
-            enemyController.DestroyBullet();
         }
 
         public void SetEnemyController(EnemyController ec)
         {
             enemyController = ec;
+        }
+
+        public void DestroyView()
+        {
+            Destroy(gameObject);
+        }
+
+        public void ParticleEffect()
+        {
+            enemyController.SetOffParticleEffect(transform.position);
         }
     }
 }
