@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Tank.Service;
 using Tank.Model;
-using Bullet.Controller;
+using Bullet.Service;
 using Tank.View;
-using System;
+using Bullet.Model;
+using ScriptableObj;
 
 namespace Tank.Controller
 {
@@ -27,7 +28,14 @@ namespace Tank.Controller
 
 			Debug.Log("Tank View Created");
 		}
+		
+
+        public void ShootBullet()
+        {
+			Bullet_Service.Instance.CreateBullet(TankView.firingLocation, TankView.SetTurn, TankModel.bulletType);
+        }
+
+        public TankView TankView { get; }
 		public TankModel TankModel { get; }
-		public TankView TankView { get; }
 	}
 }

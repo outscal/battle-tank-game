@@ -6,6 +6,8 @@ using Tank.Model;
 using Tank.View;
 using System;
 using Scriptables;
+using Bullet.Controller;
+using Bullet.Model;
 
 namespace Tank.Service
 {
@@ -38,5 +40,11 @@ namespace Tank.Service
 			TankController tank = new TankController(model, tankView);
 			return tank;
 		}
-	}
+
+        /*public BulletController GetBullet(Vector3 position)
+        {
+			BulletController bulletController = Bullet_Service.Givebullet(position);
+			return bulletController;
+        }*/
+    }
 }

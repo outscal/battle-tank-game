@@ -4,7 +4,7 @@ using UnityEngine;
 using Tank.Service;
 using Tank.Model;
 using Tank.Controller;
-using Bullet.Service;
+using Bullet.Model;
 
 namespace Tank.View
 {
@@ -25,7 +25,7 @@ namespace Tank.View
         }
 
         void Update()
-        {
+        { 
             Tank_Movement();
             Fire();
         }
@@ -34,7 +34,7 @@ namespace Tank.View
         {
             if(Input.GetKeyDown(KeyCode.F))
             {
-                //TankController.GetBulletModel(Transform firinLocation);
+                tankController.ShootBullet();
             }
         }
 
@@ -65,9 +65,9 @@ namespace Tank.View
 
         }
 
-        public void OnCollisionEnter(Collision coll)
+        /*public void OnCollisionEnter(Collision coll)
         {
-            if (coll.gameObject.GetComponent<Bullet_Service>() != null)
+            if (coll.gameObject.GetComponent<>() != null)
             {
                 reduce_Health();
                 if (health < 10)
@@ -75,7 +75,7 @@ namespace Tank.View
                     tankController = null;
                 }
             }
-        }
+        }*/
 
         public void reduce_Health()
         {

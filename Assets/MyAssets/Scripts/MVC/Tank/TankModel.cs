@@ -5,6 +5,7 @@ using Tank.Service;
 using Tank.Controller;
 using Tank.View;
 using Scriptables;
+using ScriptableObj;
 
 namespace Tank.Model
 {
@@ -25,6 +26,13 @@ namespace Tank.Model
 			Health = health;
 		}
 
+		public void SetTankController(TankController _tankController)
+		{
+			tankController = _tankController;
+		}
+
+		private TankController tankController;
+		public BulletScriptableObject bulletType { get; }
 		public TankType TankType { get; }
 		public float Speed { get; }
 		public float Turn { get; }
