@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,10 @@ namespace Enemy.Model
     {
         public EnemyModel()
         {
-            //Debug.Log("enemy model created");
+        }
+
+        public void ClearUpAllYourData()
+        {
         }
     }
 }

@@ -11,10 +11,12 @@ namespace Enemy.View
     public class EnemyView : MonoBehaviour
     {
         EnemyController enemyController;
+        //public GameObject TankExplosion;
+        public ParticleSystem TankExplosion;
 
-        private void Start()
+        public void SetEnemyController(EnemyController ec)
         {
-            //Debug.Log("Enemy View Created");
+            enemyController = ec;
         }
 
         private void Update()
@@ -29,33 +31,18 @@ namespace Enemy.View
         {
             if (collision.gameObject.GetComponent<BulletView>() != null)
             {
-                //Debug.Log("if function called");
-                DestroyEnemy();
-                //DestroyBullet();
+                enemyController.DestroyEnemyTank();
             }
         }
 
-        private void DestroyEnemy()
-        {
-            //Debug.Log("Enemy view destroyed");
-            enemyController.SetOffParticleEffect(transform.position);
-            enemyController.DestroyController();
-            Destroy(gameObject);
-        }
-
-        public void SetEnemyController(EnemyController ec)
-        {
-            enemyController = ec;
-        }
-
-        public void DestroyView()
+        public void DestroyEnemyTankPrefab()
         {
             Destroy(gameObject);
         }
 
-        public void ParticleEffect()
+        public void InstantiateTankExplosionParticleEffect()
         {
-            enemyController.SetOffParticleEffect(transform.position);
+            Instantiate(TankExplosion, transform.position, new Quaternion(0f, 0f, 0f, 0f));
         }
     }
 }

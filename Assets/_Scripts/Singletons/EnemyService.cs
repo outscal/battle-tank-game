@@ -7,16 +7,15 @@ using Enemy.Model;
 using Bullet.Service;
 using System;
 using Bullet.Controller;
-using ParticleSystem.Controller;
-using ParticleSystem.Service;
 
 namespace Enemy.Service
 {
     public class EnemyService : MonoSingletonGeneric<EnemyService>
     {
         public EnemyView EnemyView;
-        //EnemyModel enemyModel;
+        EnemyModel enemyModel;
         EnemyController enemyController;
+
         List<EnemyController> enemyControllers;
 
         private void Start()
@@ -33,17 +32,16 @@ namespace Enemy.Service
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                //enemyControllers.Add(CreateNewEnemy());
                 CreateNewEnemy();
                 enemyControllers.Add(enemyController);
             }
         }
 
-        private void CreateNewEnemy()
+        private EnemyController CreateNewEnemy()
         {
-            //enemyModel = new EnemyModel();
-            enemyController = new EnemyController(EnemyView);
-            //return enemyController;
+            enemyModel = new EnemyModel();
+            enemyController = new EnemyController(enemyModel, EnemyView);
+            return enemyController;
         }
 
         public BulletController GetBullet(Vector3 position, Vector3 tankRotation)
@@ -52,27 +50,26 @@ namespace Enemy.Service
             return bulletController;
         }
 
-        public ParticleEffectController GetParticleEffect(Vector3 position)
-        {
-            ParticleEffectController particleEffectController = ParticleEffectService.Instance.GetParticleEffect(position);
-            return particleEffectController;
-        }
-
         public void DestroyControllerAndModel()
         {
-            //Debug.Log("enemy controller and model destroyed");
+            enemyModel = null;
+            enemyControllers.Remove(enemyController);
             enemyController = null;
-            //enemyModel = null;
         }
 
-        public void DestroyAll()
+        public void DestroyAllEnemies()
         {
             Debug.Log("Destroy all enemies");
             for (int i = 0; i < enemyControllers.Count; i++)
             {
-                enemyControllers[i].GetRequestOfParticleEffectFromView();
-                enemyControllers[i].DestroyViewAndModel();
-                enemyControllers[i] = null;
+                if (enemyControllers[i] != null)
+                {
+                    enemyControllers[i].DestroyEnemyTank();
+                }
+                else
+                {
+                    Debug.Log("enemy tank already destroyed");
+                }
             }
         }
     }

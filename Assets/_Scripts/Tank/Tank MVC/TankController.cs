@@ -6,7 +6,6 @@ using Tank.Service;
 using Tank.View;
 using Tank.Model;
 using Bullet.Controller;
-using ParticleSystem.Controller;
 
 namespace Tank.Controller
 {
@@ -16,14 +15,11 @@ namespace Tank.Controller
         public TankView TankView { get; }
 
         BulletController bulletController;
-        ParticleEffectController particleEffectController;
 
-
-        public TankController(TankModel tankModel, Dictionary<PlayerTankType, TankView> tankPrefab)
+        //constructor
+        public TankController(TankModel tankModel, Dictionary<PlayerTankType, TankView> tankPrefab) 
         {
-            //Debug.Log("tank controller created");
             TankModel = tankModel;
-            // now here on the basis of what the player has selected as tanktype, need to pass a variable in the tankView array.
             TankView = GameObject.Instantiate<TankView>(tankPrefab[TankModel.TankType]);
             TankView.SetTankController(this);
         }
@@ -49,32 +45,49 @@ namespace Tank.Controller
             bulletController.FireBullet(tankRotation);
         }
 
-        public void SetOffParticleEffect(Vector3 position)
+        public void DestroyTank()
         {
-            particleEffectController = TankService.Instance.GetParticleEffect(position); 
-            //particleEffectController.SetOffParticleEffect();
-        }
-
-        public void DestroyAllEnemies()
-        {
+            TankView.InstantiateTankExplosionParticleEffect();
+            TankView.DestroyTankPrefab();
+            TankModel.ClearUpAllYourData();
+            TankService.Instance.DestroyControllerAndModel();
             TankService.Instance.DestroyAllEnemies();
         }
 
-        //public void DestroyBullet()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //public void SetOffParticleEffect(Vector3 position)
         //{
-        //    //TankService.Instance.DestroyBullet();
-        //    bulletController.DestroyBulletView();
+        //    particleEffectController = TankService.Instance.GetParticleEffect(position); 
+        //    //particleEffectController.SetOffParticleEffect();
         //}
 
-        public void DestroyController()
-        {
-            TankService.Instance.DestroyControllerAndModel();
-        }
+        //public void DestroyController()
+        //{
+        //    TankService.Instance.DestroyControllerAndModel();
+        //}
 
-        public void DestroyParticleEffect()
-        {
-            TankService.Instance.DestroyParticleEffect();
-        }
+        //public void DestroyParticleEffect()
+        //{
+        //    TankService.Instance.DestroyParticleEffect();
+        //}
+
+        //public void DestroyAllEnemies()
+        //{
+        //    TankService.Instance.DestroyAllEnemies();
+        //}
     }
 
 }

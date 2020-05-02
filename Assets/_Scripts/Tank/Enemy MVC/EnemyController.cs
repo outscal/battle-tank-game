@@ -6,7 +6,7 @@ using Enemy.View;
 using Enemy.Model;
 using System;
 using Bullet.Controller;
-using ParticleSystem.Controller;
+
 
 namespace Enemy.Controller
 {
@@ -16,13 +16,11 @@ namespace Enemy.Controller
         public EnemyView EnemyView { get; }
 
         BulletController bulletController;
-        ParticleEffectController particleEffectController;
 
-        public EnemyController(EnemyView enemyView)
+
+        public EnemyController(EnemyModel enemyModel, EnemyView enemyView)
         {
-            //Debug.Log("enemy controller created");
-            //EnemyModel = enemyModel;
-            EnemyModel = new EnemyModel();
+            EnemyModel = enemyModel;
             EnemyView = GameObject.Instantiate<EnemyView>(enemyView);
             EnemyView.SetEnemyController(this);
         }
@@ -38,26 +36,13 @@ namespace Enemy.Controller
             bulletController.FireBullet(tankRotation);
         }
 
-        public void SetOffParticleEffect(Vector3 position)
+        public void DestroyEnemyTank()
         {
-            particleEffectController = EnemyService.Instance.GetParticleEffect(position);
-        }
-
-        public void DestroyController()
-        {
-            EnemyModel = null;
+            EnemyView.InstantiateTankExplosionParticleEffect();
+            EnemyView.DestroyEnemyTankPrefab();
+            EnemyModel.ClearUpAllYourData();
             EnemyService.Instance.DestroyControllerAndModel();
-        }
 
-        public void DestroyViewAndModel()
-        {
-            EnemyModel = null;
-            EnemyView.DestroyView();
-        }
-
-        public void GetRequestOfParticleEffectFromView()
-        {
-            EnemyView.ParticleEffect();
         }
     }
 }
