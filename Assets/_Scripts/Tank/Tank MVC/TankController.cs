@@ -53,41 +53,6 @@ namespace Tank.Controller
             TankService.Instance.DestroyControllerAndModel();
             TankService.Instance.DestroyAllEnemies();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //public void SetOffParticleEffect(Vector3 position)
-        //{
-        //    particleEffectController = TankService.Instance.GetParticleEffect(position); 
-        //    //particleEffectController.SetOffParticleEffect();
-        //}
-
-        //public void DestroyController()
-        //{
-        //    TankService.Instance.DestroyControllerAndModel();
-        //}
-
-        //public void DestroyParticleEffect()
-        //{
-        //    TankService.Instance.DestroyParticleEffect();
-        //}
-
-        //public void DestroyAllEnemies()
-        //{
-        //    TankService.Instance.DestroyAllEnemies();
-        //}
     }
 
 }

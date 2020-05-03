@@ -22,7 +22,6 @@ namespace Tank.View
         {
             if (isPlayerDead)
             {
-                //Debug.Log("fucntion called");
                 StartCoroutine(HaltGame());
             }
 
@@ -47,7 +46,6 @@ namespace Tank.View
             if (collision.gameObject.GetComponent<BulletView>() != null)
             {
                 isPlayerDead = true;
-                //tankController.DestroyTank();
             }
         }
 
@@ -64,37 +62,12 @@ namespace Tank.View
 
         public IEnumerator HaltGame() //unable to halt the game.
         {
-            //Debug.Log("func called");
-            //Time.timeScale = 0;
-            //Debug.Log("next stat");
+            Time.timeScale = 0.01f;
             isPlayerDead = false;
-            //Debug.Log("next stat2");
-            yield return new WaitForSeconds(3f);
-            //Debug.Log("next stat3");
-            //yield return StartCoroutine(Cor2());
-            //Debug.Log("next stat4");
-            
-            //yield return new WaitForSeconds(3f);
-            //Debug.Log("next stat5");
-            //yield return StartCoroutine(Cor3());
-
+            yield return new WaitForSeconds(0.03f);
             tankController.DestroyTank();
-            //Time.timeScale = 1;
+            Time.timeScale = 1;
         }
-
-        //public IEnumerator Cor2()
-        //{
-        //    Debug.Log("next stat6");
-        //    yield return new WaitForSeconds(2f);
-        //    Debug.Log("next stat7");
-        //}
-
-        //public IEnumerator Cor3()
-        //{
-        //    Debug.Log("next stat8");
-        //    yield return new WaitForSeconds(5f);
-        //    Debug.Log("next stat9");
-        //}
     }
 
 }

@@ -16,12 +16,7 @@ namespace Enemy.Service
         EnemyModel enemyModel;
         EnemyController enemyController;
 
-        List<EnemyController> enemyControllers;
-
-        private void Start()
-        {
-            enemyControllers = new List<EnemyController>();
-        }
+        List<EnemyController> enemyControllers = new List<EnemyController>();
 
         private void Update()
         {
@@ -57,13 +52,14 @@ namespace Enemy.Service
             enemyController = null;
         }
 
-        public void DestroyAllEnemies()
+        public IEnumerator DestroyAllEnemies()
         {
             Debug.Log("Destroy all enemies");
             for (int i = 0; i < enemyControllers.Count; i++)
             {
                 if (enemyControllers[i] != null)
                 {
+                    yield return new WaitForSeconds(1f);
                     enemyControllers[i].DestroyEnemyTank();
                 }
                 else

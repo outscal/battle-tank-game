@@ -17,7 +17,6 @@ namespace Enemy.Controller
 
         BulletController bulletController;
 
-
         public EnemyController(EnemyModel enemyModel, EnemyView enemyView)
         {
             EnemyModel = enemyModel;

@@ -83,7 +83,7 @@ namespace Tank.Service
 
         public void DestroyAllEnemies()
         {
-            EnemyService.Instance.DestroyAllEnemies();
+            StartCoroutine(EnemyService.Instance.DestroyAllEnemies());
         }
     }
 }

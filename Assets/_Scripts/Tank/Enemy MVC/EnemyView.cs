@@ -11,7 +11,6 @@ namespace Enemy.View
     public class EnemyView : MonoBehaviour
     {
         EnemyController enemyController;
-        //public GameObject TankExplosion;
         public ParticleSystem TankExplosion;
 
         public void SetEnemyController(EnemyController ec)
