@@ -1,29 +1,87 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using Bullet.View;
+using Enemy.AttackingState;
+using Enemy.ChasingState;
 using Enemy.Controller;
+using Enemy.DeathState;
+using Enemy.PatrolingState;
+using Enemy.State;
+using Idamagable;
 using Tank.View;
 using UnityEngine;
 
 namespace Enemy.View
 {
-    public class EnemyView : MonoBehaviour
+    public class EnemyView : MonoBehaviour, IDamagable
     {
         EnemyController enemyController;
         public ParticleSystem TankExplosion;
+
+        private EnemyTankState currentState;
+
+        [SerializeField]
+        private float chaseRadius = 7.5f;
+        [SerializeField]
+        private float attackRadius = 5f;
+
+        //[SerializeField]
+        //private EnemyTankState defaultState;
 
         public void SetEnemyController(EnemyController ec)
         {
             enemyController = ec;
         }
 
+
+        private void Start()
+        {
+            //SetState(defaultState);
+            SetState(new EnemyPatrolingState(this)); // default state - patroling state
+        }
+
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.T))
+            //if (Input.GetKeyDown(KeyCode.T))
+            //{
+            //    enemyController.FireBullet(transform.position, transform.eulerAngles);
+            //}
+
+            currentState.Tick();
+
+        }
+
+        private void SetState(EnemyTankState enemyTankState)
+        {
+            if (currentState != null)
+                currentState.OnStateExit();
+
+            currentState = enemyTankState;
+
+            if (currentState != null)
+                currentState.OnStateEnter();
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if(other.gameObject.GetComponent<TankView>() != null)
             {
-                enemyController.FireBullet(transform.position, transform.eulerAngles);
+                if(IsInChaseRadius(other)){
+                    SetState(new EnemyChasingState(this));
+                }else if(IsIsnAttackRadius(other))
+                {
+                    SetState(new EnemyAttackingState(this));
+                }
             }
+        }
+
+        private bool IsInChaseRadius(Collider other)
+        {
+            return Vector3.Distance(other.gameObject.transform.position, transform.position) < chaseRadius && Vector3.Distance(other.gameObject.transform.position, transform.position) >= attackRadius;
+        }
+
+        private bool IsIsnAttackRadius(Collider other)
+        {
+            return Vector3.Distance(other.gameObject.transform.position, transform.position) < attackRadius;
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -31,6 +89,7 @@ namespace Enemy.View
             if (collision.gameObject.GetComponent<BulletView>() != null)
             {
                 enemyController.DestroyEnemyTank();
+                SetState(new EnemyDeathState(this));
             }
         }
 
@@ -42,6 +101,11 @@ namespace Enemy.View
         public void InstantiateTankExplosionParticleEffect()
         {
             Instantiate(TankExplosion, transform.position, new Quaternion(0f, 0f, 0f, 0f));
+        }
+
+        public void TakeDamage()
+        {
+            //implementation
         }
     }
 }
