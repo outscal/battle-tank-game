@@ -11,6 +11,7 @@ namespace Tank.Model
 {
 	public class TankModel
 	{
+		private TankController tankController;
 		public TankModel(TankScriptableObject tankScriptableObject)
 		{
 			TankType = tankScriptableObject.tankType;
@@ -31,7 +32,7 @@ namespace Tank.Model
 			tankController = _tankController;
 		}
 
-		private TankController tankController;
+		
 		public BulletScriptableObject bulletType { get; }
 		public TankType TankType { get; }
 		public float Speed { get; }

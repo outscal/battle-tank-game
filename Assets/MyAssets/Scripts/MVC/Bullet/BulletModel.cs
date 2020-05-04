@@ -11,12 +11,12 @@ namespace Bullet.Model
     public class BulletModel
     {
         private BulletController bulletController;
-        public BulletType type;
+        //public BulletType type;
         public BulletModel(BulletScriptableObject bullet)
         {
-            speed = bullet.speed;
-            damage = bullet.damage;
             type = bullet.bulletType;
+            Speed = bullet.speed;
+            Damage = bullet.damage;
         }
 
         public void SetBulletController(BulletController _bulletController)
@@ -24,8 +24,9 @@ namespace Bullet.Model
             bulletController = _bulletController;
         }
 
-        public float speed { get; }
-        public float damage { get; }
+        public BulletType type { get; }
+        public float Speed { get; }
+        public float Damage { get; }
         //public BulletType BulletType { get; }
     }
 }

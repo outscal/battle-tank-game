@@ -24,7 +24,7 @@ namespace Bullet.Controller
 
         public void Movement()
         {
-            Vector3 move = BulletView.transform.position += BulletView.transform.forward * BulletModel.speed * Time.fixedDeltaTime;
+            Vector3 move = BulletView.transform.position += BulletView.transform.forward * BulletModel.Speed * Time.fixedDeltaTime;
 
             rigidBody.MovePosition(move);
         }

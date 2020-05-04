@@ -18,6 +18,7 @@ namespace Tank.View
         private float turn;
 
         public Transform firingLocation;
+        //public Quaternion rotation;
 
         void Start()
         {
@@ -35,6 +36,7 @@ namespace Tank.View
             if(Input.GetKeyDown(KeyCode.F))
             {
                 tankController.ShootBullet();
+                Debug.Log("F pressed");
             }
         }
 

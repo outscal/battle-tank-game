@@ -9,7 +9,7 @@ namespace ScriptableObj
     [CreateAssetMenu(fileName ="BulletScriptableObject", menuName = "ScriptableObjects/NewBullet")]
     public class BulletScriptableObject : ScriptableObject
     {
-        public BulletType bulletType;        
+        public BulletType bulletType;
         public float speed;
         public float damage;
         public BulletView BulletView;

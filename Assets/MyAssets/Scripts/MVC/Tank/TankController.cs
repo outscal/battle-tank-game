@@ -26,14 +26,16 @@ namespace Tank.Controller
 			TankView.SetSpeed(TankModel.Speed);
 			TankView.SetTurn(TankModel.Turn);
 
-			Debug.Log("Tank View Created");
+			//Debug.Log("Tank View Created");
 		}
 		
 
         public void ShootBullet()
         {
-			Bullet_Service.Instance.CreateBullet(TankView.firingLocation, TankView.SetTurn, TankModel.bulletType);
-        }
+			Debug.Log("shootbullet");
+			Bullet_Service.Instance.CreateBullet(TankView.firingLocation.position, TankView.firingLocation.rotation, TankModel.bulletType);
+			Debug.Log("shootbullet called");
+		}
 
         public TankView TankView { get; }
 		public TankModel TankModel { get; }

@@ -34,7 +34,7 @@ namespace Tank.Service
 		{
 			//TankScriptableObject tankScriptableObject = tankConfigurations[2];
 			TankScriptableObject tankScriptableObject = tankList.tanks[index];
-			Debug.Log("Tank Type" + tankScriptableObject.tankName);
+			//Debug.Log("Tank Type" + tankScriptableObject.tankName);
 
 			TankModel model = new TankModel(TankType.None, 10f, 200f, 100f);
 			TankController tank = new TankController(model, tankView);
