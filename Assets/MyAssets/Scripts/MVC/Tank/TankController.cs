@@ -22,6 +22,7 @@ namespace Tank.Controller
 
 			TankView = GameObject.Instantiate<TankView>(tankPrefab);
 			TankView.SetController(this);
+			TankModel.SetTankController(this);
 			TankView.Sethealth(TankModel.Health);
 			TankView.SetSpeed(TankModel.Speed);
 			TankView.SetTurn(TankModel.Turn);
@@ -33,7 +34,7 @@ namespace Tank.Controller
         public void ShootBullet()
         {
 			Debug.Log("shootbullet");
-			Bullet_Service.Instance.CreateBullet(TankView.firingLocation.position, TankView.firingLocation.rotation, TankModel.bulletType);
+			Bullet_Service.Instance.CreateBullet(TankView.firingLocation.position, TankView.transform.rotation, TankModel.bulletType);
 			Debug.Log("shootbullet called");
 		}
 

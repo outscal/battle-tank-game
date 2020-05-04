@@ -16,8 +16,11 @@ namespace Bullet.Service
         private List<BulletController> bullets = new List<BulletController>();
         public void CreateBullet(Vector3 position, Quaternion rotation, BulletScriptableObject type)
         {
+            
             BulletScriptableObject bullet = type;
+            Debug.Log("till this line all fine");
             BulletModel bulletModel = new BulletModel(bullet);
+            Debug.Log("this debug is not showing");
             BulletController bulletController = new BulletController(bulletModel, bullet.BulletView, position, rotation);
             bullets.Add(bulletController);
         }
