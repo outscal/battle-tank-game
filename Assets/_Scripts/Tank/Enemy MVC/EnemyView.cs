@@ -18,11 +18,12 @@ namespace Enemy.View
         public ParticleSystem TankExplosion;
 
         private EnemyTankState currentState;
+        private Renderer enemyTankRenderer;
 
         [SerializeField]
-        private float chaseRadius = 7.5f;
+        private float chaseRadius = 25f;
         [SerializeField]
-        private float attackRadius = 5f;
+        private float attackRadius = 8f;
 
         //[SerializeField]
         //private EnemyTankState defaultState;
@@ -36,6 +37,7 @@ namespace Enemy.View
         private void Start()
         {
             //SetState(defaultState);
+            enemyTankRenderer = GetComponent<Renderer>();
             SetState(new EnemyPatrolingState(this)); // default state - patroling state
         }
 
@@ -53,35 +55,55 @@ namespace Enemy.View
         private void SetState(EnemyTankState enemyTankState)
         {
             if (currentState != null)
+            {
                 currentState.OnStateExit();
+            }
 
             currentState = enemyTankState;
 
             if (currentState != null)
+            {
                 currentState.OnStateEnter();
+            }
         }
 
         private void OnTriggerEnter(Collider other)
         {
             if(other.gameObject.GetComponent<TankView>() != null)
             {
-                if(IsInChaseRadius(other)){
+                if (IsInChaseRadius(other)){
                     SetState(new EnemyChasingState(this));
-                }else if(IsIsnAttackRadius(other))
+                }
+                if (IsInAttackRadius(other))
                 {
                     SetState(new EnemyAttackingState(this));
                 }
             }
         }
 
-        private bool IsInChaseRadius(Collider other)
+        private void OnTriggerExit(Collider other)
         {
-            return Vector3.Distance(other.gameObject.transform.position, transform.position) < chaseRadius && Vector3.Distance(other.gameObject.transform.position, transform.position) >= attackRadius;
+            if (other.gameObject.GetComponent<TankView>() != null)
+            {
+                if (!IsInChaseRadius(other))
+                {
+                    SetState(new EnemyPatrolingState(this));
+                }
+                else if (!IsInAttackRadius(other))
+                {
+                    SetState(new EnemyChasingState(this));
+                }
+            }
         }
 
-        private bool IsIsnAttackRadius(Collider other)
+        private bool IsInChaseRadius(Collider other)
         {
-            return Vector3.Distance(other.gameObject.transform.position, transform.position) < attackRadius;
+            return (((Vector3.Distance(other.gameObject.transform.position, transform.position)) - 1.25f < chaseRadius) && ((Vector3.Distance(other.gameObject.transform.position, transform.position)) - 1.25f > attackRadius));
+        }
+
+        private bool IsInAttackRadius(Collider other)
+        {
+            return ((Vector3.Distance(other.gameObject.transform.position, transform.position)) - 1.25f < attackRadius);
         }
 
         private void OnCollisionEnter(Collision collision)

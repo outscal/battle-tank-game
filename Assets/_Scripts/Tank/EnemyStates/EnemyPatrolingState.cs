@@ -17,13 +17,13 @@ namespace Enemy.PatrolingState
         public override void OnStateEnter()
         {
             base.OnStateEnter();
-            Debug.Log("Entered Patroling state");
+            Debug.Log("Entered Patroling state", enemyView);
         }
 
         public override void OnStateExit()
         {
             base.OnStateExit();
-            Debug.Log("Exiting Patroling state");
+            Debug.Log("Exiting Patroling state", enemyView);
         }
     }
 }

@@ -16,13 +16,13 @@ namespace Enemy.DeathState
         public override void OnStateEnter()
         {
             base.OnStateEnter();
-            Debug.Log("Entering Death State");
+            Debug.Log("Entering Death State", enemyView);
         }
 
         public override void OnStateExit()
         {
             base.OnStateExit();
-            Debug.Log("Exit Death State");
+            Debug.Log("Exit Death State", enemyView);
         }
     }
 }

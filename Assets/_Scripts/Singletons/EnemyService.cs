@@ -37,7 +37,7 @@ namespace Enemy.Service
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                for(int i = 0; i < 5; i++)
+                for(int i = 0; i < 1; i++)
                 {
                     CreateNewEnemy(GetRandomPosition());
                     enemyControllers.Add(enemyController);

@@ -16,13 +16,13 @@ namespace Enemy.AttackingState
         public override void OnStateEnter()
         {
             base.OnStateEnter();
-            Debug.Log("Entering Attacking State");
+            Debug.Log("Entering Attacking State", enemyView);
         }
 
         public override void OnStateExit()
         {
             base.OnStateExit();
-            Debug.Log("Exit Attacking State");
+            Debug.Log("Exit Attacking State", enemyView);
         }
     }
 }

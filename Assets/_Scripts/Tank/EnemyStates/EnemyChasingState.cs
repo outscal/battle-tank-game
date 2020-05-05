@@ -16,13 +16,13 @@ namespace Enemy.ChasingState
         public override void OnStateEnter()
         {
             base.OnStateEnter();
-            Debug.Log("Entered Chasing state");
+            Debug.Log("Entered Chasing state", enemyView);
         }
 
         public override void OnStateExit()
         {
             base.OnStateExit();
-            Debug.Log("Exit Chasing state");
+            Debug.Log("Exit Chasing state", enemyView);
         }
     }
 }
