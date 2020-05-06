@@ -19,14 +19,15 @@ namespace Tank.Model
 			Speed = tankScriptableObject.speed;
 			Turn = tankScriptableObject.turn;
 			Health = tankScriptableObject.health;
+			BulletType = tankScriptableObject.BulletType;
 		}
-		public TankModel(TankType tankType, float speed, float turn, float health)
+		/*public TankModel(TankType tankType, float speed, float turn, float health)
 		{
 			TankType = tankType;
 			Speed = speed;
 			Turn = turn;
 			Health = health;
-		}
+		}*/
 
 		public void SetTankController(TankController _tankController)
 		{
@@ -34,7 +35,7 @@ namespace Tank.Model
 		}
 
 		
-		public BulletScriptableObject bulletType { get; }
+		public BulletScriptableObject BulletType { get; }
 		public TankType TankType { get; }
 		public float Speed { get; }
 		public float Turn { get; }

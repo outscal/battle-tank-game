@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Tank.View;
+using ScriptableObj;
 
 namespace Scriptables
 {
@@ -13,9 +14,8 @@ namespace Scriptables
         public float speed;
         public float turn;
         public float health;
-        public BulletType BulletType;
+        public BulletScriptableObject BulletType;
         public TankView TankView;
-
     }
 
     [CreateAssetMenu(fileName = "TankScriptableObjectList", menuName = "ScriptableObjects/NewTankListScriptableObject")]

@@ -10,7 +10,7 @@ namespace Bullet.View
     //public TankType tankType;
     public class BulletView : MonoBehaviour
     {
-        private BulletController bulletController;
+        public BulletController bulletController;
         void Start()
         {
             Debug.Log("Bullet view created");

@@ -92,11 +92,6 @@ namespace Tank.View
             tankController = t_Controller;
         }
 
-        public void Sethealth(float p_Health)
-        {
-            health = p_Health;
-        }
-
         public void SetSpeed(float p_Speed)
         {
             speed = p_Speed;
@@ -105,6 +100,10 @@ namespace Tank.View
         public void SetTurn(float p_turn)
         {
             turn = p_turn;
+        }
+        public void Sethealth(float p_Health)
+        {
+            health = p_Health;
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Tank.Service
 		}
 		public void StartGame()
 		{
-			for(int i = 0; i < 2; i++)
+			for(int i = 0; i < 3; i++)
 			{
 				CreateTank(i);
 			}
@@ -36,9 +36,9 @@ namespace Tank.Service
 			
 			TankScriptableObject tankScriptableObject = tankList.tanks[index];
 			
-			//Debug.Log("Tank Type" + tankScriptableObject.tankName);
+			Debug.Log("Tank Type" + tankScriptableObject.tankName);
 
-			TankModel model = new TankModel(TankType.None, 10f, 200f, 100f);
+			TankModel model = new TankModel(tankScriptableObject);
 			TankController tank = new TankController(model, tankView);
 			return tank;
 		}

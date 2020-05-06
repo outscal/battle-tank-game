@@ -14,13 +14,11 @@ namespace Bullet.Service
         //public BulletView bulletView;
 
         private List<BulletController> bullets = new List<BulletController>();
-        public void CreateBullet(Vector3 position, Quaternion rotation, BulletScriptableObject type)
+        public void CreateBullet(Vector3 position, Quaternion rotation, BulletScriptableObject bulletScriptable)
         {
-            
-            BulletScriptableObject bullet = type;
-            Debug.Log("till this line all fine");
+
+            BulletScriptableObject bullet = bulletScriptable;
             BulletModel bulletModel = new BulletModel(bullet);
-            Debug.Log("this debug is not showing");
             BulletController bulletController = new BulletController(bulletModel, bullet.BulletView, position, rotation);
             bullets.Add(bulletController);
         }
