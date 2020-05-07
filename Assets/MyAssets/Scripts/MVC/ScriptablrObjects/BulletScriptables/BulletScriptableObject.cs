@@ -14,10 +14,4 @@ namespace ScriptableObj
         public float damage;
         public BulletView BulletView;
     }
-
-    [CreateAssetMenu(fileName ="BulletScriptableObjectList", menuName ="ScriptableObjects/NewBulletListScriptableObject")]
-    public class BulletScriptableObjectList : ScriptableObject
-    {
-        public BulletScriptableObject[] bullet;
-    }
 }

@@ -18,9 +18,7 @@ namespace Bullet.Service
         {
             
             BulletScriptableObject bullet = type;
-            Debug.Log("till this line all fine");
             BulletModel bulletModel = new BulletModel(bullet);
-            Debug.Log("this debug is not showing");
             BulletController bulletController = new BulletController(bulletModel, bullet.BulletView, position, rotation);
             bullets.Add(bulletController);
         }

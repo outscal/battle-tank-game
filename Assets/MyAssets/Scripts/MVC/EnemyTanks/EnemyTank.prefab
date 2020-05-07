@@ -364,9 +364,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3952617421031935438}
-  - component: {fileID: 3952617421032331043}
+  - component: {fileID: 2729785518669847063}
   m_Layer: 0
-  m_Name: Tank
+  m_Name: EnemyTank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -388,7 +388,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3952617421032331043
+--- !u!114 &2729785518669847063
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -397,11 +397,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3952617421032296494}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 549b315aeb997f149a43d2b3e968a959, type: 3}
+  m_Script: {fileID: 11500000, guid: b4ca7453a0f39a64eb8993cd0541dd33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankType: 0
-  firingLocation: {fileID: 3952617421840081764}
 --- !u!1 &3952617421840081765
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,5 +443,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d36877bef95abd64d9449ebe79cf4441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletView: {fileID: 434162905568129984, guid: 5169d41190353d54ba1618048a3fb9d4,
-    type: 3}

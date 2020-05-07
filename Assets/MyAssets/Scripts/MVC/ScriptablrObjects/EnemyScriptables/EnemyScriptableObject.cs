@@ -6,7 +6,7 @@ using ScriptableObj;
 
 namespace enemyScrtiptables
 {
-    [CreateAssetMenu(fileName ="EnemyScriptableObject", menuName ="ScriptableObjects/NewEnemyScriptableObject")]
+    [CreateAssetMenu(fileName ="EnemyScriptableObject", menuName ="ScriptableObjects/NewEnemy")]
     public class EnemyScriptableObject : ScriptableObject
     {
         public EnemyType enemyType;
@@ -15,11 +15,5 @@ namespace enemyScrtiptables
         public float health;
         public BulletScriptableObject BulletType;
         public EnemyView enemyView;
-    }
-
-    [CreateAssetMenu(fileName = "TankScriptableObjectList", menuName = "ScriptableObjects/NewTankListScriptableObject")]
-    public class EnemyScriptableObjectList : ScriptableObject
-    {
-        public EnemyScriptableObject[] enemyTanks;
     }
 }
