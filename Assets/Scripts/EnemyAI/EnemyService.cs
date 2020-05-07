@@ -14,10 +14,16 @@ namespace TankGame.Enemy
         public List<EnemyController> enemyTanks = new List<EnemyController>();
         private Coroutine coroutine;
         private int enemyDeathCounter=0;
+        private Vector3 SpawnerPos;
+        private Quaternion SpawnerRotation;
+        private int EnemyNumber;
+
+        private EnemyPoolService enemyPoolService;
 
         protected override void Start()
         {
             base.Start();
+            enemyPoolService = GetComponent<EnemyPoolService>();
             //SpawnEnemy();
         }
 
@@ -29,8 +35,14 @@ namespace TankGame.Enemy
         public void SpawnEnemy(Vector3 enemySpawnerPos, Quaternion enemySpawnerRotation, int enemyIndex)
 
         {
+            this.SpawnerPos = enemySpawnerPos;
+            this.SpawnerRotation = enemySpawnerRotation;
+            this.EnemyNumber =  enemyIndex;
+
             EnemyModel model = new EnemyModel(EnemyList.enemyScriptableObject[enemyIndex]);
-            EnemyController controller = new EnemyController(model, enemyView, enemySpawnerPos, enemySpawnerRotation, enemyIndex, EnemyList.enemyScriptableObject[enemyIndex]);
+            EnemyController controller = enemyPoolService.GetEnemy(model, enemyView, enemySpawnerPos, enemySpawnerRotation, enemyIndex);
+            //EnemyController controller = new EnemyController(model, enemyView, enemySpawnerPos, enemySpawnerRotation, enemyIndex);
+            controller.Enable();
             enemyTanks.Add(controller);
         }
 
@@ -58,31 +70,36 @@ namespace TankGame.Enemy
             for (int i = 0; i < enemyTanks.Count; i++)
             {
                 if (controller == enemyTanks[i])
-                {   
-                    controller.Destroy();
-                    SetEnemyCounter(controller);
+                {
+                    //SpawnerPos = controller.SpawnerPos;
+                    //SpawnerRotation = controller.SpawnerRotation;
+                    //EnemyNumber = controller.EnemyNumber;
+                    SetEnemyCounter();
+                    //controller.Destroy();
+                    controller.Disable();
+                    
+                    enemyPoolService.ReturnItem(controller);
                     enemyTanks[i] = null;
                 }
             }
         }
 
-        private void SetEnemyCounter(EnemyController currController)
+        private void SetEnemyCounter()
         {
-            
+            enemyDeathCounter = PlayerPrefs.GetInt("KilledEnemies", 0);
             enemyDeathCounter++;
             EventService.Instance.OnEnemyDeath(enemyDeathCounter);
-            SpawnEnemyAgain(currController);
-
+            SpawnEnemyAgain(SpawnerPos, SpawnerRotation, EnemyNumber);
             if (enemyDeathCounter%5 == 0)
             {
                 EventService.Instance.OnEnemyKillAchievment(enemyDeathCounter);
             }
         }
 
-        async void SpawnEnemyAgain(EnemyController currController)
+        async void SpawnEnemyAgain(Vector3 SpawnerPos, Quaternion SpawnerRotation, int EnemyNumber)
         {
             await new WaitForSeconds(2f);
-            SpawnEnemy(currController.SpawnerPos, currController.SpawnerRotation, currController.EnemyNumber);
+            SpawnEnemy(SpawnerPos, SpawnerRotation, EnemyNumber);
 
         }
 

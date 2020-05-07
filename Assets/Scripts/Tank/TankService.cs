@@ -16,12 +16,11 @@ namespace TankGame.Tank
         public List<TankController> tanks = new List<TankController>();
         TankController controller;
         private int playerDeathCounter=0;
-
+        
 
         protected override void Awake()
         {
             base.Awake();
-            
         }
         protected override void Start()
         {

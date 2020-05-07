@@ -14,8 +14,12 @@ namespace TankGame.UI
         public Button[] buttons;
         public Text[] introTexts;
         public Text playerKills;
+        public Text bulletFired;
         public Text enemyKillAchievmentText;
         public Text bulletAchievmentText;
+
+        private int FiredBullets;
+        private int KilledEnemies;
         protected override void Awake()
         {
             base.Awake();
@@ -24,9 +28,11 @@ namespace TankGame.UI
         {
             base.Start();
 
-            EventService.Instance.EnemyDeath += SetPLayerKillsUI;
+
+            //EventService.Instance.EnemyDeath += ShowEnemyKilledUI;
             EventService.Instance.EnemyKillAchievment += ShowAchievmentUnlock;
-            EventService.Instance.BulletAchievment += ShowBulletFired;
+            EventService.Instance.BulletAchievment += ShowBulletAchievmentUnlock;
+            //EventService.Instance.BulletFired += ShowBulletFiredUI;
             //for (int i = 0; i < buttons.Length; i++)
             //{
             //    int buttonIndex = i; //(important) for closure error, first capture the data
@@ -39,26 +45,37 @@ namespace TankGame.UI
             CallIntroTexts();
         }
 
-        private void SetPLayerKillsUI(int killCount)
-        {
-            playerKills.text = "Kills: " + killCount;
-        }
-
         async void ShowAchievmentUnlock(int deathCount)
         {
             enemyKillAchievmentText.gameObject.SetActive(true);
-            enemyKillAchievmentText.text = "Congracts! " + deathCount + "Kills, New Achievment Unlocked.";
+            enemyKillAchievmentText.text = "Congrats! " + deathCount + "Kills, New Achievment Unlocked.";
             await new WaitForSeconds(2f);
             enemyKillAchievmentText.gameObject.SetActive(false);
         }
-
-
-        async void ShowBulletFired(int bulletCount)
+        async void ShowBulletAchievmentUnlock(int bulletCount)
         {
             bulletAchievmentText.gameObject.SetActive(true);
-            bulletAchievmentText.text = "Amazing! " + bulletCount + "Bullets Are Fired";
+            bulletAchievmentText.text =  bulletCount + "bullets fired, New Achievment Unlocked.";
             await new WaitForSeconds(2f);
             bulletAchievmentText.gameObject.SetActive(false);
+        }
+
+        private void SetInGameUI()
+        {
+            ShowEnemyKilledUI();
+            ShowBulletFiredUI();
+        }
+
+        public void ShowEnemyKilledUI()
+        {
+            KilledEnemies = PlayerPrefs.GetInt("KilledEnemies",0);
+            playerKills.text = "Kills: " + KilledEnemies;
+        }
+
+        public void ShowBulletFiredUI()
+        {
+            FiredBullets = PlayerPrefs.GetInt("FiredBullets", 0);
+            bulletFired.text = "Bullet Fired: " + FiredBullets;
         }
 
 
@@ -70,6 +87,7 @@ namespace TankGame.UI
             introTexts[1].gameObject.SetActive(true);
             await new WaitForSeconds(1.0f);
             introTexts[1].gameObject.SetActive(false);
+            SetInGameUI();
         }
 
         private void generateTank(int tankSerialNumber)

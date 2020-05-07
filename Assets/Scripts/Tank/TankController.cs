@@ -38,7 +38,6 @@ namespace TankGame.Tank
                 else
                 {
                     TankModel.Health -= damage;
-                    Debug.Log(TankModel.Health);
                     TankView.SetTankHealth(TankModel.Health);
                 }
             }

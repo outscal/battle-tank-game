@@ -29,9 +29,13 @@ namespace TankGame.Enemy
         public EnemyPatroling patrolingState;
         public EnemyChasing chasingState;
         public EnemyAttacking attackingState;
+        public EnemyIdle idleState;
         private float speedMUltiplier;
         public Slider slider;
         private EnemyModel model;
+        private Vector3 initPos;
+        private Quaternion initRot;
+        private int enemyNumber;
 
         public void InitializeController(EnemyController enemyController)
         {
@@ -44,6 +48,8 @@ namespace TankGame.Enemy
 
         private void Start()
         {
+            initPos = controller.SpawnerPos;
+            initRot = controller.SpawnerRotation;
             startingState = patrolingState;  // setting patroling state as starting state
             ChangeState(startingState);
             //InvokeRepeating("FireBullet", 1f, fireRateDelay);
@@ -52,12 +58,19 @@ namespace TankGame.Enemy
         {
             model = controller.EnemyModel;  
             tankType = model.EnemyTankType;
+            enemyNumber = controller.EnemyNumber;
 
             SetTankSpeed(model.EnemySpeed, model.EnemyRotation);
             SetFireRate(model.EnemyFireRateDelay);
             SetTankHealth(model.EnemyHealth);
             SetTankDamage(model.EnemyDamage);
             SetTankColor(model.EnemyColor);
+        }
+
+        private void ResetPosition()
+        {
+            transform.position = initPos;
+            transform.rotation = initRot;
         }
 
         public void SetTankSpeed(int EnemySpeed, int EnemyRotation)
@@ -106,6 +119,19 @@ namespace TankGame.Enemy
         public void TakeDamage(float damage)
         {
             controller.ApplyDamage(damage);
+        }
+
+        public void Disable()
+        {
+            ChangeState(idleState);
+            gameObject.SetActive(false);
+            ResetPosition();
+
+        }
+        public void Enable()
+        {   
+            gameObject.SetActive(true);
+            ChangeState(patrolingState);
         }
 
         public void Destroy()

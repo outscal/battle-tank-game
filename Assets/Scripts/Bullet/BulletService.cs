@@ -36,20 +36,20 @@ namespace TankGame.Bullet
                 if(controller == bullets[i])
                 {
                     controller.Destroy();
-                    SetBulletCounter();
                     bullets[i] = null;
                 }
             }
         }
 
-        private void SetBulletCounter()
-        {
+        public void SetBulletCounter()
+        {   
+            bulletCounter = PlayerPrefs.GetInt("FiredBullets", 0);
             bulletCounter++;
-            if(bulletCounter%100 == 0)
+            EventService.Instance.OnBulletFired(bulletCounter);
+            if (bulletCounter%100 == 0)
             {
                 EventService.Instance.OnBulletAchievment(bulletCounter);
             }
         }
-
     }
 }

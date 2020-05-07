@@ -43,6 +43,7 @@ public class SoundManager : MonoSingletonGeneric<SoundManager>
         if (player != null)
         {
             playerSource = player.GetComponent<AudioSource>();
+            playPlayerSound(PlayerSfx.Idle, true);
         }
         else
         {

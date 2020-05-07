@@ -31,7 +31,6 @@ namespace TankGame.Tank
         private void Start()
         {
             EventService.Instance.OnPlayerSpawn();
-            controller.PlaySound(PlayerSfx.Idle, true);
             currentSfx = PlayerSfx.Idle;
         }
 
@@ -89,7 +88,6 @@ namespace TankGame.Tank
 
         public void TakeDamage(float damage)
         {
-            Debug.Log("taking damage");
             controller.ApplyDamage(damage);
         }
 

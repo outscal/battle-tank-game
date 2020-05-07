@@ -9,19 +9,25 @@ public class CamaeraFollow : MonoBehaviour
     private TankView player;
     private Vector3 posDifference;
 
+
+
     void Start()
     {
-        EventService.Instance.PlayerSpawn += GetPLayer;
-
+        EventService.Instance.PlayerSpawn += OnPlayerSpawned;
     }
 
-    private void GetPLayer()
+    private void OnPlayerSpawned()
     {
         player = TankService.Instance.GetCurrentPlayer();
         if (player != null)
         {
-            player = TankService.Instance.GetCurrentPlayer();
-            posDifference = player.transform.position - transform.position;
+            //player = TankService.Instance.GetCurrentPlayer();
+            transform.parent = player.transform;
+            transform.position = player.transform.position + new Vector3(0, 3.18f, -3.04f) ;
+            transform.eulerAngles = new Vector3(22.03f, 1.81f, 0);
+            //transform.rotation = player.transform.rotation;
+            //transform.position = player.transform.position;
+            //posDifference = player.transform.position - transform.position;
         }
         else
         {
@@ -39,7 +45,7 @@ public class CamaeraFollow : MonoBehaviour
         if(player != null)
         {
             //posDifference = playerTarget.transform.position - transform.position;
-            transform.position = player.transform.position ;
+            //transform.position = player.transform.position + new Vector3(0,2f,2f) ;
         }
     }
 
