@@ -10,21 +10,23 @@ namespace Bullet.View
     //public TankType tankType;
     public class BulletView : MonoBehaviour
     {
-        private BulletController bulletController;
+        public BulletController bulletController;
         void Start()
         {
-
+            Debug.Log("Bullet view created");
         }
 
         // Update is called once per frame
-        void Update()
+        void FixedUpdate()
         {
-
+            bulletController.Movement();
         }
 
-        public void setController(BulletController b_Controller)
+        public void SetBulletController(BulletController b_Controller)
         {
             bulletController = b_Controller;
         }
+
+        //public BulletController  bulletController{ get; }
     }
 }

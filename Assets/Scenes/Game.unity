@@ -460,6 +460,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1446487312}
   - component: {fileID: 1446487311}
+  - component: {fileID: 1446487313}
   m_Layer: 0
   m_Name: TankSpawner
   m_TagString: Untagged
@@ -479,9 +480,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 087390ff26d03b64b926d62914de88c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankView: {fileID: 3952617421032331043, guid: f8bd4a7afefc1884ab7d15ff7e22e170,
+  tankView: {fileID: -3329480094707986513, guid: f8bd4a7afefc1884ab7d15ff7e22e170,
     type: 3}
-  tankList: {fileID: 11400000, guid: 2dd5437d030b902428c5c4477e746740, type: 2}
+  tankList: {fileID: 11400000, guid: f42ef81e9178a104baa5f1401190c450, type: 2}
 --- !u!4 &1446487312
 Transform:
   m_ObjectHideFlags: 0
@@ -496,6 +497,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1446487313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446487310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 125dd2685c468a04996423656f26899d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyView: {fileID: 2729785518669847063, guid: aa30cbfb03455b94e94a9dfd3e151db6,
+    type: 3}
+  enemyList: {fileID: 0}
 --- !u!1 &1771596986
 GameObject:
   m_ObjectHideFlags: 0

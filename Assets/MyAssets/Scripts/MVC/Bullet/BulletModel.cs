@@ -4,18 +4,28 @@ using UnityEngine;
 using Bullet.Service;
 using Bullet.Controller;
 using Bullet.View;
-
+using ScriptableObj;
 
 namespace Bullet.Model
 {
     public class BulletModel
     {
-        public BulletModel(float damage)
+        private BulletController bulletController;
+        //public BulletType type;
+        public BulletModel(BulletScriptableObject bullet)
         {
-            Damage = damage;
-            //BulletType = bulletType;
+            Type = bullet.bulletType;
+            Speed = bullet.speed;
+            Damage = bullet.damage;
         }
 
+        public void SetBulletController(BulletController _bulletController)
+        {
+            bulletController = _bulletController;
+        }
+
+        public BulletType Type { get; }
+        public float Speed { get; }
         public float Damage { get; }
         //public BulletType BulletType { get; }
     }

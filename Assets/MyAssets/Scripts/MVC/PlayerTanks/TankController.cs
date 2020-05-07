@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Tank.Service;
 using Tank.Model;
-using Bullet.Controller;
+using Bullet.Service;
 using Tank.View;
-using System;
+using Bullet.Model;
+using ScriptableObj;
 
 namespace Tank.Controller
 {
@@ -21,13 +22,19 @@ namespace Tank.Controller
 
 			TankView = GameObject.Instantiate<TankView>(tankPrefab);
 			TankView.SetController(this);
-			TankView.Sethealth(TankModel.Health);
+			TankModel.SetTankController(this);
 			TankView.SetSpeed(TankModel.Speed);
 			TankView.SetTurn(TankModel.Turn);
-
-			Debug.Log("Tank View Created");
+			TankView.Sethealth(TankModel.Health);
 		}
+		
+        public void ShootBullet()
+        {
+			Debug.Log("shootbullet");
+			Bullet_Service.Instance.CreateBullet(TankView.firingLocation.position, TankView.transform.rotation, TankModel.BulletType);
+			Debug.Log("shootbullet called");
+		}
+        public TankView TankView { get; }
 		public TankModel TankModel { get; }
-		public TankView TankView { get; }
 	}
 }
