@@ -28,19 +28,12 @@ namespace Bullet.View
 
         private void OnCollisionEnter(Collision collision)
         {
-            if(collision.gameObject.GetComponent<IDamagable>() != null)
-            {
-                bulletController.DestroyBullet();
-            }
-            //if(collision.gameObject.GetComponent<EnemyView>() || collision.gameObject.GetComponent<TankView>())
-            //{
-            //    bulletController.DestroyBullet();
-            //}
-            else if(collision.gameObject.GetComponent<BoxCollider>() != null)
+            if(!(collision.gameObject.GetComponent<IDamagable>() != null))
             {
                 InstantiateShellExplosionParticleEffect();
-                bulletController.DestroyBullet();
             }
+            bulletController.DestroyBullet();
+
         }
 
         private void InstantiateShellExplosionParticleEffect()
