@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿//using System.Collections;
+//using System.Collections.Generic;
 using UnityEngine;
 using Enemy.Service;
 using Enemy.View;
 using Enemy.Model;
-using System;
+//using System;
 using Bullet.Controller;
 
 
@@ -17,10 +17,10 @@ namespace Enemy.Controller
 
         BulletController bulletController;
 
-        public EnemyController(EnemyModel enemyModel, EnemyView enemyView)
+        public EnemyController(EnemyModel enemyModel, EnemyView enemyView, Vector3 position)
         {
             EnemyModel = enemyModel;
-            EnemyView = GameObject.Instantiate<EnemyView>(enemyView);
+            EnemyView = GameObject.Instantiate<EnemyView>(enemyView, position, new Quaternion(0f, 0f, 0f, 0f));
             EnemyView.SetEnemyController(this);
         }
 

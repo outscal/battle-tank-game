@@ -5,7 +5,7 @@ using Enemy.Controller;
 using Enemy.View;
 using Enemy.Model;
 using Bullet.Service;
-using System;
+//using System;
 using Bullet.Controller;
 
 namespace Enemy.Service
@@ -20,22 +20,41 @@ namespace Enemy.Service
 
         private void Update()
         {
-            SpawnEnemy();
+            //SpawnEnemy();
+            SpawnEnemyAtRandomPositions();
         }
 
-        private void SpawnEnemy()
+        //private void SpawnEnemy()
+        //{
+        //    if (Input.GetKeyDown(KeyCode.E))
+        //    {
+        //        CreateNewEnemy();
+        //        enemyControllers.Add(enemyController);
+        //    }
+        //}
+
+        private void SpawnEnemyAtRandomPositions()
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                CreateNewEnemy();
-                enemyControllers.Add(enemyController);
+                for(int i = 0; i < 1; i++)
+                {
+                    CreateNewEnemy(GetRandomPosition());
+                    enemyControllers.Add(enemyController);
+                }
             }
         }
 
-        private EnemyController CreateNewEnemy()
+        private Vector3 GetRandomPosition()
+        {
+            Vector3 position = new Vector3(Random.Range(-45.0f, 45.0f), 0f, Random.Range(-45.0f, 45.0f)); ;
+            return position;
+        }
+
+        private EnemyController CreateNewEnemy(Vector3 position)
         {
             enemyModel = new EnemyModel();
-            enemyController = new EnemyController(enemyModel, EnemyView);
+            enemyController = new EnemyController(enemyModel, EnemyView, position);
             return enemyController;
         }
 

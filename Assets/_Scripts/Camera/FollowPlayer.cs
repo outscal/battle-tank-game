@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿//using System.Collections;
+//using System.Collections.Generic;
 using Tank.Service;
-using Tank.View;
+//using Tank.View;
 using UnityEngine;
 
 namespace Camera.FollowPlayer

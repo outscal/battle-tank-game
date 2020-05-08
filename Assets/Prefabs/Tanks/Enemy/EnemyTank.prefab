@@ -250,6 +250,8 @@ GameObject:
   - component: {fileID: -3101680850424291405}
   - component: {fileID: 843947150348606823}
   - component: {fileID: 7374546934193767612}
+  - component: {fileID: 4547034496947972309}
+  - component: {fileID: 1051516600272561822}
   m_Layer: 0
   m_Name: EnemyTank
   m_TagString: Untagged
@@ -285,6 +287,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TankExplosion: {fileID: 19874418, guid: 88ff5843637f4814788ad4f6065861af, type: 3}
+  chaseRadius: 20
+  attackRadius: 6
 --- !u!136 &843947150348606823
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -314,7 +318,33 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 84
-  m_CollisionDetection: 1
+  m_CollisionDetection: 3
+--- !u!135 &4547034496947972309
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8835518895553322983}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 20
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &1051516600272561822
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8835518895553322983}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 6
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8835518895553322987
 GameObject:
   m_ObjectHideFlags: 0

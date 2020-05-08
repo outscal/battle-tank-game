@@ -1,13 +1,14 @@
-﻿using System;
+﻿//using System;
 using System.Collections;
-using System.Collections.Generic;
+//using System.Collections.Generic;
 using UnityEngine;
 using Tank.Controller;
 using Bullet.View;
+using Idamagable;
 
 namespace Tank.View
 {
-    public class TankView : MonoBehaviour
+    public class TankView : MonoBehaviour, IDamagable
     {
         bool isPlayerDead = false;
         TankController tankController;
@@ -68,6 +69,10 @@ namespace Tank.View
             tankController.DestroyTank();
             Time.timeScale = 1;
         }
-    }
 
+        public void TakeDamage()
+        {
+            //implementation
+        }
+    }
 }
