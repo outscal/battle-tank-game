@@ -1,12 +1,10 @@
-﻿using Singleton;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Player
+namespace Tank
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class TankController : MonoSingletonGeneric<TankController>
+    public class TankController : MonoBehaviour
     {
-        [SerializeField]
         FloatingJoystick joystick;
 
         [SerializeField]
@@ -17,10 +15,14 @@ namespace Player
 
         Rigidbody rb;
         float horizontalInput, verticalInput;
-        protected override void Awake()
+        void Awake()
         {
-            base.Awake();
             rb = GetComponent<Rigidbody>();
+        }
+
+        public void SetupJoystick(FloatingJoystick js)
+        {
+            joystick = js;
         }
 
         private void FixedUpdate()
