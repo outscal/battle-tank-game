@@ -5,16 +5,15 @@ namespace Tank
     [RequireComponent(typeof(Rigidbody))]
     public class TankController : MonoBehaviour
     {
-        FloatingJoystick joystick;
+        private FloatingJoystick joystick;
+        private float horizontalInput, verticalInput;
+        [SerializeField]
+        private float moveSpeed;
 
         [SerializeField]
-        float moveSpeed;
+        private Transform chassis;
+        private Rigidbody rb;
 
-        [SerializeField]
-        Transform chassis;
-
-        Rigidbody rb;
-        float horizontalInput, verticalInput;
         void Awake()
         {
             rb = GetComponent<Rigidbody>();
@@ -27,15 +26,30 @@ namespace Tank
 
         private void FixedUpdate()
         {
-            if (horizontalInput != 0 || verticalInput != 0)
-                rb.AddForce(chassis.transform.forward * moveSpeed * Time.deltaTime,ForceMode.Impulse);
+            HandlePlayerInput();
         }
+
         private void Update()
         {
-             horizontalInput = joystick.Horizontal;
-             verticalInput = joystick.Vertical;
-            if(horizontalInput!=0 || verticalInput != 0)
-            chassis.transform.localEulerAngles = new Vector3(0, (Mathf.Atan2(horizontalInput, verticalInput) * Mathf.Rad2Deg)+45f, 0);
+            HandleJoystickInput();
+        }
+
+        private void HandlePlayerInput()
+        {
+            if (horizontalInput != 0 || verticalInput != 0)
+            {
+                rb.AddForce(chassis.transform.forward * moveSpeed * Time.deltaTime, ForceMode.Impulse);
+            }
+        }
+
+        void HandleJoystickInput()
+        {
+            horizontalInput = joystick.Horizontal;
+            verticalInput = joystick.Vertical;
+            if (horizontalInput != 0 || verticalInput != 0)
+            {
+                chassis.transform.localEulerAngles = new Vector3(0, (Mathf.Atan2(horizontalInput, verticalInput) * Mathf.Rad2Deg) + 45f, 0);
+            }
         }
     }
 }

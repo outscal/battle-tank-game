@@ -9,12 +9,12 @@ namespace Tank
         private GameObject tankPrefab;
 
         [SerializeField]
-        FloatingJoystick joystick;
+        private FloatingJoystick joystick;
 
         public TankController CreateTank()
         {
-            GameObject tankGO = GameObject.Instantiate(tankPrefab);
-            TankController tankControl = tankGO.GetComponent<TankController>();
+            GameObject tankGameObject = GameObject.Instantiate(tankPrefab);
+            TankController tankControl = tankGameObject.GetComponent<TankController>();
             tankControl.SetupJoystick(joystick);
             return tankControl;
         }

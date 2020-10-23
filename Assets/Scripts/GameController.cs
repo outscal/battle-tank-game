@@ -3,11 +3,15 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    TankController playerTank;
-    // Start is called before the first frame update
+    private TankController playerTank;
+
     void Start()
     {
-       playerTank = TankService.Instance.CreateTank();
+        CreatePlayer();
     }
 
+    void CreatePlayer()
+    {
+        playerTank = TankService.Instance.CreateTank();
+    }
 }
