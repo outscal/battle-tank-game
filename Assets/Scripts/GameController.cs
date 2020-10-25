@@ -20,6 +20,7 @@ namespace Game
             TankController tank = TankService.Instance.CreateTank();
             playerTank = tank.gameObject.GetComponent<PlayerController>();
             playerTank.SetupJoysticks(leftJoystick, rightJoystick);
+            CameraController.Instance.SetTarget(playerTank.transform);
         }
     }
 }
