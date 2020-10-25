@@ -9,6 +9,7 @@ public class cameraController : MonoBehaviour
     [SerializeField]
     private Vector3 offset;
 
+
     void Update()
     {
         transform.position= target.position + offset;

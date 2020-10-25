@@ -4,34 +4,26 @@ using UnityEngine;
 
 public class TankController : MonoSingeltonGeneric<TankController>
 {
-    private Rigidbody _rigidBody;
-
     [SerializeField]
     private float _moveForce;
 
-    private void Awake() {
-        _rigidBody = GetComponent<Rigidbody>();
-    }
-
+    private float vertical;
+    private float horizontal;
+    
+//`````````````````````````````````````````````````````````````````````````````````````````````````````````
+//`````````````````````````````````````````````````````````````````````````````````````````````````````````
     private void FixedUpdate() {
 
-        if(Input.GetKey(KeyCode.W)){
-            _rigidBody.AddForce(_moveForce*Vector3.forward);
+        vertical = Input.GetAxis("VerticalUI");
+        horizontal = Input.GetAxis("HorizontalUI");
+
+        Vector3 movement = new Vector3(horizontal, 0.0f, vertical);
+        
+        if(movement != Vector3.zero){
+            transform.rotation =Quaternion.Slerp(transform.rotation,Quaternion.LookRotation(movement),0.05f);
         }
 
-        if(Input.GetKey(KeyCode.S)){
-            _rigidBody.AddForce(_moveForce*-Vector3.forward);
-        }
-        
-        if(Input.GetKey(KeyCode.A)){
-            _rigidBody.AddForce(_moveForce*-Vector3.right);
-        }
-        
-        if(Input.GetKey(KeyCode.D)){
-            _rigidBody.AddForce(_moveForce*Vector3.right);
-        }
-        
-
+        transform.Translate(_moveForce*horizontal*Time.deltaTime,0f,_moveForce*vertical*Time.deltaTime,Space.World);
     }
 
 }
