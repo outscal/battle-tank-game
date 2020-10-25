@@ -202,9 +202,9 @@ GameObject:
   - component: {fileID: 2813097020698215498}
   - component: {fileID: 2813097020698091198}
   - component: {fileID: 2813097020698091197}
-  - component: {fileID: 2813097020698091196}
+  - component: {fileID: 114981392408935090}
   m_Layer: 0
-  m_Name: Tank
+  m_Name: PlayerTank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -254,7 +254,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6891304, y: 1.8914456, z: 2.3782609}
   m_Center: {x: 0.0058401227, y: 0.9332316, z: -0.05840075}
---- !u!114 &2813097020698091196
+--- !u!114 &114981392408935090
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -263,12 +263,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2813097020698057130}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be7f9ae2166bb6d41a8743ff2f31ba2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 91796f76832437c47a1b1d856772948e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 20
   chassis: {fileID: 2813097020698215496}
   turret: {fileID: 2813097020698215490}
+  moveSpeed: 20
+  bulletSpeed: 50
+  health: 100
+  bulletDamage: 30
 --- !u!1 &2813097020698057132
 GameObject:
   m_ObjectHideFlags: 0

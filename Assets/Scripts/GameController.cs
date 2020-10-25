@@ -1,17 +1,25 @@
 ﻿using Tank;
 using UnityEngine;
+using Player;
 
-public class GameController : MonoBehaviour
+namespace Game
 {
-    private TankController playerTank;
-
-    void Start()
+    public class GameController : MonoBehaviour
     {
-        CreatePlayer();
-    }
+        private PlayerController playerTank;
+        [SerializeField]
+        private FloatingJoystick leftJoystick, rightJoystick;
 
-    void CreatePlayer()
-    {
-        playerTank = TankService.Instance.CreateTank();
+        void Start()
+        {
+            CreatePlayer();
+        }
+
+        void CreatePlayer()
+        {
+            TankController tank = TankService.Instance.CreateTank();
+            playerTank = tank.gameObject.GetComponent<PlayerController>();
+            playerTank.SetupJoysticks(leftJoystick, rightJoystick);
+        }
     }
 }
