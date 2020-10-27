@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-
 namespace ScriptableObjects
 {
     [CreateAssetMenu(fileName = "NewTankObject", menuName = "TankObject")]

@@ -7,7 +7,10 @@ namespace Tank
     public class TankController : MonoBehaviour
     {
         [SerializeField]
-        protected Transform chassis, turret;
+        protected Transform chassis, turret,bulletSpawnPosition;
+        [SerializeField]
+        private GameObject bulletPrefab;
+
         private Rigidbody rb;
         private float moveSpeed, bulletSpeed;
         private int health, bulletDamage;
@@ -28,6 +31,13 @@ namespace Tank
         protected void MoveTankForward()
         {
             rb.AddForce(chassis.transform.forward * moveSpeed * Time.deltaTime, ForceMode.Impulse);
+        }
+
+        protected void ShootBullet()
+        {
+            GameObject bullet = GameObject.Instantiate(bulletPrefab, bulletSpawnPosition.position, Quaternion.identity);
+            bullet.transform.eulerAngles = turret.eulerAngles;
+            bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.forward * bulletSpeed);
         }
 
     }
