@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using ScriptableObjects;
 
 namespace Tank
 {
@@ -8,11 +9,16 @@ namespace Tank
         [SerializeField]
         protected Transform chassis, turret;
         private Rigidbody rb;
-        [SerializeField]
-        private float moveSpeed,bulletSpeed;
-
-        [SerializeField]
+        private float moveSpeed, bulletSpeed;
         private int health, bulletDamage;
+
+        public void TankSetup(TankScriptableObject tankData)
+        {
+            moveSpeed = tankData.moveSpeed;
+            bulletSpeed = tankData.bulletSpeed;
+            health = tankData.health;
+            bulletDamage = tankData.bulletDamage;
+        }
 
         void Awake()
         {
@@ -23,6 +29,6 @@ namespace Tank
         {
             rb.AddForce(chassis.transform.forward * moveSpeed * Time.deltaTime, ForceMode.Impulse);
         }
-        
+
     }
 }

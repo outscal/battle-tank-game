@@ -23,7 +23,7 @@ namespace Player
         {
             HandleJoystickInput();
         }
-        
+
         void HandlePlayerInput()
         {
             if (horizontalInputLeft != 0 || verticalInputLeft != 0)
@@ -47,7 +47,6 @@ namespace Player
             {
                 turret.transform.localEulerAngles = new Vector3(0, (Mathf.Atan2(horizontalInputRight, verticalInputRight) * Mathf.Rad2Deg) + 45f, 0);
             }
-          
         }
 
     }

@@ -1,6 +1,7 @@
 ﻿using Tank;
 using UnityEngine;
 using Player;
+using ScriptableObjects;
 
 namespace Game
 {
@@ -10,6 +11,9 @@ namespace Game
         [SerializeField]
         private FloatingJoystick leftJoystick, rightJoystick;
 
+        [SerializeField]
+        private TankScriptableObject playerObj;
+
         void Start()
         {
             CreatePlayer();
@@ -18,6 +22,7 @@ namespace Game
         void CreatePlayer()
         {
             TankController tank = TankService.Instance.CreateTank();
+            tank.TankSetup(playerObj);
             playerTank = tank.gameObject.GetComponent<PlayerController>();
             playerTank.SetupJoysticks(leftJoystick, rightJoystick);
             CameraController.Instance.SetTarget(playerTank.transform);
