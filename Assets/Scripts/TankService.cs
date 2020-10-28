@@ -9,11 +9,9 @@ public class TankService : MonoSingletonGeneric <TankService>
     public FixedJoystick joystick;
     
 
-    
-
     private void Start()
     {
-        TankService.Instance.GetTank();
+        GetTank();
     }
 
     private TankController GetTank()
