@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using ScriptableObjects;
+using Weapons;
 
 namespace Tank
 {
@@ -7,9 +8,9 @@ namespace Tank
     public class TankController : MonoBehaviour
     {
         [SerializeField]
-        protected Transform chassis, turret,bulletSpawnPosition;
+        protected Transform chassis, turret, bulletSpawnPosition;
         [SerializeField]
-        private GameObject bulletPrefab;
+        private BulletController bulletPrefab;
 
         private Rigidbody rb;
         private float moveSpeed, bulletSpeed;
@@ -35,9 +36,8 @@ namespace Tank
 
         protected void ShootBullet()
         {
-            GameObject bullet = GameObject.Instantiate(bulletPrefab, bulletSpawnPosition.position, Quaternion.identity);
-            bullet.transform.eulerAngles = turret.eulerAngles;
-            bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.forward * bulletSpeed);
+            BulletController bullet = Instantiate(bulletPrefab, bulletSpawnPosition.position, Quaternion.identity);
+            bullet.Fire(turret.transform.eulerAngles, bulletSpeed);
         }
 
     }
