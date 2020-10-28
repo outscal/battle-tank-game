@@ -6,13 +6,14 @@ namespace Tank
     public class TankService : MonoSingletonGeneric<TankService>
     {
         [SerializeField]
-        private GameObject tankPrefab;
+        private GameObject playerTankPrefab;
         
-        public TankController CreateTank()
+        public TankController CreatePlayer()
         {
-            GameObject tankGameObject = GameObject.Instantiate(tankPrefab);
+            GameObject tankGameObject = GameObject.Instantiate(playerTankPrefab);
             TankController tankControl = tankGameObject.GetComponent<TankController>();
             return tankControl;
         }
+        
     }
 }

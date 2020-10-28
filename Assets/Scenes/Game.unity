@@ -271,6 +271,7 @@ MonoBehaviour:
   leftJoystick: {fileID: 2035865943}
   rightJoystick: {fileID: 671331055}
   playerObj: {fileID: 11400000, guid: e7d24a2a8328fb14eaf593b040d8a327, type: 2}
+  enemyObj: {fileID: 11400000, guid: 65758a3fef73f9744bada6db1f10938d, type: 2}
 --- !u!1001 &808518835
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -526,7 +527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d56b0528aef8a214d837c0fb1402e708, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankPrefab: {fileID: 2813097020698057130, guid: a5c64943a2274c843b5b1f6d53c63eeb,
+  playerTankPrefab: {fileID: 2813097020698057130, guid: a5c64943a2274c843b5b1f6d53c63eeb,
     type: 3}
 --- !u!1001 &1158996493
 PrefabInstance:
@@ -1094,6 +1095,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ede39d410e5d3e64c8e64e4767e4b2c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1852134525
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1852134526}
+  - component: {fileID: 1852134527}
+  m_Layer: 0
+  m_Name: EenmyService
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1852134526
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852134525}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.862738, y: 4.6722374, z: 2.67931}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1852134527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852134525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e888a82c71f2634aa3f874b3196e4ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyTankPrefab: {fileID: 6616928576748423103, guid: 50607f7a28e409743928fc6f0676925c,
+    type: 3}
 --- !u!114 &2035865943 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8170153791668043265, guid: 0d230cc8be529a542a08cb878ab14b18,

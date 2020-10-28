@@ -2,6 +2,7 @@
 using UnityEngine;
 using Player;
 using ScriptableObjects;
+using Enemy;
 
 namespace Game
 {
@@ -12,20 +13,27 @@ namespace Game
         private FloatingJoystick leftJoystick, rightJoystick;
 
         [SerializeField]
-        private TankScriptableObject playerObj;
+        private TankScriptableObject playerObj, enemyObj;
 
         void Start()
         {
             CreatePlayer();
+            CreateEnemy();
         }
 
         void CreatePlayer()
         {
-            TankController tank = TankService.Instance.CreateTank();
+            TankController tank = TankService.Instance.CreatePlayer();
             tank.TankSetup(playerObj);
             playerTank = tank.gameObject.GetComponent<PlayerController>();
             playerTank.SetupJoysticks(leftJoystick, rightJoystick);
             CameraController.Instance.SetTarget(playerTank.transform);
+        }
+        void CreateEnemy()
+        {
+            TankController tank = EnemySpawnerService.Instance.CreateEnemy();
+            tank.TankSetup(enemyObj);
+            tank.gameObject.GetComponent<EnemyController>().SetupEnemy(playerTank);
         }
     }
 }
