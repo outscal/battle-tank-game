@@ -9,8 +9,6 @@ namespace Tank
     {
         [SerializeField]
         protected Transform chassis, turret, bulletSpawnPosition;
-        [SerializeField]
-        private BulletController bulletPrefab;
 
         private Rigidbody rb;
         private float moveSpeed, bulletSpeed;
@@ -36,7 +34,8 @@ namespace Tank
 
         protected void ShootBullet()
         {
-            BulletController bullet = Instantiate(bulletPrefab, bulletSpawnPosition.position, Quaternion.identity);
+            BulletController bullet = BulletService.Instance.CreateBullet();
+            bullet.transform.position = bulletSpawnPosition.position;
             bullet.Fire(turret.transform.eulerAngles, bulletSpeed);
         }
     }
