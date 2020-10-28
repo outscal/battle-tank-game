@@ -39,6 +39,5 @@ namespace Tank
             BulletController bullet = Instantiate(bulletPrefab, bulletSpawnPosition.position, Quaternion.identity);
             bullet.Fire(turret.transform.eulerAngles, bulletSpeed);
         }
-
     }
 }

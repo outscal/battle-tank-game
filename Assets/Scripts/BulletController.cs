@@ -1,16 +1,15 @@
 ﻿using UnityEngine;
+using Effects;
 
 namespace Weapons
 {
     [RequireComponent(typeof(Rigidbody))]
     public class BulletController : MonoBehaviour
     {
-        Rigidbody rb;
+        private Rigidbody rb;
         [SerializeField]
         private float bulletRange;
-        [SerializeField]
-        private ParticleSystem bulletExplosion;
-        Vector3 spawnPos;
+        private Vector3 spawnPos;
 
         private void Awake()
         {
@@ -30,6 +29,12 @@ namespace Weapons
             rb.AddForce(transform.forward * shootSpeed);
             spawnPos = transform.position;
         }
-       
+        private void OnCollisionEnter(Collision collision)
+        {
+            ParticleSystem shellExplosion=  EffectService.Instance.CreateEffect(EffectType.shellExplosionEffect);
+            shellExplosion.transform.position = collision.contacts[0].point;
+            shellExplosion.Play();
+            Destroy(this.gameObject);
+        }
     }
 }
