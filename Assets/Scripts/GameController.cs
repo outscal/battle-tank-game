@@ -29,6 +29,7 @@ namespace Game
             playerTank.SetupJoysticks(leftJoystick, rightJoystick);
             CameraController.Instance.SetTarget(playerTank.transform);
         }
+
         void CreateEnemy()
         {
             TankController tank = EnemySpawnerService.Instance.CreateEnemy();

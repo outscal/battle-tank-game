@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using ScriptableObjects;
 using Weapons;
+using Effects;
 
 namespace Tank
 {
@@ -36,7 +37,24 @@ namespace Tank
         {
             BulletController bullet = BulletService.Instance.CreateBullet();
             bullet.transform.position = bulletSpawnPosition.position;
+            bullet.SetDamage(bulletDamage);
             bullet.Fire(turret.transform.eulerAngles, bulletSpeed);
+        }
+
+        public void TakeDamage(int damage)
+        {
+            health -= damage;
+            if (health <= 0)
+            {
+                DestroyTank();
+            }
+        }
+        void DestroyTank()
+        {
+            Destroy(this.gameObject);
+            ParticleSystem tankExplosion = EffectService.Instance.CreateEffect(EffectType.tankExposionEffect);
+            tankExplosion.transform.position = transform.position;
+            tankExplosion.Play();
         }
     }
 }
