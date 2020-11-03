@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TankService : MonoBehaviour
 {
@@ -11,13 +8,11 @@ public class TankService : MonoBehaviour
     private void Start()
     {
         StartGame();
+       
     }
     public void StartGame()
     {
-        for (int i = 0; i < 3; i++)
-        {
-            CreateNewTank();
-        }
+        CreateNewTank();
         
     }
     private TankController CreateNewTank()
@@ -26,4 +21,5 @@ public class TankService : MonoBehaviour
         TankController tank = new TankController(model, tankView);
         return tank;
     }
+
 }

@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class TankView : MonoBehaviour
 {
-  
+   
+
     private void Start()
     {
         Debug.Log("Tank view created");
+
+      
     }
 
-    
 }
