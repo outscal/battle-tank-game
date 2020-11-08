@@ -6,14 +6,14 @@ namespace Game
     public class CameraController : MonoSingletonGeneric<CameraController>
     {
         Transform target;
+        [SerializeField]
         Vector3 diff;
         public void SetTarget(Transform camTarget)
         {
             target = camTarget;
-            diff = transform.position - camTarget.position;
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             if (target != null)
             {
