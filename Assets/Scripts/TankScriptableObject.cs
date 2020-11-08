@@ -9,5 +9,6 @@ namespace ScriptableObjects
         public int bulletDamage;
         public float moveSpeed;
         public float bulletSpeed;
+        public float bulletCooldownTime;
     }
 }

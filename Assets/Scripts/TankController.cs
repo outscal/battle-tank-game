@@ -24,6 +24,7 @@ namespace Tank
             bulletSpeed = tankData.bulletSpeed;
             health = tankData.health;
             bulletDamage = tankData.bulletDamage;
+            bulletCooldownTime = tankData.bulletCooldownTime;
         }
 
         void Awake()
