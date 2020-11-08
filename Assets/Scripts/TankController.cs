@@ -2,6 +2,7 @@
 using ScriptableObjects;
 using Weapons;
 using Effects;
+using System.Collections;
 
 namespace Tank
 {
@@ -14,6 +15,8 @@ namespace Tank
         private Rigidbody rb;
         private float moveSpeed, bulletSpeed;
         private int health, bulletDamage;
+        private float bulletCooldownTime = 5f;
+        protected bool bulletCooldownFlag = false;
 
         public void TankSetup(TankScriptableObject tankData)
         {
@@ -35,10 +38,16 @@ namespace Tank
 
         protected void ShootBullet()
         {
-            BulletController bullet = BulletService.Instance.CreateBullet();
-            bullet.transform.position = bulletSpawnPosition.position;
-            bullet.SetDamage(bulletDamage);
-            bullet.Fire(turret.transform.eulerAngles, bulletSpeed);
+            if (!bulletCooldownFlag)
+            {
+                BulletController bullet = BulletService.Instance.CreateBullet();
+                bullet.transform.position = bulletSpawnPosition.position;
+                bullet.SetDamage(bulletDamage);
+                bullet.Fire(turret.transform.eulerAngles, bulletSpeed);
+                bulletCooldownFlag = true;
+                StartCoroutine(StartBulletCooldown());
+            }
+
         }
 
         public void TakeDamage(int damage)
@@ -48,6 +57,15 @@ namespace Tank
             {
                 DestroyTank();
             }
+        }
+        protected IEnumerator StartBulletCooldown()
+        {
+            if (bulletCooldownFlag)
+            {
+                yield return new WaitForSeconds(bulletCooldownTime);
+                bulletCooldownFlag = false;
+            }
+            yield return null;
         }
         void DestroyTank()
         {

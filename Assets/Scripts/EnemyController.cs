@@ -6,22 +6,22 @@ namespace Enemy
     public class EnemyController : TankController
     {
         TankController Target;
-        float bulletCooldownTime = 8f;
-        float bulletCooldownTimer = 0;
 
+        private void Start()
+        {
+            bulletCooldownFlag = true;
+            StartCoroutine(StartBulletCooldown());
+        }
         private void Update()
         {
             if (Target != null)
             {
                 turret.transform.LookAt(Target.transform.position);
             }
-            bulletCooldownTimer += Time.deltaTime;
-            if (bulletCooldownTimer >= bulletCooldownTime)
+            if (!bulletCooldownFlag)
             {
                 ShootBullet();
-                bulletCooldownTimer = 0f;
             }
-
         }
 
         public void SetupEnemy(TankController target)

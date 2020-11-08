@@ -7,9 +7,6 @@ namespace Player
     {
         private FloatingJoystick leftJoystick, rightJoystick;
         private float horizontalInputLeft, verticalInputLeft, horizontalInputRight, verticalInputRight;
-        bool bulletCooldownFlag=false;
-        float bulletCooldownTime = 5f;
-        float bulletCooldownTimer = 0;
 
         public void SetupJoysticks(FloatingJoystick leftjs, FloatingJoystick rightjs)
         {
@@ -25,18 +22,12 @@ namespace Player
         private void Update()
         {
             HandleJoystickInput();
-            if (bulletCooldownFlag)
-            {
-                bulletCooldownTimer += Time.deltaTime;
-                if (bulletCooldownTimer >= bulletCooldownTime)
-                {
-                    bulletCooldownTimer = 0f;
-                    bulletCooldownFlag = false;
-                }
-            }
         }
 
-        void HandlePlayerInput()
+
+
+
+        private void HandlePlayerInput()
         {
             if (horizontalInputLeft != 0 || verticalInputLeft != 0)
             {
@@ -52,6 +43,7 @@ namespace Player
             {
                 chassis.transform.localEulerAngles = new Vector3(0, (Mathf.Atan2(horizontalInputLeft, verticalInputLeft) * Mathf.Rad2Deg) + 45f, 0);
             }
+
             horizontalInputRight = rightJoystick.Horizontal;
             verticalInputRight = rightJoystick.Vertical;
             if (horizontalInputRight != 0 || verticalInputRight != 0)
@@ -60,11 +52,7 @@ namespace Player
             }
             if (Mathf.Abs(new Vector2(horizontalInputRight, verticalInputRight).magnitude) > 0.8f)
             {
-                if (!bulletCooldownFlag)
-                {
-                    ShootBullet();
-                    bulletCooldownFlag = true;
-                }
+                ShootBullet();
             }
         }
 
