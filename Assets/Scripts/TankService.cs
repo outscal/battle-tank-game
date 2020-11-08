@@ -6,17 +6,14 @@ namespace Tank
     public class TankService : MonoSingletonGeneric<TankService>
     {
         [SerializeField]
-        private GameObject tankPrefab;
-
-        [SerializeField]
-        private FloatingJoystick joystick;
-
-        public TankController CreateTank()
+        private GameObject playerTankPrefab;
+        
+        public TankController CreatePlayer()
         {
-            GameObject tankGameObject = GameObject.Instantiate(tankPrefab);
+            GameObject tankGameObject = GameObject.Instantiate(playerTankPrefab);
             TankController tankControl = tankGameObject.GetComponent<TankController>();
-            tankControl.SetupJoystick(joystick);
             return tankControl;
         }
+        
     }
 }

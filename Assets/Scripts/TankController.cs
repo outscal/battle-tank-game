@@ -1,55 +1,78 @@
 ﻿using UnityEngine;
+using ScriptableObjects;
+using Weapons;
+using Effects;
+using System.Collections;
 
 namespace Tank
 {
     [RequireComponent(typeof(Rigidbody))]
     public class TankController : MonoBehaviour
     {
-        private FloatingJoystick joystick;
-        private float horizontalInput, verticalInput;
         [SerializeField]
-        private float moveSpeed;
+        protected Transform chassis, turret, bulletSpawnPosition;
 
-        [SerializeField]
-        private Transform chassis;
         private Rigidbody rb;
+        private float moveSpeed, bulletSpeed;
+        private int health, bulletDamage;
+        private float bulletCooldownTime = 5f;
+        protected bool bulletCooldownFlag = false;
+
+        public void TankSetup(TankScriptableObject tankData)
+        {
+            moveSpeed = tankData.moveSpeed;
+            bulletSpeed = tankData.bulletSpeed;
+            health = tankData.health;
+            bulletDamage = tankData.bulletDamage;
+            bulletCooldownTime = tankData.bulletCooldownTime;
+        }
 
         void Awake()
         {
             rb = GetComponent<Rigidbody>();
         }
 
-        public void SetupJoystick(FloatingJoystick js)
+        protected void MoveTankForward()
         {
-            joystick = js;
+            rb.AddForce(chassis.transform.forward * moveSpeed * Time.deltaTime, ForceMode.Impulse);
         }
 
-        private void FixedUpdate()
+        protected void ShootBullet()
         {
-            HandlePlayerInput();
-        }
-
-        private void Update()
-        {
-            HandleJoystickInput();
-        }
-
-        private void HandlePlayerInput()
-        {
-            if (horizontalInput != 0 || verticalInput != 0)
+            if (!bulletCooldownFlag)
             {
-                rb.AddForce(chassis.transform.forward * moveSpeed * Time.deltaTime, ForceMode.Impulse);
+                BulletController bullet = BulletService.Instance.CreateBullet();
+                bullet.transform.position = bulletSpawnPosition.position;
+                bullet.SetDamage(bulletDamage);
+                bullet.Fire(turret.transform.eulerAngles, bulletSpeed);
+                bulletCooldownFlag = true;
+                StartCoroutine(StartBulletCooldown());
+            }
+
+        }
+
+        public void TakeDamage(int damage)
+        {
+            health -= damage;
+            if (health <= 0)
+            {
+                DestroyTank();
             }
         }
-
-        void HandleJoystickInput()
+        protected IEnumerator StartBulletCooldown()
         {
-            horizontalInput = joystick.Horizontal;
-            verticalInput = joystick.Vertical;
-            if (horizontalInput != 0 || verticalInput != 0)
+            if (bulletCooldownFlag)
             {
-                chassis.transform.localEulerAngles = new Vector3(0, (Mathf.Atan2(horizontalInput, verticalInput) * Mathf.Rad2Deg) + 45f, 0);
+                yield return new WaitForSeconds(bulletCooldownTime);
+                bulletCooldownFlag = false;
             }
+            yield return null;
+        }
+        void DestroyTank()
+        {
+            Destroy(this.gameObject);
+            EffectController tankExplosion = EffectService.Instance.CreateEffect(EffectType.tankExposionEffect);
+            tankExplosion.playEffect(transform.position);
         }
     }
 }
