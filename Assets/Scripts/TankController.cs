@@ -52,9 +52,8 @@ namespace Tank
         void DestroyTank()
         {
             Destroy(this.gameObject);
-            ParticleSystem tankExplosion = EffectService.Instance.CreateEffect(EffectType.tankExposionEffect);
-            tankExplosion.transform.position = transform.position;
-            tankExplosion.Play();
+            EffectController tankExplosion = EffectService.Instance.CreateEffect(EffectType.tankExposionEffect);
+            tankExplosion.playEffect(transform.position);
         }
     }
 }

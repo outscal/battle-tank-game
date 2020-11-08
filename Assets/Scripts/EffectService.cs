@@ -12,11 +12,11 @@ namespace Effects
     public class EffectService : MonoSingletonGeneric<EffectService>
     {
         [SerializeField]
-        private ParticleSystem shellExplosion, tankExplosion;
+        private EffectController shellExplosion, tankExplosion;
 
-        public ParticleSystem CreateEffect(EffectType type)
+        public EffectController CreateEffect(EffectType type)
         {
-            ParticleSystem createdEffect = null;
+            EffectController createdEffect = null;
             switch (type)
             {
                 case EffectType.shellExplosionEffect:

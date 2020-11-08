@@ -37,11 +37,10 @@ namespace Weapons
             Destroy(this.gameObject);
         }
 
-        void ShowShellExplosion(Vector3 Pos)
+        void ShowShellExplosion(Vector3 pos)
         {
-            ParticleSystem shellExplosion = EffectService.Instance.CreateEffect(EffectType.shellExplosionEffect);
-            shellExplosion.transform.position = Pos;
-            shellExplosion.Play();
+            EffectController shellExplosion = EffectService.Instance.CreateEffect(EffectType.shellExplosionEffect);
+            shellExplosion.playEffect(pos);
         }
 
         void DamageTank(TankController tank)
