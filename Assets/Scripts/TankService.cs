@@ -1,5 +1,6 @@
 ﻿using Singleton;
 using UnityEngine;
+using System.Collections;
 
 namespace Tank
 {
@@ -15,5 +16,22 @@ namespace Tank
             return tankControl;
         }
         
+        public void RespawnPlayer(TankController tank)
+        {
+            StartCoroutine(RespawnTankAfterDelay(tank));
+        }
+
+        private IEnumerator RespawnTankAfterDelay(TankController tank)
+        {
+            tank.gameObject.SetActive(false);
+            yield return new WaitForSeconds(5f);
+            ResetTank(tank);
+        }
+
+        void ResetTank(TankController tank)
+        {
+            tank.gameObject.SetActive(true);
+            tank.ResetTankValues();
+        }
     }
 }

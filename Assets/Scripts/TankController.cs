@@ -18,6 +18,9 @@ namespace Tank
         private float bulletCooldownTime = 5f;
         protected bool bulletCooldownFlag = false;
 
+        Vector3 startPos;
+        TankScriptableObject myTankData;
+
         public void TankSetup(TankScriptableObject tankData)
         {
             moveSpeed = tankData.moveSpeed;
@@ -25,6 +28,8 @@ namespace Tank
             health = tankData.health;
             bulletDamage = tankData.bulletDamage;
             bulletCooldownTime = tankData.bulletCooldownTime;
+            startPos = transform.position;
+            myTankData = tankData;
         }
 
         void Awake()
@@ -48,7 +53,6 @@ namespace Tank
                 bulletCooldownFlag = true;
                 StartCoroutine(StartBulletCooldown());
             }
-
         }
 
         public void TakeDamage(int damage)
@@ -59,6 +63,7 @@ namespace Tank
                 DestroyTank();
             }
         }
+
         protected IEnumerator StartBulletCooldown()
         {
             if (bulletCooldownFlag)
@@ -68,11 +73,18 @@ namespace Tank
             }
             yield return null;
         }
-        void DestroyTank()
+
+        private void DestroyTank()
         {
-            Destroy(this.gameObject);
             EffectController tankExplosion = EffectService.Instance.CreateEffect(EffectType.tankExposionEffect);
             tankExplosion.playEffect(transform.position);
+            TankService.Instance.RespawnPlayer(this);
         }
+        public void ResetTankValues()
+        {
+            transform.position = startPos;
+            TankSetup(myTankData);
+        }
+
     }
 }
