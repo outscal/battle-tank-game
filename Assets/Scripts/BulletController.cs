@@ -8,8 +8,6 @@ namespace Weapons
     public class BulletController : MonoBehaviour
     {
         private Rigidbody rb;
-        [SerializeField]
-        private float bulletRange;
         private Vector3 spawnPos;
         private int bulletDamage;
 
@@ -17,15 +15,6 @@ namespace Weapons
         {
             rb = GetComponent<Rigidbody>();
         }
-
-        private void Update()
-        {
-            if (Vector3.Distance(spawnPos, transform.position) > bulletRange)
-            {
-                Destroy(this.gameObject);
-            }
-        }
-
         public void SetDamage(int damage)
         {
             bulletDamage = damage;
