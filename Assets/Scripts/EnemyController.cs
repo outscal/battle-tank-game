@@ -24,9 +24,9 @@ namespace Enemy
 
         }
 
-        public void SetupEnemy(TankController in_Target)
+        public void SetupEnemy(TankController target)
         {
-            Target = in_Target;
+            Target = target;
         }
 
     }
