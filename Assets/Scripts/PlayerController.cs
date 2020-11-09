@@ -24,9 +24,6 @@ namespace Player
             HandleJoystickInput();
         }
 
-
-
-
         private void HandlePlayerInput()
         {
             if (horizontalInputLeft != 0 || verticalInputLeft != 0)

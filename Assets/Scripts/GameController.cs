@@ -32,9 +32,9 @@ namespace Game
 
         void CreateEnemy()
         {
-            TankController tank = EnemySpawnerService.Instance.CreateEnemy();
-            tank.TankSetup(enemyObj);
-            tank.gameObject.GetComponent<EnemyController>().SetupEnemy(playerTank);
+            EnemyController enemyTank = EnemySpawnerService.Instance.CreateEnemy();
+            enemyTank.TankSetup(enemyObj);
+            enemyTank.SetupEnemy(playerTank);
         }
     }
 }

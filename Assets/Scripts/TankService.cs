@@ -7,12 +7,12 @@ namespace Tank
     public class TankService : MonoSingletonGeneric<TankService>
     {
         [SerializeField]
-        private GameObject playerTankPrefab;
+        private TankController playerTank;
         
         public TankController CreatePlayer()
         {
-            GameObject tankGameObject = GameObject.Instantiate(playerTankPrefab);
-            TankController tankControl = tankGameObject.GetComponent<TankController>();
+            TankController tankControl = Instantiate(playerTank, TankSpawnPositionManager.Instance.GetEmptySpawnPosition(), Quaternion.identity);
+            TankSpawnPositionManager.Instance.AddTank(playerTank.gameObject);
             return tankControl;
         }
         
@@ -31,6 +31,7 @@ namespace Tank
         void ResetTank(TankController tank)
         {
             tank.gameObject.SetActive(true);
+            tank.transform.position = TankSpawnPositionManager.Instance.GetEmptySpawnPosition();
             tank.ResetTankValues();
         }
     }
