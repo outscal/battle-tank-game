@@ -1,50 +1,33 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemySpawnController : MonoSingletonGeneric<EnemySpawnController>
 {
-    [SerializeField]
-    private GameObject basicEnemy;
-    [SerializeField]
-    private Button spawnButton;
-    private int count;
-    private bool noTank;
+    private int enemyCount = 5;
+    private bool bossSpawn = false;
     // Start is called before the first frame update
     void Start()
     {
-        count = 0;
-        Invoke("SpawnEnemy", 2f);
-        noTank = false;
-        spawnButton.onClick.AddListener(SpawnEnemy);
+        MobSpawn();
     }
-    private void SpawnEnemy() {
-        if (transform.childCount==0)
-        {
-            if (count < 4)
-            {
-                GameObject enemy = Instantiate(basicEnemy, new Vector3(UnityEngine.Random.Range(-48,48), 0, UnityEngine.Random.Range(-48,47)), transform.rotation);
-                Renderer[] rend = enemy.GetComponentsInChildren<Renderer>();
-                enemy.transform.SetParent(transform);
-                for (int i = 0; i < rend.Length; i++) rend[i].material.color = Color.red;
-                enemy.tag="Enemy";
-                count++;
-            }
-            else {
-                GameObject enemy = Instantiate(basicEnemy, new Vector3(UnityEngine.Random.Range(-48, 48), 0, UnityEngine.Random.Range(-48, 47)), transform.rotation);
-                Renderer[] rend = enemy.GetComponentsInChildren<Renderer>();
-                enemy.transform.SetParent(transform);
-                for (int i = 0; i < rend.Length; i++) rend[i].material.color = Color.black;
-                enemy.transform.localScale *= 3f;
-                enemy.tag ="BossEnemy";
-                count = 0;
-            }
+
+    private void MobSpawn()
+    {
+        for (int i = 1; i <= enemyCount; i++) {
+            TankProvider.Instance.SpawnMob();
         }
     }
-    private void Wait() { }
+
     // Update is called once per frame
     void Update()
-    {   
-        
-
+    {
+        if (enemyCount == 0 && !bossSpawn)
+        {
+            TankProvider.Instance.SpawnBoss();
+            bossSpawn = true;
+        }
+        else if (bossSpawn) { }
+        else { enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length; }
     }
 }

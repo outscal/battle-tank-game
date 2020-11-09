@@ -9,7 +9,7 @@ public class TargetFinder : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemy = GameObject.Find("EnemySpawner");
+        enemy = GameObject.Find("EnemyController");
         anim = GetComponentInChildren<Animator>();
     }
 

@@ -19,6 +19,7 @@ public class Shell : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log(collision.gameObject.GetType());
         Destroy(gameObject);
         var explosion=Instantiate(shellExplosion, transform.position, transform.rotation);
         Destroy(explosion,1f);

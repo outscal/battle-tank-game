@@ -34,15 +34,10 @@ public class TankController : MonoSingletonGeneric<TankController>
     {
         if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("BossEnemy")) {
 
-            Boom();
+            TankProvider.Instance.Boom(transform);
             Destroy(gameObject);
         }
     }
-    private void Boom()
-    {
-        GameObject explosion = Instantiate(tankExplosion, transform.position, transform.rotation);
-        explosion.transform.localScale *= 3f;
-        Destroy(explosion, 2f);
-    }
+    
 }
 
