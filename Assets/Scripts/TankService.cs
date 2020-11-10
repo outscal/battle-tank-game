@@ -16,19 +16,16 @@ namespace Tank
             return tankControl;
         }
         
-        public void RespawnPlayer(TankController tank)
-        {
-            StartCoroutine(RespawnTankAfterDelay(tank));
-        }
+       
 
-        private IEnumerator RespawnTankAfterDelay(TankController tank)
+        public IEnumerator RespawnTankAfterDelay(TankController tank)
         {
             tank.gameObject.SetActive(false);
             yield return new WaitForSeconds(5f);
             ResetTank(tank);
         }
 
-        void ResetTank(TankController tank)
+        public void ResetTank(TankController tank)
         {
             tank.gameObject.SetActive(true);
             tank.transform.position = TankSpawnPositionManager.Instance.GetEmptySpawnPosition();

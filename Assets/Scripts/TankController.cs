@@ -3,6 +3,7 @@ using ScriptableObjects;
 using Weapons;
 using Effects;
 using System.Collections;
+using Game;
 
 namespace Tank
 {
@@ -78,11 +79,13 @@ namespace Tank
         {
             EffectController tankExplosion = EffectService.Instance.CreateEffect(EffectType.tankExposionEffect);
             tankExplosion.playEffect(transform.position);
-            TankService.Instance.RespawnPlayer(this);
+            if (this.gameObject.CompareTag("Player"))
+            {
+                GameController.GC.SetPlayerDeath();
+            }
         }
         public void ResetTankValues()
         {
-            transform.position = startPos;
             TankSetup(myTankData);
         }
 

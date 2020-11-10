@@ -7,11 +7,6 @@ namespace Enemy
     {
         TankController Target;
 
-        private void Start()
-        {
-            SetBulletCountdown();
-        }
-
         private void OnEnable()
         {
             SetBulletCountdown();
@@ -36,6 +31,7 @@ namespace Enemy
 
         private void SetBulletCountdown()
         {
+
             bulletCooldownFlag = true;
             StartCoroutine(StartBulletCooldown());
         }

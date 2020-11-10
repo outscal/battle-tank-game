@@ -3,20 +3,24 @@ using UnityEngine;
 using Player;
 using ScriptableObjects;
 using Enemy;
+using System.Collections;
 
 namespace Game
 {
     public class GameController : MonoBehaviour
     {
         private PlayerController playerTank;
+        private EnemyController enemyTank;
         [SerializeField]
         private FloatingJoystick leftJoystick, rightJoystick;
 
         [SerializeField]
         private TankScriptableObject playerObj, enemyObj;
+        public static GameController GC;
 
         void Start()
         {
+            GC = this;
             CreatePlayer();
             CreateEnemy();
         }
@@ -32,9 +36,28 @@ namespace Game
 
         void CreateEnemy()
         {
-            EnemyController enemyTank = EnemySpawnerService.Instance.CreateEnemy();
+            enemyTank = EnemySpawnerService.Instance.CreateEnemy();
             enemyTank.TankSetup(enemyObj);
             enemyTank.SetupEnemy(playerTank);
+        }
+
+        public void SetPlayerDeath()
+        {
+           
+            StartCoroutine(KillPlayerAndRespawn());
+        }
+
+        private IEnumerator KillPlayerAndRespawn()
+        {
+            playerTank.gameObject.SetActive(false);
+            yield return StartCoroutine(DestroyAllEnemiesAndRespawn());
+            TankService.Instance.ResetTank(playerTank);
+        }
+        private IEnumerator DestroyAllEnemiesAndRespawn()
+        {
+            yield return new WaitForSeconds(1f);
+            enemyTank.gameObject.SetActive(false);
+           yield return StartCoroutine( TankService.Instance.RespawnTankAfterDelay(enemyTank));
         }
     }
 }
