@@ -10,12 +10,12 @@ public class JoystickUI : MonoBehaviour
         //Use this in your movement script for the input control
         public Vector2 moveDirection;
         //Joystick components size
-        int circleSize = 60;
-        int buttonSize = 50;
+        int circleSize = 120;
+        int buttonSize = 100;
         //How far the joystick should be placed from the side of the screen
-        int marginLeft = 30;
+        int marginLeft = 100;
         //How far the joystick should be placed from the bottom of the screen
-        int marginBottom = 30;
+        int marginBottom = 100;
 
         Canvas mainCanvas;
 
