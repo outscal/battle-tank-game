@@ -12,7 +12,7 @@ namespace Tank
         public TankController CreatePlayer()
         {
             TankController tankControl = Instantiate(playerTank, TankSpawnPositionManager.Instance.GetEmptySpawnPosition(), Quaternion.identity);
-            TankSpawnPositionManager.Instance.AddTank(playerTank.gameObject);
+            TankSpawnPositionManager.Instance.AddTank(tankControl.gameObject);
             return tankControl;
         }
         

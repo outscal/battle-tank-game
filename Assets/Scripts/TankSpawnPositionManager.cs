@@ -12,8 +12,9 @@ public class TankSpawnPositionManager : MonoSingletonGeneric<TankSpawnPositionMa
     public List<Transform> tankSpawnPoints = new List<Transform>();
     public List<GameObject> createdTanks = new List<GameObject>();
 
-    private void Start()
+    private void Awake()
     {
+        base.Awake();
         for (int i = 0; i < tankSpawnPointsHolder.childCount; i++)
         {
             tankSpawnPoints.Add(tankSpawnPointsHolder.GetChild(i));
@@ -28,13 +29,16 @@ public class TankSpawnPositionManager : MonoSingletonGeneric<TankSpawnPositionMa
     public Vector3 GetEmptySpawnPosition()
     {
         List<Transform> tempSpawnPoints = new List<Transform>();
+        
         for (int i = 0; i < tankSpawnPoints.Count; i++)
         {
             tempSpawnPoints.Add(tankSpawnPoints[i]);
         }
+
         while (tempSpawnPoints.Count > 0)
         {
             int randomIndex = Random.Range(0, (int)tempSpawnPoints.Count);
+          
             if (CheckIfPositionIsEmpty(tempSpawnPoints[randomIndex].position))
             {
                 return tempSpawnPoints[randomIndex].position;
