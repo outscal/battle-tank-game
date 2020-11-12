@@ -9,27 +9,26 @@ public class TankSpawnPositionManager : MonoSingletonGeneric<TankSpawnPositionMa
     private Transform tankSpawnPointsHolder;
     [SerializeField]
     private float spawnRange;
-    public List<Transform> tankSpawnPoints = new List<Transform>();
-    public List<GameObject> createdTanks = new List<GameObject>();
+    private List<Transform> tankSpawnPoints = new List<Transform>();
 
     private void Awake()
     {
         base.Awake();
+        LoadTankSpawnPoints();
+    }
+
+    private void LoadTankSpawnPoints()
+    {
         for (int i = 0; i < tankSpawnPointsHolder.childCount; i++)
         {
             tankSpawnPoints.Add(tankSpawnPointsHolder.GetChild(i));
         }
     }
 
-    public void AddTank(GameObject setTank)
-    {
-        createdTanks.Add(setTank);
-    }
-
     public Vector3 GetEmptySpawnPosition()
     {
         List<Transform> tempSpawnPoints = new List<Transform>();
-        
+
         for (int i = 0; i < tankSpawnPoints.Count; i++)
         {
             tempSpawnPoints.Add(tankSpawnPoints[i]);
@@ -38,7 +37,7 @@ public class TankSpawnPositionManager : MonoSingletonGeneric<TankSpawnPositionMa
         while (tempSpawnPoints.Count > 0)
         {
             int randomIndex = Random.Range(0, (int)tempSpawnPoints.Count);
-          
+
             if (CheckIfPositionIsEmpty(tempSpawnPoints[randomIndex].position))
             {
                 return tempSpawnPoints[randomIndex].position;
@@ -54,18 +53,15 @@ public class TankSpawnPositionManager : MonoSingletonGeneric<TankSpawnPositionMa
     private bool CheckIfPositionIsEmpty(Vector3 pos)
     {
         int i = 0;
-        TankController[] tanks = GameObject.FindObjectsOfType<TankController>();
-        if (tanks.Length > 0)
+        List<TankController> tanks = TankService.Instance.createdTanks;
+        for (i = 0; i < tanks.Count; i++)
         {
-            for (i = 0; i < tanks.Length; i++)
+            if (Vector3.Distance(tanks[i].transform.position, pos) < spawnRange)
             {
-                if (Vector3.Distance(tanks[i].transform.position, pos) < spawnRange)
-                {
-                    break;
-                }
+                break;
             }
         }
-        return i == createdTanks.Count;
+        return i == tanks.Count;
     }
 
 }

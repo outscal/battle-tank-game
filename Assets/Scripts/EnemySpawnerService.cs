@@ -13,7 +13,7 @@ namespace Enemy
         public EnemyController CreateEnemy()
         {
             EnemyController enemyTank = Instantiate(enemyTankPrefab, TankSpawnPositionManager.Instance.GetEmptySpawnPosition(),Quaternion.identity);
-            TankSpawnPositionManager.Instance.AddTank(enemyTank.gameObject);
+            TankService.Instance.AddTank(enemyTank);
             return enemyTank;
         }
     }

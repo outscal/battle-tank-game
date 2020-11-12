@@ -18,11 +18,22 @@ namespace Game
         private TankScriptableObject playerObj, enemyObj;
         public static GameController GC;
 
+        [SerializeField]
+        private int numberOfEnemies;
+
         void Start()
         {
             GC = this;
             CreatePlayer();
-            CreateEnemy();
+            SpawnEnemies();
+        }
+
+        void SpawnEnemies()
+        {
+            for (int i = 0; i < numberOfEnemies; i++)
+            {
+                CreateEnemy();
+            }
         }
 
         void CreatePlayer()
@@ -43,7 +54,7 @@ namespace Game
 
         public void SetPlayerDeath()
         {
-           
+
             StartCoroutine(KillPlayerAndRespawn());
         }
 
@@ -57,7 +68,7 @@ namespace Game
         {
             yield return new WaitForSeconds(1f);
             enemyTank.gameObject.SetActive(false);
-           yield return StartCoroutine( TankService.Instance.RespawnTankAfterDelay(enemyTank));
+            yield return StartCoroutine(TankService.Instance.RespawnTankAfterDelay(enemyTank));
         }
     }
 }

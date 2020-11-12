@@ -397,6 +397,7 @@ MonoBehaviour:
   rightJoystick: {fileID: 671331055}
   playerObj: {fileID: 11400000, guid: e7d24a2a8328fb14eaf593b040d8a327, type: 2}
   enemyObj: {fileID: 11400000, guid: 65758a3fef73f9744bada6db1f10938d, type: 2}
+  numberOfEnemies: 2
 --- !u!1001 &808518835
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -654,6 +655,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTank: {fileID: 114981392408935090, guid: a5c64943a2274c843b5b1f6d53c63eeb,
     type: 3}
+  createdTanks: []
 --- !u!1001 &1158996493
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1328,8 +1330,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tankSpawnPointsHolder: {fileID: 277410383}
   spawnRange: 10
-  tankSpawnPoints: []
-  createdTanks: []
 --- !u!1 &1852134525
 GameObject:
   m_ObjectHideFlags: 0
