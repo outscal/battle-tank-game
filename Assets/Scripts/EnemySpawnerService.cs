@@ -1,5 +1,6 @@
 ﻿using Singleton;
 using UnityEngine;
+using System.Collections.Generic;
 using Tank;
 
 namespace Enemy
@@ -7,13 +8,13 @@ namespace Enemy
     public class EnemySpawnerService : MonoSingletonGeneric<EnemySpawnerService>
     {
         [SerializeField]
-        private GameObject enemyTankPrefab;
+        private EnemyController enemyTankPrefab;
 
-        public TankController CreateEnemy()
+        public EnemyController CreateEnemy()
         {
-            GameObject tankGameObject = GameObject.Instantiate(enemyTankPrefab);
-            TankController tankControl = tankGameObject.GetComponent<TankController>();
-            return tankControl;
+            EnemyController enemyTank = Instantiate(enemyTankPrefab, TankSpawnPositionManager.Instance.GetEmptySpawnPosition(),Quaternion.identity);
+            TankService.Instance.AddTank(enemyTank);
+            return enemyTank;
         }
     }
 }
