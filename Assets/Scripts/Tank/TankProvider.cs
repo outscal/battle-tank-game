@@ -22,6 +22,7 @@ public class TankProvider : MonoSingletonGeneric<TankProvider>
         Renderer[] rend = enemy.GetComponentsInChildren<Renderer>();
         for (int i = 0; i < rend.Length; i++) rend[i].material.color = Color.red;
         enemy.tag = "Enemy";
+        enemy.layer = 12;
         EnemyController ec = enemy.AddComponent<EnemyController>();
         ec.hp = mobTank.getHP();
         ec.payrollSpeed = mobTank.getSpd();
@@ -36,6 +37,7 @@ public class TankProvider : MonoSingletonGeneric<TankProvider>
         for (int i = 0; i < rend.Length; i++) rend[i].material.color = Color.black;
         boss.transform.localScale *=3;
         boss.tag = "BossEnemy";
+        boss.layer = 12;
         EnemyController ec = boss.AddComponent<EnemyController>();
         ec.hp = bossTank.getHP();
         ec.payrollSpeed = bossTank.getSpd();
