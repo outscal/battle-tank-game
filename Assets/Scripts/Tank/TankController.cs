@@ -1,60 +1,66 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class TankController : MonoBehaviour
-{   
-    [SerializeField]
-    private Joystick joystick;
+public class TankController : MonoBehaviour {
+	
+	[SerializeField]private float MoveSpeed;
+	[SerializeField]private  float rotateSpeed;
+	private float vertical;
+	private float horizontal;
+	//private Joystick joystick;
+	private Rigidbody rigidbody;
 
-    #region PRIVATE METHODS
+//``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+//``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 
-        private void Start() {
-            
-        }
+	private void Awake()
+	{
+		//joystick=FindObjectOfType<Joystick>();
+		rigidbody=GetComponent<Rigidbody>();
+	}
 
-        
-        private void FixedUpdate() {
+//``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+//``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 
-            float vertical = joystick.Vertical;
-            float horizontal = joystick.Horizontal;
-            moveTankAround(vertical,horizontal);
-        }
+	private void FixedUpdate()
+	{
+		//JoyStickMove();
+		TankMovement();
+		TankRotate();
+	}
 
-        private void moveTankAround(float vertical,float horizontal){
-            Vector3 movement = new Vector3(horizontal, 0.0f,vertical);
-            
-            if(movement != Vector3.zero){
-                transform.rotation =Quaternion.Slerp(transform.rotation,Quaternion.LookRotation(movement),1f);
-            }
+//``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+//``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 
-            transform.Translate(Speed*horizontal*Time.deltaTime,
-                                0f,Speed*vertical*Time.deltaTime,
-                                Space.World);
-        }
+	void Update ()
+	{
+		vertical=Input.GetAxis("VerticalUI");
+		horizontal=Input.GetAxis("HorizontalUI");
+	}
 
+//``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+//``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 
-    #endregion
+	private void TankMovement()
+	{
+		Vector3 moveTank=transform.forward*vertical*MoveSpeed*Time.deltaTime;
+		rigidbody.MovePosition(rigidbody.position + moveTank);
+	}
 
+//``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+//``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 
+	private void TankRotate()
+	{
+		float rotate = horizontal*rotateSpeed*Time.deltaTime;
+		Quaternion rotateTank=Quaternion.Euler(0f,rotate,0f);
+		rigidbody.MoveRotation(rigidbody.rotation*rotateTank);
+	}
 
-    #region PUBLIC METHODS
-        
-        public TankController(TankScriptableObject tankScriptableObject){
-            Speed = tankScriptableObject.Speed;
-            Health = tankScriptableObject.Health;
-            tankType = tankScriptableObject.tankType;
-        }
-
-        #region GETTERS|SETTERS
-
-            public int Speed{get;private set;}
-            public int Health{get;private set;}
-            public TankType tankType{get;private set;}
-
-        #endregion
-
-    #endregion
-
-
+//``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+//``````````````````````````````````````````````````````````````````````````````````````````````````````````````joystick
+	// private void JoyStickMove()
+	// {
+	// 	rigidbody.velocity= new Vector3(joystick.Horizontal*5f,rigidbody.velocity.y,joystick.Vertical*5f);
+	// }
+	
 }
