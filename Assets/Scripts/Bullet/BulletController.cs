@@ -30,9 +30,10 @@ namespace Weapons
         private void OnCollisionEnter(Collision collision)
         {
             ShowShellExplosion(collision.contacts[0].point);
-            if (collision.gameObject.GetComponent<TankController>() != null)
+            IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
+            if (damageable != null)
             {
-                DamageTank(collision.gameObject.GetComponent<TankController>());
+                DamageTank(damageable);
             }
             Destroy(this.gameObject);
         }
@@ -43,9 +44,9 @@ namespace Weapons
             shellExplosion.playEffect(pos);
         }
 
-        void DamageTank(TankController tank)
+        void DamageTank(IDamageable damageable)
         {
-            tank.TakeDamage(bulletDamage);
+            damageable.TakeDamage(bulletDamage);
         }
 
     }

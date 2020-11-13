@@ -8,7 +8,7 @@ using Game;
 namespace Tank
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class TankController : MonoBehaviour
+    public class TankController : MonoBehaviour,IDamageable
     {
         [SerializeField]
         protected Transform chassis, turret, bulletSpawnPosition;
@@ -31,6 +31,16 @@ namespace Tank
             bulletCooldownTime = tankData.bulletCooldownTime;
             startPos = transform.position;
             myTankData = tankData;
+        }
+
+        private void OnEnable()
+        {
+            SetBulletCountdown();
+        }
+        private void SetBulletCountdown()
+        {
+            bulletCooldownFlag = true;
+            StartCoroutine(StartBulletCooldown());
         }
 
         void Awake()
@@ -82,6 +92,10 @@ namespace Tank
             if (this.gameObject.CompareTag("Player"))
             {
                 GameController.GC.SetPlayerDeath();
+            }
+            else
+            {
+                TankService.Instance.DestroyTank(this);
             }
         }
         public void ResetTankValues()

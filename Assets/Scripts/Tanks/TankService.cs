@@ -17,18 +17,23 @@ namespace Tank
             createdTanks.Add(tankControl);
             return tankControl;
         }
-        
-       
+        public void DestroyTank(TankController tank)
+        {
+            StartCoroutine(RespawnTankAfterDelay(tank));
+        }
 
         public IEnumerator RespawnTankAfterDelay(TankController tank)
         {
+            Debug.Log("Resetting");
             tank.gameObject.SetActive(false);
             yield return new WaitForSeconds(5f);
+            Debug.Log("Resetting tsnk");
             ResetTank(tank);
         }
 
         public void ResetTank(TankController tank)
         {
+         
             tank.gameObject.SetActive(true);
             tank.transform.position = TankSpawnPositionManager.Instance.GetEmptySpawnPosition();
             tank.ResetTankValues();
