@@ -13,7 +13,8 @@ namespace Tank
         
         public TankController CreatePlayer()
         {
-            TankController tankControl = Instantiate(playerTank, TankSpawnPositionManager.Instance.GetEmptySpawnPosition(), Quaternion.identity);
+            Transform randomTransform = TankSpawnPositionManager.Instance.GetEmptySpawnPosition();
+            TankController tankControl = Instantiate(playerTank, randomTransform.position, Quaternion.identity);
             createdTanks.Add(tankControl);
             return tankControl;
         }
@@ -35,7 +36,9 @@ namespace Tank
         {
          
             tank.gameObject.SetActive(true);
-            tank.transform.position = TankSpawnPositionManager.Instance.GetEmptySpawnPosition();
+            Transform randomTransform = TankSpawnPositionManager.Instance.GetEmptySpawnPosition();
+            tank.transform.position = randomTransform.position;
+            tank.transform.eulerAngles = randomTransform.eulerAngles;
             tank.ResetTankValues();
         }
 

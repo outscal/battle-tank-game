@@ -25,7 +25,7 @@ public class TankSpawnPositionManager : MonoSingletonGeneric<TankSpawnPositionMa
         }
     }
 
-    public Vector3 GetEmptySpawnPosition()
+    public Transform GetEmptySpawnPosition()
     {
         List<Transform> tempSpawnPoints = new List<Transform>();
 
@@ -40,14 +40,14 @@ public class TankSpawnPositionManager : MonoSingletonGeneric<TankSpawnPositionMa
 
             if (CheckIfPositionIsEmpty(tempSpawnPoints[randomIndex].position))
             {
-                return tempSpawnPoints[randomIndex].position;
+                return tempSpawnPoints[randomIndex];
             }
             else
             {
                 tempSpawnPoints.Remove(tempSpawnPoints[randomIndex]);
             }
         }
-        return Vector3.zero;
+        return null;
     }
 
     private bool CheckIfPositionIsEmpty(Vector3 pos)
