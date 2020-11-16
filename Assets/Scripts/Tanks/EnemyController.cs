@@ -16,16 +16,39 @@ namespace Enemy
         private float movementDistance = 15f;
         private Vector3 moveDir;
         private Vector3 distanceCheckPos;
+        private EnemyStates currState;
 
         private void Update()
         {
+            switch (currState)
+            {
+                case EnemyStates.Patrolling:
+                    CheckForTargetOrKeepPatrolling();
+                    break;
+                case EnemyStates.Attacking:
+                    ShootIfTargetIsInRange();
+                    break;
+            }
+        }
+
+        private void ShootIfTargetIsInRange()
+        {
+            turret.transform.LookAt(target.transform.position);
+            if (!bulletCooldownFlag)
+            {
+                ShootBullet();
+            }
+            if (!CheckIfTargetIsVisible())
+            {
+                currState = EnemyStates.Patrolling;
+            }
+        }
+
+        private void CheckForTargetOrKeepPatrolling()
+        {
             if (CheckIfTargetIsVisible())
             {
-                turret.transform.LookAt(target.transform.position);
-                if (!bulletCooldownFlag)
-                {
-                    ShootBullet();
-                }
+                currState = EnemyStates.Attacking;
             }
             else
             {
@@ -63,7 +86,11 @@ namespace Enemy
         public void SetupEnemy(TankController enemyTarget)
         {
             target = enemyTarget;
-            Debug.Log(transform.eulerAngles.y);
+            SetupEnemyMovement();
+        }
+
+        private void SetupEnemyMovement()
+        {
             switch (transform.eulerAngles.y)
             {
                 case 270f:
@@ -83,6 +110,7 @@ namespace Enemy
                     break;
             }
             distanceCheckPos = transform.position;
+            currState = EnemyStates.Patrolling;
         }
     }
 }
