@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 
-public class TankHealth : MonoBehaviour
+public class EnemyHealth : MonoBehaviour
 {
     [SerializeField]private float MaxHealth = 100f;
     [SerializeField]private Slider healthSlider;
@@ -10,10 +10,6 @@ public class TankHealth : MonoBehaviour
     [SerializeField]private Color fullHealthColor = Color.green;
     [SerializeField]private Color lowHealthColor= Color.red;
     [SerializeField]private GameObject ExplosionPrefab;
-    [SerializeField]private DestroyLevel levelTerrain;
-    [SerializeField]private EnemyHealth enemy;
-    
-
 
     private ParticleSystem explosionPrefab;
     private Coroutine explosionCoroutine=null;
@@ -28,8 +24,7 @@ public class TankHealth : MonoBehaviour
 //``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 //``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 
-    private void Awake()
-    {
+    private void Awake() {
         explosionPrefab = Instantiate(ExplosionPrefab).GetComponent<ParticleSystem>();
         explosionPrefab.gameObject.SetActive(false);
 
@@ -42,12 +37,10 @@ public class TankHealth : MonoBehaviour
 //``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 //``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 
-    public void TakeDamage(float takeDamage)
-    {
+    public void TakeDamage(float takeDamage){
         CurrentHealth -=takeDamage;
         SetHealthColor();
-        if(CurrentHealth<=0f && !IsDead)
-        {
+        if(CurrentHealth<=0f && !IsDead){
             PlayerDead();
         }
     }
@@ -55,8 +48,7 @@ public class TankHealth : MonoBehaviour
 //``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 //``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 
-    private void SetHealthColor()
-    {
+    private void SetHealthColor(){
         healthSlider.value=CurrentHealth;
         healthFillImage.color=Color.Lerp(lowHealthColor,fullHealthColor,CurrentHealth/MaxHealth);
     }
@@ -64,12 +56,20 @@ public class TankHealth : MonoBehaviour
 //``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 //``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 
-    private void PlayerDead()
-    {
+    internal void PlayerDead(){
         IsDead = true;
         if(explosionCoroutine==null){
-            explosionCoroutine = StartCoroutine(playerDeathEffects());
+            explosionCoroutine = StartCoroutine(playerDeathEffects(0f));
         }
+    }   
+
+//``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+//``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+    internal void CleanSlate(){
+        if(explosionCoroutine!=null){
+            StopCoroutine(explosionCoroutine);
+        }
+       explosionCoroutine = StartCoroutine(playerDeathEffects(2f)); 
     }
 
 //``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
@@ -86,11 +86,10 @@ public class TankHealth : MonoBehaviour
 //``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 //``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 
-    private IEnumerator playerDeathEffects(){
+    private IEnumerator playerDeathEffects(float seconds){
         
+        yield return new WaitForSeconds(seconds);
         yield return StartCoroutine(playExplosionParticleSystem());
-        enemy.CleanSlate();
-        levelTerrain.CleanSlate();
         gameObject.SetActive(false);
         explosionCoroutine = null;
         
