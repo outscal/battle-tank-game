@@ -1,4 +1,5 @@
-﻿using UnityEngine.UI;
+﻿using System.Collections;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class TankHealth : MonoBehaviour
@@ -10,18 +11,23 @@ public class TankHealth : MonoBehaviour
     [SerializeField]private Color lowHealthColor= Color.red;
     [SerializeField]private GameObject ExplosionPrefab;
 
-    
+
+    private ParticleSystem explosionPrefab;
+    private Coroutine explosionCoroutine=null;
+
 //``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 //``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
     private float CurrentHealth;
     private bool IsDead;
- 
  
 //``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 //``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 
     private void Awake()
     {
+        explosionPrefab = Instantiate(ExplosionPrefab).GetComponent<ParticleSystem>();
+        explosionPrefab.gameObject.SetActive(false);
+
         CurrentHealth=MaxHealth;
         IsDead=false;
         SetHealthColor();
@@ -56,6 +62,30 @@ public class TankHealth : MonoBehaviour
     private void PlayerDead()
     {
         IsDead = true;
-        gameObject.SetActive(false);
+        if(explosionCoroutine==null){
+            explosionCoroutine = StartCoroutine(playerDeathEffects());
+        }
     }
+
+//``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+//``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+
+    private IEnumerator playExplosionParticleSystem(){
+        explosionPrefab.transform.position=transform.position;
+        explosionPrefab.gameObject.SetActive(true);
+        explosionPrefab.Play();
+        yield return null;
+        
+    }
+
+//``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+//``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+
+    private IEnumerator playerDeathEffects(){
+        
+        yield return StartCoroutine(playExplosionParticleSystem());
+        gameObject.SetActive(false);
+        explosionCoroutine = null;
+    }    
+
 }
