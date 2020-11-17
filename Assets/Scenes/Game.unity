@@ -431,7 +431,7 @@ GameObject:
   - component: {fileID: 498540401}
   m_Layer: 0
   m_Name: EnemyController
-  m_TagString: Untagged
+  m_TagString: Utility
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -477,6 +477,49 @@ MonoBehaviour:
   hp: 0
   payrollSpeed: 0
   dmg: 0
+--- !u!1 &885421689
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 885421690}
+  - component: {fileID: 885421691}
+  m_Layer: 0
+  m_Name: DestroyScene
+  m_TagString: Utility
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &885421690
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885421689}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.3553448, y: 1.8486967, z: 0.7350711}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &885421691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885421689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9625d534d5717468ae208a0465fc27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1158996493
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1429,7 +1472,7 @@ GameObject:
   - component: {fileID: 1991915520}
   m_Layer: 8
   m_Name: Tank
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1448,6 +1491,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joystick: {fileID: 2139398640}
   tankExplosion: {fileID: 151086, guid: ee49a9a8678ecf8468eb488e1ac8d42b, type: 3}
+  ds: {fileID: 885421691}
 --- !u!95 &1992012017
 Animator:
   serializedVersion: 3
@@ -1598,7 +1642,7 @@ GameObject:
   - component: {fileID: 2081804851}
   m_Layer: 0
   m_Name: TankProvider
-  m_TagString: Untagged
+  m_TagString: Utility
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

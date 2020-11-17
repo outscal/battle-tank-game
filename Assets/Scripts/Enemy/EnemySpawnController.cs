@@ -4,12 +4,18 @@ using UnityEngine.UI;
 
 public class EnemySpawnController : MonoSingletonGeneric<EnemySpawnController>
 {
+    public static bool playerDead;
     private int enemyCount = 5;
     private bool bossSpawn = false;
     // Start is called before the first frame update
     void Start()
     {
         MobSpawn();
+    }
+
+    private void Awake()
+    {
+        playerDead = false;
     }
 
     private void MobSpawn()
@@ -22,7 +28,7 @@ public class EnemySpawnController : MonoSingletonGeneric<EnemySpawnController>
     // Update is called once per frame
     void Update()
     {
-        if (enemyCount == 0 && !bossSpawn)
+        if (enemyCount == 0 && !bossSpawn && !playerDead)
         {
             TankProvider.Instance.SpawnBoss();
             bossSpawn = true;

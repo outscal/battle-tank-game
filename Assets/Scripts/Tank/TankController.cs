@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 
@@ -38,21 +39,23 @@ public class TankController : MonoSingletonGeneric<TankController>
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("BossEnemy")) {
-            Debug.Log("Collision detected");
             StartCoroutine(DeathCoroutine());
             isdead = true;
             gameObject.layer = 11;
+   
         }
     }
 
     private IEnumerator DeathCoroutine() {
-        Debug.Log("Coroutine started");
         TankProvider.Instance.Boom(transform);
-        yield return new WaitForSeconds(0.5f);
+        yield return null;
+        DestroyScene.Instance.DestroyAll();
         Destroy(gameObject);
         TankProvider.Instance.Boom(transform);
-        Debug.Log("Coroutine finished");
-    } 
+    }
+
+
+
     
 }
 

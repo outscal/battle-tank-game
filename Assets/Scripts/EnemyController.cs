@@ -24,7 +24,6 @@ public class EnemyController : MonoBehaviour
             }
         }
         else {
-            Debug.Log(collision.gameObject.layer);
         }
     }
 
