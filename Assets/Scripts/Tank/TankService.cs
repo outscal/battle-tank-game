@@ -8,7 +8,8 @@ public class TankService : MonoBehaviour
     private void Start() {
 
         for(int i=0;i<NoOfEnemies;i++){
-             spawnNewTank();
+             //spawnNewTank();
+             objectPool.spawner();
         }
     }
 
@@ -17,7 +18,7 @@ public class TankService : MonoBehaviour
         public void spawnNewTank(){
 
             //TankScriptableObject tankScriptableObject = tankConfiguration[type];
-            objectPool.spawner();
+            //objectPool.spawner();
         }
 
     #endregion

@@ -382,7 +382,7 @@ GameObject:
   - component: {fileID: 3945948226771510512}
   - component: {fileID: 3945948226771385861}
   - component: {fileID: 3945948226771385858}
-  - component: {fileID: 5282062529885335651}
+  - component: {fileID: 5149950612695254295}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
@@ -435,7 +435,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.7272978, y: 1.9629474, z: 2.1860132}
   m_Center: {x: -0.008869648, y: 0.9249481, z: 0.0278579}
---- !u!114 &5282062529885335651
+--- !u!114 &5149950612695254295
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -444,7 +444,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3945948226771482896}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f3bde72e1e0dc245acd971b10c094c7, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b0f182a09d76a24b8638f620f6e9a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 100
@@ -453,7 +453,8 @@ MonoBehaviour:
   fullHealthColor: {r: 0, g: 1, b: 0, a: 1}
   lowHealthColor: {r: 1, g: 0, b: 0, a: 1}
   ExplosionPrefab: {fileID: 151086, guid: ee49a9a8678ecf8468eb488e1ac8d42b, type: 3}
-  objectPool: {fileID: 0}
+  objectPool: {fileID: 9122134330105956684, guid: daf514df124520f4dabd945e827d16e0,
+    type: 3}
 --- !u!1 &3945948226771482898
 GameObject:
   m_ObjectHideFlags: 0

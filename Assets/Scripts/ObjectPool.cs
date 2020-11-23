@@ -3,8 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool : MonoBehaviour
-{
+public class ObjectPool : MonoBehaviour{
 
     [Serializable]
     public class Pool{
@@ -39,12 +38,16 @@ public class ObjectPool : MonoBehaviour
     internal void spawner(){
         Debug.Log("InSpawner");
         GameObject obj = poolDictionary["EnemyTank"].Dequeue();         //Pop a tank from pool Queue
+
         float xLocation = UnityEngine.Random.Range(-30,36);             //calculating random Position
         float zLocation = UnityEngine.Random.Range(-41,40);
         Vector3 location = new Vector3(xLocation,0,zLocation);          
         obj.transform.position = location;                              //Setting A random Position
+
         obj.SetActive(true);                                            //Activating the obj that we poped
+        Debug.Log("check 123");
         poolDictionary["EnemyTank"].Enqueue(obj);                       //pushing back the obj refrence into the same queue
+        
         //return obj;                                                     //returning the tank that we poped
     }
 
