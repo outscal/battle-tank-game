@@ -35,20 +35,15 @@ public class ObjectPool : MonoBehaviour{
 //``````````````````````````````````````````````````````````````````````````````````````````````````````````````
 //``````````````````````````````````````````````````````````````````````````````````````````````````````````````
 
-    internal void spawner(){
-        Debug.Log("InSpawner");
-        GameObject obj = poolDictionary["EnemyTank"].Dequeue();         //Pop a tank from pool Queue
+    internal GameObject spawner(string key,Transform SpawnTransform){
 
-        float xLocation = UnityEngine.Random.Range(-30,36);             //calculating random Position
-        float zLocation = UnityEngine.Random.Range(-41,40);
-        Vector3 location = new Vector3(xLocation,0,zLocation);          
-        obj.transform.position = location;                              //Setting A random Position
+        GameObject obj = poolDictionary[key].Dequeue();                 //Pop a tank from pool Queue
+        obj.transform.position = SpawnTransform.position;               
 
         obj.SetActive(true);                                            //Activating the obj that we poped
-        Debug.Log("check 123");
-        poolDictionary["EnemyTank"].Enqueue(obj);                       //pushing back the obj refrence into the same queue
-        
-        //return obj;                                                     //returning the tank that we poped
+        poolDictionary[key].Enqueue(obj);                               //pushing back the obj refrence into the same queue
+
+        return obj;                                                     //returning the tank that we poped
     }
 
     

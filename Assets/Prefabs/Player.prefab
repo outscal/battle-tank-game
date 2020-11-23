@@ -128,8 +128,8 @@ GameObject:
   - component: {fileID: 6646379081980772323}
   - component: {fileID: 6646379081980772322}
   - component: {fileID: 6646379081980772325}
-  - component: {fileID: 6646379081980772320}
   - component: {fileID: 6646379081980772321}
+  - component: {fileID: 359256969}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -198,25 +198,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 10
   rotateSpeed: 180
---- !u!114 &6646379081980772320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6646379081980772324}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f3bde72e1e0dc245acd971b10c094c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxHealth: 100
-  healthSlider: {fileID: 6646379082966258428}
-  healthFillImage: {fileID: 6646379082712422949}
-  fullHealthColor: {r: 0, g: 0.18266344, b: 1, a: 1}
-  lowHealthColor: {r: 0.5660378, g: 0.24928854, b: 0.23762906, a: 1}
-  ExplosionPrefab: {fileID: 151086, guid: ee49a9a8678ecf8468eb488e1ac8d42b, type: 3}
-  levelTerrain: {fileID: 0}
 --- !u!114 &6646379081980772321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,11 +210,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05db40e6173afee458299dc0106e4017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Shell: {fileID: 2263015320772906313, guid: dbe738114671e0343bdaab9de78e65f5, type: 3}
+  objectPool: {fileID: 0}
   m_FireTransform: {fileID: 6646379082159204356}
   m_MinLaunchForce: 15
   m_MaxLaunchForce: 30
   m_MaxChargeTime: 0.75
+--- !u!114 &359256969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6646379081980772324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90643abee8a9dce4191d093642b35655, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 100
+  healthSlider: {fileID: 6646379082966258428}
+  healthFillImage: {fileID: 6646379082712422949}
+  fullHealthColor: {r: 0, g: 0.12270379, b: 1, a: 1}
+  lowHealthColor: {r: 1, g: 0.9561808, b: 0, a: 1}
+  ExplosionPrefab: {fileID: 151086, guid: ee49a9a8678ecf8468eb488e1ac8d42b, type: 3}
+  objectPool: {fileID: 9122134330105956684, guid: daf514df124520f4dabd945e827d16e0,
+    type: 3}
 --- !u!1 &6646379082128199640
 GameObject:
   m_ObjectHideFlags: 0

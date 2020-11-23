@@ -76,7 +76,7 @@ public class TankHealth : MonoBehaviour
         explosionPrefab.transform.position=transform.position;
         explosionPrefab.gameObject.SetActive(true);
         explosionPrefab.Play();
-        yield return null;
+        yield return new WaitForSeconds(explosionPrefab.duration);
         
     }
 
@@ -90,7 +90,6 @@ public class TankHealth : MonoBehaviour
         //levelTerrain.CleanSlate();
 
         gameObject.SetActive(false);
-        objectPool.spawner();
         explosionCoroutine = null;
     }    
 

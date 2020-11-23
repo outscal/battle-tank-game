@@ -9,7 +9,7 @@ public class TankService : MonoBehaviour
 
         for(int i=0;i<NoOfEnemies;i++){
              //spawnNewTank();
-             objectPool.spawner();
+             //objectPool.spawner("EnemyTank");
         }
     }
 
@@ -18,6 +18,11 @@ public class TankService : MonoBehaviour
         public void spawnNewTank(){
 
             //TankScriptableObject tankScriptableObject = tankConfiguration[type];
+
+            // float xLocation = UnityEngine.Random.Range(-30,36);             
+            // float zLocation = UnityEngine.Random.Range(-41,40);
+            //Vector3 location = new Vector3(xlocation,0f,zLocation);   
+
             //objectPool.spawner();
         }
 
