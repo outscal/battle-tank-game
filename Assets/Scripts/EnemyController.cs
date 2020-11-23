@@ -3,30 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour,Idamagable
 { 
     public int hp;
     public float payrollSpeed;
     public int dmg;
     // Start is called before the first frame update
 
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.layer == 9)
+    public void takeDamage() {
+        hp -= 25;
+        Debug.Log("After hit - " + hp);
+        if (isDead())
         {
-            hp -= 25;
-            Debug.Log("After hit - " + hp);
-            if (isDead())
-            {
-                Destroy(gameObject);
-                TankProvider.Instance.Boom(transform);
-            }
-        }
-        else {
+            Destroy(gameObject);
+            TankProvider.Instance.Boom(transform);
         }
     }
-
+         
+    
    
 
     private bool isDead()

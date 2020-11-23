@@ -19,9 +19,12 @@ public class Shell : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.GetType());
+        Idamagable damagable = collision.gameObject.GetComponent<Idamagable>();
+        if (damagable != null) {
+            damagable.takeDamage();        
+        }
+        var explosion = Instantiate(shellExplosion, transform.position, transform.rotation);
+        Destroy(explosion, 1f);
         Destroy(gameObject);
-        var explosion=Instantiate(shellExplosion, transform.position, transform.rotation);
-        Destroy(explosion,1f);
     }
 }

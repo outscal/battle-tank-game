@@ -32,7 +32,7 @@ public class TankController : MonoSingletonGeneric<TankController>
             }
             else
             {
-                rigidbody.velocity = new Vector3();
+                rigidbody.velocity = Vector3.zero;
             }
         }
     }
