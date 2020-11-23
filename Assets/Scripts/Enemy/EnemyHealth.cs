@@ -38,6 +38,7 @@ public class EnemyHealth : MonoBehaviour
 //``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 
     public void TakeDamage(float takeDamage){
+        Debug.Log("Takingdamage");
         CurrentHealth -=takeDamage;
         SetHealthColor();
         if(CurrentHealth<=0f && !IsDead){

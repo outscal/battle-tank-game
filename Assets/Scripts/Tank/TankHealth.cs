@@ -10,10 +10,7 @@ public class TankHealth : MonoBehaviour
     [SerializeField]private Color fullHealthColor = Color.green;
     [SerializeField]private Color lowHealthColor= Color.red;
     [SerializeField]private GameObject ExplosionPrefab;
-    [SerializeField]private DestroyLevel levelTerrain;
-    [SerializeField]private EnemyHealth enemy;
-    
-
+    [SerializeField]private ObjectPool objectPool;
 
     private ParticleSystem explosionPrefab;
     private Coroutine explosionCoroutine=null;
@@ -89,11 +86,12 @@ public class TankHealth : MonoBehaviour
     private IEnumerator playerDeathEffects(){
         
         yield return StartCoroutine(playExplosionParticleSystem());
-        enemy.CleanSlate();
-        levelTerrain.CleanSlate();
+        //enemy.CleanSlate();
+        //levelTerrain.CleanSlate();
+
         gameObject.SetActive(false);
+        objectPool.spawner();
         explosionCoroutine = null;
-        
     }    
 
 }

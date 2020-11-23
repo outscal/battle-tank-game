@@ -32,7 +32,7 @@ public class TankController : MonoBehaviour {
 //``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 
 	void Update ()
-	{
+	{	
 		vertical=Input.GetAxis("VerticalUI");
 		horizontal=Input.GetAxis("HorizontalUI");
 	}
@@ -42,8 +42,13 @@ public class TankController : MonoBehaviour {
 
 	private void TankMovement()
 	{
-		Vector3 moveTank=transform.forward*vertical*MoveSpeed*Time.deltaTime;
-		rigidbody.MovePosition(rigidbody.position + moveTank);
+		if(vertical!=0){
+			Vector3 moveTank=transform.forward*vertical*MoveSpeed*Time.deltaTime;
+			rigidbody.MovePosition(rigidbody.position + moveTank);
+		}
+		else{
+			rigidbody.MovePosition(rigidbody.position);
+		}
 	}
 
 //``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
@@ -51,16 +56,15 @@ public class TankController : MonoBehaviour {
 
 	private void TankRotate()
 	{
-		float rotate = horizontal*rotateSpeed*Time.deltaTime;
-		Quaternion rotateTank=Quaternion.Euler(0f,rotate,0f);
-		rigidbody.MoveRotation(rigidbody.rotation*rotateTank);
+		if(horizontal!=0){
+			float rotate = horizontal*rotateSpeed*Time.deltaTime;
+			Quaternion rotateTank=Quaternion.Euler(0f,rotate,0f);
+			rigidbody.MoveRotation(rigidbody.rotation*rotateTank);
+		}
+		else{
+			rigidbody.MoveRotation(rigidbody.rotation);
+		}
 	}
 
-//``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
-//``````````````````````````````````````````````````````````````````````````````````````````````````````````````joystick
-	// private void JoyStickMove()
-	// {
-	// 	rigidbody.velocity= new Vector3(joystick.Horizontal*5f,rigidbody.velocity.y,joystick.Vertical*5f);
-	// }
-	
+
 }
