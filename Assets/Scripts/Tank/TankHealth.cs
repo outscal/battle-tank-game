@@ -2,8 +2,9 @@
 using UnityEngine.UI;
 using UnityEngine;
 
-public class TankHealth : MonoBehaviour
+public class TankHealth : MonoBehaviour, IDamagable
 {
+
     [SerializeField]protected float MaxHealth = 100f;
     [SerializeField]protected Slider healthSlider;
     [SerializeField]protected Image healthFillImage;

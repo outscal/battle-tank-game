@@ -2,54 +2,44 @@
 
 public class ShellExplosion : MonoBehaviour
 {
-    public LayerMask m_TankMask;                        // Used to filter what the explosion affects, this should be set to "Players".
-    public ParticleSystem m_ExplosionParticles;         // Reference to the particles that will play on explosion.
+    public LayerMask m_TankMask;                        // Used to filter what the explosion affects,layer should be set to "Players".
     public float m_MaxDamage = 100f;                    // The amount of damage done if the explosion is centred on a tank.
-    public float m_ExplosionForce = 1000f;              // The amount of force added to a tank at the centre of the explosion.
-    //public float m_MaxLifeTime = 2f;                  // The time in seconds before the shell is removed.
+    public float m_ExplosionForce = 100f;               // ShockWave force if tank at center of explosion
+    public float m_MaxLifeTime = 2f;                    // The time in seconds before the shell is disabled.
     public float m_ExplosionRadius = 5f;                // The maximum distance away from the explosion tanks can be and are still affected.
 
-    private  ParticleHolder particleHolder;
-
 // ```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 // ```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
-
 
     private void OnTriggerEnter (Collider other)
     {
+
+        Collider[] collider = Physics.OverlapSphere (transform.position, m_ExplosionRadius);
         
-        Collider[] colliders = Physics.OverlapSphere (transform.position, m_ExplosionRadius, m_TankMask);
+        for (int i = 0; i < collider.Length; i++){
 
-       
-        for (int i = 0; i < colliders.Length; i++)
-        {
-           
-            Rigidbody targetRigidbody = colliders[i].GetComponent<Rigidbody> ();     // find their rigidbody.
-
-            if (!targetRigidbody)                                                   // If they don't have a rigidbody, go on to the next collider.
-                continue;
-
+            IDamagable damagableObject = collider[i].GetComponent<IDamagable> ();
+            Rigidbody targetRigidbody = collider[i].GetComponent<Rigidbody>();
             
-            targetRigidbody.AddExplosionForce (m_ExplosionForce, transform.position, m_ExplosionRadius);        // Add an explosion force.
-            // Find the TankHealth script associated with the rigidbody.
-            TankHealth targetHealth = targetRigidbody.GetComponent<TankHealth> ();
-            // If there is no TankHealth script attached to the gameobject, go on to the next collider.
-            if (!targetHealth)
-                continue;
-            // Calculate the amount of damage the target should take based on it's distance from the shell.
-            float damage = CalculateDamage (targetRigidbody.position);
-            targetHealth.TakeDamage(damage);
+            if(targetRigidbody!=null){
+
+                targetRigidbody.AddExplosionForce (m_ExplosionForce, transform.position, m_ExplosionRadius);
+
+            }
+
+            if(damagableObject!=null){
+            
+                float damage = CalculateDamage (targetRigidbody.position);
+                damagableObject.TakeDamage(damage);
+            }
         }
- 
-        m_ExplosionParticles.transform.parent = null;                                   // Unparent the particles from the shell.
-        m_ExplosionParticles.Play();                                                    // Play the particle system.
-        Destroy (m_ExplosionParticles.gameObject, m_ExplosionParticles.duration);
 
         gameObject.SetActive(false);                                                    // Deactivate the shell
 
-
     }
 
+// ```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+// ```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 
     private float CalculateDamage (Vector3 targetPosition)
     {

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class TankShoot : MonoBehaviour
@@ -6,66 +7,84 @@ public class TankShoot : MonoBehaviour
 
     [SerializeField]ObjectPool objectPool;
 
-    //public Rigidbody m_Shell;                   
     public Transform m_FireTransform;           
     public float m_MinLaunchForce = 15f;        
     public float m_MaxLaunchForce = 30f;        
     public float m_MaxChargeTime = 0.75f;       
 
-
     private float m_CurrentLaunchForce;         
     private float m_ChargeSpeed;                
-    private bool m_Fired;                       
+    private bool m_Fired;
+    private bool isReloading=false;
+    //private Coroutine Reload;
 
+//```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+//```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 
     private void Start ()
-    {
-        // speed of charge depends on max charge time
-        m_ChargeSpeed = (m_MaxLaunchForce - m_MinLaunchForce) / m_MaxChargeTime;
+    { 
+        m_ChargeSpeed = (m_MaxLaunchForce - m_MinLaunchForce) / m_MaxChargeTime;                                 //speed of charge depends on MaxCharge time
     }
 
+//```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+//```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 
     private void Update ()
     {
-
-        // If the max force has been exceeded and the shell hasn't yet been launched...
-        if (m_CurrentLaunchForce >= m_MaxLaunchForce && !m_Fired)
+ 
+        if (m_CurrentLaunchForce >= m_MaxLaunchForce && !m_Fired)                                               //if currentforce exceeds MaxForce
         {
-            // launch Shell with max force
-            m_CurrentLaunchForce = m_MaxLaunchForce;
+            
+            m_CurrentLaunchForce = m_MaxLaunchForce;                                                            // launch Shell with max force
             Fire ();
         }
-        // if the fire button has just pressed
-        else if (Input.GetButtonDown ("Fire"))
+       
+        else if (Input.GetButtonDown ("Fire"))                                                                   // if the fire button is just pressed
         {
-            // ... reset the fired flag and reset/set the launch force.
-            m_Fired = false;
+            m_Fired = false;                                                                                    //reset the fired flag and reset/set the launch force.
             m_CurrentLaunchForce = m_MinLaunchForce;
-
         }
-        // if the fire button is being held and the shell hasn't been launched yet...
-        else if (Input.GetButton ("Fire") && !m_Fired)
+        
+        else if (Input.GetButton ("Fire") && !m_Fired)                                                          //fire button is held,the shell hasn't been launched 
         {
-            // Increment the launch force.
-            m_CurrentLaunchForce += m_ChargeSpeed * Time.deltaTime;
-
+            m_CurrentLaunchForce += m_ChargeSpeed * Time.deltaTime;                                             //Increment the launch force.
         }
-        // if the fire button is released and the shell hasn't been launched yet...
-        else if (Input.GetButtonUp ("Fire") && !m_Fired)
+        
+        else if (Input.GetButtonUp ("Fire") && !m_Fired)                                                        //fire button is released,shell hasn't been launched
         {
-            // ... launch the shell.
             Fire ();
         }
     }
 
+//```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+//```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 
     private void Fire ()
     {
-        // Set the fired flag so Fire is only called once.
-        m_Fired = true;
+        //if(!isReloading){
+            //isReloading = true;
+            m_Fired = true;                                                                                     // Set the fired flag so Fire is only called once.
+            Rigidbody shellInstance = (objectPool.spawner("shell",m_FireTransform)).GetComponent<Rigidbody>();  //get Rigidbody Component from Object Instance
+            shellInstance.velocity = m_CurrentLaunchForce * m_FireTransform.forward;                            // Set the shell's velocity 
+        //}
 
-        Rigidbody shellInstance = (objectPool.spawner("shell",m_FireTransform)).GetComponent<Rigidbody>();
-        // Set the shell's velocity 
-        shellInstance.velocity = m_CurrentLaunchForce * m_FireTransform.forward; ;
+        // if(Reload==null){
+        //     Reload = StartCoroutine(ReloadShell());
+        // }
+        // else{
+        //     Debug.Log("Wait for reload");
+        // }
+        
     }
+
+//```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+//```````````````````````````````````````````````````````````````````````````````````````````````````````Reload Mechanics
+
+    // private IEnumerator ReloadShell(){
+    //     Debug.Log("Reloading");
+    //     yield return new WaitForSeconds(5);
+    //     isReloading = false;
+    //     Reload = null;
+    // }
+
 }
