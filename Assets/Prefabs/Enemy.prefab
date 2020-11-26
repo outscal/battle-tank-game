@@ -383,6 +383,9 @@ GameObject:
   - component: {fileID: 3945948226771385861}
   - component: {fileID: 3945948226771385858}
   - component: {fileID: 5149950612695254295}
+  - component: {fileID: 1599741893}
+  - component: {fileID: 1599741894}
+  - component: {fileID: 1599741895}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
@@ -398,7 +401,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3945948226771482896}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.5, y: 0.05, z: -8.9}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3945948226771510524}
@@ -455,6 +458,47 @@ MonoBehaviour:
   ExplosionPrefab: {fileID: 151086, guid: ee49a9a8678ecf8468eb488e1ac8d42b, type: 3}
   objectPool: {fileID: 9122134330105956684, guid: daf514df124520f4dabd945e827d16e0,
     type: 3}
+--- !u!114 &1599741893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3945948226771482896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: febdca8913325e84a935503abb8c8836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 1599741895}
+--- !u!114 &1599741894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3945948226771482896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 465ec90a69cdfb0499614b4ebdc87390, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 1599741895}
+--- !u!114 &1599741895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3945948226771482896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 317dbe43d79b3b848a0ecc8fc8ef6ee7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  states:
+  - {fileID: 1599741894}
+  - {fileID: 1599741893}
 --- !u!1 &3945948226771482898
 GameObject:
   m_ObjectHideFlags: 0
