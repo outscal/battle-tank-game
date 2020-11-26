@@ -169,7 +169,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!65 &6646379081980772322
 BoxCollider:
@@ -198,6 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 10
   rotateSpeed: 180
+  joystick: {fileID: 0}
 --- !u!114 &6646379081980772321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,8 +231,8 @@ MonoBehaviour:
   MaxHealth: 100
   healthSlider: {fileID: 6646379082966258428}
   healthFillImage: {fileID: 6646379082712422949}
-  fullHealthColor: {r: 0, g: 0.12270379, b: 1, a: 1}
-  lowHealthColor: {r: 1, g: 0.9561808, b: 0, a: 1}
+  fullHealthColor: {r: 0, g: 1, b: 0.123636246, a: 1}
+  lowHealthColor: {r: 1, g: 0, b: 0, a: 1}
   ExplosionPrefab: {fileID: 151086, guid: ee49a9a8678ecf8468eb488e1ac8d42b, type: 3}
   objectPool: {fileID: 9122134330105956684, guid: daf514df124520f4dabd945e827d16e0,
     type: 3}
@@ -4967,13 +4968,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6646379082159204359}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: -1}
-  m_LocalPosition: {x: 0, y: 1.583, z: 1.489}
+  m_LocalRotation: {x: 0.023417113, y: -0, z: -0, w: -0.9997258}
+  m_LocalPosition: {x: 0, y: 1.664, z: 1.498}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6646379083478433016}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 360, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 357.316, y: 0, z: 0}
 --- !u!1 &6646379082229578000
 GameObject:
   m_ObjectHideFlags: 0
@@ -5010,7 +5011,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.3}
   m_SizeDelta: {x: 3.5, y: 3.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &6646379082229577996
