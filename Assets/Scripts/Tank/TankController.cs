@@ -4,9 +4,12 @@ public class TankController : MonoBehaviour {
 	
 	[SerializeField]private float MoveSpeed;
 	[SerializeField]private  float rotateSpeed;
+
+	//[SerializeField]private Joystick joystick;
+
 	private float vertical;
 	private float horizontal;
-	//private Joystick joystick;
+	
 	private Rigidbody rigidbody;
 
 //``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
@@ -33,8 +36,18 @@ public class TankController : MonoBehaviour {
 
 	void Update ()
 	{	
-		vertical=Input.GetAxis("VerticalUI");
-		horizontal=Input.GetAxis("HorizontalUI");
+		vertical=Input.GetAxis("Vertical");
+		horizontal=Input.GetAxis("Horizontal");
+
+		if(vertical==0 && horizontal ==0){
+			rigidbody.constraints = RigidbodyConstraints.FreezePositionX|RigidbodyConstraints.FreezePositionY|RigidbodyConstraints.FreezePositionZ; 
+		}
+		else{
+			rigidbody.constraints = RigidbodyConstraints.None;
+			rigidbody.constraints = RigidbodyConstraints.FreezePositionY|RigidbodyConstraints.FreezeRotationX|RigidbodyConstraints.FreezeRotationY;
+			
+		}
+
 	}
 
 //``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
@@ -45,9 +58,6 @@ public class TankController : MonoBehaviour {
 		if(vertical!=0){
 			Vector3 moveTank=transform.forward*vertical*MoveSpeed*Time.deltaTime;
 			rigidbody.MovePosition(rigidbody.position + moveTank);
-		}
-		else{
-			rigidbody.MovePosition(rigidbody.position);
 		}
 	}
 
@@ -60,9 +70,6 @@ public class TankController : MonoBehaviour {
 			float rotate = horizontal*rotateSpeed*Time.deltaTime;
 			Quaternion rotateTank=Quaternion.Euler(0f,rotate,0f);
 			rigidbody.MoveRotation(rigidbody.rotation*rotateTank);
-		}
-		else{
-			rigidbody.MoveRotation(rigidbody.rotation);
 		}
 	}
 

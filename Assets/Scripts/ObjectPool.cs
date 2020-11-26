@@ -12,6 +12,8 @@ public class ObjectPool : MonoBehaviour{
          public GameObject prefab;
     }
 
+
+
     public Pool[] PoolList;
     private Dictionary<string,Queue<GameObject>> poolDictionary = new  Dictionary<string,Queue<GameObject>>();
     private Queue<GameObject> gameObjectQueue = new Queue<GameObject>();
@@ -38,7 +40,8 @@ public class ObjectPool : MonoBehaviour{
     internal GameObject spawner(string key,Transform SpawnTransform){
 
         GameObject obj = poolDictionary[key].Dequeue();                 //Pop a tank from pool Queue
-        obj.transform.position = SpawnTransform.position;               
+        obj.transform.position = SpawnTransform.position;
+        obj.transform.rotation = SpawnTransform.rotation;               
 
         obj.SetActive(true);                                            //Activating the obj that we poped
         poolDictionary[key].Enqueue(obj);                               //pushing back the obj refrence into the same queue
