@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using GameEvents;
 
 namespace Tank
 {
@@ -20,6 +21,10 @@ namespace Tank
         }
         public void DestroyTank(TankController tank)
         {
+            if (tank != playerTank)
+            {
+                GameEventsManager.Instance.InvokeEnemyKilledEvent();
+            }
             StartCoroutine(RespawnTankAfterDelay(tank));
         }
 
