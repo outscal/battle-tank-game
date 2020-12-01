@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class StatePatrol : EnemyTankState
 {
-    [SerializeField]private EnemyManager manager;
     [SerializeField]private Transform m_pathHolder;
     [SerializeField]private float m_moveSpeed;
     [SerializeField]private float m_waitTime;
@@ -15,15 +14,6 @@ public class StatePatrol : EnemyTankState
     private Coroutine m_patrolCoroutine;
     private Coroutine m_turnToPlayerCoroutine;
 
-    [SerializeField]private float m_viewDistance;
-    [SerializeField]private float m_proximityRadius;
-
-//`````````````````````````````````````````````````````````````````````````````````````````````````````
-//`````````````````````````````````````````````````````````````````````````````````````````````````````
-
-    private void Start() {
-
-    }
 
 //`````````````````````````````````````````````````````````````````````````````````````````````````````
 //`````````````````````````````````````````````````````````````````````````````````````````````````````
@@ -102,13 +92,5 @@ public class StatePatrol : EnemyTankState
             _previousPosition = _waypoint.position;
         }
         Gizmos.DrawLine(_previousPosition,_startPosition);                                              //join start point and end point
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, transform.forward * m_viewDistance);                         //ditection line range
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, m_proximityRadius);
     }
-
-
 }

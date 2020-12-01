@@ -15,7 +15,7 @@ public class TankShoot : MonoBehaviour
     private float m_CurrentLaunchForce;         
     private float m_ChargeSpeed;                
     private bool m_Fired;
-    private bool isReloading=false;
+    //private bool isReloading=false;
     //private Coroutine Reload;
 
 //```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````

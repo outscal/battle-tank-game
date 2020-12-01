@@ -39,7 +39,7 @@ public class ObjectPool : MonoBehaviour{
 
     internal GameObject spawner(string key,Transform SpawnTransform){
 
-        GameObject obj = poolDictionary[key].Dequeue();                 //Pop a tank from pool Queue
+        GameObject obj = poolDictionary[key].Dequeue();                 //Pop a shell from pool Queue
         obj.transform.position = SpawnTransform.position;
         obj.transform.rotation = SpawnTransform.rotation;               
 
