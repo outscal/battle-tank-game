@@ -4,28 +4,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Shoot : MonoBehaviour
+public class Shoot : MonoSingletonGeneric<Shoot>
 {
 
-    [SerializeField]
-    private Transform firePoint;
+
     [SerializeField]
     private GameObject shell;
-    [SerializeField]
-    private Button firebutton;
-    // Start is called before the first frame update
-    void Start()
-    { 
-        firebutton.onClick.AddListener(Fire);
-    }
 
     // Update is called once per frame
     void Update()
     {
     }
 
-    private void Fire()
+    public GameObject Fire(Transform firePoint)
     {
-        Instantiate(shell, firePoint.position,firePoint.rotation);
+        GameObject obj = Instantiate(shell, firePoint.position,firePoint.rotation);
+        return obj;
     }
 }

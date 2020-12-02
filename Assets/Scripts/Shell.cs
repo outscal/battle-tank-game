@@ -14,7 +14,12 @@ public class Shell : MonoBehaviour
     }
     void Start()
     {
-        rgbd.velocity = new Vector3(transform.forward.x*25f,transform.forward.y*2f,transform.forward.z*25f);
+        rgbd.velocity = new Vector3(transform.forward.x*20f,transform.forward.y*8f,transform.forward.z*20f);
+    }
+    void Update()
+    {
+
+        transform.rotation = Quaternion.LookRotation(new Vector3(rgbd.velocity.x,rgbd.velocity.y,rgbd.velocity.z));
     }
 
     private void OnCollisionEnter(Collision collision)
