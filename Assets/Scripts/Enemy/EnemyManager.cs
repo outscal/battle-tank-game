@@ -7,15 +7,18 @@ public class EnemyManager : MonoBehaviour
     private EnemyTankState m_currentState=null;
     private StateType m_stateOfTank;
 
-    private bool isPlayerDetected=false;
+    private bool haveYouSeenPlayer=false;
     [SerializeField]private float m_proximityRadius;
     [SerializeField]private Transform m_target;
+
+    [SerializeField]private Transform StartPosition;
+    private bool goingHome;
 
 //`````````````````````````````````````````````````````````````````````````````````````````````````````
 //`````````````````````````````````````````````````````````````````````````````````````````````````````
 
     private void Start() {
-        m_stateOfTank = StateType.Patrol;
+        //m_stateOfTank = StateType.Patrol;
     }
 
     private void Update() {
@@ -23,6 +26,7 @@ public class EnemyManager : MonoBehaviour
         switch (m_stateOfTank)
         {
             case StateType.Patrol:
+                Debug.Log("patrol");
                 ChangeState(states[0]);
                 break;
 
@@ -35,6 +39,7 @@ public class EnemyManager : MonoBehaviour
                 break;
 
             case StateType.MoveToStartPosition:
+                Debug.Log("moveto");
                 ChangeState(states[3]);
                 break;
 
@@ -42,8 +47,9 @@ public class EnemyManager : MonoBehaviour
                 ChangeState(states[4]);
                 break;
         }
-
-        DetectPlayer();
+        
+        DetectPlayer();                    
+    
     }
 
 //`````````````````````````````````````````````````````````````````````````````````````````````````````
@@ -64,9 +70,24 @@ public class EnemyManager : MonoBehaviour
 //`````````````````````````````````````````````````````````````````````````````````````````````````````
 //`````````````````````````````````````````````````````````````````````````````````````````````````````
 
-    private void DetectPlayer(){
+    private void DetectPlayer(){                                                                   
         if(Vector3.Distance(transform.position, m_target.position) < m_proximityRadius){
-            m_stateOfTank = StateType.Attack;
+            
+            //m_stateOfTank = StateType.Attack;
+            haveYouSeenPlayer = true;
+        }
+        else{
+            Debug.Log("haveYouSeenPlayer"+haveYouSeenPlayer);
+            if(haveYouSeenPlayer){
+                Debug.Log("playerSeen");
+                if(!(Vector3.Distance(transform.position,StartPosition.position)<0.2f)){
+                    Debug.Log("tankAway");
+                    m_stateOfTank = StateType.MoveToStartPosition;
+                    haveYouSeenPlayer = false;
+                }
+            }
+
+            m_stateOfTank = StateType.Patrol;
         }
     }
 

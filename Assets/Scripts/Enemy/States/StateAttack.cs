@@ -19,10 +19,6 @@ public class StateAttack : EnemyTankState
         base.OnEnterState();
         Debug.Log("Enemy Attack State enter---------------->");
         StartCoroutine(TurnToFace(player.position));
-        while(NoOfShellFired>0){
-            Fire();
-            NoOfShellFired--;
-        }
     }
 
     public override void OnExitState(){
@@ -43,6 +39,10 @@ public class StateAttack : EnemyTankState
             transform.eulerAngles = Vector3.up*_angle;
             yield return null;
         }
+        for(int i=0;i<NoOfShellFired;i++){
+            yield return new WaitForSeconds(0.3f);
+            Fire();
+        }
     }
 
 //`````````````````````````````````````````````````````````````````````````````````````````````````````
@@ -53,5 +53,8 @@ public class StateAttack : EnemyTankState
         shellInstance.velocity = m_launchForce * m_FireTransform.forward;                                   // Set the shell's velocity 
     }
 
+//`````````````````````````````````````````````````````````````````````````````````````````````````````
+//`````````````````````````````````````````````````````````````````````````````````````````````````````
+ 
 
 }
