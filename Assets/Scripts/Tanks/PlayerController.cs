@@ -1,5 +1,6 @@
 ﻿using Tank;
 using UnityEngine;
+using GameEvents;
 
 namespace Player
 {
@@ -53,5 +54,12 @@ namespace Player
             }
         }
 
+        private void ShootBullet()
+        {
+            if (!bulletCooldownFlag)
+                GameEventsManager.Instance.InvokeBulletShotEvent();
+            base.ShootBullet();
+
+        }
     }
 }

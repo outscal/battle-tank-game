@@ -54,7 +54,6 @@ namespace Game
 
         public void SetPlayerDeath()
         {
-
             StartCoroutine(KillPlayerAndRespawn());
         }
 

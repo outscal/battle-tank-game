@@ -12,7 +12,9 @@ namespace Enemy
 
         public EnemyController CreateEnemy()
         {
-            EnemyController enemyTank = Instantiate(enemyTankPrefab, TankSpawnPositionManager.Instance.GetEmptySpawnPosition(),Quaternion.identity);
+            Transform randomTransform = TankSpawnPositionManager.Instance.GetEmptySpawnPosition();
+            EnemyController enemyTank = Instantiate(enemyTankPrefab, randomTransform.position,Quaternion.identity);
+            enemyTank.transform.eulerAngles = randomTransform.eulerAngles;
             TankService.Instance.AddTank(enemyTank);
             return enemyTank;
         }
