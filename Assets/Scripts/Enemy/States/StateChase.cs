@@ -1,15 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class StateChase : EnemyTankState
 {
    [SerializeField]private Transform  target;
+   [SerializeField]private NavMeshAgent agent;
 
    private bool m_followPlayer;
 
-    private float m_duration;
-    private float time = 0;
 
     public override void OnEnterState()
     {
@@ -27,14 +27,10 @@ public class StateChase : EnemyTankState
 
     private IEnumerator chasePlayer(){
         while(m_followPlayer){
-            float step =  10f * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, target.position, step);
-            if (Vector3.Distance(transform.position, target.position) < 2f){
-                m_followPlayer = false;
-            }
-            yield return null;
+            agent.SetDestination(target.position);
+            m_followPlayer = false;
         }
-        
+        yield return null;
     }
 
 }

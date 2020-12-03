@@ -382,13 +382,14 @@ GameObject:
   - component: {fileID: 3945948226771510512}
   - component: {fileID: 3945948226771385861}
   - component: {fileID: 3945948226771385858}
+  - component: {fileID: 210067069}
   - component: {fileID: 5149950612695254295}
   - component: {fileID: 1599741895}
   - component: {fileID: 4512004187039121421}
   - component: {fileID: 343918635328605662}
   - component: {fileID: 7670944726952019069}
-  - component: {fileID: 2238067276732289174}
   - component: {fileID: 6551314390796276982}
+  - component: {fileID: 2631766128291932250}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
@@ -442,6 +443,28 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.7272978, y: 1.9629474, z: 2.1860132}
   m_Center: {x: -0.008869648, y: 0.9249481, z: 0.0278579}
+--- !u!195 &210067069
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3945948226771482896}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 10
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 1
+  m_ObstacleAvoidanceType: 4
 --- !u!114 &5149950612695254295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -478,11 +501,10 @@ MonoBehaviour:
   - {fileID: 4512004187039121421}
   - {fileID: 343918635328605662}
   - {fileID: 7670944726952019069}
-  - {fileID: 2238067276732289174}
+  - {fileID: 2631766128291932250}
   - {fileID: 6551314390796276982}
-  m_proximityRadius: 10
+  m_proximityRadius: 20
   m_target: {fileID: 0}
-  StartPosition: {fileID: 0}
 --- !u!114 &4512004187039121421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -495,10 +517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 465ec90a69cdfb0499614b4ebdc87390, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_pathHolder: {fileID: 0}
-  m_moveSpeed: 10
-  m_waitTime: 1
-  m_turnSpeed: 180
+  agent: {fileID: 210067069}
 --- !u!114 &343918635328605662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -530,20 +549,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
---- !u!114 &2238067276732289174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3945948226771482896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db091fdf4fd118249a13ce3b22a26d92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StartPosition: {fileID: 0}
-  m_moveSpeed: 10
+  agent: {fileID: 210067069}
 --- !u!114 &6551314390796276982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -556,6 +562,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d14b4a2bb85f3054586b213c9ef95ce4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2631766128291932250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3945948226771482896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db091fdf4fd118249a13ce3b22a26d92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 210067069}
 --- !u!1 &3945948226771482898
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,29 +4,29 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     [SerializeField]private List<EnemyTankState> states = new List<EnemyTankState>();
-    private EnemyTankState m_currentState=null;
-    private StateType m_stateOfTank;
-
-    private bool haveYouSeenPlayer=false;
     [SerializeField]private float m_proximityRadius;
     [SerializeField]private Transform m_target;
 
-    [SerializeField]private Transform StartPosition;
-    private bool goingHome;
+    private EnemyTankState m_currentState;
+    private StateType m_activeStateOfTank=StateType.None;
+    private bool hasSeenTank=false;
+    private float m_attackRadius;
+
+    internal Vector3 startingPosition;
+    private bool isAlive=true;
 
 //`````````````````````````````````````````````````````````````````````````````````````````````````````
 //`````````````````````````````````````````````````````````````````````````````````````````````````````
-
     private void Start() {
-        //m_stateOfTank = StateType.Patrol;
+        m_attackRadius = m_proximityRadius/2;
+        startingPosition = transform.position;
     }
 
     private void Update() {
 
-        switch (m_stateOfTank)
+        switch (m_activeStateOfTank)
         {
             case StateType.Patrol:
-                Debug.Log("patrol");
                 ChangeState(states[0]);
                 break;
 
@@ -35,21 +35,24 @@ public class EnemyManager : MonoBehaviour
                 break;
 
             case StateType.Chase:
+                Debug.Log("sd");
                 ChangeState(states[2]);
                 break;
 
             case StateType.MoveToStartPosition:
-                Debug.Log("moveto");
                 ChangeState(states[3]);
                 break;
 
             case StateType.Death:
                 ChangeState(states[4]);
                 break;
+            
+            case StateType.None:
+                Debug.Log("none");
+                break;
         }
         
-        DetectPlayer();                    
-    
+        FindOutState();                    
     }
 
 //`````````````````````````````````````````````````````````````````````````````````````````````````````
@@ -70,24 +73,25 @@ public class EnemyManager : MonoBehaviour
 //`````````````````````````````````````````````````````````````````````````````````````````````````````
 //`````````````````````````````````````````````````````````````````````````````````````````````````````
 
-    private void DetectPlayer(){                                                                   
-        if(Vector3.Distance(transform.position, m_target.position) < m_proximityRadius){
-            
-            //m_stateOfTank = StateType.Attack;
-            haveYouSeenPlayer = true;
-        }
-        else{
-            Debug.Log("haveYouSeenPlayer"+haveYouSeenPlayer);
-            if(haveYouSeenPlayer){
-                Debug.Log("playerSeen");
-                if(!(Vector3.Distance(transform.position,StartPosition.position)<0.2f)){
-                    Debug.Log("tankAway");
-                    m_stateOfTank = StateType.MoveToStartPosition;
-                    haveYouSeenPlayer = false;
+    private void FindOutState(){
+        if(isAlive){
+            if(Vector3.Distance(m_target.position,transform.position) < m_proximityRadius){
+                hasSeenTank = true;
+                if (Vector3.Distance(m_target.position,transform.position) < m_proximityRadius){                                      
+                    m_activeStateOfTank = StateType.Attack;  
+                }else{
+                    m_activeStateOfTank = StateType.Chase;
                 }
-            }
-
-            m_stateOfTank = StateType.Patrol;
+            }else{
+                if(hasSeenTank){
+                    m_activeStateOfTank = StateType.MoveToStartPosition;
+                    hasSeenTank = false;
+                }else{
+                    m_activeStateOfTank = StateType.Patrol;
+                }
+            }        
+        }else{
+            m_activeStateOfTank = StateType.Death;
         }
     }
 
@@ -96,7 +100,12 @@ public class EnemyManager : MonoBehaviour
 
     private void OnDrawGizmos() {
 
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, m_proximityRadius);
+
+        //attackRadius
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, m_proximityRadius/2);
+        
     }
 }

@@ -49,8 +49,8 @@ public class StateAttack : EnemyTankState
 //`````````````````````````````````````````````````````````````````````````````````````````````````````
 
     private void Fire(){
-        Rigidbody shellInstance = (objectPool.spawner("Shell",m_FireTransform)).GetComponent<Rigidbody>();  //get Rigidbody Component from Object Instance
-        shellInstance.velocity = m_launchForce * m_FireTransform.forward;                                   // Set the shell's velocity 
+        Rigidbody shellInstance = (objectPool.spawner("Shell",m_FireTransform)).GetComponent<Rigidbody>();  
+        shellInstance.velocity = m_launchForce * m_FireTransform.forward;                                    
     }
 
 //`````````````````````````````````````````````````````````````````````````````````````````````````````
