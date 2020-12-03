@@ -33,7 +33,7 @@ namespace Weapons
             IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
             if (damageable != null)
             {
-                DamageTank(damageable);
+                DamageObject(damageable);
             }
             Destroy(this.gameObject);
         }
@@ -44,7 +44,7 @@ namespace Weapons
             shellExplosion.playEffect(pos);
         }
 
-        void DamageTank(IDamageable damageable)
+        void DamageObject(IDamageable damageable)
         {
             damageable.TakeDamage(bulletDamage);
         }

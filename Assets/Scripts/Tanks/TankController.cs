@@ -11,8 +11,8 @@ namespace Tank
     public class TankController : MonoBehaviour,IDamageable
     {
         [SerializeField]
-        protected Transform chassis, turret, bulletSpawnPosition;
-
+        protected Transform chassis, bulletSpawnPosition;
+        public Transform turret;
         private Rigidbody rb;
         private float moveSpeed, bulletSpeed;
         private int health, bulletDamage;
