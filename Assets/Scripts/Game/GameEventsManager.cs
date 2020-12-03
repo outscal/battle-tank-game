@@ -6,8 +6,8 @@ namespace GameEvents
 {
     public class GameEventsManager : MonoSingletonGeneric<GameEventsManager>
     {
-        public static event Action enemyKilled;
-        public static event Action bulletShot;
+        public event Action enemyKilled;
+        public event Action bulletShot;
         
         public void InvokeEnemyKilledEvent()
         {

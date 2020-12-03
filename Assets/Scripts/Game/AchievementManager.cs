@@ -25,8 +25,8 @@ public class AchievementManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEventsManager.enemyKilled += RegisterEnemyKill;
-        GameEventsManager.bulletShot += RegisterBulletShot;
+        GameEventsManager.Instance.enemyKilled += RegisterEnemyKill;
+        GameEventsManager.Instance.bulletShot += RegisterBulletShot;
     }
     private void RegisterEnemyKill()
     {
@@ -51,7 +51,7 @@ public class AchievementManager : MonoBehaviour
     {
         if (enemyKillCounter >= enemyKillThreshold && !enemyKillAchievementUnlocked)
         {
-            AchievementUIManager.Instance.DisplayAchievement("Kill " + enemyKillThreshold + " Enemies");
+            AchievementUIManager.Instance.DisplayAchievement($"Kill {enemyKillThreshold} Enemies");
             enemyKillAchievementUnlocked = true;
         }
     }
@@ -60,7 +60,7 @@ public class AchievementManager : MonoBehaviour
     {
         if (bulletShotCounter >= bulletShotThreshold && !bulletShotAchievementUnlocked)
         {
-            AchievementUIManager.Instance.DisplayAchievement("Shoot " + bulletShotThreshold + " Bullets");
+            AchievementUIManager.Instance.DisplayAchievement($"Shoot {bulletShotThreshold} Bullets");
             bulletShotAchievementUnlocked = true;
         }
     }
