@@ -14,10 +14,12 @@ public class EnemyManager : MonoBehaviour
 
     internal Vector3 startingPosition;
     private bool isAlive=true;
+    private EnemyHealth enemyHealth;
 
 //`````````````````````````````````````````````````````````````````````````````````````````````````````
 //`````````````````````````````````````````````````````````````````````````````````````````````````````
     private void Start() {
+        enemyHealth = GetComponent<EnemyHealth>();
         m_attackRadius = m_proximityRadius/2;
         startingPosition = transform.position;
     }
@@ -43,10 +45,6 @@ public class EnemyManager : MonoBehaviour
                 ChangeState(states[3]);
                 break;
 
-            case StateType.Death:
-                ChangeState(states[4]);
-                break;
-            
             case StateType.None:
                 Debug.Log("none");
                 break;
@@ -74,7 +72,7 @@ public class EnemyManager : MonoBehaviour
 //`````````````````````````````````````````````````````````````````````````````````````````````````````
 
     private void FindOutState(){
-        if(isAlive){
+        if(!enemyHealth.IsDead){
             if(Vector3.Distance(m_target.position,transform.position) < m_proximityRadius){
                 hasSeenTank = true;
                 if (Vector3.Distance(m_target.position,transform.position) < m_proximityRadius){                                      
@@ -90,8 +88,6 @@ public class EnemyManager : MonoBehaviour
                     m_activeStateOfTank = StateType.Patrol;
                 }
             }        
-        }else{
-            m_activeStateOfTank = StateType.Death;
         }
     }
 

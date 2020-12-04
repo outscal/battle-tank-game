@@ -2,7 +2,6 @@
     None,
     Patrol,
     Attack,
-    Death,
     MoveToStartPosition,
     Chase
 } 
