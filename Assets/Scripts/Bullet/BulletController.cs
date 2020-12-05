@@ -22,6 +22,8 @@ namespace Weapons
 
         public void Fire(Vector3 eulerAngle, float shootSpeed)
         {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
             transform.eulerAngles = eulerAngle;
             rb.AddForce(transform.forward * shootSpeed);
             spawnPos = transform.position;
@@ -35,7 +37,7 @@ namespace Weapons
             {
                 DamageObject(damageable);
             }
-            Destroy(this.gameObject);
+            BulletService.Instance.AddBulletToPool(this);
         }
 
         void ShowShellExplosion(Vector3 pos)

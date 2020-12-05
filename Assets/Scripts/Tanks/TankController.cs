@@ -57,7 +57,8 @@ namespace Tank
         {
             if (!bulletCooldownFlag)
             {
-                BulletController bullet = BulletService.Instance.CreateBullet();
+                BulletController bullet = BulletService.Instance.GetBulletFromPool();
+                bullet.gameObject.SetActive(true);
                 bullet.transform.position = bulletSpawnPosition.position;
                 bullet.SetDamage(bulletDamage);
                 bullet.Fire(turret.transform.eulerAngles, bulletSpeed);
