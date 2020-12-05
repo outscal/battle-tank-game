@@ -15,6 +15,7 @@ public class StateMoveToStart : EnemyTankState
         Debug.Log("enter state HomeComing--------->");
         enemyManager = GetComponent<EnemyManager>();
         agent.SetDestination(enemyManager.startingPosition);
+        Debug.Log("starting Position = " + enemyManager.startingPosition);
     }
 
     public override void OnExitState(){

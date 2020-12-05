@@ -24,14 +24,13 @@ public class StatePatrol : EnemyTankState
         m_startingPosition = transform.position;
         m_roamPosition = GetRoamingPosition();
         m_roamAround = StartCoroutine(RoamAround());
-
     }
 
     public override void OnExitState()
     {
         base.OnExitState();
         Debug.Log("enemy Patrol state Exit-------->");
-        StopCoroutine(RoamAround());
+        StopCoroutine(m_roamAround);
     }
 
 //`````````````````````````````````````````````````````````````````````````````````````````````````````

@@ -8,29 +8,31 @@ public class StateChase : EnemyTankState
    [SerializeField]private Transform  target;
    [SerializeField]private NavMeshAgent agent;
 
-   private bool m_followPlayer;
+   private Coroutine chasing;
 
+   private EnemyManager enemyManager;
 
     public override void OnEnterState()
     {
         base.OnEnterState();
-        m_followPlayer = true;
+        enemyManager = GetComponent<EnemyManager>();
         Debug.Log("enemy Chase state Enter-------->");
-        StartCoroutine(chasePlayer());
+        chasing = StartCoroutine(chasePlayer());
     }
 
     public override void OnExitState()
     {
         base.OnExitState();
         Debug.Log("enemy chase state Exit-------->");
+        StopCoroutine(chasing);
     }
 
     private IEnumerator chasePlayer(){
-        while(m_followPlayer){
+        while(true){
             agent.SetDestination(target.position);
-            m_followPlayer = false;
+            yield return null;
         }
-        yield return null;
+        
     }
 
 }

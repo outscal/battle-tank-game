@@ -8,7 +8,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField]private Transform m_target;
 
     private EnemyTankState m_currentState;
-    private StateType m_activeStateOfTank=StateType.None;
+    private StateType m_activeStateOfTank=StateType.Patrol;
     private bool hasSeenTank=false;
     private float m_attackRadius;
 
@@ -37,7 +37,7 @@ public class EnemyManager : MonoBehaviour
                 break;
 
             case StateType.Chase:
-                Debug.Log("sd");
+                
                 ChangeState(states[2]);
                 break;
 
@@ -57,15 +57,18 @@ public class EnemyManager : MonoBehaviour
 //`````````````````````````````````````````````````````````````````````````````````````````````````````
 
     private void ChangeState(EnemyTankState _state){
-        if(m_currentState==null){                           //if the current state is null then
+        if(m_currentState==null){
             m_currentState = _state;
             m_currentState.OnEnterState();
         }
-        else if(m_currentState!=_state){                    //if current state different from required
-            m_currentState.OnExitState();
-            m_currentState = _state;
-            m_currentState.OnEnterState();
+        else{
+             if(m_currentState!=_state){                    //if current state different from required
+                m_currentState.OnExitState();
+                m_currentState = _state;
+                m_currentState.OnEnterState();
+            }
         }
+
     }
 
 //`````````````````````````````````````````````````````````````````````````````````````````````````````
@@ -75,7 +78,7 @@ public class EnemyManager : MonoBehaviour
         if(!enemyHealth.IsDead){
             if(Vector3.Distance(m_target.position,transform.position) < m_proximityRadius){
                 hasSeenTank = true;
-                if (Vector3.Distance(m_target.position,transform.position) < m_proximityRadius){                                      
+                if (Vector3.Distance(m_target.position,transform.position) < m_attackRadius){                                      
                     m_activeStateOfTank = StateType.Attack;  
                 }else{
                     m_activeStateOfTank = StateType.Chase;
@@ -91,8 +94,29 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+
+
 //`````````````````````````````````````````````````````````````````````````````````````````````````````
 //`````````````````````````````````````````````````````````````````````````````````````````````````````
+
+    // internal void StartChasing(){
+    //     if(Vector3.Distance(m_target.position,transform.position)<m_proximityRadius){
+    //        m_activeStateOfTank = StateType.Chase; 
+    //     }
+    //     else{
+    //         //continue in patrol
+    //     }
+    // }
+
+    // internal void AttackPlayer(){
+
+    // }
+
+//`````````````````````````````````````````````````````````````````````````````````````````````````````
+//`````````````````````````````````````````````````````````````````````````````````````````````````````
+
+
+
 
     private void OnDrawGizmos() {
 
