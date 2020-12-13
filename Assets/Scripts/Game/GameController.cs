@@ -4,6 +4,7 @@ using Player;
 using ScriptableObjects;
 using Enemy;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 namespace Game
 {
@@ -20,13 +21,19 @@ namespace Game
 
         [SerializeField]
         private int numberOfEnemies;
+        [SerializeField]
+        private GameObject startPanel, gameOverPanel;
 
         void Start()
         {
             GC = this;
             CreatePlayer();
             SpawnEnemies();
+            Time.timeScale = 0f;
+            startPanel.SetActive(true);
+            gameOverPanel.SetActive(false);
         }
+
 
         void SpawnEnemies()
         {
@@ -54,7 +61,7 @@ namespace Game
 
         public void SetPlayerDeath()
         {
-            StartCoroutine(KillPlayerAndRespawn());
+            EndGame();
         }
 
         private IEnumerator KillPlayerAndRespawn()
@@ -68,6 +75,23 @@ namespace Game
             yield return new WaitForSeconds(1f);
             enemyTank.gameObject.SetActive(false);
             yield return StartCoroutine(TankService.Instance.RespawnTankAfterDelay(enemyTank));
+        }
+
+        private void EndGame()
+        {
+            gameOverPanel.SetActive(true);
+            Time.timeScale = 0f;
+        }
+
+        public void StartGame()
+        {
+            startPanel.SetActive(false);
+            Time.timeScale = 1f;
+        }
+
+        public void RestartGame()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }
