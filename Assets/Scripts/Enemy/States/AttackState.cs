@@ -12,22 +12,30 @@ public class AttackState : State
     {
         Transform[] tr = gameObject.GetComponentsInChildren<Transform>();
         firepoint = tr[tr.Length - 1];
-        StartCoroutine(Fire());
-    }
 
-    IEnumerator Fire() {
-        while (true)
+        Debug.Log("Entering attack state");
+       
+    }
+    private void Update()
+    {
+        if (attackCD <= 0)
         {
+           // Fire();
+            attackCD = 1f;
+        }
+        else
+        {
+            attackCD -= Time.deltaTime;
+            //Debug.Log("Attack CD - " + attackCD +"  dt -" +Time.deltaTime);
+        }
+    }
+    void Fire() {
             Debug.Log("Shooting");
             GameObject obj = Shoot.Instance.Fire(firepoint);
             obj.layer = 13;
-            yield return new WaitForSeconds(0.8f);
-        }
     }
     public override void ExitState()
     {
-        StopAllCoroutines();
         Debug.Log("Exiting Attacking state");
-        Destroy(this);
     }
 }

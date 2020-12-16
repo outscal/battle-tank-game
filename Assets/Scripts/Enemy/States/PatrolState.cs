@@ -12,8 +12,7 @@ public class PatrolState : State
 
     private void Start()
     {
-        Debug.Log("Starting Patrol");
-        speed = 20f;
+        speed = 10f;
         minX = -30f;
         maxX = 36f;
         minZ = -31.3f;
@@ -44,6 +43,5 @@ public class PatrolState : State
     {
         Debug.Log("Exiting Patrolling state");
         Destroy(movespot.gameObject);
-        Destroy(this);
     }
 }

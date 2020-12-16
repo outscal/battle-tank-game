@@ -4,62 +4,96 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyController : StateMachine,Idamagable
-{ 
+{
+
     public int hp;
     public float payrollSpeed;
     public int dmg;
     private PatrolState ps;
     private AttackState atts;
-    private ParticleSystem dust;
+    private ChaseState chase;
     private bool playerInSightRange;
+    private bool playerInAttackRange;
     public LayerMask PlayerMask;
 
     private void Awake()
     {
-        dust = GetComponent<ParticleSystem>();
         PlayerMask = 1000;
         currentState = addPatrol();
         currentState.EnterState();
-        var renderer = dust.GetComponent<Renderer>();
-        renderer.material.SetColor("", new Color(255,194,71,255));
-        dust.Play();
     }
 
     private void Update()
     {
-        playerInSightRange = Physics.CheckSphere(transform.position,10,PlayerMask);
-        if (playerInSightRange && gameObject.GetComponent<PatrolState>() != null)
+        playerInSightRange = Physics.CheckSphere(transform.position, 15, PlayerMask);
+        playerInAttackRange = Physics.CheckSphere(transform.position,10,PlayerMask);
+        if (playerInSightRange && !playerInAttackRange && gameObject.GetComponent<AttackState>() != null)
         {
-            dust.Stop();
+            currentState.ExitState();
+            Destroy(atts);
+            currentState = addChase();
+            currentState.EnterState();
+        }
+        else if (playerInSightRange && gameObject.GetComponent<PatrolState>() != null)
+        {
             currentState.ExitState();
             Destroy(ps);
+            currentState = addChase();
+            currentState.EnterState();
+        }
+        else if (!playerInSightRange && gameObject.GetComponent<ChaseState>() != null)
+        {
+            currentState.ExitState();
+            Destroy(chase);
+            currentState = addPatrol();
+            currentState.EnterState();
+        }
+        else if (playerInAttackRange && gameObject.GetComponent<ChaseState>() != null)
+        {
+            currentState.ExitState();
+            Destroy(chase);
             currentState = addAttack();
             currentState.EnterState();
         }
-        else if (!playerInSightRange && gameObject.GetComponent<AttackState>() != null)
+        /*else if (!playerInAttackRange && gameObject.GetComponent<AttackState>() != null)
         {
             dust.Play();
             currentState.ExitState();
             Destroy(atts);
             currentState = addPatrol();
             currentState.EnterState();
-        }
-        else if (playerInSightRange  && gameObject.GetComponent<AttackState>() != null) 
+        }*/
+        else if (playerInAttackRange && gameObject.GetComponent<AttackState>() != null)
         {
-            gameObject.transform.LookAt(GameObject.Find("Tank").transform);
+            gameObject.transform.LookAt(GameObject.FindGameObjectWithTag("Player").transform);
         }
+            
 
     }
+
+  
+
     public void takeDamage() {
         hp -= 25;
         Debug.Log("After hit - " + hp);
         if (isDead())
         {
+            GameEvents.Instance.OnPlayerKill += Kill;
             Destroy(gameObject);
             TankProvider.Instance.Boom(transform);
         }
     }
-         
+
+    private void Kill()
+    {
+        Debug.Log("Called KILL");
+        if (++TankController.Instance.Kills == 1) {
+            GameEvents.Instance.FirstKillTrigger();
+        }
+        Debug.Log("Player Kills- "+TankController.Instance.Kills);
+        GameEvents.Instance.OnPlayerKill -= Kill;
+    }
+
     private PatrolState addPatrol()
     {
         ps = gameObject.AddComponent<PatrolState>();
@@ -70,6 +104,13 @@ public class EnemyController : StateMachine,Idamagable
     private AttackState addAttack() {
         atts = gameObject.AddComponent<AttackState>();
         return atts;
+    }
+
+    private ChaseState addChase()
+    {
+        chase = gameObject.AddComponent<ChaseState>();
+        chase.ec = this;
+        return chase;
     }
 
     private bool isDead()

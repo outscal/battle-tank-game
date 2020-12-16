@@ -17,6 +17,7 @@ public class TankController : MonoSingletonGeneric<TankController>, Idamagable
     private Button firebutton;
     private ParticleSystem dust;
     private int hp;
+    public int Kills;
 
     private bool isdead = false;
 
@@ -27,6 +28,7 @@ public class TankController : MonoSingletonGeneric<TankController>, Idamagable
 
     protected override void Awake()
     {
+        Kills = 0;
         hp = 100;
         dust = GetComponent<ParticleSystem>();
         base.Awake();
@@ -52,8 +54,15 @@ public class TankController : MonoSingletonGeneric<TankController>, Idamagable
                 rigidbody.velocity = Vector3.zero;
             }
         }
+
+        GameEvents.Instance.OnFirstKill += FirstKill;
     }
 
+    private void FirstKill()
+    {
+        Debug.Log("Achievement Unlocked: First Blood-Player got the first kill");
+        GameEvents.Instance.OnFirstKill -= FirstKill;
+    }
 
     private void OnCollisionEnter(Collision collision)
     {

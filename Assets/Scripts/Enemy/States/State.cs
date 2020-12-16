@@ -6,6 +6,8 @@ public class State : MonoBehaviour
 {
 
     public int MP = 1;
+    public static float attackCD = 1f;
+    public float nextAttack = 0f;
     public virtual void EnterState()
     {
     }
