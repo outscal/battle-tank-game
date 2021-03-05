@@ -13,22 +13,21 @@ public class TankController : GenericSingletonClass<TankController>
 
     private string m_MovementAxisName;          // The name of the input axis for moving forward and back.
     private string m_TurnAxisName;              // The name of the input axis for turning.
-    private Rigidbody m_Rigidbody;              // Reference used to move the tank.
+                          
     private float m_MovementInputValue;         // The current value of the movement input.
     private float m_TurnInputValue;             // The current value of the turn input.
     private float m_OriginalPitch;              // The pitch of the audio source at the start of the scene.
 
+    private Rigidbody rb;                       // Reference used to move the tank.
+
     private void Awake()
     {
-        m_Rigidbody = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
 
     private void OnEnable()
     {
-        // When the tank is turned on, make sure it's not kinematic.
-        m_Rigidbody.isKinematic = false;
-
         // Also reset the input values.
         m_MovementInputValue = 0f;
         m_TurnInputValue = 0f;
@@ -38,15 +37,15 @@ public class TankController : GenericSingletonClass<TankController>
     private void OnDisable()
     {
         // When the tank is turned off, set it to kinematic so it stops moving.
-        m_Rigidbody.isKinematic = true;
+        rb.isKinematic = true;
     }
 
 
     private void Start()
     {
         // The axes names are based on player number.
-        m_MovementAxisName = "Vertical" + m_PlayerNumber;
-        m_TurnAxisName = "Horizontal" + m_PlayerNumber;
+        m_MovementAxisName = "Vertical";
+        m_TurnAxisName = "Horizontal";
 
         // Store the original pitch of the audio source.
         m_OriginalPitch = m_MovementAudio.pitch;
@@ -63,6 +62,19 @@ public class TankController : GenericSingletonClass<TankController>
         m_TurnInputValue = Input.GetAxis(m_TurnAxisName);
 
         EngineAudio();
+
+        //Move Front/Back
+        if (JoystickUI.instance.moveDirection.y != 0)
+        {
+            transform.Translate(transform.forward * Time.deltaTime * 2.45f * JoystickUI.instance.moveDirection.y, Space.World);
+        }
+
+        //Rotate Left/Right
+        if (JoystickUI.instance.moveDirection.x != 0)
+        {
+            transform.Rotate(new Vector3(0, 14, 0) * Time.deltaTime * 4.5f * JoystickUI.instance.moveDirection.x, Space.Self);
+        }
+
     }
 
 
@@ -99,6 +111,9 @@ public class TankController : GenericSingletonClass<TankController>
         // Adjust the rigidbodies position and orientation in FixedUpdate.
         Move();
         Turn();
+
+        /*Vector3 direction = Vector3.forward * floatingJoystick.Vertical + Vector3.right * floatingJoystick.Horizontal;
+        rb.AddForce(direction * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);*/
     }
 
 
@@ -108,7 +123,7 @@ public class TankController : GenericSingletonClass<TankController>
         Vector3 movement = transform.forward * m_MovementInputValue * m_Speed * Time.deltaTime;
 
         // Apply this movement to the rigidbody's position.
-        m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
+        rb.MovePosition(rb.position + movement);
     }
 
 
@@ -121,6 +136,6 @@ public class TankController : GenericSingletonClass<TankController>
         Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
 
         // Apply this rotation to the rigidbody's rotation.
-        m_Rigidbody.MoveRotation(m_Rigidbody.rotation * turnRotation);
+        rb.MoveRotation(rb.rotation * turnRotation);
     }
 }
