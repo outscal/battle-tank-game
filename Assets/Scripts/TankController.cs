@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEngine.UI;
+using UnityEngine;
 
 public class TankController : GenericSingletonClass<TankController>
 {
@@ -20,17 +21,104 @@ public class TankController : GenericSingletonClass<TankController>
 
     private Rigidbody rb;                       // Reference used to move the tank.
 
-    private void Awake()
+    public GameObject shells;
+    public Transform fireTransform;
+    public float fireForce = 2000;
+
+    public float m_StartingHealth = 100f;               // The amount of health each tank starts with.
+    public Slider m_Slider;                             // The slider to represent how much health the tank currently has.
+    public Image m_FillImage;                           // The image component of the slider.
+    public Color m_FullHealthColor = Color.green;       // The color the health bar will be when on full health.
+    public Color m_ZeroHealthColor = Color.red;         // The color the health bar will be when on no health.
+    public GameObject m_ExplosionPrefab;                // A prefab that will be instantiated in Awake, then used whenever the tank dies.
+
+
+    private AudioSource m_ExplosionAudio;               // The audio source to play when the tank explodes.
+    private ParticleSystem m_ExplosionParticles;        // The particle system the will play when the tank is destroyed.
+    private float m_CurrentHealth;                      // How much health the tank currently has.
+    private bool m_Dead;                                // Has the tank been reduced beyond zero health yet?
+
+    
+    override public void Awake()
     {
+        // Instantiate the explosion prefab and get a reference to the particle system on it.
+        m_ExplosionParticles = Instantiate(m_ExplosionPrefab).GetComponent<ParticleSystem>();
+
+        // Get a reference to the audio source on the instantiated prefab.
+        m_ExplosionAudio = m_ExplosionParticles.GetComponent<AudioSource>();
+
+        // Disable the prefab so it can be activated when it's required.
+        m_ExplosionParticles.gameObject.SetActive(false);
+
         rb = GetComponent<Rigidbody>();
+
     }
 
 
     private void OnEnable()
     {
+        // When the tank is enabled, reset the tank's health and whether or not it's dead.
+        m_CurrentHealth = m_StartingHealth;
+        m_Dead = false;
+
+        // Update the health slider's value and color.
+        SetHealthUI();
+
         // Also reset the input values.
         m_MovementInputValue = 0f;
         m_TurnInputValue = 0f;
+    }
+
+
+    public void TakeDamage(float amount)
+    {
+        // Reduce current health by the amount of damage done.
+        m_CurrentHealth -= amount;
+
+        // Change the UI elements appropriately.
+        SetHealthUI();
+
+        // If the current health is at or below zero and it has not yet been registered, call OnDeath.
+        if (m_CurrentHealth <= 0f && !m_Dead)
+        {
+            OnDeath();
+        }
+    }
+
+
+    private void SetHealthUI()
+    {
+        // Set the slider's value appropriately.
+        m_Slider.value = m_CurrentHealth;
+
+        // Interpolate the color of the bar between the choosen colours based on the current percentage of the starting health.
+        m_FillImage.color = Color.Lerp(m_ZeroHealthColor, m_FullHealthColor, m_CurrentHealth / m_StartingHealth);
+    }
+
+
+    private void OnDeath()
+    {
+        // Set the flag so that this function is only called once.
+        m_Dead = true;
+
+        // Move the instantiated explosion prefab to the tank's position and turn it on.
+        m_ExplosionParticles.transform.position = transform.position;
+        m_ExplosionParticles.gameObject.SetActive(true);
+
+        // Play the particle system of the tank exploding.
+        m_ExplosionParticles.Play();
+
+        // Play the tank explosion sound effect.
+        //m_ExplosionAudio.Play();
+
+        // Turn the tank off.
+        gameObject.SetActive(false);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("HIT");
+        TakeDamage(20f);
     }
 
 
@@ -63,18 +151,21 @@ public class TankController : GenericSingletonClass<TankController>
 
         EngineAudio();
 
-        //Move Front/Back
-        if (JoystickUI.instance.moveDirection.y != 0)
+        if (SC_MobileControls.instance.GetMobileButtonDown("FireButton") || Input.GetKeyDown(KeyCode.LeftControl))
         {
-            transform.Translate(transform.forward * Time.deltaTime * 2.45f * JoystickUI.instance.moveDirection.y, Space.World);
+            //Mobile button has been pressed one time, equivalent to if(Input.GetKeyDown(KeyCode...))
+            GameObject shell = Instantiate(shells, fireTransform.position, transform.rotation);
+
+            Rigidbody shellBody = shell.GetComponent<Rigidbody>();
+
+            shellBody.AddForce(transform.forward * fireForce);
         }
 
-        //Rotate Left/Right
-        if (JoystickUI.instance.moveDirection.x != 0)
-        {
-            transform.Rotate(new Vector3(0, 14, 0) * Time.deltaTime * 4.5f * JoystickUI.instance.moveDirection.x, Space.Self);
-        }
 
+        if (SC_MobileControls.instance.GetMobileButton("FireButton"))
+        {
+            //Mobile button is being held pressed, equivalent to if(Input.GetKey(KeyCode...))
+        }
     }
 
 
@@ -112,8 +203,10 @@ public class TankController : GenericSingletonClass<TankController>
         Move();
         Turn();
 
-        /*Vector3 direction = Vector3.forward * floatingJoystick.Vertical + Vector3.right * floatingJoystick.Horizontal;
-        rb.AddForce(direction * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);*/
+        //Get normalized direction of a on-screen Joystick
+        //Could be compared to: new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) or new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"))
+        Vector2 inputAxis = SC_MobileControls.instance.GetJoystick("JoystickLeft");
+
     }
 
 
