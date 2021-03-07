@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class TankController : GenericSingletonClass<TankController>
+public class TankController : GenericSingletonClass<TankController>, IDamageable
 {
     public int m_PlayerNumber = 1;              // Used to identify which tank belongs to which player.  This is set by this tank's manager.
     public float m_Speed = 12f;                 // How fast the tank moves forward and back.
@@ -37,6 +37,9 @@ public class TankController : GenericSingletonClass<TankController>
     public ParticleSystem m_ExplosionParticles;        // The particle system the will play when the tank is destroyed.
     private float m_CurrentHealth;                      // How much health the tank currently has.
     public bool m_Dead;                                // Has the tank been reduced beyond zero health yet?
+
+    public float speed = 10.0f;
+    public float rotationSpeed = 100.0f;
 
 
     override public void Awake()
@@ -114,8 +117,13 @@ public class TankController : GenericSingletonClass<TankController>
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("HIT");
-        TakeDamage(20f);
+        IDamageable takeDamage = GetComponent<IDamageable>();
+
+        if (takeDamage != null)
+            takeDamage.TakeDamage(10f);
+        else
+            Debug.Log(takeDamage);
+        //TakeDamage(20f);
     }
 
 
@@ -201,7 +209,19 @@ public class TankController : GenericSingletonClass<TankController>
 
         //Get normalized direction of a on-screen Joystick
         //Could be compared to: new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) or new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"))
-        Vector2 inputAxis = SC_MobileControls.instance.GetJoystick("JoystickLeft");
+        Vector3 inputAxis = SC_MobileControls.instance.GetJoystick("JoystickLeft");
+
+        //Move Front/Back
+        if (inputAxis.y != 0)
+        {
+            transform.Translate(transform.forward * Time.deltaTime * 5f * inputAxis.y, Space.World);
+        }
+
+        //Rotate Left/Right
+        if (inputAxis.x != 0)
+        {
+            transform.Rotate(new Vector3(0, 14, 0) * Time.deltaTime * 4.5f * inputAxis.x, Space.Self);
+        }
 
     }
 

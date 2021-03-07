@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyController : GenericSingletonClass<EnemyController>
+public class EnemyController : GenericSingletonClass<EnemyController>, IDamageable
 {
     public float m_StartingHealth = 100f;               // The amount of health each tank starts with.
     public Image m_FillImage;                           // The image component of the slider.
@@ -93,8 +93,13 @@ public class EnemyController : GenericSingletonClass<EnemyController>
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("HIT");
-        TakeDamage(20f);
+        IDamageable takeDamage = GetComponent<IDamageable>();
+
+        if (takeDamage != null)
+            takeDamage.TakeDamage(10f);
+        else
+            Debug.Log(takeDamage);
+        //TakeDamage(20f);
     }
 
     private void Update()

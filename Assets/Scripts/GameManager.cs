@@ -16,7 +16,6 @@ public class GameManager : GenericSingletonClass<GameManager>
 
     IEnumerator DelayDeath()
     {
-
         TankController.Instance.m_ExplosionParticles.Play();
 
         // Move the instantiated explosion prefab to the tank's position and turn it on.

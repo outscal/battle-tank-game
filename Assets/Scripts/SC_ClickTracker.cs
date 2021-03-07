@@ -20,7 +20,7 @@ public class SC_ClickTracker : MonoBehaviour, IPointerDownHandler, IDragHandler,
     Vector2 clickPos;
 
     //Input variables
-    Vector2 inputAxis = Vector2.zero;
+    Vector3 inputAxis = Vector3.zero;
     bool holding = false;
     bool clicked = false;
 
@@ -64,7 +64,7 @@ public class SC_ClickTracker : MonoBehaviour, IPointerDownHandler, IDragHandler,
 
     //Joystick movement
     public void OnDrag(PointerEventData eventData)
-    {
+    { 
         //Debug.Log(this.gameObject.name + " The element is being dragged");
 
         if (isJoystick)
@@ -76,6 +76,7 @@ public class SC_ClickTracker : MonoBehaviour, IPointerDownHandler, IDragHandler,
             //Update inputAxis
             float inputX = 0;
             float inputY = 0;
+
             if (Mathf.Abs(movementVector.x) > rt.sizeDelta.x * movementThreshold)
             {
                 inputX = (movementVector.x - (rt.sizeDelta.x * movementThreshold * (movementVector.x > 0 ? 1 : -1))) / (rt.sizeDelta.x * movementLimit);
@@ -84,7 +85,7 @@ public class SC_ClickTracker : MonoBehaviour, IPointerDownHandler, IDragHandler,
             {
                 inputY = (movementVector.y - (rt.sizeDelta.x * movementThreshold * (movementVector.y > 0 ? 1 : -1))) / (rt.sizeDelta.x * movementLimit);
             }
-            inputAxis = new Vector2(inputX, inputY);
+            inputAxis = new Vector3(inputX, inputY);
         }
     }
 
