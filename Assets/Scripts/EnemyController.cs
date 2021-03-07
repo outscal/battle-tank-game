@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemyController : GenericSingletonClass<EnemyController>
 {
     public float m_StartingHealth = 100f;               // The amount of health each tank starts with.
-    public Slider m_Slider;                             // The slider to represent how much health the tank currently has.
     public Image m_FillImage;                           // The image component of the slider.
     public Color m_FullHealthColor = Color.green;       // The color the health bar will be when on full health.
     public Color m_ZeroHealthColor = Color.red;         // The color the health bar will be when on no health.
@@ -12,18 +12,16 @@ public class EnemyController : GenericSingletonClass<EnemyController>
 
 
     //private AudioSource m_ExplosionAudio;               // The audio source to play when the tank explodes.
-    private ParticleSystem m_ExplosionParticles;        // The particle system the will play when the tank is destroyed.
+    public ParticleSystem m_ExplosionParticles;        // The particle system the will play when the tank is destroyed.
     private float m_CurrentHealth;                      // How much health the tank currently has.
-    private bool m_Dead;                                // Has the tank been reduced beyond zero health yet?
+    public bool m_Dead;                                // Has the tank been reduced beyond zero health yet?
 
     public int patrolLevel;
     public int speed;
-
+    
     public GameObject shells;
     public Transform fireTransform;
     public float fireForce = 2000;
-
-
 
     override public void Awake()
     {
@@ -67,9 +65,6 @@ public class EnemyController : GenericSingletonClass<EnemyController>
 
     private void SetHealthUI()
     {
-        // Set the slider's value appropriately.
-        m_Slider.value = m_CurrentHealth;
-
         // Interpolate the color of the bar between the choosen colours based on the current percentage of the starting health.
         m_FillImage.color = Color.Lerp(m_ZeroHealthColor, m_FullHealthColor, m_CurrentHealth / m_StartingHealth);
     }
@@ -92,6 +87,8 @@ public class EnemyController : GenericSingletonClass<EnemyController>
 
         // Turn the tank off.
         gameObject.SetActive(false);
+
+        m_ExplosionParticles.Stop();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -102,10 +99,15 @@ public class EnemyController : GenericSingletonClass<EnemyController>
 
     private void Update()
     {
-        GameObject shell = Instantiate(shells, fireTransform.position, transform.rotation);
+        if (!m_Dead)
+        {
+            GameObject shell = Instantiate(shells, fireTransform.position, transform.rotation);
 
-        Rigidbody shellBody = shell.GetComponent<Rigidbody>();
+            Rigidbody shellBody = shell.GetComponent<Rigidbody>();
 
-        shellBody.AddForce(transform.forward * fireForce);
+            shellBody.AddForce(transform.forward * fireForce);
+        }
+        else
+            Destroy(shells);
     }
 }

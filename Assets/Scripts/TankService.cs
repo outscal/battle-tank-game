@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class TankService : GenericSingletonClass<TankService>
 {
-    public GameObject tankPrefab;
+    [SerializeField] private GameObject tankPrefab;
     void Start()
     {
         GetTank();
     }
 
-    private void Update()
+    void Update()
     {
         
     }
 
     public void GetTank() 
     {
-        Instantiate(tankPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        //Instantiate(tankPrefab, new Vector3(0, 0, 0), Quaternion.identity);
     }
 }
