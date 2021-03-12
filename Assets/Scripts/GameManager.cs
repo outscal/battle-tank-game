@@ -15,6 +15,8 @@ public class GameManager : GenericSingletonClass<GameManager>
     public GameObject cam;
     public GameObject playerTank;
     //public GameObject enemyTank;
+    private int counter;
+    public Text txt;
 
     IEnumerator DelayDeath()
     {
@@ -62,6 +64,7 @@ public class GameManager : GenericSingletonClass<GameManager>
         {
             go.SetActive(false);
         }
+
         Destroy(enemySpawner);
     }
     IEnumerator DestroyCanvas()
@@ -85,10 +88,30 @@ public class GameManager : GenericSingletonClass<GameManager>
         Destroy(GetComponent<Camera>());
     }
 
+    IEnumerator DisableText()
+    {
+        yield return new WaitForSeconds(2f);
+        txt.GetComponent<Text>().enabled = false;
+    }
+
     void Update()
     {
         if (TankController.Instance.m_Dead)
             StartCoroutine(DelayDeath());
+
+        if (Spawner.Instance.counter == 20)
+        {
+            txt.GetComponent<Text>().enabled = true;
+            txt.text = "Achievement unlocked! \r\n 20 Kills";
+            StartCoroutine(DisableText());
+        }
+
+        if (TankController.Instance.shellCounter == 20)
+        {
+            txt.GetComponent<Text>().enabled = true;
+            txt.text = "Achievement unlocked! \r\n 20 shots fired";
+            StartCoroutine(DisableText());
+        }
     }
 
     private void Start()

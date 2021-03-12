@@ -41,6 +41,7 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
     public float speed = 10.0f;
     public float rotationSpeed = 100.0f;
 
+    public int shellCounter;
 
     override public void Awake()
     {
@@ -159,7 +160,7 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
         {
             //Mobile button has been pressed one time, equivalent to if(Input.GetKeyDown(KeyCode...))
             GameObject shell = Instantiate(shells, fireTransform.position, transform.rotation);
-
+            shellCounter++;
             Rigidbody shellBody = shell.GetComponent<Rigidbody>();
 
             shellBody.AddForce(transform.forward * fireForce);

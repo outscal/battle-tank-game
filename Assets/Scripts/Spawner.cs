@@ -15,6 +15,9 @@ public class Spawner : GenericSingletonClass<Spawner>
 
     public Renderer rend;
 
+    public int enemyTankNumber;
+
+    public int counter;
 
 
     private void Start()
@@ -47,6 +50,7 @@ private void Update()
         {
             // Creates an instance of the prefab
             enemyTankList.Add(Instantiate(enemyTank, spawnPoint, Quaternion.identity));
+            enemyTankNumber++;
         }
     }
 }

@@ -26,6 +26,8 @@ public class EnemyController : GenericSingletonClass<EnemyController>, IDamageab
 
     //public float fireForce = 2000;
 
+    public int enemyCounter;
+
     override public void Awake()
     {
         // Instantiate the explosion prefab and get a reference to the particle system on it.
@@ -41,7 +43,6 @@ public class EnemyController : GenericSingletonClass<EnemyController>, IDamageab
 
     void Start()
     {
-
     }
 
 
@@ -68,16 +69,12 @@ public class EnemyController : GenericSingletonClass<EnemyController>, IDamageab
         IDamageable takeDamage = GetComponent<IDamageable>();
 
         if (takeDamage != null)
-            takeDamage.TakeDamage(10f);
+            takeDamage.TakeDamage(20f);
         else
             Debug.Log(takeDamage);
         //TakeDamage(20f);
     }
 
-    private void Update()
-    {
-
-    }
     public void TakeDamage(float amount)
     {
 
@@ -111,8 +108,17 @@ public class EnemyController : GenericSingletonClass<EnemyController>, IDamageab
 
         // Turn the tank off.
         Destroy(gameObject);
+
         //m_ExplosionParticles.Stop();
+        Spawner.Instance.enemyTankNumber--;
+
+        Spawner.Instance.counter++;
+
     }
 
+    void Update()
+    {
+        //Debug.Log(enemyCounter);
+    }
 
 }

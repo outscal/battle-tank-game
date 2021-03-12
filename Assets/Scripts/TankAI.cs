@@ -15,7 +15,7 @@ public class TankAI : MonoBehaviour
     {
         GameObject shell = Instantiate(GameManager.Instance.shells, fireTransform.position, transform.rotation);
         Rigidbody shellBody = shell.GetComponent<Rigidbody>();
-        shellBody.AddForce(transform.forward * 2000);
+        shellBody.AddForce(transform.forward * 1500);
     }
 
     public void StopFiring() { CancelInvoke("Fire"); }
@@ -40,9 +40,8 @@ public class TankAI : MonoBehaviour
 
         if (EnemyController.Instance.isDead)
         {
-            Debug.Log("no more");
+           Die();
 
-            Die();
         }
     }
 }
