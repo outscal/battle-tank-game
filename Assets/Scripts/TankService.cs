@@ -1,0 +1,22 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TankService : GenericSingletonClass<TankService>
+{
+    [SerializeField] private GameObject tankPrefab;
+    void Start()
+    {
+        GetTank();
+    }
+
+    void Update()
+    {
+        
+    }
+
+    public void GetTank() 
+    {
+        //Instantiate(tankPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+    }
+}
