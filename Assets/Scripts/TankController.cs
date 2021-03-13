@@ -15,7 +15,7 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
 
     private string m_MovementAxisName;          // The name of the input axis for moving forward and back.
     private string m_TurnAxisName;              // The name of the input axis for turning.
-                          
+
     private float m_MovementInputValue;         // The current value of the movement input.
     private float m_TurnInputValue;             // The current value of the turn input.
     private float m_OriginalPitch;              // The pitch of the audio source at the start of the scene.
@@ -26,16 +26,13 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
     public Transform fireTransform;
     public float fireForce = 2000;
 
-    public float m_StartingHealth = 100f;               // The amount of health each tank starts with.
     public Image m_FillImage;                           // The image component of the slider.
-    public Color m_FullHealthColor = Color.green;       // The color the health bar will be when on full health.
-    public Color m_ZeroHealthColor = Color.red;         // The color the health bar will be when on no health.
     public GameObject m_ExplosionPrefab;                // A prefab that will be instantiated in Awake, then used whenever the tank dies.
 
 
     //private AudioSource m_ExplosionAudio;               // The audio source to play when the tank explodes.
     public ParticleSystem m_ExplosionParticles;        // The particle system the will play when the tank is destroyed.
-    private float m_CurrentHealth;                      // How much health the tank currently has.
+    private float currentHealth = 1f;                      // How much health the tank currently has.
     public bool m_Dead;                                // Has the tank been reduced beyond zero health yet?
 
     public float speed = 10.0f;
@@ -61,12 +58,11 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
     private void OnEnable()
     {
         // When the tank is enabled, reset the tank's health and whether or not it's dead.
-        m_CurrentHealth = m_StartingHealth;
+        m_FillImage.fillAmount = currentHealth = 1f;
+        m_FillImage.color = Color.green;
         m_Dead = false;
 
         // Update the health slider's value and color.
-        SetHealthUI();
-
         // Also reset the input values.
         m_MovementInputValue = 0f;
         m_TurnInputValue = 0f;
@@ -76,25 +72,19 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
     public void TakeDamage(float amount)
     {
         // Reduce current health by the amount of damage done.
-        m_CurrentHealth -= amount;
+        currentHealth -= amount;
 
         // Change the UI elements appropriately.
-        SetHealthUI();
+        m_FillImage.fillAmount = currentHealth;
+
+        if (currentHealth < 0.25f) { m_FillImage.color = Color.red; }
 
         // If the current health is at or below zero and it has not yet been registered, call OnDeath.
-        if (m_CurrentHealth <= 0f && !m_Dead)
+        if (currentHealth <= 0f && !m_Dead)
         {
             Die();
         }
     }
-
-
-    private void SetHealthUI()
-    {
-        // Interpolate the color of the bar between the choosen colours based on the current percentage of the starting health.
-        m_FillImage.color = Color.Lerp(m_ZeroHealthColor, m_FullHealthColor, m_CurrentHealth / m_StartingHealth);
-    }
-
 
     public void Die()
     {
@@ -121,7 +111,7 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
         IDamageable takeDamage = GetComponent<IDamageable>();
 
         if (takeDamage != null)
-            takeDamage.TakeDamage(10f);
+            takeDamage.TakeDamage(0.01f);
         else
             Debug.Log(takeDamage);
         //TakeDamage(20f);

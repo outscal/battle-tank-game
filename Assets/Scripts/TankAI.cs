@@ -9,13 +9,15 @@ public class TankAI : MonoBehaviour
 
     public Transform fireTransform;
 
+    public int shellForce;
+
     public GameObject GetPlayer() { return player; }
 
     void Fire()
     {
         GameObject shell = Instantiate(GameManager.Instance.shells, fireTransform.position, transform.rotation);
         Rigidbody shellBody = shell.GetComponent<Rigidbody>();
-        shellBody.AddForce(transform.forward * 1500);
+        shellBody.AddForce(transform.forward * shellForce);
     }
 
     public void StopFiring() { CancelInvoke("Fire"); }
@@ -26,7 +28,7 @@ public class TankAI : MonoBehaviour
         anim = GetComponent<Animator>();
         player = GameManager.Instance.playerTank;
         enemy = Spawner.Instance.enemyTank;
-        fireTransform = GetComponent<Transform>();
+        //fireTransform = GetComponent<Transform>();
     }
 
     public void Die()

@@ -25,7 +25,7 @@ public class Spawner : GenericSingletonClass<Spawner>
         rend = GameObject.FindGameObjectWithTag("Ground").GetComponent<Renderer>();
     }
 
-private void Update()
+    private void Update()
     {
         if (Input.GetKey(KeyCode.Alpha0))
         {

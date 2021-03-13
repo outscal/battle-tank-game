@@ -1,8 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
+
 
 public class GameManager : GenericSingletonClass<GameManager>
 {
@@ -15,8 +15,11 @@ public class GameManager : GenericSingletonClass<GameManager>
     public GameObject cam;
     public GameObject playerTank;
     //public GameObject enemyTank;
-    private int counter;
     public Text txt;
+    public Text scoreTxt;
+    public int scoreCounter;
+
+    UnityEvent healthEvent, scoreEvent, shellsFiredAchievementEvent, killsAchievementEvent;
 
     IEnumerator DelayDeath()
     {
@@ -99,22 +102,62 @@ public class GameManager : GenericSingletonClass<GameManager>
         if (TankController.Instance.m_Dead)
             StartCoroutine(DelayDeath());
 
-        if (Spawner.Instance.counter == 20)
+        if (Spawner.Instance.counter == 10 && killsAchievementEvent != null)
         {
-            txt.GetComponent<Text>().enabled = true;
-            txt.text = "Achievement unlocked! \r\n 20 Kills";
-            StartCoroutine(DisableText());
+            killsAchievementEvent.Invoke();
         }
 
-        if (TankController.Instance.shellCounter == 20)
+        if (TankController.Instance.shellCounter == 20 && shellsFiredAchievementEvent != null)
         {
-            txt.GetComponent<Text>().enabled = true;
-            txt.text = "Achievement unlocked! \r\n 20 shots fired";
-            StartCoroutine(DisableText());
+            shellsFiredAchievementEvent.Invoke();
+        }
+        if (scoreEvent != null)
+        {
+            scoreEvent.Invoke();
         }
     }
 
     private void Start()
     {
+        if (healthEvent == null)
+            healthEvent = new UnityEvent();
+
+        healthEvent.AddListener(health);
+
+        if (scoreEvent == null)
+            scoreEvent = new UnityEvent();
+
+        scoreEvent.AddListener(score);
+
+        if (shellsFiredAchievementEvent == null)
+            shellsFiredAchievementEvent = new UnityEvent();
+
+        shellsFiredAchievementEvent.AddListener(a1);
+
+        if (killsAchievementEvent == null)
+            killsAchievementEvent = new UnityEvent();
+
+        killsAchievementEvent.AddListener(a2);
+    }
+
+    void a1()
+    {
+        txt.GetComponent<Text>().enabled = true;
+        txt.text = "Achievement unlocked! \r\n 20 shots fired";
+        StartCoroutine(DisableText());
+
+    }
+
+    void a2()
+    {
+        txt.GetComponent<Text>().enabled = true;
+        txt.text = "Achievement unlocked! \r\n 20 Kills";
+        StartCoroutine(DisableText());
+    }
+
+    void health() { }
+    void score() 
+    { 
+        scoreTxt.text = scoreCounter.ToString();
     }
 }
