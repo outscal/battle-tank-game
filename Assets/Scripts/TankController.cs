@@ -4,7 +4,6 @@ using System.Collections;
 
 public class TankController : GenericSingletonClass<TankController>, IDamageable
 {
-    public int m_PlayerNumber = 1;              // Used to identify which tank belongs to which player.  This is set by this tank's manager.
     public float m_Speed = 12f;                 // How fast the tank moves forward and back.
     public float m_TurnSpeed = 180f;            // How fast the tank turns in degrees per second.
     public AudioSource m_MovementAudio;         // Reference to the audio source used to play engine sounds. NB: different to the shooting audio source.
@@ -20,9 +19,9 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
     private float m_TurnInputValue;             // The current value of the turn input.
     private float m_OriginalPitch;              // The pitch of the audio source at the start of the scene.
 
-    private Rigidbody rb;                       // Reference used to move the tank.
+    public static Rigidbody rb;                       // Reference used to move the tank.
 
-    public GameObject shells;
+    public GameObject shellInstance;
     public Transform fireTransform;
     public float fireForce = 2000;
 
@@ -40,34 +39,27 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
 
     public int shellCounter;
 
+    public GameObject shellGo;
+
+    //public bool isFired;
+
+
+
+    IEnumerator DisableShell()
+    {
+        yield return new WaitForSeconds(2f);
+        shellInstance.SetActive(false);
+    }
     override public void Awake()
     {
-        // Instantiate the explosion prefab and get a reference to the particle system on it.
-        m_ExplosionParticles = Instantiate(m_ExplosionPrefab).GetComponent<ParticleSystem>();
-
         // Get a reference to the audio source on the instantiated prefab.
         //m_ExplosionAudio = m_ExplosionParticles.GetComponent<AudioSource>();
-
-        // Disable the prefab so it can be activated when it's required.
-        m_ExplosionParticles.gameObject.SetActive(false);
 
         rb = GetComponent<Rigidbody>();
     }
 
 
-    private void OnEnable()
-    {
-        // When the tank is enabled, reset the tank's health and whether or not it's dead.
-        m_FillImage.fillAmount = currentHealth = 1f;
-        m_FillImage.color = Color.green;
-        m_Dead = false;
-
-        // Update the health slider's value and color.
-        // Also reset the input values.
-        m_MovementInputValue = 0f;
-        m_TurnInputValue = 0f;
-    }
-
+   
 
     public void TakeDamage(float amount)
     {
@@ -106,15 +98,33 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
         //StartCoroutine(DelayDeath());
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collider)
     {
-        IDamageable takeDamage = GetComponent<IDamageable>();
+        if (collider.gameObject.tag == "Shells")
+        {
+            IDamageable takeDamage = GetComponent<IDamageable>();
 
-        if (takeDamage != null)
-            takeDamage.TakeDamage(0.01f);
-        else
-            Debug.Log(takeDamage);
-        //TakeDamage(20f);
+            if (takeDamage != null)
+                takeDamage.TakeDamage(0.1f);
+            else
+                Debug.Log(takeDamage);
+            //TakeDamage(20f);
+        }
+    }
+
+    private void OnEnable()
+    {
+        // When the tank is enabled, reset the tank's health and whether or not it's dead.
+        m_FillImage.fillAmount = currentHealth = 1f;
+        m_FillImage.color = Color.green;
+        m_Dead = false;
+
+        // Update the health slider's value and color.
+        // Also reset the input values.
+        m_MovementInputValue = 0f;
+        m_TurnInputValue = 0f;
+
+       
     }
 
 
@@ -135,6 +145,9 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
         m_OriginalPitch = m_MovementAudio.pitch;
 
         //TankService.Instance.GetTank();
+
+        PoolManager.SetNetPoolSize(shellInstance, 10);
+        PoolManager.SetPoolSize(shellInstance, 5);
     }
 
 
@@ -146,16 +159,19 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
 
         EngineAudio();
 
+        //isFired = false;
+
         if (SC_MobileControls.instance.GetMobileButtonDown("FireButton") || Input.GetKeyDown(KeyCode.LeftControl))
         {
             //Mobile button has been pressed one time, equivalent to if(Input.GetKeyDown(KeyCode...))
-            GameObject shell = Instantiate(shells, fireTransform.position, transform.rotation);
+
+            //isFired = true;
+
+            shellGo = PoolManager.Instantiate(shellInstance, fireTransform.position, fireTransform.rotation);
+            Rigidbody shellRb = shellGo.GetComponent<Rigidbody>();
+            shellRb.velocity = fireTransform.forward * fireForce;
             shellCounter++;
-            Rigidbody shellBody = shell.GetComponent<Rigidbody>();
-
-            shellBody.AddForce(transform.forward * fireForce);
         }
-
 
         if (SC_MobileControls.instance.GetMobileButton("FireButton"))
         {

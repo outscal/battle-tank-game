@@ -7,23 +7,16 @@ public class EnemyController : GenericSingletonClass<EnemyController>, IDamageab
 
     public Image fillImage;                                 // The image component of the slider.
 
-
-
-    public GameObject m_ExplosionPrefab;                // A prefab that will be instantiated in Awake, then used whenever the tank dies.
-    private AudioSource m_ExplosionAudio;               // The audio source to play when the tank explodes.
-    public ParticleSystem m_ExplosionParticles;        // The particle system the will play when the tank is destroyed.
-
-
-
     public float currentHealth;                      // How much health the tank currently has.
     public int patrolLevel;
     public int speed;
 
-
-
     public int enemyCounter;
     public bool isDead;                                // Has the tank been reduced beyond zero health yet?
     public int scoreCounter;
+
+
+    public GameObject tankExplosion;
 
     override public void Awake()
     {
@@ -63,9 +56,9 @@ public class EnemyController : GenericSingletonClass<EnemyController>, IDamageab
 
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collider)
     {
-        if (collision.gameObject.tag == "Shells")
+        if (collider.gameObject.tag == "Shells")
         {
             IDamageable takeDamage = GetComponent<IDamageable>();
 
@@ -75,6 +68,7 @@ public class EnemyController : GenericSingletonClass<EnemyController>, IDamageab
             }
             GameManager.Instance.scoreCounter += 10;
         }
+
 
     }
 
@@ -102,20 +96,29 @@ public class EnemyController : GenericSingletonClass<EnemyController>, IDamageab
         isDead = true;
 
         // Move the instantiated explosion prefab to the tank's position and turn it on.
-        //m_ExplosionParticles.transform.position = transform.position;
-        //m_ExplosionParticles.gameObject.SetActive(true);
+        var tankExplosionGo = PoolManager.Instantiate(tankExplosion, transform.position, transform.rotation);
+             
 
         // Play the particle system of the tank exploding.
-        //m_ExplosionParticles.Play();
+        tankExplosionGo.GetComponent<ParticleSystem>().Play();
 
         // Play the tank explosion sound effect.
-        //m_ExplosionAudio.Play();
+        tankExplosionGo.GetComponent<AudioSource>().Play();
 
         // Turn the tank off.
-        Destroy(gameObject);
+        //PoolManager.GetPool(Spawner.Instance.enemyGo);
 
         //m_ExplosionParticles.Stop();
-        Spawner.Instance.enemyTankNumber--;
+        //Spawner.Instance.enemiesGo.Remove(gameObject);
+
+        for (int i = 0; i < Spawner.Instance.enemyTankList.Count; i++)
+        {
+            //Check if GameObject is in the List
+            if (Spawner.Instance.enemyTankList[i] == gameObject)
+            {
+                Destroy(gameObject);
+            }
+        }
 
         Spawner.Instance.counter++;
 

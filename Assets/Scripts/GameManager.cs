@@ -65,7 +65,7 @@ public class GameManager : GenericSingletonClass<GameManager>
 
         foreach (GameObject go in Spawner.Instance.enemyTankList)
         {
-            go.SetActive(false);
+            Destroy(go);
         }
 
         Destroy(enemySpawner);
@@ -115,6 +115,7 @@ public class GameManager : GenericSingletonClass<GameManager>
         {
             scoreEvent.Invoke();
         }
+
     }
 
     private void Start()
@@ -160,4 +161,5 @@ public class GameManager : GenericSingletonClass<GameManager>
     { 
         scoreTxt.text = scoreCounter.ToString();
     }
+
 }

@@ -1,34 +1,53 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class TankAI : MonoBehaviour
 {
     Animator anim;
 
     private GameObject player;
-    private GameObject enemy;
+    private GameObject enemyTank;
 
     public Transform fireTransform;
 
-    public int shellForce;
+    public GameObject shellInstance;
+
+    public float fireForce;
+
+    private GameObject shellGo;
+    private GameObject enemyGo;
+
 
     public GameObject GetPlayer() { return player; }
 
+    private void Awake()
+    {
+    }
     void Fire()
     {
-        GameObject shell = Instantiate(GameManager.Instance.shells, fireTransform.position, transform.rotation);
-        Rigidbody shellBody = shell.GetComponent<Rigidbody>();
-        shellBody.AddForce(transform.forward * shellForce);
+        shellGo = PoolManager.Instantiate(shellInstance, fireTransform.position, fireTransform.rotation);
+        Rigidbody shellRb = shellGo.GetComponent<Rigidbody>();
+        shellRb.velocity = fireTransform.forward * fireForce;
     }
 
-    public void StopFiring() { CancelInvoke("Fire"); }
-    public void StartFiring() { InvokeRepeating("Fire", 0.5f, 0.5f); }
+    public void StopFiring()
+    {
+        CancelInvoke("Fire");
+    }
+    public void StartFiring()
+    {
+        InvokeRepeating("Fire", 0.5f, 0.5f);
+    }
 
     private void Start()
     {
         anim = GetComponent<Animator>();
         player = GameManager.Instance.playerTank;
-        enemy = Spawner.Instance.enemyTank;
         //fireTransform = GetComponent<Transform>();
+        PoolManager.SetNetPoolSize(shellInstance, 10);
+        PoolManager.SetPoolSize(shellInstance, 5);
+       
     }
 
     public void Die()
@@ -42,8 +61,7 @@ public class TankAI : MonoBehaviour
 
         if (EnemyController.Instance.isDead)
         {
-           Die();
-
+            Die();
         }
     }
 }
