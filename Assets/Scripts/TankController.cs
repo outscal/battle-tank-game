@@ -10,39 +10,24 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
     public AudioClip m_EngineIdling;            // Audio to play when the tank isn't moving.
     public AudioClip m_EngineDriving;           // Audio to play when the tank is moving.
     public float m_PitchRange = 0.2f;           // The amount by which the pitch of the engine noises can vary.
-
-
     private string m_MovementAxisName;          // The name of the input axis for moving forward and back.
     private string m_TurnAxisName;              // The name of the input axis for turning.
-
     private float m_MovementInputValue;         // The current value of the movement input.
     private float m_TurnInputValue;             // The current value of the turn input.
     private float m_OriginalPitch;              // The pitch of the audio source at the start of the scene.
-
     public static Rigidbody rb;                       // Reference used to move the tank.
-
     public GameObject shellInstance;
     public Transform fireTransform;
     public float fireForce = 2000;
-
     public Image m_FillImage;                           // The image component of the slider.
     public GameObject m_ExplosionPrefab;                // A prefab that will be instantiated in Awake, then used whenever the tank dies.
-
-
-    //private AudioSource m_ExplosionAudio;               // The audio source to play when the tank explodes.
     public ParticleSystem m_ExplosionParticles;        // The particle system the will play when the tank is destroyed.
     private float currentHealth = 1f;                      // How much health the tank currently has.
-    public bool m_Dead;                                // Has the tank been reduced beyond zero health yet?
-
+    public bool isDead;                                // Has the tank been reduced beyond zero health yet?
     public float speed = 10.0f;
     public float rotationSpeed = 100.0f;
-
     public int shellCounter;
-
-    public GameObject shellGo;
-
-    //public bool isFired;
-
+    private GameObject shellGo;
 
 
     IEnumerator DisableShell()
@@ -52,9 +37,6 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
     }
     override public void Awake()
     {
-        // Get a reference to the audio source on the instantiated prefab.
-        //m_ExplosionAudio = m_ExplosionParticles.GetComponent<AudioSource>();
-
         rb = GetComponent<Rigidbody>();
     }
 
@@ -72,7 +54,7 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
         if (currentHealth < 0.25f) { m_FillImage.color = Color.red; }
 
         // If the current health is at or below zero and it has not yet been registered, call OnDeath.
-        if (currentHealth <= 0f && !m_Dead)
+        if (currentHealth <= 0f && !isDead)
         {
             Die();
         }
@@ -81,21 +63,7 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
     public void Die()
     {
         // Set the flag so that this function is only called once.
-        m_Dead = true;
-
-        // Move the instantiated explosion prefab to the tank's position and turn it on.
-        //m_ExplosionParticles.transform.position = transform.position;
-        //m_ExplosionParticles.gameObject.SetActive(true);
-
-        // Play the particle system of the tank exploding.
-        //m_ExplosionParticles.Play();
-
-        // Play the tank explosion sound effect.
-        //m_ExplosionAudio.Play();
-
-        // Turn the tank off.
-        //gameObject.SetActive(false);
-        //StartCoroutine(DelayDeath());
+        isDead = true;
     }
 
     private void OnTriggerEnter(Collider collider)
@@ -117,7 +85,7 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
         // When the tank is enabled, reset the tank's health and whether or not it's dead.
         m_FillImage.fillAmount = currentHealth = 1f;
         m_FillImage.color = Color.green;
-        m_Dead = false;
+        isDead = false;
 
         // Update the health slider's value and color.
         // Also reset the input values.
@@ -159,13 +127,9 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
 
         EngineAudio();
 
-        //isFired = false;
-
-        if (SC_MobileControls.instance.GetMobileButtonDown("FireButton") || Input.GetKeyDown(KeyCode.LeftControl))
+        if (MobileControls.instance.GetMobileButtonDown("FireButton") || Input.GetKeyDown(KeyCode.LeftControl))
         {
             //Mobile button has been pressed one time, equivalent to if(Input.GetKeyDown(KeyCode...))
-
-            //isFired = true;
 
             shellGo = PoolManager.Instantiate(shellInstance, fireTransform.position, fireTransform.rotation);
             Rigidbody shellRb = shellGo.GetComponent<Rigidbody>();
@@ -173,7 +137,7 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
             shellCounter++;
         }
 
-        if (SC_MobileControls.instance.GetMobileButton("FireButton"))
+        if (MobileControls.instance.GetMobileButton("FireButton"))
         {
             //Mobile button is being held pressed, equivalent to if(Input.GetKey(KeyCode...))
         }
@@ -216,7 +180,7 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
 
         //Get normalized direction of a on-screen Joystick
         //Could be compared to: new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) or new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"))
-        Vector3 inputAxis = SC_MobileControls.instance.GetJoystick("JoystickLeft");
+        Vector3 inputAxis = MobileControls.instance.GetJoystick("JoystickLeft");
 
         //Move Front/Back
         if (inputAxis.y != 0)

@@ -12,8 +12,6 @@ public class Shells : MonoBehaviour
     public GameObject explosionInstance;
     public GameObject shellGo;
 
-    //public AudioSource explosionSound;
-
     IEnumerator DestroyExplosion(GameObject go)
     {
         yield return new WaitForSeconds(1f);
