@@ -15,23 +15,10 @@ public class Chase : NPCBaseFSM
     {
         var direction = player.transform.position - NPC.transform.position;
 
-        switch (NPC.name)
-        {
-            case "NormalTank":
-                NPC.transform.rotation = Quaternion.Slerp(NPC.transform.rotation, Quaternion.LookRotation(direction), rotSpeed[0] * Time.deltaTime);
-                NPC.transform.Translate(0, 0, Time.deltaTime * speed[0]);
-                break;
-            case "MediumTank":
-                NPC.transform.rotation = Quaternion.Slerp(NPC.transform.rotation, Quaternion.LookRotation(direction), rotSpeed[1] * Time.deltaTime);
-                NPC.transform.Translate(0, 0, Time.deltaTime * speed[1]);
-                break;
-            case "HardTank":
-                NPC.transform.rotation = Quaternion.Slerp(NPC.transform.rotation, Quaternion.LookRotation(direction), rotSpeed[2] * Time.deltaTime);
-                NPC.transform.Translate(0, 0, Time.deltaTime * speed[2]);
-                break;
-            default:
-                break;
-        }
+        NPC.transform.rotation = Quaternion.Slerp(NPC.transform.rotation, Quaternion.LookRotation(direction), rotSpeed * Time.deltaTime);
+        NPC.transform.Translate(0, 0, Time.deltaTime * speed);
+
+
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

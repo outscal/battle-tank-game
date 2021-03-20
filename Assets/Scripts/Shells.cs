@@ -12,6 +12,8 @@ public class Shells : MonoBehaviour
     public GameObject explosionInstance;
     public GameObject shellGo;
 
+    private int destructionCounter;
+
     IEnumerator DestroyExplosion(GameObject go)
     {
         yield return new WaitForSeconds(1f);
@@ -26,35 +28,50 @@ public class Shells : MonoBehaviour
 
     private void OnEnable()
     {
-        
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        //if (!(other.gameObject.tag == "Indestructible") || !(other.gameObject.tag == "Ground"))
-        //if (other.gameObject.tag == "Untagged")
+
+        var explosionGo = PoolManager.Instantiate(explosionInstance, transform.position, transform.rotation);
+
+        Collider[] collidersHit = Physics.OverlapSphere(transform.position, m_ExplosionRadius);
+
+        foreach (Collider collider in collidersHit)
         {
-            var explosionGo = PoolManager.Instantiate(explosionInstance, transform.position, transform.rotation);
-
-            Collider[] collidersHit = Physics.OverlapSphere(transform.position, m_ExplosionRadius);
-
-            foreach (Collider collider in collidersHit)
+            if (collider.tag =="Untagged")
             {
-                Rigidbody targetBody = collider.GetComponent<Rigidbody>();
+                //Debug.Log(collider);
+                destructionCounter++;
 
-                if (targetBody == null) { continue; }
-                targetBody.AddExplosionForce(m_ExplosionForce, transform.position, m_ExplosionRadius);
-
-                explosionGo.GetComponent<ParticleSystem>().Play();
-                explosionGo.GetComponent<AudioSource>().Play();
-                StartCoroutine(DestroyExplosion(explosionGo));
+                if (destructionCounter >= 5)
+                {
+                    Destroy(collider.gameObject);
+                    Debug.Log(collider.gameObject);
+                    destructionCounter = 0;
+                }
             }
 
-            PoolManager.GetPool(shellGo);
-            PoolManager.Destroy(shellGo);
+            
+            Rigidbody targetBody = collider.GetComponent<Rigidbody>();
+
+            if (targetBody == null) { continue; }
+            targetBody.AddExplosionForce(m_ExplosionForce, transform.position, m_ExplosionRadius);
+
+            explosionGo.GetComponent<ParticleSystem>().Play();
+            explosionGo.GetComponent<AudioSource>().Play();
+            StartCoroutine(DestroyExplosion(explosionGo));
+
+           
+
         }
 
-
+        PoolManager.GetPool(shellGo);
+        PoolManager.Destroy(shellGo);
     }
+
+
+
 
 }

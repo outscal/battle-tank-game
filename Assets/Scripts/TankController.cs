@@ -14,7 +14,6 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
     private string m_TurnAxisName;              // The name of the input axis for turning.
     private float m_MovementInputValue;         // The current value of the movement input.
     private float m_TurnInputValue;             // The current value of the turn input.
-    private float m_OriginalPitch;              // The pitch of the audio source at the start of the scene.
     public static Rigidbody rb;                       // Reference used to move the tank.
     public GameObject shellInstance;
     public Transform fireTransform;
@@ -28,20 +27,13 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
     public float rotationSpeed = 100.0f;
     public int shellCounter;
     private GameObject shellGo;
-
+    public GameObject dustTrails;
 
     IEnumerator DisableShell()
     {
         yield return new WaitForSeconds(2f);
         shellInstance.SetActive(false);
     }
-    override public void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
-
-
-   
 
     public void TakeDamage(float amount)
     {
@@ -82,6 +74,7 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
 
     private void OnEnable()
     {
+        m_FillImage = GameObject.FindGameObjectWithTag("Image").GetComponent<Image>();
         // When the tank is enabled, reset the tank's health and whether or not it's dead.
         m_FillImage.fillAmount = currentHealth = 1f;
         m_FillImage.color = Color.green;
@@ -92,16 +85,15 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
         m_MovementInputValue = 0f;
         m_TurnInputValue = 0f;
 
-       
+        rb = GetComponent<Rigidbody>();
+
     }
-
-
     private void OnDisable()
     {
-        // When the tank is turned off, set it to kinematic so it stops moving.
-        rb.isKinematic = true;
+        m_FillImage.fillAmount = currentHealth = 0f;
+        isDead = true;
+        rb = GetComponent<Rigidbody>();
     }
-
 
     private void Start()
     {
@@ -109,13 +101,7 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
         m_MovementAxisName = "Vertical";
         m_TurnAxisName = "Horizontal";
 
-        // Store the original pitch of the audio source.
-        m_OriginalPitch = m_MovementAudio.pitch;
-
         //TankService.Instance.GetTank();
-
-        PoolManager.SetNetPoolSize(shellInstance, 10);
-        PoolManager.SetPoolSize(shellInstance, 5);
     }
 
 
@@ -125,7 +111,6 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
         m_MovementInputValue = Input.GetAxis(m_MovementAxisName);
         m_TurnInputValue = Input.GetAxis(m_TurnAxisName);
 
-        EngineAudio();
 
         if (MobileControls.instance.GetMobileButtonDown("FireButton") || Input.GetKeyDown(KeyCode.LeftControl))
         {
@@ -141,35 +126,13 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
         {
             //Mobile button is being held pressed, equivalent to if(Input.GetKey(KeyCode...))
         }
+
+        CheckOutOfBounds();
     }
 
 
-    private void EngineAudio()
-    {
-        // If there is no input (the tank is stationary)...
-        if (Mathf.Abs(m_MovementInputValue) < 0.1f && Mathf.Abs(m_TurnInputValue) < 0.1f)
-        {
-            // ... and if the audio source is currently playing the driving clip...
-            if (m_MovementAudio.clip == m_EngineDriving)
-            {
-                // ... change the clip to idling and play it.
-                m_MovementAudio.clip = m_EngineIdling;
-                m_MovementAudio.pitch = Random.Range(m_OriginalPitch - m_PitchRange, m_OriginalPitch + m_PitchRange);
-                m_MovementAudio.Play();
-            }
-        }
-        else
-        {
-            // Otherwise if the tank is moving and if the idling clip is currently playing...
-            if (m_MovementAudio.clip == m_EngineIdling)
-            {
-                // ... change the clip to driving and play.
-                m_MovementAudio.clip = m_EngineDriving;
-                m_MovementAudio.pitch = Random.Range(m_OriginalPitch - m_PitchRange, m_OriginalPitch + m_PitchRange);
-                m_MovementAudio.Play();
-            }
-        }
-    }
+
+
 
 
     private void FixedUpdate()
@@ -177,6 +140,7 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
         // Adjust the rigidbodies position and orientation in FixedUpdate.
         Move();
         Turn();
+
 
         //Get normalized direction of a on-screen Joystick
         //Could be compared to: new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) or new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"))
@@ -199,23 +163,38 @@ public class TankController : GenericSingletonClass<TankController>, IDamageable
 
     private void Move()
     {
-        // Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
-        Vector3 movement = transform.forward * m_MovementInputValue * m_Speed * Time.deltaTime;
+        if (rb != null)
+        {
+            // Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
+            Vector3 movement = transform.forward * m_MovementInputValue * m_Speed * Time.deltaTime;
 
-        // Apply this movement to the rigidbody's position.
-        rb.MovePosition(rb.position + movement);
+            // Apply this movement to the rigidbody's position.
+            rb.MovePosition(rb.position + movement);
+
+            dustTrails.transform.GetComponent<ParticleSystem>().Play();
+        }
     }
 
 
     private void Turn()
     {
-        // Determine the number of degrees to be turned based on the input, speed and time between frames.
-        float turn = m_TurnInputValue * m_TurnSpeed * Time.deltaTime;
+        if (rb != null)
+        {
+            // Determine the number of degrees to be turned based on the input, speed and time between frames.
+            float turn = m_TurnInputValue * m_TurnSpeed * Time.deltaTime;
 
-        // Make this into a rotation in the y axis.
-        Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
+            // Make this into a rotation in the y axis.
+            Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
 
-        // Apply this rotation to the rigidbody's rotation.
-        rb.MoveRotation(rb.rotation * turnRotation);
+            // Apply this rotation to the rigidbody's rotation.
+            rb.MoveRotation(rb.rotation * turnRotation);
+
+            dustTrails.transform.GetComponent<ParticleSystem>().Play();
+        }
+    }
+
+    public virtual void CheckOutOfBounds()
+    {
+        if (gameObject.transform.position.y > 2 || gameObject.transform.position.y < -2) { Destroy(gameObject); }
     }
 }
