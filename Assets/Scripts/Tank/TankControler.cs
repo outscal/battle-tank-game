@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TankControler : MonoBehaviour
 {
-    public float m_Speed = 12f;
-    public float m_TurnSpeed = 180f;
+    [SerializeField] float m_Speed = 12f;
+    [SerializeField] float m_TurnSpeed = 180f;
 
 
     private string m_MovementAxisName;

@@ -4,10 +4,10 @@ public class CameraControler : MonoBehaviour
 {
 
 
-    public float m_DampTime = 0.2f;
-    public float m_ScreenEdgeBuffer = 4f;
-    public float m_MinSize = 6.5f;
-    public Transform[] m_Targets;
+    [SerializeField] float m_DampTime = 0.2f;
+    [SerializeField] float m_ScreenEdgeBuffer = 4f;
+    [SerializeField] float m_MinSize = 6.5f;
+    [SerializeField] Transform[] m_Targets;
 
 
     private Camera m_Camera;
