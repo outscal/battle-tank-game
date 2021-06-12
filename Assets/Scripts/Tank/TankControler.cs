@@ -2,6 +2,9 @@
 
 public class TankControler : MonoBehaviour
 {
+
+    public static TankControler Instance { get; private set; }
+
     [SerializeField] float m_Speed = 12f;
     [SerializeField] float m_TurnSpeed = 180f;
 
@@ -10,8 +13,8 @@ public class TankControler : MonoBehaviour
     private string m_TurnAxisName;
     private Rigidbody m_Rigidbody;
     private float m_MovementInputValue;
-    private float m_TurnInputValue;           
-
+    private float m_TurnInputValue;
+    internal object m_Tank;
 
     private void Awake()
     {
@@ -74,4 +77,12 @@ public class TankControler : MonoBehaviour
 
         m_Rigidbody.MoveRotation(m_Rigidbody.rotation * turnRotation);
     }
+
+    //adding get position
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+
+
 }

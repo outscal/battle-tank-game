@@ -4,30 +4,71 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-   private Vector3  m_StartingPosition;
-    private Vector3 m_RoamingPosition;
+    private enum State
+    {
+        Roaming,
+        ChaseTarget,
+        ShootingTarget,
+        GoingBackToStart,
+    }
+
+    [SerializeField] Rigidbody m_Shell;
+    [SerializeField] Transform m_FireTransform;
+    [SerializeField] float m_MinLaunchForce = 15f;
+
+    private float m_CurrentLaunchForce;
+    private bool m_Fired;
+    private State state;
+    
+    
+
+    private void Awake()
+    {
+        state = State.Roaming;
+    }
 
     private void Start()
     {
-        m_StartingPosition = transform.position;
-        m_RoamingPosition = GetRomingPosition();
+        
     }
 
-    private Vector3 GetRomingPosition()
+    private void Update()
     {
-        return m_StartingPosition + GetRandDir() * Random.Range(10f, 70f);
+        //State Machine
+        switch (state)
+        {
+            default:
+            case State.Roaming:
+            break;
+
+            //if its in chase range
+            case State.ChaseTarget:
+
+            //if its in fire range
+            Fire();
+             
+            //if its Too far, stop chasing
+            state = State.GoingBackToStart;
+            break;
+
+            case State.ShootingTarget:
+            break;
+
+            case State.GoingBackToStart:
+            state = State.Roaming;
+            break;
+        }
     }
 
-   
-    //genarating Random Direction
-    public static Vector3 GetRandDir() 
+    private void Fire()
     {
-        return new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+        m_Fired = true;
+
+        Rigidbody shellInstance =
+            Instantiate(m_Shell, m_FireTransform.position, m_FireTransform.rotation) as Rigidbody;
+
+        shellInstance.velocity = m_CurrentLaunchForce * m_FireTransform.forward; ;
+
+        m_CurrentLaunchForce = m_MinLaunchForce;
     }
-}
-enum EnemyState
-{
-    Idle,
-    Patrolling,
-    Attack
 }
