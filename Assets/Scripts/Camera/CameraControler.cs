@@ -7,7 +7,7 @@ public class CameraControler : MonoBehaviour
     [SerializeField] float m_DampTime = 0.2f;
     [SerializeField] float m_ScreenEdgeBuffer = 4f;
     [SerializeField] float m_MinSize = 6.5f;
-    [HideInInspector][SerializeField] Transform[] m_Targets;
+    /*[HideInInspector]*/ public Transform[] m_Targets;
 
 
     private Camera m_Camera;

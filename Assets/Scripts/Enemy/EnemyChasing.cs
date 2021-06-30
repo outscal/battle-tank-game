@@ -1,57 +1,93 @@
 ﻿using Assets.Scripts.Tank;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.AI;
 
 namespace Assets.Scripts.Enemy
 {
     public class EnemyChasing : MonoBehaviour
     {
+        [SerializeField] Color m_TankColor = Color.blue;
         [SerializeField] float m_lookRadius = 10f;
+        
         [SerializeField] Rigidbody m_Shell;
         [SerializeField] Transform m_FireTransform;
-        [SerializeField] float m_MinLaunchForce = 15f;
-        [SerializeField] float m_StartDelay = 3f;
-        [SerializeField] float m_EndDelay = 3f;
+        [SerializeField] Slider m_AimSlider;
+        [SerializeField] float m_MinLaunchForce = 30f;
+        [SerializeField] float m_MaxLaunchForce = 40f;
+        [SerializeField] float m_MaxChargeTime = 0.75f;
 
-        
+
+        private float m_CurrentLaunchForce;
+        private float m_ChargeSpeed;
+        private bool m_Fired;
+
+        private float TimerForNextAttack;
+        private float Cooldown;
+
+
+        Renderer rend;
         Transform Target;
         NavMeshAgent m_Agent;
 
-        private float m_CurrentLaunchForce;
-        private WaitForSeconds m_StartWait;
-        private WaitForSeconds m_EndWait;
+        private void OnEnable()
+        {
+            //reseting the launch force and the UI
+            m_CurrentLaunchForce = m_MinLaunchForce;
+            m_AimSlider.value = m_MinLaunchForce;
+        }
 
-        // Use this for initialization
         void Start()
         {
             Target = TankManager.instance.m_tank.transform;
             m_Agent = GetComponent<NavMeshAgent>();
 
-            
-            m_StartWait = new WaitForSeconds(m_StartDelay);
-            m_EndWait = new WaitForSeconds(m_EndDelay);
-            //StartCoroutine(GameLoop());
+            m_ChargeSpeed = (m_MaxLaunchForce - m_MinLaunchForce) / m_MaxChargeTime;
+            Cooldown = 1;
+            TimerForNextAttack = Cooldown;
+            m_Fired = false;
 
+            //coloring the tank 
+            rend = GetComponent<Renderer>();
         }
         void Update()
         {
-                float Distance = Vector3.Distance(Target.position, transform.position);
+            rend.material.SetColor("_Color", m_TankColor);
+              float Distance = Vector3.Distance(Target.position, transform.position);
 
            
             if(Distance <= m_lookRadius)
             {
+               //chasing the playertank
                 m_Agent.SetDestination(Target.position);
 
                 if(Distance <= m_Agent.stoppingDistance)
                 {
-                    //attack the target
-                    //StartCoroutine(GameLoop()); //not working so quoted
-
-                    // face the target
+                    AttackTarget();
                     faceTarget();
                 }
+            }
+            
+        }
+
+        private void AttackTarget()
+        {
+            //if there is a game object
+            if (GameObject.Find("Tank") && TimerForNextAttack > 0)
+            {
+                TimerForNextAttack -= Time.deltaTime;
+            }
+
+            else if (GameObject.Find("Tank") && TimerForNextAttack <= 0)
+            {
+                Fire();
+                TimerForNextAttack = Cooldown;
+            }
+
+            // if there is no game object
+            else
+            {
+                m_Fired = false;
             }
         }
 
@@ -68,28 +104,29 @@ namespace Assets.Scripts.Enemy
             Gizmos.DrawWireSphere(transform.position, m_lookRadius);
         }
 
-        /*
-        //coroutene not proper
-        private IEnumerator GameLoop()
+        private void attack()
         {
-            yield return StartCoroutine(RoundStarting());
-            Fire();
-            yield return StartCoroutine(RoundEnding());
-        }
+            m_AimSlider.value = m_MinLaunchForce;
 
-        private IEnumerator RoundStarting()
-        {
-            yield return m_StartWait;
-        }
+            if (m_CurrentLaunchForce >= m_MaxLaunchForce && !m_Fired)
+            {
+                m_CurrentLaunchForce = m_MaxLaunchForce;
+                Fire();
+            }
 
-        private IEnumerator RoundEnding()
-        {
-            yield return m_EndWait;
+
+            else if (!m_Fired)
+            {
+                m_CurrentLaunchForce += m_ChargeSpeed * Time.deltaTime;
+
+                m_AimSlider.value = m_CurrentLaunchForce;
+                Fire();
+            }
+
         }
-       
-        
         private void Fire()
         {
+            m_Fired = true;
             Rigidbody shellInstance =
                 Instantiate(m_Shell, m_FireTransform.position, m_FireTransform.rotation) as Rigidbody;
 
@@ -97,6 +134,6 @@ namespace Assets.Scripts.Enemy
 
             m_CurrentLaunchForce = m_MinLaunchForce;
         }
-        */
+        
     }
 }
