@@ -2,21 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonoSingletonGeneric<T> : MonoBehaviour where T : MonoSingletonGeneric<T>
+/// <summary>
+/// Implemented MonoSingletonGeneric class for player tank and enemy tank.
+/// </summary>
+namespace Outscal.BattleTank3DProject
 {
-    private static T instance;
-    public static T Instance { get { return instance; } }
-
-    protected virtual void Awake()
+    public class MonoSingletonGeneric<T> : MonoBehaviour where T : MonoSingletonGeneric<T>
     {
-        if (instance == null)
+        private static T instance;
+        public static T Instance { get { return instance; } }
+
+        protected virtual void Awake()
         {
-            instance = (T)this;
-        }
-        else
-        {
-            Debug.LogError("Some one trying to create a duplicate singleton");
-            Destroy(this);
+            if (instance == null)
+            {
+                instance = (T)this;
+            }
+            else
+            {
+                Debug.LogError("Some one trying to create a duplicate singleton");
+                Destroy(this);
+            }
         }
     }
 }

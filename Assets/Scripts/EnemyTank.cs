@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyTank : MonoSingletonGeneric<EnemyTank>
+/// <summary>
+/// Enemy tank inherited from MonoSingletonGeneric class.
+/// </summary>
+namespace Outscal.BattleTank3DProject
 {
-    protected override void Awake()
+    public class EnemyTank : MonoSingletonGeneric<EnemyTank>
     {
-        base.Awake();
-        // Custom logic 
-        Debug.Log("Enemy Tank");
+        protected override void Awake()
+        {
+            base.Awake();
+            // Custom logic 
+            Debug.Log("Enemy Tank");
+        }
     }
 }
