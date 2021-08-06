@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankTypes
+public class TankType
 {
-    public enum TankType
+    public enum tankType
     {
         None,
         Red,

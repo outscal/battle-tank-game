@@ -6,7 +6,7 @@ namespace BattaleTank
 {
     public class TankService : MonoSingletonGeneric<TankService>
     {
-        public TankView tankView;
+        public ScriptableObjectList tankListSO;
 
         private void Start()
         {
@@ -20,8 +20,12 @@ namespace BattaleTank
 
         private TankController CreatNewTank()
         {
-            TankModel tankModel = new TankModel(5, 100f);
+            int randomNo = Random.Range(0, tankListSO.tank.Length);
+            TankScriptableObjects tankScriptableObjects = tankListSO.tank[randomNo];
+            TankView tankView = tankScriptableObjects.tankView;
+            TankModel tankModel = new TankModel(tankScriptableObjects);
             TankController tank = new TankController(tankModel, tankView);
+
             return tank;
         }
     }
