@@ -10,9 +10,15 @@ namespace Outscal.BattleTank
     /// </summary>
     public class TankView : MonoBehaviour
     {
+        private TankController tankController;
+        [SerializeField] private TankType tankType;
         void Start()
         {
             Debug.Log("tank view created");
+        }
+        public void SetTankController(TankController _tankController)
+        {
+            tankController = _tankController;
         }
     }
 }

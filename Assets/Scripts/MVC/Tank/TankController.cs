@@ -9,14 +9,18 @@ namespace Outscal.BattleTank
     /// </summary>
     public class TankController
     {
+        private Rigidbody rigidbody;
         public TankController(TankModel tankModel, TankView tankPrefab)
         {
             TankModel = tankModel;
             TankView = GameObject.Instantiate<TankView>(tankPrefab);
+            rigidbody = TankView.GetComponent<Rigidbody>();
+            TankView.SetTankController(this);
+            TankModel.SetTankController(this);
             Debug.Log("tank prefab instantiated");
         }
 
-        public TankModel TankModel { get; }
-        public TankView TankView { get; }
+        public TankModel TankModel { get; private set; }
+        public TankView TankView { get; private set; }
     }
 }
