@@ -8,7 +8,7 @@ namespace Outscal.BattleTank
     /// service class that handles all tank services
     /// and it inherits Monobehaviour class
     /// </summary>
-    public class TankService : MonoBehaviour
+    public class TankService : GenericSingletone<TankService>
     {
         //[SerializeField] private TankView tankView;
         //[SerializeField] TankScriptableObject[] tankConfigurations;

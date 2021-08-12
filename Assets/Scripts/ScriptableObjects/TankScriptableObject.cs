@@ -9,8 +9,10 @@ namespace Outscal.BattleTank
         public TankType TankType;
         public string TankName;
         public float Speed;
+        public float rotationSpeed;
         public int Health;
         public TankView TankView;
+
     }
 
     [CreateAssetMenu(fileName = "TankScriptableObjectList", menuName = "ScriptableObjects/NewTankListScriptableObject")]

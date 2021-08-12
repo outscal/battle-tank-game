@@ -6,6 +6,8 @@ namespace Outscal.BattleTank
         None,
         Slow,
         Medium,
-        Fast
+        Fast,
+        HighDamage,
+        LowDamage
     }
 }

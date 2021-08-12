@@ -16,6 +16,14 @@ namespace Outscal.BattleTank
         {
             Debug.Log("tank view created");
         }
+
+        private void Update()
+        {
+            float rotation = Input.GetAxisRaw("Horizontal");
+            float movement = Input.GetAxisRaw("Vertical");
+            tankController.TankMovement(movement);
+            tankController.TankRotation(rotation);
+        }
         public void SetTankController(TankController _tankController)
         {
             tankController = _tankController;
