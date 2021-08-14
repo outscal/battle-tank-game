@@ -8,7 +8,7 @@ namespace Outscal.BattleTank
     /// this class handles the tankview logic 
     /// it inherits Monobehaviours
     /// </summary>
-    public class TankView : MonoBehaviour
+    public class TankView : GenericMonoSingletone
     {
         void Start()
         {
