@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Outscal.BattleTank
 {
+    /// <summary>
+    /// enemy tank scriptable object
+    /// </summary>
     [CreateAssetMenu(fileName = "EnemyTankScriptableObject", menuName = "ScriptableObjects/NewEnemyTankScriptableObject")]
 
     public class EnemyTankScriptableObject : ScriptableObject
@@ -12,5 +15,12 @@ namespace Outscal.BattleTank
         public float Speed;
         public int Health;
         public EnemyTankView EnemyTankView;
+    }
+
+    [CreateAssetMenu(fileName ="EnemyTankScriptableObject",menuName ="ScriptableObjects/NewEnemyTankListrScriptableObjects")]
+
+    public class EnemyScriptableObjectList : ScriptableObject
+    {
+        public EnemyScriptableObjectList[] enemyList;
     }
 }

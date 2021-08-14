@@ -8,10 +8,10 @@ namespace Outscal.BattleTank
 
     public class BulletScriptableObject : ScriptableObject
     {
-        public BulletType BulletType;
-        public int Speed;
-        public int Damage;
         public BulletView BulletView;
+        public BulletType bulletType;
+        public float bulletForce;
+        public float bulletDamage;       
     }
 
     [CreateAssetMenu(fileName = "bulletScriptableObjectList", menuName = "ScriptableObjects/NewBulletListScriptableObject")]

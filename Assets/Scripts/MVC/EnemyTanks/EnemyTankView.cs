@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Outscal.BattleTank
 {
+    /// <summary>
+    /// creating enemy tank view
+    /// </summary>
     public class EnemyTankView : MonoBehaviour
     {
         private EnemyTankController EnemyTankController;

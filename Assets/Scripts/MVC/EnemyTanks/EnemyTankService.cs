@@ -3,7 +3,11 @@ using UnityEngine;
 
 namespace Outscal.BattleTank
 {
-    public class EnemyTankService : GenericSingletone<EnemyTankService>
+    /// <summary>
+    /// enemy tank service
+    /// </summary>
+    //public class EnemyTankService : GenericMonoSingletone<EnemyTankService>
+    public class EnemyTankService : MonoSingleton<EnemyTankService>
     {
 
         //[SerializeField] private TankView tankView;
