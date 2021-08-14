@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace Outscal.BattleTank
 {
+
+    /// <summary>
+    /// bullet model class
+    /// </summary>
     public class BulletModel
     {
         //private BulletController bulletController;
