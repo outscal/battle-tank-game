@@ -8,13 +8,14 @@ namespace Outscal.BattleTank
     /// service class that handles all tank services
     /// and it inherits Monobehaviour class
     /// </summary>
-    //public class TankService : GenericMonoSingletone<TankService>
-    public class TankService : MonoSingleton<TankService>
+    public class TankService : GenericMonoSingletone<TankService>
     {
-        //[SerializeField] private TankView tankView;
-        //[SerializeField] TankScriptableObject[] tankConfigurations;
-        [SerializeField] private TankScriptableObjectList tankList;
+        public TankScriptableObjectList tankList;
+        public TankScriptableObject TankScriptableObject { get; private set; }
+        public TankView TankView { get; private set; }
 
+        public Transform pos;
+        int randomNo;
         private void Start()
         {
             StartGame();
@@ -26,16 +27,23 @@ namespace Outscal.BattleTank
         }
         private TankController CreateNewTank()
         {
-            int randomNumber = Random.Range(0, tankList.tanks.Length);
-            //TankScriptableObject tankScriptableObject = tankConfigurations[2];
-            TankScriptableObject tankScriptableObject = tankList.tanks[randomNumber];
-            Debug.Log("Creating Tank with Type:" + tankScriptableObject.TankName);
-
-            TankModel model = new TankModel(tankScriptableObject);
-            TankView tankView = tankScriptableObject.TankView;
-            //TankModel model = new TankModel(TankType.None, 5, 100f);
-            TankController tank = new TankController(model, tankView);
+            randomNo = Random.Range(0, tankList.tanks.Length);
+            TankScriptableObject tankScriptableObject = tankList.tanks[randomNo];
+            TankView = tankScriptableObject.TankView;
+            TankModel tankModel = new TankModel(tankScriptableObject);
+            TankController tank = new TankController(tankModel, TankView);
             return tank;
         }
+
+        public void GetPlayerPos(Transform _position)
+        {
+            pos = _position;
+        }
+
+        public Transform PlayerPos()
+        {
+            return pos;
+        }
+
     }
 }

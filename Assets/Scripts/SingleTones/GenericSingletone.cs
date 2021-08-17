@@ -8,48 +8,48 @@ namespace Outscal.BattleTank
     ///Generic singletone class 
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    //public class GenericMonoSingletone<T> : MonoBehaviour where T : GenericMonoSingletone<T>
-    //{
-    //    private static T instance;
+    public class GenericMonoSingletone<T> : MonoBehaviour where T : GenericMonoSingletone<T>
+    {
+        private static T instance;
 
-    //    public static T Instance { get { return instance; } }
+        public static T Instance { get { return instance; } }
 
-    //    protected virtual void Awake()
-    //    {
-    //        if (instance == null)
-    //        {
-    //            instance = (T)this;
-    //            DontDestroyOnLoad(this.gameObject);
-    //        }
-    //        else
-    //        {
-    //            Destroy(this.gameObject);
-    //        }
-    //    }
-    //}
+        protected virtual void Awake()
+        {
+            if (instance == null)
+            {
+                instance = (T)this;
+                DontDestroyOnLoad(this.gameObject);
+            }
+            else
+            {
+                Destroy(this.gameObject);
+            }
+        }
+    }
 
-    ///// <summary>
-    ///// player class taht inherited from base singletone class 
-    ///// </summary>
-    //public class PlayerTank : GenericMonoSingletone<PlayerTank>
-    //{
-    //    protected override void Awake()
-    //    {
-    //        base.Awake();
-    //        //game logic
-    //    }
-    //}
-    ///// <summary>
-    ///// enemy class that is inherited from base generic singletone
-    ///// </summary>
-    //public class EnemyTank : GenericMonoSingletone<EnemyTank>
-    //{
-    //    protected override void Awake()
-    //    {
-    //        base.Awake();
-    //        //game logic
-    //    }
-    //}
+    /// <summary>
+    /// player class taht inherited from base singletone class 
+    /// </summary>
+    public class PlayerTank : GenericMonoSingletone<PlayerTank>
+    {
+        protected override void Awake()
+        {
+            base.Awake();
+            //game logic
+        }
+    }
+    /// <summary>
+    /// enemy class that is inherited from base generic singletone
+    /// </summary>
+    public class EnemyTank : GenericMonoSingletone<EnemyTank>
+    {
+        protected override void Awake()
+        {
+            base.Awake();
+            //game logic
+        }
+    }
     //public class GenericSingleton<T> where T : GenericSingleton<T> {
 
     //    private static T instance;
@@ -70,34 +70,34 @@ namespace Outscal.BattleTank
 
     //}
 
-    public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
-    {
-        static T instance;
+    //    public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
+    //    {
+    //        static T instance;
 
-        static object m_lock = new Object();
+    //        static object m_lock = new Object();
 
-        public static T GetInstance()
-        {
-            lock (m_lock)
-            {
-                if (instance == null)
-                {
-                    instance = FindObjectOfType<T>();
+    //        public static T GetInstance()
+    //        {
+    //            lock (m_lock)
+    //            {
+    //                if (instance == null)
+    //                {
+    //                    instance = FindObjectOfType<T>();
 
-                    if (instance == null)
-                    {
-                        GameObject obj = new GameObject();
+    //                    if (instance == null)
+    //                    {
+    //                        GameObject obj = new GameObject();
 
-                        obj.name = typeof(T).ToString();
+    //                        obj.name = typeof(T).ToString();
 
-                        instance = obj.AddComponent<T>();
+    //                        instance = obj.AddComponent<T>();
 
-                        DontDestroyOnLoad(obj);
-                    }
-                }
-            }
+    //                        DontDestroyOnLoad(obj);
+    //                    }
+    //                }
+    //            }
 
-            return instance;
-        }
-    }
+    //            return instance;
+    //        }
+    //    }
 }

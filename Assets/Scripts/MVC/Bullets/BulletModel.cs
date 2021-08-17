@@ -4,38 +4,25 @@ using UnityEngine;
 
 namespace Outscal.BattleTank
 {
-
     /// <summary>
     /// bullet model class
     /// </summary>
     public class BulletModel
     {
-        //private BulletController bulletController;
-        //private BulletScriptableObject bulletScriptableObject;
-        //public BulletType BulletType { get; private set; }
-        //public int Speed { get; private set; }
+        public float BulletForce { get; private set; }
+        public float Damage { get; private set; }
+        public BulletType Type { get; private set; }
+        public BulletController bulletController { get; private set; }
 
-        //public BulletModel(BulletScriptableObject bulletScriptableObject)
-        //{
-        //    this.bulletScriptableObject = bulletScriptableObject;
-        //    BulletType = bulletScriptableObject.BulletType;
-        //    Speed = bulletScriptableObject.Speed;
-        //}     
+        private BulletScriptableObject bulletScriptableObject1;
 
-        //public void SetBulletController(BulletController _bulletController)
-        //{
-        //    bulletController = _bulletController;
-        //}
-
-        public float bulletForce { get; private set; }
-        public float damage { get; private set; }
-        public BulletType type;
-        private BulletController bulletController;
-        public BulletModel(BulletScriptableObject bulletSO)
+        public BulletModel(BulletScriptableObject bulletScriptableObject)
         {
-            type = bulletSO.bulletType;
-            bulletForce = bulletSO.bulletForce;
-            damage = bulletSO.bulletDamage;           
+            this.bulletScriptableObject1 = bulletScriptableObject;
+            Debug.Log(BulletForce);
+            BulletForce = bulletScriptableObject.bulletForce;           
+            Damage = bulletScriptableObject.bulletDamage;
+            Type = bulletScriptableObject.bulletType;
         }
 
         public void SetBulletController(BulletController _bulletController)

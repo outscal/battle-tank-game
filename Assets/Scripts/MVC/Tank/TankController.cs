@@ -10,12 +10,6 @@ namespace Outscal.BattleTank
     public class TankController
     {
         private Rigidbody rigidbody;
-        // private Vector3 movement;
-
-        private float canFire;
-        private float fireRate = 5f;
-        private object firepoint;
-
         public TankModel TankModel { get; private set; }
         public TankView TankView { get; private set; }
 
@@ -26,8 +20,6 @@ namespace Outscal.BattleTank
             rigidbody = TankView.GetComponent<Rigidbody>();
             TankView.SetTankController(this);
             TankModel.SetTankController(this);
- 
-            Debug.Log("tank prefab instantiated");
         }
 
         //tank movement
@@ -36,14 +28,14 @@ namespace Outscal.BattleTank
             Vector3 mov = TankView.transform.position;
             mov += movement * TankModel.Speed * Time.deltaTime * TankView.transform.forward;
             rigidbody.MovePosition(mov);
-
+            TankService.Instance.GetPlayerPos(TankView.transform);
+            //TankService.GetInstance().GetPlayerPos(TankView.transform);
         }
 
         //tank rotation
         public void TankRotation(float rotation)
         {
             Vector3 vector = new Vector3(0f, rotation * TankModel.rotationSpeed, 0f);
-            //Vector3 vector = new Vector3(0f, rotation * 10, 0f);
             Quaternion angle = Quaternion.Euler(vector * Time.fixedDeltaTime);
             rigidbody.MoveRotation(angle * rigidbody.rotation);
         }
@@ -52,7 +44,8 @@ namespace Outscal.BattleTank
         public void ShootBullet()
         {
             //EventService.instance.InvokeOnPlayerFiredBulletEvent();
-            BulletService.GetInstance().CreateNewBullet(GetFiringPosition(), GetFiringAngle(), GetBullet());
+             BulletService.Instance.CreateNewBullet(GetFiringPosition(), GetFiringAngle(), GetBullet());
+            //BulletService.GetInstance().CreateNewBullet(GetFiringPosition(), GetFiringAngle(), GetBullet());
         }
 
         //private void UpdateBulletsFiredCounter()
@@ -85,20 +78,5 @@ namespace Outscal.BattleTank
         {
             return TankView.transform.position;
         }
-
-
-        //void Shoot()
-        //{
-        //    if (Input.GetButtonDown("Fire1") && canFire < Time.time)
-        //    {
-        //        //StartCoroutine(PlayShootEffect());
-        //        // m_ExplosionParticles.Play();
-        //        // Debug.Log(canFire);
-        //        canFire = fireRate + Time.time;
-        //        GameObject bullet = BulletController.BulletType.Fast);
-        //        Rigidbody rb = bullet.GetComponent<Rigidbody>();
-        //        rb.AddForce(firepoint.forward * bulletForce, ForceMode.Impulse);
-        //    }
-        //}
     }
 }

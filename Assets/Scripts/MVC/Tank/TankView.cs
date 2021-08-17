@@ -15,11 +15,6 @@ namespace Outscal.BattleTank
         public Transform BulletShootPoint;
         private float canFire=0f;
 
-        void Start()
-        {
-            Debug.Log("tank view created");
-        }
-
         private void Update()
         {
             float rotation = Input.GetAxisRaw("Horizontal");

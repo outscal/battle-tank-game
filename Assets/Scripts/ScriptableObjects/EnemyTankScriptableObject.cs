@@ -15,12 +15,19 @@ namespace Outscal.BattleTank
         public float Speed;
         public int Health;
         public EnemyTankView EnemyTankView;
+
+        public float enemyHealth;
+        public BoxCollider groundArea;
+
+        [Header("Enemy Shooting Variables")]
+        public float fireRate;
+        public BulletScriptableObject bulletType;
     }
 
     [CreateAssetMenu(fileName ="EnemyTankScriptableObject",menuName ="ScriptableObjects/NewEnemyTankListrScriptableObjects")]
 
-    public class EnemyScriptableObjectList : ScriptableObject
+    public class EnemyTankScriptableObjectList : ScriptableObject
     {
-        public EnemyScriptableObjectList[] enemyList;
+        public EnemyTankScriptableObjectList[] enemyList;
     }
 }

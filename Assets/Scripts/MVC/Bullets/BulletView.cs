@@ -8,18 +8,6 @@ namespace Outscal.BattleTank
     /// </summary>
     public class BulletView : MonoBehaviour
     {
-        //private BulletController bulletController;
-        //[SerializeField] private BulletType bulletType;
-        //void Start()
-        //{
-        //    Debug.Log("bullet view created");
-        //}
-
-        //public void SetBulletController(BulletController _bulletController)
-        //{
-        //    bulletController = _bulletController;
-        //}
-
         public BulletController bulletController { get; private set; }
         public ParticleSystem BullectDestroyVFX;
         public float m_MaxLifeTime = 1f;
