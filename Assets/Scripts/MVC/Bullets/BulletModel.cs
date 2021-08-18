@@ -19,7 +19,6 @@ namespace Outscal.BattleTank
         public BulletModel(BulletScriptableObject bulletScriptableObject)
         {
             this.bulletScriptableObject1 = bulletScriptableObject;
-            Debug.Log(BulletForce);
             BulletForce = bulletScriptableObject.bulletForce;           
             Damage = bulletScriptableObject.bulletDamage;
             Type = bulletScriptableObject.bulletType;

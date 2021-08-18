@@ -29,7 +29,6 @@ namespace Outscal.BattleTank
             mov += movement * TankModel.Speed * Time.deltaTime * TankView.transform.forward;
             rigidbody.MovePosition(mov);
             TankService.Instance.GetPlayerPos(TankView.transform);
-            //TankService.GetInstance().GetPlayerPos(TankView.transform);
         }
 
         //tank rotation
@@ -43,17 +42,8 @@ namespace Outscal.BattleTank
         //tank shooting
         public void ShootBullet()
         {
-            //EventService.instance.InvokeOnPlayerFiredBulletEvent();
              BulletService.Instance.CreateNewBullet(GetFiringPosition(), GetFiringAngle(), GetBullet());
-            //BulletService.GetInstance().CreateNewBullet(GetFiringPosition(), GetFiringAngle(), GetBullet());
         }
-
-        //private void UpdateBulletsFiredCounter()
-        //{
-            //ankModel.BulletsFired += 1;
-            //PlayerPrefs.SetInt("BulletsFired", TankModel.BulletsFired);
-           // AchievementService.instance.GetAchievementController().CheckForBulletFiredAchievement();
-        //}
 
         //returning bullet firing position
         public Vector3 GetFiringPosition()

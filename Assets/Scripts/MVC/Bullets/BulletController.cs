@@ -30,9 +30,9 @@ namespace Outscal.BattleTank
             rigidbody.MovePosition(move);
         }
 
-        public void DoDamage()
-        {
-
-        }
+        //public void DoDamage()
+        //{
+        //    if()
+        //}
     }
 }

@@ -18,11 +18,11 @@ namespace Outscal.BattleTank
             bulletController = _bulletController;
         }
 
-        void Start()
-        {
-            // If it isn't destroyed by then, destroy the shell after it's lifetime.
-            Destroy(gameObject, m_MaxLifeTime);
-        }
+        //void Start()
+        //{
+        //    // If it isn't destroyed by then, destroy the shell after it's lifetime.
+        //    Destroy(gameObject, m_MaxLifeTime);
+        //}
 
 
         private void FixedUpdate()
@@ -38,5 +38,19 @@ namespace Outscal.BattleTank
             Destroy(BullectDestroyVFX.gameObject, BullectDestroyVFX.main.duration);
             Destroy(gameObject);
         }
-    }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.GetComponent<EnemyTankView>() != null)
+            {
+                Destroy(collision.gameObject);
+                this.gameObject.SetActive(false);
+                Debug.Log("Destoyed: " + collision.gameObject.name);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+}
 }
