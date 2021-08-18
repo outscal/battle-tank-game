@@ -6,7 +6,7 @@ namespace Outscal.BattleTank
     /// <summary>
     /// handling bullet services
     /// </summary>
-    public class BulletService : GenericMonoSingletone<BulletService>
+    public class BulletService : MonoGenericSingletone<BulletService>
     {
         //creating bullet
         public void CreateNewBullet(Vector3 position, Quaternion rotation, BulletScriptableObject type)

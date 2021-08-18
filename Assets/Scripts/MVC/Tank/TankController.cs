@@ -20,6 +20,7 @@ namespace Outscal.BattleTank
             rigidbody = TankView.GetComponent<Rigidbody>();
             TankView.SetTankController(this);
             TankModel.SetTankController(this);
+            CameraController.instance.SetTarget(TankView.transform);
         }
 
         //tank movement

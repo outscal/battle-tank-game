@@ -8,7 +8,7 @@ namespace Outscal.BattleTank
     ///Generic singletone class 
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class GenericMonoSingletone<T> : MonoBehaviour where T : GenericMonoSingletone<T>
+    public class MonoGenericSingletone<T> : MonoBehaviour where T : MonoGenericSingletone<T>
     {
         private static T instance;
 
@@ -31,7 +31,7 @@ namespace Outscal.BattleTank
     /// <summary>
     /// player class taht inherited from base singletone class 
     /// </summary>
-    public class PlayerTank : GenericMonoSingletone<PlayerTank>
+    public class PlayerTank : MonoGenericSingletone<PlayerTank>
     {
         protected override void Awake()
         {
@@ -42,7 +42,7 @@ namespace Outscal.BattleTank
     /// <summary>
     /// enemy class that is inherited from base generic singletone
     /// </summary>
-    public class EnemyTank : GenericMonoSingletone<EnemyTank>
+    public class EnemyTank : MonoGenericSingletone<EnemyTank>
     {
         protected override void Awake()
         {

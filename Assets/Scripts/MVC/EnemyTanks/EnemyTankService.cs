@@ -7,7 +7,7 @@ namespace Outscal.BattleTank
     /// <summary>
     /// enemy tank service
     /// </summary>
-    public class EnemyTankService : GenericMonoSingletone<EnemyTankService>
+    public class EnemyTankService : MonoGenericSingletone<EnemyTankService>
     {
         public EnemyTankScriptableObject enemyTankScriptableObject;
         public List<Transform> enemyPos;
