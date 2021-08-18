@@ -12,31 +12,15 @@ namespace Outscal.BattleTank
         public ParticleSystem BullectDestroyVFX;
         public float m_MaxLifeTime = 1f;
 
-        //setting bullet controller
-        public void SetBulletController(BulletController _bulletController)
-        {
-            bulletController = _bulletController;
-        }
-
         //void Start()
         //{
         //    // If it isn't destroyed by then, destroy the shell after it's lifetime.
         //    Destroy(gameObject, m_MaxLifeTime);
         //}
 
-
         private void FixedUpdate()
         {
             bulletController.Movement();
-        }
-
-        void OnTriggerEnter(Collider other)
-        {
-            BullectDestroyVFX.transform.parent = null;
-            BullectDestroyVFX.Play();
-
-            Destroy(BullectDestroyVFX.gameObject, BullectDestroyVFX.main.duration);
-            Destroy(gameObject);
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -45,12 +29,21 @@ namespace Outscal.BattleTank
             {
                 Destroy(collision.gameObject);
                 this.gameObject.SetActive(false);
-                Debug.Log("Destoyed: " + collision.gameObject.name);
             }
             else
             {
                 Destroy(gameObject);
             }
         }
-}
+
+
+        //void OnTriggerEnter(Collider other)
+        //{
+        //    BullectDestroyVFX.transform.parent = null;
+        //    BullectDestroyVFX.Play();
+
+        //    Destroy(BullectDestroyVFX.gameObject, BullectDestroyVFX.main.duration);
+        //    Destroy(gameObject);
+        //}
+    }
 }

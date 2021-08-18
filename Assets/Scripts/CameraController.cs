@@ -13,7 +13,7 @@ namespace Outscal.BattleTank
 
         public static CameraController instance;
 
-        private void Awake()
+        protected override void Awake()
         {
             instance = this;
         }
