@@ -10,8 +10,9 @@ namespace Outscal.BattleTank
         [SerializeField] private float smoothSpeed = 0.005f;
         [SerializeField] private Vector3 offset = new Vector3(300, 300, 300);
         Vector3 targetPos;
-
+        public Transform playerLastPos;
         public static CameraController instance;
+        Vector3 desiredposition;
 
         protected override void Awake()
         {
@@ -25,12 +26,18 @@ namespace Outscal.BattleTank
 
         private void LateUpdate()
         {
-            Vector3 desiredposition = target.position + offset;
+            if (target != null)
+            {
+                desiredposition = target.position + offset;
+                playerLastPos = target;
+            }
+            else
+            {
+                target = playerLastPos;
+            }
             Vector3 smoothPosition = Vector3.Lerp(transform.position, desiredposition, smoothSpeed);
             transform.position = smoothPosition;
-
             transform.LookAt(target);
-
         }
 
     }

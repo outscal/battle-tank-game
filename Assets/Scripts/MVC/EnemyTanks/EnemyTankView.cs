@@ -18,7 +18,8 @@ namespace Outscal.BattleTank
         private float timer;
         private float canFire=0f;
         private BoxCollider ground;
-
+        private Transform lastPos;
+        public Transform target;
         private void Awake()
         {
             navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
@@ -39,18 +40,25 @@ namespace Outscal.BattleTank
 
         private void Update()
         {
-            float distance = Vector3.Distance(TankService.Instance.PlayerPos().position, transform.position);
-            if (distance <= howClose)
+            if (TankService.Instance.PlayerPos() != null)
             {
-                transform.LookAt(TankService.Instance.PlayerPos());
-                navMeshAgent.SetDestination(TankService.Instance.PlayerPos().position);
-                ShootBullet();
+                float distance = Vector3.Distance(TankService.Instance.PlayerPos().position, transform.position);
+                if (distance <= howClose)
+                {
+                    transform.LookAt(TankService.Instance.PlayerPos());
+                    navMeshAgent.SetDestination(TankService.Instance.PlayerPos().position);
+                    ShootBullet();
+                }
+                else
+                {
+                    Patrol();
+                }
             }
             else
             {
                 Patrol();
             }
-        }
+        }    
 
         public void SetEnemyTankController(EnemyTankController _enemyTankController) 
         {
