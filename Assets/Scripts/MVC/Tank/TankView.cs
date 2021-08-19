@@ -12,18 +12,28 @@ namespace Outscal.BattleTank
     {
         private TankController tankController;
         [SerializeField] private TankType tankType;
+        private float movement,rotation;
         public Transform BulletShootPoint;
         private float canFire=0f;
+        public MeshRenderer[] childs;
 
         private void Update()
         {
-            float rotation = Input.GetAxisRaw("Horizontal");
-            float movement = Input.GetAxisRaw("Vertical");
-            tankController.TankMovement(movement);
-            tankController.TankRotation(rotation);
+            Movement();
             ShootBullet();
         }
 
+        private void FixedUpdate()
+        {
+            tankController.TankMovement(movement, tankController.TankModel.Speed);
+            tankController.TankRotation(rotation, tankController.TankModel.rotationSpeed);
+        }
+
+        private void Movement()
+        {
+            rotation = Input.GetAxisRaw("Horizontal");
+            movement = Input.GetAxisRaw("Vertical");
+        }
         //setting tank controller
         public void SetTankController(TankController _tankController)
         {
@@ -38,6 +48,17 @@ namespace Outscal.BattleTank
                 canFire = tankController.TankModel.fireRate + Time.time;
                 tankController.ShootBullet();
             }
+        }
+
+        public void DestroyView()
+        {
+            for (int i = 0; i < childs.Length; i++)
+            {
+                childs[i] = null;
+            }
+            tankController = null;
+            BulletShootPoint = null;
+            Destroy(this.gameObject);
         }
     }
 }

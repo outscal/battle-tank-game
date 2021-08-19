@@ -25,14 +25,9 @@ namespace Outscal.BattleTank
         public void Movement()
         {
             Vector3 move = bulletView.transform.transform.position;
-            move += bulletView.transform.forward * bulletModel.BulletForce * Time.fixedDeltaTime;
-
+            //move += bulletView.transform.forward * bulletModel.BulletForce * Time.fixedDeltaTime;
+            move += bulletModel.BulletForce * Time.fixedDeltaTime * bulletView.transform.forward;
             rigidbody.MovePosition(move);
         }
-
-        //public void DoDamage()
-        //{
-        //    if()
-        //}
     }
 }

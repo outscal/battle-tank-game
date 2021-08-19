@@ -10,7 +10,7 @@ namespace Outscal.BattleTank
     public class TankModel
     {
         public int Speed { get; private set; }
-        public float Health { get; private set; }
+        public int Health { get; set; }
         public TankType TankType { get; private set; }
         public BulletScriptableObject bulletType { get; private set; }
         public float rotationSpeed { get; private set; }
@@ -24,7 +24,7 @@ namespace Outscal.BattleTank
             this.tankScriptableObject = tankScriptableObject;
             TankType = tankScriptableObject.TankType;
             Speed = (int)tankScriptableObject.Speed;
-            Health = tankScriptableObject.Health;
+            this.Health = tankScriptableObject.Health;
             rotationSpeed = tankScriptableObject.rotationSpeed;
             fireRate = tankScriptableObject.fireRate;
             bulletType = tankScriptableObject.bulletType;
@@ -35,6 +35,13 @@ namespace Outscal.BattleTank
         {
             tankController = _tankController;
         }
-       
+
+        public void DestroyModel()
+        {
+            bulletType = null;
+            tankController = null;
+        }
+
+
     }
 }

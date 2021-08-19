@@ -11,12 +11,6 @@ namespace Outscal.BattleTank
         public BulletController bulletController { get; private set; }
         public ParticleSystem BullectDestroyVFX;
         public float m_MaxLifeTime = 1f;
-        public Transform target;
-
-        void Start()
-        {
-           target= TankService.Instance.PlayerPos();
-        }
 
         private void FixedUpdate()
         {
@@ -30,34 +24,23 @@ namespace Outscal.BattleTank
 
         private void OnCollisionEnter(Collision collision)
         {
+           
             if (collision.gameObject.GetComponent<EnemyTankView>() != null)
             {
+
                 Destroy(collision.gameObject);
-                this.gameObject.SetActive(false);
+                //Destroy(gameObject);
+                //this.gameObject.SetActive(false);
             }
             else if (collision.gameObject.GetComponent<TankView>() != null)
-            {
+            {   
+                TankService.Instance.GetTankController().ApplyDamage(bulletController.bulletModel.Damage);
                 //Destroy(collision.gameObject);
-                collision.gameObject.SetActive(false);
-                this.gameObject.SetActive(false);
+                ////collision.gameObject.SetActive(false);
+                //Destroy(gameObject);
+                //this.gameObject.SetActive(false);
             }
-            else
-            {
                 Destroy(gameObject);
-            }
-        }  
-
-        void DoDamage()
-        {
-
-        }
-        //void OnTriggerEnter(Collider other)
-        //{
-        //    BullectDestroyVFX.transform.parent = null;
-        //    BullectDestroyVFX.Play();
-
-        //    Destroy(BullectDestroyVFX.gameObject, BullectDestroyVFX.main.duration);
-        //    Destroy(gameObject);
-        //}
+        } 
     }
 }

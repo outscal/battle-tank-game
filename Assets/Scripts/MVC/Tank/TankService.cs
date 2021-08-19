@@ -14,27 +14,31 @@ namespace Outscal.BattleTank
         public TankScriptableObject TankScriptableObject { get; private set; }
         public TankView TankView { get; private set; }
 
+        private List<TankController> tanks = new List<TankController>();
+        private TankController tankController;
         public Transform pos;
         int randomNo;
-        private void Start()
-        {
-            StartGame();
-        }
 
-        void StartGame()
+        private void Start()
         {
             CreateNewTank();
         }
+
         private TankController CreateNewTank()
         {
             randomNo = Random.Range(0, tankList.tanks.Length);
             TankScriptableObject tankScriptableObject = tankList.tanks[randomNo];
             TankView = tankScriptableObject.TankView;
             TankModel tankModel = new TankModel(tankScriptableObject);
-            TankController tank = new TankController(tankModel, TankView);
-            return tank;
+            tankController = new TankController(tankModel, TankView);
+            tanks.Add(tankController);
+            return tankController;
         }
 
+        public TankController GetTankController()
+        {
+            return tankController;
+        }
         public void GetPlayerPos(Transform _position)
         {
             pos = _position;
@@ -45,5 +49,17 @@ namespace Outscal.BattleTank
             return pos;
         }
 
+        public void DestroyTank(TankController tank)
+        {
+            tank.DestroyController();
+            for (int i = 0; i < tanks.Count; i++)
+            {
+                if (tanks[i] == tank)
+                {
+                    tanks[i] = null;
+                    tanks.Remove(tank);
+                }
+            }           
+        }
     }
 }

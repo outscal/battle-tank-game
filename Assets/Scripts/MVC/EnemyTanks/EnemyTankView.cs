@@ -18,8 +18,7 @@ namespace Outscal.BattleTank
         private float timer;
         private float canFire=0f;
         private BoxCollider ground;
-        private Transform lastPos;
-        public Transform target;
+      
         private void Awake()
         {
             navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
