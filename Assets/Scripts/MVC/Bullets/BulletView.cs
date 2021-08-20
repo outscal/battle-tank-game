@@ -9,7 +9,6 @@ namespace Outscal.BattleTank
     public class BulletView : MonoBehaviour
     {
         public BulletController bulletController { get; private set; }
-        public ParticleSystem BullectDestroyVFX;
         public float m_MaxLifeTime = 1f;
 
         private void FixedUpdate()
@@ -24,23 +23,15 @@ namespace Outscal.BattleTank
 
         private void OnCollisionEnter(Collision collision)
         {
-           
             if (collision.gameObject.GetComponent<EnemyTankView>() != null)
             {
-
-                Destroy(collision.gameObject);
-                //Destroy(gameObject);
-                //this.gameObject.SetActive(false);
+                collision.gameObject.GetComponent<EnemyTankView>().enemyTankController.ApplyDamage(bulletController.bulletModel.Damage);
             }
             else if (collision.gameObject.GetComponent<TankView>() != null)
             {   
                 TankService.Instance.GetTankController().ApplyDamage(bulletController.bulletModel.Damage);
-                //Destroy(collision.gameObject);
-                ////collision.gameObject.SetActive(false);
-                //Destroy(gameObject);
-                //this.gameObject.SetActive(false);
             }
                 Destroy(gameObject);
-        } 
+        }
     }
 }

@@ -15,8 +15,6 @@ namespace Outscal.BattleTank
         public float Speed;
         public int Health;
         public EnemyTankView EnemyTankView;
-
-        public float enemyHealth;
         public BoxCollider groundArea;
 
         [Header("Enemy Shooting Variables")]

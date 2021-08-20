@@ -12,7 +12,7 @@ namespace Outscal.BattleTank
         public BulletView BulletView;
         public BulletType bulletType;
         public float bulletForce;
-        public int bulletDamage;       
+        public int bulletDamage;        
     }
 
     [CreateAssetMenu(fileName = "bulletScriptableObjectList", menuName = "ScriptableObjects/NewBulletListScriptableObject")]

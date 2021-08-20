@@ -8,6 +8,7 @@ namespace Outscal.BattleTank
         Medium,
         Fast,
         HighDamage,
-        LowDamage
+        LowDamage,
+        EnemyBullet
     }
 }

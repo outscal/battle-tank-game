@@ -12,6 +12,7 @@ namespace Outscal.BattleTank
         private Rigidbody rigidbody;
         public TankModel TankModel { get; private set; }
         public TankView TankView { get; private set; }
+        private EnemyTankController enemyTankController;
 
         public TankController(TankModel tankModel, TankView tankPrefab)
         {
@@ -50,7 +51,6 @@ namespace Outscal.BattleTank
         public void ApplyDamage(int damage)
         {
             TankModel.Health-=damage;
-            Debug.Log("Damage: " + TankModel.Health);
             if (TankModel.Health <= 0)
             {
                 Dead();
@@ -60,6 +60,7 @@ namespace Outscal.BattleTank
         public void Dead()
         {
             TankService.Instance.DestroyTank(this);
+            //EnemyTankService.Instance.DestroyEnemyTank(enemyTankController);
         }
 
         public void DestroyController()

@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 140344461655953696}
-  - component: {fileID: 4355712867534487756}
   - component: {fileID: 114422314223932648}
+  - component: {fileID: 4355712867534487756}
   - component: {fileID: 54296812966323160}
   m_Layer: 0
   m_Name: TankViewGreen
@@ -37,19 +37,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &4355712867534487756
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 140344461656181952}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.8744161, y: 1.682878, z: 1.8641038}
-  m_Center: {x: -0.020819545, y: 0.85943437, z: 0.028624296}
 --- !u!114 &114422314223932648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,7 +51,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tankType: 2
   BulletShootPoint: {fileID: 6577768760786879013}
-  childs: []
+  childs:
+  - {fileID: 140344461654184880}
+  - {fileID: 140344461654184886}
+  - {fileID: 140344461654184888}
+  - {fileID: 140344461654184882}
+--- !u!65 &4355712867534487756
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140344461656181952}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.8744161, y: 1.682878, z: 1.8641038}
+  m_Center: {x: -0.020819545, y: 0.85943437, z: 0.028624296}
 --- !u!54 &54296812966323160
 Rigidbody:
   m_ObjectHideFlags: 0

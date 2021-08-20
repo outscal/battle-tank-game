@@ -10,7 +10,7 @@ namespace Outscal.BattleTank
     public class EnemyTankView : MonoBehaviour
     {
         private NavMeshAgent navMeshAgent;
-        private EnemyTankController enemyTankController;
+        public EnemyTankController enemyTankController;
         private float maxZ, maxX, minZ, minX;
         public Transform bulletShootPoint;
         private float patrollTime;
@@ -18,6 +18,7 @@ namespace Outscal.BattleTank
         private float timer;
         private float canFire=0f;
         private BoxCollider ground;
+        public MeshRenderer[] childs;
       
         private void Awake()
         {
@@ -57,7 +58,7 @@ namespace Outscal.BattleTank
             {
                 Patrol();
             }
-        }    
+        }
 
         public void SetEnemyTankController(EnemyTankController _enemyTankController) 
         {
@@ -95,6 +96,17 @@ namespace Outscal.BattleTank
                 canFire = enemyTankController.EnemyTankModel.fireRate + Time.time;
                 enemyTankController.ShootBullet();
             }
+        }
+
+        public void DestroyView()
+        {
+            for (int i = 0; i < childs.Length; i++)
+            {
+                childs[i] = null;
+            }
+            enemyTankController = null;
+            bulletShootPoint = null;
+            Destroy(this.gameObject);
         }
     }
 }
