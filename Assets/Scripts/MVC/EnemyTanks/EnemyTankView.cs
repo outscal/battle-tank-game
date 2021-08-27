@@ -100,12 +100,28 @@ namespace Outscal.BattleTank
 
         public void DestroyView()
         {
+            //for (int i = 0; i < childs.Length; i++)
+            //{
+            //    childs[i] = null;
+            //}
+            //enemyTankController = null;
+            //bulletShootPoint = null;
+            //Destroy(this.gameObject);
+
+            Debug.Log("Destroy Enemy View called");
             for (int i = 0; i < childs.Length; i++)
             {
                 childs[i] = null;
             }
-            enemyTankController = null;
+            // tankController = null;
             bulletShootPoint = null;
+            navMeshAgent = null;
+            ground = null;
+          //playerTransform = null;
+          //TankDestroyVFX.transform.parent = null;
+          //TankDestroyVFX.Play();
+          //Destroy(TankDestroyVFX.gameObject, TankDestroyVFX.main.duration + 1f);
+         // TankDestroyVFX = null;
             Destroy(this.gameObject);
         }
     }

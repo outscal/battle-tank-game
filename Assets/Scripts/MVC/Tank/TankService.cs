@@ -13,10 +13,11 @@ namespace Outscal.BattleTank
         public TankScriptableObjectList tankList;
         public TankScriptableObject TankScriptableObject { get; private set; }
         public TankView TankView { get; private set; }
-
         private List<TankController> tanks = new List<TankController>();
+        private List<EnemyTankController> enemyControllers;
         private TankController tankController;
-        public Transform pos;
+        private Transform pos;
+        public GameObject destroyGround;
         int randomNo;
 
         private void Start()
@@ -51,6 +52,7 @@ namespace Outscal.BattleTank
 
         public void DestroyTank(TankController tank)
         {
+            DestroyAllEnemies();
             tank.DestroyController();
             for (int i = 0; i < tanks.Count; i++)
             {
@@ -59,7 +61,23 @@ namespace Outscal.BattleTank
                     tanks[i] = null;
                     tanks.Remove(tank);
                 }
-            }           
+            }
+           // destroyGround.SetActive(false);   
+        }
+
+        async void DestroyAllEnemies()
+        {
+            enemyControllers = EnemyTankService.Instance.enemyTanksList;
+
+            for (int i = 0; i < enemyControllers.Count; i++)
+            {
+                if (EnemyTankService.Instance.enemyTanksList[i].EnemyTankView != null)
+                {
+                    await new WaitForSeconds(2f);
+                    enemyControllers[i].Dead();
+                }
+            }
+
         }
     }
 }

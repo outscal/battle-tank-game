@@ -7,38 +7,46 @@ namespace Outscal.BattleTank
     public class CameraController : MonoGenericSingletone<CameraController>
     {
         [SerializeField] private Transform target;
-        [SerializeField] private float smoothSpeed = 0.005f;
-        [SerializeField] private Vector3 offset = new Vector3(300, 300, 300);
-        Vector3 targetPos;
-        public Transform playerLastPos;
-        public static CameraController instance;
-        Vector3 desiredposition;
+        private Vector3 offset;
+        [SerializeField] private float smoothFactor;
+        private Transform playerLastPos;
 
-        protected override void Awake()
+        //private void Start()
+        //{
+        //    offset = transform.position - target.position;
+        //}
+        void FollowPlayer()
         {
-            instance = this;
-        }
-
-        public void SetTarget(Transform target)
-        {
-            this.target = target;
+            if (target != null)
+            {
+                Vector3 targetPosition = target.position + offset;
+                Debug.Log("pos: " + target.position);
+                Vector3 smoothedposition = Vector3.Lerp(transform.position, targetPosition, smoothFactor * Time.deltaTime);
+                transform.position = targetPosition;
+                playerLastPos = target;
+            }
+            //else
+            //{
+               
+            //}
         }
 
         private void LateUpdate()
         {
+            FollowPlayer();
+        }
+
+        public void SetTarget(Transform target)
+        {
             if (target != null)
             {
-                desiredposition = target.position + offset;
-                playerLastPos = target;
+                this.target = target;
             }
             else
             {
                 target = playerLastPos;
             }
-            Vector3 smoothPosition = Vector3.Lerp(transform.position, desiredposition, smoothSpeed);
-            transform.position = smoothPosition;
-            transform.LookAt(target);
+            Debug.Log("target");
         }
-
     }
 }

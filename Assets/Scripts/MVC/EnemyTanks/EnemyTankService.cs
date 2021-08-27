@@ -12,7 +12,7 @@ namespace Outscal.BattleTank
         public EnemyTankScriptableObject enemyTankScriptableObject;
         public List<Transform> enemyPos;
         private EnemyTankController enemyTankController;
-        private List<EnemyTankController> enemyTanksList = new List<EnemyTankController>();
+        public List<EnemyTankController> enemyTanksList = new List<EnemyTankController>();
         private int count = 0;
         private float spwanTime = 5f;
 

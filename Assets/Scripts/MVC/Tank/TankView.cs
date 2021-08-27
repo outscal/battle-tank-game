@@ -8,7 +8,7 @@ namespace Outscal.BattleTank
     /// this class handles the tankview logic 
     /// it inherits Monobehaviours
     /// </summary>
-    public class TankView : MonoBehaviour
+    public class TankView : MonoBehaviour, IDamagable
     {
         private TankController tankController;
         [SerializeField] private TankType tankType;
@@ -59,6 +59,11 @@ namespace Outscal.BattleTank
             tankController = null;
             BulletShootPoint = null;
             Destroy(this.gameObject);
+        }
+
+        public void TakeDamage(int damage)
+        {
+            tankController.ApplyDamage(damage);
         }
     }
 }

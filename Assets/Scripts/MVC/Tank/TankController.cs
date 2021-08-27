@@ -13,7 +13,7 @@ namespace Outscal.BattleTank
         public TankModel TankModel { get; private set; }
         public TankView TankView { get; private set; }
         private EnemyTankController enemyTankController;
-
+        private DestroyGround destroyGround;
         public TankController(TankModel tankModel, TankView tankPrefab)
         {
             TankModel = tankModel;
@@ -21,7 +21,10 @@ namespace Outscal.BattleTank
             rigidbody = TankView.GetComponent<Rigidbody>();
             TankView.SetTankController(this);
             TankModel.SetTankController(this);
-            CameraController.instance.SetTarget(TankView.transform);
+            //cameraController.SetTarget(TankView.transform);
+            CameraController.Instance.SetTarget(TankView.transform);
+            //CameraController.Instance.SetTarget();
+            Debug.Log(TankView);
         }
 
         //tank movement
