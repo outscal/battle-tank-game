@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace Outscal.BattleTank
 {
-    [RequireComponent(typeof(EnemyTankView))]
+    //[RequireComponent(typeof(EnemyTankView))]
     public class EnemyTankState : MonoBehaviour
     {
-        public static EnemyTankView enemyTankView;
+        public  EnemyTankView enemyTankView;
         public virtual void OnEnterState() 
         {
             this.enabled = true;
@@ -14,6 +14,17 @@ namespace Outscal.BattleTank
         public virtual void OnExitState()
         {
             this.enabled = false;
+        }
+        //enemy will exit from one state and enter in anather state
+        public void ChangeState(EnemyTankState newState)
+        {
+            if (enemyTankView.currentState != null)
+            {
+                enemyTankView.currentState.OnExitState();
+            }
+
+            enemyTankView.currentState = newState;
+            enemyTankView.currentState.OnEnterState();
         }
     }
 }

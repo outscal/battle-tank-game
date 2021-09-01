@@ -35,7 +35,7 @@ namespace Outscal.BattleTank
         {
             tankController = _tankController;
         }
-
+        //destroy model after player death
         public void DestroyModel()
         {
             bulletType = null;

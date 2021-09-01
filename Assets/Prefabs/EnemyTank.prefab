@@ -159,8 +159,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.8744161, y: 1.6041763, z: 1.2140298}
-  m_Center: {x: -0.020819545, y: 0.8200835, z: -0.2964127}
+  m_Size: {x: 1.8744161, y: 1.6384389, z: 1.2140298}
+  m_Center: {x: -0.020819545, y: 0.8029522, z: -0.2964127}
 --- !u!54 &7649257807773056126
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -189,27 +189,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 634a0d8fc8313f049bcb1531749e7958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navMeshAgent: {fileID: 5814460573852322776}
-  maxZ: 20
+  enemyNavMesh: {fileID: 0}
   maxX: 20
-  minZ: 20
+  maxZ: 20
   minX: 20
-  bulletShootPoint: {fileID: 421148468}
-  patrollTime: 3
-  howClose: 5
+  minZ: 20
   timer: 2
+  patrolTime: 0
+  howClose: 5
   canFire: 3
+  BulletShootPoint: {fileID: 421148468}
+  playerTransform: {fileID: 0}
   childs:
   - {fileID: 7716416776526277842}
   - {fileID: 7716416776526277844}
   - {fileID: 7716416776526277850}
   - {fileID: 7716416776526277840}
-  playerTransform: {fileID: 0}
   patrollingState: {fileID: 3335388123500415282}
   chasingState: {fileID: 920022081125316195}
   attackingState: {fileID: 110408852570156556}
-  activeState: 1
-  currentState: {fileID: 920022081125316195}
+  initialState: 1
+  activeState: 0
+  currentState: {fileID: 3335388123500415282}
 --- !u!195 &5814460573852322776
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -244,6 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292d9d527f6133b4b9a26a6ec28bd7a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyTankView: {fileID: 114397204485106798}
 --- !u!114 &110408852570156556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,6 +258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89c2b59c4640fb84f98a2a081c92bc53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyTankView: {fileID: 114397204485106798}
 --- !u!114 &3335388123500415282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,6 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c1dea9920028b542a9a97ce907a895d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyTankView: {fileID: 114397204485106798}
 --- !u!1 &7716416776524018596
 GameObject:
   m_ObjectHideFlags: 0

@@ -44,12 +44,12 @@ namespace Outscal.BattleTank
         {
             pos = _position;
         }
-
+        //return player position to the caller
         public Transform PlayerPos()
         {
             return pos;
         }
-
+        //destroy child components of tank after 
         public void DestroyTank(TankController tank)
         {
             DestroyAllEnemies();
@@ -64,17 +64,17 @@ namespace Outscal.BattleTank
             }
            // destroyGround.SetActive(false);   
         }
-
+        //destroy all enmies present in scene after players death
         async void DestroyAllEnemies()
         {
             enemyControllers = EnemyTankService.Instance.enemyTanksList;
 
             for (int i = 0; i < enemyControllers.Count; i++)
             {
-                if (EnemyTankService.Instance.enemyTanksList[i].EnemyTankView != null)
+                if (EnemyTankService.Instance.enemyTanksList[i].enemyTankView != null)
                 {
                     await new WaitForSeconds(2f);
-                    enemyControllers[i].Dead();
+                    enemyControllers[i].DeadEnemy();
                 }
             }
 

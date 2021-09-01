@@ -10,12 +10,9 @@ namespace Outscal.BattleTank
         public override void OnEnterState()
         {
             base.OnEnterState();
-            enemyTankView.enemyTankController.EnemyPatrollingAI();
+            enemyTankView.activeState = EnemyState.Patrolling;
+            enemyTankView.enemyTankController.Patrol();
         }
-        //private void Update()
-        //{
-        //    enemyTankView.enemyTankController.EnemyPatrollingAI();
-        //}
 
         public override void OnExitState()
         {

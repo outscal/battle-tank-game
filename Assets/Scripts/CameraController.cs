@@ -15,7 +15,7 @@ namespace Outscal.BattleTank
             if (target != null)
             {
                 Vector3 targetPosition = target.position + offset;
-                Debug.Log("pos: " + target.position);
+                //Debug.Log("pos: " + target.position);
                 Vector3 smoothedposition = Vector3.Lerp(transform.position, targetPosition, smoothFactor * Time.deltaTime);
                 transform.position = targetPosition;
                 playerLastPos = target;

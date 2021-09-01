@@ -51,7 +51,7 @@ namespace Outscal.BattleTank
         {
              BulletService.Instance.CreateNewBullet(GetFiringPosition(), GetFiringAngle(), GetBullet());
         }
-
+        //player tank will take damage 
         public void ApplyDamage(int damage)
         {
             TankModel.Health-=damage;
@@ -60,13 +60,12 @@ namespace Outscal.BattleTank
                 Dead();
             }
         }
-
+        //triggers when player dead
         public void Dead()
         {
             TankService.Instance.DestroyTank(this);
-            //EnemyTankService.Instance.DestroyEnemyTank(enemyTankController);
         }
-
+        //destroy tank model and view also after player death
         public void DestroyController()
         {
             TankModel.DestroyModel();

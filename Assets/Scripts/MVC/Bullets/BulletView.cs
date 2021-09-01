@@ -20,22 +20,6 @@ namespace Outscal.BattleTank
             bulletController = _bulletController;
         }
 
-        private void OnEnable()
-        {
-            StartCoroutine(DisableObject());
-        }
-
-        IEnumerator DisableObject()
-        {
-            yield return new WaitForUpdate();
-            gameObject.SetActive(false);
-        }
-
-        private void OnDisable()
-        {
-            StopCoroutine(DisableObject());
-        }
-
         private void OnCollisionEnter(Collision collision)
         {
             if (collision.gameObject.GetComponent<EnemyTankView>() != null)

@@ -7,51 +7,50 @@ namespace Outscal.BattleTank
     /// <summary>
     /// creating enemy tank view
     /// </summary>
-    public class EnemyTankView : MonoBehaviour,IDamagable
+    public class EnemyTankView : MonoBehaviour
     {
-        public NavMeshAgent navMeshAgent;
+        #region Components And Variables
+        public NavMeshAgent enemyNavMesh;
         public EnemyTankController enemyTankController;
-        public float maxZ, maxX, minZ, minX;
-        public Transform bulletShootPoint;
-        public float patrollTime;
-        public float howClose;
-        public float timer;
-        public float canFire=0f;
         private BoxCollider ground;
+        public float maxX, maxZ, minX, minZ;
+        public float timer, patrolTime;
+        public float howClose;
+        public float canFire = 0f;
+        public Transform BulletShootPoint;
         public MeshRenderer[] childs;
 
-       //[HideInInspector] public Transform playerTransform;
-       //[HideInInspector]public EnemyPatrollingState patrollingState;
-       //[HideInInspector]public EnemyChasingState chasingState;
-       //[HideInInspector]public EnemyAttackingState attackingState;
-       //private EnemyState initialState;
-       //[HideInInspector]public EnemyState activeState;
-       //private EnemyTankState currentState;
-
-        public Transform playerTransform;
+        #region EnemyTankSates
         public EnemyPatrollingState patrollingState;
         public EnemyChasingState chasingState;
         public EnemyAttackingState attackingState;
-        private EnemyState initialState;
-        public EnemyState activeState;
-        private EnemyTankState currentState;
+        public EnemyTankState currentState;
 
-        private void Awake()
+        #region EnemyEnums
+        public EnemyState initialState;
+        public EnemyState activeState;
+    
+
+        void Awake()
         {
-            navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
+            enemyNavMesh = gameObject.GetComponent<NavMeshAgent>();
         }
 
-        private void Start()
+        void Start()
         {
             currentState = patrollingState;
-            //InitializeState();
+            InitializeState();
             SetGroundForEnemyPatrolling();
-            SetPlayerTransform();
-            timer = 0;
-            patrollTime = 5f;
-            howClose = 20f;
-            //Invoke("Patrol", 1f);
-            //ChangeState(patrollingState);
+            //setPlayerTransform();
+            timer = 5f;
+            patrolTime = 2f;
+            howClose = 15f;
+            // Invoke("Patrol", 1f);
+        }
+
+        public void SetEnemyTankController(EnemyTankController _enemyController)
+        {
+            enemyTankController = _enemyController;
         }
 
         private void SetGroundForEnemyPatrolling()
@@ -65,56 +64,15 @@ namespace Outscal.BattleTank
 
         void Update()
         {
-            //InitializeState();
             enemyTankController.EnemyPatrollingAI();
         }
 
-        public void SetEnemyTankController(EnemyTankController _enemyTankController) 
-        {
-            enemyTankController = _enemyTankController;
-        }
-        //enemy tank will get random positions to patrolling
-        public Vector3 GetRandomPosition()
-        {
-            float x = Random.Range(minX, maxX);
-            float z = Random.Range(minZ, maxZ);
-            Vector3 randomDir = new Vector3(x, 0, z);
-            return randomDir;
-        }
-        //setting patrolling destination
-        public void SetPatrollingDestination()
-        {        
-            Vector3 newDestnation = GetRandomPosition();
-            navMeshAgent.SetDestination(newDestnation);
-        }
-<<<<<<< HEAD
-
-        private void SetPlayerTransform()
-=======
-        //enemy patroll function
-        public void Patrol()
->>>>>>> 7c0e24283da20dcd65e68d6409b96ef27d2d0bc8
-        {
-            playerTransform = TankService.Instance.PlayerPos();
-        }
-
-        public Transform GetTankTransform()
-        {
-            return this.transform;
-        }
-<<<<<<< HEAD
-
+        //swith cases for different enemy states
         private void InitializeState()
-=======
-        //enemy shooting function
-        private void ShootBullet()
->>>>>>> 7c0e24283da20dcd65e68d6409b96ef27d2d0bc8
         {
             switch (initialState)
             {
-                case EnemyState.Patrolling:
-                    currentState = patrollingState;
-                    break;
+
                 case EnemyState.Attacking:
                     currentState = attackingState;
                     break;
@@ -123,13 +81,17 @@ namespace Outscal.BattleTank
                     currentState = chasingState;
                     break;
 
+                case EnemyState.Patrolling:
+                    currentState = patrollingState;
+                    break;
+
                 default:
                     currentState = null;
                     break;
             }
             currentState.OnEnterState();
         }
-        //enemy tank destroy view
+        //after death all the child componenets will also destroy
         public void DestroyView()
         {
             Debug.Log("Destroy Enemy View called");
@@ -137,24 +99,11 @@ namespace Outscal.BattleTank
             {
                 childs[i] = null;
             }
-            bulletShootPoint = null;
-            navMeshAgent = null;
+
+            BulletShootPoint = null;
+            enemyNavMesh = null;
             ground = null;
             Destroy(this.gameObject);
-        }
-
-        public void TakeDamage(int damage)
-        {
-            enemyTankController.ApplyDamage(damage);
-        }
-
-        public void ChangeState(EnemyTankState newState)
-        {
-            if (currentState != null)
-                currentState.OnExitState();
-
-            currentState = newState;
-            currentState.OnEnterState();
         }
     }
 }

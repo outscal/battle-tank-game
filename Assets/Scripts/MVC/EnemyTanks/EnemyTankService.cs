@@ -32,14 +32,14 @@ namespace Outscal.BattleTank
             enemyTanksList.Add(enemyTankController);
             return enemyTankController;
         }
-
+        //enemy spawning randomly 
         void SpawningEnemy()
         {
             int num = Random.Range(0, enemyPos.Count-1);
             CreateNewTank(enemyPos[num]);
             enemyPos.RemoveAt(num);
         }
-
+        //coroutine for spawn enemies  
         IEnumerator SpawnWaiting()
         {
             SpawningEnemy();
@@ -54,12 +54,12 @@ namespace Outscal.BattleTank
             }
             count++;
         }
-
+        //destroy enemy tank after death
         public void DestroyEnemyTank(EnemyTankController enemyTank)
         {
             enemyTank.DestroyEnemyController();
         }
-
+        //returns enemytank controller
         public EnemyTankController GetEnemyTankController()
         {
             return enemyTankController;

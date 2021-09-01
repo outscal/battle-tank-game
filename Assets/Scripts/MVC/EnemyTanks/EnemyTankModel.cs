@@ -41,7 +41,7 @@ namespace Outscal.BattleTank
         {
             enemyTankController = _enemyTankController;
         }
-
+        //after enemy death distroy model
         internal void DestroyModel()
         {
             enemyTankController = null;
