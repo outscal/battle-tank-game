@@ -73,7 +73,7 @@ namespace Outscal.BattleTank
         {
             enemyTankController = _enemyTankController;
         }
-
+        //enemy tank will get random positions to patrolling
         public Vector3 GetRandomPosition()
         {
             float x = Random.Range(minX, maxX);
@@ -81,14 +81,19 @@ namespace Outscal.BattleTank
             Vector3 randomDir = new Vector3(x, 0, z);
             return randomDir;
         }
-
+        //setting patrolling destination
         public void SetPatrollingDestination()
         {        
             Vector3 newDestnation = GetRandomPosition();
             navMeshAgent.SetDestination(newDestnation);
         }
+<<<<<<< HEAD
 
         private void SetPlayerTransform()
+=======
+        //enemy patroll function
+        public void Patrol()
+>>>>>>> 7c0e24283da20dcd65e68d6409b96ef27d2d0bc8
         {
             playerTransform = TankService.Instance.PlayerPos();
         }
@@ -97,8 +102,13 @@ namespace Outscal.BattleTank
         {
             return this.transform;
         }
+<<<<<<< HEAD
 
         private void InitializeState()
+=======
+        //enemy shooting function
+        private void ShootBullet()
+>>>>>>> 7c0e24283da20dcd65e68d6409b96ef27d2d0bc8
         {
             switch (initialState)
             {
@@ -119,7 +129,7 @@ namespace Outscal.BattleTank
             }
             currentState.OnEnterState();
         }
-
+        //enemy tank destroy view
         public void DestroyView()
         {
             Debug.Log("Destroy Enemy View called");

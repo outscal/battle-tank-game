@@ -19,6 +19,7 @@ namespace Outscal.BattleTank
             EnemyTankModel.SetEnemyTankController(this);
             EnemyTankView.SetEnemyTankController(this);
         }
+<<<<<<< HEAD
 
         public void CreateBullet()
         {
@@ -26,6 +27,15 @@ namespace Outscal.BattleTank
         }
 
         public Vector3 GetRandomPosition()
+=======
+        //enemy tank shooting function
+        public void ShootBullet()
+        {
+            BulletService.Instance.CreateNewBullet(GetFiringPosition(), GetFiringAngle(), GetBullet());
+        }
+        //enemy tank will take damage
+        public void ApplyDamage(int damage)
+>>>>>>> 7c0e24283da20dcd65e68d6409b96ef27d2d0bc8
         {
             float x = Random.Range(EnemyTankView.minX, EnemyTankView.maxX);
             float z = Random.Range(EnemyTankView.minZ, EnemyTankView.maxZ);
@@ -49,8 +59,13 @@ namespace Outscal.BattleTank
                 EnemyTankView.timer = 0;
             }
         }
+<<<<<<< HEAD
 
         public void EnemyPatrollingAI()
+=======
+        //trigger when enemy dead
+        public void Dead()
+>>>>>>> 7c0e24283da20dcd65e68d6409b96ef27d2d0bc8
         {
             if (TankService.Instance.PlayerPos() != null)
             {
@@ -70,16 +85,26 @@ namespace Outscal.BattleTank
                 Patrol();
             }
         }
+<<<<<<< HEAD
 
         private void ChaseToPlayer()
+=======
+        //enemy tank gets firing position 
+        public Vector3 GetFiringPosition()
+>>>>>>> 7c0e24283da20dcd65e68d6409b96ef27d2d0bc8
         {
             EnemyTankView.transform.LookAt(EnemyTankView.playerTransform);
             EnemyTankView.navMeshAgent.SetDestination(EnemyTankView.playerTransform.position);
             ShootBullet();
         }
+<<<<<<< HEAD
 
 
         private void ShootBullet()
+=======
+        //enemy tank gets firing angle
+        public Quaternion GetFiringAngle()
+>>>>>>> 7c0e24283da20dcd65e68d6409b96ef27d2d0bc8
         {
             if (EnemyTankView.canFire < Time.time)
             {
@@ -87,8 +112,13 @@ namespace Outscal.BattleTank
                 CreatingBullet();
             }
         }
+<<<<<<< HEAD
 
         public void CreatingBullet()
+=======
+        //enemy tank gets bullet
+        public BulletScriptableObject GetBullet()
+>>>>>>> 7c0e24283da20dcd65e68d6409b96ef27d2d0bc8
         {
             BulletService.Instance.CreateNewBullet(GetFiringPosition(), GetFiringAngle(), GetBullet());
         }
@@ -109,7 +139,7 @@ namespace Outscal.BattleTank
                 Dead();
             }
         }
-
+        //enemy tank destroy
         public void DestroyEnemyController()
         {
             EnemyTankModel.DestroyModel();

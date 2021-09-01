@@ -28,7 +28,7 @@ namespace Outscal.BattleTank
             tankController.TankMovement(movement, tankController.TankModel.Speed);
             tankController.TankRotation(rotation, tankController.TankModel.rotationSpeed);
         }
-
+        //tank movement
         private void Movement()
         {
             rotation = Input.GetAxisRaw("Horizontal");
@@ -49,7 +49,7 @@ namespace Outscal.BattleTank
                 tankController.ShootBullet();
             }
         }
-
+        //triggered after tank distroyed
         public void DestroyView()
         {
             for (int i = 0; i < childs.Length; i++)
@@ -60,7 +60,7 @@ namespace Outscal.BattleTank
             BulletShootPoint = null;
             Destroy(this.gameObject);
         }
-
+        //player tank will take damage
         public void TakeDamage(int damage)
         {
             tankController.ApplyDamage(damage);

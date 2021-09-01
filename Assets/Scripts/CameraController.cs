@@ -10,11 +10,6 @@ namespace Outscal.BattleTank
         private Vector3 offset;
         [SerializeField] private float smoothFactor;
         private Transform playerLastPos;
-
-        //private void Start()
-        //{
-        //    offset = transform.position - target.position;
-        //}
         void FollowPlayer()
         {
             if (target != null)
@@ -25,10 +20,6 @@ namespace Outscal.BattleTank
                 transform.position = targetPosition;
                 playerLastPos = target;
             }
-            //else
-            //{
-               
-            //}
         }
 
         private void LateUpdate()
