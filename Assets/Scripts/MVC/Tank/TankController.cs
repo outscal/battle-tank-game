@@ -12,7 +12,8 @@ namespace Outscal.BattleTank
         private Rigidbody rigidbody;
         public TankModel TankModel { get; private set; }
         public TankView TankView { get; private set; }
-
+        private EnemyTankController enemyTankController;
+        private DestroyGround destroyGround;
         public TankController(TankModel tankModel, TankView tankPrefab)
         {
             TankModel = tankModel;
@@ -20,20 +21,24 @@ namespace Outscal.BattleTank
             rigidbody = TankView.GetComponent<Rigidbody>();
             TankView.SetTankController(this);
             TankModel.SetTankController(this);
-            CameraController.instance.SetTarget(TankView.transform);
+            //cameraController.SetTarget(TankView.transform);
+            CameraController.Instance.SetTarget(TankView.transform);
+            //CameraController.Instance.SetTarget();
+            Debug.Log(TankView);
         }
 
         //tank movement
-        public void TankMovement(float movement)
+        public void TankMovement(float movement,int speed)
         {
             Vector3 mov = TankView.transform.position;
-            mov += movement * TankModel.Speed * Time.deltaTime * TankView.transform.forward;
+            mov += movement * speed * Time.deltaTime * TankView.transform.forward;
             rigidbody.MovePosition(mov);
+                                                                                                                                                                                                                                                                                                                                                                                                                       
             TankService.Instance.GetPlayerPos(TankView.transform);
         }
 
         //tank rotation
-        public void TankRotation(float rotation)
+        public void TankRotation(float rotation ,float rotationSpeed)
         {
             Vector3 vector = new Vector3(0f, rotation * TankModel.rotationSpeed, 0f);
             Quaternion angle = Quaternion.Euler(vector * Time.fixedDeltaTime);
@@ -44,6 +49,30 @@ namespace Outscal.BattleTank
         public void ShootBullet()
         {
              BulletService.Instance.CreateNewBullet(GetFiringPosition(), GetFiringAngle(), GetBullet());
+        }
+
+        public void ApplyDamage(int damage)
+        {
+            TankModel.Health-=damage;
+            if (TankModel.Health <= 0)
+            {
+                Dead();
+            }
+        }
+
+        public void Dead()
+        {
+            TankService.Instance.DestroyTank(this);
+            //EnemyTankService.Instance.DestroyEnemyTank(enemyTankController);
+        }
+
+        public void DestroyController()
+        {
+            TankModel.DestroyModel();
+            TankView.DestroyView();
+            TankModel = null;
+            TankView = null;
+            rigidbody = null;
         }
 
         //returning bullet firing position

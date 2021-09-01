@@ -11,6 +11,8 @@ namespace Outscal.BattleTank
     {
         public EnemyTankScriptableObject enemyTankScriptableObject;
         public List<Transform> enemyPos;
+        private EnemyTankController enemyTankController;
+        public List<EnemyTankController> enemyTanksList = new List<EnemyTankController>();
         private int count = 0;
         private float spwanTime = 5f;
 
@@ -23,11 +25,12 @@ namespace Outscal.BattleTank
 
         private EnemyTankController CreateNewTank(Transform enemyNewPos)
         {
-            EnemyTankView enemyView = enemyTankScriptableObject.EnemyTankView;
+            EnemyTankView enemyTankView = enemyTankScriptableObject.EnemyTankView;
             Vector3 pos = enemyNewPos.position;
-            EnemyTankModel enemyModel = new EnemyTankModel(enemyTankScriptableObject);
-            EnemyTankController enemy = new EnemyTankController(enemyModel, enemyView, pos);
-            return enemy;
+            EnemyTankModel enemyTankModel = new EnemyTankModel(enemyTankScriptableObject);
+            enemyTankController = new EnemyTankController(enemyTankModel, enemyTankView, pos);
+            enemyTanksList.Add(enemyTankController);
+            return enemyTankController;
         }
 
         void SpawningEnemy()
@@ -50,6 +53,16 @@ namespace Outscal.BattleTank
                 StartCoroutine(SpawnWaiting());
             }
             count++;
+        }
+
+        public void DestroyEnemyTank(EnemyTankController enemyTank)
+        {
+            enemyTank.DestroyEnemyController();
+        }
+
+        public EnemyTankController GetEnemyTankController()
+        {
+            return enemyTankController;
         }
     }
 }

@@ -7,31 +7,37 @@ namespace Outscal.BattleTank
     public class CameraController : MonoGenericSingletone<CameraController>
     {
         [SerializeField] private Transform target;
-        [SerializeField] private float smoothSpeed = 0.005f;
-        [SerializeField] private Vector3 offset = new Vector3(300, 300, 300);
-        Vector3 targetPos;
-
-        public static CameraController instance;
-
-        protected override void Awake()
+        private Vector3 offset;
+        [SerializeField] private float smoothFactor;
+        private Transform playerLastPos;
+        void FollowPlayer()
         {
-            instance = this;
-        }
-
-        public void SetTarget(Transform target)
-        {
-            this.target = target;
+            if (target != null)
+            {
+                Vector3 targetPosition = target.position + offset;
+                Debug.Log("pos: " + target.position);
+                Vector3 smoothedposition = Vector3.Lerp(transform.position, targetPosition, smoothFactor * Time.deltaTime);
+                transform.position = targetPosition;
+                playerLastPos = target;
+            }
         }
 
         private void LateUpdate()
         {
-            Vector3 desiredposition = target.position + offset;
-            Vector3 smoothPosition = Vector3.Lerp(transform.position, desiredposition, smoothSpeed);
-            transform.position = smoothPosition;
-
-            transform.LookAt(target);
-
+            FollowPlayer();
         }
 
+        public void SetTarget(Transform target)
+        {
+            if (target != null)
+            {
+                this.target = target;
+            }
+            else
+            {
+                target = playerLastPos;
+            }
+            Debug.Log("target");
+        }
     }
 }

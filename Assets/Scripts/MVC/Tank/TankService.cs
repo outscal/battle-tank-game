@@ -13,28 +13,33 @@ namespace Outscal.BattleTank
         public TankScriptableObjectList tankList;
         public TankScriptableObject TankScriptableObject { get; private set; }
         public TankView TankView { get; private set; }
-
-        public Transform pos;
+        private List<TankController> tanks = new List<TankController>();
+        private List<EnemyTankController> enemyControllers;
+        private TankController tankController;
+        private Transform pos;
+        public GameObject destroyGround;
         int randomNo;
-        private void Start()
-        {
-            StartGame();
-        }
 
-        void StartGame()
+        private void Start()
         {
             CreateNewTank();
         }
+
         private TankController CreateNewTank()
         {
             randomNo = Random.Range(0, tankList.tanks.Length);
             TankScriptableObject tankScriptableObject = tankList.tanks[randomNo];
             TankView = tankScriptableObject.TankView;
             TankModel tankModel = new TankModel(tankScriptableObject);
-            TankController tank = new TankController(tankModel, TankView);
-            return tank;
+            tankController = new TankController(tankModel, TankView);
+            tanks.Add(tankController);
+            return tankController;
         }
 
+        public TankController GetTankController()
+        {
+            return tankController;
+        }
         public void GetPlayerPos(Transform _position)
         {
             pos = _position;
@@ -45,5 +50,34 @@ namespace Outscal.BattleTank
             return pos;
         }
 
+        public void DestroyTank(TankController tank)
+        {
+            DestroyAllEnemies();
+            tank.DestroyController();
+            for (int i = 0; i < tanks.Count; i++)
+            {
+                if (tanks[i] == tank)
+                {
+                    tanks[i] = null;
+                    tanks.Remove(tank);
+                }
+            }
+           // destroyGround.SetActive(false);   
+        }
+
+        async void DestroyAllEnemies()
+        {
+            enemyControllers = EnemyTankService.Instance.enemyTanksList;
+
+            for (int i = 0; i < enemyControllers.Count; i++)
+            {
+                if (EnemyTankService.Instance.enemyTanksList[i].EnemyTankView != null)
+                {
+                    await new WaitForSeconds(2f);
+                    enemyControllers[i].Dead();
+                }
+            }
+
+        }
     }
 }

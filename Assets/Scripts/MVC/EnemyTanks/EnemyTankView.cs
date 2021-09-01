@@ -10,7 +10,7 @@ namespace Outscal.BattleTank
     public class EnemyTankView : MonoBehaviour
     {
         private NavMeshAgent navMeshAgent;
-        private EnemyTankController enemyTankController;
+        public EnemyTankController enemyTankController;
         private float maxZ, maxX, minZ, minX;
         public Transform bulletShootPoint;
         private float patrollTime;
@@ -18,7 +18,8 @@ namespace Outscal.BattleTank
         private float timer;
         private float canFire=0f;
         private BoxCollider ground;
-
+        public MeshRenderer[] childs;
+      
         private void Awake()
         {
             navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
@@ -39,12 +40,19 @@ namespace Outscal.BattleTank
 
         private void Update()
         {
-            float distance = Vector3.Distance(TankService.Instance.PlayerPos().position, transform.position);
-            if (distance <= howClose)
+            if (TankService.Instance.PlayerPos() != null)
             {
-                transform.LookAt(TankService.Instance.PlayerPos());
-                navMeshAgent.SetDestination(TankService.Instance.PlayerPos().position);
-                ShootBullet();
+                float distance = Vector3.Distance(TankService.Instance.PlayerPos().position, transform.position);
+                if (distance <= howClose)
+                {
+                    transform.LookAt(TankService.Instance.PlayerPos());
+                    navMeshAgent.SetDestination(TankService.Instance.PlayerPos().position);
+                    ShootBullet();
+                }
+                else
+                {
+                    Patrol();
+                }
             }
             else
             {
@@ -56,7 +64,7 @@ namespace Outscal.BattleTank
         {
             enemyTankController = _enemyTankController;
         }
-
+        //enemy tank will get random positions to patrolling
         public Vector3 GetRandomPosition()
         {
             float x = Random.Range(minX, maxX);
@@ -64,13 +72,13 @@ namespace Outscal.BattleTank
             Vector3 randomDir = new Vector3(x, 0, z);
             return randomDir;
         }
-
+        //setting patrolling destination
         public void SetPatrollingDestination()
         {        
             Vector3 newDestnation = GetRandomPosition();
             navMeshAgent.SetDestination(newDestnation);
         }
-
+        //enemy patroll function
         public void Patrol()
         {
             timer += Time.deltaTime;
@@ -80,7 +88,7 @@ namespace Outscal.BattleTank
                 timer = 0;
             }
         }
-
+        //enemy shooting function
         private void ShootBullet()
         {
             if (canFire < Time.time)
@@ -88,6 +96,19 @@ namespace Outscal.BattleTank
                 canFire = enemyTankController.EnemyTankModel.fireRate + Time.time;
                 enemyTankController.ShootBullet();
             }
+        }
+        //enemy tank destroy view
+        public void DestroyView()
+        {
+            Debug.Log("Destroy Enemy View called");
+            for (int i = 0; i < childs.Length; i++)
+            {
+                childs[i] = null;
+            }
+            bulletShootPoint = null;
+            navMeshAgent = null;
+            ground = null;
+            Destroy(this.gameObject);
         }
     }
 }

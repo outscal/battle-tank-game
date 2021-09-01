@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System;
+using UnityEditor;
 using UnityEngine;
 
 namespace Outscal.BattleTank
@@ -13,7 +14,7 @@ namespace Outscal.BattleTank
 
         public EnemyTankType EnemyTankType { get; private set; }
         public float Speed { get; private set; }
-        public int Health { get; private set; }
+        public int Health { get; set; }
 
         public float fireRate { get; private set; }
 
@@ -41,5 +42,10 @@ namespace Outscal.BattleTank
             enemyTankController = _enemyTankController;
         }
 
+        internal void DestroyModel()
+        {
+            enemyTankController = null;
+            bulletType = null;
+        }
     }
 }
