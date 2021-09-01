@@ -19,12 +19,12 @@ namespace Outscal.BattleTank
             EnemyTankModel.SetEnemyTankController(this);
             EnemyTankView.SetEnemyTankController(this);
         }
-
+        //enemy tank shooting function
         public void ShootBullet()
         {
             BulletService.Instance.CreateNewBullet(GetFiringPosition(), GetFiringAngle(), GetBullet());
         }
-
+        //enemy tank will take damage
         public void ApplyDamage(int damage)
         {
             EnemyTankModel.Health -= damage;
@@ -34,27 +34,27 @@ namespace Outscal.BattleTank
                 Dead();
             }
         }
-
+        //trigger when enemy dead
         public void Dead()
         {
             EnemyTankService.Instance.DestroyEnemyTank(this);
         }
-
+        //enemy tank gets firing position 
         public Vector3 GetFiringPosition()
         {
             return EnemyTankView.bulletShootPoint.position;
         }
-
+        //enemy tank gets firing angle
         public Quaternion GetFiringAngle()
         {
             return EnemyTankView.transform.rotation;
         }
-
+        //enemy tank gets bullet
         public BulletScriptableObject GetBullet()
         {
             return EnemyTankModel.bulletType;
         }
-
+        //enemy tank destroy
         public void DestroyEnemyController()
         {
             EnemyTankModel.DestroyModel();

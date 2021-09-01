@@ -58,16 +58,6 @@ namespace Outscal.BattleTank
         public void DestroyEnemyTank(EnemyTankController enemyTank)
         {
             enemyTank.DestroyEnemyController();
-            //for (int i = 0; i < enemyTanksList.Count; i++)
-            //{
-            //    if (enemyTanksList[i] == enemyTankController)
-            //    {
-            //        //enemyTanksList[i].EnemyTankView.gameObject.SetActive(false);
-            //        //enemyTankController.EnemyTankModel = null;
-            //        enemyTanksList[i] = null;
-            //        enemyTanksList.Remove(enemyTankController);
-            //    }
-            //}
         }
 
         public EnemyTankController GetEnemyTankController()

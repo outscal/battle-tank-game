@@ -64,7 +64,7 @@ namespace Outscal.BattleTank
         {
             enemyTankController = _enemyTankController;
         }
-
+        //enemy tank will get random positions to patrolling
         public Vector3 GetRandomPosition()
         {
             float x = Random.Range(minX, maxX);
@@ -72,13 +72,13 @@ namespace Outscal.BattleTank
             Vector3 randomDir = new Vector3(x, 0, z);
             return randomDir;
         }
-
+        //setting patrolling destination
         public void SetPatrollingDestination()
         {        
             Vector3 newDestnation = GetRandomPosition();
             navMeshAgent.SetDestination(newDestnation);
         }
-
+        //enemy patroll function
         public void Patrol()
         {
             timer += Time.deltaTime;
@@ -88,7 +88,7 @@ namespace Outscal.BattleTank
                 timer = 0;
             }
         }
-
+        //enemy shooting function
         private void ShootBullet()
         {
             if (canFire < Time.time)
@@ -97,31 +97,17 @@ namespace Outscal.BattleTank
                 enemyTankController.ShootBullet();
             }
         }
-
+        //enemy tank destroy view
         public void DestroyView()
         {
-            //for (int i = 0; i < childs.Length; i++)
-            //{
-            //    childs[i] = null;
-            //}
-            //enemyTankController = null;
-            //bulletShootPoint = null;
-            //Destroy(this.gameObject);
-
             Debug.Log("Destroy Enemy View called");
             for (int i = 0; i < childs.Length; i++)
             {
                 childs[i] = null;
             }
-            // tankController = null;
             bulletShootPoint = null;
             navMeshAgent = null;
             ground = null;
-          //playerTransform = null;
-          //TankDestroyVFX.transform.parent = null;
-          //TankDestroyVFX.Play();
-          //Destroy(TankDestroyVFX.gameObject, TankDestroyVFX.main.duration + 1f);
-         // TankDestroyVFX = null;
             Destroy(this.gameObject);
         }
     }
