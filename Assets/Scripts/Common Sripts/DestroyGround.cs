@@ -6,12 +6,12 @@ namespace Outscal.BattleTank
 {
     public class DestroyGround : MonoBehaviour
     {
-        public GameObject[] military;
-        public GameObject[] oilFields;
-        public GameObject[] rocks;
+        [SerializeField] private GameObject[] military;
+        [SerializeField] private GameObject[] oilFields;
+        [SerializeField] private GameObject[] rocks;
 
-        public GameObject completeLevelArt;
-        public GameObject lit;
+        [SerializeField] private GameObject completeLevelArt;
+        [SerializeField] private GameObject lit;
 
 
         void Start()

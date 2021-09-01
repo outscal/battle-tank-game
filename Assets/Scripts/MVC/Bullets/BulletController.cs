@@ -29,5 +29,6 @@ namespace Outscal.BattleTank
             move += bulletModel.BulletForce * Time.fixedDeltaTime * bulletView.transform.forward;
             rigidbody.MovePosition(move);
         }
+
     }
 }

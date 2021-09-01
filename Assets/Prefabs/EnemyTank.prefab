@@ -122,6 +122,9 @@ GameObject:
   - component: {fileID: 7649257807773056126}
   - component: {fileID: 114397204485106798}
   - component: {fileID: 5814460573852322776}
+  - component: {fileID: 920022081125316195}
+  - component: {fileID: 110408852570156556}
+  - component: {fileID: 3335388123500415282}
   m_Layer: 9
   m_Name: EnemyTank
   m_TagString: Untagged
@@ -186,12 +189,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 634a0d8fc8313f049bcb1531749e7958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  navMeshAgent: {fileID: 5814460573852322776}
+  maxZ: 20
+  maxX: 20
+  minZ: 20
+  minX: 20
   bulletShootPoint: {fileID: 421148468}
+  patrollTime: 3
+  howClose: 5
+  timer: 2
+  canFire: 3
   childs:
   - {fileID: 7716416776526277842}
   - {fileID: 7716416776526277844}
   - {fileID: 7716416776526277850}
   - {fileID: 7716416776526277840}
+  playerTransform: {fileID: 0}
+  patrollingState: {fileID: 3335388123500415282}
+  chasingState: {fileID: 920022081125316195}
+  attackingState: {fileID: 110408852570156556}
+  activeState: 1
+  currentState: {fileID: 920022081125316195}
 --- !u!195 &5814460573852322776
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -214,6 +232,42 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &920022081125316195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7716416776524018594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292d9d527f6133b4b9a26a6ec28bd7a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &110408852570156556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7716416776524018594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89c2b59c4640fb84f98a2a081c92bc53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3335388123500415282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7716416776524018594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c1dea9920028b542a9a97ce907a895d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7716416776524018596
 GameObject:
   m_ObjectHideFlags: 0

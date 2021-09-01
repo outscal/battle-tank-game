@@ -17,13 +17,14 @@ namespace Outscal.BattleTank
         public TankController(TankModel tankModel, TankView tankPrefab)
         {
             TankModel = tankModel;
-            TankView = GameObject.Instantiate<TankView>(tankPrefab);
+            if (tankPrefab != null)
+            {
+                TankView = GameObject.Instantiate<TankView>(tankPrefab);
+            }
             rigidbody = TankView.GetComponent<Rigidbody>();
             TankView.SetTankController(this);
             TankModel.SetTankController(this);
-            //cameraController.SetTarget(TankView.transform);
             CameraController.Instance.SetTarget(TankView.transform);
-            //CameraController.Instance.SetTarget();
             Debug.Log(TankView);
         }
 

@@ -7,19 +7,35 @@ namespace Outscal.BattleTank
     /// <summary>
     /// creating enemy tank view
     /// </summary>
-    public class EnemyTankView : MonoBehaviour
+    public class EnemyTankView : MonoBehaviour,IDamagable
     {
-        private NavMeshAgent navMeshAgent;
+        public NavMeshAgent navMeshAgent;
         public EnemyTankController enemyTankController;
-        private float maxZ, maxX, minZ, minX;
+        public float maxZ, maxX, minZ, minX;
         public Transform bulletShootPoint;
-        private float patrollTime;
-        private float howClose;
-        private float timer;
-        private float canFire=0f;
+        public float patrollTime;
+        public float howClose;
+        public float timer;
+        public float canFire=0f;
         private BoxCollider ground;
         public MeshRenderer[] childs;
-      
+
+       //[HideInInspector] public Transform playerTransform;
+       //[HideInInspector]public EnemyPatrollingState patrollingState;
+       //[HideInInspector]public EnemyChasingState chasingState;
+       //[HideInInspector]public EnemyAttackingState attackingState;
+       //private EnemyState initialState;
+       //[HideInInspector]public EnemyState activeState;
+       //private EnemyTankState currentState;
+
+        public Transform playerTransform;
+        public EnemyPatrollingState patrollingState;
+        public EnemyChasingState chasingState;
+        public EnemyAttackingState attackingState;
+        private EnemyState initialState;
+        public EnemyState activeState;
+        private EnemyTankState currentState;
+
         private void Awake()
         {
             navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
@@ -27,37 +43,30 @@ namespace Outscal.BattleTank
 
         private void Start()
         {
+            currentState = patrollingState;
+            //InitializeState();
+            SetGroundForEnemyPatrolling();
+            SetPlayerTransform();
+            timer = 0;
+            patrollTime = 5f;
+            howClose = 20f;
+            //Invoke("Patrol", 1f);
+            //ChangeState(patrollingState);
+        }
+
+        private void SetGroundForEnemyPatrolling()
+        {
             ground = GroundBoxCollider.groundBoxCollider;
             maxX = ground.bounds.max.x;
             maxZ = ground.bounds.max.z;
             minX = ground.bounds.min.x;
             minZ = ground.bounds.min.z;
-            timer = 0;
-            patrollTime = 5f;
-            howClose = 20f;
-            Invoke("Patrol", 1f);           
         }
 
-        private void Update()
+        void Update()
         {
-            if (TankService.Instance.PlayerPos() != null)
-            {
-                float distance = Vector3.Distance(TankService.Instance.PlayerPos().position, transform.position);
-                if (distance <= howClose)
-                {
-                    transform.LookAt(TankService.Instance.PlayerPos());
-                    navMeshAgent.SetDestination(TankService.Instance.PlayerPos().position);
-                    ShootBullet();
-                }
-                else
-                {
-                    Patrol();
-                }
-            }
-            else
-            {
-                Patrol();
-            }
+            //InitializeState();
+            enemyTankController.EnemyPatrollingAI();
         }
 
         public void SetEnemyTankController(EnemyTankController _enemyTankController) 
@@ -79,50 +88,63 @@ namespace Outscal.BattleTank
             navMeshAgent.SetDestination(newDestnation);
         }
 
-        public void Patrol()
+        private void SetPlayerTransform()
         {
-            timer += Time.deltaTime;
-            if (timer > patrollTime)
-            {
-                SetPatrollingDestination();
-                timer = 0;
-            }
+            playerTransform = TankService.Instance.PlayerPos();
         }
 
-        private void ShootBullet()
+        public Transform GetTankTransform()
         {
-            if (canFire < Time.time)
+            return this.transform;
+        }
+
+        private void InitializeState()
+        {
+            switch (initialState)
             {
-                canFire = enemyTankController.EnemyTankModel.fireRate + Time.time;
-                enemyTankController.ShootBullet();
+                case EnemyState.Patrolling:
+                    currentState = patrollingState;
+                    break;
+                case EnemyState.Attacking:
+                    currentState = attackingState;
+                    break;
+
+                case EnemyState.Chasing:
+                    currentState = chasingState;
+                    break;
+
+                default:
+                    currentState = null;
+                    break;
             }
+            currentState.OnEnterState();
         }
 
         public void DestroyView()
         {
-            //for (int i = 0; i < childs.Length; i++)
-            //{
-            //    childs[i] = null;
-            //}
-            //enemyTankController = null;
-            //bulletShootPoint = null;
-            //Destroy(this.gameObject);
-
             Debug.Log("Destroy Enemy View called");
             for (int i = 0; i < childs.Length; i++)
             {
                 childs[i] = null;
             }
-            // tankController = null;
             bulletShootPoint = null;
             navMeshAgent = null;
             ground = null;
-          //playerTransform = null;
-          //TankDestroyVFX.transform.parent = null;
-          //TankDestroyVFX.Play();
-          //Destroy(TankDestroyVFX.gameObject, TankDestroyVFX.main.duration + 1f);
-         // TankDestroyVFX = null;
             Destroy(this.gameObject);
+        }
+
+        public void TakeDamage(int damage)
+        {
+            enemyTankController.ApplyDamage(damage);
+        }
+
+        public void ChangeState(EnemyTankState newState)
+        {
+            if (currentState != null)
+                currentState.OnExitState();
+
+            currentState = newState;
+            currentState.OnEnterState();
         }
     }
 }
