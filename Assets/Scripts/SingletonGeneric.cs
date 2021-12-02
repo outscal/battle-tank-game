@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SingletonGeneric<T> : MonoBehaviour where T : SingletonGeneric<T>
 {
-    private static SingletonGeneric<T> instance;
-    public static SingletonGeneric<T> Instance { get { return instance; } }
+    private static T instance;
+    public static T Instance { get { return instance; } }
 
     private void Awake()
     {
