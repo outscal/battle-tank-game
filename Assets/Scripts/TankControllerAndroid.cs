@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankController : MonoSingletonGeneric<TankController>
+public class TankControllerAndroid : MonoSingletonGeneric<TankControllerAndroid>
 {
     [SerializeField]
     private Joystick joystick;
 
     [SerializeField]
-    private Rigidbody rigidbody;
+    private new Rigidbody rigidbody;
 
     private float dirX, dirY, moveSpeed;
 
