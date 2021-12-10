@@ -8,6 +8,8 @@ public class TankScriptableObject : ScriptableObject
     public BulletType BulletType;
     public int Health;
     public int MovementSpeed;
+    public int RotationRate;
+    public int TurretRotationRate;
 }
 
 
