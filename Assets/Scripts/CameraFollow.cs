@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    [SerializeField] private GameObject target;
     [SerializeField] private float DampTime;
+    private GameObject target;
+
+    private void Awake()
+    {
+        target = GameObject.FindGameObjectWithTag("tank");
+    }
 
     private void FixedUpdate()
     {

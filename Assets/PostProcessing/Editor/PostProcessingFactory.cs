@@ -11,12 +11,12 @@ namespace UnityEditor.PostProcessing
         static void MenuCreatePostProcessingProfile()
         {
             var icon = EditorGUIUtility.FindTexture("ScriptableObject Icon");
-            ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, ScriptableObject.CreateInstance<DoCreatePostProcessingProfile>(), "New Post-Processing Profile.asset", icon, null);
+            ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, TankScriptableObjects.CreateInstance<DoCreatePostProcessingProfile>(), "New Post-Processing Profile.asset", icon, null);
         }
 
         internal static PostProcessingProfile CreatePostProcessingProfileAtPath(string path)
         {
-            var profile = ScriptableObject.CreateInstance<PostProcessingProfile>();
+            var profile = TankScriptableObjects.CreateInstance<PostProcessingProfile>();
             profile.name = Path.GetFileName(path);
             AssetDatabase.CreateAsset(profile, path);
             return profile;

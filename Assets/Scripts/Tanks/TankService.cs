@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TankService : SingletonGeneric<TankService>
 {
+    public ScriptableObjectList tankList;
     public TankView tankView;
 
     private void Start()
@@ -18,7 +19,9 @@ public class TankService : SingletonGeneric<TankService>
 
     private TankController CreateNewTank()
     {
-        TankModel tankModel = new TankModel(5, 100f);
+        int random = Random.Range(0, tankList.tank.Length - 1);
+        TankScriptableObjects tankScriptableObjects = tankList.tank[random];
+        TankModel tankModel = new TankModel(tankScriptableObjects);
         TankController tank = new TankController(tankModel, tankView);
         return tank;
     }
