@@ -23,3 +23,13 @@ public class Singleton<T> : MonoBehaviour where T: Singleton<T>
         }
     }
 }
+
+public class PlayerTank : Singleton<PlayerTank>
+{
+
+}
+
+public class EnemyTank : Singleton<EnemyTank>
+{
+
+}
