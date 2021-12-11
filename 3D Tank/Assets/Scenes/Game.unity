@@ -615,6 +615,20 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 323750875}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &939117351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939117350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71a925d18fdf17f4cae185ec8da96434, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tankview: {fileID: 5932607163337756479, guid: c59fd958b8b22b34a94b79f27dc0c08f,
+    type: 3}
 --- !u!114 &939117352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -636,7 +650,7 @@ MonoBehaviour:
   m_MovementAudio: {fileID: 939117353}
   m_EngineIdling: {fileID: 8300000, guid: 4932ab25b84dd7649b80af68a9660ddc, type: 3}
   m_EngineDriving: {fileID: 8300000, guid: d7ca9fb5aa30155449192b23d7fb3336, type: 3}
-  m_PitchRange: 0.2
+  m_PitchRange: 1
 --- !u!82 &939117353
 AudioSource:
   m_ObjectHideFlags: 0
@@ -651,7 +665,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1333,7 +1347,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

@@ -16,6 +16,17 @@ public class TankController : GameController<TankController>
     float horizontalMove;
     float verticalMove;
 
+
+    public TankController(TankModel model,TankView tankprefab)
+    {
+        Model = model;
+
+        tankView = GameObject.Instantiate<TankView>(tankprefab);
+    }
+
+    public TankModel Model { get; }
+    public TankView tankView { get; }
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -53,13 +64,10 @@ public class TankController : GameController<TankController>
 
     private void EngineAudio()
     {
-        // If there is no input (the tank is stationary)...
         if (Mathf.Abs(horizontalMove) < 0.1f && Mathf.Abs(verticalMove) < 0.1f)
         {
-            // ... and if the audio source is currently playing the driving clip...
             if (m_MovementAudio.clip == m_EngineDriving)
             {
-                // ... change the clip to idling and play it.
                 m_MovementAudio.clip = m_EngineIdling;
                 m_MovementAudio.pitch = Random.Range(m_OriginalPitch - m_PitchRange, m_OriginalPitch + m_PitchRange);
                 m_MovementAudio.Play();
@@ -67,10 +75,8 @@ public class TankController : GameController<TankController>
         }
         else
         {
-            // Otherwise if the tank is moving and if the idling clip is currently playing...
             if (m_MovementAudio.clip == m_EngineIdling)
             {
-                // ... change the clip to driving and play.
                 m_MovementAudio.clip = m_EngineDriving;
                 m_MovementAudio.pitch = Random.Range(m_OriginalPitch - m_PitchRange, m_OriginalPitch + m_PitchRange);
                 m_MovementAudio.Play();
