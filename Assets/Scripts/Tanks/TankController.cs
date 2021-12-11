@@ -16,17 +16,4 @@ public class TankController
         tankView.SetTankController(this);
         TankModel.SetTankController(this);
     }
-
-    public void Move(float movement, float movementSpeed)
-    {
-        Vector3 move = tankView.transform.forward * movement * movementSpeed * Time.deltaTime;
-        rb.MovePosition(rb.position + move);
-    }
-
-    public void Rotate(float rotation, float rotateSpeed)
-    {
-        float rotate = rotation * rotateSpeed * Time.deltaTime;
-        Quaternion turn = Quaternion.Euler(0f, rotate, 0f);
-        rb.MoveRotation(rb.rotation * turn);
-    }
 }
