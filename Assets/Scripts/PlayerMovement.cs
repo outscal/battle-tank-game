@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 0.10f;
     private float horizontalMove = 0.0f;
     public Joystick joystick;
+    private Transform position;
 
     // Start is called before the first frame update
     void Start()
