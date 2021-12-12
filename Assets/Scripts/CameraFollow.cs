@@ -4,16 +4,44 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    [SerializeField] private float DampTime;
-    private GameObject target;
+    public Camera cam;
+    [SerializeField] private float smoothSpeed = 0.005f;
+    private Transform target;
+    [SerializeField]  private Vector3 offset;
+    private Vector3 desiredposition;
+    private Vector3 smoothPosition;
+    private Transform playerLastPos;
+    public static CameraFollow instance;
 
-    private void Awake()
+    void Awake()
     {
-        target = GameObject.FindGameObjectWithTag("tank");
+        instance = this;
     }
 
-    private void FixedUpdate()
+    public void SetTarget(Transform target)
     {
-        transform.position = Vector3.Slerp(transform.position, target.transform.position, DampTime);
+        if (target != null)
+        {
+            this.target = target;
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (target != null)
+        {
+            offset = new Vector3(-300f, 300f, -300f);
+            desiredposition = target.position + offset;
+            playerLastPos = target;
+        }
+        else
+        {
+            cam.orthographicSize = 25f;
+            target = playerLastPos;
+        }
+
+        smoothPosition = Vector3.Lerp(this.transform.position, desiredposition, smoothSpeed);
+        transform.position = smoothPosition;
+        transform.LookAt(target);
     }
 }

@@ -7,14 +7,16 @@ public class TankService : SingletonGeneric<TankService>
     public ScriptableObjectList tankList;
     public TankView tankView;
 
+    public BulletService BulletService { get; private set; }
+
     private void Start()
     {
-        StartGame();
+        CreateNewTank();
     }
 
-    private void StartGame()
+    public void GetBulletService()
     {
-        CreateNewTank();
+        BulletService = BulletService.GetComponent<BulletService>();
     }
 
     private TankController CreateNewTank()

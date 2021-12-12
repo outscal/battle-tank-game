@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TankType
+public enum BulletType 
 {
-    Node,
-    RedTank,
-    BlueTank,
-    GreenTank
+    None,
+    Red,
+    Blue,
+    Green
 }
-

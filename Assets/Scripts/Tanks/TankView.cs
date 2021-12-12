@@ -1,21 +1,42 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class TankView : MonoBehaviour
 {
     private TankController tankController;
     private float movement, rotation;
     private Rigidbody rb;
+    public Transform bulletShootPoint;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
 
+    public void SetTankController(TankController tankControl)
+    {
+        tankController = tankControl;
+    }
+
     private void Update()
     {
         Move();
+        ShootBullet();
+    }
+
+    private void FixedUpdate()
+    {
+        //tankController.Move(movement, tankController.TankModel.MovSpeed);
+        //tankController.Rotate(rotation, tankController.TankModel.RotSpeed);
+
+        Vector3 move = transform.forward * movement * tankController.tankModel.MovSpeed * Time.deltaTime;
+        rb.MovePosition(rb.position + move);
+
+        float rotate = rotation * tankController.tankModel.RotSpeed * Time.deltaTime;
+        Quaternion turn = Quaternion.Euler(0f, rotate, 0f);
+        rb.MoveRotation(rb.rotation * turn);
     }
 
     private void Move()
@@ -24,21 +45,16 @@ public class TankView : MonoBehaviour
         rotation = Input.GetAxis("Horizontal");
     }
 
-    private void FixedUpdate()
+    private void ShootBullet()
     {
-        Vector3 move = transform.forward * movement * tankController.TankModel.MovSpeed * Time.deltaTime;
-        rb.MovePosition(rb.position + move);
-
-        float rotate = rotation * tankController.TankModel.RotSpeed * Time.deltaTime;
-        Quaternion turn = Quaternion.Euler(0f, rotate, 0f);
-        rb.MoveRotation(rb.rotation * turn);
-
-        //tankController.Move(movement, tankController.TankModel.MovSpeed);
-        //tankController.Rotate(rotation, tankController.TankModel.RotSpeed);
+        if(Input.GetButtonDown("Fire1"))
+        {
+            Shoot();
+        }
     }
 
-    public void SetTankController(TankController tankControl)
+    public void Shoot()
     {
-        tankController = tankControl;
+        BulletService.Instance.CreateBullet(bulletShootPoint.position, transform.rotation, tankController.tankModel.BulletType);
     }
 }

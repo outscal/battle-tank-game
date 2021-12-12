@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "TankScriptableObjects", menuName = "ScriptableObject/NewTank")]
+[CreateAssetMenu(fileName = "TankScriptableObjects", menuName = "ScriptableObject/Tank/NewTank")]
 public class TankScriptableObjects : ScriptableObject
 {
     public TankType tankType;
@@ -11,4 +11,5 @@ public class TankScriptableObjects : ScriptableObject
     public float movSpeed;
     public float rotSpeed;
     public float health;
+    public BulletScriptableObject bulletType;
 }
