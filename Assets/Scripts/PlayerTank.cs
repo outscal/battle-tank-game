@@ -12,7 +12,6 @@ public class PlayerTank : SingletonGeneric<PlayerTank>
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        joystick = GameObject.FindGameObjectWithTag("joystick").GetComponent<FixedJoystick>();
     }
 
     private void FixedUpdate()
