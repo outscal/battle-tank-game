@@ -15,6 +15,7 @@ public class PlayerTankController
         TankModel = tankModel;
         TankView = GameObject.Instantiate<PlayerTankView>(tankPrefab);
         tankRigidbody = TankView.GetComponent<Rigidbody>();
+        TankView.SetTankControllerReference(this);
     }
 
     public void SetJoystickReference(Joystick rightRef, Joystick leftRef)
@@ -43,7 +44,7 @@ public class PlayerTankController
             }
         }
 
-        if(true)
+        if(TankView.Turret)
         {
             if(rightJoystick.Horizontal != 0)
             {
@@ -72,6 +73,23 @@ public class PlayerTankController
         Vector3 desiredRotation = Vector3.up * rightJoystick.Horizontal * TankModel.TurretRotationRate * Time.deltaTime;
 
         TankView.Turret.transform.Rotate(desiredRotation, Space.Self);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if(TankModel.Health - damage <= 0)
+        {
+            Death();
+        }
+        else
+        {
+            TankModel.Health -= damage;
+        }
+    }
+
+    private void Death()
+    {
+        TankView.Death();
     }
 
 }

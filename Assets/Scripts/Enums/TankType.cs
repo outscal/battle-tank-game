@@ -1,15 +1,13 @@
 ﻿
 public enum TankType
 {
-    None,
-    Red,
+    Blue,
     Green,
-    Blue
+    Red 
 }
 
 public enum TankControllerType
 {
-    None,
     Player,
     Enemy
 }

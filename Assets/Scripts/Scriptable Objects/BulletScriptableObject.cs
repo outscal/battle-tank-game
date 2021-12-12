@@ -4,6 +4,7 @@
 public class BulletScriptableObject : ScriptableObject
 {
     public BulletType BulletType;
+    public int Speed;
     public int Damage;
 }
 
@@ -11,5 +12,5 @@ public class BulletScriptableObject : ScriptableObject
 [CreateAssetMenu(fileName = "BulletScriptableObject", menuName = "ScriptableObjects/NewBulletListScriptableObject")]
 public class BulletScriptableObjectList : ScriptableObject
 {
-    public BulletScriptableObject[] BulletList;
+    public BulletScriptableObject[] BulletTypeList;
 }

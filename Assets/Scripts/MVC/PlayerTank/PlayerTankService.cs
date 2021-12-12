@@ -6,33 +6,54 @@ public class PlayerTankService : MonoSingletonGeneric<PlayerTankService>
 {
     public PlayerTankView TankView;
     public TankScriptableObjectList PlayerTankList;
-    public BulletScriptableObjectList BulletList;
     public Joystick RightJoystick;
     public Joystick LeftJoystick;
     public Camera Camera;
 
     private PlayerTankController tankController;
+    private TankType playerTankType;
 
     private void Start()
     {
-        tankController = CreatePlayerTank();
-        tankController.SetJoystickReference(RightJoystick, LeftJoystick);
-        tankController.SetCameraReference(Camera);
+        playerTankType = TankType.Green;
+        
+        tankController = CreatePlayerTank(playerTankType);
+
+        SetPlayerTankControlReferences();
     }
 
     private void FixedUpdate()
     {
-        tankController.FixedUpdateTankController();
+        if(tankController != null)
+        {
+            tankController.FixedUpdateTankController();
+        }
     }
 
-    private PlayerTankController CreatePlayerTank()
+    private PlayerTankController CreatePlayerTank(TankType tanktype)
     {
-        PlayerTankModel model = new PlayerTankModel(100, 10, 10, 80, 40);
-        PlayerTankController tank = new PlayerTankController(model, TankView);
+        foreach (TankScriptableObject tank in PlayerTankList.tanks)
+        {
+            if (tank.TankType == playerTankType)
+            {
+                PlayerTankModel tankModel = new PlayerTankModel(PlayerTankList.tanks[(int)tanktype].Health,
+                                                                PlayerTankList.tanks[(int)tanktype].MovementSpeed,
+                                                                PlayerTankList.tanks[(int)tanktype].RotationRate,
+                                                                PlayerTankList.tanks[(int)tanktype].TurretRotationRate);
 
-        // Passing reference of controller to TankView.
-        tank.TankView.SetTankControllerReference(tank); 
+                PlayerTankController tankController = new PlayerTankController(tankModel, TankView);
+                return tankController;
+            }
+        }
+        return null;   
+    }
 
-        return tank;
+    private void SetPlayerTankControlReferences()
+    {
+        if(tankController != null)
+        {
+            tankController.SetJoystickReference(RightJoystick, LeftJoystick);
+            tankController.SetCameraReference(Camera);
+        }
     }
 }
