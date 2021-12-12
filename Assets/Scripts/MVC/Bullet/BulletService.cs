@@ -1,7 +1,22 @@
 ﻿using UnityEngine;
 
-public class BulletService : MonoSingletonGeneric<BulletService>
+public class BulletService 
 {
+    private static BulletService instance;
+    private BulletService() { }
+
+    public static BulletService Instance
+    {
+        get
+        {
+            if(instance == null)
+            {
+                instance = new BulletService();
+            }
+            return instance;
+        }
+    }
+
     public BulletView BulletView;
     public BulletScriptableObjectList BulletList;
 

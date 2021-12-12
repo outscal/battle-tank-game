@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(AudioSource))]
-[RequireComponent(typeof(ParticleSystem))]
 public class BulletView : MonoBehaviour
 {
     private BulletController bulletController;
+
+    public ParticleSystem ExplosionParticles;
+    public AudioSource ExplosionSound;
+
+    public LayerMask LayerMask;
 
     public void SetBulletController(BulletController controller)
     {
@@ -30,5 +33,15 @@ public class BulletView : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         bulletController.OnCollisionEnter(other);
+    }
+
+    public void DestroyBullet()
+    {
+        Destroy(gameObject);
+    }
+
+    public void DestroyParticleSystem(ParticleSystem particles)
+    {
+        Destroy(particles.gameObject, particles.main.duration);
     }
 }

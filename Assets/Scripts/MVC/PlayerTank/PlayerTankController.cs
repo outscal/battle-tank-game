@@ -76,19 +76,32 @@ public class PlayerTankController
     }
 
     public void TakeDamage(int damage)
-    {
-        if(TankModel.Health - damage <= 0)
+    {      
+        TankModel.Health -= damage;
+        SetHealthUI();
+
+        if (TankModel.Health - damage <= 0 && !TankModel.b_IsDead)
         {
             Death();
         }
-        else
-        {
-            TankModel.Health -= damage;
-        }
+    }
+
+    public void SetHealthUI()
+    {
+        TankView.HealthSlider.value = TankModel.Health;
+
+        TankView.FillImage.color = Color.Lerp(TankModel.ZeroHealthColor, TankModel.FullHealthColor, TankModel.Health / TankModel.MaxHealth);
     }
 
     private void Death()
     {
+        TankModel.b_IsDead = true;
+
+        TankView.explosionParticles.transform.position = TankView.transform.position;
+        TankView.explosionParticles.gameObject.SetActive(true);
+        TankView.explosionParticles.Play();
+        TankView.explosionSound.Play();
+
         TankView.Death();
     }
 

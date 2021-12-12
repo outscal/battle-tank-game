@@ -1,4 +1,6 @@
 ﻿
+using UnityEngine;
+
 public class BulletModel
 {
     public int BulletDamage { get; }
