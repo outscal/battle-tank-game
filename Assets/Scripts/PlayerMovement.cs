@@ -1,28 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Singleton<PlayerMovement>
 {
-    public CharacterController Controller;
+    [SerializeField] private float speed;
+    [SerializeField] private FixedJoystick fixedjoyStick;
 
-    public float speed = 0.10f;
-    private float horizontalMove = 0.0f;
-    public Joystick joystick;
-
-    // Start is called before the first frame update
-    void Start()
+    void nextPsoition()
     {
+        
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-
-        horizontalMove = Mathf.Clamp(joystick.Horizontal, -1,1)  * speed;
-       // Debug.Log(joystick.Horizontal);
-        Debug.Log("Values is" + horizontalMove);
-        gameObject.transform.position = new Vector3(horizontalMove * speed, 0, 0);
+        float horizontalInput = fixedjoyStick.Horizontal;
+        float verticalInput = fixedjoyStick.Vertical;
+        transform.position = transform.position + new Vector3(horizontalInput * speed * Time.deltaTime, 0,
+            verticalInput * speed * Time.deltaTime);
     }
 }

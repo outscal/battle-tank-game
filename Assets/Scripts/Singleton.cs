@@ -26,6 +26,16 @@ public class Singleton<T> : MonoBehaviour where T: Singleton<T>
 
 public class PlayerTank : Singleton<PlayerTank>
 {
+    [SerializeField] private float speed;
+    [SerializeField] FixedJoystick joystick;
+
+    PlayerTank(PlayerTank p, FixedJoystick js)
+    {
+        //Speed = speed;
+        js = joystick;
+       // p = gameObject.AddComponent<mode>()
+        js = gameObject.AddComponent<FixedJoystick>();
+    }
 
 }
 
