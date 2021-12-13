@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TankType
+namespace TankServices
 {
-    Node,
-    RedTank,
-    BlueTank,
-    GreenTank
+    public enum TankType
+    {
+        Node,
+        RedTank,
+        BlueTank,
+        GreenTank
+    }
 }
 

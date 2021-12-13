@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BulletType 
+namespace BulletServices
 {
-    None,
-    Red,
-    Blue,
-    Green
+    public enum BulletType
+    {
+        None,
+        Red,
+        Blue,
+        Green
+    }
 }

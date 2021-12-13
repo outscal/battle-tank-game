@@ -1,15 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TankServices;
+using BulletSO;
 
-
-[CreateAssetMenu(fileName = "TankScriptableObjects", menuName = "ScriptableObject/Tank/NewTank")]
-public class TankScriptableObjects : ScriptableObject
+namespace TankSO
 {
-    public TankType tankType;
-    public string tankName;
-    public float movSpeed;
-    public float rotSpeed;
-    public float health;
-    public BulletScriptableObject bulletType;
+    [CreateAssetMenu(fileName = "TankScriptableObjects", menuName = "ScriptableObject/Tank/NewTank")]
+    public class TankScriptableObjects : ScriptableObject
+    {
+        public TankType tankType;
+        public string tankName;
+        public float movSpeed;
+        public float rotSpeed;
+        public float health;
+        public BulletScriptableObject bulletType;
+    }
 }

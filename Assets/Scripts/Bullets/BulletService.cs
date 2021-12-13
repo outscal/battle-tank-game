@@ -1,17 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TankServices;
+using BulletSO;
 
-public class BulletService : SingletonGeneric<BulletService>
+namespace BulletServices
 {
-    public BulletScriptableObjectList bulletList;
-    public BulletView bulletView;
-    public TankService tankService { get; private set; }
-
-    public void CreateBullet(Vector3 position, Quaternion rotation, BulletScriptableObject bulletType)
+    public class BulletService : SingletonGeneric<BulletService>
     {
-        BulletScriptableObject type = bulletType;
-        BulletModel bulletModel = new BulletModel(type);
-        BulletController bulletController = new BulletController(bulletModel, bulletView, position, rotation);
+        public BulletScriptableObjectList bulletList;
+        public BulletView bulletView;
+        public TankService tankService { get; private set; }
+
+        public void CreateBullet(Vector3 position, Quaternion rotation, BulletScriptableObject bulletType)
+        {
+            BulletScriptableObject type = bulletType;
+            BulletModel bulletModel = new BulletModel(type);
+            BulletController bulletController = new BulletController(bulletModel, bulletView, position, rotation);
+        }
     }
 }

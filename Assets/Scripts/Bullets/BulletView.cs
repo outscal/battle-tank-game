@@ -3,36 +3,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletView : MonoBehaviour
+namespace BulletServices
 {
-    public BulletController bulletController { get; private set; }
-    public Rigidbody rb;
-
-    private void Awake()
+    public class BulletView : MonoBehaviour
     {
-        rb = GetComponent<Rigidbody>();
-    }
+        public BulletController bulletController { get; private set; }
+        public Rigidbody rb;
 
-    public void SetBulletController(BulletController _bulletController)
-    {
-        bulletController = _bulletController;
-    }
+        private void Awake()
+        {
+            rb = GetComponent<Rigidbody>();
+        }
 
-    private void FixedUpdate()
-    {
-       BulletMove();
-    }
+        public void SetBulletController(BulletController _bulletController)
+        {
+            bulletController = _bulletController;
+        }
 
-    public void BulletMove()
-    {
-        Vector3 move = transform.position;
-        move += transform.forward * bulletController.bulletModel.Speed * Time.fixedDeltaTime;
-        rb.MovePosition(move);
-        DestroyBullet();
-    }
+        private void FixedUpdate()
+        {
+            BulletMove();
+        }
 
-    public void DestroyBullet()
-    {
-        Destroy(gameObject, 2f);
+        public void BulletMove()
+        {
+            Vector3 move = transform.position;
+            move += transform.forward * bulletController.bulletModel.Speed * Time.fixedDeltaTime;
+            rb.MovePosition(move);
+            DestroyBullet();
+        }
+
+        public void DestroyBullet()
+        {
+            Destroy(gameObject, 2f);
+        }
     }
 }
