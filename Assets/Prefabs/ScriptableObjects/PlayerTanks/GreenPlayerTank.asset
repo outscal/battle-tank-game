@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bea17899b222fd742ba10757169a49f6, type: 3}
   m_Name: GreenPlayerTank
   m_EditorClassIdentifier: 
-  TankType: 2
-  TankControllerType: 1
-  BulletType: 1
-  Health: 100
-  MovementSpeed: 10
-  RotationRate: 60
-  TurretRotationRate: 40
+  tankType: 1
+  tankView: {fileID: 5065401824681911573, guid: b0d746113f2ecce47a5864fa6afb37b4,
+    type: 3}
+  health: 100
+  movementSpeed: 10
+  rotationSpeed: 60
+  turretRotationRate: 40
+  bulletType: 1
+  minLaunchForce: 15
+  maxLaunchForce: 30
+  maxChargeTime: 0.75

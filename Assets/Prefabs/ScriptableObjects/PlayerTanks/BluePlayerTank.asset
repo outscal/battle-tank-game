@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bea17899b222fd742ba10757169a49f6, type: 3}
   m_Name: BluePlayerTank
   m_EditorClassIdentifier: 
-  TankType: 3
-  TankControllerType: 1
-  BulletType: 0
-  Health: 150
-  MovementSpeed: 10
-  RotationRate: 60
-  TurretRotationRate: 40
+  tankType: 0
+  tankView: {fileID: 5065401824681911573, guid: f72af36b8c45bb34e87a56da293e8f33,
+    type: 3}
+  health: 100
+  movementSpeed: 10
+  rotationSpeed: 60
+  turretRotationRate: 40
+  bulletType: 0
+  minLaunchForce: 15
+  maxLaunchForce: 30
+  maxChargeTime: 0.75
