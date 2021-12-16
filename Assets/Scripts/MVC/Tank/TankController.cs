@@ -9,10 +9,9 @@ public class TankController
     public TankController(TankModel tankModel, TankView tankPrefab)
     {
         TankModel = tankModel;
-        TankView = GameObject.Instantiate<TankView>(tankPrefab);
+        //TankView = GameObject.Instantiate<TankView>(tankPrefab);
+        TankView = Object.Instantiate(tankPrefab);
         Debug.Log("Tank View created");
-        PlayerMovement p = new PlayerMovement();
-        p.nextPsoition();
     }
 
     void Update()

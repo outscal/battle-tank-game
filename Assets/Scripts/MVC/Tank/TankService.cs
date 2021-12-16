@@ -1,16 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.ScriptableObjects;
 using UnityEngine;
 
 public class TankService : MonoBehaviour
 {
-    [SerializeField] private GameObject obj;
     public TankView tankView;
-    [SerializeField] private FixedJoystick fixedjoyStick;
+
+    public TankScriptableObject[] tankConfigurations;
+
+    //[SerializeField] private FixedJoystick fixedjoyStick;
     private void Start()
-    {
-        TankModel model = new TankModel(TankType.None, 5, 100f);
+    { 
+        TankScriptableObject tankScriptableObject = tankConfigurations[3];
+        //TankModel model = new TankModel(TankType.None, 5, 100f);
+        TankModel model = new TankModel(tankScriptableObject);
         TankController tank = new TankController(model, tankView);
-        PlayerMovement movement = new PlayerMovement(obj, fixedjoyStick);
+        //PlayerMovement v = Object.Instantiate(PlayerMovement(fixedjoyStick));
     }
 }
