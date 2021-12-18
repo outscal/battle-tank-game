@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
+﻿using UnityEngine;
 using BulletServices;
+using UnityEngine.Rendering.PostProcessing;
 
 namespace TankServices
 {
@@ -11,6 +9,7 @@ namespace TankServices
         private TankController tankController;
         private float movement, rotation;
         private Rigidbody rb;
+        public float canFire;
         public Transform bulletShootPoint;
 
         private void Awake()
@@ -40,6 +39,7 @@ namespace TankServices
             float rotate = rotation * tankController.tankModel.RotSpeed * Time.deltaTime;
             Quaternion turn = Quaternion.Euler(0f, rotate, 0f);
             rb.MoveRotation(rb.rotation * turn);
+            TankService.Instance.getPlayerPos(transform);
         }
 
         private void Move()
@@ -52,13 +52,24 @@ namespace TankServices
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                Shoot();
+                if (canFire < Time.time)
+                {
+                    canFire = tankController.tankModel.FireRate + Time.time;
+                    Shoot();
+                }
             }
         }
 
         public void Shoot()
         {
             BulletService.Instance.CreateBullet(bulletShootPoint.position, transform.rotation, tankController.tankModel.BulletType);
+        }
+
+        public void destroyView()
+        {
+            tankController = null;
+            bulletShootPoint = null;
+            Destroy(this.gameObject);
         }
     }
 }

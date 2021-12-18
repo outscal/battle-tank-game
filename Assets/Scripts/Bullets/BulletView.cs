@@ -1,6 +1,8 @@
-﻿using System;
+﻿using EnemyServices;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TankServices;
 using UnityEngine;
 
 namespace BulletServices
@@ -30,12 +32,26 @@ namespace BulletServices
             Vector3 move = transform.position;
             move += transform.forward * bulletController.bulletModel.Speed * Time.fixedDeltaTime;
             rb.MovePosition(move);
-            DestroyBullet();
+            Destroy(gameObject, 2f);
+        }
+
+        private void OnCollisionEnter(Collision other)
+        {
+            if(bulletController.bulletModel.bulletType == BulletType.Enemy && other.gameObject.GetComponent<TankView>() != null)
+            {
+                TankService.Instance.getTankController().applyDamage(bulletController.bulletModel.Damage);
+                DestroyBullet();
+            }
+            else if(bulletController.bulletModel.bulletType != BulletType.Enemy && other.gameObject.GetComponent<EnemyView>() != null)
+            {
+                other.gameObject.GetComponent<EnemyView>().enemyController.applyDamage(bulletController.bulletModel.Damage);
+                DestroyBullet();
+            }
         }
 
         public void DestroyBullet()
         {
-            Destroy(gameObject, 2f);
+            Destroy(gameObject);
         }
     }
 }

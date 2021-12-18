@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using BulletSO;
+﻿using BulletSO;
 using TankSO;
 
 namespace TankServices
@@ -11,6 +8,7 @@ namespace TankServices
         private TankController tankController;
         public TankType TankType { get; private set; }
         public BulletScriptableObject BulletType { get; private set; }
+        public float FireRate { get; private set; }
         public float MovSpeed { get; private set; }
         public float RotSpeed { get; private set; }
         public float Health { get; set; }
@@ -22,6 +20,7 @@ namespace TankServices
             RotSpeed = tankScriptableObjects.rotSpeed;
             Health = tankScriptableObjects.health;
             BulletType = tankScriptableObjects.bulletType;
+            FireRate = tankScriptableObjects.fireRate;
         }
 
         public TankModel(float movementSpeed, float rotationSpeed, float health)
@@ -34,6 +33,12 @@ namespace TankServices
         public void SetTankController(TankController tankControl)
         {
             tankController = tankControl;
+        }
+
+        public void destroyModel()
+        {
+            BulletType = null;
+            tankController = null;
         }
     }
 }

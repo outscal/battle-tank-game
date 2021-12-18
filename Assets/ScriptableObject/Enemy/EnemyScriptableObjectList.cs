@@ -5,7 +5,7 @@ using UnityEngine;
 namespace EnemySO
 {
     [CreateAssetMenu(fileName = "EnemyScriptableObjectList", menuName = "ScriptableObject/Enemy/CreateEnemyList")]
-    public class EnemyScriptanleObjectList : ScriptableObject
+    public class EnemyScriptableObjectList : ScriptableObject
     {
         public EnemyScriptableObject[] enemies;
     }

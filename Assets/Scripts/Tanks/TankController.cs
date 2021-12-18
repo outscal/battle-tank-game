@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace TankServices
 {
@@ -19,6 +16,23 @@ namespace TankServices
             rb = tankView.GetComponent<Rigidbody>();
             tankView.SetTankController(this);
             tankModel.SetTankController(this);
+        }
+
+        public void applyDamage(float damage)
+        {
+            tankModel.Health -= damage;
+            if(tankModel.Health <= 0)
+            {
+                TankService.Instance.destroyTank(this);
+            }
+        }
+
+        public void destroyController()
+        {
+            tankModel.destroyModel();
+            tankView.destroyView();
+            tankModel = null;
+            tankView = null;
         }
 
         //public void Move(float moveAxis, float movSpeed)

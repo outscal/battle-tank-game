@@ -9,6 +9,7 @@ namespace BulletServices
         None,
         Red,
         Blue,
-        Green
+        Green,
+        Enemy
     }
 }

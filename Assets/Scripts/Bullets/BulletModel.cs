@@ -9,7 +9,7 @@ namespace BulletServices
     {
         public float Speed { get; private set; }
         public float Damage { get; private set; }
-        private BulletType bulletType;
+        public BulletType bulletType;
         private BulletController bulletController;
 
         public BulletModel(BulletScriptableObject bulletScriptableObject)
