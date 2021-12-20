@@ -244,18 +244,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
---- !u!114 &232508766 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2929252283123773951, guid: aaa2c939c0359ac4dbce3f49e8b90252,
-    type: 3}
-  m_PrefabInstance: {fileID: 232508765}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45977bbae16431c46a013576a1aea384, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &270789381
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,7 +381,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4b2e135cb57911f42bdb900f367f1ab2, type: 2}
   - {fileID: 11400000, guid: 6690a8c221c6e734dab7345782c0e132, type: 2}
   - {fileID: 11400000, guid: c1496b3ac96080149b1a016a0ec78638, type: 2}
-  fixedjoyStick: {fileID: 232508766}
 --- !u!4 &319882812
 Transform:
   m_ObjectHideFlags: 0
@@ -407,6 +394,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &539798606
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 539798608}
+  - component: {fileID: 539798607}
+  m_Layer: 0
+  m_Name: EnemyTank
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &539798607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 539798606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6948dd5722e2c47bbe811563236977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyView: {fileID: 4086399293796796302, guid: 1a0ba4f29204eb64d8c62c69fdf49aff,
+    type: 3}
+  enemyConfigurations:
+  - {fileID: 11400000, guid: 9c604a241d710f7458e713977c256ec9, type: 2}
+  - {fileID: 11400000, guid: 114e1a3c1bba86a47b13a02aa06c46aa, type: 2}
+  - {fileID: 11400000, guid: 51dccac768b07ca45ae88ba9c12e4add, type: 2}
+--- !u!4 &539798608
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 539798606}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 41.681133, y: -13.349136, z: 34.0249}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1158996493
 PrefabInstance:

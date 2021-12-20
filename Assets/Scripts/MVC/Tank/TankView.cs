@@ -8,10 +8,8 @@ public class TankView : MonoBehaviour
     [SerializeField] private FixedJoystick js;
     private void Start()
     {
-       // PlayerMovement p = new PlayerMovement(js);
         Debug.Log("Tank View Created");
         gameObject.AddComponent<PlayerMovement>();
-        //PlayerMovement lpop = new PlayerMovement(js);
 
     }
 

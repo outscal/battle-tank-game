@@ -6,18 +6,7 @@ public class PlayerMovement : Singleton<PlayerMovement>
     [SerializeField] private FixedJoystick fixedjoyStick;
     //public FixedJoystick fixedjoyStick;
 
-    public PlayerMovement()
-    {
-        //fixedJoyStick = gameObject.AddComponent(fixedjoyStick);
-    }
-
-    ////public PlayerMovement(FixedJoystick fs)
-    //{
-    //    Debug.Log("Player Movement Accessed");
-    //    this.fixedjoyStick = fs;
-    //}
-
-public void nextPsoition()
+    public void nextPsoition()
     {
         float horizontalInput = fixedjoyStick.Horizontal;
         float verticalInput = fixedjoyStick.Vertical;
