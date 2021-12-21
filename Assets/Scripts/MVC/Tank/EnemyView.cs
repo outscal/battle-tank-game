@@ -1,5 +1,6 @@
 ﻿ using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Assets.Scripts.MVC.Tank
 {
@@ -9,7 +10,7 @@ namespace Assets.Scripts.MVC.Tank
         // Use this for initialization
         void Start()
         {
-
+           // gameObject.AddComponent<NavMeshAgent>();
         }
 
         // Update is called once per frame

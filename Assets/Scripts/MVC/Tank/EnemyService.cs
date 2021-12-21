@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.MVC.Tank
@@ -10,6 +11,7 @@ namespace Assets.Scripts.MVC.Tank
         public EnemyView EnemyView;
         public EnemyScriptableObject[] enemyConfigurations;
         private String x;
+        private EnemyController enemy;
 
         // Use this for initialization
         void Start()
@@ -17,7 +19,7 @@ namespace Assets.Scripts.MVC.Tank
             EnemyScriptableObject enemyScriptableObject = enemyConfigurations[Random.Range(0, 2)];
             EnemyModel model = new EnemyModel(enemyScriptableObject);
 
-            EnemyController enemy = new EnemyController(model, EnemyView);
+            enemy = new EnemyController(model, EnemyView);
             x = model.TankName;
             
         }
@@ -25,8 +27,9 @@ namespace Assets.Scripts.MVC.Tank
         // Update is called once per frame
         void Update()
         {
-
+            enemy.nextPosition();
             Debug.Log(x);
+
         }
 
     }
