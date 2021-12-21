@@ -10,6 +10,7 @@ namespace Assets.Scripts.MVC.Tank
     {
         public EnemyView EnemyView;
         public EnemyScriptableObject[] enemyConfigurations;
+        public BulletScriptableObject[] bulletConfigurations;
         private String x;
         private EnemyController enemy;
 
@@ -17,7 +18,8 @@ namespace Assets.Scripts.MVC.Tank
         void Start()
         {
             EnemyScriptableObject enemyScriptableObject = enemyConfigurations[Random.Range(0, 2)];
-            EnemyModel model = new EnemyModel(enemyScriptableObject);
+            BulletScriptableObject bulletScriptableObject = bulletConfigurations[Random.Range(0, 2)];
+            EnemyModel model = new EnemyModel(enemyScriptableObject, bulletScriptableObject);
 
             enemy = new EnemyController(model, EnemyView);
             x = model.TankName;
