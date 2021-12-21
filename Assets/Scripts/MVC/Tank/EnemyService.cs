@@ -16,8 +16,10 @@ namespace Assets.Scripts.MVC.Tank
         {
             EnemyScriptableObject enemyScriptableObject = enemyConfigurations[Random.Range(0, 2)];
             EnemyModel model = new EnemyModel(enemyScriptableObject);
+
             EnemyController enemy = new EnemyController(model, EnemyView);
             x = model.TankName;
+            
         }
 
         // Update is called once per frame
@@ -26,5 +28,6 @@ namespace Assets.Scripts.MVC.Tank
 
             Debug.Log(x);
         }
+
     }
-}
+} 

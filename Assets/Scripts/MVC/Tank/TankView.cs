@@ -10,6 +10,7 @@ public class TankView : MonoBehaviour
     {
         Debug.Log("Tank View Created");
         gameObject.AddComponent<PlayerMovement>();
+        
 
     }
 
