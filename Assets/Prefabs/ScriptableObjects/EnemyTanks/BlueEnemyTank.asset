@@ -9,11 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bea17899b222fd742ba10757169a49f6, type: 3}
+  m_Script: {fileID: 11500000, guid: b58d94bef00d51e4d9e093279937eaf3, type: 3}
   m_Name: BlueEnemyTank
   m_EditorClassIdentifier: 
-  TankType: 3
-  TankControllerType: 2
-  BulletType: 0
-  Health: 100
-  MovementSpeed: 10
+  enemyType: 0
+  enemyView: {fileID: 9151279110640116361, guid: 83308ff23144b8e4ea25cf845152ff03,
+    type: 3}
+  health: 75
+  movementSpeed: 10
+  rotationSpeed: 60
+  turretRotationRate: 40
+  walkPointRange: 50
+  patrollingRange: 25
+  patrolTime: 5
+  fireRate: 2
+  attackRange: 8
+  minLaunchForce: 10
+  maxLaunchForce: 20
+  bulletType: 0
