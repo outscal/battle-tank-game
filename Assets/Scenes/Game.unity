@@ -379,7 +379,7 @@ AudioSource:
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
-  Mute: 0
+  Mute: 1
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
@@ -820,11 +820,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 496482, guid: f7167ad2844254441b40b8a300b4f1fe, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.07
+      value: -0.06
       objectReference: {fileID: 0}
     - target: {fileID: 496482, guid: f7167ad2844254441b40b8a300b4f1fe, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.09
+      value: -1.26
       objectReference: {fileID: 0}
     - target: {fileID: 496482, guid: f7167ad2844254441b40b8a300b4f1fe, type: 3}
       propertyPath: m_LocalRotation.w
@@ -897,6 +897,16 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0.10964073
       objectReference: {fileID: 0}
+    - target: {fileID: 5915313727131502916, guid: 6a7b70d4d21ab6542a7cf910da920b34,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 5915313727131502916, guid: 6a7b70d4d21ab6542a7cf910da920b34,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.63
+      objectReference: {fileID: 0}
     - target: {fileID: 5915313727131502920, guid: 6a7b70d4d21ab6542a7cf910da920b34,
         type: 3}
       propertyPath: m_RootOrder
@@ -910,12 +920,12 @@ PrefabInstance:
     - target: {fileID: 5915313727131502920, guid: 6a7b70d4d21ab6542a7cf910da920b34,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.79
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5915313727131502920, guid: 6a7b70d4d21ab6542a7cf910da920b34,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.72
+      value: -0.6
       objectReference: {fileID: 0}
     - target: {fileID: 5915313727131502920, guid: 6a7b70d4d21ab6542a7cf910da920b34,
         type: 3}
@@ -974,19 +984,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5915313729065841145}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd7eafa88c491064ca1062cd86c69189, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c4dd8398621dcc47b4e9d6c13e62a0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerNumber: 1
-  m_Speed: 12
-  m_TurnSpeed: 180
-  m_MovementAudio: {fileID: 5915313729065841148}
-  m_EngineIdling: {fileID: 8300000, guid: 4932ab25b84dd7649b80af68a9660ddc, type: 3}
-  m_EngineDriving: {fileID: 8300000, guid: d7ca9fb5aa30155449192b23d7fb3336, type: 3}
-  m_PitchRange: 0.2
---- !u!82 &5915313729065841148 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 1935254083, guid: 6a7b70d4d21ab6542a7cf910da920b34,
+  tankView: {fileID: 7774519302412079898, guid: 83998c3d7f0d86241a03efe1410572a1,
     type: 3}
-  m_PrefabInstance: {fileID: 5915313729065841144}
-  m_PrefabAsset: {fileID: 0}
+  tankConfigration:
+  - {fileID: 11400000, guid: 6e1bf9443e6fb6e478c5e76783492a04, type: 2}
+  - {fileID: 11400000, guid: 0eae108714386df48a644eb35eff174a, type: 2}
+  - {fileID: 11400000, guid: 69f55192f16adbf419f852cc9da76930, type: 2}

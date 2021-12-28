@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankController 
+public class TankController
 {
-   public TankController(TankModel tankmodel,TankView tankPrefab)
+    public TankController(TankModel tankmodel, TankView tankPrefab)
     //public TankController(TankModel tankModel,GameObject tanlPrefab)
     {
         TankModel = tankmodel;
