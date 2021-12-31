@@ -6,6 +6,11 @@ public class PlayerMovement : Singleton<PlayerMovement>
     [SerializeField] private FixedJoystick fixedjoyStick;
     //public FixedJoystick fixedjoyStick;
 
+
+    public PlayerMovement()
+    {
+        
+    }
     public void nextPsoition()
     {
         float horizontalInput = fixedjoyStick.Horizontal;

@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 namespace Assets.Scripts.MVC.Tank
 {
-    public class EnemyController 
+    public class EnemyController
     {
         public NavMeshAgent xu;
         private Vector3[] RandomPositions;
@@ -15,8 +15,10 @@ namespace Assets.Scripts.MVC.Tank
             EnemyModel = enemyModel;
             EnemyView = Object.Instantiate(tankPrefab, RandomSpawnLocation(), Quaternion.identity);
             Debug.Log("Enemy Controller created");
-            agent =  EnemyView.gameObject.AddComponent<NavMeshAgent>();
+            agent = EnemyView.gameObject.AddComponent<NavMeshAgent>();
+           
             //gameObject.AddComponent<NavMeshAgent>();
+
         }
 
 
@@ -27,7 +29,7 @@ namespace Assets.Scripts.MVC.Tank
             float Y = 0;
 
             return new Vector3(spawnXRange, Y, spawnZRange);
-            
+
         }
 
         public void nextPosition()
@@ -35,7 +37,15 @@ namespace Assets.Scripts.MVC.Tank
             agent.SetDestination(RandomSpawnLocation());
         }
 
+        public void Fire()
+        {
+            BulletController.SpawnBullet();
+            Debug.Log("Bullet Spawneer");
+        }
+
         public EnemyModel EnemyModel { get; }
         public EnemyView EnemyView { get; }
+        public BulletView BulletView { get; }
+        public BulletController BulletController{ get; }
     }
 }
