@@ -7,9 +7,13 @@ using UnityEngine;
     //-Summary//
 public class TankService : GenericSingleton<TankService>
 {
+    TankController tank;
     public TankView tankview;
     public TankStats[] stats;
-    public void Start() 
+    public float currentHealth = 0;
+
+
+    public void Awake() 
     {
         CreateTank();
     }
@@ -19,7 +23,13 @@ public class TankService : GenericSingleton<TankService>
     {
         TankStats Stats = stats[2]; 
         TankModel model = new TankModel(Stats);
-        TankController tank = new TankController(model, tankview);
+        currentHealth = model.Health;
+        tank = new TankController(model, tankview);
         return tank;
-   }
+    }
+
+    public TankController getController()
+    {
+        return tank;
+    }
 }

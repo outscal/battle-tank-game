@@ -6,14 +6,19 @@ public class DestroyLevel : GenericSingleton<DestroyLevel>
 {
 
     public GameObject[] objects;
-    void Start()
+    public List<GameObject> enemy;
+
+    private void Start()
     {
-        
     }
 
-    // Update is called once per frame
-    void Update()
+    public void DestroyAll()
     {
-        
+        //Destroy(EnemyController.Instance.gameObject, 2f);
+        for (int i = 0; i < objects.Length; i++)
+          {
+            Debug.Log("Entered the loop");
+            Destroy(objects[i],i);
+          }
     }
 }

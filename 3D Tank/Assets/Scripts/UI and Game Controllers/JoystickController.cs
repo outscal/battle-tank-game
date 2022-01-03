@@ -16,10 +16,11 @@ using UnityEngine.UI;
         [SerializeField] Button exitBtn; 
 
         public bool joystick1_isActive = true;
+        public bool joystick2_isActive = false;
 
 
-        //method to set default joystick 
-        private void Start()              
+    //method to set default joystick 
+    private void Start()              
         {
             horizontalJoystick.gameObject.SetActive(false);
             verticalJoystick.gameObject.SetActive(false);
@@ -30,6 +31,8 @@ using UnityEngine.UI;
         public void altActivate1()
         {
             joystick1_isActive = false;
+            joystick2_isActive = true;
+
             joystick1.gameObject.SetActive(false);
             horizontalJoystick.gameObject.SetActive(true);
             verticalJoystick.gameObject.SetActive(true);
@@ -41,6 +44,8 @@ using UnityEngine.UI;
         public void altActivate2()
         {
             joystick1_isActive = true;
+            joystick2_isActive = false;
+
             joystick1.gameObject.SetActive(true);
             horizontalJoystick.gameObject.SetActive(false);
             verticalJoystick.gameObject.SetActive(false);

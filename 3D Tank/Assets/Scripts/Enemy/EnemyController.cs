@@ -1,46 +1,65 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+using UnityEngine.UI;
 
-//Summary//
-//Script Controls the Enemy AI
-//-Summary//
 
-public class EnemyController : GenericSingleton<EnemyController>
+public class EnemyController : MonoBehaviour
 {
-	public float lookRadius = 10f;  // Detection range for player
+    [SerializeField] Slider m_Slider;
+    [SerializeField] Image m_FillImage;
+    [SerializeField] ParticleSystem particle;
 
-	Transform target;   // Reference to the player
-	NavMeshAgent agent; // Reference to the NavMeshAgent
+    public int enemyMaxHealth;
+    public int enemyCurrentHealth;
+    private int playerAttack;
+    private Color m_FullHealthColor = Color.green;
+    private Color m_ZeroHealthColor = Color.red;
 
-	void Start()
-	{
-		target = TankController.Instance.transform;
-		agent = GetComponent<NavMeshAgent>();
-	}
 
-	void Update()
-	{
-		float distance = Vector3.Distance(target.position, transform.position);  // Distance to the target
+    public EnemyController(EnemyTankModel model, EnemyTankView tankprefab)  //Instantiating the tank prefab
+    {
+        Model = model; 
+        tankView = GameObject.Instantiate<EnemyTankView>(tankprefab,EnemyTankService.Instance.spawnPoints[Random.Range(0,3)]);
+    }
 
-		if (distance <= lookRadius)                    // If inside the lookRadius
-		{
-			agent.SetDestination(target.position);     // Move towards the target
+    public EnemyTankModel Model { get; }
+    public EnemyTankView tankView { get; }
 
-			if (distance <= agent.stoppingDistance)    // If within attacking distance
-			{
-				FaceTarget();                          // Make sure to face towards the target
-			}
-		}
-	}
+    public void Start()
+    {
+        enemyMaxHealth = EnemyTankService.Instance.GetEnemyController().Model.Health;
+        playerAttack = TankService.Instance.getController().Model.Attack;
+        this.enemyCurrentHealth = enemyMaxHealth;
+        particle = FindObjectOfType<ParticleSystem>();
+    }
 
-	
-	void FaceTarget()     // Rotate the enemy to face the target
-	{
-		Vector3 direction = (target.position - transform.position).normalized;
-		Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-		transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-	}
+    public void EnemyTakeDamage()
+    {
+        enemyCurrentHealth -= playerAttack;    // Reduce current health by the amount of damage done.
+
+        SetHealthUI();                         // Change the UI elements appropriately.
+
+        if (enemyCurrentHealth <= 0f)          // If the current health is at or below zero and it has not yet been registered, call OnDeath.
+        {   
+            StartCoroutine(Death());
+        }
+    }
+    private void SetHealthUI()
+    {
+        // Set the slider's value appropriately.
+        m_Slider.value = enemyCurrentHealth;
+
+        // Interpolate the color of the bar between the choosen colours based on the current percentage of the starting health.
+        m_FillImage.color = Color.Lerp(m_ZeroHealthColor, m_FullHealthColor, enemyCurrentHealth / enemyMaxHealth);
+    }
+
+    public IEnumerator Death()    //Method for destruction of tank prefab
+    {
+        EnemyTankService.Instance.noOfTanks--;
+        particle.transform.parent = null;
+        particle.Play();
+        yield return new WaitForSeconds(0.2f);
+        Destroy(gameObject);
+    }
 }
-

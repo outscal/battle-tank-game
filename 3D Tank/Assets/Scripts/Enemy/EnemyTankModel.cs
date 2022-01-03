@@ -5,12 +5,11 @@ using UnityEngine;
 
 
 //Summary//
-//Script for intialising the data to Tank Model
+//Script for intialising the data to Enemy Tank Model
 //-Summary//
-public class TankModel 
+public class EnemyTankModel
 {
-
-   public TankModel(TankStats stats)
+    public EnemyTankModel(EnemyTankStats stats)
     {
         Health = stats.maxHealth;
         Attack = stats.attackPower;

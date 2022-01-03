@@ -4,22 +4,17 @@ using UnityEngine;
 
 public class GenericSingleton<T> : MonoBehaviour where T : Component
 {
-  private static T instance;
-  public static T Instance
-  {
-    get
+    private static T _instance;
+
+    public static T Instance
     {
-      if (instance == null)
-      {
-        instance = FindObjectOfType<T>();
-        if (instance == null)
+        get
         {
-          GameObject obj = new GameObject();
-          obj.name = typeof(T).Name;
-          instance = obj.AddComponent<T>();
+            if (_instance == null)
+            {
+                _instance = GameObject.FindObjectOfType<T>();
+            }
+            return _instance;
         }
-      }
-      return instance;
     }
-  }
 }
