@@ -8,22 +8,17 @@ public class MonoSingletonGeneric <T> : MonoBehaviour where T : MonoSingletonGen
     public static T Instance { get { return instance; } }
     protected virtual void Awake()
     {
-        if (instance == null)
-        {
-            instance = (T)this;
-        }
-        else
+        if (instance != null)
         {
             Destroy(this);
         }
+        else
+        {
+            instance = (T)this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
     void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
     {
 
     }
