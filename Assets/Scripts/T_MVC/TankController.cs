@@ -1,57 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PlayerTankService;
 
 namespace PlayerTankService
 {
     public class TankController
     {
+        public Joystick tankMovementJoystick;
         [SerializeField]
-        private Joystick joystick;
-        public TankModel TankModel { get; }
-        public TankView TankView { get; }
+        public TankModel TankModel { get; set; }
+        public TankView TankView { get; set; }
+        public Camera camera;
+        private Rigidbody tankRigidbidy;
         public TankController(TankModel tankModel, TankView tankPrefab)
         {
+            this.TankModel = tankModel;
             TankView = GameObject.Instantiate<TankView>(tankPrefab);
+            tankRigidbidy = TankView.GetComponent<Rigidbody>();
+            TankView.SetTankController(this);
+            TankModel.SetTankController(this);
         }
-        [SerializeField]
-        private float Speed = 10f;
-        [SerializeField]
-        private float TurnSpeed = 180f;
-        private void OnEnable()
-        {
-            TankView.Rigidbody.isKinematic = false;    // No forces applied
-            TankView.MovementInputValue = 0;
-            TankView.TurnInputValue = 0;
-        }
-        private void OnDisable()
-        {
-            TankView.Rigidbody.isKinematic = true;
-        }
-        private void Start()
-        {
-            TankView.MovementAxisName = "Vertical";
-            TankView.TurnAxisName = "Horizontal";
-            TankView.OriginalPitch = TankView.MovementAudio.pitch;
-        }
-        private void Update()
-        {
-            TankView.MovementInputValue = joystick.Vertical;
-            TankView.TurnInputValue = joystick.Horizontal;
-            EngineAudio();
-        }
-        private void EngineAudio()
+        public void EngineAudio()
         {
             //Playing audio when tank is moving vs not moving 
-            if (Mathf.Abs(TankView.MovementInputValue) < 0.1f && Mathf.Abs(TankView.TurnInputValue) < 0.1f)
-            {
+/*            if (Mathf.Abs(TankView.Mo) < 0.1f && Mathf.Abs(TankView.TurnInputValue) < 0.1f)
+            {*/
                 if (TankView.MovementAudio.clip == TankView.EngineDriving)
                 {
                     TankView.MovementAudio.clip = TankView.EngineIdling;
                     TankView.MovementAudio.pitch = Random.Range(TankView.OriginalPitch - TankView.PitchRange, TankView.OriginalPitch + TankView.PitchRange);
                     TankView.MovementAudio.Play();
                 }
-            }
+/*            }*/
             else
             {
                 if (TankView.MovementAudio.clip == TankView.EngineIdling)
@@ -62,21 +43,27 @@ namespace PlayerTankService
                 }
             }
         }
-        private void FixedUpdate()
+        public void setJoysticks(Joystick movemenetJoystick)
         {
-            Move();
-            Turn();
+            tankMovementJoystick = movemenetJoystick;         
         }
-        private void Move()
+        public void setCameraReference(Camera _cam)
+        {
+            camera = _cam;
+            camera.transform.SetParent(TankView.transform);
+        }
+        public void Move()
         {
             //Adjusting position of tank
-            Vector3 movement = TankView.transform.forward * TankView.MovementInputValue * Speed * Time.deltaTime;  //Speed per frame
-            TankView.Rigidbody.MovePosition(TankView.Rigidbody.position + movement);
+            Debug.Log(TankModel.Speed + "tankModel");
+            Debug.Log(tankMovementJoystick);
+            Vector3 move = tankMovementJoystick.Vertical * tankRigidbidy.transform.forward * TankModel.Speed* Time.deltaTime;
+            tankRigidbidy.MovePosition(tankRigidbidy.transform.position + move);
         }
-        private void Turn()
+        public void Turn()
         {
             //Adjusting rotation of tank
-            float turn = TankView.TurnInputValue * TurnSpeed * Time.deltaTime;
+            float turn = tankMovementJoystick.Horizontal * TankModel.TurnSpeed * Time.deltaTime;
             Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
             TankView.Rigidbody.MoveRotation(TankView.Rigidbody.rotation * turnRotation);
         }

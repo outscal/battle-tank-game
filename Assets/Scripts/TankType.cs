@@ -1,9 +1,11 @@
 using System;
-
-public enum TankColor
+namespace PlayerTankService
 {
-    None,
-    Red,
-    Blue,
-    Green
+    public enum TankType
+    {
+        None,
+        Red,
+        Blue,
+        Green
+    }
 }

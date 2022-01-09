@@ -1,31 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PlayerTankService;
 //SCRIPT USED FOR COMMUNICATION
 
 namespace PlayerTankService
 {
     public class TankService : MonoSingletonGeneric <TankService>
     {
-        public TankView tankView;
+        [SerializeField]
+        private Joystick tankMovementJoystick;
+        public TankScriptableObject tankScriptableObjects { get; private set; }
+        public Camera cam;
+        public TankView tankView { get; private set; }
         public TankScriptableObjectList tankList;
+        public TankType tanktype;
+        private TankController tankcontroller;
         private void Start()
         {
-            StartGame();
+            /*StartGame();*/
+            CreateNewTank();
+            setTankJoyStick();
+            tankcontroller.setCameraReference(cam);
         }
-        public void StartGame()
+        public void setTankJoyStick()
         {
-            for (int i = 0; i < 3; i++)
+            if(tankcontroller != null)
             {
-                CreateNewTank();
+                tankcontroller.setJoysticks(tankMovementJoystick);
             }
         }
         private TankController CreateNewTank()
         {
-            TankScriptableObject tankScriptableObject = tankList.tanks[2];
-            TankModel model = new TankModel(tankScriptableObject);
-            TankController tank = new TankController(model, tankView);
-            return tank;
+            int random = Random.Range(0, tankList.tanks.Length);
+            tankScriptableObjects = tankList.tanks[random];
+            tankView = tankScriptableObjects.tankView;
+            TankModel tankModel = new TankModel(tankScriptableObjects);
+            tankcontroller = new TankController(tankModel, tankView);
+            return tankcontroller;
         }
     }
 }
