@@ -14,10 +14,14 @@ namespace PlayerTankService
         public AudioClip EngineIdling;
         public AudioClip EngineDriving;
         public float PitchRange = 0.2f;
+        public Slider healthSlider;
+        public Image fillImage;
         public string MovementAxisName;
         public string TurnAxisName;
         public float OriginalPitch;   //To stable the audio pitch
         private TankController tankcontroller;
+        [SerializeField]
+        private ParticleSystem explosionParticles;
 
          private void Awake()
         {
@@ -33,16 +37,13 @@ namespace PlayerTankService
         }
         private void Start()
         {
-            MovementAxisName = "Vertical";
-            TurnAxisName = "Horizontal";
             OriginalPitch = MovementAudio.pitch;
             setTankColor();
+            tankcontroller.setHealthUI();
         }
         private void Update()
         {
-/*            MovementInputValue = joystick.Vertical;
-            TurnInputValue = joystick.Horizontal;*/
-            tankcontroller.EngineAudio();
+/*            tankcontroller.EngineAudio();*/
         }
         private void FixedUpdate()
         {
@@ -66,6 +67,19 @@ namespace PlayerTankService
                 renderers[i].material.color = tankcontroller.TankModel.tankColor;
             }
         }
+        public void instantiateTankExplosionParticles()
+        {
+            ParticleSystem tankExplosion = Instantiate(explosionParticles, transform.position, transform.rotation);
+            tankExplosion.Play();
+            Destroy(tankExplosion, 1f);
+        }
+        public void destroyView()
+        {
+            tankcontroller = null;
+            explosionParticles = null;
+            Destroy(this.gameObject);
+/*            bulletShootPoint = null;
+            healeffect = null;*/
+        }
     }
-
 }

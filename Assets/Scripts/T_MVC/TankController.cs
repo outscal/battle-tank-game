@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using PlayerTankService;
 
 namespace PlayerTankService
 {
@@ -11,6 +10,8 @@ namespace PlayerTankService
         [SerializeField]
         public TankModel TankModel { get; set; }
         public TankView TankView { get; set; }
+        public object AudioManager { get; private set; }
+
         public Camera camera;
         private Rigidbody tankRigidbidy;
         public TankController(TankModel tankModel, TankView tankPrefab)
@@ -21,6 +22,32 @@ namespace PlayerTankService
             TankView.SetTankController(this);
             TankModel.SetTankController(this);
         }
+        public void setHealthUI()
+        {
+            TankView.healthSlider.maxValue = TankModel.MaxHealth;
+            TankView.healthSlider.value = TankModel.Health;
+            TankView.fillImage.color = Color.Lerp(TankModel.ZeroHealthColor, TankModel.FullHealthColor, TankModel.Health / TankModel.MaxHealth);
+        }
+        public void increaseHealth()
+        {
+            if (TankModel.Health <= TankModel.MaxHealth)
+            {
+                TankModel.Health += Random.Range(10, 26);
+                setHealthUI();
+            }
+        }
+        public void applyDamage(float damage)
+        {
+            TankModel.Health -= damage;
+            setHealthUI();
+            if(TankModel.Health <= 0)
+            {
+                TankView.instantiateTankExplosionParticles();
+                /*                AudioManager.Instance.explosionAudio.GetComponent<AudioSource>().Play();*/
+                destroyController();
+            }
+        }
+
         public void EngineAudio()
         {
             //Playing audio when tank is moving vs not moving 
@@ -55,8 +82,6 @@ namespace PlayerTankService
         public void Move()
         {
             //Adjusting position of tank
-            Debug.Log(TankModel.Speed + "tankModel");
-            Debug.Log(tankMovementJoystick);
             Vector3 move = tankMovementJoystick.Vertical * tankRigidbidy.transform.forward * TankModel.Speed* Time.deltaTime;
             tankRigidbidy.MovePosition(tankRigidbidy.transform.position + move);
         }
@@ -66,6 +91,15 @@ namespace PlayerTankService
             float turn = tankMovementJoystick.Horizontal * TankModel.TurnSpeed * Time.deltaTime;
             Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
             TankView.Rigidbody.MoveRotation(TankView.Rigidbody.rotation * turnRotation);
+        }
+        public void destroyController()
+        {
+            camera.transform.parent = null;
+            TankModel.destroyModel();
+            TankView.destroyView();
+            TankModel = null;
+            TankView = null;
+            /*GameManager.Instance.DestroyAllObjects();*/
         }
     }
 }

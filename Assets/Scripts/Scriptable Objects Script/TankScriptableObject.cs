@@ -10,7 +10,7 @@ public class TankScriptableObject: ScriptableObject
     public TankType tanktype;
     public Color TankColor;
     public float Speed;
-    public float Health;
+    public float health;
     public float TurnSpeed;
     /*    public BulletType BulletType;*/
 }
