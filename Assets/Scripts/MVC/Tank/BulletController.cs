@@ -5,11 +5,16 @@ namespace Assets.Scripts.MVC.Tank
 {
     public class BulletController
     {
+        public BulletModel BulletModel { get; }
+        public BulletView BulletView { get; }
 
         public BulletController(BulletModel bulletModel, BulletView bulletPrefab)
         {
             BulletModel = bulletModel;
-            BulletView = Object.Instantiate(bulletPrefab, RandomSpawnLocation(), Quaternion.identity);
+           // BulletView = bulletPrefab;
+            //BulletView = Object.Instantiate(bulletPrefab, RandomSpawnLocation(), Quaternion.identity);
+            BulletView = GameObject.Instantiate<BulletView>(bulletPrefab);
+            BulletView.SetBulletController(this);
         }
 
         public Vector3 RandomSpawnLocation()
@@ -23,12 +28,12 @@ namespace Assets.Scripts.MVC.Tank
         }
         public void SpawnBullet()
         {
+
             GameObject.Instantiate(BulletView,RandomSpawnLocation(), Quaternion.identity);
             Debug.Log("Bullet Spawneed in bullet controller");
 
         }
 
-        public BulletModel BulletModel { get; }
-        public BulletView BulletView { get; }
+      
     }
 }

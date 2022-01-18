@@ -3,13 +3,14 @@ using UnityEngine;
 public class PlayerMovement : Singleton<PlayerMovement>
 {
     [SerializeField] private float speed = 10f;
-    [SerializeField] private FixedJoystick fixedjoyStick;
+     private FixedJoystick fixedjoyStick;
     //public FixedJoystick fixedjoyStick;
 
 
     public PlayerMovement()
     {
-        
+        //fixedjoyStick = GameObject.FindWithTag("Joystick");
+        SetPlayerMovementReference(fixedjoyStick);
     }
     public void nextPsoition()
     {
@@ -20,11 +21,16 @@ public class PlayerMovement : Singleton<PlayerMovement>
 
     }
 
+    public void SetPlayerMovementReference(FixedJoystick joystick)
+    {
+        fixedjoyStick = joystick;
+    }
+
     void Update()
     {
         Debug.Log("Update Accessed");
-        float horizontalInput = fixedjoyStick.Horizontal;
         float verticalInput = fixedjoyStick.Vertical;
+        float horizontalInput = fixedjoyStick.Horizontal;
         transform.position = transform.position + new Vector3(horizontalInput * speed * Time.deltaTime, 0,
             verticalInput * speed * Time.deltaTime);
     }

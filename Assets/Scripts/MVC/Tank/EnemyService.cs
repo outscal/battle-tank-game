@@ -49,9 +49,9 @@ namespace Assets.Scripts.MVC.Tank
             enemy.nextPosition();
             Debug.Log(x);
             Debug.Log(EnemyView.transform.position);
-            FireBullet();
+            
            // xxx.SetDestination(RandomSpawnLocation());
-            enemy.Fire();
+           // enemy.Fire();
         }
 
     }
