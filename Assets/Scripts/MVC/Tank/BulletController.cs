@@ -7,6 +7,7 @@ namespace Assets.Scripts.MVC.Tank
     {
         public BulletModel BulletModel { get; }
         public BulletView BulletView { get; }
+        //BulletType type = BulletType.None;
 
         public BulletController(BulletModel bulletModel, BulletView bulletPrefab)
         {
@@ -34,6 +35,15 @@ namespace Assets.Scripts.MVC.Tank
 
         }
 
+        int damage = 25;
+        private void OnCollisionEnter(Collision collision)
+        {
+            IDamagable damagable = collision.gameObject.GetComponent<IDamagable>();
+            if(damagable != null)
+            {
+                damagable.TakeDamage(damage);
+            }
+        }
       
     }
 }

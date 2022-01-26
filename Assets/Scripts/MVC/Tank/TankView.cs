@@ -1,19 +1,33 @@
+using Assets.Scripts.MVC.Tank;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankView : MonoBehaviour
+[RequireComponent(typeof(Rigidbody))]
+//[RequireComponent(typeof(PlayerMovement))]
+public class TankView : MonoBehaviour, IDamagable
 {
     public TankType tankType;
-  private FixedJoystick js;
+    private FixedJoystick js;
     PlayerMovement playerMovement;
+    private TankController tankController;
+
+    public void TakeDamage(int damage)
+    {
+        Debug.Log("Taking Damage"  );
+        tankController.ApplyDamage(damage);
+    }
+
+    public void setTankControllerReference(TankController tankController)
+    {
+        this.tankController = tankController;
+    }
     private void Start()
     {
         Debug.Log("Tank View Created");
-        gameObject.AddComponent<PlayerMovement>();
         //playerMovement.SetPlayerMovementReference(TankService);
         
-        playerMovement.SetPlayerMovementReference(js); 
+      
     }
 
     private void Update()
