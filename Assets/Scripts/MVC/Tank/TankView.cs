@@ -8,8 +8,6 @@ using UnityEngine;
 public class TankView : MonoBehaviour, IDamagable
 {
     public TankType tankType;
-    private FixedJoystick js;
-    PlayerMovement playerMovement;
     private TankController tankController;
 
     public void TakeDamage(int damage)
@@ -24,7 +22,7 @@ public class TankView : MonoBehaviour, IDamagable
     }
     private void Start()
     {
-        Debug.Log("Tank View Created");
+        //Debug.Log("Tank View Created");
         //playerMovement.SetPlayerMovementReference(TankService);
         
       
@@ -32,6 +30,6 @@ public class TankView : MonoBehaviour, IDamagable
 
     private void Update()
     {
-        Debug.Log("View Class Update called");
+       // Debug.Log("View Class Update called");
     }
 }

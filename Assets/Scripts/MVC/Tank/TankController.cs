@@ -6,22 +6,19 @@ using UnityEngine.UI;
 
 public class TankController
 {
+    public TankModel TankModel { get; }
+    public TankView TankView { get; }
 
-    private Button Btn;
     private BulletController bx;
     private FixedJoystick joystick;
-   // PlayerMovement playerMovement;
     private Rigidbody tankRigidbody;
 
     public TankController(TankModel tankModel, TankView tankPrefab)
     {
         TankModel = tankModel;
-        //TankView = GameObject.Instantiate<TankView>(tankPrefab); 
         TankView = Object.Instantiate(tankPrefab);
         tankRigidbody = TankView.GetComponent<Rigidbody>();
         TankView.setTankControllerReference(this);
-        // Debug.Log("Tank View created");
-      //  playerMovement.SetPlayerMovementReference(joystick);
     }
 
     public void setJoystickreference(FixedJoystick joystick)
@@ -72,7 +69,6 @@ public class TankController
         Debug.Log("MOvement happeing");
     }
 
-    public TankModel TankModel { get; }
-    public TankView TankView { get; } 
+ 
     
 }

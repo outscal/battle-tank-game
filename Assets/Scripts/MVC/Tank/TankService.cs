@@ -7,9 +7,6 @@ using UnityEngine;
 public class TankService : MonoBehaviour
 {
     public TankView tankView;
-    //TankController TankController;
-    // public EnemyView enemyView;
-    PlayerMovement playerMovement;
     public TankScriptableObject[] tankConfigurations;
     private TankController tank;
 
@@ -18,8 +15,6 @@ public class TankService : MonoBehaviour
     {
         tank = createPlayerTank((TankType.Blue));
         setPlayerTankControlReference();
-       // tank.setJoystickreference(fixedjoyStick);
-        //playerMovement.SetPlayerMovementReference(fixedjoyStick);   
     }
 
     private TankController createPlayerTank(TankType tankType)
