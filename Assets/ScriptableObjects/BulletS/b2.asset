@@ -10,7 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 20955b48080c1da4d9a3d5ef677bc4c0, type: 3}
-  m_Name: RegularBullet
+  m_Name: b2
   m_EditorClassIdentifier: 
-  DamageDealt: 4
-  BulletName: RegularBullet
+  bulletView: {fileID: 5307792526639614652, guid: 7e34638367010a74d895bf743eddfd44,
+    type: 3}
+  bulletType: 1
+  damage: 15
+  explosionRadius: 5
+  explosionForce: 20
+  maxLifeTime: 5

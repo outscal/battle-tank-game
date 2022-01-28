@@ -28,6 +28,11 @@ public class TankView : MonoBehaviour, IDamagable
       
     }
 
+    public void Death()
+    {
+        Destroy(gameObject);
+    }
+
     private void Update()
     {
        // Debug.Log("View Class Update called");

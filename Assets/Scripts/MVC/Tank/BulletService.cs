@@ -8,6 +8,18 @@ namespace Assets.Scripts.MVC.Tank
         public BulletView BulletView;
         public BulletScriptableObject[] bulletConfigurations;
 
+        public void FireBullet(BulletType bulletType)
+        {
+            CreateBullet(bulletType);
+        }
+
+        private BulletController CreateBullet(BulletType BulletType)
+        {
+            BulletController bulletController;
+            //return bulletController;
+            return null;
+        }
+
         private void Start()
         {
             BulletScriptableObject bulletScriptableObject = bulletConfigurations[Random.Range(0,2)];

@@ -5,11 +5,18 @@ namespace Assets.Scripts.MVC.Tank
 {
     public class BulletModel 
     {
+        public int bulletDamage { get; }
+        public float maxLifeTime { get; }
+        public float explosionRadius { get; }
+        public float explosionForce { get; }
+
         public BulletModel(BulletScriptableObject bulletScriptableObject)
         {
-            DamageDealt = bulletScriptableObject.DamageDealt;
+            bulletDamage = bulletScriptableObject.damage;
+            maxLifeTime = bulletScriptableObject.maxLifeTime;
+            explosionRadius = bulletScriptableObject.explosionRadius;
+            explosionForce = bulletScriptableObject.explosionForce;
         }
 
-        public float DamageDealt { get; private set; }
     }
 }

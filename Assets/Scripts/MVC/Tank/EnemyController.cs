@@ -39,7 +39,7 @@ namespace Assets.Scripts.MVC.Tank
 
         public void Fire()
         {
-            BulletController.SpawnBullet();
+            
             Debug.Log("Bullet Spawneer");
         }
 

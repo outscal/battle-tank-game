@@ -44,7 +44,7 @@ public class TankController
 
     public void shoot()
     {
-        bx.SpawnBullet();
+       
         Debug.Log("ButtonClicked");
         if (Input.GetMouseButtonDown(0))
         {

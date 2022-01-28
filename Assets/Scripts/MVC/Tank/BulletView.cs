@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Assets.Scripts.MVC.Tank
 {
-    
+    [RequireComponent(typeof(Rigidbody))]
     public class BulletView : MonoBehaviour
     {
         private BulletController bulletController;
