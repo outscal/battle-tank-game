@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public class SingletonMB<T> : MonoBehaviour where T : SingletonMB<T>
