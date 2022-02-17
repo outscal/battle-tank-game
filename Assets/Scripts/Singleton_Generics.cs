@@ -21,6 +21,4 @@ public class Singleton_Generic<T> : MonoBehaviour where T : Singleton_Generic<T>
             Destroy(this);
         }
     }
-
-
 }

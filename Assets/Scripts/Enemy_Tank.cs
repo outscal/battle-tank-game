@@ -6,8 +6,7 @@ public class Enemy_Tank : Singleton_Generic<Enemy_Tank>
 {
     protected override void Awake()
     {
-        Debug.Log("PEnemy_Tank Awake");
+        Debug.Log("Enemy_Tank Awake");
         base.Awake();
     }
 }
-
