@@ -16,8 +16,8 @@ public class Singleton_Generic<T> : MonoBehaviour where T : Singleton_Generic<T>
         }
         else
         {
-            Debug.LogError("Duplicate singleton creating!!!");
-            Destroy(this);
+            instance = (T)this;
+            DontDestroyOnLoad(this);
         }
     }
 }
