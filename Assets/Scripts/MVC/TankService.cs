@@ -6,6 +6,8 @@ public class TankService : Singleton_Generic<TankService>
 {
     public TankView tankView;
 
+    public TankScriptableObj[] tankConfigs;
+
     private void Start()
     {
         StartGame();
@@ -16,9 +18,11 @@ public class TankService : Singleton_Generic<TankService>
         CreateNewTank();
     }
 
+
     private TankController CreateNewTank()
     {
-        TankModel tankModel = new TankModel(5, 100f);
+        TankScriptableObj tankScriptableObj = tankConfigs[Random.Range(0, tankConfigs.Length)];
+        TankModel tankModel = new TankModel(tankScriptableObj);
         TankController tank = new TankController(tankModel, tankView);
         return tank;
     }

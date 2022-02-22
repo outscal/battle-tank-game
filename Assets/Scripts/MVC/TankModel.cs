@@ -2,14 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankModel
+public class TankModel : MonoBehaviour
 {
-    public TankModel(int speed, float health)
+    public TankModel(TankScriptableObj tankScriptableObj)
     {
-        Speed = speed;
-        Health = health;
+        Speed = (int)tankScriptableObj.Speed;
+        Health = tankScriptableObj.Health;
+        TankType = tankScriptableObj.TankType;
+
+
+
     }
+
 
     public int Speed { get; private set; }
     public float Health { get; private set; }
+    public TankTypes TankType { get; private set; }
 }
