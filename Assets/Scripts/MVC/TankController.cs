@@ -12,7 +12,7 @@ public class TankController : MonoBehaviour
     public TankController(TankModel tankModel, TankView tankPrefab)
     {
         TankModel = tankModel;
-        // TankView tankView = GameObject.Instantiate<TankView>(tankPrefab);
+         TankView tankView = GameObject.Instantiate<TankView>(tankPrefab);
         rb = tankView.gameObject.GetComponent<Rigidbody>();
         tankView.setTankController(this);
 

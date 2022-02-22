@@ -61,12 +61,8 @@ public class Player_Tank : Singleton_Generic<Player_Tank>
         // Update the health slider's value and color.
         SetHealthUI();
     }
-
-
     public void Tank_Damage(float amount)
     {
-
-
         // Reduce current health by the amount of damage done.
         currentHealth -= amount;
 

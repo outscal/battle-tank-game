@@ -142,16 +142,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01e61a5a971c29342bdd603d03c5f6cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankView: {fileID: 187907340}
+  tankView: {fileID: 187907346}
   tankConfigs:
   - {fileID: 11400000, guid: 37ca098e80095cc4c90c3a2affee2b4d, type: 2}
   - {fileID: 11400000, guid: 4cc80fbbc55897a4db5a89c4ea0908dc, type: 2}
   - {fileID: 11400000, guid: 290bb13a68b578f48979abd33ace3081, type: 2}
---- !u!114 &187907340
+--- !u!54 &187907344 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 1122641219035251054, guid: 669270dfe6138f34a8ecd66f2f19d041,
+    type: 3}
+  m_PrefabInstance: {fileID: 1122641219851500602}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &187907346 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 349015170343554364, guid: 669270dfe6138f34a8ecd66f2f19d041,
+    type: 3}
+  m_PrefabInstance: {fileID: 1122641219851500602}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 187907337}
   m_Enabled: 1
@@ -159,8 +165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3473c39c0e1d784392e70137bbf9874, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpawnpoint: {fileID: 187998441}
-  tankType: 0
 --- !u!4 &187998441 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1122641219663502547, guid: 669270dfe6138f34a8ecd66f2f19d041,
@@ -178,9 +182,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tank (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 100112, guid: 002e2a607f5b64c48be0b3b0d8b8bfdd, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 400112, guid: 002e2a607f5b64c48be0b3b0d8b8bfdd, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 400112, guid: 002e2a607f5b64c48be0b3b0d8b8bfdd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -558,7 +566,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1304999364
 GameObject:
@@ -794,6 +802,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: d2b82a52b13b9014d988055d0b2f939e, type: 2}
+--- !u!4 &1424739281 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1122641219358313310, guid: 669270dfe6138f34a8ecd66f2f19d041,
+    type: 3}
+  m_PrefabInstance: {fileID: 1122641219851500602}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1630903903 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8582831264436399989, guid: 669270dfe6138f34a8ecd66f2f19d041,
@@ -899,7 +913,7 @@ RectTransform:
   m_Children:
   - {fileID: 2024133638}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1046,6 +1060,21 @@ PrefabInstance:
       propertyPath: m_TargetGraphic
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 349015170343554364, guid: 669270dfe6138f34a8ecd66f2f19d041,
+        type: 3}
+      propertyPath: tankType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 349015170343554364, guid: 669270dfe6138f34a8ecd66f2f19d041,
+        type: 3}
+      propertyPath: bulletSpawnpoint
+      value: 
+      objectReference: {fileID: 1424739281}
+    - target: {fileID: 399272158383297086, guid: 669270dfe6138f34a8ecd66f2f19d041,
+        type: 3}
+      propertyPath: tankView
+      value: 
+      objectReference: {fileID: 187907346}
     - target: {fileID: 1122641219035251051, guid: 669270dfe6138f34a8ecd66f2f19d041,
         type: 3}
       propertyPath: healthBar
@@ -1134,7 +1163,7 @@ PrefabInstance:
     - target: {fileID: 1122641219663855923, guid: 669270dfe6138f34a8ecd66f2f19d041,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3522941902836129654, guid: 669270dfe6138f34a8ecd66f2f19d041,
         type: 3}
@@ -1146,5 +1175,12 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8471877250124363446, guid: 669270dfe6138f34a8ecd66f2f19d041,
+        type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 187907344}
+    m_RemovedComponents:
+    - {fileID: 2689662706872192077, guid: 669270dfe6138f34a8ecd66f2f19d041, type: 3}
+    - {fileID: 399272158383297086, guid: 669270dfe6138f34a8ecd66f2f19d041, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 669270dfe6138f34a8ecd66f2f19d041, type: 3}

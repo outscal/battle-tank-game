@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum TankTypes : int
+public enum TankTypes 
 
 {
-    Node,
+    None,
     RedTank,
     BlueTank,
     GreenTank
