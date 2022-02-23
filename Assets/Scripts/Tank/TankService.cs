@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Tank
 {
@@ -8,6 +9,9 @@ namespace Tank
         [SerializeField] private Joystick joystick;
         [SerializeField] private Scriptable_Object.Tank.TankList tanks;
         [SerializeField] private Transform[] enemySpawningPoints;
+        [SerializeField] private NavMeshData navMeshData;
+
+        public NavMeshData NavMeshData => navMeshData;
 
         private List<TankController> _tankControllers = new List<TankController>();
 
