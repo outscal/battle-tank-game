@@ -5,7 +5,7 @@ namespace Tank
     public class EnemyTankController : TankController
     {
         private float refreshCounter;
-        public EnemyTankController(Scriptble_Object.Tank.Tank tank) : base(tank.TankView)
+        public EnemyTankController(Scriptable_Object.Tank.Tank tank) : base(tank.TankView)
         {
             TankModel = new EnemyTankModel((EnemyTankModel)tank.TankModel);
         }

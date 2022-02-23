@@ -10,18 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 668c4350c6694aa798e7ce830e96a819, type: 3}
-  m_Name: Tank00
+  m_Name: EnemyMiddle
   m_EditorClassIdentifier: 
-  tankType: 1
+  tankType: 2
   tankView: {fileID: 0}
   tankModel:
-    rid: 861675703734370308
+    rid: 861675703734370365
   references:
     version: 2
     RefIds:
-    - rid: 861675703734370308
-      type: {class: TankModel, ns: Tank, asm: Assembly-CSharp}
+    - rid: 861675703734370365
+      type: {class: EnemyTankModel, ns: Tank, asm: Assembly-CSharp}
       data:
-        speed: 5
-        health: 100
+        speed: 7
+        health: 150
         damage: 20
+        aiAgentModel:
+          range: 20
+          refreshTime: 7.5

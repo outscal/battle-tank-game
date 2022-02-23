@@ -2,12 +2,12 @@
 using Tank;
 using UnityEngine;
 
-namespace Scriptble_Object.Tank
+namespace Scriptable_Object.Tank
 {
-    [CreateAssetMenu(fileName = "NewTank", menuName = "User/Tank/Tank", order = 0)]
+    [CreateAssetMenu(fileName = "NewTank", menuName = "User/Tank/Tank", order = 1)]
     public class Tank : ScriptableObject
     {
-        [SerializeField] private TankType tankType;
+        [SerializeField] private TankType tankType = TankType.None;
         [SerializeField] private TankView tankView;
         [SerializeReference] private TankModel tankModel;
 
@@ -18,39 +18,36 @@ namespace Scriptble_Object.Tank
         private TankType _lastType;
         private TankModel _saved;
 
-        Tank()
+        public Tank()
         {
-            tankModel = new TankModel();
+            _lastType = TankType;
         }
-        private void OnEnable()
-        {
-            _lastType = tankType;
-        }
-
+        
         private void OnValidate()
         {
-            if (tankType != _lastType)
+            if (tankType!=_lastType)
             {
-                _saved = tankModel;
-                tankModel = updateTankModel(_saved);
                 _lastType = tankType;
+                _saved = tankModel;
+                tankModel = UpdateTankModel(_saved);
+                _saved = null;
             }
         }
 
-        private TankModel updateTankModel(TankModel other)
+        private TankModel UpdateTankModel(TankModel other)
         {
-            TankModel tankModel = null;
+            TankModel newTankModel = null;
             switch (tankType)
             {
                 case TankType.Player:
-                    tankModel = new TankModel(other);
+                    newTankModel = (other!=null)?new TankModel(other): new TankModel();
                     break;
                 case TankType.Enemy:
-                    tankModel = new EnemyTankModel((EnemyTankModel)other);
+                    newTankModel = (other!=null)?new EnemyTankModel(other):new EnemyTankModel();
                     break;
             }
 
-            return tankModel;
+            return newTankModel;
         }
     }
 }

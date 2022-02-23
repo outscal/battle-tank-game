@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 namespace Tank
 {
@@ -9,6 +10,11 @@ namespace Tank
         
         public AiAgentModel AiAgentModel => aiAgentModel;
 
+        public EnemyTankModel() : base()
+        {
+            aiAgentModel = new AiAgentModel();
+        }
+
         public EnemyTankModel(TankModel other) : base(other)
         {
             aiAgentModel = new AiAgentModel();
@@ -16,7 +22,8 @@ namespace Tank
 
         public EnemyTankModel(EnemyTankModel other) : base(other)
         {
-            aiAgentModel = new AiAgentModel(other.aiAgentModel);
+            aiAgentModel = (other.AiAgentModel!=null)?new AiAgentModel(other.aiAgentModel):new AiAgentModel();
         }
+        
     }
 }

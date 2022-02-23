@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 668c4350c6694aa798e7ce830e96a819, type: 3}
+  m_Name: EnemyFast
+  m_EditorClassIdentifier: 
+  tankType: 2
+  tankView: {fileID: 0}
+  tankModel:
+    rid: 861675703734370366
+  references:
+    version: 2
+    RefIds:
+    - rid: 861675703734370366
+      type: {class: EnemyTankModel, ns: Tank, asm: Assembly-CSharp}
+      data:
+        speed: 9
+        health: 100
+        damage: 20
+        aiAgentModel:
+          range: 20
+          refreshTime: 5

@@ -28,7 +28,7 @@ namespace Tank
         }
 
 
-        public PlayerTankController(Joystick joystick, Scriptble_Object.Tank.Tank tank) : base(tank.TankView)
+        public PlayerTankController(Joystick joystick, Scriptable_Object.Tank.Tank tank) : base(tank.TankView)
         {
             _joystick = joystick;
             _rigidbody = TankView.GetComponent<Rigidbody>();
