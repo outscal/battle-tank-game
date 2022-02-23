@@ -1,13 +1,18 @@
 using UnityEngine;
 
-public class TankController 
+namespace Tank
 {
-    public TankModel TankModel { get; }
-    public TankView TankView { get; }
-
-    public TankController(TankModel tankModel, TankView tankView)
+    public abstract class TankController 
     {
-        TankModel = tankModel;
-        TankView = GameObject.Instantiate<TankView>(tankView);
+        public TankModel TankModel { get; protected set; }
+        public TankView TankView { get; }
+
+        public TankController(TankView tankView)
+        {
+            TankView = GameObject.Instantiate<TankView>(tankView);
+            TankView.SetTankController(this);
+        }
+
+        public abstract void Move();
     }
 }

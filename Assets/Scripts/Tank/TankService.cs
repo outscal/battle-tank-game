@@ -1,11 +1,35 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class TankService : SingletonMB<TankService>
+namespace Tank
 {
-    [SerializeField] private TankView _tankView;
-    private void Start()
+    public class TankService : SingletonMB<TankService>
     {
-        TankModel tankModel = new TankModel();
-        TankController tankController = new TankController(tankModel, _tankView);
+        [SerializeField] private Joystick joystick;
+        [SerializeField] private Scriptble_Object.Tank.Tank[] tanks;
+
+        private List<TankController> _tankControllers = new List<TankController>();
+
+        private void Start()
+        {
+            _tankControllers.Add(CreateTank(tanks[0]));
+        }
+
+        private TankController CreateTank(Scriptble_Object.Tank.Tank tank)
+        {
+            TankController tankController = null;
+            switch (tank.TankType)
+            {
+                case TankType.Player :
+                    tankController = new PlayerTankController(joystick, tank);
+                    break;
+                case TankType.Enemy:
+                    tankController = new EnemyTankController(tank);
+                    break;
+            }
+
+            return tankController;
+        }
     }
+    
 }
