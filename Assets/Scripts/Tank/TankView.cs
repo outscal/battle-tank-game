@@ -8,8 +8,14 @@ public class TankView : MonoBehaviour
 
     public void SetTankController(TankController tankController) => _tankController = tankController;
 
+    private void Update()
+    {
+        _tankController.HandleAttacks();
+    }
+
     private void FixedUpdate()
     {
         _tankController.Move();
     }
+    
 }

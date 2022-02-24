@@ -30,6 +30,11 @@ namespace Tank
             _refreshCounter -= Time.fixedTime;
         }
 
+        public override void HandleAttacks()
+        {
+            
+        }
+
         private void ResetCounter()
         {
             Debug.Log("Counter reset!"+((EnemyTankModel)TankModel).AiAgentModel.RefreshTime);

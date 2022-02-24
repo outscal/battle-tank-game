@@ -6,7 +6,7 @@ namespace Tank
 {
     public class TankService : SingletonMB<TankService>
     {
-        [SerializeField] private Joystick joystick;
+        [SerializeField] private InputSystem.InputSystem inputSystem;
         [SerializeField] private Scriptable_Object.Tank.TankList tanks;
         [SerializeField] private Transform[] enemySpawningPoints;
         [SerializeField] private NavMeshData navMeshData;
@@ -29,7 +29,7 @@ namespace Tank
             switch (tank.TankType)
             {
                 case TankType.Player :
-                    tankController = new PlayerTankController(joystick, tank);
+                    tankController = new PlayerTankController(inputSystem, tank);
                     break;
                 case TankType.Enemy:
                     tankController = new EnemyTankController(tank,GetRandomPosition());

@@ -1,16 +1,23 @@
+using System;
+using System.Diagnostics;
+using Attack;
+using Bullet;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Tank
 {
     public class PlayerTankController : TankController
     {
-        Joystick _joystick;
+        private InputSystem.InputSystem _inputSystem;
         private Rigidbody _rigidbody;
         private Vector2 _joystickDirection;
+
+        private bool firing = false;
     
         void TakeJoystickInputs()
         {
-            _joystickDirection = _joystick.Direction;
+            _joystickDirection = _inputSystem.Joystick.Direction;
         }
     
 
@@ -27,10 +34,26 @@ namespace Tank
         
         }
 
-
-        public PlayerTankController(Joystick joystick, Scriptable_Object.Tank.Tank tank) : base(tank.TankView)
+        public override void HandleAttacks()
         {
-            _joystick = joystick;
+            if (_inputSystem.FireButton.Pressed && firing == false)
+            {
+                Debug.Log("Firing!");
+                Attack.Attack attack = new LinearAttack(TankModel.BulletType, TankView.transform.position,
+                    TankModel.Damage, TankView.transform.forward);
+                BulletService.Instance.CreateBullet(attack);
+                firing = true;
+            }
+            else if(!_inputSystem.FireButton.Pressed && firing == true)
+            {
+                firing = false;
+            }
+        }
+
+
+        public PlayerTankController(InputSystem.InputSystem inputSystem, Scriptable_Object.Tank.Tank tank) : base(tank.TankView)
+        {
+            _inputSystem = inputSystem;
             _rigidbody = TankView.GetComponent<Rigidbody>();
             TankModel = new TankModel(tank.TankModel);
         }

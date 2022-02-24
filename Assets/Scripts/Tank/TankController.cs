@@ -14,5 +14,8 @@ namespace Tank
         }
 
         public abstract void Move();
+
+        public abstract void HandleAttacks();
+
     }
 }
