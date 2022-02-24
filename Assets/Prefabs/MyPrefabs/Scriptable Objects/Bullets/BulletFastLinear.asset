@@ -12,12 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdac9a71d70c4ef79d63a113d138e63f, type: 3}
   m_Name: BulletFastLinear
   m_EditorClassIdentifier: 
-  bulletType: 0
-  bulletView: {fileID: 0}
+  trajectoryType: 1
+  bulletView: {fileID: 4260124606810008568, guid: bac9bc1143111994195a173e6cf2d7dc,
+    type: 3}
   bulletModel:
-    rid: -2
+    rid: 861675703734370524
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 861675703734370524
+      type: {class: BulletModel, ns: Bullet, asm: Assembly-CSharp}
+      data:
+        lifeTime: 5000
+        speed: 15
