@@ -1,7 +1,6 @@
 using Attack;
 using Bullet;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 namespace Tank
 {
@@ -11,7 +10,7 @@ namespace Tank
         private Rigidbody _rigidbody;
         private Vector2 _joystickDirection;
 
-        private bool firing = false;
+        private bool _firing;
     
         void TakeJoystickInputs()
         {
@@ -28,19 +27,18 @@ namespace Tank
             _rigidbody.velocity = newVelocity;
         
         }
+        
         public override void HandleAttacks()
         {
-            if (_inputSystem.FireButton.Pressed && firing == false)
+            if (_inputSystem.FireButton.Pressed && _firing == false)
             {
                 Attack.Attack attack = new LinearAttack(TankModel.BulletType, TankView.ShootingPoint.position, TankModel.Damage, TankView.transform.forward);
                 BulletService.Instance.CreateBullet(attack);
-                firing = true;
+                _firing = true;
             }
-            else if(!_inputSystem.FireButton.Pressed && firing)
-            {
-                firing = false;
-            }
+            else if (!_inputSystem.FireButton.Pressed && _firing) _firing = false;
         }
+        
         public PlayerTankController(InputSystem.InputSystem inputSystem, Scriptable_Object.Tank.Tank tank):base(tank.TankView)
         {
             _inputSystem = inputSystem;
