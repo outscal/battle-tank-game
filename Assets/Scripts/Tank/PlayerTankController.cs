@@ -36,7 +36,7 @@ namespace Tank
                 BulletService.Instance.CreateBullet(attack);
                 firing = true;
             }
-            else if(!_inputSystem.FireButton.Pressed && firing == true)
+            else if(!_inputSystem.FireButton.Pressed && firing)
             {
                 firing = false;
             }
