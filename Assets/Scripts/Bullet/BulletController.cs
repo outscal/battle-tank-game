@@ -5,7 +5,8 @@ namespace Bullet
     public abstract class BulletController
     {
         private BulletView _bulletView;
-        protected BulletModel _bulletModel;
+        private BulletModel _bulletModel;
+        protected bool _hitSomething;
 
         public BulletView BulletView => _bulletView;
         public BulletModel BulletModel => _bulletModel;
@@ -13,9 +14,24 @@ namespace Bullet
         public BulletController(Attack.Attack attack, Scriptable_Object.Bullet.Bullet bullet)
         {
             _bulletModel = new BulletModel(bullet.BulletModel);
-            _bulletView = GameObject.Instantiate<BulletView>(bullet.BulletView,attack.Position,Quaternion.identity);
+            _bulletModel.SetDamage(attack.Damage);
+            _bulletView = GameObject.Instantiate(bullet.BulletView,attack.Position,Quaternion.identity);
             _bulletView.BulletController = this;
+            _hitSomething = false;
         }
+
         public abstract void Move();
+
+        public void HitBy(Collision other)
+        {
+            _hitSomething = true;
+        }
+
+        protected void DestroyMe()
+        {
+            GameObject.Destroy(_bulletView.gameObject);
+            _bulletModel = null;
+            BulletService.Instance.Destroy(this);
+        }
     }
 }

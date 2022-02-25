@@ -43,6 +43,11 @@ namespace Tank
         {
             return enemySpawningPoints[Random.Range(0, enemySpawningPoints.Length - 1)].position;
         }
+
+        public void Destroy(TankController controller)
+        {
+            controller = null;
+        }
     }
     
 }

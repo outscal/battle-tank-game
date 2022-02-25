@@ -25,5 +25,10 @@ namespace Bullet
 
             return newBulletController;
         }
+
+        public void Destroy(BulletController bulletController)
+        {
+            bulletController = null;
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace Bullet
             speed = other.Speed;
         }
         public float LifeTime => lifeTime;
-        public float DecreaseLifeTime(float time) => lifeTime -= time;
+        public void DecreaseLifeTime(float time) => lifeTime -= time;
         public float Damage => _damage;
         public void SetDamage(float damage) => _damage = damage;
         public float Speed => speed;

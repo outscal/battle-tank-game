@@ -1,3 +1,4 @@
+using Bullet;
 using UnityEngine;
 
 namespace Tank
@@ -16,6 +17,20 @@ namespace Tank
         public abstract void Move();
 
         public abstract void HandleAttacks();
+
+        public void TakeDamage(float amount)
+        {
+            TankModel.DecreaseHealth(amount);
+            if(TankModel.Health<=0) DestroyMe();
+        }
+
+        private void DestroyMe()
+        {
+            GameObject.Destroy(TankView.gameObject);
+            TankModel = null;
+            TankService.Instance.Destroy(this);
+        }
+        
 
     }
 }

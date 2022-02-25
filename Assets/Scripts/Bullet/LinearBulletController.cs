@@ -18,10 +18,16 @@ namespace Bullet
 
         public override void Move()
         {
+            this.BulletModel.DecreaseLifeTime(Time.fixedDeltaTime);
+            if (BulletModel.LifeTime <= 0)
+            {
+                DestroyMe();
+                return;
+            }
+            if(_hitSomething) return;
             if (BulletModel.LifeTime>0)
             {
                 _rigidbody.velocity = _direction * BulletModel.Speed;
-                BulletModel.DecreaseLifeTime(Time.fixedTime);
                 return;
             }
             _rigidbody.velocity = Vector3.zero;

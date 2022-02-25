@@ -27,7 +27,7 @@ namespace Tank
                 ResetCounter();
                 return;
             }
-            _refreshCounter -= Time.fixedTime;
+            _refreshCounter -= Time.fixedDeltaTime;
         }
 
         public override void HandleAttacks()

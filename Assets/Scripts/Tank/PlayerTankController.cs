@@ -39,7 +39,8 @@ namespace Tank
             if (_inputSystem.FireButton.Pressed && firing == false)
             {
                 Debug.Log("Firing!");
-                Attack.Attack attack = new LinearAttack(TankModel.BulletType, TankView.transform.position,
+                Attack.Attack attack = new LinearAttack(TankModel.BulletType, TankView.ShootingPoint
+                        .position,
                     TankModel.Damage, TankView.transform.forward);
                 BulletService.Instance.CreateBullet(attack);
                 firing = true;

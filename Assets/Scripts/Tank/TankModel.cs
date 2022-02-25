@@ -12,6 +12,12 @@ namespace Tank
         [SerializeField] private BulletType bulletType = BulletType.None;
         public float Speed => speed;
         public float Health => health;
+
+        public void DecreaseHealth(float amount)
+        {
+            Debug.Log("Decrease: "+amount+" New health: " + health);
+            health -= amount;
+        }
         public float Damage => damage;
         public BulletType BulletType => bulletType;
         public TankModel(){}

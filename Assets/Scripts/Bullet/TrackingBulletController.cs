@@ -18,7 +18,7 @@ namespace Bullet
             if (BulletModel.LifeTime>0)
             {
                 Vector3 direction = (_target.position - BulletView.transform.position).normalized;
-                _rigidbody.velocity = direction * _bulletModel.Speed;
+                _rigidbody.velocity = direction * BulletModel.Speed;
                 BulletView.transform.forward = direction;
                 BulletModel.DecreaseLifeTime(Time.fixedTime);
                 return;
