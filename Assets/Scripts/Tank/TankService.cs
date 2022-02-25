@@ -49,5 +49,4 @@ namespace Tank
             controller = null;
         }
     }
-    
 }

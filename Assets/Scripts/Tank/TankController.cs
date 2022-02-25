@@ -30,7 +30,5 @@ namespace Tank
             TankModel = null;
             TankService.Instance.Destroy(this);
         }
-        
-
     }
 }

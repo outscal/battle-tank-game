@@ -23,7 +23,6 @@ namespace Tank
             if (_refreshCounter<=0)
             {
                 _navMeshAgent.SetDestination(GetRandomDestination());
-                
                 ResetCounter();
                 return;
             }
@@ -31,9 +30,7 @@ namespace Tank
         }
 
         public override void HandleAttacks()
-        {
-            
-        }
+        { }
 
         private void ResetCounter()
         {

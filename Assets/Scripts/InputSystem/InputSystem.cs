@@ -11,6 +11,5 @@ namespace InputSystem
         
         public Joystick Joystick => _joystick;
         public JoyButton FireButton => _fireButton;
-        
     }
 }

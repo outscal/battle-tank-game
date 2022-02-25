@@ -5,7 +5,7 @@ namespace Bullet
     [System.Serializable]
     public class BulletModel
     {
-        [SerializeField] private float lifeTime = 5000 ;
+        [SerializeField] private float lifeTime = 5000;
         [SerializeField] private float speed = 8;
         
         private float _damage;
