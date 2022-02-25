@@ -25,7 +25,6 @@ namespace Tank
             if(_joystickDirection.magnitude>0.02f)TankView.transform.eulerAngles += Vector3.up * 60;
             Vector3 newVelocity = TankModel.Speed * _joystickDirection.magnitude * TankView.transform.forward;
             _rigidbody.velocity = newVelocity;
-        
         }
         
         public override void HandleAttacks()
