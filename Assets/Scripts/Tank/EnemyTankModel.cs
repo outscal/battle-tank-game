@@ -24,6 +24,5 @@ namespace Tank
         {
             aiAgentModel = (other.AiAgentModel!=null)?new AiAgentModel(other.aiAgentModel):new AiAgentModel();
         }
-        
     }
 }

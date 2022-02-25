@@ -32,9 +32,7 @@ namespace Tank
         {
             if (_inputSystem.FireButton.Pressed && firing == false)
             {
-                Attack.Attack attack = new LinearAttack(TankModel.BulletType, TankView.ShootingPoint
-                        .position,
-                    TankModel.Damage, TankView.transform.forward);
+                Attack.Attack attack = new LinearAttack(TankModel.BulletType, TankView.ShootingPoint.position, TankModel.Damage, TankView.transform.forward);
                 BulletService.Instance.CreateBullet(attack);
                 firing = true;
             }

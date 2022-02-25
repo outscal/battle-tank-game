@@ -97,36 +97,29 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
 
     private float SnapFloat(float value, AxisOptions snapAxis)
     {
-        if (value == 0)
-            return value;
-
+        if (value == 0) return value;
         if (axisOptions == AxisOptions.Both)
         {
             float angle = Vector2.Angle(input, Vector2.up);
             if (snapAxis == AxisOptions.Horizontal)
             {
-                if (angle < 22.5f || angle > 157.5f)
-                    return 0;
-                else
-                    return (value > 0) ? 1 : -1;
+                if (angle is < 22.5f or > 157.5f) return 0;
+                return (value > 0) ? 1 : -1;
             }
-            else if (snapAxis == AxisOptions.Vertical)
+            
+            if (snapAxis == AxisOptions.Vertical)
             {
-                if (angle > 67.5f && angle < 112.5f)
-                    return 0;
-                else
-                    return (value > 0) ? 1 : -1;
+                if (angle is > 67.5f and < 112.5f) return 0;
+                return (value > 0) ? 1 : -1;
             }
             return value;
         }
-        else
+        return value switch
         {
-            if (value > 0)
-                return 1;
-            if (value < 0)
-                return -1;
-        }
-        return 0;
+            > 0 => 1,
+            < 0 => -1,
+            _ => 0
+        };
     }
 
     public virtual void OnPointerUp(PointerEventData eventData)
