@@ -16,14 +16,11 @@ public class Tank_Service : MonoBehaviour
         {
             CreateNewTank();
         }
-
     }
-
     private Tank_Controller CreateNewTank()
     {
         Tank_Model model = new Tank_Model(5, 100f);
         Tank_Controller tankController = new Tank_Controller(model, tankview);
         return tankController;
     }
-
 }
