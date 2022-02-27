@@ -2,25 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tank_Service : MonoBehaviour
+namespace Tank
 {
-    public Tank_View tankview;
-    // Start is called before the first frame update
-    void Start()
+    public class Tank_Service : MonoBehaviour
     {
-        StartGame();
-    }
-    public void StartGame()
-    {
-        for (int i = 0; i < 1; i++)
+        [SerializeField] private Joystick joystick;
+        private Tank_View tankview;
+        private Tank_Controller tankcontroller;
+        private Tank_ScriptableObject[] tank_ScriptableObjects;
+        void Start()
+        {
+            StartGame();
+        }
+        void StartGame()
         {
             CreateNewTank();
         }
-    }
-    private Tank_Controller CreateNewTank()
-    {
-        Tank_Model model = new Tank_Model(5, 100f);
-        Tank_Controller tankController = new Tank_Controller(model, tankview);
-        return tankController;
+        private Tank_Controller CreateNewTank()
+        {
+            Tank_ScriptableObject tank_ScriptableObject = tank_ScriptableObjects[Random.Range(0, tank_ScriptableObjects.Length)];
+            Tank_Model model = new Tank_Model(tank_ScriptableObject);
+            Tank_Controller tankController = new Tank_Controller(model, tankview, joystick);
+            return tankController;
+        }
     }
 }
