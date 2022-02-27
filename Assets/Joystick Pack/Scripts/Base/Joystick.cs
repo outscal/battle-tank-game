@@ -14,13 +14,11 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         get { return handleRange; }
         set { handleRange = Mathf.Abs(value); }
     }
-
     public float DeadZone
     {
         get { return deadZone; }
         set { deadZone = Mathf.Abs(value); }
     }
-
     public AxisOptions AxisOptions { get { return AxisOptions; } set { axisOptions = value; } }
     public bool SnapX { get { return snapX; } set { snapX = value; } }
     public bool SnapY { get { return snapY; } set { snapY = value; } }
@@ -37,9 +35,7 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
 
     private Canvas canvas;
     private Camera cam;
-
     private Vector2 input = Vector2.zero;
-
     protected virtual void Start()
     {
         HandleRange = handleRange;
@@ -56,12 +52,10 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         handle.pivot = center;
         handle.anchoredPosition = Vector2.zero;
     }
-
     public virtual void OnPointerDown(PointerEventData eventData)
     {
         OnDrag(eventData);
     }
-
     public void OnDrag(PointerEventData eventData)
     {
         cam = null;
@@ -75,7 +69,6 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         HandleInput(input.magnitude, input.normalized, radius, cam);
         handle.anchoredPosition = input * radius * handleRange;
     }
-
     protected virtual void HandleInput(float magnitude, Vector2 normalised, Vector2 radius, Camera cam)
     {
         if (magnitude > deadZone)
@@ -86,7 +79,6 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         else
             input = Vector2.zero;
     }
-
     private void FormatInput()
     {
         if (axisOptions == AxisOptions.Horizontal)
@@ -94,7 +86,6 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         else if (axisOptions == AxisOptions.Vertical)
             input = new Vector2(0f, input.y);
     }
-
     private float SnapFloat(float value, AxisOptions snapAxis)
     {
         if (value == 0)
@@ -128,7 +119,6 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         }
         return 0;
     }
-
     public virtual void OnPointerUp(PointerEventData eventData)
     {
         input = Vector2.zero;
@@ -146,5 +136,4 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         return Vector2.zero;
     }
 }
-
 public enum AxisOptions { Both, Horizontal, Vertical }

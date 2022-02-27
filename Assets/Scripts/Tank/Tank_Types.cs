@@ -1,4 +1,3 @@
-
 namespace Tank
 {
     public enum Tank_Types
