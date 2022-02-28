@@ -10,7 +10,7 @@ namespace Tank
 
         public TankController(TankView tankView)
         {
-            TankView = GameObject.Instantiate<TankView>(tankView);
+            TankView = GameObject.Instantiate(tankView);
             TankView.SetTankController(this);
         }
 
@@ -24,11 +24,18 @@ namespace Tank
             if(TankModel.Health<=0) DestroyMe();
         }
 
-        private void DestroyMe()
+        protected virtual void DestroyMe()
         {
             GameObject.Destroy(TankView.gameObject);
-            TankModel = null;
-            TankService.Instance.Destroy(this);
+        }
+
+        public virtual void HitBy(Collision collision)
+        {
+            if (collision.gameObject.GetComponent<BulletView>())
+            {
+                Debug.Log("hit by bullet!");
+                TakeDamage(collision.gameObject.GetComponent<BulletView>().BulletController.BulletModel.Damage);
+            }
         }
     }
 }

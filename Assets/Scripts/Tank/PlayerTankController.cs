@@ -6,7 +6,7 @@ namespace Tank
 {
     public class PlayerTankController : TankController
     {
-        private InputSystem.InputSystem _inputSystem;
+        
         private Rigidbody _rigidbody;
         private Vector2 _joystickDirection;
 
@@ -14,7 +14,7 @@ namespace Tank
     
         void TakeJoystickInputs()
         {
-            _joystickDirection = _inputSystem.Joystick.Direction;
+            _joystickDirection = ((PlayerTankView)TankView).InputSystem.Joystick.Direction;
         }
         public override void Move()
         {
@@ -29,20 +29,34 @@ namespace Tank
         
         public override void HandleAttacks()
         {
-            if (_inputSystem.FireButton.Pressed && _firing == false)
+            if (((PlayerTankView)TankView).InputSystem.FireButton.Pressed && _firing == false)
             {
+                Debug.Log("Firing");
                 Attack.Attack attack = new LinearAttack(TankModel.BulletType, TankView.ShootingPoint.position, TankModel.Damage, TankView.transform.forward);
                 BulletService.Instance.CreateBullet(attack);
                 _firing = true;
             }
-            else if (!_inputSystem.FireButton.Pressed && _firing) _firing = false;
+            else if (!((PlayerTankView)TankView).InputSystem.FireButton.Pressed && _firing) _firing = false;
         }
         
         public PlayerTankController(InputSystem.InputSystem inputSystem, Scriptable_Object.Tank.Tank tank):base(tank.TankView)
         {
-            _inputSystem = inputSystem;
+            ((PlayerTankView)TankView).SetInputSystem(inputSystem);
             _rigidbody = TankView.GetComponent<Rigidbody>();
             TankModel = new TankModel(tank.TankModel);
+        }
+
+        protected override void DestroyMe()
+        {
+            base.DestroyMe();
+            PlayerTankService.Instance.Destroy();
+            //((ITankService)PlayerTankService.Instance).Destroy(this);
+        }
+
+        public override void HitBy(Collision collision)
+        {
+            base.HitBy(collision);
+            if(collision.gameObject.GetComponent<EnemyTankView>()) TakeDamage(collision.gameObject.GetComponent<EnemyTankView>().TankController.TankModel.Damage);
         }
     }
 }

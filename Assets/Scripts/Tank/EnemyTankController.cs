@@ -6,24 +6,19 @@ namespace Tank
     public class EnemyTankController : TankController
     {
         private float _refreshCounter;
-        private NavMeshAgent _navMeshAgent;
         public EnemyTankController(Scriptable_Object.Tank.Tank tank, Vector3 position) : base(tank.TankView)
         {
             TankModel = new EnemyTankModel((EnemyTankModel)tank.TankModel);
             TankView.transform.position = new Vector3(position.x, TankView.transform.position.y, position.z);
-            TankView.gameObject.AddComponent<NavMeshAgent>();
-            _navMeshAgent = TankView.GetComponent<NavMeshAgent>();
             InitAIAgent();
-            _navMeshAgent.SetDestination(GetRandomDestination());
-            ResetCounter();
+            ResetDestination();
         }
 
         public override void Move()
         {
             if (_refreshCounter<=0)
             {
-                _navMeshAgent.SetDestination(GetRandomDestination());
-                ResetCounter();
+                ResetDestination();
                 return;
             }
             _refreshCounter -= Time.fixedDeltaTime;
@@ -31,6 +26,12 @@ namespace Tank
 
         public override void HandleAttacks()
         { }
+
+        private void ResetDestination()
+        {
+            ((EnemyTankView) TankView).NavMeshAgent.SetDestination(GetRandomDestination());
+            ResetCounter();
+        }
 
         private void ResetCounter()
         {
@@ -46,16 +47,22 @@ namespace Tank
 
         private Vector3 GetRandomDestination()
         {
-            return new Vector3(GetRandomCoordinate(), TankView.transform.position.y, GetRandomCoordinate());
+            return new(GetRandomCoordinate(), TankView.transform.position.y, GetRandomCoordinate());
         }
 
         private void InitAIAgent()
         {
             EnemyTankModel theTankModel = (EnemyTankModel) TankModel;
-            _navMeshAgent.height = 2;
-            _navMeshAgent.radius = 2;
-            _navMeshAgent.stoppingDistance = theTankModel.AiAgentModel.Range;
-            _navMeshAgent.speed = theTankModel.Speed;
+            ((EnemyTankView) TankView).NavMeshAgent.height = 2;
+            ((EnemyTankView) TankView).NavMeshAgent.radius = 2;
+            ((EnemyTankView) TankView).NavMeshAgent.stoppingDistance = theTankModel.AiAgentModel.Range;
+            ((EnemyTankView) TankView).NavMeshAgent.speed = theTankModel.Speed;
+        }
+
+        protected override void DestroyMe()
+        {
+            base.DestroyMe();
+            ((ITankService)EnemyTankService.Instance).Destroy(this);
         }
     }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44504905, g: 0.49464136, b: 0.5737399, a: 1}
+  m_IndirectSpecularColor: {r: 0.44251788, g: 0.49141496, b: 0.57117516, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &4
 LightmapSettings:
@@ -441,7 +441,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 723073496}
-  - component: {fileID: 723073495}
+  - component: {fileID: 723073497}
+  - component: {fileID: 723073498}
   m_Layer: 0
   m_Name: Tanks Manager
   m_TagString: Untagged
@@ -449,37 +450,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &723073495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 723073494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a6239d895993434d89c72aee8a1a2a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputSystem:
-    _joystick: {fileID: 401374399}
-    _fireButton: {fileID: 413633632}
-  tanks: {fileID: 11400000, guid: 590a0e7de8160834f8507ab4bd3e95df, type: 2}
-  enemySpawningPoints:
-  - {fileID: 774663585}
-  - {fileID: 340660579}
-  - {fileID: 1876018821}
-  - {fileID: 321845819}
-  - {fileID: 1152372462}
-  - {fileID: 1922121395}
-  - {fileID: 476843495}
-  - {fileID: 1787279929}
-  - {fileID: 1811656316}
-  - {fileID: 218915819}
-  - {fileID: 1902182330}
-  - {fileID: 1490756825}
-  - {fileID: 389948926}
-  navMeshData: {fileID: 0}
 --- !u!4 &723073496
 Transform:
   m_ObjectHideFlags: 0
@@ -495,6 +465,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &723073497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723073494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f64eeabf1234991498c81e9491c40ebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 0
+  inputSystem:
+    _joystick: {fileID: 401374399}
+    _fireButton: {fileID: 413633632}
+  tanks: {fileID: 11400000, guid: 17ca123a14764394a85b20a1b4cabd28, type: 2}
+--- !u!114 &723073498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723073494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8393a910e3eb7024b9f7a2833eea1c9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tanks: {fileID: 11400000, guid: 3d734ac2c8b4d6047bfad24b4c0567a5, type: 2}
+  enemySpawningPoints:
+  - {fileID: 774663585}
+  - {fileID: 340660579}
+  - {fileID: 1876018821}
+  - {fileID: 321845819}
+  - {fileID: 1152372462}
+  - {fileID: 1922121395}
+  - {fileID: 476843495}
+  - {fileID: 1787279929}
+  - {fileID: 1811656316}
+  - {fileID: 218915819}
+  - {fileID: 1902182330}
+  - {fileID: 1490756825}
+  - {fileID: 389948926}
 --- !u!1 &774663584
 GameObject:
   m_ObjectHideFlags: 0

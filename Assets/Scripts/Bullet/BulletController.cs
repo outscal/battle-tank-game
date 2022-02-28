@@ -25,12 +25,12 @@ namespace Bullet
         public void HitBy(Collision other)
         {
             _hitSomething = true;
+            if(other.gameObject.GetComponent<TankView>()) DestroyMe();
         }
 
         protected void DestroyMe()
         {
             GameObject.Destroy(_bulletView.gameObject);
-            _bulletModel = null;
             BulletService.Instance.Destroy(this);
         }
     }
