@@ -7,9 +7,9 @@ namespace Tank
     public class Tank_Service : MonoBehaviour
     {
         [SerializeField] private Joystick joystick;
-        private Tank_View tankview;
+        [SerializeField] private Tank_View tankview;
         private Tank_Controller tankcontroller;
-        private Tank_ScriptableObject[] tank_ScriptableObjects;
+        [SerializeField] private Tank_ScriptableObject[] tank_ScriptableObjects;
         void Start()
         {
             StartGame();

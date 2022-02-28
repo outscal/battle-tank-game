@@ -11,6 +11,7 @@ namespace Tank
         public int Speed { get; }
         public float Health { get; }
         public float RotationSpeed { get; }
+        public Color TankColor { get; }
         public Tank_Model(Tank_ScriptableObject tank_ScriptableObject)
         {
             TankType = tank_ScriptableObject.TankType;
@@ -18,6 +19,7 @@ namespace Tank
             Health = tank_ScriptableObject.Health;
             TankName = tank_ScriptableObject.TankName;
             RotationSpeed = tank_ScriptableObject.RotationSpeed;
+            TankColor = tank_ScriptableObject.TankColor;
         }
     }
 }

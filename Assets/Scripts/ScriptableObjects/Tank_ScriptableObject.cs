@@ -9,4 +9,5 @@ public class Tank_ScriptableObject : ScriptableObject
     public int Speed;
     public float Health;
     public float RotationSpeed;
+    public Color TankColor;
 }
