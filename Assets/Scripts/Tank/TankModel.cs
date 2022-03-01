@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Tank
 {
     [System.Serializable]
-    public class TankModel
+    public abstract class TankModel
     {
         [SerializeField] private float speed =5;
         [SerializeField] private float health =100;
@@ -13,7 +13,7 @@ namespace Tank
         public float Speed => speed;
         public float Health => health;
 
-        public void DecreaseHealth(float amount)
+        public virtual void DecreaseHealth(float amount)
         {
             Debug.Log("Decrease: "+amount+" New health: " + health);
             health -= amount;

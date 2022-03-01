@@ -61,8 +61,13 @@ namespace Tank
 
         protected override void DestroyMe()
         {
-            base.DestroyMe();
             ((ITankService)EnemyTankService.Instance).Destroy(this);
+        }
+
+        public override void TakeDamage(float amount)
+        {
+            base.TakeDamage(amount);
+            if(TankModel.Health<=0) DestroyMe();
         }
     }
 }

@@ -18,16 +18,12 @@ namespace Tank
 
         public abstract void HandleAttacks();
 
-        public void TakeDamage(float amount)
+        public virtual void TakeDamage(float amount)
         {
             TankModel.DecreaseHealth(amount);
-            if(TankModel.Health<=0) DestroyMe();
         }
 
-        protected virtual void DestroyMe()
-        {
-            GameObject.Destroy(TankView.gameObject);
-        }
+        protected abstract void DestroyMe();
 
         public virtual void HitBy(Collision collision)
         {

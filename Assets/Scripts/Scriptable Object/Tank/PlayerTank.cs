@@ -12,7 +12,7 @@ namespace Scriptable_Object.Tank
         PlayerTank()
         {
             tankType = TankType.Player;
-            tankModel = new TankModel();
+            tankModel = new PlayerTankModel();
         }
     }
 }

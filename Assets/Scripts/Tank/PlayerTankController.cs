@@ -1,11 +1,17 @@
+using System;
 using Attack;
 using Bullet;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Tank
 {
     public class PlayerTankController : TankController
     {
+        public event Action<float> DecreaseHealth = delegate(float f) {  };
+        public event Action LoseLife = delegate {  };
+        
+        public event Action PlayerDied = delegate {  };
         
         private Rigidbody _rigidbody;
         private Vector2 _joystickDirection;
@@ -43,20 +49,46 @@ namespace Tank
         {
             ((PlayerTankView)TankView).SetInputSystem(inputSystem);
             _rigidbody = TankView.GetComponent<Rigidbody>();
-            TankModel = new TankModel(tank.TankModel);
+            TankModel = new PlayerTankModel((PlayerTankModel)tank.TankModel);
+            
+            LoseLife += DieOnce;
         }
+        
 
         protected override void DestroyMe()
         {
-            base.DestroyMe();
             PlayerTankService.Instance.Destroy();
-            //((ITankService)PlayerTankService.Instance).Destroy(this);
         }
 
         public override void HitBy(Collision collision)
         {
             base.HitBy(collision);
-            if(collision.gameObject.GetComponent<EnemyTankView>()) TakeDamage(collision.gameObject.GetComponent<EnemyTankView>().TankController.TankModel.Damage);
+            if(collision.gameObject.GetComponent<EnemyTankView>()) {TakeDamage(collision.gameObject.GetComponent<EnemyTankView>().TankController.TankModel.Damage);}
+        }
+
+        public override void TakeDamage(float amount)
+        {
+            base.TakeDamage(amount);
+            DecreaseHealth.Invoke(((PlayerTankModel)TankModel).CurrentHealth/TankModel.Health);
+            if (((PlayerTankModel)TankModel).CurrentHealth<= 0)
+            {
+                ((PlayerTankModel)TankModel).DecreaseLives();
+                LoseLife.Invoke();
+                if (((PlayerTankModel) TankModel).Lives <= 0)
+                {
+                    PlayerDied.Invoke();
+                    DestroyMe();
+                    return;
+                }
+                ((PlayerTankModel)TankModel).ResetCurrentHealth();
+            }
+            
+        }
+
+        private void DieOnce()
+        {
+            Debug.Log("Died once");
+            TankView.transform.position = PlayerTankService.Instance.GetSafePosition();
         }
     }
 }
