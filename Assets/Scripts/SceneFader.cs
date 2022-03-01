@@ -7,6 +7,7 @@ using UnityEngine;
 public class SceneFader : MonoBehaviour
 {
     [SerializeField] private GameObject[] objects;
+    [SerializeField] private float fadingTime;
 
     private void Start()
     {
@@ -27,7 +28,7 @@ public class SceneFader : MonoBehaviour
         foreach (var thing in objects)
         {
             GameObject.Destroy(thing);
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(fadingTime);
         }
     }
 }

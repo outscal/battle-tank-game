@@ -2,6 +2,7 @@ using System;
 using Attack;
 using Bullet;
 using UnityEngine;
+using UniRx;
 using Random = UnityEngine.Random;
 
 namespace Tank
@@ -73,22 +74,28 @@ namespace Tank
             if (((PlayerTankModel)TankModel).CurrentHealth<= 0)
             {
                 ((PlayerTankModel)TankModel).DecreaseLives();
-                LoseLife.Invoke();
                 if (((PlayerTankModel) TankModel).Lives <= 0)
                 {
                     PlayerDied.Invoke();
                     DestroyMe();
                     return;
                 }
+
+                LoseLife.Invoke();
                 ((PlayerTankModel)TankModel).ResetCurrentHealth();
             }
             
         }
 
-        private void DieOnce()
+        async void DieOnce()
         {
-            Debug.Log("Died once");
+            TankView.gameObject.SetActive(false);
+            await ((ITankService) PlayerTankService.Instance).Explode(PlayerTankService.Instance.Player,
+                PlayerTankService.Instance.Explosion);
             TankView.transform.position = PlayerTankService.Instance.GetSafePosition();
+            TankView.gameObject.SetActive(true);
         }
+
+        
     }
 }

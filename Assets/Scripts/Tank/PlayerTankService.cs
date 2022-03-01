@@ -14,6 +14,7 @@ namespace Tank
         [SerializeField] private Scriptable_Object.Tank.PlayerTankList tanks;
         [SerializeField] private SafePoint[] safePoints;
 
+        public ParticleSystem Explosion => tankExplosion;
         public SafePoint[] SafePoints => safePoints;
         private PlayerTankController _player;
         public PlayerTankController Player => _player;
