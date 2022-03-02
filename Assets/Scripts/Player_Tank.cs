@@ -5,23 +5,31 @@ using UnityEngine;
 public class Player_Tank : Singleton_Generic<Player_Tank>
 {
     public Joystick Tank_joystick;
-    float horizontalInput, verticalInput, speed = 7.0f, rotationSpeed = 150.0f;
+    float horizontalInput, verticalInput, speed, rotationSpeed, joystick_minMovement;
+
     protected override void Awake()
     {
         base.Awake();
     }
 
-    private void Update()
+    private void Start()
     {
-        Player_Movement();
+        speed = 4.0f;
+        rotationSpeed = 250.0f;
+        joystick_minMovement = 1f;
     }
 
-    void Player_Movement()
+    private void Update()
+    {
+        Tank_Movement();
+    }
+
+    void Tank_Movement()
     {
         horizontalInput = Tank_joystick.Horizontal * 5;
         verticalInput = Tank_joystick.Vertical * 5;
 
-        if (horizontalInput > 0 || horizontalInput < 0 || verticalInput > 0 || verticalInput < 0)
+        if (horizontalInput > joystick_minMovement || horizontalInput < -joystick_minMovement || verticalInput > joystick_minMovement || verticalInput < -joystick_minMovement)
         {
             Vector3 moveDirection = new Vector3(horizontalInput, 0, verticalInput);
             moveDirection.Normalize();
