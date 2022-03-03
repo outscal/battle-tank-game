@@ -14,9 +14,13 @@ namespace EnemyTankServices
 
         private void Start()
         {
-            enemyTankType = (EnemyType)Mathf.Floor(Random.Range(0, 3f));
+            for (int i = 0; i < 4; i++)
+            {
+                enemyTankType = (EnemyType)Mathf.Floor(Random.Range(1, 4f));
+                tankController = CreateEnemyTank(enemyTankType);
 
-            tankController = CreateEnemyTank(enemyTankType);
+            }
+
         }
 
         private EnemyTankController CreateEnemyTank(EnemyType tanktype)

@@ -62,6 +62,10 @@ namespace PlayerTankServices
         }
         IEnumerator TankExplosion()
         {
+            explosionParticles.transform.position = transform.position;
+            explosionParticles.gameObject.SetActive(true);
+            explosionSound.Play();
+            explosionParticles.Play();
             yield return new WaitForSeconds(5f);
         }
 

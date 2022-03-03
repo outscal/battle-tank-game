@@ -12,6 +12,7 @@ namespace EnemyTankServices
         {
             this.tankModel = tankModel;
             tankView = GameObject.Instantiate<EnemyTankView>(tankPrefab, new Vector3(3, 0, -3), new Quaternion(0, 0, 0, 0));
+
             tankView.tankController = this;
         }
 

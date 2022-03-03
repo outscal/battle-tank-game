@@ -6,42 +6,22 @@ namespace GameplayServices
 {
     public class GameManager : MonoSingletonGeneric<GameManager>
     {
+        [SerializeField] private GameObject[] EnvronmentPrefabs;
+        [SerializeField] private GameObject EnemyTank;
         public void DestroyAllGameObjects()
         {
-            DestroyEnemyObjects();
-            DestroyGroundObjects();
-        }
 
-        private void DestroyEnemyObjects()
-        {
-            StartCoroutine("Destroy");
+            StartCoroutine(Destroy());
 
-            GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("EnemyTank");
-
-            for (int i = 0; i < enemyObjects.Length; i++)
-            {
-
-                enemyObjects[i].GetComponent<EnemyTankView>().tankController.Death();
-            }
-        }
-
-        private void DestroyGroundObjects()
-        {
-            StartCoroutine("Destroy");
-
-
-            GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("Ground");
-
-            for (int i = enemyObjects.Length - 1; i >= 0; i--)
-            {
-
-                Destroy(enemyObjects[i]);
-            }
         }
         IEnumerator Destroy()
         {
-
-            yield return new WaitForSeconds(1.5f);
+            foreach (var prefab in EnvronmentPrefabs)
+            {
+                Destroy(prefab);
+                yield return new WaitForSeconds(0.7f);
+            }
+            Destroy(EnemyTank);
         }
     }
 }
