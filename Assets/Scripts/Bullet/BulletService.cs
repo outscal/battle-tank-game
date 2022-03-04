@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Attack;
 using UnityEngine;
 
@@ -6,6 +7,11 @@ namespace Bullet
 {
     public class BulletService : SingletonMB<BulletService>
     {
+        #region Public Events
+
+        public static event Action<Scriptable_Object.Bullet.Bullet> BulletFired; 
+
+        #endregion
         #region Serialized data members
 
         [SerializeField] private ParticleSystem shellExplosion;
@@ -45,6 +51,7 @@ namespace Bullet
                     break;
             }
 
+            BulletFired?.Invoke(attack.Bullet);
             return newBulletController;
         }
 

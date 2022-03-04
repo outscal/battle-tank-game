@@ -1,10 +1,17 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Tank
 {
     public class EnemyTankService : SingletonMB<EnemyTankService>, Interfaces.ITankService
     {
+        #region Public Events
+
+        public static event Action TankDied; 
+
+        #endregion
         #region Serialized Data members
 
         [SerializeField] private ParticleSystem tankExplosion;
@@ -53,6 +60,7 @@ namespace Tank
         {
             _tankControllers.Remove((EnemyTankController) controller);
             StartCoroutine(((Interfaces.ITankService) this).KillTank(controller, tankExplosion));
+            TankDied?.Invoke();
         }
 
         #endregion

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Tank;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,19 +29,23 @@ public class UI_PlayerHelathBar : MonoBehaviour
 
     #region Unity Functions
 
+    private void OnEnable()
+    {
+        PlayerTankService.LoseLife += LoseLife;
+    }
+
     private void OnDisable()
     {
         if (Tank.PlayerTankService.Instance.Player!=null)
         {
             Tank.PlayerTankService.Instance.Player.DecreaseHealth -= UpdateHealth;
-            Tank.PlayerTankService.Instance.Player.LoseLife -= LoseLife;
+            PlayerTankService.LoseLife -= LoseLife;
         }
     }
 
     void Start()
     {
         Tank.PlayerTankService.Instance.Player.DecreaseHealth += UpdateHealth;
-        Tank.PlayerTankService.Instance.Player.LoseLife += LoseLife;
         _lifeIndex = ((Tank.PlayerTankModel) Tank.PlayerTankService.Instance.Player.TankModel).Lives;
         for (int i = 0; i < _lifeIndex; i++)
         {

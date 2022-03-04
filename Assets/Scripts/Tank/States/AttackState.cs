@@ -41,7 +41,7 @@ namespace Tank.States
         private void Start()
         {
             if(_target) LunchAttack();
-            ((PlayerTankController) _target.TankController).LoseLife += LoseTarget;
+            PlayerTankService.LoseLife += LoseTarget;
         }
 
         private void Update()
@@ -65,7 +65,7 @@ namespace Tank.States
         {
             _isInitialized = false;
             _tankView.NavMeshAgent.speed *=100;
-            ((PlayerTankController) _target.TankController).LoseLife -= LoseTarget;
+            PlayerTankService.LoseLife -= LoseTarget;
         }
 
         #endregion

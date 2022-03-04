@@ -1,3 +1,4 @@
+using System;
 using Scriptable_Object.Tank;
 using Tank.Interfaces;
 using UnityEngine;
@@ -6,6 +7,13 @@ namespace Tank
 {
     public class PlayerTankService : SingletonMB<PlayerTankService>, Interfaces.ITankService
     {
+        #region Public Events
+
+        public static event Action LoseLife;
+        public static event Action PlayerDied;
+        public static event Action PlayerCreated;
+
+        #endregion
         #region Serialized Data Members
 
         [SerializeField] private ParticleSystem tankExplosion;
@@ -35,13 +43,18 @@ namespace Tank
         protected override void Awake()
         {
             base.Awake();
+        }
+
+        private void OnEnable()
+        {
             _player = (PlayerTankController) ((ITankService) this).CreateTank(tanks.List[index]);
         }
 
-            #endregion
+        #endregion
         
         TankController Interfaces.ITankService.CreateTank(Scriptable_Object.Tank.Tank tank)
         {
+            PlayerCreated?.Invoke();
             return new PlayerTankController(inputSystem, tank);
         }
 
@@ -65,6 +78,9 @@ namespace Tank
             }
             return safe;
         }
+
+        public void PlayerLoseLife() => LoseLife?.Invoke();
+        public void PlayerDie() => PlayerDied?.Invoke();
 
         #endregion
     }
