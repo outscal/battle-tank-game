@@ -14,10 +14,6 @@ namespace Tank
             TankView.SetTankController(this);
         }
 
-        public abstract void Move();
-
-        public abstract void HandleAttacks();
-
         public virtual void TakeDamage(float amount)
         {
             TankModel.DecreaseHealth(amount);

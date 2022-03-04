@@ -13,6 +13,7 @@ namespace Tank
         public PlayerTankModel() : base()
         {
             lives = 3;
+            _type = TankType.Player;
             ResetCurrentHealth();
         }
 

@@ -5,17 +5,24 @@ namespace Tank
     [System.Serializable]
     public class AiAgentModel
     {
-        [SerializeField] private float range = 20;
+        [SerializeField] private float radarRange = 20;
+        [SerializeField] private float attackRange = 10;
         [SerializeField] private float refreshTime = 5;
-        public float Range => range;
+        [SerializeField] private float fireRate = 1;
+        public float RadarRange => radarRange;
+        public float AttackRange => attackRange;
         public float RefreshTime => refreshTime;
+
+        public float FireRate => fireRate;
         
         public AiAgentModel(){}
 
         public AiAgentModel(AiAgentModel other)
         {
-            range = other.Range;
+            radarRange = other.RadarRange;
             refreshTime = other.RefreshTime;
+            attackRange = other.AttackRange;
+            fireRate = other.FireRate;
         }
     }
 }

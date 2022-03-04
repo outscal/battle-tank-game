@@ -9,7 +9,11 @@ namespace Tank
         [SerializeField] private float speed =5;
         [SerializeField] private float health =100;
         [SerializeField] private float damage =20;
-        [SerializeField] private BulletType bulletType = BulletType.None;
+        [SerializeField] private Scriptable_Object.Bullet.Bullet bullet;
+
+        protected TankType _type;
+
+        public TankType TankType => _type;
         public float Speed => speed;
         public float Health => health;
 
@@ -19,7 +23,7 @@ namespace Tank
             health -= amount;
         }
         public float Damage => damage;
-        public BulletType BulletType => bulletType;
+        public Scriptable_Object.Bullet.Bullet Bullet => bullet;
         public TankModel(){}
 
         public TankModel(TankModel other)
@@ -27,7 +31,8 @@ namespace Tank
             speed = other.Speed;
             health = other.Health;
             damage = other.Damage;
-            bulletType = other.BulletType;
+            bullet = other.Bullet;
+            _type = other.TankType;
         }
     }
 }

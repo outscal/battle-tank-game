@@ -24,7 +24,9 @@ MonoBehaviour:
         speed: 5
         health: 100
         damage: 20
-        bulletType: 0
+        bullet: {fileID: 11400000, guid: c0317cc870189d54ca8a1c4669cd39f0, type: 2}
         aiAgentModel:
-          range: 20
-          refreshTime: 20
+          radarRange: 20
+          attackRange: 10
+          refreshTime: 5
+          fireRate: 1

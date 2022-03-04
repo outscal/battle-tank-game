@@ -23,7 +23,7 @@ namespace Tank
         {
             _joystickDirection = ((PlayerTankView)TankView).InputSystem.Joystick.Direction;
         }
-        public override void Move()
+        public void Move()
         {
             TakeJoystickInputs();
             Vector3 newForward =(_joystickDirection.magnitude<0.2f)?TankView.transform.forward:new Vector3(_joystickDirection.x , 0, _joystickDirection.y );
@@ -34,12 +34,11 @@ namespace Tank
             _rigidbody.velocity = newVelocity;
         }
         
-        public override void HandleAttacks()
+        public void HandleAttacks()
         {
             if (((PlayerTankView)TankView).InputSystem.FireButton.Pressed && _firing == false)
             {
-                Debug.Log("Firing");
-                Attack.Attack attack = new LinearAttack(TankModel.BulletType, TankView.ShootingPoint.position, TankModel.Damage, TankView.transform.forward);
+                Attack.Attack attack = new LinearAttack(TankModel.Bullet, TankView.ShootingPoint.position, TankModel.Damage, TankView.transform.forward,TankModel.TankType);
                 BulletService.Instance.CreateBullet(attack);
                 _firing = true;
             }
@@ -60,13 +59,7 @@ namespace Tank
         {
             PlayerTankService.Instance.Destroy();
         }
-
-        public override void HitBy(Collision collision)
-        {
-            base.HitBy(collision);
-            if(collision.gameObject.GetComponent<EnemyTankView>()) {TakeDamage(collision.gameObject.GetComponent<EnemyTankView>().TankController.TankModel.Damage);}
-        }
-
+        
         public override void TakeDamage(float amount)
         {
             base.TakeDamage(amount);

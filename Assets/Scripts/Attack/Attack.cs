@@ -1,4 +1,5 @@
 ﻿using Bullet;
+using Tank;
 using UnityEngine;
 
 namespace Attack
@@ -6,18 +7,21 @@ namespace Attack
     public abstract class Attack
     {
         private float _damage;
-        private BulletType _bulletType;
+        private Scriptable_Object.Bullet.Bullet _bullet;
         private Vector3 _position;
+        private TankType _tankType;
 
+        public TankType TankType => _tankType;
         public float Damage => _damage;
-        public BulletType BulletType => _bulletType;
+        public Scriptable_Object.Bullet.Bullet Bullet => _bullet;
         public Vector3 Position => _position;
 
-        public Attack(BulletType type, Vector3 position, float damage)
+        public Attack(Scriptable_Object.Bullet.Bullet bullet, Vector3 position, float damage, TankType tankType)
         {
             _damage = damage;
-            _bulletType = type;
+            _bullet = bullet;
             _position = position;
+            _tankType = tankType;
         }
     }
 }

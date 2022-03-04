@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Bullet;
+using UnityEngine;
 using UnityEngine.PlayerLoop;
 
 namespace Tank
@@ -7,17 +8,19 @@ namespace Tank
     public class EnemyTankModel:TankModel
     {
         [SerializeField] private AiAgentModel aiAgentModel;
-        
+
         public AiAgentModel AiAgentModel => aiAgentModel;
 
         public EnemyTankModel() : base()
         {
             aiAgentModel = new AiAgentModel();
+            _type = TankType.Enemy;
         }
 
         public EnemyTankModel(TankModel other) : base(other)
         {
             aiAgentModel = new AiAgentModel();
+            _type = TankType.Enemy;
         }
 
         public EnemyTankModel(EnemyTankModel other) : base(other)

@@ -21,21 +21,13 @@ namespace Tank
 
         private void Update()
         {
-            _tankController.HandleAttacks();
+            ((PlayerTankController)_tankController).HandleAttacks();
         }
 
         private void FixedUpdate()
         {
-            _tankController.Move();
+            ((PlayerTankController)_tankController).Move();
         }
-
-        protected override void OnCollisionEnter(Collision other)
-        {
-            base.OnCollisionEnter(other);
-            if (other.gameObject.GetComponent<TankView>())
-            {
-                _tankController.TakeDamage(other.gameObject.GetComponent<TankView>().TankController.TankModel.Damage);
-            }
-        }
+        
     }
 }

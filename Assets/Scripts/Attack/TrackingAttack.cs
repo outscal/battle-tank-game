@@ -1,4 +1,5 @@
 ﻿using Bullet;
+using Tank;
 using UnityEngine;
 
 namespace Attack
@@ -7,7 +8,7 @@ namespace Attack
     {
         private TankView _target;
         public TankView Target => _target;
-        public TrackingAttack(BulletType type, Vector3 position, float damage, TankView target) : base(type, position, damage)
+        public TrackingAttack(Scriptable_Object.Bullet.Bullet bullet, Vector3 position, float damage, TankView target, TankType tankType) : base(bullet, position, damage, tankType)
         {
             _target = target;
         }

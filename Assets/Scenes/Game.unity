@@ -108,7 +108,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 2
+    agentRadius: 1
     agentHeight: 2
     agentSlope: 39.7
     agentClimb: 1.03
@@ -116,7 +116,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.6666667
+    cellSize: 0.33333334
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -689,7 +689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a416739f74cd421cb72f31babea853bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullets: {fileID: 11400000, guid: 407256ff758deee4da3065f0e0d48af6, type: 2}
+  shellExplosion: {fileID: 19807510, guid: 89e78efe92dfe5a42837b392cdb0bf9e, type: 3}
 --- !u!4 &688382246
 Transform:
   m_ObjectHideFlags: 0
@@ -1671,7 +1671,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 8ce5d020a687c314891341b4126d1de2, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1991,7 +1991,7 @@ MonoBehaviour:
   - {fileID: 1283656495}
   - {fileID: 997718127}
   - {fileID: 1642335891}
-  fadingTime: 0.5
+  fadingTime: 0.25
 --- !u!4 &1706340148
 Transform:
   m_ObjectHideFlags: 0

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using Tank;
+using UnityEngine;
 
 namespace Bullet
 {
@@ -11,11 +13,12 @@ namespace Bullet
         public BulletView BulletView => _bulletView;
         public BulletModel BulletModel => _bulletModel;
 
-        public BulletController(Attack.Attack attack, Scriptable_Object.Bullet.Bullet bullet)
+        public BulletController(Attack.Attack attack)
         {
-            _bulletModel = new BulletModel(bullet.BulletModel);
+            _bulletModel = new BulletModel(attack.Bullet.BulletModel);
             _bulletModel.SetDamage(attack.Damage);
-            _bulletView = GameObject.Instantiate(bullet.BulletView,attack.Position,Quaternion.identity);
+            _bulletModel.SetTankType(attack.TankType);
+            _bulletView = GameObject.Instantiate(attack.Bullet.BulletView,attack.Position,Quaternion.identity);
             _bulletView.BulletController = this;
             _hitSomething = false;
         }
@@ -25,8 +28,17 @@ namespace Bullet
         public void HitBy(Collision other)
         {
             _hitSomething = true;
-            if(other.gameObject.GetComponent<TankView>()) DestroyMe();
+            BulletService.Instance.MakeExplosion(other);
+            if (other.gameObject.GetComponent<IDamageable>() != null)
+            {
+                if (other.gameObject.GetComponent<TankView>().TankController.TankModel.TankType!=_bulletModel.TankType)
+                {
+                    other.gameObject.GetComponent<IDamageable>().DamageReceived(_bulletModel.Damage);
+                    DestroyMe();
+                }
+            }
         }
+        
 
         protected void DestroyMe()
         {

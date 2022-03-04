@@ -1,4 +1,5 @@
 ﻿using Bullet;
+using Tank;
 using UnityEngine;
 
 namespace Attack
@@ -7,7 +8,7 @@ namespace Attack
     {
         private Vector3 _direction;
         public Vector3 Direction => _direction;
-        public LinearAttack(BulletType type, Vector3 position, float damage,Vector3 direction) :base(type, position, damage)
+        public LinearAttack(Scriptable_Object.Bullet.Bullet bullet, Vector3 position, float damage,Vector3 direction,TankType tankType) :base(bullet, position, damage,tankType)
         {
             _direction = direction;
         }

@@ -8,7 +8,7 @@ namespace Bullet
         private Vector3 _direction;
         private Rigidbody _rigidbody;
         
-        public LinearBulletController(Attack.LinearAttack attack, Scriptable_Object.Bullet.Bullet bullet) : base(attack,bullet)
+        public LinearBulletController(Attack.LinearAttack attack) : base(attack)
         {
             _direction = attack.Direction;
             _direction = _direction.normalized;

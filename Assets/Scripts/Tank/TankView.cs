@@ -3,7 +3,7 @@ using Bullet;
 using Tank;
 using UnityEngine;
 
-public abstract class TankView : MonoBehaviour
+public abstract class TankView : MonoBehaviour, IDamageable
 {
     [SerializeField] private Transform _shootingPoint;
     protected TankController _tankController;
@@ -12,8 +12,8 @@ public abstract class TankView : MonoBehaviour
     public void SetTankController(TankController tankController) => _tankController = tankController;
     public Transform ShootingPoint => _shootingPoint;
 
-    protected virtual void OnCollisionEnter(Collision other)
+    public void DamageReceived(float amount)
     {
-        _tankController.HitBy(other);
+        _tankController.TakeDamage(amount);
     }
 }
