@@ -1,11 +1,20 @@
-using System;
-using Tank;
 using UnityEngine;
 
 public class SafePoint : MonoBehaviour
 {
+    #region Private Data members
+
     private int _inside ;
-    public bool Safe { get; set; }
+
+    #endregion
+
+    #region Public Properties
+
+    public bool Safe { get; private set; }
+
+    #endregion
+
+    #region Unity Functions
 
     private void Start()
     {
@@ -15,7 +24,7 @@ public class SafePoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<EnemyTankView>())
+        if (other.GetComponent<Tank.EnemyTankView>())
         {
             _inside++;
             Safe = false;
@@ -24,10 +33,12 @@ public class SafePoint : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<EnemyTankView>())
+        if (other.GetComponent<Tank.EnemyTankView>())
         {
             _inside--;
             Safe = _inside <= 0;
         }
     }
+
+    #endregion
 }

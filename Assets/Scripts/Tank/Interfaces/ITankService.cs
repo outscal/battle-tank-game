@@ -1,12 +1,12 @@
 using System.Collections;
-using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Tank
+namespace Tank.Interfaces
 {
     public interface ITankService
     {
-        
+        #region Public Functions
+
         public TankController CreateTank(Scriptable_Object.Tank.Tank tank);
 
         public void Destroy(TankController controller);
@@ -24,6 +24,8 @@ namespace Tank
             yield return new WaitForSeconds(1.05f);
             GameObject.Destroy(_explosion.gameObject);
         }
+
+        #endregion
 
         
     }

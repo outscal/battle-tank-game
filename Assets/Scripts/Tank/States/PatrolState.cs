@@ -1,29 +1,35 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Tank.States
 {
     public class PatrolState : State
     {
-        [SerializeField] private float mapRange;
-        private float _refreshTime;
-        public float RefreshTime => _refreshTime;
+        #region Serialized Data members
 
+        [SerializeField] private float mapRange;
+
+        #endregion
+
+        #region Private Data members
+
+        private float _refreshTime;
         private bool _isInitialized;
         private float _counter;
+
+        #endregion
+
+        #region Getters
+
+        public float RefreshTime => _refreshTime;
+
+        #endregion
+
+        #region Unity Functions
+
         private void OnEnable()
         {
             _isInitialized = false;
-        }
-
-        public void Init(float refreshTime)
-        {
-            //_tankView.NavMeshAgent.enabled = true;
-            _tankView.NavMeshAgent.SetDestination(GetRandomPosition());
-            _refreshTime = refreshTime;
-            _counter = _refreshTime;
-            _isInitialized = true;
         }
 
         private void Update()
@@ -39,6 +45,22 @@ namespace Tank.States
             _counter = _refreshTime;
         }
 
+        #endregion
+
+        #region Public Functions
+
+        public void Init(float refreshTime)
+        {
+            _tankView.NavMeshAgent.SetDestination(GetRandomPosition());
+            _refreshTime = refreshTime;
+            _counter = _refreshTime;
+            _isInitialized = true;
+        }
+
+        #endregion
+
+        #region Private Data members
+
         private Vector3 GetRandomPosition()
         {
             return new(GetRandomValue(), 1, GetRandomValue());
@@ -49,9 +71,6 @@ namespace Tank.States
             return Random.Range(-mapRange, mapRange);
         }
 
-        private void OnDisable()
-        {
-           // _tankView.NavMeshAgent.enabled = false;
-        }
+        #endregion
     }
 }

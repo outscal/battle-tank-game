@@ -1,21 +1,26 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Tank;
 using UnityEngine;
 
 public class TankRadar : MonoBehaviour
 {
-    public event Action<PlayerTankView> PlayerFound = delegate(PlayerTankView view) {  }; 
-    public event Action PlayerEscaped = delegate {  };
+    #region Public Events
+
+    public event Action<Tank.PlayerTankView> PlayerFound; 
+    public event Action PlayerEscaped;
+
+    #endregion
+
+    #region Unity Functions
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<PlayerTankView>()) PlayerFound.Invoke(other.GetComponent<PlayerTankView>());
+        if (other.GetComponent<Tank.PlayerTankView>()) PlayerFound.Invoke(other.GetComponent<Tank.PlayerTankView>());
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<PlayerTankView>()) PlayerEscaped.Invoke();
+        if (other.GetComponent<Tank.PlayerTankView>()) PlayerEscaped.Invoke();
     }
+
+    #endregion
 }

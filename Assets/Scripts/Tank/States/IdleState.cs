@@ -1,26 +1,28 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Tank.States
 {
     public class IdleState:State
     {
+        #region Private Data members
+
         private float _idleTime;
         private bool _isInitialized;
-        
+
+        #endregion
+
+        #region Getters
+
         public float IdleTime => _idleTime;
+
+        #endregion
+
+        #region Unity Functions
 
         private void OnEnable()
         {
             _isInitialized = false;
             _tankView.NavMeshAgent.speed = 0;
-        }
-
-        public void Init(float idleTime)
-        {
-            Debug.Log("Idle start! "+ idleTime);
-            _idleTime = idleTime;
-            _isInitialized = true;
         }
 
         private void Update()
@@ -38,5 +40,18 @@ namespace Tank.States
         {
             _tankView.NavMeshAgent.speed = _tankView.TankController.TankModel.Speed;
         }
+
+        #endregion
+
+        #region Public Functions
+
+        public void Init(float idleTime)
+        {
+            Debug.Log("Idle start! "+ idleTime);
+            _idleTime = idleTime;
+            _isInitialized = true;
+        }
+
+        #endregion
     }
 }

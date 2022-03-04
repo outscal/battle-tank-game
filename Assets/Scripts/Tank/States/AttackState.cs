@@ -1,5 +1,4 @@
-﻿using System;
-using Attack;
+﻿using Attack;
 using Bullet;
 using UnityEngine;
 
@@ -7,11 +6,21 @@ namespace Tank.States
 {
     public class AttackState: State
     {
+        #region Private Data members
+
         private TankView _target;
         private float _counter;
         private bool _isInitialized;
-        
+
+        #endregion
+
+        #region Getters
+
         public TankView Target => _target;
+
+        #endregion
+
+        #region Public Functions
 
         public void Init(TankView target)
         {
@@ -20,14 +29,13 @@ namespace Tank.States
             _isInitialized = true;
         }
 
+        #endregion
+
+        #region Unity Functions
+
         private void OnEnable()
         {
             _tankView.NavMeshAgent.speed *= 0.01f;
-        }
-
-        private void ResetCounter()
-        {
-            _counter = ((EnemyTankModel) _tankView.TankController.TankModel).AiAgentModel.FireRate;
         }
 
         private void Start()
@@ -35,6 +43,7 @@ namespace Tank.States
             if(_target) LunchAttack();
             ((PlayerTankController) _target.TankController).LoseLife += LoseTarget;
         }
+
         private void Update()
         {
             
@@ -50,6 +59,22 @@ namespace Tank.States
                 ResetCounter();
             }
             
+        }
+
+        private void OnDisable()
+        {
+            _isInitialized = false;
+            _tankView.NavMeshAgent.speed *=100;
+            ((PlayerTankController) _target.TankController).LoseLife -= LoseTarget;
+        }
+
+        #endregion
+
+        #region Private Functions
+
+        private void ResetCounter()
+        {
+            _counter = ((EnemyTankModel) _tankView.TankController.TankModel).AiAgentModel.FireRate;
         }
 
         private void LoseTarget()
@@ -79,11 +104,6 @@ namespace Tank.States
             Debug.Log("attack!!");
         }
 
-        private void OnDisable()
-        {
-            _isInitialized = false;
-            _tankView.NavMeshAgent.speed *=100;
-            ((PlayerTankController) _target.TankController).LoseLife -= LoseTarget;
-        }
+        #endregion
     }
 }

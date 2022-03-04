@@ -2,25 +2,35 @@
 
 namespace Tank.States
 {
-    [RequireComponent(typeof(TankView))]
     public abstract class State : MonoBehaviour
     {
+        #region Protected Data members
+
         protected EnemyTankView _tankView;
+
+        #endregion
+
+        #region Unity Functions
 
         protected void Awake()
         {
             _tankView = GetComponent<EnemyTankView>();
         }
+
+        #endregion
         
+        #region Public Functions
 
-        public virtual void Enter()
+        public void Enter()
         {
-            this.enabled = true;
+            enabled = true;
         }
 
-        public virtual void Exit()
+        public void Exit()
         {
-            this.enabled = false;
+            enabled = false;
         }
+
+        #endregion
     }
 }

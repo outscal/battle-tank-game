@@ -1,12 +1,17 @@
-using Tank.States;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Tank
 {
     public class EnemyTankController : TankController
     {
+        #region Private Data members
+
         private float _refreshCounter;
+
+        #endregion
+
+        #region Constructors
+
         public EnemyTankController(Scriptable_Object.Tank.Tank tank, Vector3 position) : base(tank.TankView)
         {
             TankModel = new EnemyTankModel((EnemyTankModel)tank.TankModel);
@@ -14,6 +19,19 @@ namespace Tank
             ((EnemyTankView)TankView).ChangeStateTo(((EnemyTankView)TankView).Idle);
             ((EnemyTankView)TankView).Idle.Init(((EnemyTankModel)TankModel).AiAgentModel.RefreshTime);
         }
+
+        #endregion
+
+        #region Protected Functions
+
+        protected override void DestroyMe()
+        {
+            ((Interfaces.ITankService)EnemyTankService.Instance).Destroy(this);
+        }
+
+        #endregion
+
+        #region Public Functions
 
         public void Move()
         {
@@ -25,13 +43,6 @@ namespace Tank
         {
             ((EnemyTankView)TankView).ChangeStateTo(((EnemyTankView)TankView).Attack);
             ((EnemyTankView)TankView).Attack.Init(player);
-        }
-        
-        
-
-        protected override void DestroyMe()
-        {
-            ((ITankService)EnemyTankService.Instance).Destroy(this);
         }
 
         public override void TakeDamage(float amount)
@@ -46,15 +57,9 @@ namespace Tank
             ((EnemyTankView)TankView).ChangeStateTo(((EnemyTankView)TankView).Chase);
         }
 
-        public void PlayerLost()
-        {
-            
-            ((EnemyTankView)TankView).ChangeStateTo(((EnemyTankView)TankView).Idle);
-        }
+        public void PlayerLost() => ((EnemyTankView)TankView).ChangeStateTo(((EnemyTankView)TankView).Idle);
+        public void ReturnToChase() => ((EnemyTankView)TankView).ChangeStateTo(((EnemyTankView)TankView).Chase);
 
-        public void ReturnToChase()
-        {
-            ((EnemyTankView)TankView).ChangeStateTo(((EnemyTankView)TankView).Chase);
-        }
+        #endregion
     }
 }

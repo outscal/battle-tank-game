@@ -1,37 +1,35 @@
-﻿using System;
-using Tank.States;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 namespace Tank
 {
     [RequireComponent(typeof(Rigidbody))]
-    [RequireComponent(typeof(IdleState))]
-    [RequireComponent(typeof(ChaseState))]
-    [RequireComponent(typeof(PatrolState))]
-    [RequireComponent(typeof(AttackState))]
+    [RequireComponent(typeof(States.IdleState))]
+    [RequireComponent(typeof(States.ChaseState))]
+    [RequireComponent(typeof(States.PatrolState))]
+    [RequireComponent(typeof(States.AttackState))]
     public class EnemyTankView: TankView
     {
+        #region Serialized Data members
+
         [SerializeField] private TankRadar chaseTankRadar;
         [SerializeField] private TankRadar attackTankRadar;
         [SerializeField] private Transform firingPoint;
+        [SerializeField] private States.IdleState idle;
+        [SerializeField] private States.PatrolState patrolling;
+        [SerializeField] private States.ChaseState chasing;
+        [SerializeField] private States.AttackState attacking;
 
-        public Transform FiringPoint => firingPoint;
+        #endregion
+
+        #region Private Data members
+
         private NavMeshAgent _navMeshAgent;
-        public NavMeshAgent NavMeshAgent => _navMeshAgent;
+        private States.State _currentState;
 
-        [SerializeField] private IdleState idle;
-        [SerializeField] private PatrolState patrolling;
-        [SerializeField] private ChaseState chasing;
-        [SerializeField] private AttackState attacking;
-
-        private State _currentState;
-        public State CurrentState => _currentState;
-
-        public IdleState Idle => idle;
-        public PatrolState Patroll => patrolling;
-        public ChaseState Chase => chasing;
-        public AttackState Attack => attacking;
+        #endregion
+        
+        #region Unity Functions
 
         private void OnEnable()
         {
@@ -52,8 +50,6 @@ namespace Tank
             attackTankRadar.PlayerEscaped -= AttackTargetLost;
         }
 
-       
-
         private void Awake()
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -68,12 +64,9 @@ namespace Tank
                 ((EnemyTankModel) _tankController.TankModel).AiAgentModel.AttackRange;
         }
 
-        public void ChangeStateTo(State newState)
-        {
-            if(_currentState) _currentState.Exit();
-            _currentState = newState;
-            _currentState.Enter();
-        }
+        #endregion
+        
+        #region Private Functions
 
         private void PlayerDetected(PlayerTankView player)
         {
@@ -83,6 +76,29 @@ namespace Tank
         private void PlayerLost()
         {
             ((EnemyTankController)_tankController).PlayerLost();
+        }
+
+        #endregion
+        
+        #region Getters
+
+        public Transform FiringPoint => firingPoint;
+        public NavMeshAgent NavMeshAgent => _navMeshAgent;
+        public States.State CurrentState => _currentState;
+        public States.IdleState Idle => idle;
+        public States.PatrolState Patroll => patrolling;
+        public States.ChaseState Chase => chasing;
+        public States.AttackState Attack => attacking;
+
+        #endregion
+
+        #region Public Functions
+
+        public void ChangeStateTo(States.State newState)
+        {
+            if(_currentState) _currentState.Exit();
+            _currentState = newState;
+            _currentState.Enter();
         }
 
         public void TimeToMove()
@@ -99,5 +115,7 @@ namespace Tank
         {
             ((EnemyTankController)_tankController).ReturnToChase();
         }
+
+        #endregion
     }
 }

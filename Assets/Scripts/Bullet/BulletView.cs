@@ -1,12 +1,17 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine;
 
 namespace Bullet
 {
     public class BulletView : MonoBehaviour
     {
+        #region Public Propreties
+
         public BulletController BulletController { get; set; }
+
+        #endregion
+
+        #region Unity Functions
+
         private void FixedUpdate()
         {
             BulletController.Move();
@@ -16,5 +21,7 @@ namespace Bullet
         {
             BulletController.HitBy(other);
         }
+
+        #endregion
     }
 }

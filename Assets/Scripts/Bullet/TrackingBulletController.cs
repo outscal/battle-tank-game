@@ -4,14 +4,24 @@ namespace Bullet
 {
     public class TrackingBulletController: BulletController
     {
+        #region Private Data members
+
         private Transform _target;
         private Rigidbody _rigidbody;
-        
+
+        #endregion
+
+        #region Constructors
+
         public TrackingBulletController(Attack.TrackingAttack attack) : base(attack)
         {
             _target = attack.Target.transform;
             _rigidbody = BulletView.GetComponent<Rigidbody>();
         }
+
+        #endregion
+
+        #region Public Functions
 
         public override void Move()
         {
@@ -21,14 +31,17 @@ namespace Bullet
                 DestroyMe();
                 return;
             }
-            if(_hitSomething) return;
-            if (BulletModel.LifeTime>0 && _target!=null)
+            if(hitSomething) return;
+            if (_target)
             {
-                Vector3 direction = (_target.position - BulletView.transform.position).normalized;
+                Transform bullet = BulletView.transform;
+                Vector3 direction = (_target.position - bullet.position).normalized;
                 _rigidbody.velocity = direction * BulletModel.Speed;
-                BulletView.transform.forward = direction;
+                bullet.forward = direction;
 
             }
         }
+
+        #endregion
     }
 }

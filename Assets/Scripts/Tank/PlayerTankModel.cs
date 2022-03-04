@@ -4,11 +4,26 @@ namespace Tank
 {
     public class PlayerTankModel:TankModel
     {
+        #region Serialized Data Members
+
         [SerializeField] private int lives;
 
+        #endregion
+
+        #region Private Data Members
+
         private float _currentHealth;
+
+        #endregion
+
+        #region Getters
+
         public float CurrentHealth => _currentHealth;
         public int Lives => lives;
+
+        #endregion
+
+        #region Constructors
 
         public PlayerTankModel() : base()
         {
@@ -23,6 +38,10 @@ namespace Tank
             ResetCurrentHealth();
         }
 
+        #endregion
+
+        #region Public Functions
+
         public override void DecreaseHealth(float amount)
         {
             _currentHealth -= amount;
@@ -36,5 +55,7 @@ namespace Tank
         {
             _currentHealth = Health;
         }
+
+        #endregion
     }
 }

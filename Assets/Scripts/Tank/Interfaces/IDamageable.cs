@@ -1,4 +1,4 @@
-﻿namespace Tank
+﻿namespace Tank.Interfaces
 {
     public interface IDamageable
     {
