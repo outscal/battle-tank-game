@@ -43,7 +43,6 @@ namespace EnemyTankServices
             {
                 tankModel.b_IsFired = true;
                 FireBullet();
-
                 await new WaitForSeconds(tankModel.fireRate);
                 ResetAttack();
             }

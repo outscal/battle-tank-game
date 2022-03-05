@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using BulletServices;
 
 namespace EnemyTankServices
@@ -7,12 +7,15 @@ namespace EnemyTankServices
     {
         public EnemyTankModel tankModel { get; }
         public EnemyTankView tankView { get; }
+        [SerializeField] int xPos;
+        [SerializeField] int zPos;
 
         public EnemyTankController(EnemyTankModel tankModel, EnemyTankView tankPrefab)
         {
             this.tankModel = tankModel;
-            tankView = GameObject.Instantiate<EnemyTankView>(tankPrefab, new Vector3(3, 0, -3), new Quaternion(0, 0, 0, 0));
-
+            xPos = Random.Range(-46, 46);
+            zPos = Random.Range(-40, 40);
+            tankView = GameObject.Instantiate<EnemyTankView>(tankPrefab, new Vector3(xPos, 0, zPos), new Quaternion(0, 0, 0, 0));
             tankView.tankController = this;
         }
 
@@ -56,7 +59,6 @@ namespace EnemyTankServices
             tankView.explosionParticles.gameObject.SetActive(true);
             tankView.explosionParticles.Play();
             tankView.explosionSound.Play();
-
             tankView.Death();
         }
     }
