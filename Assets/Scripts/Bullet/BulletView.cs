@@ -19,7 +19,7 @@ namespace Bullet
 
         private void OnCollisionEnter(Collision other)
         {
-            BulletController.HitBy(other);
+            if(!BulletController.HitSomething)BulletController.HitBy(other);
         }
 
         #endregion
