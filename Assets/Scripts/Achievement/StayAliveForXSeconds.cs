@@ -7,7 +7,8 @@ namespace Achievement
     {
         #region Serialized Data members
 
-        [SerializeField] private float neededTime = 20f;
+        [SerializeField] private float counterFrequency = 0.2f;
+        [SerializeField] private int neededTime = 65;
 
         #endregion
 
@@ -22,6 +23,7 @@ namespace Achievement
 
         protected override void UpdateAchievement()
         {
+            Debug.Log("Stay Alive Achieved!");
             InvokeAchievement(this);
         }
 
@@ -42,18 +44,19 @@ namespace Achievement
 
         private async void StartCounting()
         {
+            
             _alive = true;
             while (_alive)
             {
-                await new WaitForSeconds(Time.deltaTime);
-                _counter += Time.deltaTime;
+                await new WaitForSeconds(counterFrequency);
+                _counter += counterFrequency;
                 if (_counter >= neededTime)
                 {
                     UpdateAchievement();
-                    Unsubscribe();
                     break;
                 }
             }
+            Unsubscribe();
         }
 
         private void StopCounting()
@@ -79,12 +82,16 @@ namespace Achievement
 
         public override string Text()
         {
-            return "Stay Alive for " + neededTime.ToString("00,00") + " seconds.";
+            int mins = neededTime / 60;
+            int secs = neededTime - (mins * 60);
+            string time = $"{mins:00}:{secs:00}";
+            return "Stay Alive for " + time + " Minutes.";
         }
 
         public override void Reset()
         {
             _counter = 0;
+            _alive = true;
         }
 
         #endregion

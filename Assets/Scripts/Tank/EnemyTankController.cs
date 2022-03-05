@@ -17,7 +17,6 @@ namespace Tank
             TankModel = new EnemyTankModel((EnemyTankModel)tank.TankModel);
             TankView.transform.position = new Vector3(position.x, TankView.transform.position.y, position.z);
             ((EnemyTankView)TankView).ChangeStateTo(((EnemyTankView)TankView).Idle);
-            ((EnemyTankView)TankView).Idle.Init(((EnemyTankModel)TankModel).AiAgentModel.RefreshTime);
         }
 
         #endregion

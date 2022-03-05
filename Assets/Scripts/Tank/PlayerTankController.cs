@@ -90,6 +90,7 @@ namespace Tank
             DecreaseHealth.Invoke(((PlayerTankModel)TankModel).CurrentHealth/TankModel.Health);
             if (((PlayerTankModel)TankModel).CurrentHealth<= 0)
             {
+                Debug.Log("life lost!");
                 ((PlayerTankModel)TankModel).DecreaseLives();
                 if (((PlayerTankModel) TankModel).Lives <= 0)
                 {

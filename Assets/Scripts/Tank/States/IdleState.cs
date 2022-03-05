@@ -4,10 +4,15 @@ namespace Tank.States
 {
     public class IdleState:State
     {
+        #region Serialized Data members
+
+        [SerializeField] private float _idleTime =5f;
+
+        #endregion
+
         #region Private Data members
 
-        private float _idleTime;
-        private bool _isInitialized;
+        private float _counter;
 
         #endregion
 
@@ -21,16 +26,15 @@ namespace Tank.States
 
         private void OnEnable()
         {
-            _isInitialized = false;
             _tankView.NavMeshAgent.speed = 0;
+            _counter = _idleTime;
         }
 
         private void Update()
         {
-            if(!_isInitialized) return;
-            if (_idleTime >= 0)
+            if (_counter >= 0)
             {
-                _idleTime -= Time.deltaTime;
+                _counter -= Time.deltaTime;
                 return;
             }
             _tankView.TimeToMove();
@@ -44,13 +48,7 @@ namespace Tank.States
         #endregion
 
         #region Public Functions
-
-        public void Init(float idleTime)
-        {
-            Debug.Log("Idle start! "+ idleTime);
-            _idleTime = idleTime;
-            _isInitialized = true;
-        }
+        
 
         #endregion
     }

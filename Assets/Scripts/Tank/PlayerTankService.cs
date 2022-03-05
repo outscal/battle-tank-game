@@ -40,12 +40,7 @@ namespace Tank
 
         #region Unity Functions
 
-        protected override void Awake()
-        {
-            base.Awake();
-        }
-
-        private void OnEnable()
+        private void Start()
         {
             _player = (PlayerTankController) ((ITankService) this).CreateTank(tanks.List[index]);
         }
@@ -55,6 +50,7 @@ namespace Tank
         TankController Interfaces.ITankService.CreateTank(Scriptable_Object.Tank.Tank tank)
         {
             PlayerCreated?.Invoke();
+            Debug.Log("Player Created");
             return new PlayerTankController(inputSystem, tank);
         }
 

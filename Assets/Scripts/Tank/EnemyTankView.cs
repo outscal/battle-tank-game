@@ -36,6 +36,8 @@ namespace Tank
             
             chaseTankRadar.PlayerFound += PlayerDetected;
             chaseTankRadar.PlayerEscaped += PlayerLost;
+            PlayerTankService.LoseLife += PlayerLost;
+            PlayerTankService.PlayerDied += PlayerLost;
 
             attackTankRadar.PlayerFound += AbleToAttack;
             attackTankRadar.PlayerEscaped += AttackTargetLost;
@@ -48,6 +50,9 @@ namespace Tank
             
             attackTankRadar.PlayerFound -= AbleToAttack;
             attackTankRadar.PlayerEscaped -= AttackTargetLost;
+
+            PlayerTankService.LoseLife -= PlayerLost;
+            PlayerTankService.PlayerDied -= PlayerLost;
         }
 
         private void Awake()
@@ -115,7 +120,7 @@ namespace Tank
         {
             ((EnemyTankController)_tankController).ReturnToChase();
         }
-
+        
         #endregion
     }
 }
