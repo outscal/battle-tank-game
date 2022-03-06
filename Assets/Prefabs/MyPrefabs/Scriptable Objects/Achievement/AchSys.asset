@@ -13,29 +13,30 @@ MonoBehaviour:
   m_Name: AchSys
   m_EditorClassIdentifier: 
   achievements:
-  - rid: 77507933884121174
-  - rid: 77507933884121191
+  - rid: 77507997190324226
+  - rid: 77507997190324228
   references:
     version: 2
     RefIds:
-    - rid: 77507933884121174
+    - rid: 77507997190324226
       type: {class: AchievementCell, ns: Achievement, asm: Assembly-CSharp}
       data:
         achievementType: 1
         achievement:
-          rid: 77507933884121190
-    - rid: 77507933884121190
+          rid: 77507997190324227
+    - rid: 77507997190324227
       type: {class: FireXFromYBullet, ns: Achievement, asm: Assembly-CSharp}
       data:
         neededNumber: 5
-        bullet: {fileID: 11400000, guid: 168eb49ab5b5aac4699f31fdbc9bdf30, type: 2}
-    - rid: 77507933884121191
+        bullet: {fileID: 11400000, guid: c0317cc870189d54ca8a1c4669cd39f0, type: 2}
+    - rid: 77507997190324228
       type: {class: AchievementCell, ns: Achievement, asm: Assembly-CSharp}
       data:
         achievementType: 2
         achievement:
-          rid: 77507933884121192
-    - rid: 77507933884121192
+          rid: 77507997190324229
+    - rid: 77507997190324229
       type: {class: StayAliveForXSeconds, ns: Achievement, asm: Assembly-CSharp}
       data:
-        neededTime: 10
+        counterFrequency: 0.2
+        neededTime: 65
