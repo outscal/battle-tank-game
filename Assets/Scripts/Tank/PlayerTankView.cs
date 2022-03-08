@@ -1,18 +1,26 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Tank
 {
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerTankView : TankView
     {
+        #region Private Data Members
+
         private Rigidbody _rigidbody;
         private InputSystem.InputSystem _inputSystem;
 
+        #endregion
+
+        #region Getters
+
         public Rigidbody Rigidbody => _rigidbody;
         public InputSystem.InputSystem InputSystem => _inputSystem;
-
         public void SetInputSystem(InputSystem.InputSystem inputSystem) => _inputSystem = inputSystem;
+
+        #endregion
+
+        #region UnityFunctions
 
         private void Awake()
         {
@@ -21,21 +29,14 @@ namespace Tank
 
         private void Update()
         {
-            _tankController.HandleAttacks();
+            ((PlayerTankController)_tankController).HandleAttacks();
         }
 
         private void FixedUpdate()
         {
-            _tankController.Move();
+            ((PlayerTankController)_tankController).Move();
         }
 
-        protected override void OnCollisionEnter(Collision other)
-        {
-            base.OnCollisionEnter(other);
-            if (other.gameObject.GetComponent<TankView>())
-            {
-                _tankController.TakeDamage(other.gameObject.GetComponent<TankView>().TankController.TankModel.Damage);
-            }
-        }
+        #endregion
     }
 }

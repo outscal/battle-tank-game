@@ -1,29 +1,69 @@
 using System;
-using Attack;
-using Bullet;
 using UnityEngine;
-using UniRx;
-using Random = UnityEngine.Random;
 
 namespace Tank
 {
     public class PlayerTankController : TankController
     {
-        public event Action<float> DecreaseHealth = delegate(float f) {  };
-        public event Action LoseLife = delegate {  };
-        
-        public event Action PlayerDied = delegate {  };
-        
+        #region Public Events
+
+        public event Action<float> DecreaseHealth;
+        public event Action LoseLife;
+        public event Action PlayerDied;
+
+        #endregion
+
+        #region Private Data Members
+
         private Rigidbody _rigidbody;
         private Vector2 _joystickDirection;
-
         private bool _firing;
-    
-        void TakeJoystickInputs()
+
+        #endregion
+
+        #region Private Functions
+
+        private void TakeJoystickInputs()
         {
             _joystickDirection = ((PlayerTankView)TankView).InputSystem.Joystick.Direction;
         }
-        public override void Move()
+
+        private async void DieOnce()
+        {
+            TankView.gameObject.SetActive(false);
+            await ((Interfaces.ITankService) PlayerTankService.Instance).Explode(PlayerTankService.Instance.Player,
+                PlayerTankService.Instance.Explosion);
+            TankView.transform.position = PlayerTankService.Instance.GetSafePosition();
+            TankView.gameObject.SetActive(true);
+        }
+
+        #endregion
+
+        #region Constructors
+
+        public PlayerTankController(InputSystem.InputSystem inputSystem, Scriptable_Object.Tank.Tank tank):base(tank.TankView)
+        {
+            ((PlayerTankView)TankView).SetInputSystem(inputSystem);
+            _rigidbody = TankView.GetComponent<Rigidbody>();
+            TankModel = new PlayerTankModel((PlayerTankModel)tank.TankModel);
+            
+            LoseLife += DieOnce;
+        }
+
+        #endregion
+
+        #region Protected Functions
+
+        protected override void DestroyMe()
+        {
+            PlayerTankService.Instance.Destroy();
+        }
+
+        #endregion
+
+        #region Public Functions
+
+        public void Move()
         {
             TakeJoystickInputs();
             Vector3 newForward =(_joystickDirection.magnitude<0.2f)?TankView.transform.forward:new Vector3(_joystickDirection.x , 0, _joystickDirection.y );
@@ -33,40 +73,18 @@ namespace Tank
             Vector3 newVelocity = TankModel.Speed * _joystickDirection.magnitude * TankView.transform.forward;
             _rigidbody.velocity = newVelocity;
         }
-        
-        public override void HandleAttacks()
+
+        public void HandleAttacks()
         {
             if (((PlayerTankView)TankView).InputSystem.FireButton.Pressed && _firing == false)
             {
-                Debug.Log("Firing");
-                Attack.Attack attack = new LinearAttack(TankModel.BulletType, TankView.ShootingPoint.position, TankModel.Damage, TankView.transform.forward);
-                BulletService.Instance.CreateBullet(attack);
+                Attack.Attack attack = new Attack.LinearAttack(TankModel.Bullet, TankView.ShootingPoint.position, TankModel.Damage, TankView.transform.forward,TankModel.TankType);
+                Bullet.BulletService.Instance.CreateBullet(attack);
                 _firing = true;
             }
             else if (!((PlayerTankView)TankView).InputSystem.FireButton.Pressed && _firing) _firing = false;
         }
         
-        public PlayerTankController(InputSystem.InputSystem inputSystem, Scriptable_Object.Tank.Tank tank):base(tank.TankView)
-        {
-            ((PlayerTankView)TankView).SetInputSystem(inputSystem);
-            _rigidbody = TankView.GetComponent<Rigidbody>();
-            TankModel = new PlayerTankModel((PlayerTankModel)tank.TankModel);
-            
-            LoseLife += DieOnce;
-        }
-        
-
-        protected override void DestroyMe()
-        {
-            PlayerTankService.Instance.Destroy();
-        }
-
-        public override void HitBy(Collision collision)
-        {
-            base.HitBy(collision);
-            if(collision.gameObject.GetComponent<EnemyTankView>()) {TakeDamage(collision.gameObject.GetComponent<EnemyTankView>().TankController.TankModel.Damage);}
-        }
-
         public override void TakeDamage(float amount)
         {
             base.TakeDamage(amount);
@@ -87,15 +105,6 @@ namespace Tank
             
         }
 
-        async void DieOnce()
-        {
-            TankView.gameObject.SetActive(false);
-            await ((ITankService) PlayerTankService.Instance).Explode(PlayerTankService.Instance.Player,
-                PlayerTankService.Instance.Explosion);
-            TankView.transform.position = PlayerTankService.Instance.GetSafePosition();
-            TankView.gameObject.SetActive(true);
-        }
-
-        
+        #endregion
     }
 }

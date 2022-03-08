@@ -1,23 +1,36 @@
-using System;
-using System.Collections.Generic;
+using Scriptable_Object.Tank;
+using Tank.Interfaces;
 using UnityEngine;
-using UnityEngine.AI;
-using Random = UnityEngine.Random;
 
 namespace Tank
 {
-    public class PlayerTankService : SingletonMB<PlayerTankService>, ITankService
+    public class PlayerTankService : SingletonMB<PlayerTankService>, Interfaces.ITankService
     {
+        #region Serialized Data Members
+
         [SerializeField] private ParticleSystem tankExplosion;
         [SerializeField] private int index;
         [SerializeField] private InputSystem.InputSystem inputSystem;
-        [SerializeField] private Scriptable_Object.Tank.PlayerTankList tanks;
+        [SerializeField] private PlayerTankList tanks;
         [SerializeField] private SafePoint[] safePoints;
+
+        #endregion
+
+        #region Private Data Members
+
+        private PlayerTankController _player;
+
+        #endregion
+
+        #region Getters
 
         public ParticleSystem Explosion => tankExplosion;
         public SafePoint[] SafePoints => safePoints;
-        private PlayerTankController _player;
         public PlayerTankController Player => _player;
+
+        #endregion
+
+        #region Unity Functions
 
         protected override void Awake()
         {
@@ -25,15 +38,14 @@ namespace Tank
             _player = (PlayerTankController) ((ITankService) this).CreateTank(tanks.List[index]);
         }
 
-        /*private void Start()
-        {
-            _player = (PlayerTankController) ((ITankService) this).CreateTank(tanks.List[index]);
-        }*/
-
-        TankController ITankService.CreateTank(Scriptable_Object.Tank.Tank tank)
+            #endregion
+        
+        TankController Interfaces.ITankService.CreateTank(Scriptable_Object.Tank.Tank tank)
         {
             return new PlayerTankController(inputSystem, tank);
         }
+
+        #region Public Functions
 
         public void Destroy(TankController controller=null)
         {
@@ -51,9 +63,9 @@ namespace Tank
                     break;
                 }
             }
-
             return safe;
-
         }
+
+        #endregion
     }
 }

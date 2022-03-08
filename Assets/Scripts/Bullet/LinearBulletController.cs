@@ -1,20 +1,29 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Bullet
 {
     public class LinearBulletController : BulletController
     {
+        #region Private Data members
+
         private Vector3 _direction;
         private Rigidbody _rigidbody;
-        
-        public LinearBulletController(Attack.LinearAttack attack, Scriptable_Object.Bullet.Bullet bullet) : base(attack,bullet)
+
+        #endregion
+
+        #region Constructors
+
+        public LinearBulletController(Attack.LinearAttack attack) : base(attack)
         {
             _direction = attack.Direction;
             _direction = _direction.normalized;
             BulletView.transform.forward = _direction;
             _rigidbody = BulletView.GetComponent<Rigidbody>();
         }
+
+        #endregion
+
+        #region Public Functions
 
         public override void Move()
         {
@@ -24,13 +33,10 @@ namespace Bullet
                 DestroyMe();
                 return;
             }
-            if(_hitSomething) return;
-            if (BulletModel.LifeTime>0)
-            {
-                _rigidbody.velocity = _direction * BulletModel.Speed;
-                return;
-            }
-            _rigidbody.velocity = Vector3.zero;
+            if(hitSomething) return;
+            _rigidbody.velocity = _direction * BulletModel.Speed;
         }
+
+        #endregion
     }
 }

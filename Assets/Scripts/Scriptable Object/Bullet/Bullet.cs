@@ -1,5 +1,4 @@
-﻿using System;
-using Bullet;
+﻿using Bullet;
 using UnityEngine;
 
 namespace Scriptable_Object.Bullet
@@ -7,30 +6,18 @@ namespace Scriptable_Object.Bullet
     [CreateAssetMenu(fileName = "NewBullet", menuName = "User/Bullet/Bullet", order = 1)]
     public class Bullet : ScriptableObject
     {
-        [SerializeField] private TrajectoryType trajectoryType = TrajectoryType.None;
-        [SerializeField] private BulletView bulletView;
-        [SerializeReference] private BulletModel bulletModel;
+        #region Serialized Data members
 
-        public TrajectoryType TrajectoryType => trajectoryType;
+        [SerializeField] private BulletView bulletView;
+        [SerializeField] private BulletModel bulletModel;
+
+        #endregion
+
+        #region Getters
+
         public BulletView BulletView => bulletView;
         public BulletModel BulletModel => bulletModel;
 
-        private TrajectoryType _lastType;
-        private BulletModel _saved;
-
-        public Bullet()
-        {
-            _lastType = trajectoryType;
-        }
-        private void OnValidate()
-        {
-            if (trajectoryType!=_lastType)
-            {
-                _lastType = trajectoryType;
-                if (trajectoryType == TrajectoryType.None) _saved = bulletModel;
-                
-                bulletModel = (trajectoryType != TrajectoryType.None) ? (_saved!=null)?new BulletModel(_saved):new BulletModel() : null;
-            }
-        }
+        #endregion
     }
 }

@@ -1,25 +1,47 @@
-﻿using Attack;
+﻿using System.Collections;
+using Attack;
 using UnityEngine;
 
 namespace Bullet
 {
     public class BulletService : SingletonMB<BulletService>
     {
-        [SerializeField] private Scriptable_Object.Bullet.BulletList bullets;
+        #region Serialized data members
+
+        [SerializeField] private ParticleSystem shellExplosion;
+
+        #endregion
+
+        #region Public Data members
+
+        public ParticleSystem ShellExplosion => shellExplosion;
+
+        #endregion
+        
+        #region Private Functions
+
+        private IEnumerator ShowExplosion(Collision collision)
+        {
+            Quaternion explosionRotation = Quaternion.Euler(-collision.contacts[0].normal);
+            ParticleSystem explosion = Instantiate(shellExplosion, collision.contacts[0].point, explosionRotation);
+            yield return new WaitForSeconds(1f);
+            Destroy(explosion.gameObject);
+        }
+
+        #endregion
+        
+        #region Public Functions
 
         public BulletController CreateBullet(Attack.Attack attack)
         {
             BulletController newBulletController = null;
-            int index = (int) attack.BulletType-1;
-            switch(attack.BulletType)
+            switch(attack.Bullet.BulletModel.TrajectoryType)
             {
-                case BulletType.LinearFast:
-                case BulletType.LinearSlow:
-                    newBulletController = new LinearBulletController((LinearAttack)attack, bullets.List[index]);
+                case TrajectoryType.Linear:
+                    newBulletController = new LinearBulletController((LinearAttack)attack);
                     break;
-                case BulletType.TrackingFast:
-                case BulletType.TrackingSlow:
-                    newBulletController = new TrackingBulletController((TrackingAttack)attack, bullets.List[index]);
+                case TrajectoryType.Tracking:
+                    newBulletController = new TrackingBulletController((TrackingAttack)attack);
                     break;
             }
 
@@ -30,5 +52,12 @@ namespace Bullet
         {
             bulletController = null;
         }
+
+        public void MakeExplosion(Collision collision)
+        {
+            StartCoroutine(ShowExplosion(collision));
+        }
+
+        #endregion
     }
 }

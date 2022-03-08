@@ -4,26 +4,44 @@ namespace Bullet
 {
     public class TrackingBulletController: BulletController
     {
+        #region Private Data members
+
         private Transform _target;
         private Rigidbody _rigidbody;
-        
-        public TrackingBulletController(Attack.TrackingAttack attack, Scriptable_Object.Bullet.Bullet bullet) : base(attack,bullet)
+
+        #endregion
+
+        #region Constructors
+
+        public TrackingBulletController(Attack.TrackingAttack attack) : base(attack)
         {
             _target = attack.Target.transform;
             _rigidbody = BulletView.GetComponent<Rigidbody>();
         }
 
+        #endregion
+
+        #region Public Functions
+
         public override void Move()
         {
-            if (BulletModel.LifeTime>0)
+            this.BulletModel.DecreaseLifeTime(Time.fixedDeltaTime);
+            if (BulletModel.LifeTime <= 0)
             {
-                Vector3 direction = (_target.position - BulletView.transform.position).normalized;
-                _rigidbody.velocity = direction * BulletModel.Speed;
-                BulletView.transform.forward = direction;
-                BulletModel.DecreaseLifeTime(Time.fixedTime);
+                DestroyMe();
                 return;
             }
-            _rigidbody.velocity = Vector3.zero;
+            if(hitSomething) return;
+            if (_target)
+            {
+                Transform bullet = BulletView.transform;
+                Vector3 direction = (_target.position - bullet.position).normalized;
+                _rigidbody.velocity = direction * BulletModel.Speed;
+                bullet.forward = direction;
+
+            }
         }
+
+        #endregion
     }
 }
