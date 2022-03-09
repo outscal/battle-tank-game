@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c8c0c8cbd894c209052c320811c3013, type: 3}
+  m_Name: AchSys
+  m_EditorClassIdentifier: 
+  achievements:
+  - rid: 77507997190324226
+  - rid: 77507997190324228
+  references:
+    version: 2
+    RefIds:
+    - rid: 77507997190324226
+      type: {class: AchievementCell, ns: Achievement, asm: Assembly-CSharp}
+      data:
+        achievementType: 1
+        achievement:
+          rid: 77507997190324227
+    - rid: 77507997190324227
+      type: {class: FireXFromYBullet, ns: Achievement, asm: Assembly-CSharp}
+      data:
+        neededNumber: 5
+        bullet: {fileID: 11400000, guid: c0317cc870189d54ca8a1c4669cd39f0, type: 2}
+    - rid: 77507997190324228
+      type: {class: AchievementCell, ns: Achievement, asm: Assembly-CSharp}
+      data:
+        achievementType: 2
+        achievement:
+          rid: 77507997190324229
+    - rid: 77507997190324229
+      type: {class: StayAliveForXSeconds, ns: Achievement, asm: Assembly-CSharp}
+      data:
+        counterFrequency: 0.2
+        neededTime: 65
