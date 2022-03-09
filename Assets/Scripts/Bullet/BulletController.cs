@@ -19,6 +19,8 @@ namespace Bullet
         public BulletView BulletView => _bulletView;
         public BulletModel BulletModel => _bulletModel;
 
+        public bool HitSomething => hitSomething;
+
         #endregion
 
         #region Constructors

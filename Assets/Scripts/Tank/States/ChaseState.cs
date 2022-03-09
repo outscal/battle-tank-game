@@ -29,10 +29,6 @@ namespace Tank.States
             if (_target)
             {
                 _tankView.NavMeshAgent.SetDestination(_target.transform.position);
-                Vector3 distance = _target.transform.position - _tankView.transform.position;
-                if (distance.magnitude <=
-                    ((EnemyTankModel) _tankView.TankController.TankModel).AiAgentModel.AttackRange)
-                    _tankView.AbleToAttack(_target);
             }
         }
 

@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Tank;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,19 +30,24 @@ public class UI_PlayerHelathBar : MonoBehaviour
 
     #region Unity Functions
 
+    private void OnEnable()
+    {
+        PlayerTankService.LoseLife += LoseLife;
+    }
+
     private void OnDisable()
     {
         if (Tank.PlayerTankService.Instance.Player!=null)
         {
             Tank.PlayerTankService.Instance.Player.DecreaseHealth -= UpdateHealth;
-            Tank.PlayerTankService.Instance.Player.LoseLife -= LoseLife;
+            PlayerTankService.LoseLife -= LoseLife;
         }
     }
 
-    void Start()
+    async void Start()
     {
-        Tank.PlayerTankService.Instance.Player.DecreaseHealth += UpdateHealth;
-        Tank.PlayerTankService.Instance.Player.LoseLife += LoseLife;
+        PlayerTankController player = await GetPlayerTankController();
+        player.DecreaseHealth += UpdateHealth;
         _lifeIndex = ((Tank.PlayerTankModel) Tank.PlayerTankService.Instance.Player.TankModel).Lives;
         for (int i = 0; i < _lifeIndex; i++)
         {
@@ -62,10 +70,21 @@ public class UI_PlayerHelathBar : MonoBehaviour
     {
         Image healthB = _healthBars[_lifeIndex-1];
         healthB.fillAmount = newFill;
-        Debug.Log("Fill "+healthB.fillAmount);
         int fill =(int)(healthB.fillAmount * 100);
         healthB.color = (fill > ((int) Colors.Green)) ? Color.green : (fill > ((int) Colors.Orange)) ? Color.yellow : Color.red;
 
+    }
+
+    private async Task<PlayerTankController> GetPlayerTankController()
+    {
+        PlayerTankController player = null;
+        do
+        {
+            player = PlayerTankService.Instance.Player;
+            await new WaitForSeconds(0.02f);
+        } while (player == null);
+
+        return player;
     }
 
     #endregion

@@ -8,8 +8,7 @@ namespace Tank
         #region Public Events
 
         public event Action<float> DecreaseHealth;
-        public event Action LoseLife;
-        public event Action PlayerDied;
+        
 
         #endregion
 
@@ -47,7 +46,7 @@ namespace Tank
             _rigidbody = TankView.GetComponent<Rigidbody>();
             TankModel = new PlayerTankModel((PlayerTankModel)tank.TankModel);
             
-            LoseLife += DieOnce;
+            PlayerTankService.LoseLife += DieOnce;
         }
 
         #endregion
@@ -91,15 +90,16 @@ namespace Tank
             DecreaseHealth.Invoke(((PlayerTankModel)TankModel).CurrentHealth/TankModel.Health);
             if (((PlayerTankModel)TankModel).CurrentHealth<= 0)
             {
+                Debug.Log("life lost!");
                 ((PlayerTankModel)TankModel).DecreaseLives();
                 if (((PlayerTankModel) TankModel).Lives <= 0)
                 {
-                    PlayerDied.Invoke();
+                    PlayerTankService.Instance.PlayerDie();
                     DestroyMe();
                     return;
                 }
 
-                LoseLife.Invoke();
+                PlayerTankService.Instance.PlayerLoseLife();
                 ((PlayerTankModel)TankModel).ResetCurrentHealth();
             }
             

@@ -21,12 +21,11 @@ namespace Tank
         #endregion
 
         #region UnityFunctions
-
+        
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
         }
-
         private void Update()
         {
             ((PlayerTankController)_tankController).HandleAttacks();

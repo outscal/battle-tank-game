@@ -16,7 +16,7 @@ public class SceneFader : MonoBehaviour
 
     private void Start()
     {
-        PlayerTankService.Instance.Player.PlayerDied += FadeOut;
+        PlayerTankService.PlayerDied += FadeOut;
     }
 
     #endregion
