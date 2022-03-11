@@ -39,6 +39,7 @@ namespace EnemyTankServices
 
         public AudioSource shootingAudio;
         public AudioClip fireClip;
+        UIServices.UIHandler uiHandler;
 
         private void Awake()
         {
@@ -108,6 +109,7 @@ namespace EnemyTankServices
 
         public void Death()
         {
+
             CameraController.Instance.RemoveCameraTargetPosition(this.transform);
             StartCoroutine("DeathAfterDelay");
             Destroy(gameObject);
@@ -122,6 +124,7 @@ namespace EnemyTankServices
             explosionParticles.gameObject.SetActive(false);
             CameraController.Instance.SetCameraWithEndTargets();
         }
+
         public void SetEnemyTankColor()
         {
             MeshRenderer[] renderers = gameObject.GetComponentsInChildren<MeshRenderer>();

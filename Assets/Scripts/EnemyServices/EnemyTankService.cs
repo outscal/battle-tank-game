@@ -1,6 +1,7 @@
 ﻿using EnemyScriptables;
 using GlobalServices;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 
@@ -13,16 +14,18 @@ namespace EnemyTankServices
         private List<EnemyTankController> enemyTanks = new List<EnemyTankController>();
         private EnemyTankController tankController;
         private EnemyType enemyTankType;
+        [SerializeField] private int enemyCount;
 
         public List<EnemyTankController> EnemyTanks() => enemyTanks;
 
         private void Start()
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 4; i++)
             {
                 enemyTankType = (EnemyType)Mathf.Floor(Random.Range(0, 3f));
                 tankController = CreateEnemyTank(enemyTankType);
             }
+            StartCoroutine(SpawnEnemyTanks());
 
         }
 
@@ -48,6 +51,17 @@ namespace EnemyTankServices
             //call the couroutine of the dustruction
             enemyTanks.Remove(tank);
             tank = null;
+        }
+
+        IEnumerator SpawnEnemyTanks()
+        {
+            while (enemyCount < 100)
+            {
+                enemyTankType = (EnemyType)Mathf.Floor(Random.Range(0, 3f));
+                tankController = CreateEnemyTank(enemyTankType);
+                yield return new WaitForSeconds(7f);
+                enemyCount++;
+            }
         }
     }
 }

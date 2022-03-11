@@ -1,6 +1,8 @@
 ﻿using GlobalServices;
 using TankScriptables;
 using UnityEngine;
+using System.Collections.Generic;
+
 
 namespace PlayerTankServices
 {
@@ -14,6 +16,7 @@ namespace PlayerTankServices
         public Camera mainCamera;
 
         private PlayerTankController tankController;
+        private List<PlayerTankController> playerTanks = new List<PlayerTankController>();
         private TankType playerTankType;
 
         private void Start()
@@ -54,6 +57,10 @@ namespace PlayerTankServices
                 }
             }
             return null;
+        }
+        public PlayerTankController GetTankController(int index = 0)
+        {
+            return playerTanks[index];
         }
 
         private void SetPlayerTankControl()

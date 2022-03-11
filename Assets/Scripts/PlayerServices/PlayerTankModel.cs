@@ -28,7 +28,8 @@ namespace PlayerTankServices
         public BulletType bulletType { get; }
 
         public Color tankColor { get; set; }
-
+        public int bulletsFired { get; set; }
+        public int enemiesKilled { get; set; }
 
         public PlayerTankModel(TankScriptableObject playerData)
         {

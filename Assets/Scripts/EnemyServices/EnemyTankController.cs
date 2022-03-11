@@ -1,5 +1,6 @@
+using GameplayServices;
+using GlobalServices;
 using UnityEngine;
-using BulletServices;
 
 namespace EnemyTankServices
 {
@@ -9,6 +10,8 @@ namespace EnemyTankServices
         public EnemyTankView tankView { get; }
         [SerializeField] int xPos;
         [SerializeField] int zPos;
+
+        private UIServices.UIHandler uiHandler;
 
         public EnemyTankController(EnemyTankModel tankModel, EnemyTankView tankPrefab)
         {
@@ -43,23 +46,30 @@ namespace EnemyTankServices
             tankView.fillImage.color = Color.Lerp(tankModel.zeroHealthColor, tankModel.fullHealthColor, tankModel.health / tankModel.maxHealth);
         }
 
-        public void ShowHealthUI()
+        async public void ShowHealthUI()
         {
             if (tankView)
             {
                 tankView.healthSlider.gameObject.SetActive(true);
+            }
+            await new WaitForSeconds(3f);
+
+            if (tankView)
+            {
+                tankView.healthSlider.gameObject.SetActive(false);
             }
         }
 
         public void Death()
         {
             tankModel.b_IsDead = true;
-
             tankView.explosionParticles.transform.position = tankView.transform.position;
             tankView.explosionParticles.gameObject.SetActive(true);
             tankView.explosionParticles.Play();
             tankView.explosionSound.Play();
             tankView.Death();
+            EventService.Instance.InvokeOnEnemyDeathEvent();
         }
+
     }
 }

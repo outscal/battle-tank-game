@@ -122,7 +122,7 @@ namespace PlayerTankServices
 
             tankView.Death();
 
-            GameManager.Instance.DestroyAllGameObjects();
+            GameManager.Instance.StartDestruction();
         }
 
         public void FireBulletInputCheck()
