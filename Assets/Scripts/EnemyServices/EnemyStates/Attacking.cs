@@ -76,7 +76,7 @@ namespace EnemyTankServices
 
         private void FireBullet()
         {
-            BulletService.Instance.FireBullet((BulletServices.BulletType)tankModel.bulletType, tankView.fireTransform, tankView.GetRandomLaunchForce());
+            BulletService.Instance.FireBullet(tankModel.bulletType, tankView.fireTransform, tankView.GetRandomLaunchForce());
 
             tankView.shootingAudio.clip = tankView.fireClip;
             tankView.shootingAudio.Play();
