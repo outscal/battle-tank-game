@@ -39,7 +39,6 @@ namespace PlayerTankServices
             PlayEngineAudio();
         }
 
-
         public void FixedUpdateTankController()
         {
             ForwardMovement();
@@ -95,9 +94,6 @@ namespace PlayerTankServices
             {
                 tankView.healthSlider.gameObject.SetActive(true);
             }
-
-
-
             if (tankView)
             {
                 tankView.healthSlider.gameObject.SetActive(false);
@@ -169,6 +165,9 @@ namespace PlayerTankServices
             tankView.shootingAudio.Play();
 
             tankModel.currentLaunchForce = tankModel.minLaunchForce;
+
+            tankModel.bulletsFired++;
+            AchievementSystem.Instance.BulletsFiredCountCheck(tankModel.bulletsFired);
         }
 
         private void PlayEngineAudio()
@@ -189,6 +188,16 @@ namespace PlayerTankServices
                     tankView.movementAudio.Play();
                 }
             }
+        }
+
+        public void SubscribeEvents()
+        {
+            EventHandler.Instance.OnBulletFired += FireBullet;
+        }
+
+        public void UnsubscribeEvents()
+        {
+            EventHandler.Instance.OnBulletFired -= FireBullet;
         }
     }
 }

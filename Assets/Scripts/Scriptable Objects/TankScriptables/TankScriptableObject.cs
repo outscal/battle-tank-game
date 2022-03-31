@@ -10,6 +10,7 @@ namespace TankScriptables
         public TankType tankType;
         public Color tankColor;
         public int health;
+        public int Speed;
         public float movementSpeed;
         public float rotationSpeed;
         public float tankHeadRotation;
@@ -17,6 +18,8 @@ namespace TankScriptables
         public float minLaunchForce;
         public float maxLaunchForce;
         public float maxChargeTime;
+        public string tankName;
+        public int bulletsFired;
     }
 }
 

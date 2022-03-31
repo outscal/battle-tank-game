@@ -29,6 +29,7 @@ namespace PlayerTankServices
 
         public Color tankColor { get; set; }
 
+        public int bulletsFired { get; set; }
 
         public PlayerTankModel(TankScriptableObject playerData)
         {
@@ -53,6 +54,7 @@ namespace PlayerTankServices
             tankColor = playerData.tankColor;
 
             this.bulletType = playerData.bulletType;
+            this.bulletsFired = playerData.bulletsFired;
         }
     }
 }

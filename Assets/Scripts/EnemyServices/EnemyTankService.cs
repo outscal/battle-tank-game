@@ -1,6 +1,8 @@
 ﻿using EnemyScriptables;
 using GlobalServices;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace EnemyTankServices
 {
@@ -9,8 +11,11 @@ namespace EnemyTankServices
         public EnemySOList enemyTankList;
         public EnemyTankView enemyTankView;
 
+        public List<EnemyTankController> enemyTanks = new List<EnemyTankController>();
         private EnemyTankController tankController;
         private EnemyType enemyTankType;
+
+        public List<EnemyTankController> EnemyTanks() => enemyTanks;
 
         private void Start()
         {
@@ -20,7 +25,6 @@ namespace EnemyTankServices
                 tankController = CreateEnemyTank(enemyTankType);
 
             }
-
         }
 
         private EnemyTankController CreateEnemyTank(EnemyType tanktype)
