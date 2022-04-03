@@ -26,12 +26,12 @@ namespace GameplayServices
                 yield return new WaitForSeconds(0.5f);
             }
 
-            /*GameObject[] tanks = GameObject.FindGameObjectsWithTag("Tank");
+            GameObject[] tanks = GameObject.FindGameObjectsWithTag("Tank");
             for (int i = 0; i < tanks.Length; i++)
             {
                 GameObject.Destroy(tanks[i]);
                 yield return new WaitForSeconds(0.5f);
-            }*/
+            }
 
             
         }

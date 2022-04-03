@@ -30,6 +30,7 @@ namespace PlayerTankServices
         public Color tankColor { get; set; }
 
         public int bulletsFired { get; set; }
+        public int BulletsFired { get; internal set; }
 
         public PlayerTankModel(TankScriptableObject playerData)
         {

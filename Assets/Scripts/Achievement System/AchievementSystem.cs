@@ -1,4 +1,5 @@
 using GlobalServices;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,6 @@ public class AchievementSystem : MonoSingletonGeneric<AchievementSystem>
     [SerializeField] private Text AchievementName;
     [SerializeField] private Text AchievementInfo;
     private int currentBulletFiredAchivementLevel;
-    private int currentEnemiesKilledAchievementLevel;
 
     void Start()
     {

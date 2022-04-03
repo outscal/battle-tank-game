@@ -35,7 +35,6 @@ namespace PlayerTankServices
 
         public void UpdateTankController()
         {
-            FireBulletInputCheck();
             PlayEngineAudio();
         }
 
@@ -121,55 +120,6 @@ namespace PlayerTankServices
             GameManager.Instance.DestroyAllGameObjects();
         }
 
-        public void FireBulletInputCheck()
-        {
-            // To track current state of fire button.
-            tankView.aimSlider.value = tankModel.minLaunchForce;
-
-            if (tankModel.currentLaunchForce >= tankModel.maxLaunchForce && !tankModel.b_IsFired)
-            {
-                // At max charge, not yet fired.
-                tankModel.currentLaunchForce = tankModel.maxLaunchForce;
-                FireBullet();
-            }
-
-            else if (Input.GetButtonDown("Fire1"))
-            {
-                // Pressed fire button for the first time.
-                tankModel.b_IsFired = false;
-                tankModel.currentLaunchForce = tankModel.minLaunchForce;
-
-                tankView.shootingAudio.clip = tankView.chargingClip;
-                tankView.shootingAudio.Play();
-            }
-
-            else if (Input.GetButton("Fire1") && !tankModel.b_IsFired)
-            {
-                // Holding the fire button, not yet fired.
-                tankModel.currentLaunchForce += tankModel.chargeSpeed * Time.deltaTime;
-                tankView.aimSlider.value = tankModel.currentLaunchForce;
-            }
-
-            else if (Input.GetButtonUp("Fire1") && !tankModel.b_IsFired)
-            {
-                FireBullet();
-            }
-        }
-
-        private void FireBullet()
-        {
-            tankModel.b_IsFired = true;
-            BulletService.Instance.FireBullet(tankModel.bulletType, tankView.fireTransform, tankModel.currentLaunchForce);
-
-            tankView.shootingAudio.clip = tankView.fireClip;
-            tankView.shootingAudio.Play();
-
-            tankModel.currentLaunchForce = tankModel.minLaunchForce;
-
-            tankModel.bulletsFired++;
-            AchievementSystem.Instance.BulletsFiredCountCheck(tankModel.bulletsFired);
-        }
-
         private void PlayEngineAudio()
         {
             if (leftJoystick.Vertical != 0 || leftJoystick.Horizontal != 0)
@@ -192,12 +142,27 @@ namespace PlayerTankServices
 
         public void SubscribeEvents()
         {
-            EventHandler.Instance.OnBulletFired += FireBullet;
+            EventHandler.Instance.OnBulletFired += FiredBullet;
         }
 
         public void UnsubscribeEvents()
         {
-            EventHandler.Instance.OnBulletFired -= FireBullet;
+            EventHandler.Instance.OnBulletFired -= FiredBullet;
         }
+
+        public void FiredBullet()
+        {
+            tankModel.b_IsFired = true;
+            BulletService.Instance.FireBullet(tankModel.bulletType, tankView.fireTransform, tankModel.currentLaunchForce);
+
+            tankView.shootingAudio.clip = tankView.fireClip;
+            tankView.shootingAudio.Play();
+
+            tankModel.currentLaunchForce = tankModel.minLaunchForce;
+
+            tankModel.BulletsFired++;
+            AchievementSystem.Instance.BulletsFiredCountCheck(tankModel.BulletsFired);
+            EventHandler.Instance.InvokeOnBulletFired();
+        }  
     }
 }

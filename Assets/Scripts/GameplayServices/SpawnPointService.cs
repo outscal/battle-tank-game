@@ -7,33 +7,16 @@ namespace GameplayServices
     {
         [SerializeField] private Transform playerSpawnPoint;
 
-        [SerializeField] private Transform[] quarter1 = new Transform[4];
-        [SerializeField] private Transform[] quarter2 = new Transform[4];
-        [SerializeField] private Transform[] quarter3 = new Transform[4];
-        [SerializeField] private Transform[] quarter4 = new Transform[4];
-
-        public Transform GetRandomSpawnPoint()
+        public Vector3 GetRandomSpawnPoint()
         {
-            int quarterNumber = Random.Range(1, 4);
-            int transformNumber = Random.Range(0, 3);
+            int Zpos = Random.Range(-30, 30);
+            int Xpos = Random.Range(-30, 30);
+            Vector3 enemyPos = new Vector3(Xpos, 0, Zpos);
 
-            switch (quarterNumber)
-            {
-                case 1:
-                    return quarter1[transformNumber];
-
-                case 2:
-                    return quarter2[transformNumber];
-
-                case 3:
-                    return quarter3[transformNumber];
-
-                case 4:
-                    return quarter4[transformNumber];
-            }
-
-            return quarter1[transformNumber];
+            return enemyPos;
         }
+
+
 
         public Transform GetPlayerSpawnPoint()
         {

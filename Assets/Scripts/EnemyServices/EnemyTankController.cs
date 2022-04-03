@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using BulletServices;
-
+using GameplayServices;
 namespace EnemyTankServices
 {
     public class EnemyTankController
@@ -11,8 +11,7 @@ namespace EnemyTankServices
         public EnemyTankController(EnemyTankModel tankModel, EnemyTankView tankPrefab)
         {
             this.tankModel = tankModel;
-            tankView = GameObject.Instantiate<EnemyTankView>(tankPrefab, new Vector3(3, 0, -3), new Quaternion(0, 0, 0, 0));
-
+            tankView = GameObject.Instantiate<EnemyTankView>(tankPrefab, SpawnPointService.Instance.GetRandomSpawnPoint(), new Quaternion(0, 0, 0, 0));
             tankView.tankController = this;
         }
 
