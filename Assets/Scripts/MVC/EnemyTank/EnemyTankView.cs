@@ -30,6 +30,13 @@ public class EnemyTankView : MonoBehaviour
     public Transform tankPlayer;
     public bool isAttacked;
     public EnemyTankController enemyTankController;
+    [HideInInspector]
+    public EnemyStates currentState;
+    [SerializeField]
+    private EnemyStates activeState;
+    public EnemyPatrolling patrollingState;
+    public EnemyChasing chasingState;
+    public EnemyAttacking attackingState;
 
 
     private void Awake()
@@ -37,37 +44,46 @@ public class EnemyTankView : MonoBehaviour
         explosionParticles = Instantiate(explosionPrefab).GetComponent<ParticleSystem>();
         explosionSound = explosionParticles.GetComponent<AudioSource>();
         explosionParticles.gameObject.SetActive(false);
-
-        UpdateAwake();
+        GetPlayerTransform();
     }
     void Start()
     {
-        Debug.Log("Enemy Tank Created");
-
+        ChangeState(activeState);
     }
+    private void Update()
+    {
+        enemyTankController.EnemyTankRange();
+    }
+
     public void DestroyEnemyTank()
     {
 
         Destroy(gameObject);
     }
 
-    public void DestroyGameObjects()
+    //getting tnakplayer transform value
+    public void GetPlayerTransform()
     {
-        DestroyPlayer();
-    }
+        if (TankService.Instance.tankView)
+            tankPlayer = TankService.Instance.tankView.transform;
 
-    private async void DestroyPlayer()
-    {
-        //await new WaitForSeconds(2f);
-
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        player.GetComponent<TankView>().tankController.OnDeath();
-
-    }
-
-    public void UpdateAwake()
-    {
-        tankPlayer = TankService.Instance.tankView.transform;
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
+
+    public void TakeDamage(int damage)
+    {
+        enemyTankController.TakeDamage(damage);
+    }
+    //using to change state in State machine
+    public void ChangeState(EnemyStates newState)
+    {
+        if (currentState != null)
+        {
+            currentState.OnExitState();
+        }
+        currentState = newState;
+        currentState.OnEnterState();
+    }
+
 }
+

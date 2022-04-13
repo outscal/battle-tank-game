@@ -8,13 +8,4 @@ public class BulletScriptableObject : ScriptableObject
     public int BulletSpeed;
     public float MaxLifeTime;
     public float ExplosionRadius;
-    //public ParticleSystem ExplosionParticles;
-    //public AudioSource ExplosionAudio;
-}
-
-
-[CreateAssetMenu(fileName = "BulletScriptableObjectList", menuName = "ScriptableObjects/NewBulletListScriptableObject")]
-public class BulletScriptableObjectList : ScriptableObject
-{
-    public BulletScriptableObject[] bulletList;
 }

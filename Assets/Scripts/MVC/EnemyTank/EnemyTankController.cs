@@ -50,6 +50,11 @@ public class EnemyTankController
 
     }
 
+    internal void EnemyTankRange()
+    {
+        throw new NotImplementedException();
+    }
+
     private async void AttackPlayer()
     {
         TankView.navMeshAgent.SetDestination(TankView.transform.position);

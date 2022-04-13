@@ -16,7 +16,7 @@ public class BulletModel
         bulletDamage = bulletScriptableObject.BulletDamage;
         bulletSpeed = bulletScriptableObject.BulletSpeed;
         maxLifeTime = bulletScriptableObject.MaxLifeTime;
-        explosionRadius = bulletScriptableObject.ExplosionRadius;
+        //explosionRadius = bulletScriptableObject.ExplosionRadius;
 
     }
 }
