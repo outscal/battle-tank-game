@@ -138,13 +138,47 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 269991488}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 348ad94aca56f9445b261404ae1e36cc, type: 3}
+  m_Script: {fileID: 11500000, guid: 55d3b193bbb6a9247a89e97dd629fb09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: {fileID: 0}
-  allStates: []
+--- !u!114 &269991490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269991488}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f74ae57c7d3a4a4ca75559e1588a2e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &269991491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269991488}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ea5772bda3625b44853d7a7a34c9b86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &269991492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269991488}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e659cd1726e1244da43a38d9934d729, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &449851720
 GameObject:
   m_ObjectHideFlags: 0
@@ -845,6 +879,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8440466876026389923, guid: f5896e7e07d79d443bb2ee858692fab6,
+        type: 3}
+      propertyPath: explosionAudio
+      value: 
+      objectReference: {fileID: 3562114679881135035}
+    - target: {fileID: -8440466876026389923, guid: f5896e7e07d79d443bb2ee858692fab6,
+        type: 3}
+      propertyPath: explosionParticles
+      value: 
+      objectReference: {fileID: 3562114679881135036}
     - target: {fileID: 3562114680421523895, guid: f5896e7e07d79d443bb2ee858692fab6,
         type: 3}
       propertyPath: m_RootOrder
@@ -907,6 +951,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5896e7e07d79d443bb2ee858692fab6, type: 3}
+--- !u!82 &3562114679881135035 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 3562114679951580565, guid: f5896e7e07d79d443bb2ee858692fab6,
+    type: 3}
+  m_PrefabInstance: {fileID: 3562114679881135034}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &3562114679881135036 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3562114679932783403, guid: f5896e7e07d79d443bb2ee858692fab6,
+    type: 3}
+  m_PrefabInstance: {fileID: 3562114679881135034}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5570191003474548471
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1041,9 +1097,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6802214987171862131, guid: 5279e8264d4837e4bbf2dc233cdc411b,
         type: 3}
+      propertyPath: tankPlayer
+      value: 
+      objectReference: {fileID: 5592007394239061788, guid: 0ba60ba50bb934797ab26da3a8040076,
+        type: 3}
+    - target: {fileID: 6802214987171862131, guid: 5279e8264d4837e4bbf2dc233cdc411b,
+        type: 3}
+      propertyPath: activeState
+      value: 
+      objectReference: {fileID: 269991489}
+    - target: {fileID: 6802214987171862131, guid: 5279e8264d4837e4bbf2dc233cdc411b,
+        type: 3}
+      propertyPath: chasingState
+      value: 
+      objectReference: {fileID: 269991491}
+    - target: {fileID: 6802214987171862131, guid: 5279e8264d4837e4bbf2dc233cdc411b,
+        type: 3}
       propertyPath: navMeshAgent
       value: 
       objectReference: {fileID: 5570191003474548472}
+    - target: {fileID: 6802214987171862131, guid: 5279e8264d4837e4bbf2dc233cdc411b,
+        type: 3}
+      propertyPath: attackingState
+      value: 
+      objectReference: {fileID: 269991492}
+    - target: {fileID: 6802214987171862131, guid: 5279e8264d4837e4bbf2dc233cdc411b,
+        type: 3}
+      propertyPath: patrollingState
+      value: 
+      objectReference: {fileID: 269991490}
     - target: {fileID: 6802214987171862131, guid: 5279e8264d4837e4bbf2dc233cdc411b,
         type: 3}
       propertyPath: groundMask.m_Bits

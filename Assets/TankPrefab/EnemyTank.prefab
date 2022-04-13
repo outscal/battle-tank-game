@@ -666,7 +666,7 @@ MonoBehaviour:
   playerTank:
     serializedVersion: 2
     m_Bits: 0
-  navMeshAgent: {fileID: 0}
+  navMeshAgent: {fileID: 1047802515422109145}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 0
   walkPointSet: 0
@@ -674,8 +674,14 @@ MonoBehaviour:
   attackrange: 0
   playerInSightRange: 0
   playerInAttackRange: 0
-  tankPlayer: {fileID: 0}
+  tankPlayer: {fileID: 5592007394239061788, guid: 0ba60ba50bb934797ab26da3a8040076,
+    type: 3}
   isAttacked: 0
+  currentState: {fileID: 0}
+  activeState: {fileID: 0}
+  patrollingState: {fileID: 0}
+  chasingState: {fileID: 0}
+  attackingState: {fileID: 0}
 --- !u!195 &1047802515422109145
 NavMeshAgent:
   m_ObjectHideFlags: 0
