@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System;
+using HoudiniEngineUnity;
 
 public class HoudiniDebugWindow : EditorWindow
 {
@@ -23,12 +25,46 @@ public class HoudiniDebugWindow : EditorWindow
 
         if(GUILayout.Button("Get Asset Info", GUILayout.Height(40)))
         {
-            Debug.Log("Getting Asset Info");
+            GameObject curSelected = Selection.activeGameObject;
+            if (curSelected)
+            {
+                GetHoudiniInfo(curSelected);
+            }
+            else
+            {
+                DebugMessageWindow("please Selcect an Object");
+            }
+            
         }
     }
+
+
     #endregion
 
     #region Utility Methods
+    private void GetHoudiniInfo(GameObject curSelected)
+    {
+        HEU_HoudiniAsset curAsset = (HEU_HoudiniAsset)curSelected.GetComponent<HEU_HoudiniAsset>();
+        if (curSelected != null)
+        {
+            //Debug.Log(curAsset.AssetID);
+            //Debug.Log(curAsset.AssetId);
+            // Debug.Log(curAsset.AssetHelp);
+            // Debug.Log(curAsset.AssetName);
+            Debug.Log("Houdini Asset Clicked");
+        }
+        else
+        {
+            Debug.Log("Selected is not a Houdini Asset");
+        }
+        Debug.Log("Getting Asset Info");
+        throw new NotImplementedException();
+    }
+
+    void DebugMessageWindow(string message)
+    {
+        EditorUtility.DisplayDialog("Debug Method", message, "OK");
+    }
     #endregion
 
 }
