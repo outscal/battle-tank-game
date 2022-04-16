@@ -7,25 +7,28 @@ public class battleTanksSingletonGeneric<T> : MonoBehaviour where T: battleTanks
    private static T instance;
    public static T Instance {get{return instance;}}
 
-   private void Awake()
+   protected virtual void Awake()
    {
        if(instance == null)
        {
+           DontDestroyOnLoad(this);
            instance = (T)this;
        }
        else
        {
            Debug.LogError("Duplicate Singleton is being created");
-           Destroy(this);
+           Destroy(gameObject);
        }
    }
 }
 public class PlayerTank : battleTanksSingletonGeneric<PlayerTank>
 {
-
+    protected override void Awake()
+    {
+        base.Awake();
+        //custom awake
+    }
 }
 
 public class EnemyTank : battleTanksSingletonGeneric<EnemyTank>
-{
-    
-}
+{}
