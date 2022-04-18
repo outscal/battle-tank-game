@@ -10,36 +10,14 @@ public class TankSingletonGenerics<T> : MonoBehaviour where T : TankSingletonGen
 
     protected virtual void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = (T)this;
         }
         else
         {
-            Debug.LogError("Duplication of Singleton class " + instance +" is not Allowed");
+            Debug.LogError("Duplication of Singleton class " + instance + " is not Allowed");
             Destroy(this);
         }
-    }
-}
-
-public class PlayerTank : TankSingletonGenerics<PlayerTank>
-{
-     protected override void Awake()
-    {
-        base.Awake();
-        //playerTank awake functions
-    }
-
-    internal void StartGame()
-    {
-        Debug.Log("Player Start Game Function");
-    }
-}
-
-public class EnemyTank : TankSingletonGenerics<EnemyTank>
-{
-    private void Start()
-    {
-        PlayerTank.Instance.StartGame();
     }
 }
