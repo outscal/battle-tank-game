@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerTank : TankSingletonGenerics<PlayerTank>
 {
-    private float playerMoveHorizontal = 0f;
-    private float playerTurnVertical = 0f;
+    private float playerTurnHorizontal = 0f;
+    private float playerMoveVertical = 0f;
     private Rigidbody rb;
     [SerializeField] private float playerSpeed = 12f;
     [SerializeField] private float playerTurnSpeed = 180f;
@@ -33,19 +33,19 @@ public class PlayerTank : TankSingletonGenerics<PlayerTank>
     }
     private void PlayerTankInput()
     {
-        playerMoveHorizontal = joystick.Horizontal;
-        playerTurnVertical = joystick.Vertical;
+        //playerTurnHorizontal = joystick.Horizontal;
+        //playerMoveVertical = joystick.Vertical;
 
-        //playerMoveHorizontal = Input.GetAxisRaw("Horizontal");
-        //playerTurnVertical = Input.GetAxisRaw("Vertical");
+        playerTurnHorizontal = Input.GetAxisRaw("Horizontal");
+        playerMoveVertical = Input.GetAxisRaw("Vertical");
     }
     private void PlayerTankMovement()
     {
-        Vector3 movement = transform.forward * playerTurnVertical * playerSpeed * Time.deltaTime;
+        Vector3 movement = transform.forward * playerMoveVertical * playerSpeed * Time.deltaTime;
         rb.MovePosition(rb.position + movement);
 
-        float turn = playerMoveHorizontal * playerTurnSpeed * Time.deltaTime;
+        float turn = playerTurnHorizontal * playerTurnSpeed * Time.deltaTime;
         Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
         rb.MoveRotation(rb.rotation * turnRotation);
     }
-}
+} 
