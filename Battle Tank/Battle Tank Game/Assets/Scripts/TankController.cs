@@ -41,4 +41,11 @@ public class TankController
         //rotating the tank using the rigibody rotation 
         rb.MoveRotation(rb.rotation * deltaRotation);
     }
+
+    //As per MVC view cant directly access the data from model so this is refernce created in controller to access model
+    public TankModel GetTankModel()
+    {
+        return tankModel;
+    }
+
 }//end class
