@@ -1,29 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class TankController<T> : MonoBehaviour where T : TankController<T>
+public class TankController 
 {
-    private static T instance;
-    public static T Instance { get { return instance; } }
+    private TankModel tankModel;
+    private TankView tankView;
 
-    protected virtual void Awake()
-    {
-        if (instance == null)
-        {
-            DontDestroyOnLoad(this);
-            instance = (T)this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-}
-public class PlayerTank : TankController<PlayerTank>
-{
-    protected override void Awake()
-    {
-        base.Awake();
+    //contructor for setting up the references
+    public TankController(TankModel _tankModel, TankView _tankview) 
+    {   
+        //filling the reference of tankmodel and tankView
+        tankModel = _tankModel;
+        tankView = _tankview;
+
+        //passing the reference to the function of this tankcontroller where this script is attached 
+        tankModel.SetTankController(this);
+        tankView.SetTankController(this);
+
+        //instantiating tankView gameobject
+        GameObject.Instantiate(tankView.gameObject);
     }
 }
