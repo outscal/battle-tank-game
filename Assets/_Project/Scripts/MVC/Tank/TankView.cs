@@ -6,7 +6,7 @@ public class TankView : MonoBehaviour
     public TankType tankType;
     public TankController tankController;
 
-    public Rigidbody rb;
+    internal Rigidbody rb;
 
     internal float playerTurnHorizontal = 0f;
     internal float playerMoveVertical = 0f;
@@ -23,12 +23,11 @@ public class TankView : MonoBehaviour
     {
         PlayerTankInput();
     }
-
     private void InitializeComponenets()
     {
         rb = FindObjectOfType<Rigidbody>();
     }
-    private void PlayerTankInput()
+    protected virtual void PlayerTankInput()
     {
         playerTurnHorizontal = Input.GetAxisRaw("Horizontal");
         playerMoveVertical = Input.GetAxisRaw("Vertical");
@@ -37,7 +36,6 @@ public class TankView : MonoBehaviour
     {
         ControlTank();
     }
-
     public void ControlTank()
     {
         tankController.PlayerTankMovement();

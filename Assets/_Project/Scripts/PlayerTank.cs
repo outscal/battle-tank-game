@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace Sample
+{
+
 public class PlayerTank : TankSingletonGenerics<PlayerTank>
 {
     private float playerTurnHorizontal = 0f;
@@ -49,3 +52,4 @@ public class PlayerTank : TankSingletonGenerics<PlayerTank>
         rb.MoveRotation(rb.rotation * turnRotation);
     }
 } 
+}

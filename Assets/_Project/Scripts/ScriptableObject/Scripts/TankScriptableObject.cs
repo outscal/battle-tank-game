@@ -9,10 +9,5 @@ public class TankScriptableObject : ScriptableObject
     public float tankTurnSpeed;
     public float Health;
     public float damage;
+    public Color color;
 }
-
-//[CreateAssetMenu(fileName = "TankScriptableObjectList", menuName = "ScriptableObjects/NewTankListScriptableObject")]
-//public class TankScriptableObjectList : ScriptableObject
-//{
-//    public TankScriptableObject[] tanks;
-//}
