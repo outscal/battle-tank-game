@@ -4,12 +4,12 @@ public class TankModel
 
     public float tankSpeed { get; } // public get; private set
     public float tankTurnSpeed { get; }
-    public int tankHealth { get; }
+    public float tankHealth { get; }
     public TankModel(TankScriptableObject tankScriptableObject)
     {
         TankType = tankScriptableObject.tankType;
-        tankSpeed = (float)tankScriptableObject.speed;
-        tankTurnSpeed = (float)tankScriptableObject.tankTurnSpeed;
-        tankHealth = (int)tankScriptableObject.Health;
+        tankSpeed = tankScriptableObject.speed;
+        tankTurnSpeed = tankScriptableObject.tankTurnSpeed;
+        tankHealth = tankScriptableObject.Health;
     }
 }

@@ -21,7 +21,7 @@ public class TankService : TankSingletonGenerics<TankService>
     private void StartGame()
     {
         CreatePlayerTank();
-        CreateEnemyTank();
+        //CreateEnemyTank();
     }
 
     private TankController CreatePlayerTank()
