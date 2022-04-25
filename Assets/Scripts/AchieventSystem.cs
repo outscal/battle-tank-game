@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class AchievementSystem : SingletonGeneric<AchievementSystem>
 {
-    [SerializeField] private AchievementScriptableObjectList achievementList;
+    [SerializeField] private AchievementSOList achievementList;
     [SerializeField] private GameObject AchievementPanel;
     [SerializeField] private TextMeshProUGUI AchievementName;
     [SerializeField] private TextMeshProUGUI AchievementInfo;
@@ -18,7 +18,7 @@ public class AchievementSystem : SingletonGeneric<AchievementSystem>
         currentEnemiesDeathLevel = 0;
 
     }
-    public void BulletsFiredCountCheck(int bulletCount)
+    public void BulletsFiredCountCheck(int bulletCount, AchievementSOList achievementSOList)
     {
         for (int i = 0; i < achievementSOList.bulletsFiredAchievementSO.achievements.Length; i++)
         {
@@ -33,13 +33,13 @@ public class AchievementSystem : SingletonGeneric<AchievementSystem>
         }
     }
 
-    public void EnemyDeathCountCheck()
+    public void EnemyDeathCountCheck(AchievementSOList achievementSOList)
     {
         for (int i = 0; i < achievementSOList.enemiesKilledAchievementSO.achievements.Length; i++)
         {
             if (i != currentEnemiesDeathLevel) continue;
 
-            if (achievementSOList.enemiesKilledAchievementSO.achievements[i].requirement == TankService.Instance.tankController.TankModel.EnemiesKilled)
+            if (achievementSOList.enemiesKilledAchievementSO.achievements[i].requirement == TankService.Instance.TankController.TankModel.EnemiesKilled)
             {
                 UnlockAchievement(achievementSOList.enemiesKilledAchievementSO.achievements[i].name, achievementSOList.enemiesKilledAchievementSO.achievements[i].info);
                 currentEnemiesDeathLevel = i + 1;
