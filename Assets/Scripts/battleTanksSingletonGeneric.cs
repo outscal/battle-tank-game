@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class battleTanksSingletonGeneric<T> : MonoBehaviour where T: battleTanksSingletonGeneric<T>
@@ -11,24 +9,13 @@ public class battleTanksSingletonGeneric<T> : MonoBehaviour where T: battleTanks
    {
        if(instance == null)
        {
-           DontDestroyOnLoad(this);
+           DontDestroyOnLoad (gameObject);
            instance = (T)this;
        }
        else
        {
            Debug.LogError("Duplicate Singleton is being created");
-           Destroy(gameObject);
+           Destroy(this);
        }
    }
 }
-public class PlayerTank : battleTanksSingletonGeneric<PlayerTank>
-{
-    protected override void Awake()
-    {
-        base.Awake();
-        //custom awake
-    }
-}
-
-public class EnemyTank : battleTanksSingletonGeneric<EnemyTank>
-{}
