@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,11 @@ public class TankView : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
+    {
+        //CameraToFollowTank();
+    }
+
+    private void CameraToFollowTank()
     {
         //getting the gameobject of name Main Camera using find
         GameObject camera = GameObject.Find("Main Camera");
@@ -31,7 +37,7 @@ public class TankView : MonoBehaviour
     {
         tankController = _tankController;
     }
-    
+
    //method to get rigidbody
    public Rigidbody GetRigidBody()
    {
