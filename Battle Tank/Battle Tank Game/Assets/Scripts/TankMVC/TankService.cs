@@ -16,16 +16,30 @@ public class TankService : MonoBehaviour
 
     void StartGame()
     {
-        CreateTank();
+        CreatePlayerTank();
+        //CreateEnemyTank();
     }
 
-    private void CreateTank()
+    private void CreatePlayerTank()
     {
-       // TankScriptableObject tankScriptableObject = tankConfigurations[2];
-        TankScriptableObject tankScriptableObject = tankList.tanks[2];
-
+       int index = Random.Range(0, tankList.tanks.Length);
+        TankScriptableObject tankScriptableObject = tankList.tanks[index];
         TankModel tankModel = new TankModel(tankScriptableObject);
+        Debug.Log("Created " + tankScriptableObject.tankName);
         // TankModel tankModel = new TankModel(TankType.none, 15, 50);
         TankController tankController = new TankController(tankModel, tankView);            
     }
+
+    // private void CreateEnemyTank()
+    // {
+    //    int index = Random.Range(0, tankList.tanks.Length);
+    //     TankScriptableObject tankScriptableObject = tankList.tanks[index];
+    //     TankModel tankModel = new TankModel(tankScriptableObject);
+    //     Debug.Log("Created " + tankScriptableObject.tankName);
+    //     tankView.transform.position = new Vector3 (0f, 0f, -10f);
+    //     Quaternion turnRotation = Quaternion.Euler(0f, 90f, 0f);
+    //     tankView.rb.MoveRotation(tankView.rb.rotation * turnRotation);
+    //     // TankModel tankModel = new TankModel(TankType.none, 15, 50);
+    //     TankController tankController = new TankController(tankModel, tankView);            
+    // }
 }
