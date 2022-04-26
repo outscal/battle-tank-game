@@ -41,9 +41,17 @@ public class TankController
     //method for tank turn
     public void TankRotation(float rotation, float rotationSpeed)
     {   
-        Vector3 tankTurn = new Vector3(0f, rotation * rotationSpeed, 0f);
-        Quaternion deltaRotation = Quaternion.Euler(tankTurn * Time.deltaTime);
-        rb.MoveRotation(rb.rotation * deltaRotation);
+        float tankTurn;
+        if(tankModel.movementInput != 0)
+        {
+            tankTurn = tankModel.movementInput * tankModel.turnInput * tankModel.rotationSpeed * Time.deltaTime;
+        }
+        else
+        {
+            tankTurn = tankModel.turnInput * tankModel.rotationSpeed * Time.deltaTime;
+        }
+        Quaternion turnRotation = Quaternion.Euler(0f, tankTurn, 0f);
+        rb.MoveRotation(rb.rotation * turnRotation);
     }
 
 }//end class
