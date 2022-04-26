@@ -6,18 +6,26 @@ public class TankService : MonoBehaviour
 {
     [SerializeField]public TankView tankView;
 
+    //public TankScriptableObject[] tankConfigurations;
+    public TankScriptableObjectList tankList;
 
     // Start is called before the first frame update
-    void Start()
+    void Start(){
+        StartGame();
+    }
+
+    void StartGame()
     {
         CreateTank();
     }
 
     private void CreateTank()
     {
-        //creating tankmodel references
-        TankModel tankModel = new TankModel(TankType.none, 15, 50);
-        //creating tankcontroller object
+       // TankScriptableObject tankScriptableObject = tankConfigurations[2];
+        TankScriptableObject tankScriptableObject = tankList.tanks[2];
+
+        TankModel tankModel = new TankModel(tankScriptableObject);
+        // TankModel tankModel = new TankModel(TankType.none, 15, 50);
         TankController tankController = new TankController(tankModel, tankView);            
     }
 }
