@@ -12,7 +12,7 @@ public class TankView : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //CameraToFollowTank();
+        CameraToFollowTank();
     }
 
     private void CameraToFollowTank()

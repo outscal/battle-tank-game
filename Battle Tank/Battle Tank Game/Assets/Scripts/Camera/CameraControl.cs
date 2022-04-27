@@ -6,7 +6,7 @@ public class CameraControl : MonoBehaviour
     public float DampTime = 0.2f;
     public float ScreenEdgeBuffer = 4f;
     public float MinSize = 6.5f;
-    [HideInInspector] public Transform[] Targets;
+    /*[HideInInspector]*/ public Transform[] Targets;
 
     private Camera m_camera;
     private float ZoomSpeed;

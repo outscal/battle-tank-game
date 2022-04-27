@@ -4,14 +4,15 @@ using UnityEngine;
 public class TankController 
 {
     private TankModel tankModel;
-    private TankView tankView;
-
+    public TankView tankView;
+    public CameraControl cameraControl;
     private Rigidbody rb; 
 
    public TankController(TankModel _tankModel, TankView _tankview) 
     {   
         tankModel = _tankModel;       
-        tankView = GameObject.Instantiate<TankView>(_tankview);;        
+        tankView = GameObject.Instantiate<TankView>(_tankview);
+        
         rb = tankView.GetRigidBody();
 
         tankView.SetTankController(this);

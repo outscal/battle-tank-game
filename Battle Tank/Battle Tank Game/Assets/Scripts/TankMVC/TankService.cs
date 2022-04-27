@@ -5,17 +5,23 @@ using UnityEngine;
 public class TankService : MonoBehaviour
 {
     [SerializeField]public TankView tankView;
+    CameraControl cameraControl;
 
     //public TankScriptableObject[] tankConfigurations;
-    public TankScriptableObjectList tankList;
+    public TankScriptableObjectList tankList;    
 
     // Start is called before the first frame update
-    void Start(){
+
+    void Start()
+    {
+        //tankView.gameObject.SetActive(true);
         StartGame();
+        //cameraControl.SetStartPositionAndSize();
     }
 
     void StartGame()
     {
+        
         CreatePlayerTank();
         //CreateEnemyTank();
     }
@@ -27,9 +33,8 @@ public class TankService : MonoBehaviour
         TankModel tankModel = new TankModel(tankScriptableObject);
         Debug.Log("Created " + tankScriptableObject.tankName);
         // TankModel tankModel = new TankModel(TankType.none, 15, 50);
-        TankController tankController = new TankController(tankModel, tankView);            
+        TankController tankController = new TankController(tankModel, tankView);         
     }
-
     // private void CreateEnemyTank()
     // {
     //    int index = Random.Range(0, tankList.tanks.Length);

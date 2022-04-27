@@ -6,7 +6,6 @@ public class TankModel
     
     public float movementInput;
     public float turnInput;
-
     public float movementSpeed;
     public float rotationSpeed;
 
