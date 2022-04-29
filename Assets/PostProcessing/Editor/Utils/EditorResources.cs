@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnityEditor.PostProcessing
 {
-    using UnityObject = Object;
+    using UnityObject = UnityEngine.Object;
 
     static class EditorResources
     {

@@ -6,13 +6,14 @@ using Tanks.MVC;
 public class TankService : TankSingletonGenerics<TankService>
 {
     public TankView tankView;
-    public TankModel playerModel;
-    public TankModel enemyModel;
+    private TankModel playerModel;
+    private TankModel enemyModel;
 
     public Transform spawnPlayer;
     public Transform spawnEnemy;
 
     public TankScriptableObjectList tankScriptableObjectList;
+
     private void Start()
     {
         StartGame();
@@ -27,7 +28,10 @@ public class TankService : TankSingletonGenerics<TankService>
     private TankController CreatePlayerTank()
     {
         int index = Random.Range(0, tankScriptableObjectList.tanks.Length);
+
+
         TankScriptableObject tankScriptableObject = tankScriptableObjectList.tanks[index];
+
         Debug.Log("Creating Tank with Type: " + tankScriptableObject.tankName);
         playerModel = new TankModel(tankScriptableObject);
         TankController playerTank = new TankController(playerModel, tankView, spawnPlayer.position);

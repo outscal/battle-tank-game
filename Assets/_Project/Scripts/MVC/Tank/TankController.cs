@@ -3,13 +3,9 @@ namespace Tanks.MVC
 {
     public class TankController
     {
-
         public TankModel TankModel { get; }
         public TankView TankView { get; }
-        public TankController()
-        {
-            TankView.tankController = this;
-        }
+
         public TankController(TankModel tankModel, TankView tankPrefab, Vector3 spawnPlayer)
         {
             TankModel = tankModel;
@@ -18,6 +14,7 @@ namespace Tanks.MVC
             TankView.tankController = this;
             tankPrefab.transform.position = spawnPlayer;
             OnEnableFunction();
+            //FireControl();
         }
 
         public void PlayerTankMovement()
@@ -42,40 +39,87 @@ namespace Tanks.MVC
 
         public void OnEnableFunction()
         {
-            TankView.currentHealth = TankModel.tankHealth;
+            TankView.m_CurrentLaunchForce = TankView.m_MinLaunchForce;
+            TankView.m_AimSlider.value = TankView.m_MinLaunchForce;
+            TankModel.currentHealth = TankModel.tankHealth;
             TankView.tankDead = false;
-
             SetHealthUI();
+            //TankView.m_ChargeSpeed = (TankView.m_MaxLaunchForce - TankView.m_MinLaunchForce) / TankView.m_MaxChargeTime;
         }
         private void SetHealthUI()
         {
-            TankView.sliderHealth.value = TankView.currentHealth;
-            TankView.fillImage.color = Color.Lerp(TankView.zeroHealthColor, TankView.fullHealthColor, TankView.currentHealth / TankModel.tankHealth);
+            TankView.sliderHealth.value = TankModel.currentHealth;
+            TankView.fillImage.color = Color.Lerp(TankView.zeroHealthColor, TankView.fullHealthColor, TankModel.currentHealth / TankModel.tankHealth);
         }
 
         public void TakeDamage(float amount)
         {
-            TankView.currentHealth -= amount;
+            TankModel.currentHealth -= amount;
 
-            SetHealthUI();
-
-            if (TankView.currentHealth <= 0f && !TankView.tankDead)
+            if (TankModel.currentHealth <= 0f && !TankView.tankDead)
             {
-                OnDeath();
+                TankDestroy();
             }
+            SetHealthUI();
         }
-        private void OnDeath()
+        private void TankDestroy()
         {
             TankView.tankDead = true;
             TankView.gameObject.SetActive(false);
+            Object.Destroy(TankView.gameObject);
         }
 
-        public void CheckDamage()
+        //public void CheckDamage()
+        //{
+        //    if (!TankView.tankDead && TankView.fire)
+        //    {
+        //        TakeDamage(10);
+        //    }
+        //}
+
+        public void FireControl()
         {
-            if (!TankView.tankDead && TankView.fire)
+            TankView.m_AimSlider.value = TankView.m_MinLaunchForce;
+
+            if (TankView.m_CurrentLaunchForce >= TankView.m_MaxLaunchForce && !TankView.m_Fired)
             {
-                TakeDamage(10);
+                TankView.m_CurrentLaunchForce = TankView.m_MaxLaunchForce;
+                Fire();
             }
+            else if (TankView.fire1)
+            {
+                TankView.m_Fired = false;
+                TankView.m_CurrentLaunchForce = TankView.m_MinLaunchForce;
+
+                // Change the clip to the charging clip and start it playing.
+                //TankView.m_ShootingAudio.clip = TankView.m_ChargingClip;
+                //TankView.m_ShootingAudio.Play();
+            }
+            else if (TankView.fire0 && !TankView.m_Fired)
+            {
+                TankView.m_CurrentLaunchForce += TankView.m_ChargeSpeed * Time.deltaTime;
+
+                TankView.m_AimSlider.value = TankView.m_CurrentLaunchForce;
+            }
+            else if (TankView.fire3 && !TankView.m_Fired)
+            {
+                Fire();
+            }
+        }
+
+        private void Fire()
+        {
+            TankView.m_Fired = true;
+
+            Rigidbody shellInstance = GameObject.Instantiate(TankView.m_Shell, TankView.m_FireTransform.position, TankView.m_FireTransform.rotation) as Rigidbody;
+
+            shellInstance.velocity = TankView.m_CurrentLaunchForce * TankView.m_FireTransform.forward; ;
+
+            // Change the clip to the firing clip and play it.
+            //TankView.m_ShootingAudio.clip = TankView.m_FireClip;
+            //TankView.m_ShootingAudio.Play();
+
+            TankView.m_CurrentLaunchForce = TankView.m_MinLaunchForce;
         }
     }
 }
