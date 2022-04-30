@@ -5,6 +5,8 @@ using UnityEngine;
 public class TankScriptableObject : ScriptableObject
 {
    public TankType tankType;
+
+   public Vector3 scale;
    public string tankName;
    public float tankSpeed;
    public float tankTurnSpeed;

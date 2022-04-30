@@ -5,34 +5,46 @@ using UnityEngine;
 
 public class TankView : MonoBehaviour
 {
-    private TankController tankController;   
+    private TankController tankController;
+
+    public GameObject[] tankBody;   
 
     public Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
     {
+        Intitalization();
         CameraToFollowTank();
+        ChangeTankColor();
     }
 
-    private void CameraToFollowTank()
-    {
-        //getting the gameobject of name Main Camera using find
-        GameObject camera = GameObject.Find("Main Camera");
-        //setting the tranform of the gameobject of this script to the parent of the camera
-        camera.transform.SetParent(transform);
-        //setting the trasfrom position value of the camera
-        camera.transform.position = new Vector3(0f, 4f, -5f);
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
         tankController.GetInput();
         tankController.Movement();        
     }
-  
+
+    private void Intitalization()
+    {
+        tankBody = GameObject.FindGameObjectsWithTag("TankBody");        
+    }      
+
+    private void CameraToFollowTank()
+    {        
+        GameObject camera = GameObject.Find("Main Camera");
+        camera.transform.SetParent(transform);
+        camera.transform.position = new Vector3(0f, 4f, -5f);
+    }
+
+    private void ChangeTankColor()
+    {
+        for(int i = 0; i < tankBody.Length; i++)
+        {
+            tankBody[i].GetComponent<Renderer>().material.color = tankController.GetTankModel().tankColor;
+        }
+    }
+    
     public void SetTankController(TankController _tankController)
     {
         tankController = _tankController;

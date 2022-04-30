@@ -18,6 +18,11 @@ public class TankController
         tankView.SetTankController(this);
     }//end contructor
 
+    public TankModel GetTankModel()
+    {
+        return tankModel;
+    }
+
     //method for tankmovement forward and backward
    public void GetInput()
    {

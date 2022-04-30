@@ -8,8 +8,11 @@ public class TankModel
     public float turnInput;
     public float movementSpeed;
     public float rotationSpeed;
+    public string tankName;
 
     public float tankHealth;
+    public float tankDamage;
+    public Color tankColor;
 
 
    //constructor for tankmodel to communicate with the tankcontroller
@@ -21,8 +24,11 @@ public class TankModel
 
    public TankModel(TankScriptableObject _tankScriptableObject)
    {
+       tankName = _tankScriptableObject.tankName;
        movementSpeed = _tankScriptableObject.tankSpeed;
        rotationSpeed = _tankScriptableObject.tankTurnSpeed;
        tankHealth = _tankScriptableObject.tankHealth;       
+       tankDamage = _tankScriptableObject.tankDamage;
+       tankColor = _tankScriptableObject.tankColor;
    }  
 }
