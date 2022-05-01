@@ -3,15 +3,17 @@ using UnityEngine;
 
 public class ShellExplosion : MonoBehaviour
 {
+    private TankView player;
     public LayerMask TankMask;
     public ParticleSystem explosionParticles;
     public AudioSource explosionAudio;
-    public float explosionForce = 1000f;
+    public float explosionForce = 500f;
     public float maxLifeTime = 2f;
     public float explosionRadius = 5f;
     
     void Start()
     {
+        player = GameObject.FindObjectOfType<TankView>();
         Destroy(gameObject, maxLifeTime);
     }
 
@@ -29,14 +31,15 @@ public class ShellExplosion : MonoBehaviour
             
             targetRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
 
+
             // reduce tank health using takedamage function of tank
-            TankView targetHealth = targetRigidbody.GetComponent<TankView>();
+            EnemyTankView targetHealth = targetRigidbody.GetComponent<EnemyTankView>();
                 if(!targetHealth)
                     continue;
-            float maxDamage = targetHealth.GetTankController().GetTankModel().tankDamage;
+            float maxDamage = player.GetTankController().GetTankModel().tankDamage;
             float damage = CalculateDamage(targetRigidbody.position, maxDamage);
-
-            targetHealth.GetTankController().TakeDamage(damage);
+            
+            targetHealth.GetEnemyTankController().TakeDamage(damage);
         }
 
         explosionParticles.transform.parent = null;
@@ -56,7 +59,6 @@ public class ShellExplosion : MonoBehaviour
        
         float damage = relativeDistance * maxDamage;
         damage = Mathf.Max(0f, damage);
-         Debug.Log("Damage = " + damage);
         return damage;
     }
 }

@@ -4,17 +4,23 @@ using UnityEngine;
 
 public class EnemyTankService : MonoBehaviour
 {
-    public EnemyTankView enemyTankView;
+    public EnemyTankView[] enemyTankView;
     
     void Start()
     {
-        CreateEnemyTank();
+        StartGame();
     }
 
-    private void CreateEnemyTank()
+    void StartGame()
+    {
+        for(int i = 0; i < 3; i++)
+            CreateEnemyTank(i);
+    }
+
+    private void CreateEnemyTank(int i)
     {
         EnemyTankModel enemyTankModel = new EnemyTankModel(100);
-        EnemyTankController enemyTankController = new EnemyTankController(enemyTankModel, enemyTankView);
+        EnemyTankController enemyTankController = new EnemyTankController(enemyTankModel, enemyTankView[i]);
     }
     
 }

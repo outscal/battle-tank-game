@@ -68,7 +68,7 @@ public class TankView : MonoBehaviour
         Debug.Log("healthSlider.value " + healthSlider.maxValue);
         Debug.Log("Starting Health " + startingHealth);
         Debug.Log("tank health " + tankController.GetTankModel().tankHealth);
-        fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, tankController.GetTankModel().tankHealth % startingHealth);
+        fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, tankController.GetTankModel().tankHealth / startingHealth);
     }  
 
     public TankController GetTankController()
