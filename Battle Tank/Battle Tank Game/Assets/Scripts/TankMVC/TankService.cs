@@ -26,7 +26,7 @@ public class TankService : MonoBehaviour
 
     private void CreateTank()
     {
-       int index = Random.Range(0, tankList.tanks.Length);
+        int index = Random.Range(0, tankList.tanks.Length);
         TankScriptableObject tankScriptableObject = tankList.tanks[index];
         TankModel tankModel = new TankModel(tankScriptableObject);
         Debug.Log("Created " + tankModel.tankName);

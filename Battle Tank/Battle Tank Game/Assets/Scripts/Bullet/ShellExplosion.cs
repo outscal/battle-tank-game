@@ -6,7 +6,6 @@ public class ShellExplosion : MonoBehaviour
     public LayerMask TankMask;
     public ParticleSystem explosionParticles;
     public AudioSource explosionAudio;
-    public float maxDamage = 100f;
     public float explosionForce = 1000f;
     public float maxLifeTime = 2f;
     public float explosionRadius = 5f;
@@ -31,13 +30,13 @@ public class ShellExplosion : MonoBehaviour
             targetRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
 
             // reduce tank health using takedamage function of tank
-            TankHealth targetHealth = targetRigidbody.GetComponent<TankHealth>();
+            TankView targetHealth = targetRigidbody.GetComponent<TankView>();
                 if(!targetHealth)
                     continue;
+            float maxDamage = targetHealth.GetTankController().GetTankModel().tankDamage;
+            float damage = CalculateDamage(targetRigidbody.position, maxDamage);
 
-            float damage = CalculateDamage(targetRigidbody.position);
-
-            targetHealth.TakeDamage(damage);
+            targetHealth.GetTankController().TakeDamage(damage);
         }
 
         explosionParticles.transform.parent = null;
@@ -49,15 +48,15 @@ public class ShellExplosion : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private float CalculateDamage(Vector3 targetPosition)
+    private float CalculateDamage(Vector3 targetPosition, float maxDamage)
     {
         Vector3 explosionToTarget = targetPosition - transform.position;
         float explosionDistance = explosionToTarget.magnitude;
         float relativeDistance = (explosionRadius - explosionDistance) / explosionRadius;
-
+       
         float damage = relativeDistance * maxDamage;
         damage = Mathf.Max(0f, damage);
-        
+         Debug.Log("Damage = " + damage);
         return damage;
     }
 }

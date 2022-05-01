@@ -11,13 +11,14 @@ public class TankView : MonoBehaviour
     
     public Rigidbody rb;
     public GameObject explosionPrefab;
+    
+    //heath variables
     public Slider healthSlider;
     public Image fillImage;    
-    //heath variables
     [HideInInspector] private float startingHealth;    
     private Color fullHealthColor = Color.green;
     private Color zeroHealthColor = Color.red;
-    
+    private float maxHealthAtStart;
     internal AudioSource explosionAudio;
     internal ParticleSystem explosionParticles;
 
@@ -43,13 +44,19 @@ public class TankView : MonoBehaviour
     {
         tankController.GetInput();
         tankController.Movement();
-        tankController.GetFireInput();        
+        tankController.GetFireInput(); 
+    }
+
+    public void SetTankController(TankController _tankController)
+    {
+        tankController = _tankController;
     }
 
     private void Intitalization()
     {
         tankBody = GameObject.FindGameObjectsWithTag("TankBody");        
         startingHealth = tankController.GetTankModel().tankHealth;
+        aimSlider.maxValue = startingHealth;
         explosionParticles = Instantiate(explosionPrefab).GetComponent<ParticleSystem>();
         explosionAudio = explosionParticles.GetComponent<AudioSource>();
         explosionParticles.gameObject.SetActive(false);             
@@ -57,9 +64,17 @@ public class TankView : MonoBehaviour
 
     public void SetHealthUI()
     {
-        healthSlider.value = tankController.GetTankModel().tankHealth;        
-        fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, tankController.GetTankModel().tankHealth / startingHealth);
-    }    
+        healthSlider.value = tankController.GetTankModel().tankHealth;
+        Debug.Log("healthSlider.value " + healthSlider.maxValue);
+        Debug.Log("Starting Health " + startingHealth);
+        Debug.Log("tank health " + tankController.GetTankModel().tankHealth);
+        fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, tankController.GetTankModel().tankHealth % startingHealth);
+    }  
+
+    public TankController GetTankController()
+    {
+        return tankController;
+    }  
 
     private void CameraToFollowTank()
     {        
@@ -74,12 +89,7 @@ public class TankView : MonoBehaviour
         {
             tankBody[i].GetComponent<Renderer>().material.color = tankController.GetTankModel().tankColor;
         }
-    }
-    
-    public void SetTankController(TankController _tankController)
-    {
-        tankController = _tankController;
-    }
+    }    
 
    //method to get rigidbody
    public Rigidbody GetRigidBody()
