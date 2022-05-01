@@ -13,9 +13,15 @@ MonoBehaviour:
   m_Name: Green Tank
   m_EditorClassIdentifier: 
   tankType: 2
+  scale: {x: 2, y: 2, z: 2}
   tankName: Big Tank
   speed: 5
   tankTurnSpeed: 50
   Health: 200
   damage: 60
   color: {r: 0.07006645, g: 1, b: 0, a: 0}
+  minLaunchForce: 15
+  maxLaunchForce: 30
+  maxChargeTime: 0.75
+  currentLaunchForce: 0
+  chargeSpeed: 0

@@ -261,7 +261,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3159135730154750055}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1, z: -0.98}
+  m_LocalPosition: {x: 0, y: 0.1, z: -11.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3159135730306105738}
@@ -305,16 +305,11 @@ MonoBehaviour:
   fillImage: {fileID: 1760741979686326362}
   fullHealthColor: {r: 0, g: 1, b: 0, a: 1}
   zeroHealthColor: {r: 1, g: 0, b: 0, a: 1}
-  m_Shell: {fileID: 5835370331282588856, guid: 306fd7faf56e158419c0b7cdc4514842, type: 3}
-  m_FireTransform: {fileID: 7301502947246304858}
-  m_AimSlider: {fileID: 8028293280668974139}
-  m_MinLaunchForce: 15
-  m_MaxLaunchForce: 30
-  m_MaxChargeTime: 0.75
-  m_FireButton: 
-  m_CurrentLaunchForce: 0
-  m_ChargeSpeed: 0
-  m_Fired: 0
+  shellPrefab: {fileID: 5835370331282588856, guid: 306fd7faf56e158419c0b7cdc4514842,
+    type: 3}
+  fireTransform: {fileID: 7301502947246304858}
+  aimSlider: {fileID: 8028293280668974139}
+  fired: 0
 --- !u!1 &4079794772362888693
 GameObject:
   m_ObjectHideFlags: 0

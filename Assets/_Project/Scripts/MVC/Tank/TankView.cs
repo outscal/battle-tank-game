@@ -21,16 +21,11 @@ public class TankView : MonoBehaviour
     public Color fullHealthColor = Color.green;
     public Color zeroHealthColor = Color.red;
 
-    public Rigidbody m_Shell;
-    public Transform m_FireTransform;
-    public Slider m_AimSlider;
-    public float m_MinLaunchForce = 15f;
-    public float m_MaxLaunchForce = 30f;
-    public float m_MaxChargeTime = 0.75f;
-
-    public float m_CurrentLaunchForce;
-    public float m_ChargeSpeed;
-    public bool m_Fired;
+    public Rigidbody shellPrefab;
+    public Transform fireTransform;
+    public Slider aimSlider;
+    
+    public bool fired;
 
     internal bool tankDead;
     private void Awake()
@@ -40,7 +35,8 @@ public class TankView : MonoBehaviour
     private void Start()
     {
         Debug.Log("Tank View Created");
-        m_ChargeSpeed = (m_MaxLaunchForce - m_MinLaunchForce) / m_MaxChargeTime;
+        tankController.StartFunction();
+        //chargeSpeed = (maxLaunchForce - minLaunchForce) / maxChargeTime;
     }
     private void Update()
     {
@@ -51,11 +47,13 @@ public class TankView : MonoBehaviour
     private void InitializeComponenets()
     {
         rb = FindObjectOfType<Rigidbody>();
+
     }
     protected virtual void PlayerTankInput()
     {
         playerTurnHorizontal = Input.GetAxisRaw("Horizontal");
         playerMoveVertical = Input.GetAxisRaw("Vertical");
+
         fire1 = Input.GetMouseButtonDown(0);
         fire0 = Input.GetMouseButton(0);
         fire3 = Input.GetMouseButtonUp(0);
