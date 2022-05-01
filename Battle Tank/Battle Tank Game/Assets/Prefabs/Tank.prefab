@@ -156,10 +156,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1174588261}
   m_HandleRect: {fileID: 0}
   m_Direction: 2
-  m_MinValue: 1
+  m_MinValue: 15
   m_MaxValue: 30
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 15
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -632,7 +632,7 @@ GameObject:
   - component: {fileID: 6034092528185710667}
   m_Layer: 3
   m_Name: TankTurret
-  m_TagString: Untagged
+  m_TagString: TankBody
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -749,8 +749,6 @@ GameObject:
   - component: {fileID: 5259199182074636219}
   - component: {fileID: 760254225}
   - component: {fileID: 760254224}
-  - component: {fileID: 760254220}
-  - component: {fileID: 760254223}
   m_Layer: 3
   m_Name: Tank
   m_TagString: Untagged
@@ -790,6 +788,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: -3777133567569729488}
+  explosionPrefab: {fileID: 151086, guid: ee49a9a8678ecf8468eb488e1ac8d42b, type: 3}
+  healthSlider: {fileID: 1466900608}
+  fillImage: {fileID: 32536679}
+  shell: {fileID: 3443720173001278242, guid: 04fe403516e4e38419082a0509cc40b6, type: 3}
+  fireTransform: {fileID: 1343806297}
+  aimSlider: {fileID: 79937709}
+  shootingAudio: {fileID: 760254224}
+  chargingClip: {fileID: 8300000, guid: c17f124fcdc0f5446a72f793898bd74b, type: 3}
+  fireClip: {fileID: 8300000, guid: 672a9941361ad494a99fba36759eca80, type: 3}
 --- !u!54 &-3777133567569729488
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1011,46 +1018,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &760254220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6034092528187967289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f9c2080574474845906135041f6dd0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingHealth: 100
-  healthSlider: {fileID: 1466900608}
-  fillImage: {fileID: 32536679}
-  fullHealthColor: {r: 0, g: 1, b: 0, a: 1}
-  zeroHealthColor: {r: 1, g: 0, b: 0, a: 1}
-  explosionPrefab: {fileID: 151086, guid: ee49a9a8678ecf8468eb488e1ac8d42b, type: 3}
---- !u!114 &760254223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6034092528187967289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e680fe6ca19911443bad0728aa281121, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerNumber: 1
-  shell: {fileID: 3443720173001278242, guid: 04fe403516e4e38419082a0509cc40b6, type: 3}
-  fireTransform: {fileID: 1343806297}
-  aimSlider: {fileID: 79937709}
-  shootingAudio: {fileID: 760254224}
-  chargingClip: {fileID: 8300000, guid: c17f124fcdc0f5446a72f793898bd74b, type: 3}
-  fireClip: {fileID: 8300000, guid: 672a9941361ad494a99fba36759eca80, type: 3}
-  minLaunchForce: 15
-  maxLaunchForce: 30
-  maxChargeTime: 0.75
 --- !u!1 &6034092528187967291
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,7 +1031,7 @@ GameObject:
   - component: {fileID: 6034092528185710665}
   m_Layer: 3
   m_Name: TankChassis
-  m_TagString: Untagged
+  m_TagString: TankBody
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1147,7 +1114,7 @@ GameObject:
   - component: {fileID: 6034092528185710671}
   m_Layer: 3
   m_Name: TankTracksLeft
-  m_TagString: Untagged
+  m_TagString: TankBody
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1229,7 +1196,7 @@ GameObject:
   - component: {fileID: 6034092528185710657}
   m_Layer: 3
   m_Name: TankTracksRight
-  m_TagString: Untagged
+  m_TagString: TankBody
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -2,19 +2,39 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TankView : MonoBehaviour
 {
     private TankController tankController;
-
-    public GameObject[] tankBody;   
-
+    private GameObject[] tankBody;   
+    
     public Rigidbody rb;
+    public GameObject explosionPrefab;
+    public Slider healthSlider;
+    public Image fillImage;    
+    //heath variables
+    [HideInInspector] private float startingHealth;    
+    private Color fullHealthColor = Color.green;
+    private Color zeroHealthColor = Color.red;
+    
+    internal AudioSource explosionAudio;
+    internal ParticleSystem explosionParticles;
+
+    //shooting variable
+    public Rigidbody shell;
+    public Transform fireTransform;
+    public Slider aimSlider;
+    public AudioSource shootingAudio;
+    public AudioClip chargingClip;
+    public AudioClip fireClip;
+
 
     // Start is called before the first frame update
     void Start()
     {
         Intitalization();
+        SetHealthUI(); 
         CameraToFollowTank();
         ChangeTankColor();
     }
@@ -22,13 +42,24 @@ public class TankView : MonoBehaviour
     void Update()
     {
         tankController.GetInput();
-        tankController.Movement();        
+        tankController.Movement();
+        tankController.GetFireInput();        
     }
 
     private void Intitalization()
     {
         tankBody = GameObject.FindGameObjectsWithTag("TankBody");        
-    }      
+        startingHealth = tankController.GetTankModel().tankHealth;
+        explosionParticles = Instantiate(explosionPrefab).GetComponent<ParticleSystem>();
+        explosionAudio = explosionParticles.GetComponent<AudioSource>();
+        explosionParticles.gameObject.SetActive(false);             
+    }  
+
+    public void SetHealthUI()
+    {
+        healthSlider.value = tankController.GetTankModel().tankHealth;        
+        fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, tankController.GetTankModel().tankHealth / startingHealth);
+    }    
 
     private void CameraToFollowTank()
     {        
@@ -55,4 +86,13 @@ public class TankView : MonoBehaviour
    {
        return rb;
    }   
+
+   public void CreateShellInstance(float _currentLaunchForce)
+   {
+       Rigidbody shellInstance = Instantiate(shell, fireTransform.position, fireTransform.rotation) as Rigidbody;
+       shellInstance.velocity = _currentLaunchForce * fireTransform.forward;
+
+       shootingAudio.clip = fireClip;
+       shootingAudio.Play();
+   }
 }
