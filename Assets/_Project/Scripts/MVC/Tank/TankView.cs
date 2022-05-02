@@ -2,8 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Tanks.MVC;
 using System;
-
-public class TankView : MonoBehaviour
+public class TankView : MonoBehaviour,IDamagable
 {
     public TankType tankType;
     public TankController tankController;
@@ -68,8 +67,14 @@ public class TankView : MonoBehaviour
         tankController.PlayerTankRotation();
     }
 
-    internal void TakeDamage(float damage)
+    //internal void TakeDamage(float damage)
+    //{
+    //    tankController.TakeDamage(damage);
+    //}
+
+    void IDamagable.TakeDamage(float damage)
     {
-        tankController.TakeDamage(damage);
+        Debug.Log("Tank Taking Damage" + damage);
+        tankController.ApplyDamage(damage);
     }
 }

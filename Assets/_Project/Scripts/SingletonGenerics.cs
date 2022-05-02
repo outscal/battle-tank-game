@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankSingletonGenerics<T> : MonoBehaviour where T : TankSingletonGenerics<T>
+public class SingletonGenerics<T> : MonoBehaviour where T : SingletonGenerics<T>
 {
     private static T instance;
     public static T Instance { get { return instance; } }

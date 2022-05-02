@@ -126,5 +126,18 @@ namespace Tanks.MVC
 
             TankModel.CurrentLaunchForce = TankModel.MinLaunchForce;
         }
+
+        public void ApplyDamage(float damage)
+        {
+            SetHealthUI();
+            if (TankModel.currentHealth <= 0)
+            {
+                TankModel.currentHealth = 0;
+                TankDestroy();
+                return;
+            }
+            TankModel.currentHealth -= damage;
+            Debug.Log("Player Take Damage" + TankModel.currentHealth);
+        }
     }
 }

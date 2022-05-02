@@ -2,6 +2,8 @@ using UnityEngine;
 public class TankModel
 {
     public TankType TankType { get; }
+    //private int playerID { get;}
+
     internal float currentHealth;
     public float TankSpeed { get; } // public get; private set
     public float TankTurnSpeed { get; }

@@ -36,8 +36,14 @@ public class BulletExplosion : MonoBehaviour
                 continue;
 
             float damage = CalculateDamage(targetRigidbody.position);
+            //targetHealth.TakeDamage(damage);
 
-            targetHealth.TakeDamage(damage);
+            IDamagable damagable = colliders[i].GetComponent<IDamagable>();
+            if (damagable != null)
+            {
+                damagable.TakeDamage(damage);
+                //damagable.TakeDamage(BulletModel.damage, BulletModel.Type);
+            }
         }
 
         m_ExplosionParticles.transform.parent = null;

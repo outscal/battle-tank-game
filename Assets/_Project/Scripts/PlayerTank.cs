@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Sample
 {
 
-public class PlayerTank : TankSingletonGenerics<PlayerTank>
+public class PlayerTank : SingletonGenerics<PlayerTank>
 {
     private float playerTurnHorizontal = 0f;
     private float playerMoveVertical = 0f;
