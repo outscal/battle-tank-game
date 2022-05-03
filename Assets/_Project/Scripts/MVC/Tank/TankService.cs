@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Tanks.MVC;
 
-public class TankService : SingletonGenerics<TankService>
+public class TankService : MonoBehaviour
 {
     public TankView tankView;
     private TankModel playerModel;
@@ -28,10 +28,7 @@ public class TankService : SingletonGenerics<TankService>
     private TankController CreatePlayerTank()
     {
         int index = Random.Range(0, tankScriptableObjectList.tanks.Length);
-
-
         TankScriptableObject tankScriptableObject = tankScriptableObjectList.tanks[index];
-
         Debug.Log("Creating Tank with Type: " + tankScriptableObject.tankName);
         playerModel = new TankModel(tankScriptableObject);
         TankController playerTank = new TankController(playerModel, tankView, spawnPlayer.position);

@@ -245,13 +245,14 @@ GameObject:
   m_Component:
   - component: {fileID: 2508075778397323089}
   - component: {fileID: 3159135730154750042}
-  - component: {fileID: 6915999919347748299}
+  - component: {fileID: -9102125916950520564}
   - component: {fileID: 1586539267600553781}
   - component: {fileID: 7681329739288728240}
   - component: {fileID: 1399851878062815899}
   - component: {fileID: 1966543652378570119}
+  - component: {fileID: 6915999919347748299}
   m_Layer: 6
-  m_Name: Tank
+  m_Name: PlayerTank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -297,20 +298,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &6915999919347748299
+--- !u!114 &-9102125916950520564
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3159135730154750055}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ef9dc4a6e668374684945ba0b1bf748, type: 3}
+  m_Script: {fileID: 11500000, guid: d1656f9a548ddba4a9c8d7f57e51c53c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tankType: 0
-  startingState: {fileID: 1586539267600553781}
+  startingState: {fileID: 0}
   tankPatrollingState: {fileID: 1586539267600553781}
   tankChasingState: {fileID: 7681329739288728240}
   sliderHealth: {fileID: 1882588529876395131}
@@ -389,6 +390,31 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6915999919347748299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3159135730154750055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ef9dc4a6e668374684945ba0b1bf748, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tankType: 0
+  startingState: {fileID: 1586539267600553781}
+  tankPatrollingState: {fileID: 1586539267600553781}
+  tankChasingState: {fileID: 7681329739288728240}
+  sliderHealth: {fileID: 1882588529876395131}
+  fillImage: {fileID: 1760741979686326362}
+  fullHealthColor: {r: 0, g: 1, b: 0, a: 1}
+  zeroHealthColor: {r: 1, g: 0, b: 0, a: 1}
+  shellPrefab: {fileID: 5835370331282588856, guid: 306fd7faf56e158419c0b7cdc4514842,
+    type: 3}
+  fireTransform: {fileID: 7301502947246304858}
+  aimSlider: {fileID: 8028293280668974139}
+  fired: 0
 --- !u!1 &4079794772362888693
 GameObject:
   m_ObjectHideFlags: 0

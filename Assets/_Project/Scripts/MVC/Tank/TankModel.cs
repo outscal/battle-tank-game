@@ -30,9 +30,4 @@ public class TankModel
         CurrentLaunchForce = tankScriptableObject.currentLaunchForce;
         ChargeSpeed = tankScriptableObject.chargeSpeed;
     }
-
-    public float getHealth()
-    {
-        return currentHealth;
-    }
 }

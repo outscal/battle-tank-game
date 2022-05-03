@@ -5,7 +5,7 @@ namespace Tanks.MVC
     {
         public TankModel TankModel { get; }
         public TankView TankView { get; }
-
+        
         public TankController(TankModel tankModel, TankView tankPrefab, Vector3 spawnPlayer)
         {
             TankModel = tankModel;
@@ -19,6 +19,10 @@ namespace Tanks.MVC
 
         public void PlayerTankMovement()
         {
+
+            //TankModel.TankSpeed = 10;
+
+            Debug.Log("Speed" + TankModel.TankSpeed);
             Vector3 movement = TankModel.TankSpeed * TankView.playerMoveVertical * Time.deltaTime * TankView.transform.forward;
             TankView.rb.MovePosition(TankView.rb.position + movement);
         }

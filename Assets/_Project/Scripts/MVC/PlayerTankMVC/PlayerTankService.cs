@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDamagable
+public class PlayerTankService : TankService
 {
-    void TakeDamage(float damage);
 
 }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 public class PlayerTankView : TankView
 {
-    protected override void PlayerTankInput()
+    protected override void ControlTank()
     {
-        playerTurnHorizontal = Input.GetAxisRaw("Horizontal");
-        playerMoveVertical = Input.GetAxisRaw("Vertical");
+        tankController.PlayerTankMovement();
+        tankController.PlayerTankRotation();
     }
 }

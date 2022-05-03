@@ -13,9 +13,15 @@ MonoBehaviour:
   m_Name: Red Tank
   m_EditorClassIdentifier: 
   tankType: 1
+  scale: {x: 0, y: 0, z: 0}
   tankName: Small Tank
-  speed: 15
+  speed: 100
   tankTurnSpeed: 100
   Health: 70
   damage: 20
   color: {r: 1, g: 0, b: 0, a: 0}
+  minLaunchForce: 0
+  maxLaunchForce: 30
+  maxChargeTime: 0.75
+  currentLaunchForce: 0
+  chargeSpeed: 0

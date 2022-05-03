@@ -30,7 +30,7 @@ public class BulletExplosion : MonoBehaviour
 
             targetRigidbody.AddExplosionForce(m_ExplosionForce, transform.position, m_ExplosionRadius);
 
-            TankView targetHealth = targetRigidbody.GetComponent<TankView>();
+            EnemyTankView targetHealth = targetRigidbody.GetComponent<EnemyTankView>();
 
             if (!targetHealth)
                 continue;

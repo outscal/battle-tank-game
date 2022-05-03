@@ -2,10 +2,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using Tanks.MVC;
 using System;
+using System.Collections.Generic;
+
+[RequireComponent(typeof(Image))]
 public class TankView : MonoBehaviour,IDamagable
 {
     public TankType tankType;
     public TankController tankController;
+    private TankState currentState;
+    public TankState startingState;
+    public TankPatrollingState tankPatrollingState;
+    public TankChasingState tankChasingState;
+
+    private Image image;
+    //[SerializeField] private List<TankState> tankStates;
 
     internal Rigidbody rb;
 
@@ -23,9 +33,10 @@ public class TankView : MonoBehaviour,IDamagable
     public Rigidbody shellPrefab;
     public Transform fireTransform;
     public Slider aimSlider;
-    
-    public bool fired;
 
+    
+
+    public bool fired;
     internal bool tankDead;
     private void Awake()
     {
@@ -35,7 +46,8 @@ public class TankView : MonoBehaviour,IDamagable
     {
         Debug.Log("Tank View Created");
         tankController.StartFunction();
-        //chargeSpeed = (maxLaunchForce - minLaunchForce) / maxChargeTime;
+        ChangeState(startingState);
+
     }
     private void Update()
     {
@@ -45,10 +57,11 @@ public class TankView : MonoBehaviour,IDamagable
     }
     private void InitializeComponenets()
     {
-        rb = FindObjectOfType<Rigidbody>();
-
+        rb = GetComponent<Rigidbody>();
+        image = GetComponent<Image>();
+        startingState.tankView = this;
     }
-    protected virtual void PlayerTankInput()
+    public void PlayerTankInput()
     {
         playerTurnHorizontal = Input.GetAxisRaw("Horizontal");
         playerMoveVertical = Input.GetAxisRaw("Vertical");
@@ -61,10 +74,9 @@ public class TankView : MonoBehaviour,IDamagable
     {
         ControlTank();
     }
-    public void ControlTank()
+    protected virtual void ControlTank()
     {
-        tankController.PlayerTankMovement();
-        tankController.PlayerTankRotation();
+        
     }
 
     //internal void TakeDamage(float damage)
@@ -76,5 +88,21 @@ public class TankView : MonoBehaviour,IDamagable
     {
         Debug.Log("Tank Taking Damage" + damage);
         tankController.ApplyDamage(damage);
+    }
+    
+    public void ChangeColor(Color color)
+    {
+        image.color = color;
+    }
+
+    public void ChangeState(TankState newState)
+    {
+        if(currentState != null)
+        {
+            currentState.OnExitState();
+        }
+
+        currentState = newState;
+        currentState.OnEnterState();
     }
 }

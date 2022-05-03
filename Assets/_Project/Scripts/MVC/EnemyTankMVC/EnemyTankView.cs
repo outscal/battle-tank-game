@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class EnemyTankView : TankView
 {
-    protected override void PlayerTankInput()
-    {
-        EnemyPatrol();
-    }
-
-    void EnemyPatrol()
+    protected override void ControlTank()
     {
         
     }
