@@ -4,6 +4,7 @@ using UnityEngine;
 public class ShellExplosion : MonoBehaviour
 {
     private TankView player;
+    private EnemyTankView enemy;
     public LayerMask TankMask;
     public ParticleSystem explosionParticles;
     public AudioSource explosionAudio;
@@ -13,7 +14,8 @@ public class ShellExplosion : MonoBehaviour
     
     void Start()
     {
-        player = GameObject.FindObjectOfType<TankView>();
+        player = GameObject.FindObjectOfType<TankView>(); 
+        enemy = GameObject.FindObjectOfType<EnemyTankView>();       
         Destroy(gameObject, maxLifeTime);
     }
 
@@ -31,15 +33,44 @@ public class ShellExplosion : MonoBehaviour
             
             targetRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
 
+            if( colliders[i].CompareTag("Player") )
+            {   
+                //player will get the damage from enemy tank
+                Debug.Log("Player Taking Damage" + colliders[i]);
+                TankView targetHealth = colliders[i].GetComponent<TankView>();
 
-            // reduce tank health using takedamage function of tank
-            EnemyTankView targetHealth = targetRigidbody.GetComponent<EnemyTankView>();
                 if(!targetHealth)
-                    continue;
-            float maxDamage = player.GetTankController().GetTankModel().tankDamage;
-            float damage = CalculateDamage(targetRigidbody.position, maxDamage);
+                continue;
             
-            targetHealth.GetEnemyTankController().TakeDamage(damage);
+                float maxDamage = enemy.GetEnemyTankController().GetEnemyTankModel().tankDamage;                
+                float damage = CalculateDamage(targetRigidbody.position, maxDamage);            
+                targetHealth.GetTankController().TakeDamage(damage);            
+
+            } 
+            else if (colliders[i].CompareTag("Enemy"))
+            {
+                //enemy will get the damage from player tank
+                Debug.Log("Enemy Taking Damage" + colliders[i]);
+                EnemyTankView targetHealth = colliders[i].GetComponent<EnemyTankView>();
+
+                if(!targetHealth)
+                    continue;        
+            
+                float maxDamage = player.GetTankController().GetTankModel().tankDamage;
+                float damage = CalculateDamage(targetRigidbody.position, maxDamage);                
+                targetHealth.GetEnemyTankController().TakeDamage(damage);
+            }     
+             // reduce tank health using takedamage function of tank
+            
+            //     if(!targetHealth)
+            //         continue;
+
+            
+
+            // float maxDamage = player.GetTankController().GetTankModel().tankDamage;
+            // float damage = CalculateDamage(targetRigidbody.position, maxDamage);
+            
+            // targetHealth.GetTankController().TakeDamage(damage);
         }
 
         explosionParticles.transform.parent = null;

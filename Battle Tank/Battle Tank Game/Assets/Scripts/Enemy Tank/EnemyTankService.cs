@@ -19,7 +19,7 @@ public class EnemyTankService : MonoBehaviour
 
     private void CreateEnemyTank(int i)
     {
-        EnemyTankModel enemyTankModel = new EnemyTankModel(100);
+        EnemyTankModel enemyTankModel = new EnemyTankModel(100, 30);
         EnemyTankController enemyTankController = new EnemyTankController(enemyTankModel, enemyTankView[i]);
     }
     

@@ -65,8 +65,6 @@ public class TankView : MonoBehaviour
     public void SetHealthUI()
     {
         healthSlider.value = tankController.GetTankModel().tankHealth;
-        Debug.Log("healthSlider.value " + healthSlider.maxValue);
-        Debug.Log("Starting Health " + startingHealth);
         Debug.Log("tank health " + tankController.GetTankModel().tankHealth);
         fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, tankController.GetTankModel().tankHealth / startingHealth);
     }  
@@ -104,5 +102,13 @@ public class TankView : MonoBehaviour
 
        shootingAudio.clip = fireClip;
        shootingAudio.Play();
+   }
+   
+   private void OnColliderEnter(Collision other)
+   {
+        if(other.collider.CompareTag("Enemy"))
+        {
+           tankController.TakeDamage(40);
+       }
    }
 }
