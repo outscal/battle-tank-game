@@ -17,4 +17,10 @@ public class TankView : MonoBehaviour
     {
         
     }
+
+    public void SetTankController(TankController _tankController)
+    {
+        tankController = _tankController;
+
+    }
 }
