@@ -19,10 +19,6 @@ namespace Tanks.MVC
 
         public void PlayerTankMovement()
         {
-
-            //TankModel.TankSpeed = 10;
-
-            Debug.Log("Speed" + TankModel.TankSpeed);
             Vector3 movement = TankModel.TankSpeed * TankView.playerMoveVertical * Time.deltaTime * TankView.transform.forward;
             TankView.rb.MovePosition(TankView.rb.position + movement);
         }

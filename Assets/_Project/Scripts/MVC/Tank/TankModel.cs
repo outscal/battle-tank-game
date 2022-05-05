@@ -4,6 +4,7 @@ public class TankModel
     public TankType TankType { get; }
     //private int playerID { get;}
 
+    public Color TankColor { get; }
     internal float currentHealth;
     public float TankSpeed { get; } // public get; private set
     public float TankTurnSpeed { get; }
@@ -13,12 +14,14 @@ public class TankModel
     public float MaxChargeTime { get; }
     public float CurrentLaunchForce { get; set; }
     public float ChargeSpeed { get; set; }
+
     public Vector3 TankSize;
 
     public TankModel(TankScriptableObject tankScriptableObject)
     {
         TankType = tankScriptableObject.tankType;
         TankSize = tankScriptableObject.scale;
+        TankColor = tankScriptableObject.color;
 
         TankSpeed = tankScriptableObject.speed;
         TankTurnSpeed = tankScriptableObject.tankTurnSpeed;

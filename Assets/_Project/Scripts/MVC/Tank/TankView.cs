@@ -14,10 +14,13 @@ public class TankView : MonoBehaviour,IDamagable
     public TankPatrollingState tankPatrollingState;
     public TankChasingState tankChasingState;
 
+
     private Image image;
+
     //[SerializeField] private List<TankState> tankStates;
 
     internal Rigidbody rb;
+
 
     internal float playerTurnHorizontal = 0f;
     internal float playerMoveVertical = 0f;
@@ -74,9 +77,10 @@ public class TankView : MonoBehaviour,IDamagable
     {
         ControlTank();
     }
-    protected virtual void ControlTank()
+    private void ControlTank()
     {
-        
+        tankController.PlayerTankMovement();
+        tankController.PlayerTankRotation();
     }
 
     //internal void TakeDamage(float damage)
@@ -104,5 +108,9 @@ public class TankView : MonoBehaviour,IDamagable
 
         currentState = newState;
         currentState.OnEnterState();
+    }
+
+    internal class setTankColor
+    {
     }
 }
