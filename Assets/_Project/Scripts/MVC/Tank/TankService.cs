@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Tanks.MVC;
 
-public class TankService : MonoBehaviour
+public class TankService : SingletonGenerics<TankService>
 {
 
 
@@ -19,13 +19,22 @@ public class TankService : MonoBehaviour
     private void Start()
     {
         StartGame();
+        //ServiceEvents.Instance.OnGameStarted += Instance_OnGameStarted; // eg of event system
+    }
+
+    private void Instance_OnGameStarted()
+    {
+        CreatePlayerTank();
+        //throw new System.NotImplementedException();
     }
 
     private void StartGame()
     {
         CreatePlayerTank();
         //CreateEnemyTank();
+
     }
+
 
     private TankController CreatePlayerTank()
     {
