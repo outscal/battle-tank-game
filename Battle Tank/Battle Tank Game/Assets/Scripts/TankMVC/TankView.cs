@@ -8,6 +8,7 @@ public class TankView : MonoBehaviour
 {
     private TankController tankController;
     private GameObject[] tankBody;   
+    private GameObject m_camera;
     
     public Rigidbody rb;
     public GameObject explosionPrefab;
@@ -29,7 +30,11 @@ public class TankView : MonoBehaviour
     public AudioSource shootingAudio;
     public AudioClip chargingClip;
     public AudioClip fireClip;
-
+    
+    //camera variables
+    // private Vector3 moveVelocity;
+    // private Vector3 DesiredPosition;
+    // public float DampTime = 0.2f;
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +59,7 @@ public class TankView : MonoBehaviour
 
     private void Intitalization()
     {
+        m_camera = GameObject.Find("Main Camera");
         tankBody = GameObject.FindGameObjectsWithTag("TankBody");        
         startingHealth = tankController.GetTankModel().tankHealth;
         aimSlider.maxValue = startingHealth;
@@ -76,9 +82,27 @@ public class TankView : MonoBehaviour
 
     private void CameraToFollowTank()
     {        
-        GameObject camera = GameObject.Find("Main Camera");
-        camera.transform.SetParent(transform);
-        camera.transform.position = new Vector3(0f, 4f, -5f);
+        m_camera.transform.SetParent(transform);
+        m_camera.transform.position = new Vector3(0f, 4f, -5f);
+    }
+
+    public void BeforePlayerDeath()
+    {   
+        //Gameover logic 
+        StartCoroutine(DeParentCameraOnPlayerDeath());
+    }
+    public IEnumerator OnDeath()
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        tankController.OnDeath();
+    }
+
+    public IEnumerator DeParentCameraOnPlayerDeath()
+    {
+        m_camera.transform.SetParent(null);
+        yield return StartCoroutine(OnDeath()); 
+
+        //m_camera.transform.position = Vector3.SmoothDamp(transform.position, DesiredPosition, ref moveVelocity, DampTime);
     }
 
     private void ChangeTankColor()

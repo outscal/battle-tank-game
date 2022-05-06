@@ -78,11 +78,11 @@ public class TankController
 
         if(tankModel.tankHealth <= 0f && !isDead)
         {
-            OnDeath();
+            tankView.BeforePlayerDeath();
         }
     }
 
-    private void OnDeath()
+    public void OnDeath()
     {
         isDead = true;
 
