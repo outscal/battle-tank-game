@@ -12,10 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 017a5dc547264a5488ba4647c9362ef3, type: 3}
   m_Name: Small Tank
   m_EditorClassIdentifier: 
-  scale: {x: 0, y: 0, z: 0}
-  tankName: 
-  tankSpeed: 0
-  tankTurnSpeed: 0
-  tankHealth: 0
-  tankDamage: 0
-  tankColor: {r: 0, g: 0, b: 0, a: 0}
+  tankType: 1
+  enemyTankView: {fileID: 3537352049436699283, guid: 2c0dad51ae52c92438c926502e7f4d37,
+    type: 3}
+  tankHealth: 100
+  tankDamage: 20
+  tankSpeed: 10
+  tankTurnSpeed: 30
+  walkPointRange: 5
+  patrollingRange: 10
+  patrolTime: 5
+  attackRange: 5
+  minLaunchForce: 10
+  maxLaunchForce: 20

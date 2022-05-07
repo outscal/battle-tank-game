@@ -10,13 +10,6 @@ public abstract class State
     public abstract void OnStateExit(StateMachine Enemy);
 
     public abstract void Tick(StateMachine Enemy);
-
-    public enum EnemyState
-    {
-        Idle,
-        Patrol,
-        Chase,
-        Attack
-    }
+    
 }
 

@@ -3,16 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class EnemyTankView : MonoBehaviour
 {
-    private EnemyTankController enemyTankController;
-    public GameObject explosionPrefab;
-    private Transform currentPosition;
-
-    private float startingHealth;
-    private Color fullHealthColor = Color.green;
-    private Color zeroHealthColor = Color.red;
+    public EnemyTankController enemyTankController;
+    public Transform playerTransform;
+    public GameObject explosionPrefab; 
+    
     internal AudioSource explosionAudio;
     internal ParticleSystem explosionParticles;
 
@@ -20,45 +18,30 @@ public class EnemyTankView : MonoBehaviour
     public Image fillImage;
 
     //public StateMachine stateMachine;
+    public NavMeshAgent agent; 
+    
 
-    public void SetEnemyTankController(EnemyTankController _enemyTankController)
+
+
+    void Awake()
     {
-        enemyTankController = _enemyTankController;
+        explosionParticles = Instantiate(explosionPrefab).GetComponent<ParticleSystem>();
+        explosionAudio = explosionParticles.GetComponent<AudioSource>();
+        explosionParticles.gameObject.SetActive(false);
     }
 
     void Start()
     {
         Intitalization();
-        SetHealthUI();
-        RandomPositionForTank();        
+        enemyTankController.SetHealthUI();
     }
-
+    
     private void Intitalization()
     {   
-        currentPosition = GetComponent<Transform>();        
-        startingHealth = enemyTankController.GetEnemyTankModel().tankHealth;
-        explosionParticles = Instantiate(explosionPrefab).GetComponent<ParticleSystem>();
-        explosionAudio = explosionParticles.GetComponent<AudioSource>();
-        explosionParticles.gameObject.SetActive(false);        
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        agent = GetComponent<NavMeshAgent>();         
     }
-
-    public EnemyTankController GetEnemyTankController()
-    {
-        return enemyTankController;
-    }
-
-    public void SetHealthUI()
-    {
-        healthSlider.value = enemyTankController.GetEnemyTankModel().tankHealth;
-        fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, enemyTankController.GetEnemyTankModel().tankHealth / startingHealth);
-    }
-
-    private void RandomPositionForTank()
-    {
-        //function for randomly spawn enemy tanks to different locations
-        //float randomX = UnityEngine.Random.Range();
-    }
-
+  
     public void Death()
     {
         explosionParticles.transform.position = transform.position;

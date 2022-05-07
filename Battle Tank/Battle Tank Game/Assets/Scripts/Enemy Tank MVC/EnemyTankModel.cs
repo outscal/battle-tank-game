@@ -2,20 +2,31 @@ using UnityEngine;
 
 public class EnemyTankModel 
 {
-    private EnemyTankController enemyTankController;
-
-    public float tankHealth;    
+    public EnemyTankType enemyTankType;
+    public float tankHealth;
+    public float startingHealth;
     public float tankDamage;
 
-    public EnemyTankModel(float _tankHealth, float _tankDamage)
+    public float tankSpeed;
+    public float tankTurnSpeed;
+
+    public Color fullHealthColor;
+    public Color zeroHealthColor;
+
+    public EnemyTankModel(EnemyTankScriptableObjects enemySO)
     {
-        tankHealth = _tankHealth;
-        tankDamage = _tankDamage;
+        enemyTankType = enemySO.tankType;
+        tankHealth = enemySO.tankHealth;
+        startingHealth = enemySO.tankHealth;
+        tankDamage = enemySO.tankDamage;
+
+        tankSpeed = enemySO.tankSpeed;
+        tankTurnSpeed = enemySO.tankTurnSpeed;
+
+        fullHealthColor = Color.green;
+        zeroHealthColor = Color.red;
     }
 
-    public void SetEnemyTankController(EnemyTankController _enemyTankController)
-    {
-        enemyTankController = _enemyTankController;
-    }
+    
    
 }

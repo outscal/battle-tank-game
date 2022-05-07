@@ -41,7 +41,7 @@ public class ShellExplosion : MonoBehaviour
                 if(!targetHealth)
                 continue;
             
-                float maxDamage = enemy.GetEnemyTankController().GetEnemyTankModel().tankDamage;                
+                float maxDamage = enemy.enemyTankController.GetEnemyTankModel().tankDamage;                
                 float damage = CalculateDamage(targetRigidbody.position, maxDamage);            
                 targetHealth.GetTankController().TakeDamage(damage);            
 
@@ -56,7 +56,7 @@ public class ShellExplosion : MonoBehaviour
             
                 float maxDamage = player.GetTankController().GetTankModel().tankDamage;
                 float damage = CalculateDamage(targetRigidbody.position, maxDamage);                
-                targetHealth.GetEnemyTankController().TakeDamage(damage);
+                targetHealth.enemyTankController.TakeDamage(damage);
             }          
         }
 

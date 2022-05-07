@@ -21,7 +21,7 @@ public class GameManager : MonoGenericSingleton<GameManager>
 
         for(int i = 0; i < enemyObjects.Length; i++)
         {
-            enemyObjects[i].GetComponent<EnemyTankView>().GetEnemyTankController().OnDeath();
+            enemyObjects[i].GetComponent<EnemyTankView>().enemyTankController.OnDeath();
         }        
     }
 

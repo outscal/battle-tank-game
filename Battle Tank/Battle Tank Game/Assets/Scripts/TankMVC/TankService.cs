@@ -5,8 +5,7 @@ using UnityEngine;
 public class TankService : MonoBehaviour
 {
     [SerializeField]public TankView tankView;
-    CameraControl cameraControl;
-
+    
     public TankScriptableObjectList tankList;    
 
    
