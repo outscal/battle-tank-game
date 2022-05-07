@@ -372,7 +372,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4381801290608420079}
-  - component: {fileID: 4381801290608819747}
+  - component: {fileID: 2532551574349691003}
   - component: {fileID: 4381801290608819744}
   - component: {fileID: -4357242553174196741}
   m_Layer: 0
@@ -397,7 +397,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &4381801290608819747
+--- !u!54 &2532551574349691003
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -409,9 +409,9 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!65 &4381801290608819744
 BoxCollider:
@@ -438,3 +438,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87d152188eae0f84ba5039d6474affdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  joystick: {fileID: 2929252283123773951, guid: aaa2c939c0359ac4dbce3f49e8b90252,
+    type: 3}
+  rb: {fileID: 2532551574349691003}

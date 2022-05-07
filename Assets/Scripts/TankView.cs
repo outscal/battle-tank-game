@@ -6,6 +6,10 @@ public class TankView : MonoBehaviour
 {
 
     private TankController tankController;
+    
+     private float movementInput;
+    private float rotationInput;
+    public Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +19,17 @@ public class TankView : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        GetInput();
+        if(movementInput != 0)
+          tankController.Move(movementInput,30);
+         
         
+    }
+
+    private void GetInput()
+    {
+        movementInput = Input.GetAxis("Vertical");
+        rotationInput =  Input.GetAxis("Horizontal");
     }
 
     public void SetTankController(TankController _tankController)
@@ -23,4 +37,11 @@ public class TankView : MonoBehaviour
         tankController = _tankController;
 
     }
+
+    public Rigidbody GetRigidbody()
+    {
+        return rb;
+    }
+
+    
 }
