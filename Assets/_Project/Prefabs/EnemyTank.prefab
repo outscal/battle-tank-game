@@ -248,6 +248,7 @@ GameObject:
   - component: {fileID: 1399851878062815899}
   - component: {fileID: 1966543652378570119}
   - component: {fileID: 4005936611318388911}
+  - component: {fileID: -5910459621607288126}
   m_Layer: 6
   m_Name: EnemyTank
   m_TagString: Untagged
@@ -263,7 +264,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3159135730154750055}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3159135730306105738}
@@ -276,7 +277,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -11, y: 0}
+  m_AnchoredPosition: {x: -12, y: 1}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!54 &3159135730154750042
@@ -355,6 +356,33 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-5910459621607288126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3159135730154750055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a27b6f54b3ee2a47af568c52bec76d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navMeshAgent: {fileID: 4005936611318388911}
+  viewRadius: 15
+  viewAngle: 90
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 384
+  meshResolution: 1
+  edgeIterations: 4
+  edgeDistance: 0.5
+  waypoints:
+  - {fileID: 4206833258772199687, guid: 55c9b08948790d545a90b6586b706c0d, type: 3}
+  - {fileID: 7578620459119126117, guid: 421fd900255e2ca4fa1e5fc91e9d0900, type: 3}
 --- !u!1 &4079794772362888693
 GameObject:
   m_ObjectHideFlags: 0
