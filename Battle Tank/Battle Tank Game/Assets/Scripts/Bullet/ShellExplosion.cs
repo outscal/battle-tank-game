@@ -36,7 +36,6 @@ public class ShellExplosion : MonoBehaviour
             if( colliders[i].CompareTag("Player") )
             {   
                 //player will get the damage from enemy tank
-                Debug.Log("Player Taking Damage" + colliders[i]);
                 TankView targetHealth = colliders[i].GetComponent<TankView>();
 
                 if(!targetHealth)
@@ -50,7 +49,6 @@ public class ShellExplosion : MonoBehaviour
             else if (colliders[i].CompareTag("Enemy"))
             {
                 //enemy will get the damage from player tank
-                Debug.Log("Enemy Taking Damage" + colliders[i]);
                 EnemyTankView targetHealth = colliders[i].GetComponent<EnemyTankView>();
 
                 if(!targetHealth)
@@ -59,18 +57,7 @@ public class ShellExplosion : MonoBehaviour
                 float maxDamage = player.GetTankController().GetTankModel().tankDamage;
                 float damage = CalculateDamage(targetRigidbody.position, maxDamage);                
                 targetHealth.GetEnemyTankController().TakeDamage(damage);
-            }     
-             // reduce tank health using takedamage function of tank
-            
-            //     if(!targetHealth)
-            //         continue;
-
-            
-
-            // float maxDamage = player.GetTankController().GetTankModel().tankDamage;
-            // float damage = CalculateDamage(targetRigidbody.position, maxDamage);
-            
-            // targetHealth.GetTankController().TakeDamage(damage);
+            }          
         }
 
         explosionParticles.transform.parent = null;
