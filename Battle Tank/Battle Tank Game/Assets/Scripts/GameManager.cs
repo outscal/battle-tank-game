@@ -17,7 +17,7 @@ public class GameManager : MonoGenericSingleton<GameManager>
     {
         yield return new WaitForSeconds(waitTime);
 
-        GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("EnemyTank");
 
         for(int i = 0; i < enemyObjects.Length; i++)
         {
@@ -27,7 +27,7 @@ public class GameManager : MonoGenericSingleton<GameManager>
 
     private IEnumerator DestroyGround()
     {
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSeconds(waitTime + waitTime);
 
         GameObject[] obstaclesObjects = GameObject.FindGameObjectsWithTag("Ground");
 

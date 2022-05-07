@@ -11,7 +11,7 @@ public class EnemyTankController
    public EnemyTankController(EnemyTankModel _enemyTankModel, EnemyTankView _enemyTankView)
    {
        this.enemyTankModel = _enemyTankModel;
-       enemyTankView = GameObject.Instantiate<EnemyTankView>(_enemyTankView, new Vector3(-5,0,-5), new Quaternion(0,0,0,0));
+       enemyTankView = GameObject.Instantiate<EnemyTankView>(_enemyTankView);
               
        enemyTankView.enemyTankController = this;
    }

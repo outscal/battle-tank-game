@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4222742821702364227}
   m_Layer: 8
   m_Name: TankTracksLeft
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 4222742821702364237}
   m_Layer: 8
   m_Name: TankTracksRight
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: -7664804748971550207}
   m_Layer: 8
   m_Name: EnemyTank
-  m_TagString: Enemy
+  m_TagString: EnemyTank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -244,9 +244,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 541770a80b2ad9341b0a2f6d427ef19e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTransform: {fileID: 0}
   explosionPrefab: {fileID: 151086, guid: ee49a9a8678ecf8468eb488e1ac8d42b, type: 3}
   healthSlider: {fileID: 7577118452298568844}
   fillImage: {fileID: 7577118451535121515}
+  agent: {fileID: 0}
 --- !u!114 &-7664804748971550207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,6 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 064cc99fca718df45854ca112f32af65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsPatrol: 0
 --- !u!1 &4222742821700170551
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,7 +275,7 @@ GameObject:
   - component: {fileID: 4222742821702364229}
   m_Layer: 8
   m_Name: TankChassis
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -353,7 +356,7 @@ GameObject:
   - component: {fileID: 4222742821700071129}
   m_Layer: 8
   m_Name: TankRenderers
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -389,7 +392,7 @@ GameObject:
   - component: {fileID: 4222742821702364231}
   m_Layer: 8
   m_Name: TankTurret
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
