@@ -93,6 +93,8 @@ public class TankController
         tankView.explosionAudio.Play();
 
         tankView.gameObject.SetActive(false);
+
+        GameManager.Instance.DestroyAllGameObjects();
     }
 
     //shooting bullet

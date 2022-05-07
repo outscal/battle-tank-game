@@ -17,10 +17,11 @@ public class EnemyTankService : MonoBehaviour
             CreateEnemyTank(i);
     }
 
-    private void CreateEnemyTank(int i)
+    private EnemyTankController CreateEnemyTank(int i)
     {
         EnemyTankModel enemyTankModel = new EnemyTankModel(100, 30);
         EnemyTankController enemyTankController = new EnemyTankController(enemyTankModel, enemyTankView[i]);
+        return enemyTankController;
     }
     
 }

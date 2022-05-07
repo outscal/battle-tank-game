@@ -58,5 +58,16 @@ public class EnemyTankView : MonoBehaviour
         //function for randomly spawn enemy tanks to different locations
         //float randomX = UnityEngine.Random.Range();
     }
+
+    public void Death()
+    {
+        explosionParticles.transform.position = transform.position;
+        explosionParticles.gameObject.SetActive(true);
+
+        explosionParticles.Play();
+        explosionAudio.Play();
+
+        Destroy(gameObject);
+    }
 }
 

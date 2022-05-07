@@ -33,16 +33,10 @@ public class EnemyTankController
         }
     }
 
-    private void OnDeath()
+    public void OnDeath()
     {
         isDead = true;
 
-        enemyTankView.explosionParticles.transform.position = enemyTankView.transform.position;
-        enemyTankView.explosionParticles.gameObject.SetActive(true);
-
-        enemyTankView.explosionParticles.Play();
-        enemyTankView.explosionAudio.Play();
-
-        enemyTankView.gameObject.SetActive(false);
+        enemyTankView.Death();        
     }
 }
