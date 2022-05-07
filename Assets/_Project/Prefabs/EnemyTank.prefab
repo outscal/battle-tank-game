@@ -245,11 +245,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2508075778397323089}
   - component: {fileID: 3159135730154750042}
-  - component: {fileID: 3159135730154750041}
-  - component: {fileID: 1586539267600553781}
-  - component: {fileID: 7681329739288728240}
   - component: {fileID: 1399851878062815899}
   - component: {fileID: 1966543652378570119}
+  - component: {fileID: 4005936611318388911}
   m_Layer: 6
   m_Name: EnemyTank
   m_TagString: Untagged
@@ -265,7 +263,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3159135730154750055}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -11.3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3159135730306105738}
@@ -278,7 +276,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.1}
+  m_AnchoredPosition: {x: -11, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!54 &3159135730154750042
@@ -297,60 +295,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &3159135730154750041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3159135730154750055}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ef9dc4a6e668374684945ba0b1bf748, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tankType: 0
-  startingState: {fileID: 1586539267600553781}
-  tankPatrollingState: {fileID: 1586539267600553781}
-  tankChasingState: {fileID: 7681329739288728240}
-  sliderHealth: {fileID: 1882588529876395131}
-  fillImage: {fileID: 1760741979686326362}
-  fullHealthColor: {r: 0, g: 1, b: 0, a: 1}
-  zeroHealthColor: {r: 1, g: 0, b: 0, a: 1}
-  shellPrefab: {fileID: 5835370331282588856, guid: 306fd7faf56e158419c0b7cdc4514842,
-    type: 3}
-  fireTransform: {fileID: 7301502947246304858}
-  aimSlider: {fileID: 8028293280668974139}
-  fired: 0
---- !u!114 &1586539267600553781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3159135730154750055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 769395f747a4d4a429aa3d064803686e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tankView: {fileID: 0}
-  color: {r: 1, g: 0, b: 0.55060387, a: 0}
---- !u!114 &7681329739288728240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3159135730154750055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0887946b1e79d64ea2c8a07f05cfad4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tankView: {fileID: 0}
-  color: {r: 0.07971394, g: 1, b: 0, a: 0}
-  differentColor: {r: 0.7735849, g: 0.33935562, b: 0.33935562, a: 0}
 --- !u!222 &1399851878062815899
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -389,6 +333,28 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!195 &4005936611318388911
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3159135730154750055}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &4079794772362888693
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Tanks.MVC;
 
-public class TankService : SingletonGenerics<TankService>
+public class TankService : MonoBehaviour //SingletonGenerics<TankService>
 {
-
-
-    public TankView tankView;
+    public TankView TankView;
     private TankModel playerModel;
-    private TankModel enemyModel;
 
     public Transform spawnPlayer;
     public Transform spawnEnemy;
@@ -22,17 +19,16 @@ public class TankService : SingletonGenerics<TankService>
         //ServiceEvents.Instance.OnGameStarted += Instance_OnGameStarted; // eg of event system
     }
 
-    private void Instance_OnGameStarted()
-    {
-        CreatePlayerTank();
-        //throw new System.NotImplementedException();
-    }
+    //private void Instance_OnGameStarted()
+    //{
+    //    CreatePlayerTank();
+    //    //throw new System.NotImplementedException();
+    //}
 
     private void StartGame()
     {
         CreatePlayerTank();
         //CreateEnemyTank();
-
     }
 
 
@@ -42,19 +38,19 @@ public class TankService : SingletonGenerics<TankService>
         TankScriptableObject tankScriptableObject = tankScriptableObjectList.tanks[index];
         Debug.Log("Creating Tank with Type: " + tankScriptableObject.tankName);
         playerModel = new TankModel(tankScriptableObject);
-        TankController playerTank = new TankController(playerModel, tankView, spawnPlayer.position);
+        TankController playerTank = new TankController(playerModel, TankView, spawnPlayer.position);
         return playerTank;
     }
 
-    private TankController CreateEnemyTank()
-    {
-        int index = Random.Range(0, tankScriptableObjectList.tanks.Length);
-        TankScriptableObject tankScriptableObject = tankScriptableObjectList.tanks[index];
-        Debug.Log("Creating Tank with Type: " + tankScriptableObject.tankName);
-        enemyModel = new TankModel(tankScriptableObject);
-        TankController enemyTank = new TankController(playerModel, tankView, spawnEnemy.position);
-        return enemyTank;
-    }
+    //private TankController CreateEnemyTank()
+    //{
+    //    int index = Random.Range(0, tankScriptableObjectList.tanks.Length);
+    //    TankScriptableObject tankScriptableObject = tankScriptableObjectList.tanks[index];
+    //    Debug.Log("Creating Tank with Type: " + tankScriptableObject.tankName);
+    //    enemyModel = new TankModel(tankScriptableObject);
+    //    TankController enemyTank = new TankController(playerModel, tankView, spawnEnemy.position);
+    //    return enemyTank;
+    //}
 }
     //private void StartGame()
     //{

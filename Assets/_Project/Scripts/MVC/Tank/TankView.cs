@@ -4,18 +4,14 @@ using Tanks.MVC;
 using System;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(Image))]
 public class TankView : MonoBehaviour,IDamagable
 {
     public TankType tankType;
     public TankController tankController;
-    private TankState currentState;
-    public TankState startingState;
-    public TankPatrollingState tankPatrollingState;
-    public TankChasingState tankChasingState;
-
-
-    private Image image;
+    //private TankState currentState;
+    //public TankState startingState;
+    //public TankPatrollingState tankPatrollingState;
+    //public TankChasingState tankChasingState;
 
     //[SerializeField] private List<TankState> tankStates;
 
@@ -37,8 +33,6 @@ public class TankView : MonoBehaviour,IDamagable
     public Transform fireTransform;
     public Slider aimSlider;
 
-    
-
     public bool fired;
     internal bool tankDead;
     private void Awake()
@@ -49,7 +43,7 @@ public class TankView : MonoBehaviour,IDamagable
     {
         Debug.Log("Tank View Created");
         tankController.StartFunction();
-        ChangeState(startingState);
+        //ChangeState(startingState);
 
     }
     private void Update()
@@ -61,8 +55,7 @@ public class TankView : MonoBehaviour,IDamagable
     private void InitializeComponenets()
     {
         rb = GetComponent<Rigidbody>();
-        image = GetComponent<Image>();
-        startingState.tankView = this;
+        //startingState.tankView = this;
     }
     public void PlayerTankInput()
     {
@@ -94,23 +87,19 @@ public class TankView : MonoBehaviour,IDamagable
         tankController.ApplyDamage(damage);
     }
     
-    public void ChangeColor(Color color)
-    {
-        image.color = color;
-    }
+    //public void ChangeColor(Color color)
+    //{
+    //    image.color = color;
+    //}
 
-    public void ChangeState(TankState newState)
-    {
-        if(currentState != null)
-        {
-            currentState.OnExitState();
-        }
+    //public void ChangeState(TankState newState)
+    //{
+    //    if(currentState != null)
+    //    {
+    //        currentState.OnExitState();
+    //    }
 
-        currentState = newState;
-        currentState.OnEnterState();
-    }
-
-    internal class setTankColor
-    {
-    }
+    //    currentState = newState;
+    //    currentState.OnEnterState();
+    //}
 }

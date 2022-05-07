@@ -3,8 +3,8 @@ namespace Tanks.MVC
 {
     public class TankController
     {
-        public TankModel TankModel { get; }
         public TankView TankView { get; }
+        public TankModel TankModel { get; }
         
         public TankController(TankModel tankModel, TankView tankPrefab, Vector3 spawnPlayer)
         {
