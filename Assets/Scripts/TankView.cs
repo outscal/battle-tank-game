@@ -21,8 +21,14 @@ public class TankView : MonoBehaviour
     {
         GetInput();
         if(movementInput != 0)
-          tankController.Move(movementInput,30);
-         
+        {
+           tankController.Move(movementInput,15);
+        }
+          
+        if(rotationInput != 0)
+        {
+           tankController.Rotate(rotationInput,40);
+        } 
         
     }
 
