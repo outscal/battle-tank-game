@@ -13,7 +13,8 @@ public class TankView : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameObject cam = GameObject.Find("Main Camera");
+        cam.transform.SetParent(transform);
     }
 
     // Update is called once per frame
@@ -22,12 +23,12 @@ public class TankView : MonoBehaviour
         GetInput();
         if(movementInput != 0)
         {
-           tankController.Move(movementInput,15);
+           tankController.Move(movementInput,tankController.GetTankModel().movementSpeed);
         }
           
         if(rotationInput != 0)
         {
-           tankController.Rotate(rotationInput,40);
+           tankController.Rotate(rotationInput,tankController.GetTankModel().rotateSpeed);
         } 
         
     }
