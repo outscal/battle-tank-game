@@ -4,15 +4,15 @@ using UnityEngine;
 using UnityEngine.AI;
 public class EnemyTankPatrollingState : EnemyTankBaseState
 {
-    float timer;
+    //float timer;
     //EnemyTankStateManager EnemyTankStateManager;
 
     float chaseRange = 10f;
     public override void EnterState(EnemyTankStateManager enemyTankStateManager)
     {
-        timer = 0;
+        //timer = 0;
         Debug.Log("Enemy Tank Patrolling State...");
-        //enemyTankStateManager.player = GameObject.FindGameObjectWithTag("Player1").transform;
+        enemyTankStateManager.player = GameObject.FindGameObjectWithTag("Player").transform;
         Transform wayPointsObject = GameObject.FindGameObjectWithTag("WayPoint").transform;
         foreach (Transform wP in wayPointsObject)
         {
@@ -27,12 +27,12 @@ public class EnemyTankPatrollingState : EnemyTankBaseState
             enemyTankStateManager.agent.SetDestination(enemyTankStateManager.wayPoints[UnityEngine.Random.Range(0, enemyTankStateManager.wayPoints.Count)].position);
         }
 
-        //float distToPlayer = Vector3.Distance(enemyTankStateManager.transform.position, enemyTankStateManager.player.transform.position);
+        float distToPlayer = Vector3.Distance(enemyTankStateManager.gameObject.transform.position, enemyTankStateManager.player.transform.position);
 
-        //if (distToPlayer < chaseRange)
-        //{
-        //    enemyTankStateManager.SwitchState(enemyTankStateManager.chaseState);
-        //}
+        if (distToPlayer < chaseRange)
+        {
+            enemyTankStateManager.SwitchState(enemyTankStateManager.chaseState);
+        }
 
         //if(timer > 10)
         //{
@@ -41,7 +41,7 @@ public class EnemyTankPatrollingState : EnemyTankBaseState
         // if player near enemy chase Range
         //enemyTankStateManager.SwitchState(enemyTankStateManager.chaseState);
         //return;
-        
+
         //EnemyPatrol();
     }
 

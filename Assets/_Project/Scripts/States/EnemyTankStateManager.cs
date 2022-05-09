@@ -12,7 +12,7 @@ public class EnemyTankStateManager : MonoBehaviour
 
     public NavMeshAgent agent;
     public List<Transform> wayPoints = new List<Transform>();
-    //public Transform player;
+    public Transform player;
 
 
     private void Start()
