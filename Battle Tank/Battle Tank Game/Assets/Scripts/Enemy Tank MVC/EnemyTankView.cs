@@ -8,7 +8,7 @@ using UnityEngine.AI;
 public class EnemyTankView : MonoBehaviour
 {
     public EnemyTankController enemyTankController;
-    public Transform playerTransform;
+    [HideInInspector]public Transform playerTransform;
     public GameObject explosionPrefab; 
     
     internal AudioSource explosionAudio;

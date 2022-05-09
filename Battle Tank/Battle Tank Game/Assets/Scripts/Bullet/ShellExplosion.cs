@@ -3,14 +3,15 @@ using UnityEngine;
 
 public class ShellExplosion : MonoBehaviour
 {
-    private TankView player;
-    private EnemyTankView enemy;
+    public TankView player;
+    public EnemyTankView enemy;
     public LayerMask TankMask;
     public ParticleSystem explosionParticles;
     public AudioSource explosionAudio;
     public float explosionForce = 500f;
     public float maxLifeTime = 2f;
     public float explosionRadius = 5f;
+    private float maxDamage;
     
     void Start()
     {
@@ -40,13 +41,16 @@ public class ShellExplosion : MonoBehaviour
 
                 if(!targetHealth)
                 continue;
-            
-                float maxDamage = enemy.enemyTankController.GetEnemyTankModel().tankDamage;                
+                
+                if(enemy != null)
+                    maxDamage = enemy.enemyTankController.GetEnemyTankModel().tankDamage;                  
+                else
+                    maxDamage = player.GetTankController().GetTankModel().tankDamage;
                 float damage = CalculateDamage(targetRigidbody.position, maxDamage);            
                 targetHealth.GetTankController().TakeDamage(damage);            
 
             } 
-            else if (colliders[i].CompareTag("Enemy"))
+            else if (colliders[i].CompareTag("EnemyTank"))
             {
                 //enemy will get the damage from player tank
                 EnemyTankView targetHealth = colliders[i].GetComponent<EnemyTankView>();

@@ -5,7 +5,7 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     public NavMeshAgent agnet;
-    public Transform player;
+    public TankView player;
     public LayerMask whatIsGround, whatIsPlayer;
     //patrol
     public Vector3 walkPoint;
@@ -17,11 +17,13 @@ public class EnemyAI : MonoBehaviour
     //states
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
-    public GameObject projectile;
+
+    public Transform fireTransform;
+    public Rigidbody shell;
 
     public float Health;
     
-    private void Awake()
+    private void Starts()
     {
         Intialization();
     }
@@ -33,7 +35,7 @@ public class EnemyAI : MonoBehaviour
 
     private void Intialization()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindObjectOfType<TankView>();
         agnet = GetComponent<NavMeshAgent>();
     }
 
@@ -84,20 +86,23 @@ public class EnemyAI : MonoBehaviour
 
     private void ChasePlayer()
     {
-        agnet.SetDestination(player.position);
+        agnet.SetDestination(player.transform.position);
     }
 
     private void AttackPlayer()
     {
         agnet.SetDestination(transform.position);
-        transform.LookAt(player);
+        transform.LookAt(player.transform);
 
         if(!alreadyAttacked)
         {
+            float _currentLaunchForce = 15f;
             //attack code is here
-            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+            Rigidbody shellInstance = Instantiate(shell, fireTransform.position, fireTransform.rotation) as Rigidbody;
+            shellInstance.velocity = _currentLaunchForce * fireTransform.forward;
+
+            // shootingAudio.clip = fireClip;
+            // shootingAudio.Play();
 
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);

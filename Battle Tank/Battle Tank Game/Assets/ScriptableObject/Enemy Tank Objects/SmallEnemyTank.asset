@@ -10,12 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 017a5dc547264a5488ba4647c9362ef3, type: 3}
-  m_Name: EnemyTankScriptableObjects
+  m_Name: SmallEnemyTank
   m_EditorClassIdentifier: 
-  scale: {x: 0, y: 0, z: 0}
-  tankName: 
-  tankSpeed: 0
-  tankTurnSpeed: 0
-  tankHealth: 0
-  tankDamage: 0
-  tankColor: {r: 0, g: 0, b: 0, a: 0}
+  tankType: 1
+  enemyTankView: {fileID: 3537352049436699283, guid: 2c0dad51ae52c92438c926502e7f4d37,
+    type: 3}
+  tankHealth: 100
+  tankDamage: 20
+  tankSpeed: 15
+  tankTurnSpeed: 30
+  walkPointRange: 0
+  patrollingRange: 0
+  patrolTime: 0
+  attackRange: 0
+  minLaunchForce: 0
+  maxLaunchForce: 0
