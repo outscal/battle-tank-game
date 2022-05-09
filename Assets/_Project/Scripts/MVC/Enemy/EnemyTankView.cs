@@ -6,85 +6,51 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(Image))]
 
-public class EnemyTankView : MonoBehaviour
+public class EnemyTankView : MonoBehaviour, IDamagable
 {
-
+    public TankType tankType;
     public EnemyTankController EnemyTankController;
-    //private TankState currentState;
-    //public TankState startingState;
-    //public TankPatrollingState tankPatrollingState;
-    //public TankChasingState tankChasingState;
+
+    public Rigidbody rb;
+
+    public Slider sliderHealth;
+    public Image fillImage;
+    public Color fullHealthColor = Color.green;
+    public Color zeroHealthColor = Color.red;
+
+    public Rigidbody shellPrefab;
+    public Transform fireTransform;
+    public Slider aimSlider;
 
 
-    public NavMeshAgent navMeshAgent;
 
-    public float viewRadius = 15;
-    public float viewAngle = 90;
-    public LayerMask playerMask;
-    public LayerMask obstacleMask;
-    public float meshResolution = 1.0f;
-    public int edgeIterations = 4;
-    public float edgeDistance = 0.5f;
+    internal bool fire1 = false;
+    internal bool fire0 = false;
+    internal bool fire3 = false;
 
-    public Transform[] waypoints;
-    internal int m_CurrentWaypointIndex;
-
-    internal Vector3 playerLastPosition = Vector3.zero;
-    internal Vector3 m_PlayerPosition;
-
-    internal float m_WaitTime;
-    internal float m_TimeToRotate;
-    internal bool m_playerInRange;
-    internal bool m_PlayerNear;
-    internal bool m_IsPatrol;
-    internal bool m_CaughtPlayer;
-
-    private Image image;
-
-
+    public bool fired;
+    internal bool enemyTankDead;
     private void Awake()
     {
-        InitializeComponenet();
+        InitializeComponenets();
     }
     private void Start()
     {
-        //ChangeState(startingState);
-        EnemyTankController.InitializeVariables();
+        Debug.Log("EnemyTank View Created");
+        EnemyTankController.StartFunction();
     }
-
     private void Update()
     {
-        EnemyTankController.UpdateFunction();
+        EnemyTankController.FireControl();
     }
-    private void InitializeComponenet()
+    private void InitializeComponenets()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
-        //image = GetComponent<Image>();
-        //startingState.EnemyTankView = this;
-    }
-    public void ChaseState()
-    {
-        EnemyTankController.Chasing();
+        rb = GetComponent<Rigidbody>();
     }
 
-    public void PatrollingState()
+    void IDamagable.TakeDamage(float damage)
     {
-
-    }
-
-    //public void ChangeState(TankState newState)
-    //{
-    //    if (currentState != null)
-    //    {
-    //        currentState.OnExitState();
-    //    }
-
-    //    currentState = newState;
-    //    currentState.OnEnterState();
-    //}
-
-    public void ChangeColor(Color color)
-    {
-        image.color = color;
+        Debug.Log("Tank Taking Damage" + damage);
+        EnemyTankController.ApplyDamage(damage);
     }
 }

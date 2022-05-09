@@ -7,9 +7,14 @@ public class EnemyTankAttackState : EnemyTankBaseState
 
     }
 
-    public override void onCollisionEnter(EnemyTankStateManager enemyTankStateManager)
+    public override void ExitState(EnemyTankStateManager enemyTankStateManager)
     {
+        throw new System.NotImplementedException();
+    }
 
+    public override void OnCollisionEnter(EnemyTankStateManager enemyTankStateManager)
+    {
+        throw new System.NotImplementedException();
     }
 
     public override void UpdateState(EnemyTankStateManager enemyTankStateManager)

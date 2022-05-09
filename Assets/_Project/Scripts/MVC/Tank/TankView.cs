@@ -8,15 +8,8 @@ public class TankView : MonoBehaviour,IDamagable
 {
     public TankType tankType;
     public TankController tankController;
-    //private TankState currentState;
-    //public TankState startingState;
-    //public TankPatrollingState tankPatrollingState;
-    //public TankChasingState tankChasingState;
-
-    //[SerializeField] private List<TankState> tankStates;
-
+    
     internal Rigidbody rb;
-
 
     internal float playerTurnHorizontal = 0f;
     internal float playerMoveVertical = 0f;
@@ -84,22 +77,7 @@ public class TankView : MonoBehaviour,IDamagable
     void IDamagable.TakeDamage(float damage)
     {
         Debug.Log("Tank Taking Damage" + damage);
-        tankController.ApplyDamage(damage);
+        tankController.TakeDamage(damage);
     }
     
-    //public void ChangeColor(Color color)
-    //{
-    //    image.color = color;
-    //}
-
-    //public void ChangeState(TankState newState)
-    //{
-    //    if(currentState != null)
-    //    {
-    //        currentState.OnExitState();
-    //    }
-
-    //    currentState = newState;
-    //    currentState.OnEnterState();
-    //}
 }

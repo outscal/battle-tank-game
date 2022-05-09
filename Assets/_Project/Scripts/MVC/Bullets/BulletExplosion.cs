@@ -24,21 +24,24 @@ public class BulletExplosion : MonoBehaviour
         for (int i = 0; i < colliders.Length; i++)
         {
             Rigidbody targetRigidbody = colliders[i].GetComponent<Rigidbody>();
+            Debug.Log("Target RigidBody " + targetRigidbody);
 
             if (!targetRigidbody)
+            {
                 continue;
-
+            }
             targetRigidbody.AddExplosionForce(m_ExplosionForce, transform.position, m_ExplosionRadius);
 
-            EnemyAIController targetHealth = targetRigidbody.GetComponent<EnemyAIController>();
+            EnemyTankView targetHealth = targetRigidbody.GetComponent<EnemyTankView>();
 
             if (!targetHealth)
+            {
                 continue;
+            }
 
             float damage = CalculateDamage(targetRigidbody.position);
-            //targetHealth.TakeDamage(damage);
 
-            IDamagable damagable = colliders[i].GetComponent<IDamagable>();
+            IDamagable damagable = targetRigidbody.GetComponent<IDamagable>();
             if (damagable != null)
             {
                 damagable.TakeDamage(damage);

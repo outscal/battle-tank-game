@@ -10,11 +10,10 @@ namespace Tanks.MVC
         {
             TankModel = tankModel;
             TankView = Object.Instantiate(tankPrefab);
-            Debug.Log("Tank View Created", TankView);
+            //Debug.Log("Tank View Created", TankView);
             TankView.tankController = this;
             tankPrefab.transform.position = spawnPlayer;
             OnEnableFunction();
-            //FireControl();
         }
 
         public void PlayerTankMovement()
@@ -49,7 +48,6 @@ namespace Tanks.MVC
             TankModel.currentHealth = TankModel.TankHealth;
             TankView.tankDead = false;
             SetHealthUI();
-            //TankView.m_ChargeSpeed = (TankView.m_MaxLaunchForce - TankView.m_MinLaunchForce) / TankView.m_MaxChargeTime;
         }
         private void SetHealthUI()
         {
@@ -57,16 +55,16 @@ namespace Tanks.MVC
             TankView.fillImage.color = Color.Lerp(TankView.zeroHealthColor, TankView.fullHealthColor, TankModel.currentHealth / TankModel.TankHealth);
         }
 
-        public void TakeDamage(float amount)
-        {
-            TankModel.currentHealth -= amount;
+        //public void TakeDamage(float amount)
+        //{
+        //    TankModel.currentHealth -= amount;
 
-            if (TankModel.currentHealth <= 0f && !TankView.tankDead)
-            {
-                TankDestroy();
-            }
-            SetHealthUI();
-        }
+        //    if (TankModel.currentHealth <= 0f && !TankView.tankDead)
+        //    {
+        //        TankDestroy();
+        //    }
+        //    SetHealthUI();
+        //}
         private void TankDestroy()
         {
             TankView.tankDead = true;
@@ -127,17 +125,18 @@ namespace Tanks.MVC
             TankModel.CurrentLaunchForce = TankModel.MinLaunchForce;
         }
 
-        public void ApplyDamage(float damage)
+        public void TakeDamage(float damage)
         {
-            SetHealthUI();
+            TankModel.currentHealth -= damage;
             if (TankModel.currentHealth <= 0)
             {
                 TankModel.currentHealth = 0;
+                SetHealthUI();
                 TankDestroy();
                 return;
             }
-            TankModel.currentHealth -= damage;
             Debug.Log("Player Take Damage" + TankModel.currentHealth);
+            SetHealthUI();
         }
     }
 }

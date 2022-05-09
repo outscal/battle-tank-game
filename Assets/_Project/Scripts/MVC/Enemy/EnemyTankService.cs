@@ -16,15 +16,18 @@ public class EnemyTankService : MonoBehaviour
     }
     private void StartGame()
     {
-        CreateEnemyTank();
+        for (int i = 0; i < 5; i++)
+        {
+            CreateEnemyTank();
+        }
     }
     Vector3 RandomPosition()
     {
         float x, y, z;
         Vector3 pos;
-        x = Random.Range(-25, 26);
+        x = Random.Range(-30, 40);
         y = 1;
-        z = Random.Range(-25, 26);
+        z = Random.Range(-40, 40);
         pos = new Vector3(x, y, z);
         return pos;
     }

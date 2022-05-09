@@ -8,9 +8,6 @@ public class TankService : MonoBehaviour //SingletonGenerics<TankService>
     public TankView TankView;
     private TankModel playerModel;
 
-    public Transform spawnPlayer;
-    public Transform spawnEnemy;
-
     public TankScriptableObjectList tankScriptableObjectList;
 
     private void Start()
@@ -31,14 +28,23 @@ public class TankService : MonoBehaviour //SingletonGenerics<TankService>
         //CreateEnemyTank();
     }
 
-
+    Vector3 RandomPosition()
+    {
+        float x, y, z;
+        Vector3 pos;
+        x = Random.Range(0, 0);
+        y = 1;
+        z = Random.Range(0, 0);
+        pos = new Vector3(x, y, z);
+        return pos;
+    }
     private TankController CreatePlayerTank()
     {
         int index = Random.Range(0, tankScriptableObjectList.tanks.Length);
         TankScriptableObject tankScriptableObject = tankScriptableObjectList.tanks[index];
         Debug.Log("Creating Tank with Type: " + tankScriptableObject.tankName);
         playerModel = new TankModel(tankScriptableObject);
-        TankController playerTank = new TankController(playerModel, TankView, spawnPlayer.position);
+        TankController playerTank = new TankController(playerModel, TankView, RandomPosition());
         return playerTank;
     }
 

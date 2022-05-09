@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyTankStateManager : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class EnemyTankStateManager : MonoBehaviour
     public EnemyTankPatrollingState patrollingState = new EnemyTankPatrollingState();
     public EnemyTankChaseState chaseState = new EnemyTankChaseState();
     public EnemyTankAttackState attackState = new EnemyTankAttackState();
+
+    public NavMeshAgent agent;
+    public List<Transform> wayPoints = new List<Transform>();
+    //public Transform player;
 
 
     private void Start()
