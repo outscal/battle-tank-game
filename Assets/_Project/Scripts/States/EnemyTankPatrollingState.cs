@@ -6,6 +6,7 @@ public class EnemyTankPatrollingState : EnemyTankBaseState
 {
     public override void EnterState(EnemyTankStateManager enemyTankStateManager)
     {
+        Debug.Log("Enemy Tank Patrolling State...");
         EnemyPatrol(enemyTankStateManager);
     }
     public override void UpdateState(EnemyTankStateManager enemyTankStateManager)
@@ -33,7 +34,6 @@ public class EnemyTankPatrollingState : EnemyTankBaseState
 
     void EnemyPatrol(EnemyTankStateManager enemyTankStateManager)
     {
-        Debug.Log("Enemy Tank Patrolling State...");
         Transform wayPointsObject = GameObject.FindGameObjectWithTag("WayPoint").transform;
         foreach (Transform wP in wayPointsObject)
         {

@@ -20,7 +20,8 @@ public class EnemyTankStateManager : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        //player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = FindObjectOfType<TankView>().transform;
 
         currentState = patrollingState;
         currentState.EnterState(this);

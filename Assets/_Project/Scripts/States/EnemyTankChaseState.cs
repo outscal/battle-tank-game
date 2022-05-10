@@ -5,10 +5,10 @@ public class EnemyTankChaseState : EnemyTankBaseState
     public override void EnterState(EnemyTankStateManager enemyTankStateManager)
     {
         Debug.Log("Enemy Tank Chase State...");
-        enemyTankStateManager.agent.SetDestination(enemyTankStateManager.player.position);
     }
     public override void UpdateState(EnemyTankStateManager enemyTankStateManager)
     {
+        enemyTankStateManager.agent.SetDestination(enemyTankStateManager.player.position);
         EnemyAttack(enemyTankStateManager);
         EnemyPatrol(enemyTankStateManager);
     }
