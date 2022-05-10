@@ -6,6 +6,6 @@ public abstract class EnemyTankBaseState // : EnemyTankView
     public EnemyTankModel EnemyTankModel { get; }
     public abstract void EnterState(EnemyTankStateManager enemyTankStateManager);
     public abstract void UpdateState(EnemyTankStateManager enemyTankStateManager);
-    public abstract void ExitState(EnemyTankStateManager enemyTankStateManager);
-    public abstract void OnCollisionEnter(EnemyTankStateManager enemyTankStateManager);
+    //public abstract void ExitState(EnemyTankStateManager enemyTankStateManager);
+    //public abstract void OnCollisionEnter(EnemyTankStateManager enemyTankStateManager);
 }

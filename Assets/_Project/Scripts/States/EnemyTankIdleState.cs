@@ -19,14 +19,14 @@ public class EnemyTankIdleState : EnemyTankBaseState
         }
     }
 
-    public override void ExitState(EnemyTankStateManager enemyTankStateManager)
-    {
+    //public override void ExitState(EnemyTankStateManager enemyTankStateManager)
+    //{
 
-    }
+    //}
 
-    public override void OnCollisionEnter(EnemyTankStateManager enemyTankStateManager)
-    {
+    //public override void OnCollisionEnter(EnemyTankStateManager enemyTankStateManager)
+    //{
 
-    }
+    //}
 
 }

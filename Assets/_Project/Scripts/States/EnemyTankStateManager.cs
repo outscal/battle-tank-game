@@ -14,15 +14,22 @@ public class EnemyTankStateManager : MonoBehaviour
     public List<Transform> wayPoints = new List<Transform>();
     public Transform player;
 
+    public float distToPlayer;
+    public float chaseRange = 10f;
+    public float attackRange = 5f;
 
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+
         currentState = patrollingState;
         currentState.EnterState(this);
     }
 
     private void Update()
     {
+        distToPlayer = Vector3.Distance(gameObject.transform.position, player.transform.position);
+
         currentState.UpdateState(this);
     }
 
