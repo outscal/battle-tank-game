@@ -54,32 +54,49 @@ namespace Tanks.MVC
             TankView.sliderHealth.value = TankModel.currentHealth;
             TankView.fillImage.color = Color.Lerp(TankView.zeroHealthColor, TankView.fullHealthColor, TankModel.currentHealth / TankModel.TankHealth);
         }
+        public void CheckDamage()
+        {
+            if (!TankView.tankDead && TankView.fire0)
+            {
+                TakeDamage(10);
+            }
+        }
 
-        //public void TakeDamage(float amount)
+        //public void TakeDamage(float damage)
         //{
-        //    TankModel.currentHealth -= amount;
-
-        //    if (TankModel.currentHealth <= 0f && !TankView.tankDead)
+        //    TankModel.currentHealth -= damage;
+        //    if (TankModel.currentHealth <= 0)
         //    {
+        //        TankModel.currentHealth = 0;
+        //        SetHealthUI();
         //        TankDestroy();
+        //        return;
         //    }
+        //    Debug.Log("Player Take Damage " + TankModel.currentHealth);
         //    SetHealthUI();
         //}
+
+        public void TakeDamage(float amount)
+        {
+            TankModel.currentHealth -= amount;
+
+            if (!TankView.tankDead && TankModel.currentHealth <= 0f)
+            {
+                TankModel.currentHealth = 0;
+                SetHealthUI();
+                TankDestroy();
+                return;
+            }
+            Debug.Log("Player Take Damage " + TankModel.currentHealth);
+            SetHealthUI();
+        }
+
         private void TankDestroy()
         {
             TankView.tankDead = true;
             TankView.gameObject.SetActive(false);
             TankView.Destroy(TankView.gameObject);
         }
-
-        //public void CheckDamage()
-        //{
-        //    if (!TankView.tankDead && TankView.fire)
-        //    {
-        //        TakeDamage(10);
-        //    }
-        //}
-
         public void FireControl()
         {
             TankView.aimSlider.value = TankModel.MinLaunchForce;
@@ -123,20 +140,6 @@ namespace Tanks.MVC
             //TankView.m_ShootingAudio.Play();
 
             TankModel.CurrentLaunchForce = TankModel.MinLaunchForce;
-        }
-
-        public void TakeDamage(float damage)
-        {
-            TankModel.currentHealth -= damage;
-            if (TankModel.currentHealth <= 0)
-            {
-                TankModel.currentHealth = 0;
-                SetHealthUI();
-                TankDestroy();
-                return;
-            }
-            Debug.Log("Player Take Damage" + TankModel.currentHealth);
-            SetHealthUI();
         }
     }
 }

@@ -3,34 +3,31 @@ using UnityEngine;
 
 public class BulletExplosion : MonoBehaviour
 {
-    public LayerMask m_TankMask;
-    public ParticleSystem m_ExplosionParticles;
-    public float m_MaxDamage = 100f;
-    public float m_ExplosionForce = 1000f;
-    public float m_MaxLifeTime = 2f;
-    public float m_ExplosionRadius = 5f;
-
+    public LayerMask tankMask;
+    public ParticleSystem explosionParticles;
+    public float maxDamage = 100f;
+    public float explosionForce = 1000f;
+    public float maxLifeTime = 2f;
+    public float explosionRadius = 5f;
 
     public void Start()
     {
-        Destroy(gameObject, m_MaxLifeTime);
+        Destroy(gameObject, maxLifeTime);
     }
 
     [Obsolete]
     public void OnTriggerEnter(Collider other)
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, m_ExplosionRadius, m_TankMask);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius, tankMask);
 
         for (int i = 0; i < colliders.Length; i++)
         {
-            Rigidbody targetRigidbody = colliders[i].GetComponent<Rigidbody>();
-            Debug.Log("Target RigidBody " + targetRigidbody);
+            Rigidbody targetRigidbody = colliders[i].attachedRigidbody.GetComponent<Rigidbody>();
 
             if (!targetRigidbody)
-            {
                 continue;
-            }
-            targetRigidbody.AddExplosionForce(m_ExplosionForce, transform.position, m_ExplosionRadius);
+
+            targetRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
 
             EnemyTankView targetHealth = targetRigidbody.GetComponent<EnemyTankView>();
 
@@ -49,9 +46,9 @@ public class BulletExplosion : MonoBehaviour
             }
         }
 
-        m_ExplosionParticles.transform.parent = null;
-        m_ExplosionParticles.Play();
-        Destroy(m_ExplosionParticles.gameObject, m_ExplosionParticles.duration);
+        explosionParticles.transform.parent = null;
+        explosionParticles.Play();
+        Destroy(explosionParticles.gameObject, explosionParticles.duration);
         Destroy(gameObject);
     }
 
@@ -60,8 +57,8 @@ public class BulletExplosion : MonoBehaviour
     {
         Vector3 explosionToTarget = targetPosition - transform.position;
         float explosionDistance = explosionToTarget.magnitude;
-        float relativeDistance = (m_ExplosionRadius - explosionDistance) / m_ExplosionRadius;
-        float damage = relativeDistance * m_MaxDamage;
+        float relativeDistance = (explosionRadius - explosionDistance) / explosionRadius;
+        float damage = relativeDistance * maxDamage;
         damage = Mathf.Max(0f, damage);
         return damage;
     }

@@ -79,5 +79,4 @@ public class TankView : MonoBehaviour,IDamagable
         Debug.Log("Tank Taking Damage" + damage);
         tankController.TakeDamage(damage);
     }
-    
 }

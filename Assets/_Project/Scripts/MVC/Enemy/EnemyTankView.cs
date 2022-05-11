@@ -5,13 +5,13 @@ using UnityEngine.UI;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(Image))]
-
+[RequireComponent(typeof(Rigidbody))]
 public class EnemyTankView : MonoBehaviour, IDamagable
 {
     public TankType tankType;
     public EnemyTankController EnemyTankController;
 
-    public Rigidbody rb;
+    private Rigidbody rb;
 
     public Slider sliderHealth;
     public Image fillImage;
@@ -32,10 +32,10 @@ public class EnemyTankView : MonoBehaviour, IDamagable
     internal bool enemyTankDead;
     private void Awake()
     {
-        InitializeComponenets();
     }
     private void Start()
     {
+        InitializeComponenets();
         Debug.Log("EnemyTank View Created");
         EnemyTankController.StartFunction();
     }

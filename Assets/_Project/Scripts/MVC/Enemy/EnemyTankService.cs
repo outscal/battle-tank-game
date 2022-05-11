@@ -31,6 +31,7 @@ public class EnemyTankService : MonoBehaviour
         pos = new Vector3(x, y, z);
         return pos;
     }
+
     private EnemyTankController CreateEnemyTank()
     {
         int index = Random.Range(0, tankScriptableObjectList.tanks.Length);
