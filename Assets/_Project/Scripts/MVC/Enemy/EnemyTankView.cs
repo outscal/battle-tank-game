@@ -30,24 +30,20 @@ public class EnemyTankView : MonoBehaviour, IDamagable
 
     public bool fired;
     internal bool enemyTankDead;
-    private void Awake()
-    {
-    }
     private void Start()
     {
         InitializeComponenets();
         Debug.Log("EnemyTank View Created");
         EnemyTankController.StartFunction();
     }
-    private void Update()
-    {
-        EnemyTankController.FireControl();
-    }
     private void InitializeComponenets()
     {
         rb = GetComponent<Rigidbody>();
     }
-
+    public void FireFunction()
+    {
+        EnemyTankController.Fire();
+    }
     void IDamagable.TakeDamage(float damage)
     {
         Debug.Log("Tank Taking Damage" + damage);

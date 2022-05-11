@@ -62,20 +62,6 @@ namespace Tanks.MVC
             }
         }
 
-        //public void TakeDamage(float damage)
-        //{
-        //    TankModel.currentHealth -= damage;
-        //    if (TankModel.currentHealth <= 0)
-        //    {
-        //        TankModel.currentHealth = 0;
-        //        SetHealthUI();
-        //        TankDestroy();
-        //        return;
-        //    }
-        //    Debug.Log("Player Take Damage " + TankModel.currentHealth);
-        //    SetHealthUI();
-        //}
-
         public void TakeDamage(float amount)
         {
             TankModel.currentHealth -= amount;
@@ -131,9 +117,9 @@ namespace Tanks.MVC
         {
             TankView.fired = true;
 
-            Rigidbody shellInstance = GameObject.Instantiate(TankView.shellPrefab, TankView.fireTransform.position, TankView.fireTransform.rotation) as Rigidbody;
+            Rigidbody shellInstance = GameObject.Instantiate(TankView.shellPrefab, TankView.fireTransform.position, TankView.fireTransform.rotation, TankView.fireTransform) as Rigidbody;
 
-            shellInstance.velocity = TankModel.CurrentLaunchForce * TankView.fireTransform.forward; ;
+            shellInstance.velocity = TankModel.CurrentLaunchForce * TankView.fireTransform.forward;
 
             // Change the clip to the firing clip and play it.
             //TankView.m_ShootingAudio.clip = TankView.m_FireClip;

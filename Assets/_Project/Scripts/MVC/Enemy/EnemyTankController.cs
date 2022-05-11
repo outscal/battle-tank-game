@@ -7,6 +7,7 @@ public class EnemyTankController
 {
     public EnemyTankView EnemyTankView { get; }
     public EnemyTankModel EnemyTankModel { get; }
+    
 
     public EnemyTankController(EnemyTankModel tankModel, EnemyTankView tankPrefab, Vector3 spawnPlayer)
     {
@@ -44,39 +45,40 @@ public class EnemyTankController
         EnemyTankView.Destroy(EnemyTankView.gameObject);
     }
 
-    public void FireControl()
-    {
-        EnemyTankView.aimSlider.value = EnemyTankModel.MinLaunchForce;
+    //public void FireControl()
+    //{
+    //    EnemyTankView.aimSlider.value = EnemyTankModel.MinLaunchForce;
 
-        if (EnemyTankModel.CurrentLaunchForce >= EnemyTankModel.MaxLaunchForce && !EnemyTankView.fired)
-        {
-            EnemyTankModel.CurrentLaunchForce = EnemyTankModel.MaxLaunchForce;
-            Fire();
-        }
-        else if (EnemyTankView.fire1)
-        {
-            EnemyTankView.fired = false;
-            EnemyTankModel.CurrentLaunchForce = EnemyTankModel.MinLaunchForce;
-        }
-        else if (EnemyTankView.fire0 && !EnemyTankView.fired)
-        {
-            EnemyTankModel.CurrentLaunchForce += EnemyTankModel.ChargeSpeed * Time.deltaTime;
+    //    if (EnemyTankModel.CurrentLaunchForce >= EnemyTankModel.MaxLaunchForce && !EnemyTankView.fired)
+    //    {
+    //        EnemyTankModel.CurrentLaunchForce = EnemyTankModel.MaxLaunchForce;
+    //        Fire();
+    //    }
+    //    else if (EnemyTankView.fire1)
+    //    {
+    //        EnemyTankView.fired = false;
+    //        EnemyTankModel.CurrentLaunchForce = EnemyTankModel.MinLaunchForce;
+    //    }
+    //    else if (EnemyTankView.fire0 && !EnemyTankView.fired)
+    //    {
+    //        EnemyTankModel.CurrentLaunchForce += EnemyTankModel.ChargeSpeed * Time.deltaTime;
 
-            EnemyTankView.aimSlider.value = EnemyTankModel.CurrentLaunchForce;
-        }
-        else if (EnemyTankView.fire3 && !EnemyTankView.fired)
-        {
-            Fire();
-        }
-    }
+    //        EnemyTankView.aimSlider.value = EnemyTankModel.CurrentLaunchForce;
+    //    }
+    //    else if (EnemyTankView.fire3 && !EnemyTankView.fired)
+    //    {
+    //        Fire();
+    //    }
+    //}
 
-    private void Fire()
+    public void Fire()
     {
         EnemyTankView.fired = true;
 
         Rigidbody shellInstance = GameObject.Instantiate(EnemyTankView.shellPrefab, EnemyTankView.fireTransform.position, EnemyTankView.fireTransform.rotation) as Rigidbody;
 
-        shellInstance.velocity = EnemyTankModel.CurrentLaunchForce * EnemyTankView.fireTransform.forward;
+        //shellInstance.velocity = EnemyTankModel.CurrentLaunchForce * EnemyTankView.fireTransform.forward;
+        shellInstance.velocity = 30f * EnemyTankView.fireTransform.forward;
 
         EnemyTankModel.CurrentLaunchForce = EnemyTankModel.MinLaunchForce;
     }

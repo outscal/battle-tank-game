@@ -6,6 +6,7 @@ public class EnemyTankService : MonoBehaviour
 {
     public EnemyTankView EnemyTankView;
     private EnemyTankModel EnemyTankModel;
+
     //public Transform spawnEnemy;
 
     public TankScriptableObjectList tankScriptableObjectList;
@@ -25,9 +26,9 @@ public class EnemyTankService : MonoBehaviour
     {
         float x, y, z;
         Vector3 pos;
-        x = Random.Range(-30, 40);
+        x = Random.Range(-35, 35);
         y = 1;
-        z = Random.Range(-40, 40);
+        z = Random.Range(-20, 30);
         pos = new Vector3(x, y, z);
         return pos;
     }

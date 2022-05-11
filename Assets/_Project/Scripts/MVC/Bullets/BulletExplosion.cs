@@ -10,9 +10,30 @@ public class BulletExplosion : MonoBehaviour
     public float maxLifeTime = 2f;
     public float explosionRadius = 5f;
 
+    Transform bullet_sParent;
+
+    TankView PlayerTankBullet;
+    EnemyTankView EnemyTankBullet;
+
     public void Start()
     {
+        bullet_sParent = transform.parent.gameObject.transform.parent.gameObject.transform;
+        PlayerTankBullet = bullet_sParent.gameObject.GetComponent<TankView>();
+        EnemyTankBullet = bullet_sParent.gameObject.GetComponent<EnemyTankView>();
         Destroy(gameObject, maxLifeTime);
+    }
+
+    private void Update()
+    {
+        //    TankView go = bullet_sParent.gameObject.GetComponent<TankView>();
+
+        //    if (bullet_sParent.gameObject.GetComponent<TankView>() == bullet_sParent.gameObject.GetComponent<TankView>())
+        //    {
+        //        Debug.Log("Bullet Founded Parent " + transform.parent.gameObject.transform.parent.gameObject.name);
+        //        Debug.Log("Bullet Founded Parent " + bullet_sParent.gameObject.name);
+        //    }
+
+        //    Debug.Log("Bullet Not Found Parent " + bullet_sParent.gameObject.name);
     }
 
     [Obsolete]
@@ -24,11 +45,13 @@ public class BulletExplosion : MonoBehaviour
         {
             Rigidbody targetRigidbody = colliders[i].attachedRigidbody.GetComponent<Rigidbody>();
 
+
+            Debug.Log("OnTriggerEnter function " + targetRigidbody.gameObject.name);
             if (!targetRigidbody)
                 continue;
 
             targetRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
-
+            
             EnemyTankView targetHealth = targetRigidbody.GetComponent<EnemyTankView>();
 
             if (!targetHealth)
@@ -63,3 +86,15 @@ public class BulletExplosion : MonoBehaviour
         return damage;
     }
 }
+
+
+//Reference for Accessing Parent Game object
+//TankView go = bullet_sParent.gameObject.GetComponent<TankView>();
+
+//if (bullet_sParent.gameObject.GetComponent<TankView>() == bullet_sParent.gameObject.GetComponent<TankView>())
+//{
+//Debug.Log("Bullet Founded Parent " + transform.parent.gameObject.transform.parent.gameObject.name);
+//Debug.Log("Bullet Founded Parent " + bullet_sParent.gameObject.name);
+//}
+
+//Debug.Log("Bullet Not Found Parent " + bullet_sParent.gameObject.name);
