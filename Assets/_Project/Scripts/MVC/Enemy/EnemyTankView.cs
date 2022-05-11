@@ -46,7 +46,7 @@ public class EnemyTankView : MonoBehaviour, IDamagable
     }
     void IDamagable.TakeDamage(float damage)
     {
-        Debug.Log("Tank Taking Damage" + damage);
+        Debug.Log("EnemyTank Taking Damage" + damage);
         EnemyTankController.ApplyDamage(damage);
     }
 }

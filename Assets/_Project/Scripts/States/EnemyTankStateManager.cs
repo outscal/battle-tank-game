@@ -10,19 +10,21 @@ public class EnemyTankStateManager : MonoBehaviour
     public EnemyTankChaseState chaseState = new EnemyTankChaseState();
     public EnemyTankAttackState attackState = new EnemyTankAttackState();
 
-    [SerializeField] public EnemyTankView EnemyTankView;
+    internal EnemyTankView EnemyTankView;
 
     public NavMeshAgent agent;
     public List<Transform> wayPoints = new List<Transform>();
-    public Transform player;
+    internal Transform player;
 
     public float distToPlayer;
-    public float chaseRange = 10f;
-    public float attackRange = 5f;
+    public float chaseRange;
+    public float attackRange;
+
 
     private void Start()
     {
         //player = GameObject.FindGameObjectWithTag("Player").transform;
+        EnemyTankView = GetComponent<EnemyTankView>();
         player = FindObjectOfType<TankView>().transform;
         currentState = patrollingState;
         currentState.EnterState(this);

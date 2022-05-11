@@ -7,7 +7,8 @@ public class EnemyTankController
 {
     public EnemyTankView EnemyTankView { get; }
     public EnemyTankModel EnemyTankModel { get; }
-    
+
+    //EnemyTankAttackState EnemyTankAttackState { get; }
 
     public EnemyTankController(EnemyTankModel tankModel, EnemyTankView tankPrefab, Vector3 spawnPlayer)
     {
@@ -15,6 +16,7 @@ public class EnemyTankController
         EnemyTankView = Object.Instantiate(tankPrefab);
         //Debug.Log("Tank View Created", TankView);
         EnemyTankView.EnemyTankController = this;
+        //EnemyTankAttackState.EnemyTankController = this;
         tankPrefab.transform.position = spawnPlayer;
         OnEnableFunction();
     }
@@ -71,16 +73,23 @@ public class EnemyTankController
     //    }
     //}
 
+    //public void Fire()
+    //{
+    //    EnemyTankView.fired = true;
+
+    //    Rigidbody shellInstance = GameObject.Instantiate(EnemyTankView.shellPrefab, EnemyTankView.fireTransform.position, EnemyTankView.fireTransform.rotation) as Rigidbody;
+
+    //    //shellInstance.velocity = EnemyTankModel.CurrentLaunchForce * EnemyTankView.fireTransform.forward;
+    //    shellInstance.velocity = 30f * EnemyTankView.fireTransform.forward;
+
+    //    EnemyTankModel.CurrentLaunchForce = EnemyTankModel.MinLaunchForce;
+    //}
+
     public void Fire()
     {
-        EnemyTankView.fired = true;
-
-        Rigidbody shellInstance = GameObject.Instantiate(EnemyTankView.shellPrefab, EnemyTankView.fireTransform.position, EnemyTankView.fireTransform.rotation) as Rigidbody;
-
-        //shellInstance.velocity = EnemyTankModel.CurrentLaunchForce * EnemyTankView.fireTransform.forward;
-        shellInstance.velocity = 30f * EnemyTankView.fireTransform.forward;
-
-        EnemyTankModel.CurrentLaunchForce = EnemyTankModel.MinLaunchForce;
+        Rigidbody shellInstance = Object.Instantiate(EnemyTankView.shellPrefab, EnemyTankView.fireTransform.position, EnemyTankView.fireTransform.rotation) as Rigidbody;
+        shellInstance.AddForce(EnemyTankView.fireTransform.forward * 10f, ForceMode.Impulse);
+        shellInstance.AddForce(EnemyTankView.fireTransform.up * 7, ForceMode.Impulse);
     }
 
     public void ApplyDamage(float damage)
@@ -93,7 +102,7 @@ public class EnemyTankController
             TankDestroy();
             return;
         }
-        Debug.Log("Player Take Damage" + EnemyTankModel.currentHealth);
+        Debug.Log("Enemy Take Damage " + EnemyTankModel.currentHealth);
         SetHealthUI();
     }
 }

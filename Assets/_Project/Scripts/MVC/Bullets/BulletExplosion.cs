@@ -17,9 +17,9 @@ public class BulletExplosion : MonoBehaviour
 
     public void Start()
     {
-        bullet_sParent = transform.parent.gameObject.transform.parent.gameObject.transform;
-        PlayerTankBullet = bullet_sParent.gameObject.GetComponent<TankView>();
-        EnemyTankBullet = bullet_sParent.gameObject.GetComponent<EnemyTankView>();
+        //bullet_sParent = transform.parent.gameObject.transform.parent.gameObject.transform;
+        //PlayerTankBullet = bullet_sParent.gameObject.GetComponent<TankView>();
+        //EnemyTankBullet = bullet_sParent.gameObject.GetComponent<EnemyTankView>();
         Destroy(gameObject, maxLifeTime);
     }
 
@@ -52,7 +52,7 @@ public class BulletExplosion : MonoBehaviour
 
             targetRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
             
-            EnemyTankView targetHealth = targetRigidbody.GetComponent<EnemyTankView>();
+            TankView targetHealth = targetRigidbody.GetComponent<TankView>();
 
             if (!targetHealth)
             {

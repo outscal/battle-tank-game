@@ -265,7 +265,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3159135730154750055}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalPosition: {x: 0, y: 0, z: -11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3159135730306105738}
@@ -278,7 +278,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -16, y: 1}
+  m_AnchoredPosition: {x: 8, y: 1}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!54 &3159135730154750042
@@ -391,13 +391,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b35d6ac2c1a4294882160aef6093f0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyTankView: {fileID: 0}
   agent: {fileID: 4005936611318388911}
   wayPoints: []
-  player: {fileID: 0}
   distToPlayer: 0
-  chaseRange: 10
-  attackRange: 5
+  chaseRange: 30
+  attackRange: 10
 --- !u!1 &4079794772362888693
 GameObject:
   m_ObjectHideFlags: 0
