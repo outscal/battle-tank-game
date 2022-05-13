@@ -11,7 +11,7 @@ namespace Tanks.MVC
             TankModel = tankModel;
             TankView = Object.Instantiate(tankPrefab);
             //Debug.Log("Tank View Created", TankView);
-            TankView.tankController = this;
+            TankView.TankController = this;
             tankPrefab.transform.position = spawnPlayer;
             OnEnableFunction();
         }
@@ -54,15 +54,16 @@ namespace Tanks.MVC
             TankView.sliderHealth.value = TankModel.currentHealth;
             TankView.fillImage.color = Color.Lerp(TankView.zeroHealthColor, TankView.fullHealthColor, TankModel.currentHealth / TankModel.TankHealth);
         }
-        public void CheckDamage()
-        {
-            if (!TankView.tankDead && TankView.fire0)
-            {
-                TakeDamage(10);
-            }
-        }
 
-        public void TakeDamage(float amount)
+        //public void CheckDamage()
+        //{
+        //    if (!TankView.tankDead && TankView.fire0)
+        //    {
+        //        TakeDamage(10);
+        //    }
+        //}
+
+        public void ApplyDamage(float amount)
         {
             TankModel.currentHealth -= amount;
 

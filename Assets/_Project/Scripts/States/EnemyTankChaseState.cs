@@ -4,23 +4,23 @@ public class EnemyTankChaseState : EnemyTankBaseState
 {
     public override void EnterState(EnemyTankStateManager enemyTankStateManager)
     {
-        Debug.Log("Enemy Tank Chase State...");
+        //Debug.Log("Enemy Tank Chase State...");
     }
     public override void UpdateState(EnemyTankStateManager enemyTankStateManager)
     {
         enemyTankStateManager.agent.SetDestination(enemyTankStateManager.player.position);
-        EnemyAttack(enemyTankStateManager);
-        EnemyPatrol(enemyTankStateManager);
+        CheckEnemyAttack(enemyTankStateManager);
+        CheckEnemyPatrol(enemyTankStateManager);
     }
 
-    private void EnemyAttack(EnemyTankStateManager enemyTankStateManager)
+    private void CheckEnemyAttack(EnemyTankStateManager enemyTankStateManager)
     {
         if (enemyTankStateManager.distToPlayer <= enemyTankStateManager.attackRange)
         {
             enemyTankStateManager.SwitchState(enemyTankStateManager.attackState);
         }
     }
-    private void EnemyPatrol(EnemyTankStateManager enemyTankStateManager)
+    private void CheckEnemyPatrol(EnemyTankStateManager enemyTankStateManager)
     {
         if (enemyTankStateManager.distToPlayer > enemyTankStateManager.chaseRange)
         {

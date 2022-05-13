@@ -4,10 +4,12 @@ using Tanks.MVC;
 using System;
 using System.Collections.Generic;
 
+[RequireComponent(typeof(Rigidbody))]
+
 public class TankView : MonoBehaviour,IDamagable
 {
     public TankType tankType;
-    public TankController tankController;
+    public TankController TankController;
     
     internal Rigidbody rb;
 
@@ -34,21 +36,19 @@ public class TankView : MonoBehaviour,IDamagable
     }
     private void Start()
     {
-        Debug.Log("Tank View Created");
-        tankController.StartFunction();
+        //Debug.Log("Tank View Created");
+        TankController.StartFunction();
         //ChangeState(startingState);
 
     }
     private void Update()
     {
         PlayerTankInput();
-        tankController.FireControl();
-        //tankController.CheckDamage();
+        TankController.FireControl();
     }
     private void InitializeComponenets()
     {
         rb = GetComponent<Rigidbody>();
-        //startingState.tankView = this;
     }
     public void PlayerTankInput()
     {
@@ -65,18 +65,12 @@ public class TankView : MonoBehaviour,IDamagable
     }
     private void ControlTank()
     {
-        tankController.PlayerTankMovement();
-        tankController.PlayerTankRotation();
+        TankController.PlayerTankMovement();
+        TankController.PlayerTankRotation();
     }
-
-    //internal void TakeDamage(float damage)
-    //{
-    //    tankController.TakeDamage(damage);
-    //}
-
     void IDamagable.TakeDamage(float damage)
     {
-        Debug.Log("Tank Taking Damage" + damage);
-        tankController.TakeDamage(damage);
+        //Debug.Log("Player Taking Damage" + damage);
+        TankController.ApplyDamage(damage);
     }
 }

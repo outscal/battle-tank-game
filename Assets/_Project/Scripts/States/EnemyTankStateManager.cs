@@ -20,12 +20,16 @@ public class EnemyTankStateManager : MonoBehaviour
     public float chaseRange;
     public float attackRange;
 
+    public float timeBetweenAttack = 4f;
+    public bool isAlreadyAttacked = false;
 
     private void Start()
     {
         //player = GameObject.FindGameObjectWithTag("Player").transform;
+
         EnemyTankView = GetComponent<EnemyTankView>();
         player = FindObjectOfType<TankView>().transform;
+
         currentState = patrollingState;
         currentState.EnterState(this);
     }
@@ -33,7 +37,6 @@ public class EnemyTankStateManager : MonoBehaviour
     private void Update()
     {
         distToPlayer = Vector3.Distance(gameObject.transform.position, player.transform.position);
-
         currentState.UpdateState(this);
     }
 

@@ -8,24 +8,20 @@ public class EnemyTankController
     public EnemyTankView EnemyTankView { get; }
     public EnemyTankModel EnemyTankModel { get; }
 
-    //EnemyTankAttackState EnemyTankAttackState { get; }
-
     public EnemyTankController(EnemyTankModel tankModel, EnemyTankView tankPrefab, Vector3 spawnPlayer)
     {
         EnemyTankModel = tankModel;
         EnemyTankView = Object.Instantiate(tankPrefab);
         //Debug.Log("Tank View Created", TankView);
         EnemyTankView.EnemyTankController = this;
-        //EnemyTankAttackState.EnemyTankController = this;
         tankPrefab.transform.position = spawnPlayer;
         OnEnableFunction();
     }
 
-   
-    internal void StartFunction()
-    {
-        EnemyTankModel.ChargeSpeed = (EnemyTankModel.MaxLaunchForce - EnemyTankModel.MinLaunchForce) / EnemyTankModel.MaxChargeTime;
-    }
+    //internal void StartFunction()
+    //{
+    //    EnemyTankModel.ChargeSpeed = (EnemyTankModel.MaxLaunchForce - EnemyTankModel.MinLaunchForce) / EnemyTankModel.MaxChargeTime;
+    //}
 
     public void OnEnableFunction()
     {
@@ -40,12 +36,34 @@ public class EnemyTankController
         EnemyTankView.sliderHealth.value = EnemyTankModel.currentHealth;
         EnemyTankView.fillImage.color = Color.Lerp(EnemyTankView.zeroHealthColor, EnemyTankView.fullHealthColor, EnemyTankModel.currentHealth / EnemyTankModel.TankHealth);
     }
+    
+
+    public void ApplyDamage(float damage)
+    {
+        EnemyTankModel.currentHealth -= damage;
+        if (!EnemyTankView.enemyTankDead && EnemyTankModel.currentHealth <= 0)
+        {
+            EnemyTankModel.currentHealth = 0;
+            SetHealthUI();
+            TankDestroy();
+            return;
+        }
+        //Debug.Log("Enemy Take Damage " + EnemyTankModel.currentHealth);
+        SetHealthUI();
+    }
     private void TankDestroy()
     {
         EnemyTankView.enemyTankDead = true;
         EnemyTankView.gameObject.SetActive(false);
         EnemyTankView.Destroy(EnemyTankView.gameObject);
     }
+    public void Fire()
+    {
+        Rigidbody shellInstance = Object.Instantiate(EnemyTankView.shellPrefab, EnemyTankView.fireTransform.position, EnemyTankView.fireTransform.rotation) as Rigidbody;
+        shellInstance.AddForce(EnemyTankView.fireTransform.forward * 5f, ForceMode.Impulse);
+        shellInstance.AddForce(EnemyTankView.fireTransform.up * 7, ForceMode.Impulse);
+    }
+}
 
     //public void FireControl()
     //{
@@ -84,25 +102,3 @@ public class EnemyTankController
 
     //    EnemyTankModel.CurrentLaunchForce = EnemyTankModel.MinLaunchForce;
     //}
-
-    public void Fire()
-    {
-        Rigidbody shellInstance = Object.Instantiate(EnemyTankView.shellPrefab, EnemyTankView.fireTransform.position, EnemyTankView.fireTransform.rotation) as Rigidbody;
-        shellInstance.AddForce(EnemyTankView.fireTransform.forward * 10f, ForceMode.Impulse);
-        shellInstance.AddForce(EnemyTankView.fireTransform.up * 7, ForceMode.Impulse);
-    }
-
-    public void ApplyDamage(float damage)
-    {
-        EnemyTankModel.currentHealth -= damage;
-        if (EnemyTankModel.currentHealth <= 0)
-        {
-            EnemyTankModel.currentHealth = 0;
-            SetHealthUI();
-            TankDestroy();
-            return;
-        }
-        Debug.Log("Enemy Take Damage " + EnemyTankModel.currentHealth);
-        SetHealthUI();
-    }
-}

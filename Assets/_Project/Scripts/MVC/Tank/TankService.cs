@@ -42,7 +42,7 @@ public class TankService : MonoBehaviour //SingletonGenerics<TankService>
     {
         int index = Random.Range(0, tankScriptableObjectList.tanks.Length);
         TankScriptableObject tankScriptableObject = tankScriptableObjectList.tanks[index];
-        Debug.Log("Creating Tank with Type: " + tankScriptableObject.tankName);
+        //Debug.Log("Creating Tank with Type: " + tankScriptableObject.tankName);
         playerModel = new TankModel(tankScriptableObject);
         TankController playerTank = new TankController(playerModel, TankView, RandomPosition());
         return playerTank;

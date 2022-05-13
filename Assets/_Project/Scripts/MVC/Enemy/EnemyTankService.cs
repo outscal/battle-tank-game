@@ -37,7 +37,7 @@ public class EnemyTankService : MonoBehaviour
     {
         int index = Random.Range(0, tankScriptableObjectList.tanks.Length);
         TankScriptableObject tankScriptableObject = tankScriptableObjectList.tanks[index];
-        Debug.Log("Creating Tank with Type: " + tankScriptableObject.tankName);
+        //Debug.Log("Creating Tank with Type: " + tankScriptableObject.tankName);
         EnemyTankModel = new EnemyTankModel(tankScriptableObject);
         EnemyTankController enemyTank = new EnemyTankController(EnemyTankModel, EnemyTankView, RandomPosition());
         return enemyTank;

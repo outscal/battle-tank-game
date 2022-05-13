@@ -11,8 +11,6 @@ public class EnemyTankView : MonoBehaviour, IDamagable
     public TankType tankType;
     public EnemyTankController EnemyTankController;
 
-    private Rigidbody rb;
-
     public Slider sliderHealth;
     public Image fillImage;
     public Color fullHealthColor = Color.green;
@@ -22,7 +20,7 @@ public class EnemyTankView : MonoBehaviour, IDamagable
     public Transform fireTransform;
     public Slider aimSlider;
 
-
+    private IEnumerator coroutine;
 
     internal bool fire1 = false;
     internal bool fire0 = false;
@@ -33,12 +31,12 @@ public class EnemyTankView : MonoBehaviour, IDamagable
     private void Start()
     {
         InitializeComponenets();
-        Debug.Log("EnemyTank View Created");
-        EnemyTankController.StartFunction();
+        //Debug.Log("EnemyTank View Created");
+        //EnemyTankController.StartFunction();
     }
     private void InitializeComponenets()
     {
-        rb = GetComponent<Rigidbody>();
+        //rb = GetComponent<Rigidbody>();
     }
     public void FireFunction()
     {
@@ -46,7 +44,7 @@ public class EnemyTankView : MonoBehaviour, IDamagable
     }
     void IDamagable.TakeDamage(float damage)
     {
-        Debug.Log("EnemyTank Taking Damage" + damage);
+        //Debug.Log("EnemyTank Taking Damage" + damage);
         EnemyTankController.ApplyDamage(damage);
     }
 }

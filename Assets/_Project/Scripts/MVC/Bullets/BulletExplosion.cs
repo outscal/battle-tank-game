@@ -10,16 +10,17 @@ public class BulletExplosion : MonoBehaviour
     public float maxLifeTime = 2f;
     public float explosionRadius = 5f;
 
-    Transform bullet_sParent;
 
-    TankView PlayerTankBullet;
-    EnemyTankView EnemyTankBullet;
+    private Transform bullet_sParent;
+
+    private TankView PlayerTankBullet;
+    private EnemyTankView EnemyTankBullet;
 
     public void Start()
     {
         //bullet_sParent = transform.parent.gameObject.transform.parent.gameObject.transform;
-        //PlayerTankBullet = bullet_sParent.gameObject.GetComponent<TankView>();
-        //EnemyTankBullet = bullet_sParent.gameObject.GetComponent<EnemyTankView>();
+        //PlayerTankBullet = bullet_sParent.GetComponent<TankView>();
+        //EnemyTankBullet = bullet_sParent.GetComponent<EnemyTankView>();
         Destroy(gameObject, maxLifeTime);
     }
 
@@ -45,13 +46,18 @@ public class BulletExplosion : MonoBehaviour
         {
             Rigidbody targetRigidbody = colliders[i].attachedRigidbody.GetComponent<Rigidbody>();
 
+            //Debug.Log("targetRigidbody gameObject " + targetRigidbody.gameObject.name);
 
-            Debug.Log("OnTriggerEnter function " + targetRigidbody.gameObject.name);
+            //if (colliders[i].transform.parent == targetRigidbody.GetComponent<EnemyTankView>())
+            //    Debug.Log("OnTriggerEnter Founded" + targetRigidbody.gameObject.name);
+
+
             if (!targetRigidbody)
                 continue;
 
             targetRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
-            
+
+            //EnemyTankView targetHealth = targetRigidbody.GetComponent<EnemyTankView>();
             TankView targetHealth = targetRigidbody.GetComponent<TankView>();
 
             if (!targetHealth)

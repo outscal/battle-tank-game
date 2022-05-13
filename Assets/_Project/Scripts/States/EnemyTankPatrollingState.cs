@@ -6,7 +6,7 @@ public class EnemyTankPatrollingState : EnemyTankBaseState
 {
     public override void EnterState(EnemyTankStateManager enemyTankStateManager)
     {
-        Debug.Log("Enemy Tank Patrolling State...");
+        //Debug.Log("Enemy Tank Patrolling State...");
         EnemyPatrol(enemyTankStateManager);
     }
     public override void UpdateState(EnemyTankStateManager enemyTankStateManager)
@@ -22,23 +22,14 @@ public class EnemyTankPatrollingState : EnemyTankBaseState
         }
     }
 
-    //public override void ExitState(EnemyTankStateManager enemyTankStateManager)
-    //{
-        
-    //}
-
-    //public override void OnCollisionEnter(EnemyTankStateManager enemyTankStateManager)
-    //{
-        
-    //}
-
     void EnemyPatrol(EnemyTankStateManager enemyTankStateManager)
     {
         Transform wayPointsObject = GameObject.FindGameObjectWithTag("WayPoint").transform;
+
         foreach (Transform wP in wayPointsObject)
         {
             enemyTankStateManager.wayPoints.Add(wP);
-            enemyTankStateManager.agent.SetDestination(enemyTankStateManager.wayPoints[0].position);
+            enemyTankStateManager.agent.SetDestination(enemyTankStateManager.wayPoints[UnityEngine.Random.Range(0, enemyTankStateManager.wayPoints.Count)].position);
         }
     }
 }
