@@ -124,6 +124,57 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &23357305
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 23357307}
+  - component: {fileID: 23357306}
+  m_Layer: 0
+  m_Name: TankGameobject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &23357306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23357305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a6bf207bb65e0347a00e5a42db6ab61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tankView: {fileID: 3050025977198151052, guid: 9568880432f6a05468d4b910fc7d9718,
+    type: 3}
+  wrongTankView: {fileID: 0}
+  tankConfiguration:
+  - {fileID: 11400000, guid: a82ec24a83a70a949aba8faeb83afea9, type: 2}
+  - {fileID: 11400000, guid: 1955448655a377a498c11b2113ba4708, type: 2}
+  - {fileID: 11400000, guid: e68d9f3f8fe3c724187bc8d6ce868b41, type: 2}
+  - {fileID: 11400000, guid: d085700bb49629b47b81d821791420af, type: 2}
+--- !u!4 &23357307
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23357305}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -13.139053, y: -13.476603, z: 6.878859}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!850595691 &251542200
 LightingSettings:
   m_ObjectHideFlags: 0

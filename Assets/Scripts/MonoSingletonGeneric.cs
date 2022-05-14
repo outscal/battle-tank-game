@@ -15,6 +15,7 @@ public class MonoSingletonGeneric<T> : MonoBehaviour where T: MonoSingletonGener
         if (instance == null)
         {
             instance = (T)this;
+            //DontDestroyOnLoad(this);
         }
         else
         {
