@@ -232,6 +232,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_tankView: {fileID: 4701749530909995281, guid: 4006a94d947ef504aac93a64ab5e3d20,
     type: 3}
+  m_enemyTankView: {fileID: -66521803939865944, guid: f53c5b6d5e5299b45af114840effcf62,
+    type: 3}
+  m_tankListSO: {fileID: 11400000, guid: dc95d80788422574a9f39048881236e2, type: 2}
+  m_enemyTankListSO: {fileID: 11400000, guid: 91a244d8ace68bb4fb81c45b987e5adc, type: 2}
 --- !u!4 &878401827
 Transform:
   m_ObjectHideFlags: 0
@@ -717,6 +721,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1771596987}
+  - component: {fileID: 1771596988}
   m_Layer: 0
   m_Name: CameraRig
   m_TagString: Untagged
@@ -731,14 +736,30 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1771596986}
-  m_LocalRotation: {x: 0.29619816, y: 0.46984637, z: -0.1710101, w: 0.81379765}
+  m_LocalRotation: {x: 0.2961981, y: 0.46984634, z: -0.17101005, w: 0.8137977}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1391056264}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 40, y: 60, z: 0}
+--- !u!114 &1771596988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771596986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e4b00943d2acc7478e000f51f2f348b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DampTime: 0.2
+  m_ScreenEdgeBuffer: 4
+  m_MinSize: 6.5
+  m_Targets: []
 --- !u!1 &2079283166
 GameObject:
   m_ObjectHideFlags: 0

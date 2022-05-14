@@ -1,19 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TankView : MonoBehaviour
 {
     TankController m_tankController;
-
     Vector2 m_tankMovement;
-
-
-
-
     private CharacterController m_CharacterController;
-
-
     private Player playerInput;
     private Vector3 playerVelocity;
     private bool groundedPlayer;

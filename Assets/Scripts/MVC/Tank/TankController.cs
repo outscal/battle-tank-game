@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class TankController
 {
-    TankModel m_tankModel;
-    TankView m_tankView;
+    private TankModel m_tankModel;
+    private TankView m_tankView;
 
 
     public TankModel TankModel { get; }
@@ -16,10 +16,9 @@ public class TankController
 
         //instantiate the game object
         m_tankView = GameObject.Instantiate<TankView>(tankView);
+        
         m_tankModel.SetTankController(this);
         m_tankView.SetTankController(this);
-
-        Debug.Log("TankView created");
     }
 
     public void Move(Vector2 movementInput, float playerSpeed, bool groundedPlayer, Vector3 playerVelocity, CharacterController controller, GameObject gameObject)
