@@ -34,6 +34,7 @@ public class EnemyTankAttackState : EnemyTankBaseState
         yield return new WaitForSecondsRealtime(enemyTankStateManager.timeBetweenAttack);
         enemyTankStateManager.isAlreadyAttacked = false;
     }
+}
     //public override void ExitState(EnemyTankStateManager enemyTankStateManager)
     //{
 
@@ -43,4 +44,3 @@ public class EnemyTankAttackState : EnemyTankBaseState
     //{
     //    throw new System.NotImplementedException();
     //}
-}

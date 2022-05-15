@@ -20,7 +20,7 @@ public class EnemyTankStateManager : MonoBehaviour
     public float chaseRange;
     public float attackRange;
 
-    public float timeBetweenAttack = 4f;
+    public float timeBetweenAttack = 2f;
     public bool isAlreadyAttacked = false;
 
     private void Start()
@@ -36,8 +36,18 @@ public class EnemyTankStateManager : MonoBehaviour
 
     private void Update()
     {
-        distToPlayer = Vector3.Distance(gameObject.transform.position, player.transform.position);
+        CheckPlayer();
         currentState.UpdateState(this);
+    }
+
+    private void CheckPlayer()
+    {
+        if (player == null)
+        {
+            currentState = patrollingState;
+            return;
+        }
+        distToPlayer = Vector3.Distance(gameObject.transform.position, player.transform.position);
     }
 
     public void SwitchState(EnemyTankBaseState enemyTankBaseState)

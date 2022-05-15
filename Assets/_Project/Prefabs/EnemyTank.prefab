@@ -252,7 +252,7 @@ GameObject:
   - component: {fileID: 5076527999006863696}
   m_Layer: 7
   m_Name: EnemyTank
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -265,7 +265,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3159135730154750055}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalPosition: {x: 0, y: 0, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3159135730306105738}
@@ -278,7 +278,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 34, y: 1}
+  m_AnchoredPosition: {x: -16, y: 1}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!54 &3159135730154750042
@@ -394,8 +394,8 @@ MonoBehaviour:
   agent: {fileID: 4005936611318388911}
   wayPoints: []
   distToPlayer: 0
-  chaseRange: 10
-  attackRange: 5
+  chaseRange: 20
+  attackRange: 10
   timeBetweenAttack: 4
   isAlreadyAttacked: 0
 --- !u!1 &4079794772362888693

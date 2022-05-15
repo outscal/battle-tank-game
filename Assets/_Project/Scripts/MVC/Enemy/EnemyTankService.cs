@@ -6,6 +6,7 @@ public class EnemyTankService : MonoBehaviour
 {
     public EnemyTankView EnemyTankView;
     private EnemyTankModel EnemyTankModel;
+    public int numOfEnemies;
 
     //public Transform spawnEnemy;
 
@@ -17,7 +18,7 @@ public class EnemyTankService : MonoBehaviour
     }
     private void StartGame()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < numOfEnemies; i++)
         {
             CreateEnemyTank();
         }

@@ -60,8 +60,12 @@ public class EnemyTankController
     public void Fire()
     {
         Rigidbody shellInstance = Object.Instantiate(EnemyTankView.shellPrefab, EnemyTankView.fireTransform.position, EnemyTankView.fireTransform.rotation) as Rigidbody;
-        shellInstance.AddForce(EnemyTankView.fireTransform.forward * 5f, ForceMode.Impulse);
-        shellInstance.AddForce(EnemyTankView.fireTransform.up * 7, ForceMode.Impulse);
+        //EnemyTankModel.CurrentLaunchForce = EnemyTankModel.MaxLaunchForce;
+        shellInstance.velocity = 10f * EnemyTankView.fireTransform.forward;
+        //EnemyTankModel.CurrentLaunchForce = EnemyTankModel.MinLaunchForce;
+
+        //shellInstance.AddForce(EnemyTankView.fireTransform.forward * 5f, ForceMode.Impulse);
+        //shellInstance.AddForce(EnemyTankView.fireTransform.up * 7, ForceMode.Impulse);
     }
 }
 
