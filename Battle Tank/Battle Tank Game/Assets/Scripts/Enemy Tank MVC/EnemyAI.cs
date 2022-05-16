@@ -4,6 +4,7 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
+    //tankview + tankModel
     public NavMeshAgent agnet;
     public TankView player;
     public LayerMask whatIsGround, whatIsPlayer;
@@ -23,6 +24,7 @@ public class EnemyAI : MonoBehaviour
 
     public float Health;
     
+    //tankview
     private void Starts()
     {
         Intialization();
@@ -32,12 +34,14 @@ public class EnemyAI : MonoBehaviour
     {
         CheckPlayerInRange();
     }
-
+    //tankview
     private void Intialization()
     {
         player = GameObject.FindObjectOfType<TankView>();
         agnet = GetComponent<NavMeshAgent>();
     }
+
+    //enemyTankController
 
     private void CheckPlayerInRange()
     {
@@ -58,6 +62,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+//patrolstate
     private void Patroling()
     {
         if(!walkPointSet)
@@ -84,11 +89,13 @@ public class EnemyAI : MonoBehaviour
             walkPointSet = true;
     }
 
+    //chase state
     private void ChasePlayer()
     {
         agnet.SetDestination(player.transform.position);
     }
 
+    //attackstate
     private void AttackPlayer()
     {
         agnet.SetDestination(transform.position);
@@ -114,6 +121,7 @@ public class EnemyAI : MonoBehaviour
         alreadyAttacked = false;
     }
 
+
     private void OnColliderEnter(Collider other)
     {
         if(other.tag == "Shell")
@@ -122,6 +130,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    //tankcontroller
     public void TakeDamage(int damage)
     {
         Health -= damage;
@@ -131,7 +140,7 @@ public class EnemyAI : MonoBehaviour
         if(Health <= 0) 
             Invoke(nameof(DestroyEnemy), 0.5f);
     }
-
+    
     private void DestroyEnemy()
     {
         Destroy(gameObject);

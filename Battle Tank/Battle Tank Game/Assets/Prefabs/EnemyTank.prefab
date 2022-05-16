@@ -176,8 +176,8 @@ GameObject:
   - component: {fileID: 2500544658567994428}
   - component: {fileID: 2439606143776592823}
   - component: {fileID: 3537352049436699283}
-  - component: {fileID: 3458519610596507378}
   - component: {fileID: -3958457177815559858}
+  - component: {fileID: 3802337314391312677}
   m_Layer: 8
   m_Name: EnemyTank
   m_TagString: EnemyTank
@@ -240,46 +240,37 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4222742821700170549}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 541770a80b2ad9341b0a2f6d427ef19e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 0}
   explosionPrefab: {fileID: 151086, guid: ee49a9a8678ecf8468eb488e1ac8d42b, type: 3}
+  shell: {fileID: 3443720173001278242, guid: 04fe403516e4e38419082a0509cc40b6, type: 3}
+  fireTransform: {fileID: 7577118452346236757}
   healthSlider: {fileID: 7577118452298568844}
   fillImage: {fileID: 7577118451535121515}
-  agent: {fileID: 0}
---- !u!114 &3458519610596507378
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4222742821700170549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0e63c36bc264254b9b2c9d540d07686, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agnet: {fileID: -3958457177815559858}
-  player: {fileID: 0}
+  PatrolState: {fileID: 3802337314391312677}
+  ChaseState: {fileID: 3802337314391312677}
+  AttackState: {fileID: 3802337314391312677}
+  currentState: {fileID: 0}
+  activeState: 0
+  initialState: 0
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 8
+  agent: {fileID: -3958457177815559858}
+  walkPointRange: 20
+  sightRange: 15
+  attackRange: 10
+  walkPointSet: 0
+  timeBetweenAttacks: 1
+  patrolTime: 1
   walkPoint: {x: 0, y: 0, z: 0}
-  walkPointRange: 5
-  timeBetweenAttacks: 0.5
-  sightRange: 20
-  attackRange: 12
-  playerInSightRange: 0
-  playerInAttackRange: 0
-  fireTransform: {fileID: 7577118452346236757}
-  shell: {fileID: 3443720173001278242, guid: 04fe403516e4e38419082a0509cc40b6, type: 3}
-  Health: 100
 --- !u!195 &-3958457177815559858
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -302,6 +293,18 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &3802337314391312677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4222742821700170549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0acfc8a97c3e4f4ebb1505cf92bd0c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4222742821700170551
 GameObject:
   m_ObjectHideFlags: 0

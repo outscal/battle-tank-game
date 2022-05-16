@@ -1,15 +1,9 @@
  using UnityEngine;
 
-public abstract class State
+public enum State
 {
-    protected StateMachine Enemy;
-    protected EnemyState stateName;
-
-    public abstract void OnStateEnter(StateMachine Enemy);
-    
-    public abstract void OnStateExit(StateMachine Enemy);
-
-    public abstract void Tick(StateMachine Enemy);
-    
+    Patrol,
+    Chase,
+    Attack
 }
 

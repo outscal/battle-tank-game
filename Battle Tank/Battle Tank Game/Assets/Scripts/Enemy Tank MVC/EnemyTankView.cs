@@ -7,20 +7,34 @@ using UnityEngine.AI;
 
 public class EnemyTankView : MonoBehaviour
 {
-    public EnemyTankController enemyTankController;
+    [HideInInspector]public EnemyTankController enemyTankController;
     [HideInInspector]public Transform playerTransform;
-    public GameObject explosionPrefab; 
-    
+    public GameObject explosionPrefab;     
     internal AudioSource explosionAudio;
     internal ParticleSystem explosionParticles;
 
+    public Rigidbody shell;
+    public Transform fireTransform;
     public Slider healthSlider;
     public Image fillImage;
 
-    //public StateMachine stateMachine;
-    public NavMeshAgent agent; 
-    
+    public EnemyStatesMachine PatrolState;
+    public EnemyStatesMachine ChaseState;
+    public EnemyStatesMachine AttackState;
 
+    [HideInInspector]public EnemyStatesMachine currentState;
+    [HideInInspector]public State activeState;
+    [SerializeField]private State initialState;
+
+    public LayerMask whatIsGround; 
+    public LayerMask whatIsPlayer;
+    public NavMeshAgent agent;    
+    public float walkPointRange, sightRange, attackRange;
+    internal bool playerInSightRange, playerInAttackRange;
+    internal bool alreadyAttacked;
+    public bool walkPointSet;
+    public float timeBetweenAttacks;
+    [HideInInspector]public Vector3 walkPoint;
 
 
     void Awake()
@@ -31,15 +45,68 @@ public class EnemyTankView : MonoBehaviour
     }
 
     void Start()
+    {   
+        SetHealth();
+        InitializeState();       
+        // currentState = PatrolState;
+        // currentState.OnStateEnter();
+    }
+
+    private void SetHealth()
     {
-        Intitalization();
         enemyTankController.SetHealthUI();
     }
-    
-    private void Intitalization()
-    {   
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        agent = GetComponent<NavMeshAgent>();         
+
+    private void FixedUpdate()
+    {
+        CheckPlayerInRange();
+    }
+
+    private void CheckPlayerInRange()
+    {
+        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsGround);
+    }
+
+    public void SetEnemyTankController(EnemyTankController _enemyTankController)
+    {
+        enemyTankController = _enemyTankController;
+    }    
+
+    private void InitializeState()
+    {
+        switch (initialState)
+        {
+            case State.Patrol:
+                {
+                    currentState = PatrolState;
+                    break;
+                }
+            case State.Chase:
+                {
+                    currentState = ChaseState;
+                    break;
+                }
+            case State.Attack:
+                {
+                    currentState = AttackState;
+                    break;
+                }
+            default:
+                {
+                    currentState = PatrolState;
+                    break;
+                }   
+        }
+        
+        currentState.OnStateEnter();
+    }
+
+    public void FireShell()
+    {
+        float _currentLaunchForce = 15f;
+        Rigidbody shellInstance = Instantiate(shell, fireTransform.position, fireTransform.rotation) as Rigidbody;
+        shellInstance.velocity = _currentLaunchForce * fireTransform.forward;          
     }
   
     public void Death()

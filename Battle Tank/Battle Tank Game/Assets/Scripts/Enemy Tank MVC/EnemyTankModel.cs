@@ -6,10 +6,8 @@ public class EnemyTankModel
     public float tankHealth;
     public float startingHealth;
     public float tankDamage;
-
     public float tankSpeed;
     public float tankTurnSpeed;
-
     public Color fullHealthColor;
     public Color zeroHealthColor;
 
@@ -25,8 +23,6 @@ public class EnemyTankModel
 
         fullHealthColor = Color.green;
         zeroHealthColor = Color.red;
-    }
-
-    
+    }   
    
 }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class TankView : MonoBehaviour
 {
-    private TankController tankController;
+    public TankController tankController; 
     private GameObject[] tankBody;   
     private GameObject m_camera;
     
@@ -51,12 +51,7 @@ public class TankView : MonoBehaviour
         tankController.Movement();
         tankController.GetFireInput(); 
     }
-
-    public void SetTankController(TankController _tankController)
-    {
-        tankController = _tankController;
-    }
-
+    
     private void Intitalization()
     {
         m_camera = GameObject.Find("Main Camera");
@@ -71,7 +66,6 @@ public class TankView : MonoBehaviour
     public void SetHealthUI()
     {
         healthSlider.value = tankController.GetTankModel().tankHealth;
-        Debug.Log("tank health " + tankController.GetTankModel().tankHealth);
         fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, tankController.GetTankModel().tankHealth / startingHealth);
     }  
 

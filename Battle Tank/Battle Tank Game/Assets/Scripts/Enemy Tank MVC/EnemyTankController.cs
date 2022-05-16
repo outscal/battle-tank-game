@@ -1,4 +1,4 @@
-using System;
+ using System;
 using UnityEngine;
 
 public class EnemyTankController
@@ -7,12 +7,11 @@ public class EnemyTankController
    private EnemyTankView enemyTankView {get; }
 
    private bool isDead;
-
-   public EnemyTankController(EnemyTankModel _enemyTankModel, EnemyTankView _enemyTankView)
+  
+   public EnemyTankController(EnemyTankModel _enemyTankModel, EnemyTankView _enemyTankView, Vector3 position)
    {
        this.enemyTankModel = _enemyTankModel;
-       enemyTankView = GameObject.Instantiate<EnemyTankView>(_enemyTankView);
-              
+       enemyTankView = GameObject.Instantiate<EnemyTankView>(_enemyTankView, position, Quaternion.identity);               
        enemyTankView.enemyTankController = this;
    }
 
@@ -36,12 +35,13 @@ public class EnemyTankController
         {
             OnDeath();
         }
-    }
+    }   
 
     public void OnDeath()
     {
         isDead = true;
 
-        enemyTankView.Death();        
-    }
+        enemyTankView.Death();       
+    } 
+    
 }

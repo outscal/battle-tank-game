@@ -24,7 +24,7 @@ public class TankController
         tankModel = _tankModel;       
         tankView = GameObject.Instantiate<TankView>(_tankview);        
         rb = tankView.GetRigidBody();
-        tankView.SetTankController(this);
+        tankView.tankController = this;
         
         isDead = false;
         currentLaunchForce = minLaunchForce;

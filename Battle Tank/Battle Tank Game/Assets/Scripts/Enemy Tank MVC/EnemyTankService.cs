@@ -3,47 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyTankService : MonoBehaviour
-{
-    // public EnemyTankList enemyTankList;
-    // private EnemyTankController tankController;
-    // private EnemyTankType enemyTankType;
-    
-    // void Start()
-    // {
-    //     for(int i = 0; i < 3; i++)
-    //     {
-    //         enemyTankType = (EnemyTankType)Mathf.Floor(Random.Range(0, 2.5f));
-    //         tankController = CreateEnemyTank(enemyTankType);
-    //     }
-        
-    // }
-
-    // private EnemyTankController CreateEnemyTank(EnemyTankType _enemyTankType)
-    // {
-    //     foreach(EnemyTankScriptableObjects tank in enemyTankList.enemyTanks)
-    //     {
-    //         if(tank.tankType == enemyTankType)
-    //         {
-    //             EnemyTankModel enemyTankModel = new EnemyTankModel(enemyTankList.enemyTanks[(int)enemyTankType]);
-                
-    //             EnemyTankController tankController = new EnemyTankController(enemyTankModel, enemyTankList.enemyTanks[(int)enemyTankType].enemyTankView);
-    //             return tankController;
-    //         }
-    //     }
-    //     return null;
-    // }
-
-    //[SerializeField]public EnemyTankView enemyTankView;
-    
-
+{ 
     public EnemyTankList enemyTankList;    
-
    
     void Start()
     {
-        //tankView.gameObject.SetActive(true);
         StartGame();
-        //cameraControl.SetStartPositionAndSize();
+        
     }
 
     void StartGame()
@@ -52,7 +18,18 @@ public class EnemyTankService : MonoBehaviour
         {
             CreateTank(i);
         }
-        //CreateEnemyTank();
+        
+    }
+
+    Vector3 RandomPosition()
+    {
+        float x, y, z;
+        Vector3 position;
+        x = Random.Range(-35, 35);
+        y = 1;
+        z = Random.Range(-20, 30);
+        position  = new Vector3(x, y, z);
+        return position;
     }
 
     private void CreateTank(int i)
@@ -60,7 +37,7 @@ public class EnemyTankService : MonoBehaviour
         int index = Random.Range(0, enemyTankList.enemyTanks.Length);
         EnemyTankScriptableObjects enemyTankSO = enemyTankList.enemyTanks[index];
         EnemyTankModel enemyTankModel = new EnemyTankModel(enemyTankSO);
-        EnemyTankController tankController = new EnemyTankController(enemyTankModel, enemyTankSO.enemyTankView);         
+        EnemyTankController tankController = new EnemyTankController(enemyTankModel, enemyTankSO.enemyTankView, RandomPosition());         
     }
     
 }
