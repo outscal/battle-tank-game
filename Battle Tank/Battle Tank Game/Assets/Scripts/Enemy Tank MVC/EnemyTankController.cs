@@ -8,10 +8,10 @@ public class EnemyTankController
 
    private bool isDead;
   
-   public EnemyTankController(EnemyTankModel _enemyTankModel, EnemyTankView _enemyTankView, Vector3 position)
+   public EnemyTankController(EnemyTankModel _enemyTankModel, EnemyTankView _enemyTankView)
    {
        this.enemyTankModel = _enemyTankModel;
-       enemyTankView = GameObject.Instantiate<EnemyTankView>(_enemyTankView, position, Quaternion.identity);               
+       enemyTankView = GameObject.Instantiate<EnemyTankView>(_enemyTankView);
        enemyTankView.enemyTankController = this;
    }
 

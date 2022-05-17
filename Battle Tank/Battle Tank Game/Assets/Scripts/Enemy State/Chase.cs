@@ -1,40 +1,42 @@
 using System;
 using UnityEngine;
 
-public class Chase : EnemyStatesMachine
+public class Chase : State
 {
-   public override void OnStateEnter()
+    Vector3 Direction;
+   public override void OnStateEnter(EnemyStatesMachine _EnemyStates)
     {
-        base.OnStateEnter();
-        EnemyView.activeState = State.Chase;
+        _EnemyStates.currentState = this;
+        _EnemyStates.playerTransform = GameObject.FindObjectOfType<TankView>().transform;        
     }
 
-    private void Update()
+    public override void OnUpdate(EnemyStatesMachine _EnemyStates)
     {
-        if(EnemyView.playerInSightRange && EnemyView.playerInAttackRange)
+        if(_EnemyStates.playerInSightRange && _EnemyStates.playerInAttackRange)
         {
-            EnemyView.currentState.ChangeState(EnemyView.AttackState);
+            _EnemyStates.ChangeState(_EnemyStates.AttackState);
         }
-        if(!EnemyView.playerInSightRange && !EnemyView.playerInAttackRange)
+        if(!_EnemyStates.playerInSightRange && !_EnemyStates.playerInAttackRange)
         {
-            EnemyView.currentState.ChangeState(EnemyView.PatrolState);
+            _EnemyStates.ChangeState(_EnemyStates.PatrolState);
         }
 
-        ChasePlayer();
+        Direction = _EnemyStates.playerTransform.position - _EnemyStates.transform.position;        
+        Quaternion rotation = Quaternion.LookRotation(Direction);
+        _EnemyStates.transform.rotation = rotation;
+        
+        ChasePlayer(_EnemyStates);
     }
 
-    public override void OnStateExit()
+    public override void OnStateExit(EnemyStatesMachine _EnemyStates)
     {
-        base.OnStateExit();
+        _EnemyStates.agent.SetDestination(_EnemyStates.transform.position);   
     }
 
-    private void ChasePlayer()
+    private void ChasePlayer(EnemyStatesMachine _EnemyStates)
     {
-        if(!EnemyView.playerTransform)
-        {
-            EnemyView.currentState.ChangeState(EnemyView.PatrolState);
-            return;
-        }
-        EnemyView.agent.SetDestination(EnemyView.playerTransform.position);     
+         
+         
+        _EnemyStates.agent.SetDestination(_EnemyStates.playerTransform.position);
     }
 }

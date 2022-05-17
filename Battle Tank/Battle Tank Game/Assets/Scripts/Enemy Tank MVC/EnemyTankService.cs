@@ -37,7 +37,7 @@ public class EnemyTankService : MonoBehaviour
         int index = Random.Range(0, enemyTankList.enemyTanks.Length);
         EnemyTankScriptableObjects enemyTankSO = enemyTankList.enemyTanks[index];
         EnemyTankModel enemyTankModel = new EnemyTankModel(enemyTankSO);
-        EnemyTankController tankController = new EnemyTankController(enemyTankModel, enemyTankSO.enemyTankView, RandomPosition());         
+        EnemyTankController tankController = new EnemyTankController(enemyTankModel, enemyTankSO.enemyTankView);
     }
     
 }

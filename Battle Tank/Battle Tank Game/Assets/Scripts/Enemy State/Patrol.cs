@@ -1,66 +1,50 @@
 using UnityEngine;
 
-public class Patrol : EnemyStatesMachine
+public class Patrol : State
 { 
-    public override void OnStateEnter()
+    public override void OnStateEnter(EnemyStatesMachine _EnemyStates)
     {
-        base.OnStateEnter();
-        EnemyView.activeState = State.Patrol;   
+        _EnemyStates.currentState = this;
     }
-
-    protected override void Start()
-    {
-        base.Start();
-        ChangeWalkPoint();
-    }
-    private void Update()
-    {
-        if(EnemyView.playerInSightRange && !EnemyView.playerInAttackRange)
-        {
-            EnemyView.currentState.ChangeState(EnemyView.ChaseState);
-        }
-        if(EnemyView.playerInSightRange && EnemyView.playerInAttackRange)
-        {
-            EnemyView.currentState.ChangeState(EnemyView.AttackState);
-        }
-
-        Patrolling();   
-    }
-
-    public void ChangeWalkPoint()
-    {
-        while(true)
-        {
-            //await new WaitForSeconds(EnemyView.patrolTime);
-            EnemyView.walkPointSet = false;
-        }
-    }
-
     
-    private void Patrolling()
+    public override void OnUpdate(EnemyStatesMachine _EnemyStates)
     {
-        if(!EnemyView.walkPointSet)
-            SearchWalkPoint();
-
-        if(EnemyView.walkPointSet)
-            EnemyView.agent.SetDestination(EnemyView.walkPoint);
+        if(_EnemyStates.playerInSightRange && !_EnemyStates.playerInAttackRange)
+        {
+            _EnemyStates.ChangeState(_EnemyStates.ChaseState);
+        }
         
-        Vector3 distanceToWalkPoint = EnemyView.transform.position - EnemyView.walkPoint;
+        Patrolling(_EnemyStates);  
+    }
+    public override void OnStateExit(EnemyStatesMachine _EnemyStates)
+    {
+
+    }
+        
+    private void Patrolling(EnemyStatesMachine _EnemyStates)
+    {
+        if(!_EnemyStates.walkPointSet)
+            SearchWalkPoint(_EnemyStates);
+
+        if(_EnemyStates.walkPointSet)
+            _EnemyStates.agent.SetDestination(_EnemyStates.walkPoint);
+        
+        Vector3 distanceToWalkPoint = _EnemyStates.transform.position - _EnemyStates.walkPoint;
 
         //walkpoint reached 
         if(distanceToWalkPoint.magnitude < 1f)
-            EnemyView.walkPointSet = false;
+            _EnemyStates.walkPointSet = false;
     }
 
-    private void SearchWalkPoint()
+    private void SearchWalkPoint(EnemyStatesMachine _EnemyStates)
     {
-        float randomZ = UnityEngine.Random.Range(-EnemyView.walkPointRange, EnemyView.walkPointRange);
-        float randomX = UnityEngine.Random.Range(-EnemyView.walkPointRange, EnemyView.walkPointRange);
+        float randomZ = UnityEngine.Random.Range(-_EnemyStates.walkPointRange, _EnemyStates.walkPointRange);
+        float randomX = UnityEngine.Random.Range(-_EnemyStates.walkPointRange, _EnemyStates.walkPointRange);
 
-        EnemyView.walkPoint = new Vector3(EnemyView.transform.position.x + randomX, EnemyView.transform.position.y, EnemyView.transform.position.z + randomZ);
-
-        if(Physics.Raycast(EnemyView.walkPoint, -EnemyView.transform.up, 2f, EnemyView.whatIsGround))
-            EnemyView.walkPointSet = true;
+        _EnemyStates.walkPoint = new Vector3(_EnemyStates.transform.position.x + randomX, _EnemyStates.transform.position.y, _EnemyStates.transform.position.z + randomZ);
+        
+        if(Physics.Raycast(_EnemyStates.walkPoint, -_EnemyStates.transform.up, 5f, _EnemyStates.whatIsGround))
+            _EnemyStates.walkPointSet = true;
     }
 }
 

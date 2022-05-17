@@ -1,9 +1,9 @@
  using UnityEngine;
 
-public enum State
+public abstract class State
 {
-    Patrol,
-    Chase,
-    Attack
+    public abstract void OnStateEnter(EnemyStatesMachine _EnemyStates);
+    public abstract void OnUpdate(EnemyStatesMachine _EnemyStates);
+    public abstract void OnStateExit(EnemyStatesMachine _EnemyStates);  
 }
 

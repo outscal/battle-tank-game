@@ -1,57 +1,48 @@
 using System;
 using UnityEngine;
 
-public class Attack : EnemyStatesMachine
+public class Attack : State
 {
-    public override void OnStateEnter()
+    public override void OnStateEnter(EnemyStatesMachine _EnemyStates)
     {
-        base.OnStateEnter();
-        EnemyView.activeState = State.Attack;        
+        _EnemyStates.currentState = this;
     }
         
-    private void Update()
+    public override void OnUpdate(EnemyStatesMachine _EnemyStates)
     {
-        if(!EnemyView.playerInSightRange && !EnemyView.playerInAttackRange)
+        if(!_EnemyStates.playerInSightRange && !_EnemyStates.playerInAttackRange)
         {
-            EnemyView.currentState.ChangeState(EnemyView.PatrolState);
+            _EnemyStates.ChangeState(_EnemyStates.PatrolState);
         }
 
-        if(EnemyView.playerInSightRange && !EnemyView.playerInAttackRange)
+        if(_EnemyStates.playerInSightRange && !_EnemyStates.playerInAttackRange)
         {
-            EnemyView.currentState.ChangeState(EnemyView.ChaseState);
+            _EnemyStates.ChangeState(_EnemyStates.ChaseState);
         }
 
-        AttackPlayer();
+        AttackPlayer(_EnemyStates);
     }
 
-    public override void OnStateExit()
+    public override void OnStateExit(EnemyStatesMachine _EnemyStates)
     {
-        base.OnStateExit();
-    }
 
-    private void AttackPlayer()
+    }    
+
+    private void AttackPlayer(EnemyStatesMachine _EnemyStates)
     {
-        if(!EnemyView.playerTransform)
+        if(!_EnemyStates.playerTransform)
         {
-            EnemyView.currentState.ChangeState(EnemyView.PatrolState);
+            _EnemyStates.ChangeState(_EnemyStates.PatrolState);
             return;
         }
+       
+        _EnemyStates.transform.LookAt(_EnemyStates.playerTransform);
 
-        EnemyView.agent.SetDestination(EnemyView.transform.position);
-
-        EnemyView.transform.LookAt(EnemyView.playerTransform);
-
-        if(!EnemyView.alreadyAttacked)
+        if(!_EnemyStates.EnemyView.alreadyAttacked)
         {
-            EnemyView.alreadyAttacked = true;
-            EnemyView.FireShell();            
-            //await new WaitForSeconds(EnemyView.timeBetweenAttacks);
-            ResetAttack();
+            _EnemyStates.EnemyView.alreadyAttacked = true;
+            _EnemyStates.EnemyView.FireShell();            
+            _EnemyStates.CoroutineStart();            
         }
-    }
-
-    private void ResetAttack()
-    {
-        EnemyView.alreadyAttacked = false;
-    }
+    }   
 }

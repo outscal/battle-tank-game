@@ -6,35 +6,64 @@ using UnityEngine.AI;
 
 public class EnemyStatesMachine : MonoBehaviour
 {
-    protected EnemyTankView EnemyView;
+    public EnemyTankView EnemyView;
+    [HideInInspector]public Transform playerTransform;
+    [HideInInspector]public State currentState;
+    [HideInInspector]public Patrol PatrolState = new Patrol();
+    [HideInInspector]public Chase ChaseState = new Chase();
+    [HideInInspector]public State AttackState = new Attack();
     
-    protected virtual void Awake()
+    [HideInInspector]public State activeState;
+   
+    public LayerMask whatIsGround; 
+    public LayerMask whatIsPlayer;
+    public NavMeshAgent agent;    
+    public float walkPointRange, sightRange, attackRange;
+    public bool playerInSightRange, playerInAttackRange;
+    
+    public bool walkPointSet = false;    
+    [HideInInspector]public Vector3 walkPoint;
+
+    
+    protected void Awake()
     {
         EnemyView = GetComponent<EnemyTankView>();
     }
-    protected virtual void Start()
+
+    void Start()
     {   
-        
+       currentState = PatrolState;
+       currentState.OnStateEnter(this);
     }
 
-    public virtual void OnStateEnter()
-    {
-        this.enabled = true;
-    }
     
-    public virtual void OnStateExit()
+    void FixedUpdate()
     {
-        this.enabled = false;
+        CheckPlayerInRange();
+        currentState.OnUpdate(this);        
     }
-    
-    public void ChangeState(EnemyStatesMachine _state)
+
+    private void CheckPlayerInRange()
     {
-        if(EnemyView.currentState != null)
+        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+    }
+
+    public void CoroutineStart()
+    {
+        StartCoroutine(EnemyView.TimeBetweenAttack());   
+    }
+
+    public void ChangeState(State _state)
+    {
+        if(currentState != null)
         {
-            EnemyView.currentState.OnStateExit();
+            currentState.OnStateExit(this);
         }
 
-        EnemyView.currentState = _state;
-        EnemyView.currentState.OnStateEnter();
-    }    
+        currentState = _state;
+        currentState.OnStateEnter(this);
+    } 
+
+
 }

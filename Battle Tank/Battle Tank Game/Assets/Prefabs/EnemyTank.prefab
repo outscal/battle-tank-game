@@ -245,32 +245,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 541770a80b2ad9341b0a2f6d427ef19e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 0}
   explosionPrefab: {fileID: 151086, guid: ee49a9a8678ecf8468eb488e1ac8d42b, type: 3}
   shell: {fileID: 3443720173001278242, guid: 04fe403516e4e38419082a0509cc40b6, type: 3}
   fireTransform: {fileID: 7577118452346236757}
   healthSlider: {fileID: 7577118452298568844}
   fillImage: {fileID: 7577118451535121515}
-  PatrolState: {fileID: 3802337314391312677}
-  ChaseState: {fileID: 3802337314391312677}
-  AttackState: {fileID: 3802337314391312677}
-  currentState: {fileID: 0}
-  activeState: 0
-  initialState: 0
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 64
-  whatIsPlayer:
-    serializedVersion: 2
-    m_Bits: 8
-  agent: {fileID: -3958457177815559858}
-  walkPointRange: 20
-  sightRange: 15
-  attackRange: 10
-  walkPointSet: 0
-  timeBetweenAttacks: 1
-  patrolTime: 1
-  walkPoint: {x: 0, y: 0, z: 0}
+  timeBetweenAttacks: 2
+  alreadyAttacked: 0
 --- !u!195 &-3958457177815559858
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -285,7 +266,7 @@ NavMeshAgent:
   m_Acceleration: 12
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -305,6 +286,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0acfc8a97c3e4f4ebb1505cf92bd0c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyView: {fileID: 0}
+  playerTransform: {fileID: 0}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 64
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 8
+  agent: {fileID: -3958457177815559858}
+  walkPointRange: 20
+  sightRange: 15
+  attackRange: 6
+  playerInSightRange: 0
+  playerInAttackRange: 0
+  walkPointSet: 0
+  walkPoint: {x: 0, y: 0, z: 0}
 --- !u!1 &4222742821700170551
 GameObject:
   m_ObjectHideFlags: 0
