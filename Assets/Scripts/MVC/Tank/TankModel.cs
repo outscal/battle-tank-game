@@ -7,7 +7,7 @@ public class TankModel
     public float movementSpeed;
     public float rotateSpeed;
 
-    public TankModel(float _movementSpeed, float _rotateSpeed)
+    public TankModel(TankTypeEnum type,float _movementSpeed, float _rotateSpeed)
     {
        movementSpeed = _movementSpeed;
        rotateSpeed = _rotateSpeed;
