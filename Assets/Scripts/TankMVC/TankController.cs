@@ -11,6 +11,7 @@ public class TankController
     private Joystick RightJoyStick;
     private float SpeedMultipier = 0.001f;
     private float RotationSpeedMultiplier = 0.01f;
+    //public TankView tankView;
     //private Camera camera;
 
     public TankController(TankModel tankModel, TankView tankPrefab)
@@ -50,7 +51,6 @@ public class TankController
             Quaternion newRotation = tankRigidBody.transform.rotation * Quaternion.Euler(Vector3.up * LeftJoyStick.Horizontal * TankModel.RotationSpeed * RotationSpeedMultiplier);
             tankRigidBody.MoveRotation(newRotation);
         }
-
     }
 
     // This Function Handles the Input recieved from the Right Joystick.
@@ -60,4 +60,13 @@ public class TankController
         turretTransform.Rotate(desiredRotation, Space.Self);
     }
 
+    public void TakeDamage()
+    {
+
+    }
+
+    public Transform GetTransform()
+    {
+        return TankView.transform;
+    }
 }

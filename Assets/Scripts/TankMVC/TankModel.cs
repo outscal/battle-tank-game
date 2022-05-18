@@ -14,13 +14,13 @@ public class TankModel : TankScriptableObject
         RotationSpeed = tankScriptableObject.rotationSpeed;
         TankName = tankScriptableObject.TankName;
         TurretRotationSpeed = tankScriptableObject.TurretRotationSpeed;
-        //BulletType = tankScriptableObject.bulletType;
+        BulletType = tankScriptableObject.bulletType;
     }
 
     public float Speed { get; }
     public int Health { get; }
     public float RotationSpeed { get; }
-    public string TankName { get; }
-    public float TurretRotationSpeed { get; }
-    //public BulletType BulletType { get; }
+    public new string TankName { get; }
+    public new float TurretRotationSpeed { get; }
+    public BulletType BulletType { get; }
 }

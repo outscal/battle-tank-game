@@ -11,13 +11,14 @@ public class TankService : SingletonGeneric<TankService>
     public PlayerTankViewList playerTankViewList;
     private TankController tankController;
     public TankScriptableObjectList TankList;
-    //public BulletScriptableObjectList BulletList;
+    public BulletScriptableObjectList BulletList;
     public Joystick LeftJoyStick;
     public Joystick RightJoyStick;
-    //public Button FireButton;
-    public Camera playerCamera;
-
-
+    public Button FireButton;
+    public CameraController cam;
+    public  int TType;
+    public EnemyTank enemyTank;
+    
 
     private void Start()
     {
@@ -34,17 +35,20 @@ public class TankService : SingletonGeneric<TankService>
     private TankController CreateNewPlayerTank()
     {
         TankModel tankModel = new TankModel(TankList.TankSOList[2]);
-        TankController tankController = new TankController(tankModel, playerTankViewList.TankViewList[1]);
+        TankController tankController = new TankController(tankModel, playerTankViewList.TankViewList[TType]);
         tankController.SetJoyStickReferences(LeftJoyStick, RightJoyStick);
         //tankController.SetCameraReference(playerCamera);
+        cam.playerTank = tankController.GetTransform();
         tankController.TankView.SetTankControllerReference(tankController);
+        enemyTank.Player = tankController.GetTransform();
         return tankController;
+        
     }
 
     // This Function is used to communicate with Bullet Service Script when input to fire a bullet is recieved.
-    //public void Fire()
-    //{
-    //    BulletService.Instance.FireBullet(tankController.TankView.BulletSpawner.transform, tankController.TankModel.BulletType);
-    // }
+    public void Fire()
+    {
+        BulletService.Instance.FireBullet(tankController.TankView.BulletSpawner.transform, tankController.TankModel.BulletType);
+    }
 
 }

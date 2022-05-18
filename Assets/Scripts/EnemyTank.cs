@@ -1,12 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class EnemyTank : SingletonGeneric<EnemyTank>
+public class EnemyTank : MonoBehaviour
 {
-    protected override void Awake()
+    public NavMeshAgent Enemy;
+    public Transform Player;
+
+    // Start is called before the first frame update
+    void Start()
     {
-        base.Awake();
-        //Custom Code
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Enemy.SetDestination(Player.position);
     }
 }

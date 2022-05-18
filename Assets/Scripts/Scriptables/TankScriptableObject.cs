@@ -9,7 +9,7 @@ using UnityEngine;
 public class TankScriptableObject : ScriptableObject
 {
     public TankType tankType;
-    // public BulletType bulletType;
+    public BulletType bulletType;
     public string TankName;
     public float speed;
     public int health;

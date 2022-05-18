@@ -8,7 +8,7 @@ using UnityEngine;
 public class TankView : MonoBehaviour
 {
     public GameObject Turret;
-    //public Transform BulletSpawner;
+    public Transform BulletSpawner;
     private TankController tankController;
 
     private void FixedUpdate()
