@@ -8,7 +8,7 @@ using UnityEngine;
     [CreateAssetMenu(fileName = "TankScriptableObject", menuName = "Scriptableobject/NewTank")]
     public class TankScriptableObject : ScriptableObject
     {
-        public TankType TankType;
+        public TankTypeEnum TankType;
         public string TankName;
 
         public float speed;
