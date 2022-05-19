@@ -16,9 +16,12 @@ public class TankService : SingletonGeneric<TankService>
     public Joystick RightJoyStick;
     public Button FireButton;
     public CameraController cam;
-    public  int TType;
     public EnemyTank enemyTank;
-    
+    //public BulletService bulletService;
+
+    //bullet and tank equalized
+    public int TType;
+    //public TankType tType;
 
     private void Start()
     {
@@ -30,12 +33,13 @@ public class TankService : SingletonGeneric<TankService>
         tankController = CreateNewPlayerTank();
 
     }
-
+     
+   
     // This Function Creates a new Player Tank MVC & also set all the required references and returns the Tank Controller of the same.
     private TankController CreateNewPlayerTank()
     {
         TankModel tankModel = new TankModel(TankList.TankSOList[2]);
-        TankController tankController = new TankController(tankModel, playerTankViewList.TankViewList[TType]);
+        TankController tankController = new TankController(tankModel, playerTankViewList.TankViewList[(int)TType]);
         tankController.SetJoyStickReferences(LeftJoyStick, RightJoyStick);
         //tankController.SetCameraReference(playerCamera);
         cam.playerTank = tankController.GetTransform();
