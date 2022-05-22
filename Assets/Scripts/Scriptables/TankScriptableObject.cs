@@ -15,4 +15,11 @@ public class TankScriptableObject : ScriptableObject
     public int health;
     public float rotationSpeed;
     public float TurretRotationSpeed;
+
+    public float minLaunchForce;// = 15f;
+    public float maxLaunchForce = 30f;
+    public float maxChargeTime = 0.75f;
+
+    public float currentLaunchForce;
+    public float chargeSpeed;
 }

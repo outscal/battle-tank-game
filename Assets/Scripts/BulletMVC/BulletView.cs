@@ -16,7 +16,8 @@ public class BulletView : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        bulletController.InflictDamage(collision.gameObject);
+        bulletController.InflictDamage(collision.gameObject);        
         Destroy(gameObject);
+        Debug.Log("destroy bullet");
     }
 }

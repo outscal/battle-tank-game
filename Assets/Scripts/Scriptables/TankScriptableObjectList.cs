@@ -8,5 +8,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TankScriptableObjectList", menuName = "ScriptableObjects/NewTankSOList")]
 public class TankScriptableObjectList : ScriptableObject
 {
-    public List<TankScriptableObject> TankSOList;
+    public TankScriptableObject[] TankSOList;
 }

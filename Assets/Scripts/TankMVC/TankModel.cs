@@ -15,6 +15,10 @@ public class TankModel : TankScriptableObject
         TankName = tankScriptableObject.TankName;
         TurretRotationSpeed = tankScriptableObject.TurretRotationSpeed;
         BulletType = tankScriptableObject.bulletType;
+        MinLaunchForce = tankScriptableObject.minLaunchForce;
+        MaxLaunchForce = tankScriptableObject.maxLaunchForce;
+        MaxChargeTime = tankScriptableObject.maxChargeTime;
+        CurrentLaunchForce = tankScriptableObject.currentLaunchForce;
     }
 
     public float Speed { get; }
@@ -23,4 +27,10 @@ public class TankModel : TankScriptableObject
     public new string TankName { get; }
     public new float TurretRotationSpeed { get; }
     public BulletType BulletType { get; }
+    public float MinLaunchForce { get; }
+
+    internal float currentHealth;
+    public float MaxLaunchForce { get; }
+    public float MaxChargeTime { get; }
+    public float CurrentLaunchForce { get; set; }
 }
