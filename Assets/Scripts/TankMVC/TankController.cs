@@ -14,20 +14,22 @@ public class TankController
     private float SpeedMultipier = 0.001f;
     private float RotationSpeedMultiplier = 0.01f;
     //private Image healthBar;
-    private float lerpSpeed;
     //public TankView tankView;
     //private Camera camera;
     private ShellExplosion ShellExplosion;
-
+   
 
     public TankController(TankModel tankModel, TankView tankPrefab)
     {
         TankModel = tankModel;
         TankView = GameObject.Instantiate<TankView>(tankPrefab);
+        OnEnable();
     }
 
     public TankModel TankModel { get; }
     public TankView TankView { get; }
+
+  
 
     // Sets the reference to left & right Joysticks on the Canvas.
     public void SetJoyStickReferences(Joystick leftJoyStick, Joystick rightJoyStick)
@@ -35,6 +37,7 @@ public class TankController
         LeftJoyStick = leftJoyStick;
         RightJoyStick = rightJoyStick;
     }
+     
 
     // Sets the reference to the Camera & makes it a child object of PLayer Tank.
     // public void SetCameraReference(Camera cameraRef)
@@ -58,6 +61,7 @@ public class TankController
             tankRigidBody.MoveRotation(newRotation);
         }
     }
+    
 
     // This Function Handles the Input recieved from the Right Joystick.
     public void HandleRightJoyStickInput(Transform turretTransform)
@@ -65,8 +69,13 @@ public class TankController
         Vector3 desiredRotation = Vector3.up * RightJoyStick.Horizontal * TankModel.TurretRotationSpeed * RotationSpeedMultiplier;
         turretTransform.Rotate(desiredRotation, Space.Self);
     }
+    private void OnEnable()
+    {
+        TankModel.currentHealth = TankModel.TankHealth;
+        SetHealthUI();
+    }
 
-    
+
     //public void TakeDamage(float amount)
     //{
     //    TankModel.currentHealth -= amount;
@@ -82,64 +91,40 @@ public class TankController
     //    SetHealthUI();
     //}
 
-    public void TakeDamage(float amount)
+
+    public void ApplyDamage(float amount)
     {
         TankModel.currentHealth -= amount;
-        SetHealthUI();
+        Debug.Log("tankhealth"+TankModel.currentHealth);
 
-        if (TankModel.currentHealth <= 0f && !TankView.tankDead)
+        if (!TankView.tankDead && TankModel.currentHealth <= 0f)
         {
+            TankModel.currentHealth = 0;
+            SetHealthUI();
             TankDestroy();
+            return;
         }
+        SetHealthUI();
     }
-    private void TankDestroy()
-    {
-        //TankView.tankDead = true;
-        //TankView.gameObject.SetActive(false);
-        //TankView.Destroy(TankView.gameObject);
-        TankView.tankDead = true;
-        ShellExplosion.m_ExplosionParticles.transform.position = ShellExplosion.transform.position;
-        ShellExplosion.m_ExplosionParticles.gameObject.SetActive(true);
-
-        // Play the particle system of the tank exploding.
-        ShellExplosion.m_ExplosionParticles.Play();
-
-        // Play the tank explosion sound effect.
-        ShellExplosion.m_ExplosionAudio.Play();
-
-        // Turn the tank off.
-        ShellExplosion.gameObject.SetActive(false);
-
-        ShellExplosion.Destroy(ShellExplosion.gameObject);
-
-    }
-    public void OnEnableFunction()
-    {
-        lerpSpeed = 3f * Time.deltaTime;
-        TankModel.CurrentLaunchForce = TankModel.MinLaunchForce;
-        //TankView.aimSlider.value = TankModel.MinLaunchForce;
-        TankModel.currentHealth = TankModel.Health;
-        TankView.tankDead = false;
-        //SetHealthUI();
-    }
-
     
-    public void SetHealthUI()
-    {
-        Debug.Log("color");
-        //TankView.sliderHealth.value = TankModel.currentHealth;
-        //TankView.fillImage.color = Color.Lerp(TankView.zeroHealthColor, TankView.fullHealthColor, TankModel.currentHealth / TankModel.Health);
-
-        
-        TankView.healthBar.fillAmount = Mathf.Lerp(TankView.healthBar.fillAmount, TankModel.currentHealth / TankModel.Health, lerpSpeed);
-        Color HealthColor = Color.Lerp(Color.red, Color.green, (TankModel.currentHealth / TankModel.Health));
-        TankView.healthBar.color = HealthColor;
-
-    }
 
     public Transform GetTransform()
     {
         return TankView.transform;
     }
+    private void SetHealthUI()
+    {
+        TankView.sliderHealth.value = TankModel.currentHealth;
+        TankView.fillImage.color = Color.Lerp(TankView.zeroHealthColor, TankView.fullHealthColor, TankModel.currentHealth / TankModel.TankHealth);
+    }
     
+
+   
+    private void TankDestroy()
+    {
+        TankView.tankDead = true;
+        TankView.gameObject.SetActive(false);
+        TankView.Destroy(TankView.gameObject);
+    }
+
 }

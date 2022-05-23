@@ -10,18 +10,15 @@ public class TankView : MonoBehaviour,IDamagable
     public GameObject Turret;
     public Transform BulletSpawner;
     private TankController tankController;
+    private float lerpSpeed;   
 
-    //public Slider sliderHealth;
+    public Slider sliderHealth;
     
-    public Image healthBar;
-    //public Color fullHealthColor = Color.green;
-    //public Color zeroHealthColor = Color.red;
-
-    //public Button FireButton;
-
+    public Image fillImage;
+    public Color fullHealthColor = Color.green;
+    public Color zeroHealthColor = Color.red;
 
     public Rigidbody shellPrefab;
-    //public Transform fireTransform;
     public Slider aimSlider;
 
     public bool fired;
@@ -31,29 +28,23 @@ public class TankView : MonoBehaviour,IDamagable
     {
         tankController.HandleLeftJoyStickInput(GetComponent<Rigidbody>());
         tankController.HandleRightJoyStickInput(Turret.transform);
-        tankController.SetHealthUI();
+       
     }
 
-    private void Update()
-    {
-        
-    }
+    
     // Sets a reference to the corresponding TankController Script.
     public void SetTankControllerReference(TankController controller)
     {
         tankController = controller;
     }
-    
 
     void IDamagable.TakeDamage(float damage)
     {
         Debug.Log("Player Taking Damage" + damage);
-        //tankController.TakeDamage(damage);
+        tankController.ApplyDamage(damage);
     }
-    private void OnEnable()
-    {
-        tankController.OnEnableFunction();
-        //tankController.SetHealthUI();
-    }
+    
+   
+    
 
 }

@@ -10,7 +10,7 @@ public class TankModel : TankScriptableObject
     public TankModel(TankScriptableObject tankScriptableObject)
     {
         Speed = tankScriptableObject.speed;
-        Health = tankScriptableObject.health;
+        TankHealth = tankScriptableObject.health;
         RotationSpeed = tankScriptableObject.rotationSpeed;
         TankName = tankScriptableObject.TankName;
         TurretRotationSpeed = tankScriptableObject.TurretRotationSpeed;
@@ -22,7 +22,7 @@ public class TankModel : TankScriptableObject
     }
 
     public float Speed { get; }
-    public int Health { get; }
+    public int TankHealth { get; }
     public float RotationSpeed { get; }
     public new string TankName { get; }
     public new float TurretRotationSpeed { get; }

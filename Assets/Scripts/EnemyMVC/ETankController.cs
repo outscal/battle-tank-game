@@ -41,7 +41,7 @@ public class ETankController
     public void ApplyDamage(float damage)
     {
         EnemyTankModel.currentHealth -= damage;
-        if (!EnemyTankView.enemyTankDead && EnemyTankModel.currentHealth <= 0)
+        if (!EnemyTankView.enemyTankDead && EnemyTankModel.currentHealth <= 0f)
         {
             EnemyTankModel.currentHealth = 0;
             SetHealthUI();
@@ -59,10 +59,10 @@ public class ETankController
     }
     public void Fire()
     {
-        Rigidbody shellInstance = Object.Instantiate(EnemyTankView.shellPrefab, EnemyTankView.fireTransform.position, EnemyTankView.fireTransform.rotation) as Rigidbody;
-        //EnemyTankModel.CurrentLaunchForce = EnemyTankModel.MaxLaunchForce;
-        shellInstance.velocity = 10f * EnemyTankView.fireTransform.forward;
-        //EnemyTankModel.CurrentLaunchForce = EnemyTankModel.MinLaunchForce;
+        //Rigidbody shellInstance = Object.Instantiate(EnemyTankView.shellPrefab, EnemyTankView.fireTransform.position, EnemyTankView.fireTransform.rotation) as Rigidbody;
+        //shellInstance.velocity = 10f * EnemyTankView.fireTransform.forward;
+        //Debug.Log("enemy is shooting");
+        BulletService.Instance.FireBullet(EnemyTankView.fireTransform.transform, EnemyTankModel.BulletType) ;
 
         //shellInstance.AddForce(EnemyTankView.fireTransform.forward * 5f, ForceMode.Impulse);
         //shellInstance.AddForce(EnemyTankView.fireTransform.up * 7, ForceMode.Impulse);

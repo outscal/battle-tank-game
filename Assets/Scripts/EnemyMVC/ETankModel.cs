@@ -6,7 +6,6 @@ public class ETankModel
 {   public TankType TankType { get; }
     //private int playerID { get;}
 
-    public Color TankColor { get; }
     internal float currentHealth;
     public float TankSpeed { get; } // public get; private set
     public float TankTurnSpeed { get; }
@@ -16,6 +15,8 @@ public class ETankModel
     public float MaxChargeTime { get; }
     public float CurrentLaunchForce { get; set; }
     public float ChargeSpeed { get; set; }
+
+    public BulletType BulletType { get; }
 
     public Vector3 TankSize;
 
@@ -31,6 +32,7 @@ public class ETankModel
         MinLaunchForce = tankScriptableObject.minLaunchForce;
         MaxLaunchForce = tankScriptableObject.maxLaunchForce;
         MaxChargeTime = tankScriptableObject.maxChargeTime;
+        BulletType = tankScriptableObject.bulletType;
 
         CurrentLaunchForce = tankScriptableObject.currentLaunchForce;
         ChargeSpeed = tankScriptableObject.chargeSpeed;

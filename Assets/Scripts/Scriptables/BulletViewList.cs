@@ -9,4 +9,9 @@ using UnityEngine;
 public class BulletViewList : ScriptableObject
 {
     public List<BulletView> bulletViewList;
+
+    public BulletViewList(List<BulletView> bulletViewList)
+    {
+        this.bulletViewList = bulletViewList;
+    }
 }

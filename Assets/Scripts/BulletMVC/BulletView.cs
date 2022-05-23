@@ -9,15 +9,17 @@ public class BulletView : MonoBehaviour
 {
     BulletController bulletController;
 
-    public void Initialize(BulletController bulletController)
+    public void Initialize(BulletController _bulletController)
     {
-        this.bulletController = bulletController;
+        bulletController = _bulletController;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        bulletController.InflictDamage(collision.gameObject);        
+
+        bulletController.InflictDamage(collision.gameObject);          
         Destroy(gameObject);
         Debug.Log("destroy bullet");
+      
     }
 }
