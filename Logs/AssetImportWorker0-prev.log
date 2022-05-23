@@ -15,11 +15,11 @@ E:/Git Repos/battle-tank-game
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-64632
+63157
 Successfully changed project path to: E:/Git Repos/battle-tank-game
 E:/Git Repos/battle-tank-game
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 140.62 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 50.46 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.18f1 (a7d1c678663c)
 [Subsystems] Discovering subsystems at path C:/Program Files/2020.3.18f1/Editor/Data/Resources/UnitySubsystems
@@ -35,7 +35,7 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/2020.3.18f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/2020.3.18f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/2020.3.18f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56212
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56500
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/2020.3.18f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
@@ -43,93 +43,93 @@ Register platform support module: C:/Program Files/2020.3.18f1/Editor/Data/Playb
 Register platform support module: C:/Program Files/2020.3.18f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
 Register platform support module: C:/Program Files/2020.3.18f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport/UnityEditor.LinuxStandalone.Extensions.dll
 Register platform support module: C:/Program Files/2020.3.18f1/Editor/Data/PlaybackEngines/LuminSupport/UnityEditor.Lumin.Extensions.dll
-Registered in 0.024836 seconds.
+Registered in 0.009187 seconds.
 Native extension for Lumin target not found
 Native extension for LinuxStandalone target not found
 Native extension for WindowsStandalone target not found
 Native extension for OSXStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 39.70 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 67.00 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in 15.790 seconds
+- Completed reload, in  5.674 seconds
 Domain Reload Profiling:
-	ReloadAssembly (15807ms)
-		BeginReloadAssembly (97ms)
+	ReloadAssembly (5675ms)
+		BeginReloadAssembly (69ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (7ms)
-		EndReloadAssembly (535ms)
-			LoadAssemblies (87ms)
-			RebuildTransferFunctionScriptingTraits (2ms)
-			SetupTypeCache (160ms)
+			CreateAndSetChildDomain (1ms)
+		EndReloadAssembly (508ms)
+			LoadAssemblies (69ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (166ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (30ms)
-			SetupLoadedEditorAssemblies (211ms)
+			RebuildScriptCaches (33ms)
+			SetupLoadedEditorAssemblies (233ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (7ms)
+				InitializePlatformSupportModulesInManaged (8ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (40ms)
-				BeforeProcessingInitializeOnLoad (12ms)
-				ProcessInitializeOnLoadAttributes (98ms)
-				ProcessInitializeOnLoadMethodAttributes (54ms)
+				RefreshPlugins (67ms)
+				BeforeProcessingInitializeOnLoad (14ms)
+				ProcessInitializeOnLoadAttributes (77ms)
+				ProcessInitializeOnLoadMethodAttributes (66ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.106530 seconds.
+Registered in 0.136644 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for Lumin target not found
 Native extension for LinuxStandalone target not found
 Native extension for WindowsStandalone target not found
 Native extension for OSXStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.62 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 0.76 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.894 seconds
+- Completed reload, in  1.884 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1898ms)
-		BeginReloadAssembly (156ms)
+	ReloadAssembly (1885ms)
+		BeginReloadAssembly (151ms)
 			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (4ms)
+			DisableScriptedObjects (5ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (17ms)
-		EndReloadAssembly (1681ms)
-			LoadAssemblies (757ms)
+			CreateAndSetChildDomain (18ms)
+		EndReloadAssembly (1668ms)
+			LoadAssemblies (858ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (431ms)
-			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (45ms)
-			SetupLoadedEditorAssemblies (363ms)
+			SetupTypeCache (288ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (49ms)
+			SetupLoadedEditorAssemblies (383ms)
 				LogAssemblyErrors (0ms)
 				InitializePlatformSupportModulesInManaged (8ms)
 				SetLoadedEditorAssemblies (0ms)
 				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (89ms)
-				ProcessInitializeOnLoadAttributes (217ms)
-				ProcessInitializeOnLoadMethodAttributes (41ms)
+				BeforeProcessingInitializeOnLoad (95ms)
+				ProcessInitializeOnLoadAttributes (227ms)
+				ProcessInitializeOnLoadMethodAttributes (42ms)
 				AfterProcessingInitializeOnLoad (8ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (6ms)
+			AwakeInstancesAfterBackupRestoration (8ms)
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.36 seconds
-Refreshing native plugins compatible for Editor in 0.91 ms, found 2 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.08 seconds
+Refreshing native plugins compatible for Editor in 0.85 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2136 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 91.8 MB.
+Unloading 2137 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 91.7 MB.
 System memory in use after: 91.8 MB.
 
-Unloading 56 unused Assets to reduce memory usage. Loaded Objects now: 2545.
-Total: 20.851700 ms (FindLiveObjects: 0.210200 ms CreateObjectMapping: 0.080400 ms MarkObjects: 19.259500 ms  DeleteObjects: 1.300300 ms)
+Unloading 56 unused Assets to reduce memory usage. Loaded Objects now: 2546.
+Total: 7.943800 ms (FindLiveObjects: 0.300600 ms CreateObjectMapping: 0.125100 ms MarkObjects: 7.374100 ms  DeleteObjects: 0.141700 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
@@ -144,70 +144,57 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  path: Assets/Scriptable Objects
-  artifactKey: Guid(ea0c83c589ed9ea40814956d70433996) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scriptable Objects using Guid(ea0c83c589ed9ea40814956d70433996) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '14addb4f8c16a64800c9781ded72dfcc') in 0.031399 seconds 
-  Import took 0.047583 seconds .
+  path: Assets/Scriptable Objects/Blue Tank.asset
+  artifactKey: Guid(c9b5bb693ef7edb4ab5786a9613252b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scriptable Objects/Blue Tank.asset using Guid(c9b5bb693ef7edb4ab5786a9613252b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'db6722b2e12ee7883d178936be3c5cb1') in 0.100228 seconds 
+  Import took 0.228722 seconds .
 
 ========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.122899 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for Lumin target not found
-Native extension for LinuxStandalone target not found
-Native extension for WindowsStandalone target not found
-Native extension for OSXStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.81 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  2.091 seconds
-Domain Reload Profiling:
-	ReloadAssembly (2091ms)
-		BeginReloadAssembly (314ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (6ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (34ms)
-		EndReloadAssembly (1711ms)
-			LoadAssemblies (1062ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (330ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (45ms)
-			SetupLoadedEditorAssemblies (339ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (9ms)
-				SetLoadedEditorAssemblies (1ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (86ms)
-				ProcessInitializeOnLoadAttributes (199ms)
-				ProcessInitializeOnLoadMethodAttributes (35ms)
-				AfterProcessingInitializeOnLoad (8ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (6ms)
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.73 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 88.3 MB.
-System memory in use after: 88.4 MB.
+Received Import Request.
+  Time since last request: 243.186363 seconds.
+  path: Assets/Scriptable Objects/Green Tank.asset
+  artifactKey: Guid(928584c66f64d23409d414965b512ba7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scriptable Objects/Green Tank.asset using Guid(928584c66f64d23409d414965b512ba7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1d3a9e06fed092cf3cfb85f31355381c') in 0.034797 seconds 
+  Import took 0.110061 seconds .
 
-Unloading 47 unused Assets to reduce memory usage. Loaded Objects now: 2547.
-Total: 5.949800 ms (FindLiveObjects: 0.209600 ms CreateObjectMapping: 0.081300 ms MarkObjects: 5.600900 ms  DeleteObjects: 0.057100 ms)
+========================================================================
+Received Import Request.
+  Time since last request: 0.004536 seconds.
+  path: Assets/Scriptable Objects/Green Tank.asset
+  artifactKey: Guid(928584c66f64d23409d414965b512ba7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scriptable Objects/Green Tank.asset using Guid(928584c66f64d23409d414965b512ba7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1d3a9e06fed092cf3cfb85f31355381c') in 0.002830 seconds 
+  Import took 0.030475 seconds .
 
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 20.608190 seconds.
+  path: Assets/Scriptable Objects/Green Tank.asset
+  artifactKey: Guid(928584c66f64d23409d414965b512ba7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scriptable Objects/Green Tank.asset using Guid(928584c66f64d23409d414965b512ba7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f68563ba23febc321a6b625dc43def64') in 0.002580 seconds 
+  Import took 0.035839 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 19.292464 seconds.
+  path: Assets/Scriptable Objects/Red Tank.asset
+  artifactKey: Guid(c85c4d04485d3994c9f71976bf9ca30e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scriptable Objects/Red Tank.asset using Guid(c85c4d04485d3994c9f71976bf9ca30e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2ad7f79f857ea65be68a338e87548bae') in 0.010069 seconds 
+  Import took 0.052648 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.028891 seconds.
+  path: Assets/Scriptable Objects/Red Tank.asset
+  artifactKey: Guid(c85c4d04485d3994c9f71976bf9ca30e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scriptable Objects/Red Tank.asset using Guid(c85c4d04485d3994c9f71976bf9ca30e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2ad7f79f857ea65be68a338e87548bae') in 0.003011 seconds 
+  Import took 0.007204 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 18.419784 seconds.
+  path: Assets/Scriptable Objects/Red Tank.asset
+  artifactKey: Guid(c85c4d04485d3994c9f71976bf9ca30e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scriptable Objects/Red Tank.asset using Guid(c85c4d04485d3994c9f71976bf9ca30e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bc37dcc3a9dba7a475a425390afaad23') in 0.003474 seconds 
+  Import took 0.027915 seconds .
+
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file

@@ -12,7 +12,7 @@ using UnityEngine;
         public string TankName;
 
         public float speed;
-        public float health;
+        public float rspeed;
     }
     
 

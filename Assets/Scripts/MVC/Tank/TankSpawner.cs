@@ -5,6 +5,7 @@ using UnityEngine;
 public class TankSpawner : MonoBehaviour
 {
    public TankView tankView;
+   public TankScriptableObject[] tankConfig;
    
     // Start is called before the first frame update
     void Start()
@@ -14,8 +15,10 @@ public class TankSpawner : MonoBehaviour
 
     private void CreateTank()
     {
-        TankModel tankModel = new TankModel(15 , 40);
+        TankScriptableObject tankScriptableObject = tankConfig[4];
+        TankModel tankModel = new TankModel(tankScriptableObject);
         TankController tankController = new TankController(tankModel,tankView);
+        
     }
 
     

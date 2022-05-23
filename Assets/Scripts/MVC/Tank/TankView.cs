@@ -25,13 +25,19 @@ public class TankView : MonoBehaviour
         GetInput();
         if(movementInput != 0)
         {
-           tankController.Move(movementInput,tankController.GetTankModel().movementSpeed);
+           
+           tankController.Move(movementInput);
+           
         }
           
         if(rotationInput != 0)
         {
-           tankController.Rotate(rotationInput,tankController.GetTankModel().rotateSpeed);
+           tankController.Rotate(rotationInput);
+           
         } 
+        /// <summary>
+        /// Line 26 to 34 inside a separate function to clean up monobehaviour life cycle;
+        /// </summary>
         
     }
 
