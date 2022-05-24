@@ -19,6 +19,8 @@ public class TankController
     private float maxLaunchForce = 30f;
     private float maxChargeTime = 0.75f;
 
+    private int bulletFired;
+
     public TankController(TankModel _tankModel, TankView _tankview) 
     {   
         tankModel = _tankModel;       
@@ -33,6 +35,23 @@ public class TankController
     public TankModel GetTankModel()
     {
         return tankModel;
+    }
+
+    public void SubscribeToEvent()
+    {
+        EventManager.Instance.OnBulletShoot += UpdateBulletFiredCount;
+    }
+
+    public void UnSubscribeToEvent()
+    {
+        EventManager.Instance.OnBulletShoot -= UpdateBulletFiredCount;
+    }
+
+    private void UpdateBulletFiredCount()
+    {
+        bulletFired += 1;
+        PlayerPrefs.SetInt("BulletFired",bulletFired);
+        Achievement.Instance.CheckForBulletFiredAchievement(bulletFired);
     }
 
     //method for tankmovement forward and backward
@@ -133,5 +152,7 @@ public class TankController
         tankView.CreateShellInstance(currentLaunchForce);
         
         currentLaunchForce = minLaunchForce;
+
+        //EventManager.Instance.InvokeOnBulletShoot();
     }
 }//end class

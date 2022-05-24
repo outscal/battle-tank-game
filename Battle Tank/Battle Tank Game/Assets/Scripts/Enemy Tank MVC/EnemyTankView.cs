@@ -8,6 +8,7 @@ using UnityEngine.AI;
 public class EnemyTankView : MonoBehaviour
 {
     [HideInInspector]public EnemyTankController enemyTankController;
+    public ScoreController _scoreController;
     public GameObject explosionPrefab;     
     internal AudioSource explosionAudio;
     internal ParticleSystem explosionParticles;
@@ -25,6 +26,7 @@ public class EnemyTankView : MonoBehaviour
         explosionParticles = Instantiate(explosionPrefab).GetComponent<ParticleSystem>();
         explosionAudio = explosionParticles.GetComponent<AudioSource>();
         explosionParticles.gameObject.SetActive(false);
+        _scoreController = GameObject.FindObjectOfType<ScoreController>();
     }
 
     void Start()
@@ -57,6 +59,7 @@ public class EnemyTankView : MonoBehaviour
         explosionParticles.Play();
         explosionAudio.Play();
 
+        _scoreController.IncreaseScore(10);
         Destroy(gameObject);
     }
 

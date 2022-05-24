@@ -42,7 +42,7 @@ public class TankView : MonoBehaviour
         Intitalization();
         SetHealthUI(); 
         CameraToFollowTank();
-        ChangeTankColor();
+        ChangeTankColor();        
     }
 
     void Update()
@@ -60,8 +60,14 @@ public class TankView : MonoBehaviour
         aimSlider.maxValue = startingHealth;
         explosionParticles = Instantiate(explosionPrefab).GetComponent<ParticleSystem>();
         explosionAudio = explosionParticles.GetComponent<AudioSource>();
-        explosionParticles.gameObject.SetActive(false);             
+        explosionParticles.gameObject.SetActive(false); 
+        //tankController.SubscribeToEvent();            
     }  
+
+    private void OnDisable()
+    {
+       // tankController.UnSubscribeToEvent();
+    }
 
     public void SetHealthUI()
     {
