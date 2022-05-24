@@ -23,7 +23,7 @@ public class CameraController : MonoBehaviour
     public Transform playerTank;
     public Vector3 offset;
 
-    private void Start()
+    public void Start()
     {
         playerTank = FindObjectOfType<TankView>().transform;
     }

@@ -12,9 +12,11 @@ public class BulletModel
         BulletType = bulletScriptableObject.bulletType;
         Damage = bulletScriptableObject.Damage;
         Speed = bulletScriptableObject.speed;
+        this.maxLifeTIme = bulletScriptableObject.maxLifeTime;
     }
 
     public BulletType BulletType { get; }
     public int Damage { get; }
     public float Speed { get; }
+    public float maxLifeTIme { get; }
 }

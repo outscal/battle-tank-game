@@ -24,6 +24,12 @@ public class TankView : MonoBehaviour,IDamagable
     public bool fired;
     internal bool tankDead;
 
+    private void Start()
+    {
+        tankController.SubscribeEvents();   
+
+    }
+
     private void FixedUpdate()
     {
         tankController.HandleLeftJoyStickInput(GetComponent<Rigidbody>());
@@ -40,11 +46,16 @@ public class TankView : MonoBehaviour,IDamagable
 
     void IDamagable.TakeDamage(float damage)
     {
-        Debug.Log("Player Taking Damage" + damage);
+       // Debug.Log("Player Taking Damage" + damage);
         tankController.ApplyDamage(damage);
     }
-    
-   
-    
+
+    private void OnDisable()
+    {
+        tankController.UnsubscribeEvents();
+    }
+
+
+
 
 }

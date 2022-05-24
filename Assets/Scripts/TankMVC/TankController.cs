@@ -95,7 +95,7 @@ public class TankController
     public void ApplyDamage(float amount)
     {
         TankModel.currentHealth -= amount;
-        Debug.Log("tankhealth"+TankModel.currentHealth);
+       // Debug.Log("tankhealth"+TankModel.currentHealth);
 
         if (!TankView.tankDead && TankModel.currentHealth <= 0f)
         {
@@ -114,7 +114,7 @@ public class TankController
     }
     private void SetHealthUI()
     {
-        TankView.sliderHealth.value = TankModel.currentHealth;
+        TankView.sliderHealth.value = TankModel.currentHealth / TankModel.TankHealth;
         TankView.fillImage.color = Color.Lerp(TankView.zeroHealthColor, TankView.fullHealthColor, TankModel.currentHealth / TankModel.TankHealth);
     }
     
@@ -127,4 +127,22 @@ public class TankController
         TankView.Destroy(TankView.gameObject);
     }
 
+    public void SubscribeEvents()
+    {
+        EventHandler.Instance.OnBulletFired += FiredBullet;
+    }
+
+    public void UnsubscribeEvents()
+    {
+        EventHandler.Instance.OnBulletFired -= FiredBullet;
+;
+    }
+    
+
+    public void FiredBullet()
+    {
+        TankModel.BulletsFired++;
+        Debug.Log("achievemntbF");
+        AchievementSystem.Instance.BulletsFiredCountCheck(TankModel.BulletsFired);
+    }
 }

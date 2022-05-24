@@ -33,4 +33,12 @@ public class TankModel : TankScriptableObject
     public float MaxLaunchForce { get; }
     public float MaxChargeTime { get; }
     public float CurrentLaunchForce { get; set; }
+    //
+    public int EnemiesKilled { get; set; }
+
+    public int BulletsFired { get; set; }
+
+
+
+
 }

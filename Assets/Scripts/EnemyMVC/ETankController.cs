@@ -33,7 +33,7 @@ public class ETankController
     }
     private void SetHealthUI()
     {
-        EnemyTankView.sliderHealth.value = EnemyTankModel.currentHealth;
+        EnemyTankView.sliderHealth.value =  EnemyTankModel.currentHealth / EnemyTankModel.TankHealth;
         EnemyTankView.fillImage.color = Color.Lerp(EnemyTankView.zeroHealthColor, EnemyTankView.fullHealthColor, EnemyTankModel.currentHealth / EnemyTankModel.TankHealth);
     }
 

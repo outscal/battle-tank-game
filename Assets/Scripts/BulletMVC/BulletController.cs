@@ -6,6 +6,7 @@ public class BulletController
 {
     public BulletModel BulletModel { get; }
     public BulletView BulletView { get; }
+    //public ExplosionParticesForBullet ExplosionParticesForBullet;
 
     // This Constructor Spawns a bullet and Fire it just after it is Spawned.
     public BulletController(BulletModel bulletModel, BulletView bulletView, Transform BulletSpawner)
@@ -24,5 +25,5 @@ public class BulletController
             damage.TakeDamage(BulletModel.Damage);
         }
     }
-
+ 
 }

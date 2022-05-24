@@ -11,5 +11,6 @@ public class BulletScriptableObject : ScriptableObject
     public BulletType bulletType;
     public float speed;
     public int Damage;
+    public float maxLifeTime;
 }
 
