@@ -35,23 +35,22 @@ public class TankController
     public TankModel GetTankModel()
     {
         return tankModel;
-    }
+    }  
 
     public void SubscribeToEvent()
     {
-        EventManager.Instance.OnBulletShoot += UpdateBulletFiredCount;
+        EventHandler.Instance.OnBulletFired += UpdateBulletFiredCount;
     }
 
     public void UnSubscribeToEvent()
     {
-        EventManager.Instance.OnBulletShoot -= UpdateBulletFiredCount;
-    }
+        EventHandler.Instance.OnBulletFired -= UpdateBulletFiredCount;
+    }  
 
-    private void UpdateBulletFiredCount()
+    public void UpdateBulletFiredCount()
     {
         bulletFired += 1;
-        PlayerPrefs.SetInt("BulletFired",bulletFired);
-        Achievement.Instance.CheckForBulletFiredAchievement(bulletFired);
+        AchievementSystem.Instance.BulletsFiredCountCheck(bulletFired);
     }
 
     //method for tankmovement forward and backward
@@ -149,10 +148,8 @@ public class TankController
     {
         isFired = true;
 
-        tankView.CreateShellInstance(currentLaunchForce);
-        
+        tankView.CreateShellInstance(currentLaunchForce);        
         currentLaunchForce = minLaunchForce;
-
-        //EventManager.Instance.InvokeOnBulletShoot();
+        EventHandler.Instance.InvokeOnBulletFired();       
     }
 }//end class

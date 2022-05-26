@@ -42,7 +42,8 @@ public class TankView : MonoBehaviour
         Intitalization();
         SetHealthUI(); 
         CameraToFollowTank();
-        ChangeTankColor();        
+        ChangeTankColor();  
+        tankController.SubscribeToEvent();       
     }
 
     void Update()
@@ -61,12 +62,12 @@ public class TankView : MonoBehaviour
         explosionParticles = Instantiate(explosionPrefab).GetComponent<ParticleSystem>();
         explosionAudio = explosionParticles.GetComponent<AudioSource>();
         explosionParticles.gameObject.SetActive(false); 
-        //tankController.SubscribeToEvent();            
+                   
     }  
 
     private void OnDisable()
     {
-       // tankController.UnSubscribeToEvent();
+       tankController.UnSubscribeToEvent();
     }
 
     public void SetHealthUI()
@@ -100,9 +101,7 @@ public class TankView : MonoBehaviour
     public IEnumerator DeParentCameraOnPlayerDeath()
     {
         m_camera.transform.SetParent(null);
-        yield return StartCoroutine(OnDeath()); 
-
-        //m_camera.transform.position = Vector3.SmoothDamp(transform.position, DesiredPosition, ref moveVelocity, DampTime);
+        yield return StartCoroutine(OnDeath());        
     }
 
     private void ChangeTankColor()
@@ -117,7 +116,7 @@ public class TankView : MonoBehaviour
    public Rigidbody GetRigidBody()
    {
        return rb;
-   }   
+   }      
 
    public void CreateShellInstance(float _currentLaunchForce)
    {
@@ -125,7 +124,7 @@ public class TankView : MonoBehaviour
        shellInstance.velocity = _currentLaunchForce * fireTransform.forward;
 
        shootingAudio.clip = fireClip;
-       shootingAudio.Play();
+       shootingAudio.Play();       
    }
    
    private void OnColliderEnter(Collision other)
