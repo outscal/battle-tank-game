@@ -13,5 +13,5 @@ public class TankScriptableObject : ScriptableObject
    public float tankHealth;
    public float tankDamage;
    public Color tankColor;
-
+   public int bulletFired;
 }

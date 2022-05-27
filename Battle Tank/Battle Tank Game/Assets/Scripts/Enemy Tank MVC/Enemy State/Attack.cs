@@ -30,6 +30,7 @@ public class Attack : State
 
     private void AttackPlayer(EnemyStatesMachine _EnemyStates)
     {
+        _EnemyStates.agent.SetDestination(_EnemyStates.transform.position);
         if(!_EnemyStates.playerTransform)
         {
             _EnemyStates.ChangeState(_EnemyStates.PatrolState);

@@ -1,91 +1,49 @@
-using System;
+using System.Collections;
 using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 {
-    public float DampTime = 0.2f;
-    public float ScreenEdgeBuffer = 4f;
-    public float MinSize = 6.5f;
-    /*[HideInInspector]*/ public Transform[] Targets;
+    public Transform playerTank;
+    private Vector3 offset;
+    public Camera m_camera;
+    private float CameraZoomOutSpeed = 0.0001f;
 
-    private Camera m_camera;
-    private float ZoomSpeed;
-    private Vector3 moveVelocity;
-    private Vector3 DesiredPosition;
 
-    private void Awake()
+    public void Start()
     {
-        m_camera = GetComponentInChildren<Camera>();
+        playerTank = GameObject.FindObjectOfType<TankView>().transform;
     }
 
-    private void FixedUpdate()
+    void Update()
     {
-        Move();
-        Zoom();
+        CheckPlayer();
+        transform.position = playerTank.position + offset;
     }
 
-
-    private void Move()
+    private void CheckPlayer()
     {
-        FindAveragePosition();
-
-        transform.position = Vector3.SmoothDamp(transform.position, DesiredPosition, ref moveVelocity, DampTime);
-    }
-
-    private void FindAveragePosition()
-    {
-        Vector3 averagePos = new Vector3();
-        int numTargets = 0;
-
-        for(int i = 0; i < Targets.Length; i++)
+        if (playerTank == null)
         {
-            if(!Targets[i].gameObject.activeSelf)
-            {
-                continue;
-            }
-            averagePos += Targets[i].position;
-            numTargets++;
+            playerTank = transform;
+            return;
+        }
+    }
+
+    private void LateUpdate()
+    {
+        offset = transform.position - playerTank.position;
+    }
+    public IEnumerator ZoomOutCamera()
+    {
+        //Debug.Log("zoom out hoja yaar");
+        float lerp = 0.01f;
+        //camera.transform.SetParent(null);
+        while (m_camera.orthographicSize < 30f)
+        {
+            m_camera.orthographicSize = Mathf.Lerp(m_camera.orthographicSize, 30f, lerp);
+            lerp += CameraZoomOutSpeed;
+            yield return new WaitForSeconds(0.01f);
         }
 
-        if(numTargets > 0)
-            averagePos /= numTargets;
-        averagePos.y = transform.position.y;
-        DesiredPosition = averagePos;
-    }
-
-    private void Zoom()
-    {
-        float requiredSize = FindRequiredSize();
-        m_camera.orthographicSize = Mathf.SmoothDamp(m_camera.orthographicSize, requiredSize, ref ZoomSpeed, DampTime);
-    }
-
-    private float FindRequiredSize()
-    {
-        Vector3 desiredLocalPos = transform.InverseTransformPoint(DesiredPosition);
-
-        float size = 0f;
-
-        for(int i = 0; i < Targets.Length; i++)
-        {
-            if(!Targets[i].gameObject.activeSelf)
-                continue;
-            Vector3 targetLocalPos = transform.InverseTransformPoint(Targets[i].position);
-            Vector3 desiredPosToTarget = targetLocalPos - desiredLocalPos;
-
-            size = Mathf.Max(size, Mathf.Abs(desiredPosToTarget.y));
-
-            size = Mathf.Max(size, Mathf.Abs(desiredPosToTarget.x) / m_camera.aspect);
-        }
-
-        size += ScreenEdgeBuffer;
-        size = Mathf.Max(size, MinSize);
-        return size;
-    }
-
-    public void SetStartPositionAndSize()
-    {
-        FindAveragePosition();
-        transform.position = DesiredPosition;
-        m_camera.orthographicSize = FindRequiredSize();
     }
 }

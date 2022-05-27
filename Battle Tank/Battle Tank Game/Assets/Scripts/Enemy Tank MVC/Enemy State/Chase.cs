@@ -34,9 +34,7 @@ public class Chase : State
     }
 
     private void ChasePlayer(EnemyStatesMachine _EnemyStates)
-    {
-         
-         
+    {         
         _EnemyStates.agent.SetDestination(_EnemyStates.playerTransform.position);
     }
 }

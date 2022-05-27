@@ -13,6 +13,7 @@ public class TankModel
     public float tankHealth;
     public float tankDamage;
     public Color tankColor;
+    public int bulletFired;
 
    public TankModel(TankScriptableObject _tankScriptableObject)
    {
@@ -22,5 +23,6 @@ public class TankModel
        tankHealth = _tankScriptableObject.tankHealth;       
        tankDamage = _tankScriptableObject.tankDamage;
        tankColor = _tankScriptableObject.tankColor;
+       bulletFired = _tankScriptableObject.bulletFired;
    }  
 }

@@ -60,7 +60,7 @@ public class EnemyTankView : MonoBehaviour
         explosionAudio.Play();
 
         _scoreController.IncreaseScore(10);
-        Destroy(gameObject);
+        Destroy(this.gameObject);
     }
 
     public IEnumerator TimeBetweenAttack()

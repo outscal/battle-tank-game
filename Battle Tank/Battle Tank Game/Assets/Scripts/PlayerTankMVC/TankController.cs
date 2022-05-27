@@ -96,7 +96,7 @@ public class TankController
 
         if(tankModel.tankHealth <= 0f && !isDead)
         {
-            tankView.BeforePlayerDeath();
+           tankView.StartCoroutine(tankView.OnDeath());
         }
     }
 
