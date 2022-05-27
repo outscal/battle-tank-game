@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 {
-    public Transform playerTank;
+    [SerializeField] private TankView player;
     private Vector3 offset;
     public Camera m_camera;
     private float CameraZoomOutSpeed = 0.0001f;
@@ -11,33 +11,32 @@ public class CameraControl : MonoBehaviour
 
     public void Start()
     {
-        playerTank = GameObject.FindObjectOfType<TankView>().transform;
+        player = GameObject.FindObjectOfType<TankView>();
     }
 
     void Update()
     {
         CheckPlayer();
-        transform.position = playerTank.position + offset;
+        transform.position = player.transform.position + offset;
     }
 
     private void CheckPlayer()
     {
-        if (playerTank == null)
+        if (player == null)
         {
-            playerTank = transform;
+            player.transform.position = transform.position;
             return;
         }
     }
 
     private void LateUpdate()
     {
-        offset = transform.position - playerTank.position;
+        offset = transform.position - player.transform.position;
     }
     public IEnumerator ZoomOutCamera()
     {
-        //Debug.Log("zoom out hoja yaar");
         float lerp = 0.01f;
-        //camera.transform.SetParent(null);
+        m_camera.transform.SetParent(null);
         while (m_camera.orthographicSize < 30f)
         {
             m_camera.orthographicSize = Mathf.Lerp(m_camera.orthographicSize, 30f, lerp);

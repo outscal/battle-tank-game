@@ -33,15 +33,8 @@ public class EnemyTankController
 
         if(enemyTankModel.tankHealth <= 0f && !isDead)
         {
-            OnDeath();
+            isDead = true;
+            enemyTankView.Death();
         }
     }   
-
-    public void OnDeath()
-    {
-        isDead = true;
-
-        enemyTankView.Death();       
-    } 
-    
 }

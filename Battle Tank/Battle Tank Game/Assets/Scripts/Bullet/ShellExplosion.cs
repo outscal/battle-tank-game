@@ -32,7 +32,7 @@ public class ShellExplosion : MonoBehaviour
             if(!targetRigidbody)
                 continue;
             
-            targetRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
+            //targetRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
 
             if( colliders[i].CompareTag("Player") )
             {   

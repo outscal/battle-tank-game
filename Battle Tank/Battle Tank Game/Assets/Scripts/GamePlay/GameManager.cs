@@ -22,13 +22,12 @@ public class GameManager : MonoGenericSingleton<GameManager>
 
 
     private IEnumerator DestroyAllEnemy()
-    {
-        yield return new WaitForSeconds(waitTime);
-        GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("EnemyTank");
+    {       
+        EnemyTankView[] enemyObjects = GameObject.FindObjectsOfType<EnemyTankView>();
 
         for(int i = 0; i < enemyObjects.Length; i++)
         {
-            enemyObjects[i].GetComponent<EnemyTankView>().enemyTankController.OnDeath();
+            enemyObjects[i].Death();
             yield return new WaitForSeconds(0.05f);            
         }        
     }

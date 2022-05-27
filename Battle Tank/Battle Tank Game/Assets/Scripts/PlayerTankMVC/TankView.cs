@@ -80,30 +80,12 @@ public class TankView : MonoBehaviour
     {
         return tankController;
     }  
-
-    // private void CameraToFollowTank()
-    // {        
-    //     m_camera.transform.SetParent(transform);
-    //     m_camera.transform.position = new Vector3(0f, 4f, -5f);
-    // }
-
-    // public void BeforePlayerDeath()
-    // {   
-    //     //Gameover logic 
-    //     StartCoroutine(DeParentCameraOnPlayerDeath());
-    // }
     
     public IEnumerator OnDeath()
     {
         yield return new WaitForSecondsRealtime(1f);
         tankController.OnDeath();
     }
-
-    // public IEnumerator DeParentCameraOnPlayerDeath()
-    // {
-    //     m_camera.transform.SetParent(null);
-    //     yield return StartCoroutine(OnDeath());        
-    // }
 
     private void ChangeTankColor()
     {

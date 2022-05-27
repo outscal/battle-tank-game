@@ -59,7 +59,7 @@ public class EnemyTankView : MonoBehaviour
         explosionParticles.Play();
         explosionAudio.Play();
 
-        _scoreController.IncreaseScore(10);
+        //_scoreController.IncreaseScore(10);
         Destroy(this.gameObject);
     }
 
