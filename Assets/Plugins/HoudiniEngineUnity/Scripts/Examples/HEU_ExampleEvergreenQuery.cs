@@ -51,7 +51,7 @@ using HAPI_PartId = System.Int32;
 ///		-query attributes
 /// </summary>
 public class HEU_ExampleEvergreenQuery
-{
+{	
 #if UNITY_EDITOR
     [MenuItem(HEU_Defines.HEU_PRODUCT_NAME + "/Examples/Query Evergreen Asset", false, 100)]
     public static void QueryExampleEverygreen()
