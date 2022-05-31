@@ -1,18 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyController
 {
     
-    void Start()
+    private EnemyModel enemyModel;
+    private EnemyView enemyView;
+
+    private Rigidbody rb;
+
+    public EnemyController (EnemyModel _enemymodel, EnemyView _enemyview)
     {
-        
+        enemyModel = _enemymodel;
+        enemyView = GameObject.Instantiate<EnemyView>(_enemyview);
+        rb = enemyView.GetRigidbody();
+        enemyModel.SetEnemyController(this);
+        enemyView.SetEnemyController(this);
     }
 
-    
-    void Update()
+    public EnemyModel GetEnemyModel()
     {
-        
+        return enemyModel;
     }
+
+    public EnemyView GetEnemyView()
+   {
+       return enemyView;
+   }
 }

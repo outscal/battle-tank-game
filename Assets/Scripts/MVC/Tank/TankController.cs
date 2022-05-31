@@ -38,4 +38,9 @@ public class TankController
         return tankModel;
     }
 
+    public TankView GetTankView()
+    {
+        return tankView;
+    }
+
 }

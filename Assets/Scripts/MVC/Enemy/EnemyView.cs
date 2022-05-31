@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class EnemyView : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private EnemyController enemyController;
+    public Rigidbody rb;
 
-    // Update is called once per frame
-    void Update()
+    public void SetEnemyController(EnemyController _enemycontroller)
     {
-        
-    }
+      enemyController = _enemycontroller;
+    }  
+
+   public Rigidbody GetRigidbody()
+   {
+     return rb;
+   }
 }
+
+
