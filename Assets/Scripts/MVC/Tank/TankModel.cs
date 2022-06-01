@@ -1,3 +1,4 @@
+using System.Drawing;
 using UnityEngine;
 
 public class TankModel 
@@ -8,6 +9,7 @@ public class TankModel
     public float rotateSpeed;
     public TankTypeEnum tankType;
     public string tankName;
+    public Color tankcolor;
 
 
     public TankModel(TankScriptableObject tankScriptableObject)
@@ -16,6 +18,7 @@ public class TankModel
        movementSpeed = tankScriptableObject.speed;
        rotateSpeed = tankScriptableObject.rspeed;
        tankName = tankScriptableObject.TankName;
+       tankcolor = tankScriptableObject.color;
     }
 
     public void SetTankController(TankController _tankController)

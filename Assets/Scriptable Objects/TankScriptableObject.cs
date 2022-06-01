@@ -1,3 +1,4 @@
+using System.Drawing;
 using System;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ using UnityEngine;
         public float health;
         public float speed;
         public float rspeed;
+        public Color color;
     }
 
     
