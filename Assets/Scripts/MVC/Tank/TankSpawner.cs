@@ -21,7 +21,6 @@ public class TankSpawner : MonoBehaviour
     private void CreateTank()
     {
         TankScriptableObject tankScriptableObject = tankList.tanks[tankTypeIndex];
-        // TankScriptableObject tankScriptableObject = tankList.tanks[index];
         TankModel tankModel = new TankModel(tankScriptableObject);
         TankController tankController = new TankController(tankModel,tankView);
         

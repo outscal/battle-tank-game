@@ -7,7 +7,15 @@ public class EnemyModel
     private float speed;
     private float rotation;
     public TankTypeEnum tankType;
-    public Color color;
+    
+    public EnemyModel(TankScriptableObject tankScriptableObject)
+    {
+       tankType = tankScriptableObject.TankType;
+       speed = tankScriptableObject.speed;
+       rotation = tankScriptableObject.rspeed;
+       
+       
+    }
 
     public void SetEnemyController(EnemyController _enemycontroller)
     {
