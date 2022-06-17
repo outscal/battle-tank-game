@@ -24,24 +24,24 @@ public class MonoGenericSingleton<T> : MonoBehaviour where T : MonoGenericSingle
     }
 }
 
-public class PlayerTankController : MonoGenericSingleton<PlayerTankController>
-{
-    protected override void Awake()     //overriding parent Awake
-    {
-        base.Awake();
-        //custom Awake of child
-    }
+// public class PlayerTankController : MonoGenericSingleton<PlayerTankController>
+// {
+//     protected override void Awake()     //overriding parent Awake
+//     {
+//         base.Awake();
+//         //custom Awake of child
+//     }
 
-    public void MovePlayer()
-    {
+//     public void MovePlayer()
+//     {
 
-    }
-}
+//     }
+// }
 
-public class EnemyTankController : MonoGenericSingleton<EnemyTankController>
-{
-    private void Start()
-    {
-        PlayerTankController.Instance.MovePlayer();
-    }
-}
+// public class EnemyTankController : MonoGenericSingleton<EnemyTankController>
+// {
+//     private void Start()
+//     {
+//         PlayerTankController.Instance.MovePlayer();
+//     }
+// }
