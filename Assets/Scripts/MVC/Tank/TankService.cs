@@ -6,6 +6,7 @@ public class TankService : MonoGenericSingleton<TankService>
 {
     public TankView _tankView;
     public Joystick _joystick;
+    public TankSO[] _tankScriptableObjects;
 
     private void Start()
     {
@@ -15,7 +16,8 @@ public class TankService : MonoGenericSingleton<TankService>
     private void CreateNewTank()
     {
         //creating a tank model
-        TankModel tankModel = new TankModel(10, 220, 100);
+        TankSO tankScriptableObject = _tankScriptableObjects[Random.Range(0, _tankScriptableObjects.Length)];
+        TankModel tankModel = new TankModel(tankScriptableObject);
 
         //spawning the tank using the created tank model
         TankController tankController = new TankController(tankModel, _tankView, _joystick);

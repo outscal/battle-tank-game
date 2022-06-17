@@ -13,15 +13,17 @@ public class TankController
 
     public TankController(TankModel tankModel, TankView tankView, Joystick joystick)
     {
+        _joystick = joystick;
         _tankModel = tankModel;
+
         _movementSpeed = tankModel.MovementSpeed;
         _rotationSpeed = tankModel.RotationSpeed;
-        _joystick = joystick;
 
         _tankView = GameObject.Instantiate<TankView>(tankView);
 
         _tankModel.SetController(this);
         _tankView.SetController(this);
+        SetTankColor(tankView, tankModel);
 
         Debug.Log("TankView created");
     }
@@ -50,5 +52,14 @@ public class TankController
     public Joystick GetJoystick()
     {
         return _joystick;
+    }
+
+    public void SetTankColor(TankView tankview, TankModel tankModel)
+    {
+        //Get the Renderer component from the new cube
+        var renderer = tankview.GetComponentInChildren<MeshRenderer>();
+
+        //Call SetColor using the shader property name "_Color" and setting the color to red
+        renderer.sharedMaterial.SetColor("_Color", tankModel.TankColor);
     }
 }
