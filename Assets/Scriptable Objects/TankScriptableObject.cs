@@ -10,7 +10,8 @@ using UnityEngine;
     {
         public TankTypeEnum TankType;
         public string TankName;
-        public float health;
+        public float startingHealth;
+        public float damage;
         public float speed;
         public float rspeed;
         public Color color;

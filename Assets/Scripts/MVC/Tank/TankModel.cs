@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TankModel 
 {
@@ -8,6 +9,12 @@ public class TankModel
     public float rotateSpeed;
     public TankTypeEnum tankType;
     public string tankName;
+    public float startHealth;
+    public float maxHealth;
+    public Slider m_Slider;
+    public Color m_FullHealthColor = Color.Green;
+    public Color m_ZeroHealthColor = Color.Red;
+    public GameObject m_ExplosionPrefab;
 
 
 
@@ -17,6 +24,8 @@ public class TankModel
        movementSpeed = tankScriptableObject.speed;
        rotateSpeed = tankScriptableObject.rspeed;
        tankName = tankScriptableObject.TankName;
+       health = tankScriptableObject.startHealth;
+       maxhealth = tankScriptableObject.maxHealth;
        
     }
 

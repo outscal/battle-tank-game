@@ -1,21 +1,25 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TankView : MonoBehaviour
 {
 
     private TankController tankController;
     
-     private float movementInput;
+    private float movementInput;
     private float rotationInput;
     public Rigidbody rb;
+    
+    
     // Start is called before the first frame update
     void Start()
     {
         GameObject cam = GameObject.Find("Main Camera");
         cam.transform.SetParent(transform);
-        cam.transform.position = new Vector3(0f,3f,-4f);
+        cam.transform.position = new Vector3(0f,3f,-5f);
         
     }
 
