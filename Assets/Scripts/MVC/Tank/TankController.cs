@@ -14,6 +14,7 @@ public class TankController
          rb = tankView.GetRigidbody();
         tankModel.SetTankController(this);
         tankView.SetTankController(this);
+    
        
        
 
@@ -26,6 +27,7 @@ public class TankController
      public void Move(float movementInput)
      {
           rb.velocity = tankView.transform.forward * movementInput * tankModel.movementSpeed;
+          
      }
         
     public void Rotate(float rotationInput)
