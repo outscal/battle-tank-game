@@ -10,12 +10,9 @@ public class TankModel
     public float rotateSpeed;
     public TankTypeEnum tankType;
     public string tankName;
+    internal float currentHealth;
     public float health;
-    public float maxHealth;
-    public Slider m_Slider;
-    public Color m_FullHealthColor = Color.green;
-    public Color m_ZeroHealthColor = Color.red;
-    public GameObject m_ExplosionPrefab;
+    
 
 
 
@@ -25,9 +22,8 @@ public class TankModel
        movementSpeed = tankScriptableObject.speed;
        rotateSpeed = tankScriptableObject.rspeed;
        tankName = tankScriptableObject.TankName;
-       health = tankScriptableObject.health;
-       maxHealth = tankScriptableObject.health;
-       
+       health = tankScriptableObject.Startinghealth;
+             
     }
 
     public void SetTankController(TankController _tankController)

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TankController 
 {
@@ -15,12 +16,12 @@ public class TankController
         tankModel.SetTankController(this);
         tankView.SetTankController(this);
     
-       
-       
-
-       
-       
     }
+
+    
+           
+
+   
     
      
 
@@ -37,6 +38,7 @@ public class TankController
          rb.MoveRotation(rb.rotation * deltaRotation);
     }
 
+    
     public TankModel GetTankModel()
     {
         return tankModel;
