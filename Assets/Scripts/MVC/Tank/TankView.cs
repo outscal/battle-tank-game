@@ -8,25 +8,31 @@ public class TankView : MonoBehaviour
     
     
     private float movementInput;
+   
+
+    
+    public Rigidbody rb;
+
+   
+
+     // TANK HEALTH
+     float lerpSpeed;
+
     private float rotationInput;
 
     private float currentHealth;
-
-    public float Startinghealth = 100f;
-    public Rigidbody rb;
-
-    //  private bool tankDead;
-
-     float lerpSpeed;
-
-     
      public Image healthFill;
+     public float Startinghealth = 100f;
     public Color m_FullHealthColor = Color.green;
     public Color m_ZeroHealthColor = Color.red;
+    
+     
+    // Tank Death
+    //  private bool tankDead;
     // public GameObject m_ExplosionPrefab;
     
     
-    // Start is called before the first frame update
+   
     void Start()
     {
         GameObject cam = GameObject.Find("Main Camera");
@@ -45,9 +51,10 @@ public class TankView : MonoBehaviour
      
     }
 
-    // Update is called once per frame
+   
     void Update()
     {
+        // Tank Movement
         GetInput();
         if(movementInput != 0)
         {
@@ -61,12 +68,12 @@ public class TankView : MonoBehaviour
            tankController.Rotate(rotationInput);
            
         } 
-        /// <summary>
-        /// Line 26 to 34 inside a separate function to clean up monobehaviour life cycle;
-        /// </summary>
+       
         
     }
 
+
+   // User Input
     private void GetInput()
     {
         movementInput = Input.GetAxis("Vertical");
@@ -74,7 +81,7 @@ public class TankView : MonoBehaviour
     }
 
     
-
+   // Health 
     void SetHealthUI()
     {
         

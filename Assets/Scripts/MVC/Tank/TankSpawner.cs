@@ -5,16 +5,13 @@ using UnityEngine;
 public class TankSpawner : MonoBehaviour
 {
    public TankView tankView;
-   //public TankScriptableObject[] tankConfig;
    public TankScriptableObjectList tankList;
    public int tankTypeIndex;
    
-    // Start is called before the first frame update
+    
     void Start()
     {
-        // for(int i = 0;i<3;i++){
-        //    CreateTank(i); 
-        // } 
+        
        CreateTank();
     }
 
