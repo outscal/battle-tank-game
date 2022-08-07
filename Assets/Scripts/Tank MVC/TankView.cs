@@ -9,7 +9,10 @@ using UnityEngine;
 public class TankView : MonoBehaviour
 {
     private TankController tankController;
+    private Joystick joystick;
     public Rigidbody rigidbody;
+    public float movement;
+    public float rotation;
 
     //// Sets a reference to the corresponding TankController Script.
     // TankController <- TankView.
@@ -18,9 +21,21 @@ public class TankView : MonoBehaviour
         tankController = _tankController;
     }
 
+    private void Start()
+    {
+        joystick = tankController.GetJoystickReference();
+    }
+
     private void FixedUpdate()
     {
-        tankController.HandleJoyStickInput();
+        movement = joystick.Vertical;
+        rotation = joystick.Horizontal;
+        tankController.Move(rigidbody, movement, rotation, gameObject.transform);
+
+        if(movement != 0 || rotation != 0)
+        {
+            tankController.Rotate(rigidbody, gameObject.transform);
+        }
     }
 
     public Rigidbody GetRigidbody()

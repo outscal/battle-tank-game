@@ -10,9 +10,10 @@ using UnityEngine.UI;
 public class TankService : GenericSingleton<TankService>
 {
     //Refernces.
-    public Joystick joystick;
+    [SerializeField] private Joystick joystick;
+    [SerializeField] private TankView tankPrefab;
 
-    public TankController tankController;
+    private TankController tankController;
 
     private void Start()
     {
@@ -22,9 +23,7 @@ public class TankService : GenericSingleton<TankService>
     // This Function Creates a new Player Tank MVC & also set all the required references and returns the Tank Controller for the same.
     private void CreateNewPlayerTank()
     {
-        TankModel tankModel = new TankModel();
-        TankView tankView = new TankView();
-        tankController = new TankController(tankModel, tankView);
-        tankController.SetJoystickReferences(joystick);
+        TankModel tankModel = new TankModel(10, 220);
+        tankController = new TankController(tankModel, tankPrefab, joystick);
     }
 }

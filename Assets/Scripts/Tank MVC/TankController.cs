@@ -1,57 +1,45 @@
 ﻿using UnityEngine;
 
 public class TankController
-{ 
-    //private TankModel tankModel;
-    //private TankView tankView;
-   
+{    
     private Joystick joystick;
-    private Rigidbody tankRigidBody;
-
 
     // Speed variables.
-    private float Speed;
-    private float RotationSpeed;
-    private float SpeedMultipier = 0.001f;
-    private float RotationSpeedMultiplier = 0.01f;
+    private float MovementSpeed;
 
-    public TankModel tankModel { get; private set;  }
-    public TankView tankView { get; private set; }
+    public TankModel tankModel { get; }
+    public TankView tankView { get; }
 
     // model <- controller -> view
-    public TankController(TankModel _tankModel, TankView _tankView)
+    public TankController(TankModel _tankModel, TankView _tankView, Joystick _joystick)
     {
         tankModel = _tankModel;
+        joystick = _joystick;
+
+        MovementSpeed = tankModel.MovementSpeed;
         tankView = GameObject.Instantiate<TankView>(_tankView); // spawning tank using TankView reference
-        tankRigidBody = _tankView.GetRigidbody();
-        Speed = tankModel.Speed;
-        RotationSpeed = tankModel.RotationSpeed;
 
         // model -> controller <- view
         tankModel.SetTankControllerReference(this);
-        tankView.SetTankControllerReference(this);        
+        tankView.SetTankControllerReference(this);
+
+        Debug.Log("tank Spawner");
     }
 
     // Sets the reference to joystick on the Canvas.
-    public void SetJoystickReferences(Joystick _joyStick)
+    public Joystick GetJoystickReference()
     {
-        joystick = _joyStick;
+        return joystick;
     }
 
-    // This Function Handles the Input from the Left Joystick.
-    public void HandleJoyStickInput()
+    public void Move(Rigidbody tankRigidBody, float movement, float rotation, Transform transform)
     {
-        if (joystick.Vertical != 0)
-        {
-            //new Vector3(joystick.Horizontal * Speed, tankRigidBody.velocity.y, joystick.Vertical * Speed);
-            Vector3 ZAxisMovement = tankRigidBody.transform.position + (tankRigidBody.transform.forward * joystick.Vertical * Speed * SpeedMultipier);
-            tankRigidBody.MovePosition(ZAxisMovement);
-        }
+        tankRigidBody.velocity = new Vector3(rotation * MovementSpeed, tankRigidBody.velocity.y, movement * MovementSpeed);
 
-        if (joystick.Horizontal != 0)
-        {
-            Quaternion newRotation = tankRigidBody.transform.rotation * Quaternion.Euler(Vector3.up * joystick.Horizontal * RotationSpeed * RotationSpeedMultiplier);
-            tankRigidBody.MoveRotation(newRotation);
-        }
+    }
+
+    public void Rotate(Rigidbody tankRigidBody, Transform transform)
+    {
+        transform.rotation = Quaternion.LookRotation(tankRigidBody.velocity);
     }
 }
