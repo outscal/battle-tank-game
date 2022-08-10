@@ -26,9 +26,9 @@ public class TankView : MonoBehaviour
     {
         joystick = tankController.GetJoystickReference();
 
-       /* GameObject camera = GameObject.Find("Main Camera");
+        GameObject camera = GameObject.Find("Main Camera");
         camera.transform.SetParent(transform);
-        camera.transform.position = new Vector3(0f, 3f, -5f);*/
+        camera.transform.position = new Vector3(0f, 3f, -5f);
     }
 
     private void FixedUpdate()
