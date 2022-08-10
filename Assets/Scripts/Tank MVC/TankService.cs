@@ -23,7 +23,7 @@ public class TankService : GenericSingleton<TankService>
     // This Function Creates a new Player Tank MVC & also set all the required references and returns the Tank Controller for the same.
     private void CreateNewPlayerTank()
     {
-        TankModel tankModel = new TankModel(10, 220);
+        TankModel tankModel = new TankModel(TankType.None, 10, 90);
         tankController = new TankController(tankModel, tankPrefab, joystick);
     }
 }

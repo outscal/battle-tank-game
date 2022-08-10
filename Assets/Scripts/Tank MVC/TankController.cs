@@ -4,9 +4,6 @@ public class TankController
 {    
     private Joystick joystick;
 
-    // Speed variables.
-    private float MovementSpeed;
-
     public TankModel tankModel { get; }
     public TankView tankView { get; }
 
@@ -16,7 +13,6 @@ public class TankController
         tankModel = _tankModel;
         joystick = _joystick;
 
-        MovementSpeed = tankModel.MovementSpeed;
         tankView = GameObject.Instantiate<TankView>(_tankView); // spawning tank using TankView reference
 
         // model -> controller <- view
@@ -32,14 +28,23 @@ public class TankController
         return joystick;
     }
 
-    public void Move(Rigidbody tankRigidBody, float movement, float rotation, Transform transform)
-    {
-        tankRigidBody.velocity = new Vector3(rotation * MovementSpeed, tankRigidBody.velocity.y, movement * MovementSpeed);
 
+    public void Move(Rigidbody tankRigidBody, float movement, float movementSpeed)
+    {
+        tankRigidBody.velocity = tankView.transform.forward * movement * movementSpeed;
     }
 
-    public void Rotate(Rigidbody tankRigidBody, Transform transform)
+    public void Rotate(Rigidbody tankRigidBody, float rotate, float rotationSpeed)
     {
-        transform.rotation = Quaternion.LookRotation(tankRigidBody.velocity);
+         //rotating the rigidbody of the player tank game object
+        Vector3 vector = new Vector3(0f, rotate * rotationSpeed, 0f);
+        Quaternion deltaRotation = Quaternion.Euler(vector * Time.deltaTime);
+        tankRigidBody.MoveRotation(tankRigidBody.rotation * deltaRotation);
+    }
+
+    //Get the reference of tankModel.
+    public TankModel GetTankModel()
+    {
+        return tankModel;
     }
 }

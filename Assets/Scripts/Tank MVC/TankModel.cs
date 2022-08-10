@@ -8,6 +8,7 @@ public class TankModel
 
     public float RotationSpeed { get; }
     public float MovementSpeed { get; }
+    public TankType TankType { get;  }
 
     // TankModel -> controller
     public void SetTankControllerReference(TankController _tankController)
@@ -15,8 +16,9 @@ public class TankModel
         tankController = _tankController;
     }
 
-    public TankModel(float movement, float rotationSpeed)
+    public TankModel(TankType tankType, float movement, float rotationSpeed)
     {
+        TankType = tankType;
         MovementSpeed = movement;
         RotationSpeed = rotationSpeed;
     }

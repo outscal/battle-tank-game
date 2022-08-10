@@ -11,6 +11,7 @@ public class TankView : MonoBehaviour
     private TankController tankController;
     private Joystick joystick;
     public Rigidbody rigidbody;
+    [SerializeField] private TankType tankType;
     public float movement;
     public float rotation;
 
@@ -24,18 +25,20 @@ public class TankView : MonoBehaviour
     private void Start()
     {
         joystick = tankController.GetJoystickReference();
+
+       /* GameObject camera = GameObject.Find("Main Camera");
+        camera.transform.SetParent(transform);
+        camera.transform.position = new Vector3(0f, 3f, -5f);*/
     }
 
     private void FixedUpdate()
     {
-        movement = joystick.Vertical;
-        rotation = joystick.Horizontal;
-        tankController.Move(rigidbody, movement, rotation, gameObject.transform);
+        Movement();
+        if (movement != 0)
+            tankController.Move(rigidbody, movement, tankController.GetTankModel().MovementSpeed);
 
-        if(movement != 0 || rotation != 0)
-        {
-            tankController.Rotate(rigidbody, gameObject.transform);
-        }
+        if (rotation != 0)
+            tankController.Rotate(rigidbody, rotation, tankController.GetTankModel().RotationSpeed);
     }
 
     public Rigidbody GetRigidbody()
@@ -43,4 +46,9 @@ public class TankView : MonoBehaviour
         return rigidbody;
     }
         
+    private void Movement()
+    {
+        movement = joystick.Vertical;
+        rotation = joystick.Horizontal;
+    }
 }
