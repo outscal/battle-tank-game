@@ -35,10 +35,10 @@ public class TankView : MonoBehaviour
     {
         Movement();
         if (movement != 0)
-            tankController.Move(rigidbody, movement, tankController.GetTankModel().MovementSpeed);
+            tankController.Move(rigidbody, movement,tankController.tankModel.MovementSpeed);
 
         if (rotation != 0)
-            tankController.Rotate(rigidbody, rotation, tankController.GetTankModel().RotationSpeed);
+            tankController.Rotate(rigidbody, rotation, tankController.tankModel.RotationSpeed);
     }
 
     public Rigidbody GetRigidbody()

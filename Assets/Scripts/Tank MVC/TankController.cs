@@ -36,15 +36,15 @@ public class TankController
 
     public void Rotate(Rigidbody tankRigidBody, float rotate, float rotationSpeed)
     {
-         //rotating the rigidbody of the player tank game object
+         //rotating the rigidbody of the player tank gameObject
         Vector3 vector = new Vector3(0f, rotate * rotationSpeed, 0f);
         Quaternion deltaRotation = Quaternion.Euler(vector * Time.deltaTime);
         tankRigidBody.MoveRotation(tankRigidBody.rotation * deltaRotation);
     }
 
     //Get the reference of tankModel.
-    public TankModel GetTankModel()
+    /*public TankModel GetTankModel()
     {
         return tankModel;
-    }
+    }*/
 }

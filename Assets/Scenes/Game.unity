@@ -221,6 +221,53 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &914486098
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 914486100}
+  - component: {fileID: 914486099}
+  m_Layer: 0
+  m_Name: EnemyTankService
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &914486099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914486098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 208855e9dcdc4d84882682fd32572a32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyTankView: {fileID: 1820689637320413219, guid: 53f390cf3f177f846b1608f494ace06f,
+    type: 3}
+  enemyTankScriptableObject: {fileID: 11400000, guid: 42f7a51f4f719a94e9ec017cf62e2f9c,
+    type: 2}
+--- !u!4 &914486100
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914486098}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1015151371
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,7 +610,7 @@ GameObject:
   - component: {fileID: 2031056578}
   - component: {fileID: 2031056577}
   m_Layer: 0
-  m_Name: TankService
+  m_Name: PlayerTankService
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -582,8 +629,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystick: {fileID: 2929252284567463654}
-  tankPrefab: {fileID: 9008894445104345774, guid: d9bdd8d696ad5f94e97f6e6eca9b2d92,
-    type: 3}
+  playerTankViewList: {fileID: 11400000, guid: 10636b0d5c2b5984aa201086574d8c1f, type: 2}
+  TankList: {fileID: 11400000, guid: eff9b760abe1c13459c7843ab88dc233, type: 2}
 --- !u!4 &2031056578
 Transform:
   m_ObjectHideFlags: 0
