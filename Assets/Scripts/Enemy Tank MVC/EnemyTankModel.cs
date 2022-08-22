@@ -1,17 +1,21 @@
 ﻿using UnityEngine;
+using EnemyScriptableObjects;
 
-public class EnemyTankModel 
+namespace EnemyTankServices
 {
-    public EnemyTankModel(EnemyTankScriptableObject enemyTankScriptableObject)
+    public class EnemyTankModel
     {
-        Speed = enemyTankScriptableObject.speed;
-        Health = enemyTankScriptableObject.health;
-        RotationSpeed = enemyTankScriptableObject.rotationSpeed;
-        TankName = enemyTankScriptableObject.enemyTankName;
-    }
+        public EnemyTankModel(EnemyTankScriptableObject enemyTankScriptableObject)
+        {
+            Speed = enemyTankScriptableObject.speed;
+            Health = enemyTankScriptableObject.health;
+            RotationSpeed = enemyTankScriptableObject.rotationSpeed;
+            TankColor = enemyTankScriptableObject.color;
+        }
 
-    public float Speed { get; }
-    public int Health { get; set; }
-    public float RotationSpeed { get; }
-    public string TankName { get; }
+        public float Speed { get; }
+        public int Health { get; set; }
+        public float RotationSpeed { get; }
+        public Color TankColor { get; set; }
+    }
 }

@@ -1,50 +1,66 @@
 ﻿using UnityEngine;
+using GameServices;
 
-public class TankController
-{    
-    private Joystick joystick;
-
-    public TankModel tankModel { get; }
-    public TankView tankView { get; }
-
-    // model <- controller -> view
-    public TankController(TankModel _tankModel, TankView _tankView, Joystick _joystick)
+namespace TankServices
+{
+    public class TankController
     {
-        tankModel = _tankModel;
-        joystick = _joystick;
+        //private Joystick joystick;
+        private Joystick leftJoystick;
 
-        tankView = GameObject.Instantiate<TankView>(_tankView); // spawning tank using TankView reference
+        private Rigidbody tankRigidbody; // player tank rigidbody reference.
 
-        // model -> controller <- view
-        tankModel.SetTankControllerReference(this);
-        tankView.SetTankControllerReference(this);
+        public TankModel tankModel { get; }
+        public TankView tankView { get; }
 
-        Debug.Log("tank Spawner");
+        // model <- controller -> view
+        public TankController(TankModel _tankModel, TankView tankPrefab)
+        {
+            tankModel = _tankModel;
+            
+            // Spawns player tank.
+            tankView = GameObject.Instantiate<TankView>(tankPrefab, TankSpawnPointService.Instance.GetPlayerSpawnPoint());
+
+            tankRigidbody = tankView.GetComponent<Rigidbody>();
+            tankView.SetTankControllerReference(this);
+            tankModel.SetTankControllerReference(this);
+
+            Debug.Log("tank Spawner");
+        }
+
+        // Sets the reference to joystick on the Canvas.
+        public void SetJoystickReference(Joystick _leftJoystick)
+        {
+            leftJoystick = _leftJoystick;
+        }
+
+        // This method is called on every fixed update. // To do all physics calculations.
+        public void UpdateTankController()
+        {
+                if (leftJoystick.Vertical != 0)
+                {
+                    ForwardMovementInput();
+                }
+                if (leftJoystick.Horizontal != 0)
+                {
+                    RotationInput();
+                }
+        }
+
+        // Forward and backward direction movement based on vertical input of joystick.
+        private void ForwardMovementInput()
+        {
+            Vector3 forwardInput = tankRigidbody.transform.position + leftJoystick.Vertical * tankRigidbody.transform.forward * tankModel.MovementSpeed * Time.deltaTime;
+
+            tankRigidbody.MovePosition(forwardInput);
+        }
+
+        // Rotates tank based on horizontal input of joystick.
+        private void RotationInput()
+        {
+            Quaternion desiredRotation = tankRigidbody.transform.rotation * Quaternion.Euler(Vector3.up * leftJoystick.Horizontal * tankModel.RotationSpeed * Time.deltaTime);
+
+            tankRigidbody.MoveRotation(desiredRotation);
+        }
     }
-
-    // Sets the reference to joystick on the Canvas.
-    public Joystick GetJoystickReference()
-    {
-        return joystick;
-    }
-
-
-    public void Move(Rigidbody tankRigidBody, float movement, float movementSpeed)
-    {
-        tankRigidBody.velocity = tankView.transform.forward * movement * movementSpeed;
-    }
-
-    public void Rotate(Rigidbody tankRigidBody, float rotate, float rotationSpeed)
-    {
-         //rotating the rigidbody of the player tank gameObject
-        Vector3 vector = new Vector3(0f, rotate * rotationSpeed, 0f);
-        Quaternion deltaRotation = Quaternion.Euler(vector * Time.deltaTime);
-        tankRigidBody.MoveRotation(tankRigidBody.rotation * deltaRotation);
-    }
-
-    //Get the reference of tankModel.
-    /*public TankModel GetTankModel()
-    {
-        return tankModel;
-    }*/
 }

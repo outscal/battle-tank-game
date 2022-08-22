@@ -6,49 +6,32 @@ using UnityEngine;
 /// This Class is Attached to a Player Tank GameObject and is responsible for UI related work.
 /// </summary>
 
-public class TankView : MonoBehaviour
+namespace TankServices
 {
-    private TankController tankController;
-    private Joystick joystick;
-    public Rigidbody rigidbody;
-    [SerializeField] private TankType tankType;
-    public float movement;
-    public float rotation;
-
-    //// Sets a reference to the corresponding TankController Script.
-    // TankController <- TankView.
-    public void SetTankControllerReference(TankController _tankController)
+    //Present on visual instance of player tank.
+    [RequireComponent(typeof(Rigidbody))]
+    public class TankView : MonoBehaviour
     {
-        tankController = _tankController;
-    }
+        private TankController tankController;
 
-    private void Start()
-    {
-        joystick = tankController.GetJoystickReference();
+        private void Start()
+        {
+            SetPlayerTankColor();
+        }
 
-        GameObject camera = GameObject.Find("Main Camera");
-        camera.transform.SetParent(transform);
-        camera.transform.position = new Vector3(0f, 3f, -5f);
-    }
+        public void SetTankControllerReference(TankController _tankController)
+        {
+            tankController = _tankController;
+        }
 
-    private void FixedUpdate()
-    {
-        Movement();
-        if (movement != 0)
-            tankController.Move(rigidbody, movement,tankController.tankModel.MovementSpeed);
-
-        if (rotation != 0)
-            tankController.Rotate(rigidbody, rotation, tankController.tankModel.RotationSpeed);
-    }
-
-    public Rigidbody GetRigidbody()
-    {
-        return rigidbody;
-    }
-        
-    private void Movement()
-    {
-        movement = joystick.Vertical;
-        rotation = joystick.Horizontal;
+        // Sets material color of all child mesh renderers.
+        public void SetPlayerTankColor()
+        {
+            MeshRenderer[] renderers = gameObject.GetComponentsInChildren<MeshRenderer>();
+            for (int i = 0; i < renderers.Length; i++)
+            {
+                renderers[i].material.color = tankController.tankModel.TankColor;
+            }
+        }
     }
 }

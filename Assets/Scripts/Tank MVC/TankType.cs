@@ -2,11 +2,12 @@
 /// An Enumeration for defferent types of Tanks.
 /// </summary>
 
-public enum TankType
+namespace TankServices
 {
-    None,
-    GreenTank,
-    RedTank,
-    BlueTank,
-    GreyTank
+    public enum TankType
+    {
+        GreenTank,
+        RedTank,
+        BlueTank
+    }
 }

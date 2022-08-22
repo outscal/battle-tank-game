@@ -1,27 +1,41 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using EnemyScriptableObjects;
 using UnityEngine;
 
-public class EnemyTankService : MonoBehaviour
+namespace EnemyTankServices
 {
-    public EnemyTankView enemyTankView;
-    public EnemyTankScriptableObject enemyTankScriptableObject;
-
-    private void Start()
+    // Handles spawning of enemy tank and communication of enemy tank service with other services.
+    public class EnemyTankService : GenericSingleton<EnemyTankService>
     {
-        StartGame();
-    }
+        private EnemyType enemyType;
+        public EnemyTankView enemyTankPrefab;
+        public EnemyTankScriptableObjectList enemyTankSOList;
 
-    private void StartGame()
-    {
-        CreateEnemyTank();
-    }
+        // Stores controllers of all active enemy tanks in the scene.
+        [HideInInspector] public List<EnemyTankController> enemyTanks = new List<EnemyTankController>();
 
-    private EnemyTankController CreateEnemyTank()
-    {
-        EnemyTankModel enemyTankModel = new EnemyTankModel(enemyTankScriptableObject);
-        EnemyTankController enemyTankController = new EnemyTankController(enemyTankModel, enemyTankView);
-        enemyTankController.Enemy_TankView.SetTankControllerReference(enemyTankController);
-        return enemyTankController;
+        private void Start()
+        {
+            enemyType= (EnemyType)Random.Range(0, enemyTankSOList.enemyTankScriptableObject.Length);
+            EnemyTankController tankController = CreateEnemyTank(enemyType);
+        }
+
+        // Spawns specified type of enemy tank and returns tank controller. 
+        public EnemyTankController CreateEnemyTank(EnemyType enemyType)
+        {
+            // To search for sciptable object which holds data of specified enemy tank.
+            foreach (EnemyTankScriptableObject enemyTankSO in enemyTankSOList.enemyTankScriptableObject)
+            {
+                if (enemyTankSO.enemyType == enemyType)
+                {
+                    EnemyTankModel enemyTankModel = new EnemyTankModel(enemyTankSOList.enemyTankScriptableObject[(int)enemyType]);
+                    EnemyTankController tankController = new EnemyTankController(enemyTankModel, enemyTankPrefab);
+                    enemyTanks.Add(tankController);
+                    return tankController;
+                }
+            }
+            return null;
+        }
     }
 }

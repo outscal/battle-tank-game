@@ -1,18 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class EnemyType : MonoBehaviour
+﻿namespace EnemyTankServices
 {
-    // Start is called before the first frame update
-    void Start()
+    // Types of enemy tank that can be spawned.
+    public enum EnemyType 
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        BlueTank,
+        GreenTank,
+        RedTank
     }
 }

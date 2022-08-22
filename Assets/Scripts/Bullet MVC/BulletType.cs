@@ -4,10 +4,12 @@
 /// An Enumeration for different Bullet Types.
 /// </summary>
 
-public enum BulletType
+namespace BulletServices
 {
-    None,
-    Slow,
-    Normal,
-    Fast
+    public enum BulletType
+    {
+        Slow,
+        Normal,
+        Fast
+    }
 }
