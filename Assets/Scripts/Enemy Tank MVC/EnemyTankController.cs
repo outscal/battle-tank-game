@@ -19,5 +19,12 @@ namespace EnemyTankServices
             enemyTankView = GameObject.Instantiate<EnemyTankView>(enemyTankPrefab, tranform.position, tranform.rotation);
             enemyTankView.enemyTankController = this;
         }
+
+        // To do all physics calculations.
+        public void RangeCheck()
+        {
+            // Checks whether the player is in sight range or attack range.
+            enemyTankModel.b_PlayerInSightRange = Physics.CheckSphere(enemyTankView.transform.position, enemyTankModel.patrollingRange, enemyTankView.playerLayerMask);
+        }
     }
 }

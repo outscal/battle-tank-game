@@ -19,6 +19,14 @@ namespace TankServices
             SetPlayerTankColor();
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                tankController.DestroyWorld();
+            }
+        }
+
         public void SetTankControllerReference(TankController _tankController)
         {
             tankController = _tankController;

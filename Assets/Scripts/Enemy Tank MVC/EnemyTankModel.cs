@@ -5,17 +5,40 @@ namespace EnemyTankServices
 {
     public class EnemyTankModel
     {
+        //Enemy Tank Info
+        public float speed { get; }
+        public int health { get; set; }
+        public float rotationSpeed { get; }
+
+        public Color tankColor { get; set; }
+        public EnemyType enemyType { get; } // Type of enemy tank.
+
+        // Patrolling
+        public Vector3 patrolPoint { get; set; }
+        public float patrolPointRange { get; set; }
+        public bool b_IsPatrolPoint { get; set; }
+
+
+        // States
+        public float patrollingRange { get; set; }
+        public float patrolTime { get; }
+        public bool b_PlayerInSightRange { get; set; }
+        public bool b_PlayerInAttackRange { get; set; }
+
         public EnemyTankModel(EnemyTankScriptableObject enemyTankScriptableObject)
         {
-            Speed = enemyTankScriptableObject.speed;
-            Health = enemyTankScriptableObject.health;
-            RotationSpeed = enemyTankScriptableObject.rotationSpeed;
-            TankColor = enemyTankScriptableObject.color;
-        }
+            speed = enemyTankScriptableObject.speed;
+            health = enemyTankScriptableObject.health;
+            rotationSpeed = enemyTankScriptableObject.rotationSpeed;
 
-        public float Speed { get; }
-        public int Health { get; set; }
-        public float RotationSpeed { get; }
-        public Color TankColor { get; set; }
+            tankColor = enemyTankScriptableObject.color;
+            enemyType = enemyTankScriptableObject.enemyType;
+                        
+            patrolPointRange = enemyTankScriptableObject.patrolPointRange;
+            b_IsPatrolPoint = false;
+
+            patrolTime = enemyTankScriptableObject.patrolTime;
+            patrollingRange = enemyTankScriptableObject.patrollingRange;
+        }
     }
 }

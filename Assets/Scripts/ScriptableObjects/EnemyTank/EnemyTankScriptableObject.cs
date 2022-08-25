@@ -17,5 +17,8 @@ namespace  EnemyScriptableObjects {
         [Header("Movement Parameters")]
         public float speed;
         public float rotationSpeed;
+        public float patrolPointRange;
+        public float patrollingRange;
+        public float patrolTime;
     }
 }

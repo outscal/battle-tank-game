@@ -107,21 +107,21 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.5
-    agentHeight: 2
-    agentSlope: 45
-    agentClimb: 0.4
+    agentRadius: 4
+    agentHeight: 0.4
+    agentSlope: 5
+    agentClimb: 0.2
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.16666667
+    cellSize: 1.3333334
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 170fd70f6ded5a046b4142e067e0c05c, type: 2}
 --- !u!1 &59556270
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 208855e9dcdc4d84882682fd32572a32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTankPrefab: {fileID: 6560096969744278924, guid: 33279d3ab6ad411469acfdac792c57d0,
+  enemyTankPrefab: {fileID: 8412855530534857178, guid: 33279d3ab6ad411469acfdac792c57d0,
     type: 3}
   enemyTankSOList: {fileID: 11400000, guid: 4deeedbbabc678c4d978d15cd5376df2, type: 2}
 --- !u!4 &914486100
@@ -478,8 +478,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 914486098}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 27, y: -0.18900001, z: -20.198}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 925702307}
@@ -1012,13 +1012,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1391056259}
-  m_LocalRotation: {x: 0.028672311, y: -0.3171468, z: 0.31631514, w: 0.89361095}
+  m_LocalRotation: {x: 0.07339593, y: -0.3346807, z: 0.3825789, w: 0.8580415}
   m_LocalPosition: {x: 25.04, y: 13.5, z: -33.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1015151372}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 14.589001, y: -34.538002, z: 34.428}
+  m_LocalEulerAnglesHint: {x: 22.460001, y: -34.105003, z: 41.092003}
 --- !u!114 &1391056265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1228,8 +1228,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2031056576}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 20, y: -0.18900001, z: -20.198}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 925702307}
@@ -1470,13 +1470,28 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4039465306769211}
-  m_Layer: 0
+  - component: {fileID: 1112818540813370}
+  m_Layer: 9
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4
   m_IsActive: 1
+--- !u!64 &1112818540813370
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112818540813369}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &1126216717368879
 GameObject:
   m_ObjectHideFlags: 0
@@ -1524,7 +1539,7 @@ GameObject:
   - component: {fileID: 4308939034974451}
   m_Layer: 0
   m_Name: Cacti
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4
@@ -1602,7 +1617,7 @@ GameObject:
   - component: {fileID: 65814473318496007}
   m_Layer: 0
   m_Name: Helipad
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1817,7 +1832,7 @@ GameObject:
   - component: {fileID: 4173913204474125}
   m_Layer: 0
   m_Name: Trees
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4
@@ -1996,7 +2011,7 @@ GameObject:
   - component: {fileID: 4640371195536181}
   m_Layer: 0
   m_Name: OilField
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4
@@ -2067,7 +2082,7 @@ GameObject:
   - component: {fileID: 4400794965496709}
   m_Layer: 0
   m_Name: Military
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4
@@ -2868,7 +2883,7 @@ GameObject:
   - component: {fileID: 4813454697275207}
   m_Layer: 0
   m_Name: Ruins
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4
@@ -3025,9 +3040,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4777079796756031}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dunes
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4
@@ -3245,7 +3260,7 @@ GameObject:
   - component: {fileID: 4582194752169691}
   m_Layer: 0
   m_Name: Boundaries
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4
@@ -3279,7 +3294,7 @@ GameObject:
   - component: {fileID: 4620172311752515}
   m_Layer: 0
   m_Name: Rocks
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4
@@ -3734,7 +3749,7 @@ Transform:
   - {fileID: 4905218890200051}
   - {fileID: 4766505151102465}
   m_Father: {fileID: 4366462243387797}
-  m_RootOrder: 2
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4067227042763117
 Transform:
@@ -3748,7 +3763,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4366462243387797}
-  m_RootOrder: 10
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4072759859363065
 Transform:
@@ -3922,7 +3937,7 @@ Transform:
   - {fileID: 4033078703557703}
   - {fileID: 4798363265921871}
   m_Father: {fileID: 4366462243387797}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4188059133135121
 Transform:
@@ -4165,7 +4180,7 @@ Transform:
   - {fileID: 4623866956940357}
   - {fileID: 4302877304567457}
   m_Father: {fileID: 4366462243387797}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4309878070116803
 Transform:
@@ -4306,8 +4321,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4925302378545943}
-  - {fileID: 4582194752169691}
-  - {fileID: 4039465306769211}
+  - {fileID: 4067227042763117}
   - {fileID: 4777079796756031}
   - {fileID: 4620172311752515}
   - {fileID: 4308939034974451}
@@ -4315,7 +4329,8 @@ Transform:
   - {fileID: 4400794965496709}
   - {fileID: 4640371195536181}
   - {fileID: 4813454697275207}
-  - {fileID: 4067227042763117}
+  - {fileID: 4582194752169691}
+  - {fileID: 4039465306769211}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4367,7 +4382,7 @@ Transform:
   - {fileID: 4025545757121525}
   - {fileID: 4218583509483431}
   m_Father: {fileID: 4366462243387797}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4411591770006639
 Transform:
@@ -4596,7 +4611,7 @@ Transform:
   - {fileID: 4095703576316005}
   - {fileID: 4676854729603375}
   m_Father: {fileID: 4366462243387797}
-  m_RootOrder: 1
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4587213090015433
 Transform:
@@ -4704,7 +4719,7 @@ Transform:
   - {fileID: 4084483780619095}
   - {fileID: 4364078884271739}
   m_Father: {fileID: 4366462243387797}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4622404431850339
 Transform:
@@ -4794,7 +4809,7 @@ Transform:
   - {fileID: 4709852969013219}
   - {fileID: 4743466929523189}
   m_Father: {fileID: 4366462243387797}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4653107334418293
 Transform:
@@ -5100,7 +5115,7 @@ Transform:
   - {fileID: 4875164690045657}
   - {fileID: 4606784375445695}
   m_Father: {fileID: 4366462243387797}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4785784079641727
 Transform:
@@ -5219,7 +5234,7 @@ Transform:
   - {fileID: 4924049512485135}
   - {fileID: 4680069444541649}
   m_Father: {fileID: 4366462243387797}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4821417388383213
 Transform:

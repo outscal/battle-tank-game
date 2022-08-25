@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using GameServices;
 
+
 namespace TankServices
 {
     public class TankController
@@ -61,6 +62,35 @@ namespace TankServices
             Quaternion desiredRotation = tankRigidbody.transform.rotation * Quaternion.Euler(Vector3.up * leftJoystick.Horizontal * tankModel.RotationSpeed * Time.deltaTime);
 
             tankRigidbody.MoveRotation(desiredRotation);
+        }
+
+        // Calls some asynchronous methods to destroy the world gradually with a cool effect.
+        public void DestroyWorld()
+        {
+            DestroyTanks();
+            DestoryEnv();
+        }
+
+        // Destroys all Game Objects Tagged as 'Tank' one by one using async await.
+        private async void DestroyTanks()
+        {
+            GameObject[] tanks = GameObject.FindGameObjectsWithTag("Tank");
+            for (int i = 0; i < tanks.Length; i++)
+            {
+                GameObject.Destroy(tanks[i]);
+                await new WaitForSeconds(0.1f);
+            }
+        }
+
+        // Destroys all Game Objects Tagged as 'Ground' one by one using async await.
+        private async void DestoryEnv()
+        {
+            GameObject[] objects = GameObject.FindGameObjectsWithTag("Ground");
+            for (int i = 0; i < objects.Length; i++)
+            {
+                GameObject.Destroy(objects[i]);
+                await new WaitForSeconds(0.3f);
+            }
         }
     }
 }
