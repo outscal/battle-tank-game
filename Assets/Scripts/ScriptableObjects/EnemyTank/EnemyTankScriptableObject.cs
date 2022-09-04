@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using EnemyTankServices;
+using BulletServices;
 
 namespace  EnemyScriptableObjects {
     [CreateAssetMenu(fileName = "EnemyTankScriptableObject", menuName = "ScriptableObject/Enemy/EnemyTankScriptableObject")]
@@ -17,8 +18,16 @@ namespace  EnemyScriptableObjects {
         [Header("Movement Parameters")]
         public float speed;
         public float rotationSpeed;
-        public float patrolPointRange;
+        public float turretRotationSpeed;
+        public float walkPointRange;
         public float patrollingRange;
         public float patrolTime;
+
+        [Header("Attack Parameters")]
+        public float fireRate;
+        public float attackRange;
+        public float minLaunchForce;
+        public float maxLaunchForce;
+        public BulletType bulletType;
     }
 }

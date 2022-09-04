@@ -1,4 +1,5 @@
 ﻿using TankServices;
+using BulletServices;
 using UnityEngine;
 
 /// <summary>
@@ -17,10 +18,17 @@ namespace TankScriptableObjects
         public Color tankColor;
 
         [Header("Health Parameters")]
-        public int health;
+        public int tankHealth;
 
         [Header("Movement Parameters")]
         public float rotationSpeed;
-        public float speed;
+        public float tankSpeed;
+        public float turretRotationSpeed;
+
+        [Header("Shooting Parameters")]
+        public BulletType bulletType;
+        public float minLaunchForce;
+        public float maxLaunchForce;
+        public float maxChargeTime;
     }
 }

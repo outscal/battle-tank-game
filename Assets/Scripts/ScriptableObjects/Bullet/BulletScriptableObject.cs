@@ -16,8 +16,10 @@ namespace BulletScriptableObjects
         [Header("Bullet Type")]
         public BulletType bulletType;
 
-        [Header("Shooting Parameters")]
+        [Header("Shooting Parameters")]        
         public int damage;
+        public float radiousOfExplosion;
+        public float forceOfExplosion;
 
         [Header("Time Parameters")]
         public float maxLifeTime;

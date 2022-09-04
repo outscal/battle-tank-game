@@ -19,5 +19,15 @@ namespace BulletServices
         {
             bulletController = _bulletController;
         }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            bulletController.OnCollisionEnter(other);
+        }
+
+        public void DestroyBullet()
+        {
+            Destroy(gameObject);
+        }
     }
 }

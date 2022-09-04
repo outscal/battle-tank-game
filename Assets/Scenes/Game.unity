@@ -147,7 +147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 59556270}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.18900001, z: 0.19800001}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2005407865}
@@ -355,7 +355,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -371,6 +371,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 2929252284567463659}
+  - {fileID: 2022818708}
+  - {fileID: 2027211151}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -609,6 +611,124 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 40, y: 60, z: 0}
+--- !u!1 &1091173712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1091173713}
+  - component: {fileID: 1091173716}
+  - component: {fileID: 1091173715}
+  - component: {fileID: 1091173714}
+  m_Layer: 5
+  m_Name: FireButton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1091173713
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091173712}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2027211151}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1091173714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091173712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1091173715}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1091173715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091173712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 7f877b45cc6df794c8321383c320ec0b, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1091173716
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091173712}
+  m_CullTransparentMesh: 0
 --- !u!1 &1208187145
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,6 +855,80 @@ Transform:
   m_Father: {fileID: 180362605}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1299831776
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1299831777}
+  - component: {fileID: 1299831779}
+  - component: {fileID: 1299831778}
+  m_Layer: 5
+  m_Name: Handle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1299831777
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299831776}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2022818708}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 120, y: 120}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1299831778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299831776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.8352941}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 5b56d9fa0e8bd6e409ed188db38a692c, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1299831779
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299831776}
+  m_CullTransparentMesh: 0
 --- !u!1 &1304999364
 GameObject:
   m_ObjectHideFlags: 0
@@ -1188,6 +1382,137 @@ Transform:
   m_Father: {fileID: 1861041339}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2022818707
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2022818708}
+  - component: {fileID: 2022818711}
+  - component: {fileID: 2022818710}
+  - component: {fileID: 2022818709}
+  m_Layer: 5
+  m_Name: RightJoystick
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2022818708
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022818707}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_Children:
+  - {fileID: 1299831777}
+  m_Father: {fileID: 515504662}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -125, y: 125}
+  m_SizeDelta: {x: 250, y: 250}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2022818709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022818707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45977bbae16431c46a013576a1aea384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handleRange: 1
+  deadZone: 0
+  axisOptions: 0
+  snapX: 0
+  snapY: 0
+  background: {fileID: 2022818708}
+  handle: {fileID: 1299831777}
+--- !u!114 &2022818710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022818707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.8352941}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 48c0d4d6bebaa934384b07aa1e2f8184, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2022818711
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022818707}
+  m_CullTransparentMesh: 0
+--- !u!1 &2027211150
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2027211151}
+  m_Layer: 5
+  m_Name: Buttons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2027211151
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027211150}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1091173713}
+  m_Father: {fileID: 515504662}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -129.9, y: 311.8}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2031056576
 GameObject:
   m_ObjectHideFlags: 0
@@ -1218,6 +1543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftJoystick: {fileID: 2929252284567463654}
+  rightJoystick: {fileID: 2022818709}
   playerTankList: {fileID: 11400000, guid: eff9b760abe1c13459c7843ab88dc233, type: 2}
   playerTankView: {fileID: 5164659903780800083, guid: d9bdd8d696ad5f94e97f6e6eca9b2d92,
     type: 3}
@@ -1320,9 +1646,9 @@ GameObject:
   - component: {fileID: 4211075271743637}
   - component: {fileID: 33763649876450537}
   - component: {fileID: 23152800135308727}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Concrete (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1339,9 +1665,9 @@ GameObject:
   - component: {fileID: 33156091477105753}
   - component: {fileID: 23584511521458519}
   - component: {fileID: 136217816624026851}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cow (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1361,7 +1687,7 @@ GameObject:
   - component: {fileID: 65308429309565775}
   m_Layer: 0
   m_Name: Rocks03 (4)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1381,7 +1707,7 @@ GameObject:
   - component: {fileID: 136045249961630563}
   m_Layer: 0
   m_Name: Rocks02 (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1400,7 +1726,7 @@ GameObject:
   - component: {fileID: 136323499537850191}
   m_Layer: 0
   m_Name: Cactus (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1420,7 +1746,7 @@ GameObject:
   - component: {fileID: 65712473419045759}
   m_Layer: 0
   m_Name: Column02
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1438,7 +1764,7 @@ GameObject:
   - component: {fileID: 23571497814729723}
   m_Layer: 0
   m_Name: PalmTree (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1454,9 +1780,9 @@ GameObject:
   - component: {fileID: 4766505151102465}
   - component: {fileID: 33273704762448943}
   - component: {fileID: 23554976141724639}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Concrete (8)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1473,7 +1799,7 @@ GameObject:
   - component: {fileID: 1112818540813370}
   m_Layer: 9
   m_Name: Ground
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4
@@ -1503,9 +1829,9 @@ GameObject:
   - component: {fileID: 4450416785415519}
   - component: {fileID: 33343522761322861}
   - component: {fileID: 23280178698960335}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dunes01 (6)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1523,7 +1849,7 @@ GameObject:
   - component: {fileID: 23032109516607843}
   m_Layer: 0
   m_Name: PalmTree (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1539,7 +1865,7 @@ GameObject:
   - component: {fileID: 4308939034974451}
   m_Layer: 0
   m_Name: Cacti
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4
@@ -1555,9 +1881,9 @@ GameObject:
   - component: {fileID: 4315920805895831}
   - component: {fileID: 33977979112713857}
   - component: {fileID: 23198898025805627}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dunes01 (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1578,7 +1904,7 @@ GameObject:
   - component: {fileID: 65874679069653521}
   m_Layer: 0
   m_Name: Building02 (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1597,7 +1923,7 @@ GameObject:
   - component: {fileID: 136483896084036473}
   m_Layer: 0
   m_Name: Tree (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1636,7 +1962,7 @@ GameObject:
   - component: {fileID: 136716506707429871}
   m_Layer: 0
   m_Name: Tree (4)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1657,7 +1983,7 @@ GameObject:
   - component: {fileID: 65401941070236693}
   m_Layer: 0
   m_Name: Building02 (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1678,7 +2004,7 @@ GameObject:
   - component: {fileID: 65443923293311017}
   m_Layer: 0
   m_Name: Building01 (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1701,7 +2027,7 @@ GameObject:
   - component: {fileID: 65845641633702219}
   m_Layer: 0
   m_Name: Ruins01
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1719,9 +2045,9 @@ GameObject:
   - component: {fileID: 23567899876215759}
   - component: {fileID: 136452905488795717}
   - component: {fileID: 65907469767080327}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cow
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1741,7 +2067,7 @@ GameObject:
   - component: {fileID: 136713964854093057}
   m_Layer: 0
   m_Name: Column01
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1760,7 +2086,7 @@ GameObject:
   - component: {fileID: 136547262092418193}
   m_Layer: 0
   m_Name: Tree (5)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1776,9 +2102,9 @@ GameObject:
   - component: {fileID: 4492481785150915}
   - component: {fileID: 33648276279830373}
   - component: {fileID: 23017381490777807}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dunes02 (5)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1798,7 +2124,7 @@ GameObject:
   - component: {fileID: 136781783149569921}
   m_Layer: 0
   m_Name: Column01 (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1814,9 +2140,9 @@ GameObject:
   - component: {fileID: 4029064494725091}
   - component: {fileID: 33477354292399895}
   - component: {fileID: 23996431449681801}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dunes02 (6)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1832,7 +2158,7 @@ GameObject:
   - component: {fileID: 4173913204474125}
   m_Layer: 0
   m_Name: Trees
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4
@@ -1850,7 +2176,7 @@ GameObject:
   - component: {fileID: 23439576853706269}
   m_Layer: 0
   m_Name: PalmTree (8)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1868,7 +2194,7 @@ GameObject:
   - component: {fileID: 23452635664771431}
   m_Layer: 0
   m_Name: PalmTree (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1902,7 +2228,7 @@ GameObject:
   - component: {fileID: 136951872762126981}
   m_Layer: 0
   m_Name: Cliff
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1920,7 +2246,7 @@ GameObject:
   - component: {fileID: 23859442941846285}
   m_Layer: 0
   m_Name: Crater01 (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1956,7 +2282,7 @@ GameObject:
   - component: {fileID: 65090058510741235}
   m_Layer: 0
   m_Name: PumpJack (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4
@@ -1973,9 +2299,9 @@ GameObject:
   - component: {fileID: 33167417433738657}
   - component: {fileID: 23790116954352775}
   - component: {fileID: 64857860249345215}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GroundPlane
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1995,7 +2321,7 @@ GameObject:
   - component: {fileID: 136933750646743853}
   m_Layer: 0
   m_Name: Rocks02 (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2048,7 +2374,7 @@ GameObject:
   - component: {fileID: 65153868501263789}
   m_Layer: 0
   m_Name: Rocks01 (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2064,9 +2390,9 @@ GameObject:
   - component: {fileID: 4229998081990895}
   - component: {fileID: 33899984290976853}
   - component: {fileID: 23270487011578875}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Concrete (6)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2082,7 +2408,7 @@ GameObject:
   - component: {fileID: 4400794965496709}
   m_Layer: 0
   m_Name: Military
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4
@@ -2102,7 +2428,7 @@ GameObject:
   - component: {fileID: 65656060973733137}
   m_Layer: 0
   m_Name: Rocks03 (5)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2123,7 +2449,7 @@ GameObject:
   - component: {fileID: 65695919520550903}
   m_Layer: 0
   m_Name: Building01 (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2141,7 +2467,7 @@ GameObject:
   - component: {fileID: 23795577576500545}
   m_Layer: 0
   m_Name: Crater01 (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2157,9 +2483,9 @@ GameObject:
   - component: {fileID: 4018404254679811}
   - component: {fileID: 33128326507142801}
   - component: {fileID: 23913961111715877}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dunes01 (5)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2175,9 +2501,9 @@ GameObject:
   - component: {fileID: 4072759859363065}
   - component: {fileID: 33438261443548417}
   - component: {fileID: 23351479062865481}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dunes01 (7)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2197,7 +2523,7 @@ GameObject:
   - component: {fileID: 136458611996743347}
   m_Layer: 0
   m_Name: Column01 (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2213,9 +2539,9 @@ GameObject:
   - component: {fileID: 4905218890200051}
   - component: {fileID: 33181807680987797}
   - component: {fileID: 23696702006003165}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Concrete (7)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2231,9 +2557,9 @@ GameObject:
   - component: {fileID: 4142017873161857}
   - component: {fileID: 33492358083331811}
   - component: {fileID: 23890532127911555}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dunes01 (4)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2253,7 +2579,7 @@ GameObject:
   - component: {fileID: 65495024976763785}
   m_Layer: 0
   m_Name: Rocks02
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2269,9 +2595,9 @@ GameObject:
   - component: {fileID: 4111523139040633}
   - component: {fileID: 33122100410620253}
   - component: {fileID: 23557501260348763}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dunes01 (8)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2291,7 +2617,7 @@ GameObject:
   - component: {fileID: 65082529367586299}
   m_Layer: 0
   m_Name: Rocks03 (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2307,9 +2633,9 @@ GameObject:
   - component: {fileID: 4981092428987383}
   - component: {fileID: 33938006935495363}
   - component: {fileID: 23258709203962137}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dunes01
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2328,7 +2654,7 @@ GameObject:
   - component: {fileID: 136555895790298503}
   m_Layer: 0
   m_Name: Cactus
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2348,7 +2674,7 @@ GameObject:
   - component: {fileID: 65357496256399545}
   m_Layer: 0
   m_Name: Rocks03 (6)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2368,7 +2694,7 @@ GameObject:
   - component: {fileID: 65212028221923697}
   m_Layer: 0
   m_Name: Rocks03
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2388,7 +2714,7 @@ GameObject:
   - component: {fileID: 136816525982417861}
   m_Layer: 0
   m_Name: Rocks02 (5)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2406,7 +2732,7 @@ GameObject:
   - component: {fileID: 23799259035533707}
   m_Layer: 0
   m_Name: PalmTree (6)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2422,9 +2748,9 @@ GameObject:
   - component: {fileID: 4653107334418293}
   - component: {fileID: 33146389058381579}
   - component: {fileID: 23127964596958009}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dunes01 (10)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2443,7 +2769,7 @@ GameObject:
   - component: {fileID: 136963221098420303}
   m_Layer: 0
   m_Name: Tree (8)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2459,9 +2785,9 @@ GameObject:
   - component: {fileID: 4163444522862833}
   - component: {fileID: 33576907657616805}
   - component: {fileID: 23237622890863121}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dunes02 (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2480,7 +2806,7 @@ GameObject:
   - component: {fileID: 136146035616719959}
   m_Layer: 0
   m_Name: Cactus (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2501,7 +2827,7 @@ GameObject:
   - component: {fileID: 65623810131171311}
   m_Layer: 0
   m_Name: Building01
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2520,7 +2846,7 @@ GameObject:
   - component: {fileID: 65640816866953033}
   m_Layer: 0
   m_Name: PumpJack (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4
@@ -2536,9 +2862,9 @@ GameObject:
   - component: {fileID: 4587569945064295}
   - component: {fileID: 33785026897911477}
   - component: {fileID: 23121060238924341}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Concrete (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2558,7 +2884,7 @@ GameObject:
   - component: {fileID: 65717053410876907}
   m_Layer: 0
   m_Name: Rocks01 (4)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2574,9 +2900,9 @@ GameObject:
   - component: {fileID: 4800246879837325}
   - component: {fileID: 33720682385586629}
   - component: {fileID: 23844299656660577}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dunes01 (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2596,7 +2922,7 @@ GameObject:
   - component: {fileID: 65507775778161913}
   m_Layer: 0
   m_Name: Rocks01 (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2612,9 +2938,9 @@ GameObject:
   - component: {fileID: 4626984895128721}
   - component: {fileID: 33955832789453955}
   - component: {fileID: 23230118700901297}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dunes02 (7)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2632,7 +2958,7 @@ GameObject:
   - component: {fileID: 23493258271861759}
   m_Layer: 0
   m_Name: PalmTree (5)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2652,7 +2978,7 @@ GameObject:
   - component: {fileID: 136469390793955805}
   m_Layer: 0
   m_Name: Rocks02 (4)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2684,7 +3010,7 @@ GameObject:
   - component: {fileID: 136085000299733663}
   m_Layer: 0
   m_Name: Cliff (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2702,7 +3028,7 @@ GameObject:
   - component: {fileID: 23544964873362103}
   m_Layer: 0
   m_Name: PalmTree
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2721,7 +3047,7 @@ GameObject:
   - component: {fileID: 136826441752372007}
   m_Layer: 0
   m_Name: Tree (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2743,7 +3069,7 @@ GameObject:
   - component: {fileID: 65862209531494533}
   m_Layer: 0
   m_Name: Column02 (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2763,7 +3089,7 @@ GameObject:
   - component: {fileID: 136186130124465647}
   m_Layer: 0
   m_Name: OilStorage (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2784,7 +3110,7 @@ GameObject:
   - component: {fileID: 65648133122206971}
   m_Layer: 0
   m_Name: Building01 (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2807,7 +3133,7 @@ GameObject:
   - component: {fileID: 65677213281820047}
   m_Layer: 0
   m_Name: Ruins01 (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2827,7 +3153,7 @@ GameObject:
   - component: {fileID: 136815007098501439}
   m_Layer: 0
   m_Name: OilStorage
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2847,7 +3173,7 @@ GameObject:
   - component: {fileID: 65679733896262575}
   m_Layer: 0
   m_Name: Rocks01 (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2867,7 +3193,7 @@ GameObject:
   - component: {fileID: 65177912177394323}
   m_Layer: 0
   m_Name: Rocks03 (7)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2918,7 +3244,7 @@ GameObject:
   - component: {fileID: 136774104484641143}
   m_Layer: 0
   m_Name: Radar
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2940,7 +3266,7 @@ GameObject:
   - component: {fileID: 65142220457443407}
   m_Layer: 0
   m_Name: Column02 (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2958,7 +3284,7 @@ GameObject:
   - component: {fileID: 23321492658085849}
   m_Layer: 0
   m_Name: PalmTree (7)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2990,7 +3316,7 @@ GameObject:
   - component: {fileID: 136509399995604017}
   m_Layer: 0
   m_Name: Cliff (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3009,7 +3335,7 @@ GameObject:
   - component: {fileID: 136764928789200833}
   m_Layer: 0
   m_Name: Tree (9)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3058,9 +3384,9 @@ GameObject:
   - component: {fileID: 4456668068671133}
   - component: {fileID: 33101189671921837}
   - component: {fileID: 23302295656713497}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dunes01 (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3094,7 +3420,7 @@ GameObject:
   - component: {fileID: 136581026600847923}
   m_Layer: 0
   m_Name: Cliff (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3110,9 +3436,9 @@ GameObject:
   - component: {fileID: 4303155339356851}
   - component: {fileID: 33863885622624305}
   - component: {fileID: 23977537328199869}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Concrete (4)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3128,9 +3454,9 @@ GameObject:
   - component: {fileID: 4411591770006639}
   - component: {fileID: 33257718814675207}
   - component: {fileID: 23611006072583069}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Concrete
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3149,7 +3475,7 @@ GameObject:
   - component: {fileID: 136800035496688605}
   m_Layer: 0
   m_Name: Cactus (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3167,7 +3493,7 @@ GameObject:
   - component: {fileID: 23920623733824865}
   m_Layer: 0
   m_Name: Crater01
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3183,9 +3509,9 @@ GameObject:
   - component: {fileID: 4247881331519573}
   - component: {fileID: 33039626574064277}
   - component: {fileID: 23006770589481931}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dunes02 (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3204,7 +3530,7 @@ GameObject:
   - component: {fileID: 136334918383481793}
   m_Layer: 0
   m_Name: Tree (7)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3223,7 +3549,7 @@ GameObject:
   - component: {fileID: 136634345926003001}
   m_Layer: 0
   m_Name: Tree
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3244,7 +3570,7 @@ GameObject:
   - component: {fileID: 65364507375304335}
   m_Layer: 0
   m_Name: Building02
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3260,7 +3586,7 @@ GameObject:
   - component: {fileID: 4582194752169691}
   m_Layer: 0
   m_Name: Boundaries
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4
@@ -3276,9 +3602,9 @@ GameObject:
   - component: {fileID: 4197709710016527}
   - component: {fileID: 33888267929227683}
   - component: {fileID: 23771292610981365}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dunes01 (9)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3294,7 +3620,7 @@ GameObject:
   - component: {fileID: 4620172311752515}
   m_Layer: 0
   m_Name: Rocks
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4
@@ -3310,9 +3636,9 @@ GameObject:
   - component: {fileID: 4622404431850339}
   - component: {fileID: 33824751791029587}
   - component: {fileID: 23407612537123813}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dunes02 (4)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3349,7 +3675,7 @@ GameObject:
   - component: {fileID: 65488468371315297}
   m_Layer: 0
   m_Name: Rocks01
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3367,7 +3693,7 @@ GameObject:
   - component: {fileID: 23727002473975377}
   m_Layer: 0
   m_Name: PalmTree (4)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3386,7 +3712,7 @@ GameObject:
   - component: {fileID: 136059834314196093}
   m_Layer: 0
   m_Name: Tree (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3402,9 +3728,9 @@ GameObject:
   - component: {fileID: 4681112769328143}
   - component: {fileID: 33642516402629447}
   - component: {fileID: 23350703741010567}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Concrete (5)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3422,7 +3748,7 @@ GameObject:
   - component: {fileID: 23976734711507909}
   m_Layer: 0
   m_Name: Crater01 (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3442,7 +3768,7 @@ GameObject:
   - component: {fileID: 65567487727679811}
   m_Layer: 0
   m_Name: Rocks02 (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3458,9 +3784,9 @@ GameObject:
   - component: {fileID: 4562346897673113}
   - component: {fileID: 33413395733826757}
   - component: {fileID: 23072432029338757}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dunes01 (11)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3480,7 +3806,7 @@ GameObject:
   - component: {fileID: 65415977489663967}
   m_Layer: 0
   m_Name: BustedTank
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3496,9 +3822,9 @@ GameObject:
   - component: {fileID: 4692281884470087}
   - component: {fileID: 33107414200824539}
   - component: {fileID: 23233094182766959}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Concrete (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3517,7 +3843,7 @@ GameObject:
   - component: {fileID: 136994073009130609}
   m_Layer: 0
   m_Name: PalmTree (9)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3536,7 +3862,7 @@ GameObject:
   - component: {fileID: 65632216536619159}
   m_Layer: 0
   m_Name: PumpJack
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4
@@ -3552,9 +3878,9 @@ GameObject:
   - component: {fileID: 4893245030339585}
   - component: {fileID: 33764231734386221}
   - component: {fileID: 23854075066977543}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dunes01 (12)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3574,7 +3900,7 @@ GameObject:
   - component: {fileID: 65815679695760199}
   m_Layer: 0
   m_Name: Rocks03 (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3593,7 +3919,7 @@ GameObject:
   - component: {fileID: 136077131403321193}
   m_Layer: 0
   m_Name: Tree (6)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3609,9 +3935,9 @@ GameObject:
   - component: {fileID: 4762376033918253}
   - component: {fileID: 33248450835638843}
   - component: {fileID: 23641557132251989}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dunes02 (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3627,9 +3953,9 @@ GameObject:
   - component: {fileID: 4525056201503025}
   - component: {fileID: 33140304527263355}
   - component: {fileID: 23143963650144165}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dunes02
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3652,7 +3978,7 @@ GameObject:
   - component: {fileID: 65307509064936769}
   m_Layer: 0
   m_Name: Refinery
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -13206,13 +13532,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.4117647}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.8352941}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 010a6e5305fa7004f89c5d317b7b47d4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5b56d9fa0e8bd6e409ed188db38a692c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13299,13 +13625,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.4117647}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.8352941}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5b56d9fa0e8bd6e409ed188db38a692c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 48c0d4d6bebaa934384b07aa1e2f8184, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13351,7 +13677,7 @@ RectTransform:
   m_GameObject: {fileID: 2929252284567463658}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_Children:
   - {fileID: 2929252283710825745}
   m_Father: {fileID: 515504662}
@@ -13359,6 +13685,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 200, y: 200}
+  m_AnchoredPosition: {x: 125, y: 125}
   m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}

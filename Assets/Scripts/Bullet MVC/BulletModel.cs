@@ -10,13 +10,17 @@ namespace BulletServices
     public class BulletModel
     {
         public int bulletDamage { get; } // Damage applied by bullet.
-        public float maxLifeTime { get; } // Maximum bullet life.
+        public float maxBulletLifeTime { get; } // Maximum bullet life.
+        public float radiusOfExplosion { get; }
+        public float forceOfExplosion { get; }
         public Vector3 currentVelocity { get; set; } // current velocity of bullet. 
 
-        public BulletModel(int bulletDamage, float maxLifeTime)
+        public BulletModel(int bulletDamage, float maxBulletLifeTime, float radiousOfExplosion, float forceOfExplosion)
         {
             this.bulletDamage = bulletDamage;
-            this.maxLifeTime = maxLifeTime;
+            this.maxBulletLifeTime = maxBulletLifeTime;
+            this.radiusOfExplosion = radiousOfExplosion;
+            this.forceOfExplosion = forceOfExplosion;
         }
     }
 }

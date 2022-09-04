@@ -13,6 +13,12 @@ namespace TankServices
     public class TankView : MonoBehaviour
     {
         private TankController tankController;
+        public Transform BulletSpawner;
+
+        public GameObject turret;
+
+        // To display aim arrow.
+        public Transform fireTransform;
 
         private void Start()
         {
@@ -30,6 +36,17 @@ namespace TankServices
         public void SetTankControllerReference(TankController _tankController)
         {
             tankController = _tankController;
+        }
+
+        public void Death()
+        {
+            Destroy(gameObject);
+        }
+
+        // Implementation of IDamagable interface.
+        public void TakeDamage(int damage)
+        {
+            tankController.TakeDamage(damage);
         }
 
         // Sets material color of all child mesh renderers.

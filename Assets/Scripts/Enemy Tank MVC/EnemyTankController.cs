@@ -26,5 +26,25 @@ namespace EnemyTankServices
             // Checks whether the player is in sight range or attack range.
             enemyTankModel.b_PlayerInSightRange = Physics.CheckSphere(enemyTankView.transform.position, enemyTankModel.patrollingRange, enemyTankView.playerLayerMask);
         }
+
+        // Reduce current health by the amount of damage done.
+        public void TakeDamage(int damage)
+        {
+            enemyTankModel.health -= damage;
+
+            // If health goes below zero, tank dies.
+            if (enemyTankModel.health <= 0 && !enemyTankModel.b_IsDead)
+            {
+                Death();
+            }
+        }
+
+        public void Death()
+        {
+            enemyTankModel.b_IsDead = true;
+
+            enemyTankView.Death();
+
+        }
     }
 }

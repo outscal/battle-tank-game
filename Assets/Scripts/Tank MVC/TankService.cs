@@ -2,6 +2,7 @@
 using TankScriptableObjects;
 using TankSOList;
 using UnityEngine;
+using BulletServices;
 
 /// <summary>
 /// This Class is respponsible to Create, Destroy and Manage all the Tank MVCs in the Game.
@@ -13,6 +14,7 @@ namespace TankServices
     {
         //Refernces.
         [SerializeField] private Joystick leftJoystick;
+        [SerializeField] private Joystick rightJoystick;
 
         // Player tank scriptable objects list
         public TankScriptableObjectList playerTankList;
@@ -28,7 +30,6 @@ namespace TankServices
         {
             // To spawn random type of player tank.
             playerTankType = (TankType)Random.Range(0, playerTankList.tankScriptableObject.Length);
-            Debug.Log("playerTankType : " + playerTankType);
 
             tankController = CreateNewPlayerTank(playerTankType);
             playerTankView = tankController.tankView;
@@ -66,8 +67,29 @@ namespace TankServices
         {
             if (tankController != null)
             {
-                tankController.SetJoystickReference(leftJoystick);
+                tankController.SetJoystickReference(leftJoystick, rightJoystick);
             }
         }
+
+        // Returns tank controller at specified index from player tank controller list.
+        public TankController GetTankController(int index = 0)
+        {
+            return playerTanks[index];
+        }
+
+        // Removes specified tank controller from the tank controller list.
+        public void DestroyTank(TankController tank)
+        {
+            for (int i = 0; i < playerTanks.Count; i++)
+            {
+                if (playerTanks[i] == tank)
+                {
+                    playerTanks[i] = null;
+                    playerTanks.Remove(tank);
+                }
+            }
+        }
+
+
     }
 }

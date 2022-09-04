@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using BulletScriptableObjects;
 
 /// <summary>
@@ -14,14 +12,16 @@ namespace BulletServices {
         public BulletScriptableObjectList bulletSOList;
 
         // Spawns specified type of bullet at given position and sets its velocity as per launch force. 
-        private BulletController CreateBullet(BulletType bulletType, Transform bulletTransform, float launchForce)
+        public BulletController FireBullet(BulletType bulletType, Transform bulletTransform, float launchForce)
         {
             foreach (BulletScriptableObject bullet in bulletSOList.bulletScriptableObjectList)
             {
                 if (bullet.bulletType == bulletType)
                 {
                     BulletModel bulletModel = new BulletModel(bulletSOList.bulletScriptableObjectList[(int)bulletType].damage,
-                                                              bulletSOList.bulletScriptableObjectList[(int)bulletType].maxLifeTime);
+                                                              bulletSOList.bulletScriptableObjectList[(int)bulletType].maxLifeTime,
+                                                              bulletSOList.bulletScriptableObjectList[(int)bulletType].radiousOfExplosion,
+                                                              bulletSOList.bulletScriptableObjectList[(int)bulletType].forceOfExplosion);
 
                     BulletController bulletController = new BulletController(bulletModel, bulletSOList.bulletScriptableObjectList[(int)bulletType].bulletView, bulletTransform, launchForce);
                     return bulletController;

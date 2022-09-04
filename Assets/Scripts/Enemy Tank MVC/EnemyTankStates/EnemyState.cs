@@ -3,6 +3,8 @@
     // Different states of enemy tank.
     public enum EnemyState
     {
-        Patrolling
+        Patrolling, 
+        Attacking,
+        Chasing
     }
 }

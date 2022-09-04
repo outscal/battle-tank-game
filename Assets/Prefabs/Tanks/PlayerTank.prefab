@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4191122489670393376}
   - component: {fileID: 4191122489666969202}
   - component: {fileID: 4191122489668099250}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TankChassis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,9 +93,9 @@ GameObject:
   - component: {fileID: 1190643403019952067}
   - component: {fileID: 5498435174799917625}
   - component: {fileID: 5164659903780800083}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerTank
-  m_TagString: Tank
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -156,6 +156,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20903e825cbf9474a8c180f234becff1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BulletSpawner: {fileID: 4081884076764702687, guid: c7277671539d2e4408f488e05036a14c,
+    type: 3}
+  turret: {fileID: 4191122489670353866}
+  fireTransform: {fileID: 613345447992369689}
 --- !u!1 &4191122489670353860
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,7 +171,7 @@ GameObject:
   - component: {fileID: 4191122489670393380}
   - component: {fileID: 4191122489666969210}
   - component: {fileID: 4191122489668099258}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TankTracksRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -247,7 +251,7 @@ GameObject:
   - component: {fileID: 4191122489670393382}
   - component: {fileID: 4191122489666969204}
   - component: {fileID: 4191122489668099252}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TankTracksLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -327,7 +331,7 @@ GameObject:
   - component: {fileID: 4191122489670393386}
   - component: {fileID: 4191122489666969200}
   - component: {fileID: 4191122489668099248}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TankTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -341,10 +345,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4191122489670353866}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.000010554959, y: 1.0796412, z: -0.025321364}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 613345447992369689}
   m_Father: {fileID: 4191122489670393390}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -405,7 +410,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4191122489670393390}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TankRenderers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -430,3 +435,33 @@ Transform:
   m_Father: {fileID: 4191122489670393378}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6101434405895921465
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 613345447992369689}
+  m_Layer: 8
+  m_Name: BulletFireTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &613345447992369689
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6101434405895921465}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: -1}
+  m_LocalPosition: {x: -1, y: 0.466, z: 0.94}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4191122489670393386}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 360, y: 0, z: 0}
