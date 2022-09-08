@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerTankController : battleTanksSingletonGeneric<PlayerTankController>
+public class PLayerTankSingleton : battleTanksSingletonGeneric<PLayerTankSingleton>
 {
      
     public float m_MoveSpeed = 20f;
