@@ -22,7 +22,7 @@ public class TankModel
        movementSpeed = tankScriptableObject.speed;
        rotateSpeed = tankScriptableObject.rspeed;
        tankName = tankScriptableObject.TankName;
-       health = tankScriptableObject.Startinghealth;
+       health = tankScriptableObject.StartingHealth;
              
     }
 

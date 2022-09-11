@@ -117,18 +117,10 @@ public class TankView : MonoBehaviour
     {
 
         tankDead = true;
-        // m_ExplosionParticles.transform.position = transform.position;
-         m_ExplosionParticles.gameObject.SetActive(true);
-
-        // // Play the particle system of the tank exploding.
+        m_ExplosionParticles.gameObject.SetActive(true);
          m_ExplosionParticles.Play();
-
-        // // Play the tank explosion sound effect.
          m_ExplosionAudio.Play();
-
-        // Turn the tank off.
         gameObject.SetActive(false);
-
         Destroy(gameObject);
 
     }

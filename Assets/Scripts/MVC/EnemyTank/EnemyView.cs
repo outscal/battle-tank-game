@@ -1,7 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
-public class EnemyView : MonoBehaviour
+public class EnemyView : MonoBehaviour 
 {
     private EnemyController enemyController;
     public Rigidbody rb;
@@ -14,6 +17,7 @@ public class EnemyView : MonoBehaviour
     public Color m_FullHealthColor = Color.green;
     public Color m_ZeroHealthColor = Color.red;
     
+   private IEnumerator Coroutine;
 
     public void SetEnemyController(EnemyController _enemycontroller)
     {
@@ -24,7 +28,6 @@ public class EnemyView : MonoBehaviour
     public void OnEnable()
     {
         currentHealth = Startinghealth;
-        // tankDead = false;
         SetHealthUI();
        
      
@@ -44,6 +47,8 @@ public class EnemyView : MonoBehaviour
         Color Healthcolor = Color.Lerp(m_ZeroHealthColor,m_FullHealthColor,(currentHealth/Startinghealth));
         healthFill.color = Healthcolor;
     }
+
+   
 }
 
 
