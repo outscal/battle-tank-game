@@ -15,18 +15,15 @@ namespace BulletServices
             // Holds all data of bullet. 
             this.bulletModel = bulletModel;
 
-            // Visual instance of bullet.
             bulletView = GameObject.Instantiate<BulletView>(bulletPrefab, bulletSpawner.position, bulletSpawner.rotation);
             bulletView.BulletInitialize(this);
 
-            // Set velocity of bullet as per input launch force.
             bulletView.GetComponent<Rigidbody>().velocity = bulletSpawner.forward * launchForce;
         }
 
         // Applies damage to the object collided with bullet using IDamagable interface.
         public void OnCollisionEnter(Collider other)
         {
-            // Check's whether collided object implements IDamagable interface.
             IDamagable damagable = other.GetComponent<IDamagable>();
 
             if (damagable != null)
@@ -34,7 +31,6 @@ namespace BulletServices
                 ApplyDamage(damagable, other);
             }
 
-            // To destroy bullet after collision.
             bulletView.DestroyBullet();
         }
 
@@ -48,7 +44,5 @@ namespace BulletServices
                 damagable.TakeDamage(bulletModel.bulletDamage);
             }
         }
-
-
     }
 }

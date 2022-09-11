@@ -9,11 +9,11 @@ namespace BulletServices
     // Holds all the data related to bullet.
     public class BulletModel
     {
-        public int bulletDamage { get; } // Damage applied by bullet.
-        public float maxBulletLifeTime { get; } // Maximum bullet life.
+        public int bulletDamage { get; }
+        public float maxBulletLifeTime { get; } 
         public float radiusOfExplosion { get; }
         public float forceOfExplosion { get; }
-        public Vector3 currentVelocity { get; set; } // current velocity of bullet. 
+        public Vector3 currentVelocity { get; set; }
 
         public BulletModel(int bulletDamage, float maxBulletLifeTime, float radiousOfExplosion, float forceOfExplosion)
         {

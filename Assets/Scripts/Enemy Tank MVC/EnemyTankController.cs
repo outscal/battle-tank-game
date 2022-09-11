@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using GameServices;
 using UnityEngine;
+using AllServices;
 
 namespace EnemyTankServices
 {
@@ -20,11 +21,24 @@ namespace EnemyTankServices
             enemyTankView.enemyTankController = this;
         }
 
+        public void EnableTankView()
+        {
+            enemyTankView.gameObject.SetActive(true);
+            enemyTankModel.b_IsDead = false;
+        }
+
+        public void DisableTankView()
+        {
+            enemyTankView.gameObject.SetActive(false);
+            enemyTankModel.b_IsDead = true;
+        }
+
         // To do all physics calculations.
         public void RangeCheck()
         {
             // Checks whether the player is in sight range or attack range.
             enemyTankModel.b_PlayerInSightRange = Physics.CheckSphere(enemyTankView.transform.position, enemyTankModel.patrollingRange, enemyTankView.playerLayerMask);
+            enemyTankModel.b_PlayerInAttackRange = Physics.CheckSphere(enemyTankView.transform.position, enemyTankModel.attackRange, enemyTankView.playerLayerMask);
         }
 
         // Reduce current health by the amount of damage done.
@@ -45,6 +59,8 @@ namespace EnemyTankServices
 
             enemyTankView.Death();
 
+            EnemyTankService.Instance.DestroyEnemy(this);
+            EventService.Instance.InvokeOnEnemyDeathEvent();
         }
     }
 }

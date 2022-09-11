@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using GameServices;
 using System.Collections.Generic;
 using UnityEngine;
 using TankServices;
@@ -38,13 +38,11 @@ namespace EnemyTankServices
             navAgent = GetComponent<NavMeshAgent>();
             SetEnemyTankColor();
             InitializeState();
-
         }
 
         private void FixedUpdate()
         {
-            enemyTankController.RangeCheck();
-            
+            enemyTankController.RangeCheck();            
         }
 
         public void SetTankControllerReference(EnemyTankController enemyController)
@@ -76,6 +74,8 @@ namespace EnemyTankServices
 
         public void Death()
         {
+            // Removes reference of tank position in camera targets list.
+            CameraController.Instance.RemoveCameraTargetPosition(this.transform);
             Destroy(gameObject);
         }
 
@@ -87,25 +87,21 @@ namespace EnemyTankServices
                 case EnemyState.Attacking:
                     {
                         currentState = attackingState;
-                        Debug.Log("Enemy Tank Attacking state ");
                         break;
                     }
                 case EnemyState.Chasing:
                     {
                         currentState = chasingState;
-                        Debug.Log("Enemy Tank Chasing state ");
                         break;
                     }
                 case EnemyState.Patrolling:
                     {
                         currentState = patrollingState;
-                        Debug.Log("Enemy Tank Patrolling state ");
                         break;
                     }
                 default:
                     {
                         currentState = null;
-                        Debug.Log("Enemy Tank null state ");
                         break;
                     }
             }

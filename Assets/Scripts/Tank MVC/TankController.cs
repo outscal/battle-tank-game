@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using GameServices;
 using BulletServices;
+using AchievementServices;
+using UIServices;
+using AllServices;
 
 namespace TankServices
 {
@@ -27,6 +30,8 @@ namespace TankServices
             tankRigidbody = tankView.GetComponent<Rigidbody>();
             tankView.SetTankControllerReference(this);
             tankModel.SetTankControllerReference(this);
+
+            SubscribeEvents();
         }
 
         // Sets the reference to joystick on the Canvas.
@@ -36,9 +41,52 @@ namespace TankServices
             rightJoystick = _rightJoystick;
         }
 
-        // This method is called on every fixed update. // To do all physics calculations.
+        private void SubscribeEvents()
+        {
+            EventService.Instance.OnEnemyDeath += UpdateEnemiesKilledCount;
+            EventService.Instance.OnplayerFiredBullet += UpdateBulletsFiredCount;
+            EventService.Instance.OnFireButtonPressed += FireButtonPressed;
+            EventService.Instance.OnFireButtonReleased += FireButtonReleased;
+        }
+
+        private void UnsubscribeEvents()
+        {
+            EventService.Instance.OnEnemyDeath -= UpdateEnemiesKilledCount;
+            EventService.Instance.OnplayerFiredBullet -= UpdateBulletsFiredCount;
+            EventService.Instance.OnFireButtonPressed -= FireButtonPressed;
+            EventService.Instance.OnFireButtonReleased -= FireButtonReleased;
+        }
+
+        private void UpdateEnemiesKilledCount()
+        {
+            tankModel.enemiesKilled += 1;
+            PlayerPrefs.SetInt("EnemiesKilled", tankModel.enemiesKilled);
+            UIHandler.Instance.UpdateScoreText();
+            AchievementHandler.Instance.CheckForEnemiesKilledAchievement();
+        }
+
+        private void UpdateBulletsFiredCount()
+        {
+            tankModel.bulletsFired += 1;
+            PlayerPrefs.SetInt("BulletsFired", tankModel.bulletsFired);
+            AchievementHandler.Instance.CheckBulletFiredAchievement();
+        }
+
+        // This method is called on every frame. // To get player inputs.
         public void UpdateTankController()
         {
+            // If player is alive.
+            if (!tankModel.b_IsDead)
+            {
+                FireBulletInputCheck(); // Input check for bullet fire.
+            }
+        }        
+
+        // This method is called on every fixed update. // To do all physics calculations.
+        public void FixedUpdateTankController()
+        {
+            if (tankRigidbody && !tankModel.b_IsDead)
+            {
                 if (leftJoystick.Vertical != 0)
                 {
                     ForwardMovementInput();
@@ -47,8 +95,9 @@ namespace TankServices
                 {
                     RotationInput();
                 }
+            }
 
-                if (tankView.turret && !tankModel.b_IsDead)
+            if (tankView.turret && !tankModel.b_IsDead)
                 {
                     if (rightJoystick.Horizontal != 0)
                     {
@@ -95,6 +144,7 @@ namespace TankServices
 
         public void Death()
         {
+            UnsubscribeEvents();
             tankModel.b_IsDead = true;
 
             TankService.Instance.DestroyTank(this);
@@ -178,19 +228,5 @@ namespace TankServices
                 await new WaitForSeconds(0.3f);
             }
         }
-
-        // To fire bullet.
-        /*private void FireBullet()
-        {
-            tankModel.b_IsFired = true;
-            BulletService.Instance.FireBullet(tankModel.bulletType, tankView.fireTransform, tankModel.currentLaunchForce);
-
-            // Change the clip to the firing clip and play it.
-            tankView.shootingAudio.clip = tankView.fireClip;
-            tankView.shootingAudio.Play();
-
-            // Reset the launch force.
-            tankModel.currentLaunchForce = tankModel.minLaunchForce;
-        }*/
     }
 }

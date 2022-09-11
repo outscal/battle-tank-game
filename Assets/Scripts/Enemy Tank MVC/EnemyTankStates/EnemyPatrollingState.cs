@@ -10,23 +10,27 @@ namespace EnemyTankServices
         public override void OnStateEnter()
         {
             base.OnStateEnter();
-            Debug.Log("Patrolling is enabled");
             enemyTankView.activeState = EnemyState.Patrolling;
         }
 
         protected override void Start()
         {
             base.Start();
-            Debug.Log("Accessing Tank Model");
             ChangeWalkPoint();
         }
 
         private void Update()
         {
             // Checks for state transition conditions. 
-            if (enemyTankModel.b_PlayerInSightRange && !enemyTankModel.b_PlayerInAttackRange) enemyTankView.currentState.ChangeState(enemyTankView.chasingState);
-            else if (enemyTankModel.b_PlayerInSightRange && enemyTankModel.b_PlayerInAttackRange) enemyTankView.currentState.ChangeState(enemyTankView.attackingState);
-            Debug.Log("Enemy Tank Phase :- " + enemyTankView.currentState);
+            if (enemyTankModel.b_PlayerInSightRange && !enemyTankModel.b_PlayerInAttackRange)
+            {
+                enemyTankView.currentState.ChangeState(enemyTankView.chasingState);
+            }
+            else if (enemyTankModel.b_PlayerInSightRange && enemyTankModel.b_PlayerInAttackRange)
+            {
+                enemyTankView.currentState.ChangeState(enemyTankView.attackingState);
+            }
+
 
             Patroling();
             ResetTurretRotation();
@@ -35,7 +39,6 @@ namespace EnemyTankServices
         public override void OnStateExit()
         {
             base.OnStateExit();
-            Debug.Log("Patrolling is disabled");
         }
 
         // Enemy tank patroling on Nav-mesh.
@@ -57,7 +60,6 @@ namespace EnemyTankServices
             // If distance is less than 1, enemy tank has reached to patrol point.
             if (distanceToPatrolPoint.magnitude < 1f)
             {
-                Debug.Log("Tank reached to the patrol point");
                 enemyTankModel.b_IsPatrolPoint = false;
             }
         }
@@ -68,7 +70,6 @@ namespace EnemyTankServices
             while (true)
             {
                 await new WaitForSeconds(enemyTankModel.patrolTime);
-                Debug.Log("Changes walk point of tank after fixed interval");
                 enemyTankModel.b_IsPatrolPoint = false;
             }
         }
@@ -82,12 +83,10 @@ namespace EnemyTankServices
 
             // Setting patrol point for enemy tank.
             enemyTankModel.patrolPoint = new Vector3(enemyTankView.transform.position.x + randomX, enemyTankView.transform.position.y, enemyTankView.transform.position.z + randomZ);
-            Debug.Log("Setting patrol point for enemy tank");
 
             // To ensure patrol point is on the ground.
             if (Physics.Raycast(enemyTankModel.patrolPoint, -enemyTankView.transform.up, 2f, enemyTankView.groundLayerMask))
             {
-                Debug.Log("patrol point is on ground");
                 enemyTankModel.b_IsPatrolPoint = true;
             }
         }

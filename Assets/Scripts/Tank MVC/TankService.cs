@@ -12,12 +12,10 @@ namespace TankServices
 {
     public class TankService : GenericSingleton<TankService>
     {
-        //Refernces.
         [SerializeField] private Joystick leftJoystick;
         [SerializeField] private Joystick rightJoystick;
 
-        // Player tank scriptable objects list
-        public TankScriptableObjectList playerTankList;
+        public TankScriptableObjectList playerTankList; // Player tank scriptable objects list
 
         public TankController tankController;
         public TankView playerTankView;
@@ -36,12 +34,21 @@ namespace TankServices
             SetPlayerTankControlReferences();
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
-            // For physics calculation in tank controller.
+            // For input detection.
             if (tankController != null)
             {
                 tankController.UpdateTankController();
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            // For physics calculation.
+            if (tankController != null)
+            {
+                tankController.FixedUpdateTankController();
             }
         }
 
@@ -62,7 +69,7 @@ namespace TankServices
             return null;
         }
 
-        // Sets references of joystick in tank controller.
+        // Sets references of joystick.
         private void SetPlayerTankControlReferences()
         {
             if (tankController != null)
@@ -89,7 +96,5 @@ namespace TankServices
                 }
             }
         }
-
-
     }
 }

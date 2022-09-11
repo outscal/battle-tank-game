@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameServices;
 
 /// <summary>
 /// This Class is Attached to a Player Tank GameObject and is responsible for UI related work.
@@ -8,7 +9,6 @@ using UnityEngine;
 
 namespace TankServices
 {
-    //Present on visual instance of player tank.
     [RequireComponent(typeof(Rigidbody))]
     public class TankView : MonoBehaviour
     {
@@ -23,6 +23,9 @@ namespace TankServices
         private void Start()
         {
             SetPlayerTankColor();
+
+            // Add's reference of tank position in camera targets list.
+            CameraController.Instance.AddCameraTargetPosition(this.transform);
         }
 
         private void Update()
@@ -40,6 +43,8 @@ namespace TankServices
 
         public void Death()
         {
+            // Removes reference of tank position in camera targets list.
+            CameraController.Instance.RemoveCameraTargetPosition(this.transform);
             Destroy(gameObject);
         }
 

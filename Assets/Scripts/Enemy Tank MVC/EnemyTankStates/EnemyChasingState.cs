@@ -14,8 +14,14 @@ namespace EnemyTankServices
         private void Update()
         {
             // Checks for state transition conditions. // If condition is satisfied, transitions into desired state.
-            if (!enemyTankModel.b_PlayerInSightRange && !enemyTankModel.b_PlayerInAttackRange) enemyTankView.currentState.ChangeState(enemyTankView.patrollingState);
-            else if (enemyTankModel.b_PlayerInSightRange && enemyTankModel.b_PlayerInAttackRange) enemyTankView.currentState.ChangeState(enemyTankView.attackingState);
+            if (!enemyTankModel.b_PlayerInSightRange && !enemyTankModel.b_PlayerInAttackRange)
+            {
+                enemyTankView.currentState.ChangeState(enemyTankView.patrollingState);
+            }
+            else if (enemyTankModel.b_PlayerInSightRange && enemyTankModel.b_PlayerInAttackRange)
+            {
+                enemyTankView.currentState.ChangeState(enemyTankView.attackingState);
+            }
 
             ChasePlayer();
         }
@@ -49,14 +55,13 @@ namespace EnemyTankServices
         {
             Vector3 desiredRotation = new Vector3(0, 0, 0);
 
-            float angle = Vector3.SignedAngle(enemyTankView.transform.forward, enemyTankView.turret.transform.forward, Vector3.up);
+            float turretAngle = Vector3.SignedAngle(enemyTankView.transform.forward, enemyTankView.turret.transform.forward, Vector3.up);
 
-            // Decides the direction of rotaion of turret. Whether to rotate from left side or right side.
-            if (angle < 0)
+            if (turretAngle < 0)
             {
                 desiredRotation = Vector3.up * enemyTankModel.turretRotationSpeed * Time.deltaTime;
             }
-            else if (angle > 0)
+            else if (turretAngle > 0)
             {
                 desiredRotation = -Vector3.up * enemyTankModel.turretRotationSpeed * Time.deltaTime;
             }

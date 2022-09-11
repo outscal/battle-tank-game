@@ -44,9 +44,9 @@ namespace TankServices {
 
         public float movementSpeed { get; }
         
-        public int maxHealth { get; } // Tank Maximum Health
+        public int maxHealth { get; }
         public int health { get; set; } 
-        public float rotationSpeed { get; } // Tank rotation speed.
+        public float rotationSpeed { get; }
         public float turretRotationSpeed { get; } 
 
         public float minBulletLaunchForce { get; } 
