@@ -8,7 +8,6 @@ using UnityEngine;
 
 namespace BulletServices
 {
-    // Script is present on visual instance of bullet.
     [RequireComponent(typeof(Rigidbody))]
     public class BulletView : MonoBehaviour
     {

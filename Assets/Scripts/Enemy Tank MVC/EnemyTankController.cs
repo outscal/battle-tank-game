@@ -41,12 +41,10 @@ namespace EnemyTankServices
             enemyTankModel.b_PlayerInAttackRange = Physics.CheckSphere(enemyTankView.transform.position, enemyTankModel.attackRange, enemyTankView.playerLayerMask);
         }
 
-        // Reduce current health by the amount of damage done.
         public void TakeDamage(int damage)
         {
             enemyTankModel.health -= damage;
 
-            // If health goes below zero, tank dies.
             if (enemyTankModel.health <= 0 && !enemyTankModel.b_IsDead)
             {
                 Death();

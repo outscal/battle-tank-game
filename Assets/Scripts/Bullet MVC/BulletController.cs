@@ -12,7 +12,6 @@ namespace BulletServices
         // This Constructor Spawns a bullet and Fire it just after it is Spawned.
         public BulletController(BulletModel bulletModel, BulletView bulletPrefab, Transform bulletSpawner, float launchForce)
         {
-            // Holds all data of bullet. 
             this.bulletModel = bulletModel;
 
             bulletView = GameObject.Instantiate<BulletView>(bulletPrefab, bulletSpawner.position, bulletSpawner.rotation);
@@ -21,7 +20,7 @@ namespace BulletServices
             bulletView.GetComponent<Rigidbody>().velocity = bulletSpawner.forward * launchForce;
         }
 
-        // Applies damage to the object collided with bullet using IDamagable interface.
+        // Applies damage to the object collided with bullet.
         public void OnCollisionEnter(Collider other)
         {
             IDamagable damagable = other.GetComponent<IDamagable>();

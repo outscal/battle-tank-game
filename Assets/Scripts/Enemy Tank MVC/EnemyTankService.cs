@@ -12,7 +12,6 @@ namespace EnemyTankServices
         public EnemyTankView enemyTankPrefab;
         public EnemyTankScriptableObjectList enemyTankSOList;
 
-        // Stores controllers of all active enemy tanks in the scene.
         [HideInInspector] public List<EnemyTankController> enemyTanks = new List<EnemyTankController>();
 
         private void Start()
@@ -21,10 +20,8 @@ namespace EnemyTankServices
             EnemyTankController tankController = CreateEnemyTank(enemyType);
         }
 
-        // Spawns specified type of enemy tank and returns tank controller. 
         public EnemyTankController CreateEnemyTank(EnemyType enemyType)
         {
-            // To search for sciptable object which holds data of specified enemy tank.
             foreach (EnemyTankScriptableObject enemyTankSO in enemyTankSOList.enemyTankScriptableObject)
             {
                 if (enemyTankSO.enemyType == enemyType)
