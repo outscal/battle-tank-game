@@ -17,27 +17,11 @@ public class PlayerTank : GenericSingleton<PlayerTank>
 
     private void Update()
     {
-        horizontalInput = joystick.Horizontal; //Input.GetAxisRaw("HorizontalUI") ;
-        verticalInput = joystick.Vertical;//Input.GetAxisRaw("VerticalUI");
-        if(horizontalInput>0.2f)
-        {
-            moveVector.x = transform.position.x + movSpeed * Time.deltaTime;
-        }
-        else if(horizontalInput<(-0.2f))
-        {
-            moveVector.x = transform.position.x + (-1) * movSpeed * Time.deltaTime;
-        }
-
-        if(verticalInput>0.2f)
-        {
-            moveVector.z = transform.position.z + movSpeed * Time.deltaTime;
-        }
-        else if(verticalInput<(-0.2f))
-        {
-            moveVector.z = transform.position.z + (-1) * movSpeed * Time.deltaTime;
-        }
-        transform.position = moveVector;
-        
+        if(joystick.Direction.magnitude > 0)
+            transform.position += transform.forward * movSpeed * Time.deltaTime ;
+        moveVector.x = joystick.Direction.x;
+        moveVector.z = joystick.Direction.y;
+        transform.forward = moveVector;
     }
 
     
