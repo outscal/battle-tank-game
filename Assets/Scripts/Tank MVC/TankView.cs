@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using GameServices;
+using UnityEngine.UI;
+using AllServices;
 
 /// <summary>
 /// This Class is Attached to a Player Tank GameObject and is responsible for UI related work.
@@ -10,45 +10,63 @@ using GameServices;
 namespace TankServices
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class TankView : MonoBehaviour
+    public class TankView : MonoBehaviour, IDamagable
     {
         private TankController tankController;
-        public Transform BulletSpawner;
 
         public GameObject turret;
 
         // To display aim arrow.
         public Transform fireTransform;
 
+        public GameObject explosionEffectPrefab; // Explosion effect particle system prefab.
+
+        // To display health.
+        public Slider healthSlider;
+        public Image fillImage;
+
+        public Slider aimSlider;
+
+        // For movement audio.
+        public AudioSource movementAudio;
+        public AudioClip engineIdling;
+        public AudioClip engineDriving;
+
+        [HideInInspector] public AudioSource explosionSound;
+        [HideInInspector] public ParticleSystem explosionParticles;
+
+        public AudioSource shootingAudio;
+        public AudioClip chargingClip;
+        public AudioClip fireClip;
+
+        private void Awake()
+        {
+            explosionParticles = Instantiate(explosionEffectPrefab).GetComponent<ParticleSystem>();
+            explosionSound = explosionParticles.GetComponent<AudioSource>();
+
+            explosionParticles.gameObject.SetActive(false);
+        }
+
         private void Start()
         {
+            tankController.SetHealthUI();
+            tankController.SetAimUI();
             SetPlayerTankColor();
 
-            // Add's reference of tank position in camera targets list.
             CameraController.Instance.AddCameraTargetPosition(this.transform);
         }
 
-        private void Update()
+        public void SetTankControllerReference(TankController tankController)
         {
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                tankController.DestroyWorld();
-            }
-        }
-
-        public void SetTankControllerReference(TankController _tankController)
-        {
-            tankController = _tankController;
+            this.tankController = tankController;
         }
 
         public void Death()
         {
-            // Removes reference of tank position in camera targets list.
             CameraController.Instance.RemoveCameraTargetPosition(this.transform);
             Destroy(gameObject);
         }
 
-        // Implementation of IDamagable interface.
         public void TakeDamage(int damage)
         {
             tankController.TakeDamage(damage);

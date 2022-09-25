@@ -1,13 +1,14 @@
 ﻿using GameServices;
-using System.Collections.Generic;
 using UnityEngine;
 using TankServices;
 using UnityEngine.AI;
 using AllServices;
+using UnityEngine.UI;
 //using EnemyTankServices;
 
 namespace EnemyTankServices
 {
+    [RequireComponent(typeof(AudioSource))]
     public class EnemyTankView : MonoBehaviour, IDamagable
     {
         public EnemyTankController enemyTankController; 
@@ -19,6 +20,8 @@ namespace EnemyTankServices
         public LayerMask playerLayerMask; // For player detection.
         public LayerMask groundLayerMask; // For ground detection.
 
+        public GameObject explosionEffectPrefab; // Explosion effect particle system prefab.
+
         public EnemyPatrollingState patrollingState; // Patrolling behaviour script.
         public EnemyChasingState chasingState; // Chasing behaviour script.
         public EnemyAttackingState attackingState; // Attacking behaviour script.
@@ -27,27 +30,43 @@ namespace EnemyTankServices
         [HideInInspector] public EnemyState activeState;
         [HideInInspector] public EnemyTankBaseStates currentState;
 
+        [HideInInspector] public AudioSource explosionSound;
+        [HideInInspector] public ParticleSystem explosionParticles;
+
+        public AudioSource shootingAudio;
+        public AudioClip fireClip;
+
+        // To display health.
+        public Slider healthSlider;
+        public Image fillImage;
+
+        private void Awake()
+        {
+            explosionParticles = Instantiate(explosionEffectPrefab).GetComponent<ParticleSystem>();
+            explosionSound = explosionParticles.GetComponent<AudioSource>();
+
+            explosionParticles.gameObject.SetActive(false);
+        }
+
         private void Start()
         {
+            enemyTankController.SetHealthUI();
 
-            // If player is spawnned, we take reference of player transform.
             if (TankService.Instance.playerTankView)
             {
                 playerTransform = TankService.Instance.playerTankView.transform;
             }
+
             navAgent = GetComponent<NavMeshAgent>();
             SetEnemyTankColor();
             InitializeState();
+
+            CameraController.Instance.AddCameraTargetPosition(this.transform);
         }
 
         private void FixedUpdate()
         {
             enemyTankController.RangeCheck();            
-        }
-
-        public void SetTankControllerReference(EnemyTankController enemyController)
-        {
-            enemyTankController = enemyController;
         }
 
         // Sets material color of all child mesh renderers.
@@ -60,7 +79,6 @@ namespace EnemyTankServices
             }
         }
 
-        // Returns random launch force value between minimum and maximum lauch force.
         public float GetRandomLaunchForce()
         {
             return Random.Range(enemyTankController.enemyTankModel.minLaunchForce, enemyTankController.enemyTankModel.maxLaunchForce);
@@ -74,12 +92,10 @@ namespace EnemyTankServices
 
         public void Death()
         {
-            // Removes reference of tank position in camera targets list.
             CameraController.Instance.RemoveCameraTargetPosition(this.transform);
             Destroy(gameObject);
         }
 
-        // To set initial state of enemy tank.
         private void InitializeState()
         {
             switch (initialState)

@@ -90,6 +90,9 @@ namespace EnemyTankServices
         private void FireBullet()
         {
             BulletService.Instance.FireBullet(enemyTankModel.bulletType, enemyTankView.fireTransform, enemyTankView.GetRandomLaunchForce());
+
+            enemyTankView.shootingAudio.clip = enemyTankView.fireClip;
+            enemyTankView.shootingAudio.Play();
         }
 
         private void ResetAttack()

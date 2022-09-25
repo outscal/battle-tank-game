@@ -31,7 +31,6 @@ namespace EnemyTankServices
                 enemyTankView.currentState.ChangeState(enemyTankView.attackingState);
             }
 
-
             Patroling();
             ResetTurretRotation();
         } 

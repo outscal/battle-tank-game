@@ -11,12 +11,15 @@ namespace BulletServices
     [RequireComponent(typeof(Rigidbody))]
     public class BulletView : MonoBehaviour
     {
-        BulletController bulletController;
+        private BulletController bulletController;
+
+        public ParticleSystem explosionParticles;
+        public AudioSource explosionSound;
 
         // To set bullet controller reference in bullet view.
-        public void BulletInitialize(BulletController _bulletController)
+        public void BulletInitialize(BulletController controller)
         {
-            bulletController = _bulletController;
+            bulletController = controller;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -27,6 +30,11 @@ namespace BulletServices
         public void DestroyBullet()
         {
             Destroy(gameObject);
+        }
+
+        public void DestroyParticleSystem(ParticleSystem particles)
+        {
+            Destroy(particles.gameObject, particles.main.duration);
         }
     }
 }

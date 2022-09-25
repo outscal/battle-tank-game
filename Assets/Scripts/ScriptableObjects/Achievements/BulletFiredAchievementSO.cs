@@ -4,7 +4,7 @@ using UnityEngine;
 namespace AchievementSO
 {
     [CreateAssetMenu(fileName = "BulletsFiredAchievementSO", menuName = "ScriptableObject/Achievement/NewBulletsFiredAchievementSO")]
-    public class BulletsFiredAchievementSO : ScriptableObject
+    public class BulletFiredAchievementSO : ScriptableObject
     {
         // To create number of achievements.
         public AchievementType[] achievementType;

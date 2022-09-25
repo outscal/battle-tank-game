@@ -1,7 +1,4 @@
 ﻿using AchievementSO;
-using GameServices;
-using BulletServices;
-using AllServices;
 using UIServices;
 using TankServices;
 using UnityEngine;
@@ -11,8 +8,7 @@ namespace AchievementServices
     // Handles achievement unlocking and all achievement related data.
     public class AchievementHandler : GenericSingleton<AchievementHandler>
     {
-        // Reference to achievement scriptable object.
-        [SerializeField] private AchievementHolder achievementSOList;
+        [SerializeField] private AchievementSOList achievementSOList;
 
         // Variables to store current achievement level reached.
         private int currentBulletFiredAchivementLevel;

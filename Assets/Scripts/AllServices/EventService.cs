@@ -6,7 +6,6 @@ namespace AllServices
     // Observer pattern implementation. Handles all event actions.
     public class EventService : GenericSingleton<EventService>
     {
-
         public event Action OnEnemyDeath;
         public event Action OnplayerFiredBullet;
 

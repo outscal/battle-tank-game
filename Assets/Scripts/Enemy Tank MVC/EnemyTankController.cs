@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using GameServices;
+﻿using GameServices;
 using UnityEngine;
 using AllServices;
 
@@ -36,7 +34,6 @@ namespace EnemyTankServices
         // To do all physics calculations.
         public void RangeCheck()
         {
-            // Checks whether the player is in sight range or attack range.
             enemyTankModel.b_PlayerInSightRange = Physics.CheckSphere(enemyTankView.transform.position, enemyTankModel.patrollingRange, enemyTankView.playerLayerMask);
             enemyTankModel.b_PlayerInAttackRange = Physics.CheckSphere(enemyTankView.transform.position, enemyTankModel.attackRange, enemyTankView.playerLayerMask);
         }
@@ -44,6 +41,8 @@ namespace EnemyTankServices
         public void TakeDamage(int damage)
         {
             enemyTankModel.health -= damage;
+            SetHealthUI();
+            ShowHealthUI();
 
             if (enemyTankModel.health <= 0 && !enemyTankModel.b_IsDead)
             {
@@ -51,9 +50,39 @@ namespace EnemyTankServices
             }
         }
 
+        // Update the health slider's value and color.
+        public void SetHealthUI()
+        {
+            enemyTankView.healthSlider.value = enemyTankModel.health;
+            enemyTankView.fillImage.color = Color.Lerp(enemyTankModel.zeroHealthColor, enemyTankModel.fullHealthColor, enemyTankModel.health / enemyTankModel.maxHealth);
+        }
+
+        // Enables health UI and disables after certain interval of time.
+        async public void ShowHealthUI()
+        {
+            if (enemyTankView)
+            {
+                enemyTankView.healthSlider.gameObject.SetActive(true);
+            }
+
+            await new WaitForSeconds(3f);
+
+            if (enemyTankView)
+            {
+                enemyTankView.healthSlider.gameObject.SetActive(false);
+            }
+        }
+
         public void Death()
         {
             enemyTankModel.b_IsDead = true;
+
+            // Move the instantiated explosion prefab to the tank's position and turn it on.
+            enemyTankView.explosionParticles.transform.position = enemyTankView.transform.position;
+            enemyTankView.explosionParticles.gameObject.SetActive(true);
+
+            enemyTankView.explosionParticles.Play();
+            enemyTankView.explosionSound.Play();
 
             enemyTankView.Death();
 

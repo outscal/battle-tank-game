@@ -12,6 +12,11 @@ namespace BulletServices {
 
         public BulletController FireBullet(BulletType bulletType, Transform bulletTransform, float launchForce)
         {
+            return CreateBullet(bulletType, bulletTransform, launchForce);
+        }
+
+        private BulletController CreateBullet(BulletType bulletType, Transform bulletTransform, float launchForce)
+        {
             foreach (BulletScriptableObject bullet in bulletSOList.bulletScriptableObjectList)
             {
                 if (bullet.bulletType == bulletType)

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 using UnityEngine;
+using AllServices;
 
 namespace GameServices
 {
@@ -16,7 +17,7 @@ namespace GameServices
         [SerializeField] private float MinSize = 6.5f; // Minimum orthographic size.
         [SerializeField] private float MaxSize = 10f; // Maximum orthographic size.
 
-        private Camera camera;
+        private Camera _Camera;
 
         private float originalDampTime;
         private float zoomSpeed;
@@ -33,11 +34,21 @@ namespace GameServices
         {
             base.Awake();
 
-            camera = GetComponentInChildren<Camera>();
+            _Camera = GetComponentInChildren<Camera>();
             originalDampTime = dampTime;
             b_IsGameOver = false;
             b_IsMove = true;
         }
+
+       /* private void OnEnable()
+        {
+            EventService.Instance.OnGameOver += GameOver;
+        }
+
+        private void OnDisable()
+        {
+            EventService.Instance.OnGameOver -= GameOver;
+        }*/
 
         private void FixedUpdate()
         {
@@ -51,48 +62,33 @@ namespace GameServices
                 SetCameraToGameOverCondition();
             }
 
-            // Reset damp time if its value is not equal to original damp time.
             if (dampTime != originalDampTime && !b_IsGameOver && b_IsMove)
             {
                 ResetDampTime();
             }
         }
 
-        private void GameOver()
+       /* private void GameOver()
         {
             b_IsGameOver = true;
             b_IsMove = false;
             RemoveAllCameraTargetPositions();
-        }
+        }*/
 
         // To move camera to fixed position and fixed orthographic size after player death.
         private void SetCameraToGameOverCondition()
         {
             transform.position = Vector3.SmoothDamp(transform.position, gameOverCameraPostion, ref moveVelocity, 2f);
-            camera.orthographicSize = Mathf.SmoothDamp(camera.orthographicSize, gameOverCameraOrthographicSize, ref zoomSpeed, 2f);
+            _Camera.orthographicSize = Mathf.SmoothDamp(_Camera.orthographicSize, gameOverCameraOrthographicSize, ref zoomSpeed, 2f);
         }
 
-        // To stop camera movement in paused state.
-        private void GamePaused()
-        {
-            b_IsMove = false;
-        }
-
-        private void GameResumed()
-        {
-            b_IsMove = true;
-        }
-
-        // To move camera to desired position.
         private void Move()
         {
             FindAveragePosition();
 
-            // To achieve smooth movement of camera.
             transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref moveVelocity, dampTime);
         }
 
-        // Finds average position of all active tanks. i.e finds desired move position.
         private void FindAveragePosition()
         {
             Vector3 averagePos = new Vector3();
@@ -100,13 +96,11 @@ namespace GameServices
 
             for (int i = 0; i < targets.Count; i++)
             {
-                // If the target isn't active, go on to the next one.
                 if (!targets[i].gameObject.activeSelf)
                 {
                     continue;
                 }
 
-                // To shift camera more towards player or to ensure player dosen't go out of view.
                 if (i == 0 && !b_IsGameOver)
                 {
                     averagePos += targets[i].position * 3;
@@ -128,22 +122,14 @@ namespace GameServices
             desiredPosition = averagePos;
         }
 
-        // To set camera orthographic size.
         private void Zoom()
         {
-            // Find the required size based on the desired position and smoothly transition to that size.
             float requiredSize = FindRequiredSize();
-            camera.orthographicSize = Mathf.SmoothDamp(camera.orthographicSize, requiredSize, ref zoomSpeed, dampTime);
+            _Camera.orthographicSize = Mathf.SmoothDamp(_Camera.orthographicSize, requiredSize, ref zoomSpeed, dampTime);
         }
 
-        // x and y are local values of camera position.
-        // orthographic size = distance in y axis 
-        // orthographic size = distance in x axis / camera aspect 
-
-        // We select the maximum value of size so that all tanks will be in camera view.
         private float FindRequiredSize()
         {
-            // Find the position the camera rig is moving towards in its local space.
             Vector3 desiredLocalPosition = transform.InverseTransformPoint(desiredPosition);
             float size = 0f;
 
@@ -154,20 +140,16 @@ namespace GameServices
                     continue;
                 }
 
-                // Find the position of the target in the camera's local space.
                 Vector3 targetLocalPosition = transform.InverseTransformPoint(targets[i].position);
 
-                // Find the position of the target from the desired position of the camera's local space.
                 Vector3 desiredPositionToTarget = targetLocalPosition - desiredLocalPosition;
 
-                // Selecting max value of size.
                 size = Math.Max(size, Mathf.Abs(desiredPositionToTarget.y));
-                size = Mathf.Max(size, Mathf.Abs(desiredPositionToTarget.x) / camera.aspect);
+                size = Mathf.Max(size, Mathf.Abs(desiredPositionToTarget.x) / _Camera.aspect);
             }
 
             size = Mathf.Min(size, MaxSize);
 
-            // Add the edge buffer to the size.
             size += screenEdgeBuffer;
 
             size = Mathf.Max(size, MinSize);
@@ -175,14 +157,12 @@ namespace GameServices
             return size;
         }
 
-        // To add newly created tanks trasform to target list.
         public void AddCameraTargetPosition(Transform target)
         {
             dampTime = targetAdditionDampTime;
             targets.Add(target);
         }
 
-        // To remove specified transform from target list.
         public void RemoveCameraTargetPosition(Transform target)
         {
             if (!b_IsGameOver)

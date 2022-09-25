@@ -21,7 +21,7 @@ namespace TankServices {
             bulletIsFired = false;
 
             maxHealth = tankScriptableObject.tankHealth;
-            this.health = tankScriptableObject.tankHealth;
+            health = tankScriptableObject.tankHealth;
             this.rotationSpeed = tankScriptableObject.rotationSpeed;
             movementSpeed = tankScriptableObject.tankSpeed;
             this.turretRotationSpeed = tankScriptableObject.turretRotationSpeed;
@@ -37,6 +37,9 @@ namespace TankServices {
             this.bulletType = tankScriptableObject.bulletType;            
             
             TankColor = tankScriptableObject.tankColor;
+
+            fullHealthColor = Color.green;
+            zeroHealthColor = Color.red;
         }
 
         public TankType tankType { get; }
@@ -51,15 +54,18 @@ namespace TankServices {
 
         public float minBulletLaunchForce { get; } 
         public float maxBulletLaunchForce { get; } 
-        public float currentLaunchForce { get; set; } // The force that will be given to the bullet when the fired.
-        public float maxChargeTime { get; } // How long the bullet can charge for before it is fired at max force.
-        public float chargeSpeed { get; } // How fast the launch force increases, based on the max charge time.
+        public float currentLaunchForce { get; set; } 
+        public float maxChargeTime { get; } 
+        public float chargeSpeed { get; } 
 
         public int bulletsFired { get; set; } // Number of bullets fired by player tank.
         public int enemiesKilled { get; set; } // Number of enemies killed by player tank.
 
         public bool b_IsDead { get; set; }
         public bool bulletIsFired { get; set; }
+
+        public Color fullHealthColor { get; }
+        public Color zeroHealthColor { get; }
 
         public Color TankColor { get; set; }
     }

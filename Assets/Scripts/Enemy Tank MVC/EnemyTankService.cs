@@ -8,7 +8,7 @@ namespace EnemyTankServices
     // Handles spawning of enemy tank and communication of enemy tank service with other services.
     public class EnemyTankService : GenericSingleton<EnemyTankService>
     {
-        private EnemyType enemyType;
+        private EnemyType enemyTankType;
         public EnemyTankView enemyTankPrefab;
         public EnemyTankScriptableObjectList enemyTankSOList;
 
@@ -16,15 +16,16 @@ namespace EnemyTankServices
 
         private void Start()
         {
-            enemyType= (EnemyType)Random.Range(0, enemyTankSOList.enemyTankScriptableObject.Length);
-            EnemyTankController tankController = CreateEnemyTank(enemyType);
+            // Spawns random type of enemy tank.
+            enemyTankType = (EnemyType)Random.Range(0, enemyTankSOList.enemyTankScriptableObject.Length);
+            EnemyTankController tankController = CreateEnemyTank(enemyTankType);
         }
 
         public EnemyTankController CreateEnemyTank(EnemyType enemyType)
         {
             foreach (EnemyTankScriptableObject enemyTankSO in enemyTankSOList.enemyTankScriptableObject)
             {
-                if (enemyTankSO.enemyType == enemyType)
+                if (enemyTankSO.enemyType == enemyTankType)
                 {
                     EnemyTankModel enemyTankModel = new EnemyTankModel(enemyTankSOList.enemyTankScriptableObject[(int)enemyType]);
                     EnemyTankController tankController = new EnemyTankController(enemyTankModel, enemyTankPrefab);

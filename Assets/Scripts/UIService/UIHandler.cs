@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using AllServices;
 
 namespace UIServices
 {
@@ -7,8 +8,8 @@ namespace UIServices
     public class UIHandler : GenericSingleton<UIHandler>
     {
         [SerializeField] private GameObject joystickControllerObject;
-
         [SerializeField] private GameObject buttons;
+        [SerializeField] private GameObject gameOverPanel;
 
         [SerializeField] private Text scoreText;
 
@@ -40,6 +41,24 @@ namespace UIServices
             currentScore = finalScore;
             scoreText.text = "Score : " + finalScore.ToString();
         }
+
+        // Enables game over panel.
+        public void ShowGameOverUI()
+        {
+            gameOverPanel.SetActive(true);
+        }
+
+        // Disables all UI components.
+        async private void GameOver()
+        {
+            scoreText.gameObject.SetActive(false);
+            joystickControllerObject.SetActive(false);
+            buttons.gameObject.SetActive(false);
+
+            await new WaitForSeconds(4.5f);
+            ShowGameOverUI();
+        }
+
     }
 }
 

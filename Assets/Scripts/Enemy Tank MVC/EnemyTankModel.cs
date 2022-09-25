@@ -9,6 +9,8 @@ namespace EnemyTankServices
         //Enemy Tank Info
         public float speed { get; }
         public int health { get; set; }
+        public int maxHealth { get; }
+
         public float rotationSpeed { get; }
         public float turretRotationSpeed { get; }
 
@@ -23,6 +25,9 @@ namespace EnemyTankServices
 
         public bool b_IsDead { get; set; }
         public bool b_IsFired { get; set; }
+
+        public Color fullHealthColor { get; }
+        public Color zeroHealthColor { get; }
 
         // States
         public float patrollingRange { get; set; }
@@ -41,6 +46,7 @@ namespace EnemyTankServices
         {
             speed = enemyTankScriptableObject.speed;
             health = enemyTankScriptableObject.health;
+            maxHealth = enemyTankScriptableObject.health;
             rotationSpeed = enemyTankScriptableObject.rotationSpeed;
             turretRotationSpeed = enemyTankScriptableObject.turretRotationSpeed;
 
@@ -58,6 +64,9 @@ namespace EnemyTankServices
             fireRate = enemyTankScriptableObject.fireRate;
             minLaunchForce = enemyTankScriptableObject.minLaunchForce;
             maxLaunchForce = enemyTankScriptableObject.maxLaunchForce;
+
+            fullHealthColor = Color.green;
+            zeroHealthColor = Color.red;
         }
     }
 }

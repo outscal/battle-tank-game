@@ -3,6 +3,7 @@ using GameServices;
 using BulletServices;
 using AchievementServices;
 using UIServices;
+using EffectServices;
 using AllServices;
 
 namespace TankServices
@@ -72,17 +73,15 @@ namespace TankServices
             AchievementHandler.Instance.CheckBulletFiredAchievement();
         }
 
-        // This method is called on every frame. // To get player inputs.
         public void UpdateTankController()
         {
-            // If player is alive.
             if (!tankModel.b_IsDead)
             {
-                FireBulletInputCheck(); // Input check for bullet fire.
+                FireBulletInputCheck(); 
+                PlayEngineAudio();
             }
         }        
 
-        // This method is called on every fixed update. // To do all physics calculations.
         public void FixedUpdateTankController()
         {
             if (tankRigidbody && !tankModel.b_IsDead)
@@ -98,15 +97,14 @@ namespace TankServices
             }
 
             if (tankView.turret && !tankModel.b_IsDead)
+            {
+                if (rightJoystick.Horizontal != 0)
                 {
-                    if (rightJoystick.Horizontal != 0)
-                    {
-                        TurretRotationInput();
-                    }
+                    TurretRotationInput();
                 }
+            }
         }
 
-        // Forward and backward direction movement based on vertical input of joystick.
         private void ForwardMovementInput()
         {
             Vector3 forwardInput = tankRigidbody.transform.position + leftJoystick.Vertical * tankRigidbody.transform.forward * tankModel.movementSpeed * Time.deltaTime;
@@ -114,7 +112,6 @@ namespace TankServices
             tankRigidbody.MovePosition(forwardInput);
         }
 
-        // Rotates tank based on horizontal input of joystick.
         private void RotationInput()
         {
             Quaternion desiredRotation = tankRigidbody.transform.rotation * Quaternion.Euler(Vector3.up * leftJoystick.Horizontal * tankModel.rotationSpeed * Time.deltaTime);
@@ -122,7 +119,6 @@ namespace TankServices
             tankRigidbody.MoveRotation(desiredRotation);
         }
 
-        // Rotates tank turret based on horizontal input of right joystick.
         private void TurretRotationInput()
         {
             Vector3 desiredRotation = Vector3.up * rightJoystick.Horizontal * tankModel.turretRotationSpeed * Time.deltaTime;
@@ -130,25 +126,62 @@ namespace TankServices
             tankView.turret.transform.Rotate(desiredRotation, Space.Self);
         }
 
-        // Reduce current health by the amount of damage done.
         public void TakeDamage(int damage)
         {
             tankModel.health -= damage;
+            SetHealthUI();
+            ShowHealthUI();
 
-            // If health goes below zero, tank dies.
             if (tankModel.health <= 0 && !tankModel.b_IsDead)
             {
                 Death();
             }
         }
 
+        public void SetHealthUI()
+        {
+            tankView.healthSlider.value = tankModel.health;
+            tankView.fillImage.color = Color.Lerp(tankModel.zeroHealthColor, tankModel.fullHealthColor, tankModel.health / tankModel.maxHealth);
+        }
+
+        async public void ShowHealthUI()
+        {
+            if (tankView)
+            {
+                tankView.healthSlider.gameObject.SetActive(true);
+                Debug.Log("Player Health enabled");
+            }
+
+            await new WaitForSeconds(3f);
+
+            if (tankView)
+            {
+                tankView.healthSlider.gameObject.SetActive(false);
+                Debug.Log("Player Health disabled");
+            }
+        }
+
+        public void SetAimUI()
+        {
+            tankView.aimSlider.value = tankModel.currentLaunchForce;
+        }
+
         public void Death()
         {
             UnsubscribeEvents();
+
             tankModel.b_IsDead = true;
+
+            tankView.explosionParticles.transform.position = tankView.transform.position;
+            tankView.explosionParticles.gameObject.SetActive(true);
+
+            tankView.explosionParticles.Play();
+            tankView.explosionSound.Play();
 
             TankService.Instance.DestroyTank(this);
             tankView.Death();
+
+            VisualEffectService.Instance.DestroyAllGameObjects();
         }
 
         // Called when fire button is pressed.
@@ -156,18 +189,18 @@ namespace TankServices
         {
             tankModel.bulletIsFired = false;
 
-            // Launch force is set to minimum at the start of button press.
             tankModel.currentLaunchForce = tankModel.minBulletLaunchForce;
+
+            tankView.shootingAudio.clip = tankView.chargingClip;
+            tankView.shootingAudio.Play();
 
             b_IsFireButtonPressed = true;
         }
 
-        // Called when fire button is released.
         private void FireButtonReleased()
         {
             b_IsFireButtonPressed = false;
 
-            // Fire bullet if not already fired.
             if (!tankModel.bulletIsFired)
             {
                 FireBullet();
@@ -176,56 +209,49 @@ namespace TankServices
 
         private void FireBulletInputCheck()
         {
-            // If the max force has been exceeded and the bullet hasn't fired yet.
+            tankView.aimSlider.value = tankModel.minBulletLaunchForce;
+
             if (tankModel.currentLaunchForce >= tankModel.maxBulletLaunchForce && !tankModel.bulletIsFired)
             {
                 tankModel.currentLaunchForce = tankModel.maxBulletLaunchForce;
                 FireBullet();
             }
-
-            // Otherwise, if the fire button has just started being pressed. // Holding the fire button, not yet fired.
             else if (b_IsFireButtonPressed && !tankModel.bulletIsFired)
             {
                 tankModel.currentLaunchForce += tankModel.chargeSpeed * Time.deltaTime;
+                tankView.aimSlider.value = tankModel.currentLaunchForce;
             }
         }
 
-        // To fire bullet.
         private void FireBullet()
         {
             tankModel.bulletIsFired = true;
             BulletService.Instance.FireBullet(tankModel.bulletType, tankView.fireTransform, tankModel.currentLaunchForce);
 
-            // Reset the launch force.
+            tankView.shootingAudio.clip = tankView.fireClip;
+            tankView.shootingAudio.Play();
+
             tankModel.currentLaunchForce = tankModel.minBulletLaunchForce;
+            EventService.Instance.InvokeOnPlayerFiredBulletEvent();
         }
 
-        // Calls some asynchronous methods to destroy the world gradually with a cool effect.
-        public void DestroyWorld()
+        private void PlayEngineAudio()
         {
-            DestroyTanks();
-            DestoryEnv();
-        }
-
-        // Destroys all Game Objects Tagged as 'Tank' one by one using async await.
-        private async void DestroyTanks()
-        {
-            GameObject[] tanks = GameObject.FindGameObjectsWithTag("Tank");
-            for (int i = 0; i < tanks.Length; i++)
+            if (leftJoystick.Vertical != 0 || leftJoystick.Horizontal != 0)
             {
-                GameObject.Destroy(tanks[i]);
-                await new WaitForSeconds(0.1f);
+                if (tankView && tankView.movementAudio.clip == tankView.engineIdling)
+                {
+                    tankView.movementAudio.clip = tankView.engineDriving;
+                    tankView.movementAudio.Play();
+                }
             }
-        }
-
-        // Destroys all Game Objects Tagged as 'Ground' one by one using async await.
-        private async void DestoryEnv()
-        {
-            GameObject[] objects = GameObject.FindGameObjectsWithTag("Ground");
-            for (int i = 0; i < objects.Length; i++)
+            else
             {
-                GameObject.Destroy(objects[i]);
-                await new WaitForSeconds(0.3f);
+                if (tankView && tankView.movementAudio.clip == tankView.engineDriving)
+                {
+                    tankView.movementAudio.clip = tankView.engineIdling;
+                    tankView.movementAudio.Play();
+                }
             }
         }
     }
