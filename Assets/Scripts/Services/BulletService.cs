@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class BulletService : MonoBehaviour
 {
+    GameObjectType gameObjectType;
     BulletController bulletController;
     [Header("Bullet Scriptable Object List")]
-    [SerializeField] List<BulletScriptableObject> bulletList;
+    [SerializeField] List<BulletScriptableObject> bulletSpecsList;
     [Header("Bullet Models with BulletView List")]
     [SerializeField] List<BulletView> bulletViewList;
     //[serializefield] list<bullet>
     public void InstantiateBullet(int spawnIndex)
     {
-        BulletModel bulletModel= new BulletModel(bulletList[spawnIndex].bulletSpeed, 
-            bulletList[spawnIndex].bulletDamage, this.transform) ;
+        gameObjectType = GameObjectType.Bullet;
+        BulletModel bulletModel= new BulletModel(bulletSpecsList[spawnIndex].bulletSpeed, 
+            bulletSpecsList[spawnIndex].bulletDamage, this.transform) ;
         bulletController = new BulletController(bulletViewList[spawnIndex], bulletModel) ;
     }
 }
