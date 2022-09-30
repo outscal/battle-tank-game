@@ -13,7 +13,7 @@ public class BulletService : MonoBehaviour
     public void InstantiateBullet(int spawnIndex)
     {
         BulletModel bulletModel= new BulletModel(bulletList[spawnIndex].bulletSpeed, 
-            bulletList[spawnIndex].bulletDamage) ;
+            bulletList[spawnIndex].bulletDamage, this.transform) ;
         bulletController = new BulletController(bulletViewList[spawnIndex], bulletModel) ;
     }
 }

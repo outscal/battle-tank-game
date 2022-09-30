@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class BulletModel
 {
-    public BulletModel(float bulletSpeed, float bulletDamage)
+    public BulletModel(float bulletSpeed, float bulletDamage, Transform bulletTransform)
     {
         BulletSpeed = bulletSpeed;
         BulletDamage = bulletDamage;
+        BulletTransform = bulletTransform;
     }
 
     public float BulletSpeed
@@ -20,4 +21,8 @@ public class BulletModel
         get;
     }
 
+    public Transform BulletTransform
+    {
+        get;
+    }
 }

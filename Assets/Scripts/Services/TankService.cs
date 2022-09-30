@@ -12,15 +12,15 @@ public class TankService : MonoBehaviour
     [SerializeField] int spawnIndex;
     private void Start()
     {
-        if(tanksList.tanks.Count<=spawnIndex)
+        if (tanksList.tanks.Count <= spawnIndex)
         {
             Debug.LogError("Wrong Index entered. Check the index for " +
                 "spawning the tank!!!");
-            spawnIndex = 0; 
+            spawnIndex = 0;
         }
-        TankModel tankModel = new TankModel(tanksList.tanks[spawnIndex]) ;
+        TankModel tankModel = new TankModel(tanksList.tanks[spawnIndex], spawnIndex);
         tankView.materialFromScriptableObject = tanksList.tanks[spawnIndex].tankMaterial;
         tankView.joystick = joystick;
-        tankController = new TankController(tankView, tankModel);
+        tankController = new TankController(tankView, tankModel, spawnIndex);
     }
 }

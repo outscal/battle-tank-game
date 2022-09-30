@@ -11,6 +11,7 @@ public class TankView : MonoBehaviour
     public Material materialFromScriptableObject;
     [SerializeField] MeshRenderer tankTurretMaterial ;
     [SerializeField] MeshRenderer tankBodyMaterial;
+    public BulletService bulletService ;
     public void SetTankController(TankController _tankController)
     {
         virtualCamera= FindObjectOfType<CinemachineVirtualCamera>();
@@ -27,5 +28,7 @@ public class TankView : MonoBehaviour
         {
             tankController.UpdateMovementAndRotation(joystick.Horizontal, joystick.Vertical);
         }
+        if (Input.GetKeyDown(KeyCode.Space))
+            tankController.Shoot();
     }
 }

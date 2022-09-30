@@ -6,14 +6,15 @@ public class TankModel
     private TankController tankController;
     //tankscriptableobjectscript temp; for debug purposes only
 
-    public TankModel(TankScriptableObjectScript tankScriptObject)
+    public TankModel(TankScriptableObjectScript tankScriptObject, int spawnIndex)
     {
         //this.temp = tankScriptObject; //for debug puposes only
-        Health = tankScriptObject.tankHealth ;
-        Damage = tankScriptObject.damageOutput ;
-        MovSpeed = tankScriptObject.tankSpeed ;
+        Health = tankScriptObject.tankHealth;
+        Damage = tankScriptObject.damageOutput;
+        MovSpeed = tankScriptObject.tankSpeed;
+        SpawnIndex = spawnIndex;
     }
-    public void SetTankDController(TankController _tankController)
+    public void SetTankController(TankController _tankController)
     {
         tankController = _tankController;
     }
@@ -27,6 +28,11 @@ public class TankModel
         get ;
     }
     public float MovSpeed
+    {
+        get ;
+    }
+
+    public int SpawnIndex
     {
         get ;
     }

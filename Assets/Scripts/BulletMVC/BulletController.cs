@@ -8,11 +8,9 @@ public class BulletController
     BulletView bulletView;
     public BulletController(BulletView _bulletView , BulletModel _bulletModel)
     {
-        Debug.Log("it worked till here");
         bulletModel = _bulletModel;
-        bulletView = GameObject.Instantiate<BulletView>(_bulletView);
+        bulletView = GameObject.Instantiate<BulletView>(_bulletView, bulletModel.BulletTransform.position, bulletModel.BulletTransform.rotation);
         bulletView.SetBulletViewController(this);
-        Debug.Log("it worked fine!!");
     }
 
 }
