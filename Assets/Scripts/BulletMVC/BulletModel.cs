@@ -5,11 +5,12 @@ using UnityEngine;
 public class BulletModel
 {
     private BulletController bulletController;
-    public BulletModel(float bulletSpeed, float bulletDamage, Transform bulletTransform)
+    public BulletModel(float bulletSpeed, float bulletDamage, Transform bulletTransform, ParticleSystem shellExplosion)
     {
         BulletSpeed = bulletSpeed;
         BulletDamage = bulletDamage;
         BulletTransform = bulletTransform;
+        ShellExplosion = shellExplosion;
     }
 
     public void SetBulletController(BulletController _bulletController)
@@ -32,4 +33,10 @@ public class BulletModel
     {
         get;
     }
+
+    public ParticleSystem ShellExplosion
+    {
+        get;
+    }
+
 }

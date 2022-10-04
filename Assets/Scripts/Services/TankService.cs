@@ -10,6 +10,7 @@ public class TankService : MonoBehaviour
     [SerializeField] CinemachineVirtualCamera virtualCamera;
     [SerializeField] TankScriptableObjectList tanksList;
     [SerializeField] int spawnIndex;
+    private bool shouldDestroy = false;
     private void Start()
     {
         if (tanksList.tanks.Count <= spawnIndex)
@@ -23,4 +24,21 @@ public class TankService : MonoBehaviour
         tankView.joystick = joystick;
         tankController = new TankController(tankView, tankModel, spawnIndex);
     }
+
+    private void Update()
+    {
+        if (tankController == null)
+        {
+            Debug.Log("fook");
+            shouldDestroy = true;
+        }
+            
+    }
+
+    public bool ShouldDestroy
+    {
+        get { return shouldDestroy; }
+    }
+
+
 }

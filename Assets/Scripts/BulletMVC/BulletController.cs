@@ -19,18 +19,21 @@ public class BulletController
         bulletView.gameObject.GetComponent<Rigidbody>().AddForce(bulletModel.BulletTransform.forward 
             * bulletModel.BulletSpeed);
     }
-
-
-    public void CheckEnemy(Collision col)
-    {
-        if (col.gameObject.GetComponent<EnemyView>() != null)
-            GameObject.Destroy(col.gameObject);
-    }
-
-    public void DestroyBullet(Collision col)
+    public void DisableBullet (Collision col)
     {
         if(col.gameObject.GetComponent<TankView>()==null)
-            GameObject.Destroy(bulletView.gameObject);
+        {
+            bulletView.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            bulletView.gameObject.GetComponent<CapsuleCollider>().enabled = false;
+            bulletView.gameObject.GetComponent<MeshRenderer>().enabled = false;
+            bulletView.gameObject.GetComponent<ParticleSystem>().Play();
+        }
+    }
+
+
+    public void DestroyBullet()
+    {
+        GameObject.Destroy(bulletView.gameObject);
     }
 
 }

@@ -1,11 +1,12 @@
 using UnityEngine;
-
+using System.Collections.Generic;
 public class EnemyController
 {
     EnemyView enemyView;
     EnemyModel enemyModel;
     Vector3 leftPatrol;
     Vector3 rightPatrol;
+    bool isDisabled=false;
 
     enum patrolDirection{
         left,
@@ -28,20 +29,41 @@ public class EnemyController
 
     public void Patrol(Vector3 currPos)
     {
-        if(currDir==patrolDirection.left && currPos.z<leftPatrol.z)
+        if(!isDisabled)
         {
-            currDir = patrolDirection.right;
-            enemyView.gameObject.transform.forward *= -1;
+            if (currDir == patrolDirection.left && currPos.z < leftPatrol.z)
+            {
+                currDir = patrolDirection.right;
+                enemyView.gameObject.transform.forward *= -1;
+            }
+            else if (currDir == patrolDirection.right && currPos.z > rightPatrol.z)
+            {
+                currDir = patrolDirection.left;
+                enemyView.gameObject.transform.forward *= -1;
+            }
+            if (currDir == patrolDirection.left)
+                enemyView.gameObject.transform.position -= new Vector3(0, 0, enemyModel.EnemySpeed * Time.deltaTime);
+            else if (currDir == patrolDirection.right)
+                enemyView.gameObject.transform.position += new Vector3(0, 0, enemyModel.EnemySpeed * Time.deltaTime);
+
         }
-        else if(currDir==patrolDirection.right && currPos.z>rightPatrol.z)
+
+    }
+
+    public void DisableEnemy(List<MeshRenderer> meshRenderers)
+    {
+        isDisabled = true;
+        enemyView.gameObject.GetComponent<BoxCollider>().enabled = false;
+        enemyView.gameObject.GetComponent<ParticleSystem>().Play();
+        for(int i=0;i<meshRenderers.Count;i++)
         {
-            currDir=patrolDirection.left;
-            enemyView.gameObject.transform.forward *= -1;
+            meshRenderers[i].enabled = false;
         }
-        if (currDir == patrolDirection.left)
-            enemyView.gameObject.transform.position -= new Vector3(0,0,enemyModel.EnemySpeed * Time.deltaTime);
-        else if(currDir== patrolDirection.right)
-            enemyView.gameObject.transform.position += new Vector3(0, 0, enemyModel.EnemySpeed * Time.deltaTime);
+    }
+
+    public void DestroyEnemy()
+    {
+        GameObject.Destroy(enemyView.gameObject);
     }
 
 }

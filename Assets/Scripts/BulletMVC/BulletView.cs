@@ -5,6 +5,7 @@ using UnityEngine;
 public class BulletView : MonoBehaviour
 {
     private BulletController bulletController;
+    WaitForSeconds timeToDisable = new WaitForSeconds(4f);
     public void SetBulletViewController(BulletController _bulletController)
     {
         bulletController = _bulletController;
@@ -20,10 +21,16 @@ public class BulletView : MonoBehaviour
     {
         if(bulletController!=null)
         {
-            bulletController.CheckEnemy(col);
-            bulletController.DestroyBullet(col);
+            bulletController.DisableBullet(col);
+            StartCoroutine(HoldBeforeDestroy());
         }
         
+    }
+    
+    IEnumerator HoldBeforeDestroy()
+    {
+        yield return timeToDisable ;
+        bulletController.DestroyBullet();
     }
 
 }
