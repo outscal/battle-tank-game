@@ -1,53 +1,34 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.AI;
 public class EnemyController
 {
     EnemyView enemyView;
     EnemyModel enemyModel;
-    Vector3 leftPatrol;
-    Vector3 rightPatrol;
     bool isDisabled=false;
-
-    enum patrolDirection{
-        left,
-        right
-    }
-
-    patrolDirection currDir= patrolDirection.right ;
+    NavMeshAgent navMeshAgent;
+    int tempIndex = 0;
+    Vector3 currDestination;
 
     public EnemyController(Vector3 spawnPoint,EnemyView _enemyView, EnemyModel _enemyModel)
     {
         enemyView = _enemyView;
         Vector3 tempPos = enemyView.gameObject.transform.position;
-        leftPatrol = new Vector3(0,0, tempPos.z - _enemyModel.PatrolDistance);
-        rightPatrol = new Vector3(0, 0, tempPos.z + _enemyModel.PatrolDistance);
         enemyView = GameObject.Instantiate<EnemyView>(_enemyView, spawnPoint, Quaternion.identity);
         enemyModel= _enemyModel;
+        navMeshAgent= enemyView.GetComponent<NavMeshAgent>(); 
         enemyView.LinkController(this);
     }
 
 
     public void Patrol(Vector3 currPos)
     {
-        if(!isDisabled)
+        if(currPos.z== currDestination.z && currPos.x==currDestination.x)
         {
-            if (currDir == patrolDirection.left && currPos.z < leftPatrol.z)
-            {
-                currDir = patrolDirection.right;
-                enemyView.gameObject.transform.forward *= -1;
-            }
-            else if (currDir == patrolDirection.right && currPos.z > rightPatrol.z)
-            {
-                currDir = patrolDirection.left;
-                enemyView.gameObject.transform.forward *= -1;
-            }
-            if (currDir == patrolDirection.left)
-                enemyView.gameObject.transform.position -= new Vector3(0, 0, enemyModel.EnemySpeed * Time.deltaTime);
-            else if (currDir == patrolDirection.right)
-                enemyView.gameObject.transform.position += new Vector3(0, 0, enemyModel.EnemySpeed * Time.deltaTime);
-
+            tempIndex = Random.Range(0, enemyModel.GetCount());
+            currDestination= enemyModel.GetPoint(tempIndex);
         }
-
+        navMeshAgent.destination = currDestination;
     }
 
     public void DisableEnemy(List<MeshRenderer> meshRenderers)

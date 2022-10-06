@@ -14,7 +14,7 @@ public class EnemyView : MonoBehaviour
 
     private void Update()
     {
-        enemyController.Patrol(gameObject.transform.position) ;
+        enemyController.Patrol(this.gameObject.transform.position) ;
     }
 
     private void OnCollisionEnter(Collision col)

@@ -1,21 +1,21 @@
-
 using UnityEngine;
-
+using System.Collections.Generic;
 public class EnemyModel
 {
-    public EnemyModel(float enemySpeed, float patrolDistance)
+    List<Vector3> patrolPoints;
+    public EnemyModel(List<Vector3> spawnPoints)
     {
-        EnemySpeed = enemySpeed;
-        PatrolDistance = patrolDistance;
-    }
-    public float EnemySpeed
-    {
-        get;
+        patrolPoints = spawnPoints;
     }
 
-    public float PatrolDistance
+    public Vector3 GetPoint(int index)
     {
-        get;
+        return patrolPoints[index];
+    }
+
+    public int GetCount()
+    {
+        return patrolPoints.Count;
     }
 
 }
