@@ -29,7 +29,6 @@ public class TankService : MonoBehaviour
     {
         if (tankController == null)
         {
-            Debug.Log("fook");
             shouldDestroy = true;
         }
             

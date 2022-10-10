@@ -11,7 +11,8 @@ namespace TankServices
 
         public static ServiceEvents Instance
         {
-            get {
+            get
+            {
                 if (instance == null)
                     instance = new ServiceEvents();
                 return instance;
