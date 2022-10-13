@@ -9,7 +9,7 @@ namespace Tanks.Tank
         protected EnemyView enemyView;
         private void Awake()
         {
-            enemyView= GetComponent<EnemyView>();
+            enemyView = GetComponent<EnemyView>();
         }
         public virtual void OnEnterState()
         {

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GenricSingleton<T>:MonoBehaviour where T : GenricSingleton<T>, new()
+public class GenricSingleton<T> : MonoBehaviour where T : GenricSingleton<T>, new()
 {
     private static T instance;
-    
+
     public static T Instance
     {
         get

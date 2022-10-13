@@ -16,13 +16,8 @@ namespace ObjectPool
                 return instance;
             }
         }
-        private int poolCount = 20;
         Queue<T> poolQueue = new Queue<T>();
         T tempVar;
-        public int GetCount()
-        {
-            return poolCount;
-        }
 
         public void Enqueue(T tempObj)
         {

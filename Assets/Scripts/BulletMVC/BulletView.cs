@@ -13,23 +13,23 @@ public class BulletView : MonoBehaviour
 
     private void Start()
     {
-        if(bulletController!=null)
+        if (bulletController != null)
             bulletController.UpdateBulletMovement();
     }
 
     private void OnCollisionEnter(Collision col)
     {
-        if(bulletController!=null)
+        if (bulletController != null)
         {
             bulletController.DisableBullet(col);
             StartCoroutine(HoldBeforeDestroy());
         }
-        
+
     }
-    
+
     IEnumerator HoldBeforeDestroy()
     {
-        yield return timeToDisable ;
+        yield return timeToDisable;
         bulletController.DestroyBullet();
     }
 

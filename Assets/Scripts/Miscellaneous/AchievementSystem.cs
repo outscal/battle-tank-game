@@ -3,11 +3,11 @@ using System;
 
 namespace TankServices
 {
-    public class AchievementSystem: GenricSingleton<AchievementSystem>
+    public class AchievementSystem : GenricSingleton<AchievementSystem>
     {
         private void OnEnable()
         {
-            ServiceEvents.Instance.OnShoot += ShootObject ;
+            ServiceEvents.Instance.OnShoot += ShootObject;
         }
 
         private void OnDisable()
@@ -17,7 +17,7 @@ namespace TankServices
 
         public void ShootObject(int count)
         {
-            switch(count)
+            switch (count)
             {
                 case 10:
                     {

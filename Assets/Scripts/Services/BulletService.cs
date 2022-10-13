@@ -14,18 +14,18 @@ namespace TankServices
         [SerializeField] List<BulletScriptableObject> bulletSpecsList;
         [Header("Bullet Models with BulletView List")]
         [SerializeField] List<BulletView> bulletViewList;
-        [SerializeField] ParticleSystem shellExplosion;
-        int bulletNum = 0;
+        [Header("Number of Bullets for the Pool")]
+        [SerializeField] int bulletPoolCount=20 ; 
+        [SerializeField] ParticleSystem shellExplosion; 
         //[serializefield] list<bullet>
         public void InstantiateBullet(int spawnIndex)
         {
             ServiceEvents.Instance.OnShoot?.Invoke(++bulletFireCount);
-            if (bulletNum < GenericPoolScript<BulletController>.Instance.GetCount())
+            if (bulletFireCount < bulletPoolCount)
             {
                 BulletModel bulletModel = new BulletModel(bulletSpecsList[spawnIndex].bulletSpeed,
                 bulletSpecsList[spawnIndex].bulletDamage, this.transform, shellExplosion);
                 bulletController = new BulletController(bulletViewList[spawnIndex], bulletModel);
-                bulletNum++;
             }
             else
             {

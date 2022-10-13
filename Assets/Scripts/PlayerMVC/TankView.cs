@@ -6,19 +6,19 @@ using TankServices;
 public class TankView : MonoBehaviour
 {
     private TankController tankController;
-    WaitForSeconds waitForSeconds= new WaitForSeconds(2f); //can be serialized in case of making it more easier for designers
+    WaitForSeconds waitForSeconds = new WaitForSeconds(2f); //can be serialized in case of making it more easier for designers
     [HideInInspector]
     public Joystick joystick;
     [HideInInspector]
     public CinemachineVirtualCamera virtualCamera;
     [HideInInspector]
     public Material materialFromScriptableObject;
-    [SerializeField] MeshRenderer tankTurretMaterial ;
+    [SerializeField] MeshRenderer tankTurretMaterial;
     [SerializeField] MeshRenderer tankBodyMaterial;
-    public BulletService bulletService ;
+    public BulletService bulletService;
     public void SetTankController(TankController _tankController)
     {
-        virtualCamera= FindObjectOfType<CinemachineVirtualCamera>();
+        virtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
         virtualCamera.Follow = this.transform;
         tankController = _tankController;
         tankTurretMaterial.material = materialFromScriptableObject;
@@ -28,7 +28,7 @@ public class TankView : MonoBehaviour
     private void Update()
     {
 
-        if (joystick.Horizontal!=0 || joystick.Vertical!=0)
+        if (joystick.Horizontal != 0 || joystick.Vertical != 0)
         {
             tankController.UpdateMovementAndRotation(joystick.Horizontal, joystick.Vertical);
         }
@@ -38,11 +38,11 @@ public class TankView : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
-        if(col.gameObject.GetComponent<EnemyView>())
+        if (col.gameObject.GetComponent<EnemyView>())
         {
             tankController.DisableTank();
             StartCoroutine(WaitBeforeDestroy());
-            
+
         }
     }
 

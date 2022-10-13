@@ -7,7 +7,7 @@ public class TankController
     private TankModel tankModel;
     Vector3 moveVector = Vector3.zero;
     bool isDisabled = false;
-    
+
     public TankController(TankView _tankView, TankModel _tankModel, int spawnIndex)
     {
         tankView = GameObject.Instantiate<TankView>(_tankView);
@@ -21,7 +21,7 @@ public class TankController
         if (isDisabled)
             return;
         tankView.gameObject.transform.position += Time.deltaTime * tankView.gameObject.transform.forward * tankModel.MovSpeed;
-        moveVector.x= horizontalInput;
+        moveVector.x = horizontalInput;
         moveVector.z = verticalInput;
         tankView.gameObject.transform.forward = moveVector;
     }

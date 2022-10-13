@@ -21,19 +21,19 @@ public class TankModel
 
     public int Health
     {
-        get ;
+        get;
     }
     public int Damage
     {
-        get ;
+        get;
     }
     public float MovSpeed
     {
-        get ;
+        get;
     }
 
     public int SpawnIndex
     {
-        get ;
+        get;
     }
 }
