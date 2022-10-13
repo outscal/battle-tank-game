@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GenricSingleton<T>:MonoBehaviour where T : GenricSingleton<T>
+public class GenricSingleton<T>:MonoBehaviour where T : GenricSingleton<T>, new()
 {
     private static T instance;
     
@@ -10,13 +10,13 @@ public class GenricSingleton<T>:MonoBehaviour where T : GenricSingleton<T>
     {
         get
         {
-            return instance ;
+            return instance;
         }
     }
     protected virtual void Awake()
     {
         if (instance == null)
-            instance = (T)this;
+            instance = this as T;
         else
             Destroy(this);
     }

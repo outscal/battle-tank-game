@@ -6,7 +6,7 @@ using ObjectPool;
 
 namespace TankServices
 {
-    public class BulletService : MonoBehaviour
+    public class BulletService : GenricSingleton<BulletService>
     {
         int bulletFireCount = 0;
         BulletController bulletController;
@@ -15,19 +15,19 @@ namespace TankServices
         [Header("Bullet Models with BulletView List")]
         [SerializeField] List<BulletView> bulletViewList;
         [SerializeField] ParticleSystem shellExplosion;
-        int bulletNum=0;
+        int bulletNum = 0;
         //[serializefield] list<bullet>
         public void InstantiateBullet(int spawnIndex)
         {
-            ServiceEvents.Instance.OnShoot?.Invoke(++bulletFireCount) ;
-            if(bulletNum < GenericPoolScript<BulletController>.Instance.GetCount())
+            ServiceEvents.Instance.OnShoot?.Invoke(++bulletFireCount);
+            if (bulletNum < GenericPoolScript<BulletController>.Instance.GetCount())
             {
                 BulletModel bulletModel = new BulletModel(bulletSpecsList[spawnIndex].bulletSpeed,
                 bulletSpecsList[spawnIndex].bulletDamage, this.transform, shellExplosion);
                 bulletController = new BulletController(bulletViewList[spawnIndex], bulletModel);
                 bulletNum++;
             }
-            if (bulletNum >= GenericPoolScript < BulletController>.Instance.GetCount())
+            else
             {
                 bulletController = GenericPoolScript<BulletController>.Instance.Dequeue();
                 bulletController.ChangeSpawnLocation(this.transform);

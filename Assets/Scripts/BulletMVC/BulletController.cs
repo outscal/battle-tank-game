@@ -6,7 +6,7 @@ public class BulletController
 {
     BulletModel bulletModel;
     BulletView bulletView;
-    public BulletController(BulletView _bulletView , BulletModel _bulletModel)
+    public BulletController(BulletView _bulletView, BulletModel _bulletModel)
     {
         bulletModel = _bulletModel;
         bulletView = GameObject.Instantiate<BulletView>(_bulletView, bulletModel.BulletTransform.position, bulletModel.BulletTransform.rotation);
@@ -16,13 +16,13 @@ public class BulletController
 
     public void UpdateBulletMovement()
     {
-        bulletView.gameObject.GetComponent<Rigidbody>().AddForce(bulletModel.BulletTransform.forward 
+        bulletView.gameObject.GetComponent<Rigidbody>().AddForce(bulletModel.BulletTransform.forward
             * bulletModel.BulletSpeed);
     }
-    public void DisableBullet (Collision col)
+    public void DisableBullet(Collision col)
     {
-        if(col.gameObject.GetComponent<TankView>()==null && 
-            col.gameObject.GetComponent<BulletView>()==null)
+        if (col.gameObject.GetComponent<TankView>() == null &&
+            col.gameObject.GetComponent<BulletView>() == null)
         {
             bulletView.gameObject.GetComponent<Rigidbody>().isKinematic = true;
             bulletView.gameObject.GetComponent<CapsuleCollider>().enabled = false;
@@ -47,7 +47,7 @@ public class BulletController
 
     public void ChangeSpawnLocation(Transform _transform)
     {
-        bulletView.gameObject.transform.position= _transform.position;
+        bulletView.gameObject.transform.position = _transform.position;
         bulletView.gameObject.transform.rotation = _transform.rotation;
         SetObjectActive();
     }

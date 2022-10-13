@@ -6,13 +6,15 @@ namespace ObjectPool
 {
     public class GenericPoolScript<T>
     {
-        private static GenericPoolScript<T> instance;       
+        private static GenericPoolScript<T> instance;
         public static GenericPoolScript<T> Instance
-            { get {
+        {
+            get
+            {
                 if (instance == null)
                     instance = new GenericPoolScript<T>();
-                return instance; 
-            } 
+                return instance;
+            }
         }
         private int poolCount = 20;
         Queue<T> poolQueue = new Queue<T>();

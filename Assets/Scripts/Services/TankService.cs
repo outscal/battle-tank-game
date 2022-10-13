@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
-public class TankService : MonoBehaviour
+public class TankService : GenricSingleton<TankService>
 {
     TankController tankController;
     [SerializeField] TankView tankView;
@@ -31,7 +31,7 @@ public class TankService : MonoBehaviour
         {
             shouldDestroy = true;
         }
-            
+
     }
 
     public bool ShouldDestroy
