@@ -41,6 +41,9 @@ public class TankView : MonoBehaviour
         if (col.gameObject.GetComponent<EnemyView>())
         {
             tankController.DisableTank();
+            this.GetComponent<ParticleSystem>().Play() ;
+            tankTurretMaterial.enabled = false;
+            tankBodyMaterial.enabled = false;
             StartCoroutine(WaitBeforeDestroy());
 
         }
@@ -49,7 +52,7 @@ public class TankView : MonoBehaviour
     private IEnumerator WaitBeforeDestroy()
     {
         yield return waitForSeconds;
-        FindObjectOfType<GameManager>().startDestroying = true; //believe me i tried many things, but this seems to work fine, and will only be called once, so win-win?
+        ServiceEvents.Instance.OnPlayerDeath?.Invoke();
         tankController.DestroyTank();
     }
 

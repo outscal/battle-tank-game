@@ -5,10 +5,10 @@ using System;
 
 namespace TankServices
 {
-    public class ServiceEvents : GenricSingleton<ServiceEvents>
+    public class ServiceEvents: GenricSingleton<ServiceEvents>
     {
         public Action<int> OnShoot;
-        public Action<bool> OnPlayerDeath;
+        public Action OnPlayerDeath;
     }
 
 }
