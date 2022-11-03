@@ -13,11 +13,11 @@ namespace Tanks.Tank
         }
         public virtual void OnEnterState()
         {
-
+            this.enabled = true ;
         }
         public virtual void OnExitState()
         {
-
+            this.enabled = false;
         }
     }
 }

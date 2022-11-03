@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.AI;
+using TankServices;
 public class EnemyController
 {
     EnemyView enemyView;
@@ -16,19 +17,23 @@ public class EnemyController
         Vector3 tempPos = enemyView.gameObject.transform.position;
         enemyView = GameObject.Instantiate<EnemyView>(_enemyView, spawnPoint, Quaternion.identity);
         enemyModel = _enemyModel;
-        navMeshAgent = enemyView.GetComponent<NavMeshAgent>();
+        enemyView.GetComponent<PatrolState>().OnEnterState();
         enemyView.LinkController(this);
+        ServiceEvents.Instance.ChasePlayer += ChasePlayer ;
+        ServiceEvents.Instance.StopChase += StopChasePlayer;
     }
 
 
-    public void Patrol(Vector3 currPos)
+    public void StopChasePlayer()
     {
-        if (currPos.z == currDestination.z && currPos.x == currDestination.x)
-        {
-            tempIndex = Random.Range(0, enemyModel.GetCount());
-            currDestination = enemyModel.GetPoint(tempIndex);
-        }
-        navMeshAgent.destination = currDestination;
+        enemyView.GetComponent<ChaseState>().OnExitState();
+        enemyView.GetComponent<PatrolState>().OnEnterState();
+    }
+
+    public void ChasePlayer()
+    {
+        enemyView.GetComponent<PatrolState>().OnExitState();
+        enemyView.GetComponent<ChaseState>().OnEnterState();
     }
 
     public void DisableEnemy(List<MeshRenderer> meshRenderers)
