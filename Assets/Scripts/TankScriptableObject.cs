@@ -17,7 +17,7 @@ public class TankScriptableObject : ScriptableObject
     
 }
 
-[CreateAssetMenu(fileName ="TankScriptableObjectList", menuName ="ScriptableObjectsList/NewTankScriptableObjectList")]
+[CreateAssetMenu(fileName ="TankScriptableObjectList", menuName = "ScriptableObjects/NewTankListScriptableObject")]
 
 public class TankScriptableObjectList : ScriptableObject
 {

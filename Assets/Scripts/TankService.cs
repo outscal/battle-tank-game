@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Tanks.Tank;
 using UnityEngine;
+using System;
 
 public class TankService : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class TankService : MonoBehaviour
 
     public void StartGame()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 2; i++)
         {
             CreateNewTank(i);
         }
@@ -33,7 +34,7 @@ public class TankService : MonoBehaviour
 
         //TankScriptableObject tankScriptableObject = tankConfiguration[2];
         TankScriptableObject tankScriptableObject = tankList.tanks[2];
-        
+
         TankModel model = new TankModel(tankScriptableObject);
         //TankModel model = new TankModel(TankType.None, 5, 100f);
         TankControllerScript tank = new TankControllerScript(model, tankView);
