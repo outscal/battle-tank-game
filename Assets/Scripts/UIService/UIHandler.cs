@@ -10,7 +10,7 @@ namespace UIServices
         [SerializeField] private GameObject joystickControllerObject;
         [SerializeField] private GameObject buttons;
         [SerializeField] private GameObject gameOverPanel;
-
+        [SerializeField] private GameObject gameWinPanel;
         [SerializeField] private Text scoreText;
 
         private int currentScore;
@@ -49,7 +49,7 @@ namespace UIServices
         }
 
         // Disables all UI components.
-        async private void GameOver()
+        async public void GameOverUI()
         {
             scoreText.gameObject.SetActive(false);
             joystickControllerObject.SetActive(false);
@@ -57,6 +57,21 @@ namespace UIServices
 
             await new WaitForSeconds(4.5f);
             ShowGameOverUI();
+        }
+
+        async public void GameWonUI(bool setAcive)
+        {
+            scoreText.gameObject.SetActive(false);
+            joystickControllerObject.SetActive(false);
+            buttons.gameObject.SetActive(false);
+
+            await new WaitForSeconds(1f);
+            gameWinPanel.SetActive(setAcive);
+        }
+
+        public void Quit()
+        {
+            Application.Quit();
         }
 
     }

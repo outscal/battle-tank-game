@@ -23,7 +23,7 @@ namespace EnemyTankServices
         public float walkPointRange { get; set; }
         public bool b_IsPatrolPoint { get; set; }
 
-        public bool b_IsDead { get; set; }
+        public bool b_IsEnemyTankDead { get; set; }
         public bool b_IsFired { get; set; }
 
         public Color fullHealthColor { get; }
@@ -55,6 +55,7 @@ namespace EnemyTankServices
 
             walkPointRange = enemyTankScriptableObject.walkPointRange;
             b_IsPatrolPoint = false;
+            b_IsEnemyTankDead = false;
 
             patrolTime = enemyTankScriptableObject.patrolTime;
             patrollingRange = enemyTankScriptableObject.patrollingRange;

@@ -28,13 +28,13 @@ namespace GameServices
         {
             if (UIHandler.Instance.GetCurrentScore() > GetHighScore())
             {
-                PlayerPrefs.SetInt("highScore", UIHandler.Instance.GetCurrentScore());
+                PlayerPrefs.SetInt("highscore", UIHandler.Instance.GetCurrentScore());
             }
         }
 
         public int GetHighScore()
         {
-            return PlayerPrefs.GetInt("highScore", 0);
+            return PlayerPrefs.GetInt("highscore", 0);
         }
     }
 }

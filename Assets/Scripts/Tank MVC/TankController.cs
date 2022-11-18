@@ -24,7 +24,7 @@ namespace TankServices
         public TankController(TankModel _tankModel, TankView tankPrefab)
         {
             tankModel = _tankModel;
-            
+
             // Spawns player tank.
             tankView = GameObject.Instantiate<TankView>(tankPrefab, TankSpawnPointService.Instance.GetPlayerSpawnPoint());
 
@@ -77,10 +77,10 @@ namespace TankServices
         {
             if (!tankModel.b_IsDead)
             {
-                FireBulletInputCheck(); 
+                FireBulletInputCheck();
                 PlayEngineAudio();
             }
-        }        
+        }
 
         public void FixedUpdateTankController()
         {
@@ -131,9 +131,11 @@ namespace TankServices
             tankModel.health -= damage;
             SetHealthUI();
             ShowHealthUI();
+            //
 
             if (tankModel.health <= 0 && !tankModel.b_IsDead)
             {
+               // Debug.Log(tankModel.health);
                 Death();
             }
         }
@@ -149,7 +151,6 @@ namespace TankServices
             if (tankView)
             {
                 tankView.healthSlider.gameObject.SetActive(true);
-                Debug.Log("Player Health enabled");
             }
 
             await new WaitForSeconds(3f);
@@ -157,31 +158,12 @@ namespace TankServices
             if (tankView)
             {
                 tankView.healthSlider.gameObject.SetActive(false);
-                Debug.Log("Player Health disabled");
             }
         }
 
         public void SetAimUI()
         {
             tankView.aimSlider.value = tankModel.currentLaunchForce;
-        }
-
-        public void Death()
-        {
-            UnsubscribeEvents();
-
-            tankModel.b_IsDead = true;
-
-            tankView.explosionParticles.transform.position = tankView.transform.position;
-            tankView.explosionParticles.gameObject.SetActive(true);
-
-            tankView.explosionParticles.Play();
-            tankView.explosionSound.Play();
-
-            TankService.Instance.DestroyTank(this);
-            tankView.Death();
-
-            VisualEffectService.Instance.DestroyAllGameObjects();
         }
 
         // Called when fire button is pressed.
@@ -253,6 +235,20 @@ namespace TankServices
                     tankView.movementAudio.Play();
                 }
             }
+        }
+
+        public void Death()
+        {
+            UnsubscribeEvents();
+
+            tankModel.b_IsDead = true;
+            tankView.explosionParticles.transform.position = tankView.transform.position;
+            tankView.explosionParticles.gameObject.SetActive(true);
+            tankView.explosionParticles.Play();
+            TankService.Instance.DestroyTank(this);
+            tankView.Death();
+            UIHandler.Instance.GameOverUI();
+            VisualEffectService.Instance.DestroyAllGameObjects();
         }
     }
 }

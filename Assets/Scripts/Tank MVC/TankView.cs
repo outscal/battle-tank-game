@@ -63,8 +63,10 @@ namespace TankServices
 
         public void Death()
         {
+            Debug.Log("Destroy PlayerTank");
             CameraController.Instance.RemoveCameraTargetPosition(this.transform);
             Destroy(gameObject);
+
         }
 
         public void TakeDamage(int damage)

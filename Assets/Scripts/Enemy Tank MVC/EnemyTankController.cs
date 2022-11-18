@@ -1,6 +1,8 @@
 ﻿using GameServices;
 using UnityEngine;
+using UIServices;
 using AllServices;
+using EffectServices;
 
 namespace EnemyTankServices
 {
@@ -22,13 +24,13 @@ namespace EnemyTankServices
         public void EnableTankView()
         {
             enemyTankView.gameObject.SetActive(true);
-            enemyTankModel.b_IsDead = false;
+            enemyTankModel.b_IsEnemyTankDead = false;
         }
 
         public void DisableTankView()
         {
             enemyTankView.gameObject.SetActive(false);
-            enemyTankModel.b_IsDead = true;
+            enemyTankModel.b_IsEnemyTankDead = true;
         }
 
         // To do all physics calculations.
@@ -44,7 +46,7 @@ namespace EnemyTankServices
             SetHealthUI();
             ShowHealthUI();
 
-            if (enemyTankModel.health <= 0 && !enemyTankModel.b_IsDead)
+            if (enemyTankModel.health <= 0 && !enemyTankModel.b_IsEnemyTankDead)
             {
                 Death();
             }
@@ -75,19 +77,20 @@ namespace EnemyTankServices
 
         public void Death()
         {
-            enemyTankModel.b_IsDead = true;
+            enemyTankModel.b_IsEnemyTankDead = true;
 
             // Move the instantiated explosion prefab to the tank's position and turn it on.
             enemyTankView.explosionParticles.transform.position = enemyTankView.transform.position;
             enemyTankView.explosionParticles.gameObject.SetActive(true);
 
             enemyTankView.explosionParticles.Play();
-            enemyTankView.explosionSound.Play();
-
-            enemyTankView.Death();
 
             EnemyTankService.Instance.DestroyEnemy(this);
+            enemyTankView.Death();
+
             EventService.Instance.InvokeOnEnemyDeathEvent();
+
+            UIHandler.Instance.GameWonUI(true);
         }
     }
 }

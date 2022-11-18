@@ -3,6 +3,8 @@ using UnityEngine.UI;
 using EffectServices;
 using UnityEngine.SceneManagement;
 
+using UnityEditor;
+
 namespace UIServices
 {
     public class LobbyUIHandler : MonoBehaviour
@@ -14,7 +16,7 @@ namespace UIServices
         // Displays high score in lobby.
         private void Start()
         {
-            highScoreText.text = "HIGH SCORE : " + PlayerPrefs.GetInt("highScore", 0);
+            highScoreText.text = "HIGH SCORE : " + PlayerPrefs.GetInt("highscore", 0);
         }
 
         // Loads game scene.
@@ -27,7 +29,7 @@ namespace UIServices
         public void Quit()
         {
             SpecialEffectService.Instance.Play(SpecialEffectService.Sounds.ButtonClick);
-            Application.Quit();
+            EditorApplication.isPlaying = false;
         }
     }
 }
