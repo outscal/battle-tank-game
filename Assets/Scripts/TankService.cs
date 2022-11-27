@@ -33,7 +33,7 @@ public class TankService : MonoBehaviour
     {
 
         //TankScriptableObject tankScriptableObject = tankConfiguration[2];
-        TankScriptableObject tankScriptableObject = tankList.tanks[2];
+        TankScriptableObject tankScriptableObject = tankList.tanks[index];
 
         TankModel model = new TankModel(tankScriptableObject);
         //TankModel model = new TankModel(TankType.None, 5, 100f);
