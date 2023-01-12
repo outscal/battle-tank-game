@@ -1,29 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class TankController : MonoBehaviour
+public class TankController 
 {
-    public float speed = 10f;
-    public float rotationSpeed = 10f;
 
-    void Update()
+    private TankModel tankModel;
+    private TankView tankView; 
+    private Rigidbody rigidbody;
+    public TankController(TankModel _tankModel, TankView _tankView)
     {
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            transform.position += transform.forward * speed * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            transform.position -= transform.forward * speed * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            transform.rotation *= Quaternion.Euler(0f, -rotationSpeed * Time.deltaTime, 0f);
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            transform.rotation *= Quaternion.Euler(0f, rotationSpeed * Time.deltaTime, 0f);
-        }
+        tankModel = _tankModel;
+        tankView = GameObject.Instantiate<TankView>(_tankView);
+
+
+        rigidbody = tankView.GetRigidbody();
+        tankModel.SetTankController(this);
+        tankView.SetTankController(this);
+        
+    }
+
+    public void Move(float movement, float movementSpeed)
+    {
+        
+        rigidbody.velocity = tankView.transform.forward * movement * movementSpeed;
+    }
+
+    public void Rotate(float rotate, float rotationSpeed)
+    {
+        Vector3 vector = new Vector3(0f, rotate * rotationSpeed, 0f);
+        Quaternion deltaRoation = Quaternion.Euler(vector * Time.deltaTime);
+        rigidbody.MoveRotation(rigidbody.rotation * deltaRoation);
+    }
+    public TankModel GetTankModel()
+    {
+        return tankModel;
     }
 }
