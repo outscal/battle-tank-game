@@ -110,8 +110,8 @@ NavMeshSettings:
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
-    agentSlope: 45
-    agentClimb: 0.4
+    agentSlope: 26.9
+    agentClimb: 0.59
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
@@ -134,28 +134,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 453828129}
-  - component: {fileID: 453828128}
+  - component: {fileID: 453828130}
   m_Layer: 0
-  m_Name: Tank
+  m_Name: EnemyTankSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &453828128
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 453828127}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c4346b28443c66408463c3ed19a8945, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tankView: {fileID: 1473956749846846227, guid: 32ac48f73b2908146853f0d6efe4017b,
-    type: 3}
 --- !u!4 &453828129
 Transform:
   m_ObjectHideFlags: 0
@@ -171,6 +157,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &453828130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 453828127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b75949be571db344b819ae12e658aa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyList: {fileID: 11400000, guid: f1144bd84da4c004f9678624034c2290, type: 2}
+  spawnAreas:
+  - {x: 25.5, y: 0, z: 0}
+  - {x: 25.5, y: 0, z: 28.3}
+  - {x: -25.9, y: 0, z: 18.9}
+  - {x: -36.3, y: 0, z: -5.5}
+  spawnInterval: 10
 --- !u!1 &1282556331
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,14 +459,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1391056259}
-  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: -5, y: 28.13, z: -30}
+  m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
+  m_LocalPosition: {x: 0, y: 7.54, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
 --- !u!114 &1391056265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,6 +480,56 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: d2b82a52b13b9014d988055d0b2f939e, type: 2}
+--- !u!1 &1893768327
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1893768329}
+  - component: {fileID: 1893768330}
+  m_Layer: 0
+  m_Name: PlayerTankSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1893768329
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893768327}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1893768330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893768327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 588f5be9b421cbf468c02117d621ffe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerList: {fileID: 11400000, guid: 58f601d2b1f17164faf2f4d1fd91595b, type: 2}
+  spawnArea: {x: -5.2, y: 0, z: -1.84}
+  bulletService: {fileID: 3944566404565077264, guid: 1b4af274275a37944bd9f3ca24dc4ff8,
+    type: 3}
+  bulletScriptableObject: {fileID: 11400000, guid: 95f8db010a0660444b689705bbf5a158,
+    type: 2}
 --- !u!1 &1011869114930255
 GameObject:
   m_ObjectHideFlags: 0
@@ -874,7 +929,7 @@ GameObject:
   m_Name: Cow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 2
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1241223518532229

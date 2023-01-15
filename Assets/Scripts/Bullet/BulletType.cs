@@ -1,7 +1,8 @@
+using UnityEngine;
+
 public enum BulletType
 {
     None,
-    Standard,
-    ArmorPiercing,
-    HighExplosive
+    HESH_Round, //High Explosive Squash Head
+    APDS,//(Armoured-Piecing Discarding Sabot)
 }
