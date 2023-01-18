@@ -4,23 +4,17 @@ public class PlayerTankController
 {
     private PlayerTankModel model;
     private PlayerTankView view;
-    private PlayerTankModel playerTankModel;
-    private BulletScriptableObject bulletScriptableObject;
 
 
-    public PlayerTankController(PlayerTankModel playerTankModel)
+    public PlayerTankController(PlayerTankModel model, PlayerTankView view)
     {
-        this.playerTankModel = playerTankModel;
-    }
-
-    public PlayerTankController(PlayerTankModel _model, PlayerTankView _view)
-    {
-        model = _model;
-        view = _view;
+        this.model = model;
+        this.view = view;
     }
 
     public void Update()
     {
+        model.UpdatePlayerPosition(view.transform.position);
         // handle user input and update the model and view accordingly
         if (Input.GetKey(KeyCode.UpArrow))
         {
@@ -40,9 +34,10 @@ public class PlayerTankController
         }
         if (Input.GetMouseButtonDown(0))
         {
-            model.Shoot(bulletScriptableObject);
-            Debug.Log("Bullet Fired");
+            model.Shoot();
         }
     }
-
 }
+
+
+

@@ -1,39 +1,49 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController
 {
-    private EnemyModel model;
-    private EnemyView view;
+    private EnemyModel enemymodel;
+    public NavMeshAgent navMeshAgent;
+    private EnemyView enemyView;
     private Transform playerTank;
+    private PlayerTankView _playerTankView;
+    public float chaseDistance;
+     public float stoppingDistance = 8f;
 
-    public EnemyController(EnemyModel _model, EnemyView _view, Transform _playerTank)
+
+
+    public EnemyController(PlayerTankView playerTankView, EnemyModel _model, EnemyView _view, Transform _playerTank, float _chaseDistance)
     {
-        model = _model;
-        view = _view;
+        _playerTankView = playerTankView;
+        enemymodel = _model;
+        enemyView = _view;
         playerTank = _playerTank;
+        chaseDistance = _chaseDistance;
     }
 
-    public void Update()
+
+    public void MoveTowardsPlayer()
     {
-        // Update the position of the enemy based on its speed
-        view.transform.position += view.transform.forward * model.Speed * Time.deltaTime;
-
-        // rotate the enemy towards the player tank
-        view.transform.LookAt(playerTank);
+        if(enemyView == null || navMeshAgent == null) return;
+        navMeshAgent.SetDestination(_playerTankView.transform.position);
     }
+
 
     public void TakeDamage(float damage)
     {
-        model.Health -= damage;
+        enemymodel.Health -= damage;
 
         // Update the color of the enemy based on its health
-        if (model.Health > 0)
+        if (enemymodel.Health > 0)
         {
-            view.UpdateColor(Color.green);
+            enemyView.UpdateColor(Color.green);
         }
         else
         {
-            view.UpdateColor(Color.red);
+            enemyView.UpdateColor(Color.red);
         }
     }
+
+
 }

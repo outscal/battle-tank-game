@@ -1,22 +1,21 @@
+using System;
 using UnityEngine;
-using UnityEngine.AI;
+
 
 public class EnemyView : MonoBehaviour
 {
-    private NavMeshAgent enemy;
-    public Transform PlayerTankTarget;
+   
     private new Renderer renderer;
-    private EnemyController enemyController;
-
+    public EnemyController enemyController;
     private void Start()
     {
         renderer = GetComponent<Renderer>();
-        enemy = GetComponent<NavMeshAgent>();
     }
 
-    public void Update()
+
+    public void FixedUpdate()
     {
-        enemy.SetDestination(PlayerTankTarget.position);
+        enemyController?.MoveTowardsPlayer();
     }
 
     public void UpdateColor(Color color)
@@ -24,8 +23,8 @@ public class EnemyView : MonoBehaviour
         renderer.material.color = color;
     }
 
-    public void UpdatePosition(Vector3 position)
-    {
-        transform.position = position;
-    }
+
 }
+
+
+

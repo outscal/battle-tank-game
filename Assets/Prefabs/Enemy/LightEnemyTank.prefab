@@ -443,7 +443,7 @@ GameObject:
   - component: {fileID: 4696219261420049983}
   - component: {fileID: -4081716020588508165}
   - component: {fileID: -5510326128680642102}
-  - component: {fileID: -1421738597705723568}
+  - component: {fileID: 1661386439467127048}
   m_Layer: 0
   m_Name: LightEnemyTank
   m_TagString: Untagged
@@ -495,9 +495,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f720fb279e76e534ab0030ea74056d8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerTankTarget: {fileID: 4696219261420049983, guid: 32ac48f73b2908146853f0d6efe4017b,
-    type: 3}
---- !u!195 &-1421738597705723568
+  navMeshAgent: {fileID: 1661386439467127048}
+  Range: 30
+--- !u!195 &1661386439467127048
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -506,16 +506,16 @@ NavMeshAgent:
   m_GameObject: {fileID: 8507534545913200519}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_Radius: 0.73
+  m_Speed: 5
+  m_Acceleration: 15
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 5
+  m_StoppingDistance: 8
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0
+  m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4

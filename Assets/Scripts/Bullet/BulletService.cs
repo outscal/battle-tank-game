@@ -9,7 +9,7 @@ public class BulletService : MonoSingletonGeneric <BulletService>
         bulletScriptableObjectList = _bulletScriptableObjectList;
     }
 
-    public void Fire(BulletType bulletType, Vector3 position, Quaternion rotation)
+    public void SpawnBullet(BulletType bulletType, Vector3 position, Quaternion rotation)
     {
         BulletScriptableObject bulletScriptableObject = GetBulletScriptableObject(bulletType);
         if (bulletScriptableObject != null)

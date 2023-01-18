@@ -23,7 +23,7 @@ public class PlayerTankView : MonoBehaviour
     public void FireBullet()
     {
         PlayerTankModel playerTankModel = GetComponent<PlayerTankModel>();
-        playerTankModel.Shoot(bulletScriptableObject);
+        playerTankModel.Shoot();
     }
 
     public void UpdateColor(Color color)

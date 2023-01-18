@@ -4,21 +4,26 @@ public class PlayerTankModel
 {
 
     public BulletService bulletService;
-    public PlayerTankType PlayerTankType { get; set; }
     public float Speed { get; set; }
     public float RotationSpeed { get; set; }
     public Transform transform;
     public BulletScriptableObject bulletScriptableObject;
     public Transform bulletSpawnPoint;
+    public Vector3 playerPosition;
 
-    public PlayerTankModel(PlayerTankScriptableObject playerTankScriptableObject, Transform _transform, BulletService _bulletService, BulletScriptableObject _bulletScriptableObject)
+    public PlayerTankModel(PlayerTankScriptableObject playerTankScriptableObject, Transform _transform, BulletScriptableObject _bulletScriptableObject,Transform _bulletSpawnPoint)
     {
-        PlayerTankType = playerTankScriptableObject.pTankType;
         Speed = playerTankScriptableObject.Speed;
         RotationSpeed = playerTankScriptableObject.RotationSpeed;
         transform = _transform;
-        bulletService = _bulletService;
         bulletScriptableObject = _bulletScriptableObject;
+        bulletSpawnPoint = _bulletSpawnPoint;
+
+    }
+
+    public void UpdatePlayerPosition(Vector3 position)
+    {
+        playerPosition = position;
     }
 
     public void Move(float direction)
@@ -31,12 +36,9 @@ public class PlayerTankModel
         transform.Rotate(Vector3.up * direction * RotationSpeed * Time.deltaTime);
     }
 
-    public void Shoot(BulletScriptableObject bulletScriptableObject)
+    public void Shoot()
     {
-        BulletModel bulletModel = new BulletModel(bulletScriptableObject);
-        BulletView bulletView = new BulletView();
-        bulletView.prefab = bulletScriptableObject.prefab;
-        BulletController bulletController = new BulletController(bulletModel);
-        bulletView.Fire(bulletSpawnPoint.position, bulletSpawnPoint.rotation, bulletModel.Speed);
+        BulletService.Instance.SpawnBullet(bulletScriptableObject.bulletType, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
     }
+
 }
