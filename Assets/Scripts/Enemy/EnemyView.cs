@@ -15,6 +15,7 @@ public class EnemyView : MonoBehaviour
     public Coroutine ShootingCoroutine;
     public float shootDelay;
     public float ChaseDistance;
+    public float TimeToWaitNextBulletSpawn;
 
     private void Start()
     {
@@ -42,10 +43,10 @@ public class EnemyView : MonoBehaviour
                 if (timeSinceLastShot >= timeBetweenShots)
                 {
                     // Wait for 10 seconds before spawning the next bullet
-                    yield return new WaitForSeconds(10f);
+                    yield return new WaitForSeconds(TimeToWaitNextBulletSpawn);
 
                     // Code to SpawnBullet
-                    BulletService.Instance.SpawnBullet(spawnPoint, spawnPoint.transform.rotation);
+                    BulletService.Instance.SpawnBullet(spawnPoint, spawnPoint.transform.rotation, false);
 
                     // Reset the time since last shot
                     timeSinceLastShot = 0;

@@ -20,12 +20,13 @@ public class BulletService : MonoSingletonGeneric<BulletService>
 
     }
 
-    public void SpawnBullet(Transform bulletSpawnPoint, Quaternion rotation)
+    public void SpawnBullet(Transform bulletSpawnPoint, Quaternion rotation, bool isPlayerBullet = false)
     {
         BulletScriptableObject bulletScriptableObject = GetBulletScriptableObject(bulletModel.bulletType);
         if (bulletScriptableObject != null)
         {
             GameObject bullet = Instantiate(bulletScriptableObject.prefab, bulletSpawnPoint.position, rotation);
+            bullet.GetComponent<BulletView>().isPlayerBullet = isPlayerBullet;
             BulletView bulletView = bullet.GetComponent<BulletView>();
 
             bulletView.BulletParticleEffect = bulletScriptableObject.BulletParticleEffect;

@@ -51,7 +51,7 @@ public class PlayerTankController
 
     public void Shoot(Transform spawnPoint)
     {
-        BulletService.Instance.SpawnBullet(spawnPoint, spawnPoint.transform.rotation);
+        BulletService.Instance.SpawnBullet(spawnPoint, spawnPoint.transform.rotation, true);
     }
 
     

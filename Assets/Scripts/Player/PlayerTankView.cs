@@ -31,7 +31,9 @@ public class PlayerTankView : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        
         playerTankController.playerModel.Health -= damage;
+        Debug.Log("Player Health :" + playerTankController.playerModel.Health);
 
         // Update the color of the enemy based on its health
         if (playerTankController.playerModel.Health < 0)

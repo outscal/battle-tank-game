@@ -6,7 +6,7 @@ public class BulletView : MonoBehaviour
     private EnemyView enemyView;
     private PlayerTankView playerTankView;
     public GameObject BulletParticleEffect;
-
+    public bool isPlayerBullet = false;
 
 
     public void SetBulletController(BulletController _bulletController)
@@ -35,7 +35,14 @@ public class BulletView : MonoBehaviour
             Debug.Log("bulletController Null");
             return;
         }
-        if (collision.gameObject.GetComponent<EnemyView>() != null)
+        if (collision.gameObject.GetComponent<PlayerTankView>() != null && !isPlayerBullet)
+        {
+            playerTankView = collision.gameObject.GetComponent<PlayerTankView>();
+            Debug.Log("Bullet Collided");
+            playerTankView.TakeDamage(bulletController.bulletModel.bulletDamage);
+            Destroy(gameObject);
+        }
+        if (collision.gameObject.GetComponent<EnemyView>() != null && isPlayerBullet)
         {
             enemyView = collision.gameObject.GetComponent<EnemyView>();
             Debug.Log("Bullet Collided");
