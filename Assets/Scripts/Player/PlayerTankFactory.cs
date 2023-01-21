@@ -21,7 +21,7 @@ public class PlayerTankFactory : MonoBehaviour
 
         playerObject.transform.position = spawnArea;
         bulletSpawnPoint = playerObject.transform; // Assign live position and rotation to bulletSpawnPoint
-        playerTankModel = new PlayerTankModel(playerTankScriptableObject, playerObject.transform, bulletScriptableObject, bulletSpawnPoint);
+        playerTankModel = new PlayerTankModel(playerTankScriptableObject, playerObject.transform);
 
         PlayerTankView playerTankView = playerObject.GetComponent<PlayerTankView>();
         playerTankController = new PlayerTankController(playerTankModel, playerTankView);

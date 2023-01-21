@@ -6,15 +6,17 @@ public class EnemyModel
     public float Speed { get; set; }
     public float Health { get; set; }
     public float Damage { get; set; }
+  
 
 
 
     public EnemyModel(EnemyTankScriptableObject enamyTankScriptableObject)
     {
-        EnemyTankType = enamyTankScriptableObject.eTankType;
+        EnemyTankType = enamyTankScriptableObject.EnemyTankType;
         Speed = enamyTankScriptableObject.Speed;
         Health = enamyTankScriptableObject.Health;
-        Damage = enamyTankScriptableObject.Damage;
+
+
 
     }
 

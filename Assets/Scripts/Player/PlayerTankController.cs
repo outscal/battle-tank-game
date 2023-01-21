@@ -2,42 +2,57 @@ using UnityEngine;
 
 public class PlayerTankController
 {
-    private PlayerTankModel model;
-    private PlayerTankView view;
+    public PlayerTankModel playerModel;
+    public PlayerTankView PlayerView;
 
-
-    public PlayerTankController(PlayerTankModel model, PlayerTankView view)
+    public PlayerTankController(PlayerTankModel _playerTankModel, PlayerTankView _playerView)
     {
-        this.model = model;
-        this.view = view;
+        this.playerModel = _playerTankModel;
+        this.PlayerView = _playerView;
+        PlayerView.SetPlayerTankController(this);
     }
+
 
     public void Update()
     {
-        model.UpdatePlayerPosition(view.transform.position);
-        // handle user input and update the model and view accordingly
+        playerModel.playerPosition = PlayerView.transform.position;
+
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            model.Move(1);
+            Move(1);
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            model.Move(-1);
+            Move(-1);
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            model.Rotate(-1);
+            Rotate(-1);
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            model.Rotate(1);
+            Rotate(1);
         }
-        if (Input.GetMouseButtonDown(0))
-        {
-            model.Shoot();
-        }
+        // if (Input.GetMouseButtonDown(0))
+        // {
+        //     //Shoot();
+        // }
     }
+
+    public void Move(float direction)
+    {
+        PlayerView.transform.position += PlayerView.transform.forward * direction * playerModel.Speed * Time.deltaTime;
+    }
+
+    public void Rotate(float direction)
+    {
+        PlayerView.transform.Rotate(Vector3.up * direction * playerModel.RotationSpeed * Time.deltaTime);
+    }
+
+    public void Shoot(Transform spawnPoint)
+    {
+        BulletService.Instance.SpawnBullet(spawnPoint, spawnPoint.transform.rotation);
+    }
+
+    
 }
-
-
-

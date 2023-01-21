@@ -1,22 +1,60 @@
 using UnityEngine;
 
-public class BulletService : MonoSingletonGeneric <BulletService>
+public class BulletService : MonoSingletonGeneric<BulletService>
 {
     public BulletScriptableObjectList bulletScriptableObjectList;
-
+    public BulletModel bulletModel;
     public BulletService(BulletScriptableObjectList _bulletScriptableObjectList)
     {
         bulletScriptableObjectList = _bulletScriptableObjectList;
     }
 
-    public void SpawnBullet(BulletType bulletType, Vector3 position, Quaternion rotation)
+
+
+    public void Start()
     {
-        BulletScriptableObject bulletScriptableObject = GetBulletScriptableObject(bulletType);
+        int randomBulletIndex = Random.Range(0, bulletScriptableObjectList.BulletList.Length);
+        BulletScriptableObject bulletScriptableObject = bulletScriptableObjectList.BulletList[randomBulletIndex];
+        bulletModel = new BulletModel(bulletScriptableObject);
+
+
+    }
+
+    public void SpawnBullet(Transform bulletSpawnPoint, Quaternion rotation)
+    {
+        BulletScriptableObject bulletScriptableObject = GetBulletScriptableObject(bulletModel.bulletType);
         if (bulletScriptableObject != null)
         {
-            GameObject bullet = Object.Instantiate(bulletScriptableObject.prefab, position, rotation);
+            GameObject bullet = Instantiate(bulletScriptableObject.prefab, bulletSpawnPoint.position, rotation);
+            BulletView bulletView = bullet.GetComponent<BulletView>();
+
+            bulletView.BulletParticleEffect = bulletScriptableObject.BulletParticleEffect;
+            
+            
+            //bulletView.GetComponent<Renderer>().enabled = true;
+
+            // Instantiate the BulletController and set the bulletModel property
+            BulletController bulletController = new BulletController(bulletModel, bulletView);
+
+            // Set the bulletController property on the bulletView
+            bulletView.SetBulletController(bulletController);
+
+            
+
+            EnemyView enemyView = new EnemyView();
+            bulletView.SetEnemyView(enemyView);
+            PlayerTankView playerTankView = new PlayerTankView();
+            bulletView.SetPlayerTankView(playerTankView);
+
+            Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();
+            bulletRigidbody.AddForce(bullet.transform.forward * bulletModel.bulletSpeed, ForceMode.Impulse);
         }
+
+        Debug.Log(bulletModel.bulletType + "Bullet Spawned");
     }
+
+
+
 
     private BulletScriptableObject GetBulletScriptableObject(BulletType bulletType)
     {
@@ -31,3 +69,4 @@ public class BulletService : MonoSingletonGeneric <BulletService>
         return null;
     }
 }
+

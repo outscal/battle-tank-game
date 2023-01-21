@@ -7,6 +7,7 @@ public class BulletScriptableObject : ScriptableObject
     public float speed;
     public float damage;
     public GameObject prefab;
+    public GameObject BulletParticleEffect;
 
-    
+
 }
