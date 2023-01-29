@@ -9,5 +9,5 @@ public class TankScriptableObject: ScriptableObject
     public string TankName;
     public float Speed;
     public float RotationSpeed;
-    public float Health;
+    public int Health;
 }

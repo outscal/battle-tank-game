@@ -16,6 +16,7 @@ public class TankBulletService : MonoBehaviour
       if(instance == null)
         {
             instance = this;
+            Debug.Log("Hello Vimarsh");
         }
       else
         {
@@ -48,7 +49,5 @@ public class TankBulletService : MonoBehaviour
         TankBulletModel model = new TankBulletModel(tankBulletScriptableObject);
         TankBulletController bullet = new TankBulletController(model, tankBulletView,spawnpos);
         return bullet;
-
-
     }
 }

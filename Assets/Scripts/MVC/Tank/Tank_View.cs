@@ -10,6 +10,9 @@ public class Tank_View : MonoBehaviour
     private float health;
     public Transform bulletspawnPos;
     TankBulletController tankBulletController;
+    EnemyView enemyView;
+    
+
 
 
     public TankType tankType;
@@ -25,23 +28,33 @@ public class Tank_View : MonoBehaviour
     private void Update()
     {
         Movement();
-
-        if(movement != 0)
+        if (tankController.TankHealth() > 0)
         {
-            tankController.Move(movement, tankController.GetTankModel().Speed);
-        }
+            if (movement != 0)
+            {
+                tankController.Move(movement, tankController.GetTankModel().Speed);
+            }
 
-        if(rotation != 0)
-        {
-            tankController.Roatate(rotation, tankController.GetTankModel().RotationSpeed);
-        }
+            if (rotation != 0)
+            {
+                tankController.Roatate(rotation, tankController.GetTankModel().RotationSpeed);
+            }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            TankBulletService.Instance.CreateNewBullet(bulletspawnPos);
-            Debug.Log("Shooting Bullet");
-            tankBulletController.ShootBullet();
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                TankBulletService.Instance.CreateNewBullet(bulletspawnPos);
+            }
         }
+        else
+        {
+            TankDead();
+        }
+      
+    }
+
+    public void SetTankBUlletController(TankBulletController _tankBulletController)
+    {
+        tankBulletController = _tankBulletController;
     }
 
     private void Movement()
@@ -59,4 +72,35 @@ public class Tank_View : MonoBehaviour
     {
         return rb;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.GetComponent<TankBulletView>())
+        {
+            tankController.tankmodel.Health = tankController.tankmodel.Health - collision.gameObject.GetComponent<TankBulletView>().GetDamage();
+            Debug.Log("health: " + tankController.tankmodel.Health);
+        } 
+    }
+
+    void TankDead()
+    {
+        if(tankController.TankHealth() < 0)
+        {
+            Debug.Log("Player dead");
+            StartCoroutine(DestroyEnimies());
+        }
+    }
+
+
+    IEnumerator DestroyEnimies()
+    {
+        if(tankController.TankHealth() < 0)
+        {
+            enemyView.deathEffect.SetActive(true);
+            
+            Destroy(enemyView.gameObject);
+            yield return new WaitForSeconds(2f);
+        }
+    }
 }
+ // anime death

@@ -7,9 +7,9 @@ public class TankBulletScriptableObject : ScriptableObject
 {
     public TankBUlletType TankBUlletType;
     public string TankBulletName;
- // public Transform BulletSpawnPosition;
     public GameObject BulletPrefab;
     public float BulletSpeed;
+    public int BUlletDamage;
 
 }
 

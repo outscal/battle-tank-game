@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 719643353086402479}
   - component: {fileID: 8429337298547622437}
   - component: {fileID: 2850636380352597782}
-  - component: {fileID: 6382041531401733679}
   - component: {fileID: 6980716460437461645}
+  - component: {fileID: -6864961428180954857}
   m_Layer: 0
   m_Name: PlayerTankBullet
   m_TagString: Untagged
@@ -99,18 +99,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6382041531401733679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6020072334685301299}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcbeb7b45c04ac0429f55920eabafe59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &6980716460437461645
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -127,3 +115,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-6864961428180954857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6020072334685301299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcbeb7b45c04ac0429f55920eabafe59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tankBulletType: 0

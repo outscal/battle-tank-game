@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 875442a36de58ec428bea761542e9f10, type: 3}
   m_Name: BigEnemy
   m_EditorClassIdentifier: 
-  EnemyType: 0
+  EnemyType: 2
   EnemyName: Big
-  EnemySpeed: 60
-  EnemyHealth: 20
-  WayPoints:
-  - {fileID: 1646826797030795100, guid: 5325417531826d04cb792966dd1786af, type: 3}
-  - {fileID: 5088546621715241668, guid: 5abab11e763004d41bd67b36880ec270, type: 3}
-  - {fileID: 9217999179367868261, guid: 46d2b2df93ad5a2408c399d244996d85, type: 3}
-  - {fileID: 6348408185474830306, guid: 347a54e94d8ee4847985eb48f46bcd06, type: 3}
+  EnemyRange: 20
+  DistanceBetweenTarget: 10
+  ProjectlePrefab: {fileID: 6020072334685301299, guid: e3fa5eea1368b534caac3307d145c61e,
+    type: 3}
+  CountDownBetweenFire: 2
+  FireRate: 2
+  Target: {fileID: 360227236408240530, guid: 697e8d4621591214d9425281b96892f1, type: 3}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tank_Ctrl 
 {
-    private Tank_Model tankmodel;
+    public Tank_Model tankmodel;
     private Tank_View tankview;
     private Rigidbody rb;
     public TankType tanktype;
@@ -16,10 +16,7 @@ public class Tank_Ctrl
         tankview = _tankView;
         tankview = GameObject.Instantiate<Tank_View>(_tankView);
         rb = tankview.GetRigidbody();
-       // tankview.SetTankController(this);
         tankview.SetTankController(this);
-
-       
     }
 
     public void Move(float movement, float movementeSpeed)
@@ -38,4 +35,7 @@ public class Tank_Ctrl
     {
         return tankmodel;
     }
+
+    public Transform Playerpos() { return tankview.transform; }
+    public int TankHealth() { return tankmodel.Health; }
 }

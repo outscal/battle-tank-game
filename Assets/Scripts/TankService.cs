@@ -1,23 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 
 public class TankService : MonoBehaviour
 {
     public Tank_View tankView;
+    public Tank_Ctrl tankctrl;
+    Tank_Model tankModel;
     public TankScriptableObject[] tankConfigurations;
+
+    public static TankService instance;
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
         StartGame();
     }
 
+    public Transform PlayerPosition() {  return tankctrl.Playerpos(); }
+    
+
+    private void Update()
+    {
+        
+    }
     public void StartGame()
     {
-
         int tankToSpawn = Random.Range(1, 3);
-
         Debug.Log("Tank number" + tankToSpawn);
         CreateNewTank(tankToSpawn);
         
@@ -27,7 +44,7 @@ public class TankService : MonoBehaviour
     {
         TankScriptableObject tankscriptableobject = tankConfigurations[index];
         Tank_Model model = new Tank_Model(tankscriptableobject);
-        Tank_Ctrl tank = new Tank_Ctrl(model, tankView);
-        return tank;
+        tankctrl = new Tank_Ctrl(model, tankView);
+        return tankctrl;
     }
 }

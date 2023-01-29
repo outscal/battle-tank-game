@@ -1,28 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyModel : MonoBehaviour
 {
-
     public EnemyModel(EnemyScriptaleObject enemyScriptableObject)
     {
         EnemyType = enemyScriptableObject.EnemyType;
-        EnemySpeed = enemyScriptableObject.EnemySpeed;
-       // EnemyRotationSpeed = enemyScriptableObject.EnemyRotationSpeed;
-        WayPoints = enemyScriptableObject.WayPoints;
-        
-
-
-
+        EnemyName = enemyScriptableObject.EnemyName;
+        EnemyRange = enemyScriptableObject.EnemyRange;
+        DistanceBetweenTarget = enemyScriptableObject.DistanceBetweenTarget;
+        CountDownBetweenFire = enemyScriptableObject.CountDownBetweenFire;
+        FireRate = enemyScriptableObject.FireRate;
+        Target = enemyScriptableObject.Target;
+   //     ProjectilePrefab = enemyScriptableObject.ProjectlePrefab;
+      
     }
 
     public EnemyType EnemyType { get; }
-    public int EnemySpeed {get;}
+    public string EnemyName { get; }
+    public float EnemyRange { get; }
+    public float DistanceBetweenTarget { get; set; }
 
-  //  public int EnemyRotationSpeed { get; }
+//    public GameObject ProjectilePrefab { get; }
+    public float CountDownBetweenFire { get; set; }
+    public float FireRate { get; }
+    public Transform Target;
 
-    public Transform[] WayPoints { get; }
+
+
 
    
 

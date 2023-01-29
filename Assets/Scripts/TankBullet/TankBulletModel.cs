@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TankBulletModel
@@ -7,28 +5,18 @@ public class TankBulletModel
     public TankBulletModel(TankBulletScriptableObject tankBulletScriptableObject)
     {
         TankBUlletType = tankBulletScriptableObject.TankBUlletType;
-      //BulletSpawnPosition = tankBulletScriptableObject.BulletSpawnPosition;
         BulletPrefab = tankBulletScriptableObject.BulletPrefab;
         BulletSpeed = tankBulletScriptableObject.BulletSpeed;
-
-
+        BulletDamage = tankBulletScriptableObject.BUlletDamage;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+ 
 
     public TankBUlletType TankBUlletType { get; }
 
     public Transform BulletSpawnPosition { get; }
     public GameObject BulletPrefab { get; }
     public float BulletSpeed { get; }
+
+    public int BulletDamage { get; }
 }
