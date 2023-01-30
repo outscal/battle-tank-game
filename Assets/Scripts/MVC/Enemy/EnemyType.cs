@@ -4,5 +4,4 @@ public enum EnemyType
     SmallEnemy,
     BigEnemy,
     BoosEnemy
-
 }

@@ -11,18 +11,17 @@ public class EnemyModel : MonoBehaviour
         CountDownBetweenFire = enemyScriptableObject.CountDownBetweenFire;
         FireRate = enemyScriptableObject.FireRate;
         Target = enemyScriptableObject.Target;
-   //     ProjectilePrefab = enemyScriptableObject.ProjectlePrefab;
-      
+        Health = enemyScriptableObject.Health;
+  
     }
 
     public EnemyType EnemyType { get; }
     public string EnemyName { get; }
     public float EnemyRange { get; }
     public float DistanceBetweenTarget { get; set; }
-
-//    public GameObject ProjectilePrefab { get; }
     public float CountDownBetweenFire { get; set; }
     public float FireRate { get; }
+    public int Health { get; set; }
     public Transform Target;
 
 

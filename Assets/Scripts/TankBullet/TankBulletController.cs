@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TankBulletController 
@@ -19,11 +17,8 @@ public class TankBulletController
         ShootBullet();
     }
 
-    
-
     public void ShootBullet()
     {
-    //  bullet = GameObject.Instantiate(tankBulletView.gameObject, bulletspwanPos.position, bulletspwanPos.rotation);
         tankBulletView.GetComponent<Rigidbody>().velocity = bulletspwanPos.forward * tankBulletModel.BulletSpeed;
     }
 

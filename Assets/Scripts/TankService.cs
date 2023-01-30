@@ -26,12 +26,7 @@ public class TankService : MonoBehaviour
     }
 
     public Transform PlayerPosition() {  return tankctrl.Playerpos(); }
-    
 
-    private void Update()
-    {
-        
-    }
     public void StartGame()
     {
         int tankToSpawn = Random.Range(1, 3);

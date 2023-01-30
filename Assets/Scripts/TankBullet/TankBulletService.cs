@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TankBulletService : MonoBehaviour
@@ -23,25 +21,6 @@ public class TankBulletService : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    void Start()
-    {
-      //  CreateNewBullet();
-    }
-
-    // Update is called once per frame
-    //void Update()
-    //{
-    //    if
-    //}
-
-    //void SpwanBullet()
-    //{
-
-    //    // int enemyToSpwan = Random.Range(1, 3);
-
-    //    //  Debug.Log("Enemy number" + enemyToSpwan);
-    //    CreateNewBullet();
-    //}
 
     public TankBulletController CreateNewBullet(Transform spawnpos)
     {

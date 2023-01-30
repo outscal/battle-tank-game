@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Tank_View : MonoBehaviour
@@ -7,13 +6,8 @@ public class Tank_View : MonoBehaviour
     private Tank_Ctrl tankController;
     private float movement;
     private float rotation;
-    private float health;
     public Transform bulletspawnPos;
     TankBulletController tankBulletController;
-    EnemyView enemyView;
-    
-
-
 
     public TankType tankType;
     public Rigidbody rb;
@@ -47,7 +41,7 @@ public class Tank_View : MonoBehaviour
         }
         else
         {
-            TankDead();
+            StartCoroutine(DestroyEnimies());
         }
       
     }
@@ -78,29 +72,25 @@ public class Tank_View : MonoBehaviour
         if(collision.gameObject.GetComponent<TankBulletView>())
         {
             tankController.tankmodel.Health = tankController.tankmodel.Health - collision.gameObject.GetComponent<TankBulletView>().GetDamage();
-            Debug.Log("health: " + tankController.tankmodel.Health);
+           // Debug.Log("health: " + tankController.tankmodel.Health);
         } 
     }
 
-    void TankDead()
-    {
-        if(tankController.TankHealth() < 0)
-        {
-            Debug.Log("Player dead");
-            StartCoroutine(DestroyEnimies());
-        }
-    }
-
-
+   
     IEnumerator DestroyEnimies()
     {
         if(tankController.TankHealth() < 0)
         {
-            enemyView.deathEffect.SetActive(true);
-            
-            Destroy(enemyView.gameObject);
-            yield return new WaitForSeconds(2f);
+            Destroy(GameObject.FindWithTag("Enemy"));
+            yield return new WaitForSeconds(1f);
+            StartCoroutine(DestroyEnvironment());
         }
     }
+
+    IEnumerator DestroyEnvironment()
+    {
+        Destroy(GameObject.FindWithTag("Ground"));
+        yield return null;  
+    }
 }
- // anime death
+ 

@@ -17,12 +17,30 @@ public class EnemyView : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-         enemyController.EnemyMechanism();  
+        if(enemyController.enemyModel.Health > 0)
+        {
+            enemyController.EnemyMechanism();
+        }
+        else
+        {
+            Destroy(this.gameObject);
+           // Debug.Log("Enemy is dead");
+        }
+           
     }
 
     public void SetEnemyController(EnemyController _enemyController)
     {
         enemyController = _enemyController;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.GetComponent<TankBulletView>())
+        {
+            enemyController.enemyModel.Health = enemyController.enemyModel.Health - collision.gameObject.GetComponent<TankBulletView>().GetDamage();
+           // Debug.Log(" Player health: " + enemyController.enemyModel.Health);
+        }
     }
 }
 

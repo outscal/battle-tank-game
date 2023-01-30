@@ -8,11 +8,10 @@ public class EnemyScriptaleObject : ScriptableObject
     public string EnemyName;
     public float EnemyRange;
     public float DistanceBetweenTarget;
-    //public Transform[] ProjectileSpawnPoint;
-   // public GameObject ProjectlePrefab;
     public float CountDownBetweenFire;
     public float FireRate;
     public Transform Target;
+    public int Health;
    
     
 }

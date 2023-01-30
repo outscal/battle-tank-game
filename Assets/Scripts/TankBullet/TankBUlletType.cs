@@ -1,5 +1,3 @@
-using System;
-
 public enum TankBUlletType
 {
     None = 0,

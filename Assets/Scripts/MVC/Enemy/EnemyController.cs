@@ -1,9 +1,8 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 public class EnemyController
 {
-    private EnemyModel enemyModel;
+    public EnemyModel enemyModel;
     private EnemyView enemyView;
     public EnemyType enemyType;
 
@@ -36,8 +35,6 @@ public class EnemyController
                     foreach (Transform spawnPoints in enemyView.ProjectileSpawnPoint)
                     {
                         TankBulletService.Instance.CreateNewBullet(spawnPoints);
-                        //GameObject bulletRigidBody = GameObject.Instantiate(enemyModel.ProjectilePrefab, spawnPoints.position, Quaternion.identity);
-                        //bulletRigidBody.GetComponent<Rigidbody>().AddForce(enemyView.transform.forward * 32f, ForceMode.Impulse);
                         enemyView.transform.LookAt(TankService.instance.PlayerPosition().position);
                     }
                     enemyModel.CountDownBetweenFire = 1f / enemyModel.FireRate;

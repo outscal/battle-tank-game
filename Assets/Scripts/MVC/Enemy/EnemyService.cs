@@ -6,10 +6,6 @@ public class EnemyService : MonoBehaviour
     public EnemyView enemyView;
     public EnemyScriptaleObject[] enemyConfiguration;
     
-
-
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -18,10 +14,7 @@ public class EnemyService : MonoBehaviour
 
     public void SpawnEnemy()
     {
-      
-
         int enemyToSpwan = Random.Range(1,3);
-
         Debug.Log("Enemy number" + enemyToSpwan);
         CreateNewEnemy(enemyToSpwan);
 
@@ -29,11 +22,9 @@ public class EnemyService : MonoBehaviour
 
     private EnemyController CreateNewEnemy(int index)
     {
-        
         EnemyScriptaleObject enemyScriptableObject = enemyConfiguration[index];
         EnemyModel model = new EnemyModel(enemyScriptableObject);
         EnemyController enemy = new EnemyController(model, enemyView, this.gameObject.transform);
-        return enemy;
-        
+        return enemy;    
     }
 }
