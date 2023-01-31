@@ -1,17 +1,25 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyView : MonoBehaviour
 {
-    private EnemyController enemyController;
+    public EnemyController enemyController;
     public EnemyType enemyType;
     public Transform[] ProjectileSpawnPoint;
     public NavMeshAgent navMeshAgent;
     public GameObject deathEffect;
+    protected TankState currentSate;
+    [SerializeField]
+    public TankPatrollingState patrolingState;
+    [SerializeField]
+    public TankChasingState chasingState;
+    public TankState startingState;
 
     private void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        ChangeState(startingState);
     }
 
     // Update is called once per frame
@@ -41,6 +49,16 @@ public class EnemyView : MonoBehaviour
             enemyController.enemyModel.Health = enemyController.enemyModel.Health - collision.gameObject.GetComponent<TankBulletView>().GetDamage();
            // Debug.Log(" Player health: " + enemyController.enemyModel.Health);
         }
+    }
+
+    public void ChangeState(TankState newState)
+    {
+        if(currentSate != null)
+        {
+            currentSate.OnExitState();
+        }
+        currentSate = newState;
+        currentSate.OnEnterState();
     }
 }
 

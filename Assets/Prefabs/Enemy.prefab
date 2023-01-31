@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 825921190821551199}
   - component: {fileID: 6426612949617034346}
   - component: {fileID: 1218418441740545879}
+  - component: {fileID: -8366692109847467752}
+  - component: {fileID: -639327690758227261}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -88,6 +90,33 @@ MonoBehaviour:
   - {fileID: 8120507930347452139}
   navMeshAgent: {fileID: 6426612949617034346}
   deathEffect: {fileID: 7440359108573029114}
+  patrolingState: {fileID: -8366692109847467752}
+  chasingState: {fileID: -639327690758227261}
+  startingState: {fileID: -8366692109847467752}
+--- !u!114 &-8366692109847467752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131556274790003496}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a034edb54fbe3349b17b17852afafc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-639327690758227261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131556274790003496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39d609ecc736acc42acffe7b9c954d8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1775068826516478687
 GameObject:
   m_ObjectHideFlags: 0
