@@ -19,6 +19,7 @@ public class PlayerTank : Singleton<PlayerTank>
     }
     void Move()
     {
+        
         Vector3 moveForward = transform.forward * joystick.Vertical * Speed * Time.deltaTime;
         rb.MovePosition(rb.position + moveForward);
     }
