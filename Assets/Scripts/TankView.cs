@@ -12,22 +12,16 @@ public class TankView : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
-    public void SetTankController(TankController tankcontroller)
-    {
-        tankController = tankcontroller;
-    }
+  
     public void GetJoyStick(Joystick joyStick)
     {
         joystick = joyStick;
     }
     // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        
         Movement();
-        
         if(movement != 0)
         {
             tankController.Move(movement, tankController.GetTankModel().moveSpeed);
@@ -46,5 +40,14 @@ public class TankView : MonoBehaviour
     public Rigidbody GetRigidbody()
     {
         return rb;
+    }
+
+    public void SetTankController(TankController tankcontroller)
+    {
+        tankController = tankcontroller;
+        if (tankController == null)
+        {
+            Debug.Log("null tank set ");
+        }
     }
 }

@@ -8,13 +8,16 @@ public class TankController
     
     public TankController(TankModel tankmodel, TankView tankview)
     {
-        tankModel = tankmodel;
-        tankView = tankview;
-        tankModel.SetTankController(this);
-        tankView.SetTankController(this);
+        this.tankModel = tankmodel;
+        tankView = GameObject.Instantiate<TankView>(tankview);
         rb = tankView.GetRigidbody();
-        GameObject.Instantiate(tankView.gameObject);
+        this.tankView.SetTankController(this);
+        this.tankModel.SetTankController(this);
     }
+
+
+   
+
     public void Move(float movementDirection, float moveSpeed)
     {
         var moveForward = tankView.transform.forward * movementDirection * moveSpeed * Time.deltaTime;
