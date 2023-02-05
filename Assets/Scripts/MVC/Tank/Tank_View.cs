@@ -8,6 +8,7 @@ public class Tank_View : MonoBehaviour
     private float rotation;
     public Transform bulletspawnPos;
     TankBulletController tankBulletController;
+    public float health;
 
     public TankType tankType;
     public Rigidbody rb;
@@ -17,10 +18,12 @@ public class Tank_View : MonoBehaviour
         GameObject cam = GameObject.Find("Camera");
         cam.transform.SetParent(transform);
         cam.transform.position = new Vector3(0f, 3f, -4f);
+        health = tankController.TankHealth();
     }
 
     private void Update()
     {
+       
         Movement();
         if (tankController.TankHealth() > 0)
         {

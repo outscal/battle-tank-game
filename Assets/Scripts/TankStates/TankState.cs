@@ -1,20 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class TankState : MonoBehaviour
 {
-    protected EnemyView enemyTankView;
+    protected EnemyView enemyView;
+    protected NavMeshAgent agent;
+
     private void Awake()
     {
-        enemyTankView = GetComponent<EnemyView>();
+        enemyView = GetComponent<EnemyView>();
+        agent = enemyView.navMeshAgent;
     }
 
     public virtual void OnEnterState()
     { 
         this.enabled = true;
     }
+
     public virtual void OnExitState() { this.enabled = false; }
-  //  public virtual void Tick() { }
+
+    public void Update() { }
 
 }
