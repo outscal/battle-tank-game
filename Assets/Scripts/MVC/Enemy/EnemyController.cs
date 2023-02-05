@@ -6,9 +6,11 @@ public class EnemyController
     public EnemyModel enemyModel;
     private EnemyView enemyView;
     public EnemyType enemyType;
+    int _currentWaypoint;
 
     protected TankState currentSate;
-   
+    public int destPoints = 0;
+
 
     public EnemyController(EnemyModel _enemyModel, EnemyView _enemyView, Transform _enemySpawnPos)
     {
@@ -26,20 +28,26 @@ public class EnemyController
     }
 
 
-    //public void EnemyMechanism()
-    //{
-    //    enemyModel.DistanceBetweenTarget = Vector3.Distance(TankService.instance.PlayerPosition().position, enemyView.transform.position);
-    //    if(enemyModel.DistanceBetweenTarget <= enemyModel.EnemyRange)
-    //    {
-    //        enemyView.navMeshAgent.SetDestination(TankService.instance.PlayerPosition().position);
-    //        Shooting();
-    //    }
-    //}
-
     public void Patrolling()
     {
-        // remove it and add patrollig logic here
-        enemyModel.ShootRange = Vector3.Distance(TankService.instance.PlayerPosition().position, enemyView.transform.position);
+        if (enemyView.navMeshAgent.remainingDistance < 1f)
+        {
+            if (destPoints >= enemyModel.Waypoints.Length - 1)
+            {
+                destPoints = 0;
+            }
+            else
+            {
+                destPoints++;
+            }
+            enemyView.navMeshAgent.SetDestination(enemyModel.Waypoints[destPoints].transform.position);
+        }
+    }
+
+    public bool IsPatrolling()
+    {
+        Transform wp = enemyModel.Waypoints[_currentWaypoint];
+        return Vector3.Distance(enemyView.transform.position, wp.position) < 0.01f;
     }
 
     public void ChasingPlayer()
@@ -47,7 +55,7 @@ public class EnemyController
 
         enemyView.transform.LookAt(TankService.instance.PlayerPosition().position);
         enemyView.navMeshAgent.SetDestination(TankService.instance.PlayerPosition().position);
-       
+
     }
 
     public bool IsInChaseRange()
@@ -58,18 +66,18 @@ public class EnemyController
 
     public void Shooting()
     {
-       
-            if (enemyModel.CountDownBetweenFire <= 0)
-            {
-                foreach (Transform spawnPoints in enemyView.ProjectileSpawnPoint)
-                {
-                    TankBulletService.Instance.CreateNewBullet(spawnPoints);
 
-                }
-                enemyModel.CountDownBetweenFire = 1f / enemyModel.FireRate;
+        if (enemyModel.CountDownBetweenFire <= 0)
+        {
+            foreach (Transform spawnPoints in enemyView.ProjectileSpawnPoint)
+            {
+                TankBulletService.Instance.CreateNewBullet(spawnPoints);
+
             }
-            enemyModel.CountDownBetweenFire -= Time.deltaTime;
-        
+            enemyModel.CountDownBetweenFire = 1f / enemyModel.FireRate;
+        }
+        enemyModel.CountDownBetweenFire -= Time.deltaTime;
+
     }
 
     public bool IsInShootingRange()
@@ -95,7 +103,7 @@ public class EnemyController
 
     private float DistanceBetTanks()
     {
-        if(enemyView == null)
+        if (enemyView == null)
         {
             return Mathf.Infinity;
         }

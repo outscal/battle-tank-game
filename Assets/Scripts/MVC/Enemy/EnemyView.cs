@@ -21,22 +21,10 @@ public class EnemyView : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if(enemyController.enemyModel.Health > 0)
-        //{
-        //    //enemyController.EnemyMechanism();
-            
-        //}
-        //else
-        //{
-        //    Destroy(this.gameObject);
-        //   // Debug.Log("Enemy is dead");
-        //}
-
         if(enemyController.enemyModel.Health <= 0)
         {
             Destroy(this);
         }
-           
     }
 
     public void SetEnemyController(EnemyController _enemyController)

@@ -15,6 +15,7 @@ public class TankPatrollingState : TankState
 
     private void Update()
     {
+        enemyView.enemyController.Patrolling();
         Debug.Log("Is in Patrolling State");
         if(enemyView.enemyController.IsInChaseRange())
         {

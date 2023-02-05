@@ -12,7 +12,9 @@ public class EnemyModel : MonoBehaviour
         FireRate = enemyScriptableObject.FireRate;
         Target = enemyScriptableObject.Target;
         Health = enemyScriptableObject.Health;
-  
+        Waypoints = enemyScriptableObject.wayPoints;
+
+
     }
 
     public EnemyType EnemyType { get; }
@@ -23,6 +25,7 @@ public class EnemyModel : MonoBehaviour
     public float FireRate { get; }
     public int Health { get; set; }
     public Transform Target;
+    public Transform[]  Waypoints {get;}
 
 
 

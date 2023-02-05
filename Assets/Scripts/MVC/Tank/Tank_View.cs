@@ -42,10 +42,10 @@ public class Tank_View : MonoBehaviour
                 TankBulletService.Instance.CreateNewBullet(bulletspawnPos);
             }
         }
-        else
-        {
-            StartCoroutine(DestroyEnimies());
-        }
+        //else
+        //{
+        //    StartCoroutine(DestroyEnimies());
+        //}
       
     }
 
@@ -80,20 +80,22 @@ public class Tank_View : MonoBehaviour
     }
 
    
-    IEnumerator DestroyEnimies()
-    {
-        if(tankController.TankHealth() < 0)
-        {
-            Destroy(GameObject.FindWithTag("Enemy"));
-            yield return new WaitForSeconds(1f);
-            StartCoroutine(DestroyEnvironment());
-        }
-    }
+    // will comeback and find best approach for this
 
-    IEnumerator DestroyEnvironment()
-    {
-        Destroy(GameObject.FindWithTag("Ground"));
-        yield return null;  
-    }
+    //IEnumerator DestroyEnimies()
+    //{
+    //    if(tankController.TankHealth() < 0)
+    //    {
+    //        Destroy(GameObject.FindWithTag("Enemy"));
+    //        yield return new WaitForSeconds(1f);
+    //        StartCoroutine(DestroyEnvironment());
+    //    }
+    //}
+
+    //IEnumerator DestroyEnvironment()
+    //{
+    //    Destroy(GameObject.FindWithTag("Ground"));
+    //    yield return null;  
+    //}
 }
  
