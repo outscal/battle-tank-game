@@ -12,6 +12,8 @@ public class Tank_View : MonoBehaviour
 
     public TankType tankType;
     public Rigidbody rb;
+
+    int firedBulletCount = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +42,8 @@ public class Tank_View : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 TankBulletService.Instance.CreateNewBullet(bulletspawnPos);
+                firedBulletCount += 1;
+                TankBulletService.Instance?.bulletFiredbyPlayer(firedBulletCount);
             }
         }
         //else
@@ -75,27 +79,27 @@ public class Tank_View : MonoBehaviour
         if(collision.gameObject.GetComponent<TankBulletView>())
         {
             tankController.tankmodel.Health = tankController.tankmodel.Health - collision.gameObject.GetComponent<TankBulletView>().GetDamage();
-           // Debug.Log("health: " + tankController.tankmodel.Health);
+            Debug.Log("health: " + tankController.tankmodel.Health);
         } 
     }
 
-   
+
     // will comeback and find best approach for this
 
-    //IEnumerator DestroyEnimies()
-    //{
-    //    if(tankController.TankHealth() < 0)
-    //    {
-    //        Destroy(GameObject.FindWithTag("Enemy"));
-    //        yield return new WaitForSeconds(1f);
-    //        StartCoroutine(DestroyEnvironment());
-    //    }
-    //}
+    IEnumerator DestroyEnimies()
+    {
+        if (tankController.TankHealth() < 0)
+        {
+            Destroy(GameObject.FindWithTag("Enemy"));
+            yield return new WaitForSeconds(1f);
+            StartCoroutine(DestroyEnvironment());
+        }
+    }
 
-    //IEnumerator DestroyEnvironment()
-    //{
-    //    Destroy(GameObject.FindWithTag("Ground"));
-    //    yield return null;  
-    //}
+    IEnumerator DestroyEnvironment()
+    {
+        Destroy(GameObject.FindWithTag("Ground"));
+        yield return null;
+    }
 }
  

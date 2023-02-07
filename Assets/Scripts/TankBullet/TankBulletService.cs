@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class TankBulletService : MonoBehaviour
@@ -7,19 +8,20 @@ public class TankBulletService : MonoBehaviour
     private static TankBulletService instance;
     public static TankBulletService Instance { get { return instance; } }
 
+    public Action<int> bulletFiredbyPlayer;
+
     // Start is called before the first frame update
 
     private void Awake()
     {
       if(instance == null)
-        {
-            instance = this;
-            Debug.Log("Hello Vimarsh");
-        }
+      {
+           instance = this;  
+      }
       else
-        {
+      {
             Destroy(gameObject);
-        }
+      }
     }
 
     public TankBulletController CreateNewBullet(Transform spawnpos)
