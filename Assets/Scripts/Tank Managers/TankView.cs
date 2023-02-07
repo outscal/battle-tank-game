@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class TankView : MonoBehaviour
 {
     private TankController tankController;
@@ -13,6 +13,7 @@ public class TankView : MonoBehaviour
     [SerializeField] private MeshRenderer Turret;
     [SerializeField] private Rigidbody rb;
     private Joystick joystick;
+
     public void SetJoyStick(Joystick joyStick)
     {
         joystick = joyStick;
@@ -25,6 +26,7 @@ public class TankView : MonoBehaviour
     private void FixedUpdate()
     {
         Movement();
+
         if(movement != 0)
         {
             tankController.Move(movement, tankController.GetTankModel().moveSpeed);
@@ -40,10 +42,7 @@ public class TankView : MonoBehaviour
         movement = joystick.Vertical;
         rotation = joystick.Horizontal;
     }
-    public void Fire()
-    {
-        bulletSpawner.SpawnBullet(this.transform);
-    }
+    
     public Rigidbody GetRigidbody()
     {
         return rb;
@@ -52,5 +51,13 @@ public class TankView : MonoBehaviour
     public void SetTankController(TankController tankcontroller)
     {
         tankController = tankcontroller;
+    }
+    public void GetDamage(float damage)
+    {
+        tankController.GetDamage(damage);
+    }
+    public void DestroyObj()
+    {
+        Destroy(this.gameObject);
     }
 }

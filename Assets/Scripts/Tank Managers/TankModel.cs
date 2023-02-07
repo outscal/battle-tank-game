@@ -19,11 +19,7 @@ public class TankModel
         Health = tankObject.Health;
         Damage = tankObject.Damage;
     }
-    public TankModel(float movespeed, float turnspeed)
-    {
-        moveSpeed = movespeed;
-        TurnSpeed = turnspeed;
-    }
+
     public void SetTankController(TankController tankcontroller)
     {
         tankController = tankcontroller;

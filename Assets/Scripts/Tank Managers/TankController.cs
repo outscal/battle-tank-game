@@ -1,13 +1,15 @@
 using UnityEngine;
-
+using UnityEngine.UI;
 public class TankController
 {
     private TankModel tankModel;
     private TankView tankView;
     private Rigidbody rb;
-    
-    public TankController(TankModel tankmodel, TankView tankview, Joystick joyStick)
+    private Button FireButton;
+    public TankController(TankModel tankmodel, TankView tankview, Joystick joyStick, Button fireButton)
     {
+        FireButton = fireButton.GetComponent<Button>();
+        FireButton.onClick.AddListener(Fire);
         this.tankModel = tankmodel;
         tankView = GameObject.Instantiate<TankView>(tankview);
         rb = tankView.GetRigidbody();
@@ -16,8 +18,10 @@ public class TankController
         this.tankModel.SetTankController(this);
     }
 
-
-   
+   public void Fire()
+    {
+        tankView.bulletSpawner.SpawnBullet(tankView.bulletSpawner.transform);
+    }
 
     public void Move(float movementDirection, float moveSpeed)
     {
@@ -33,5 +37,13 @@ public class TankController
     public TankModel GetTankModel()
     {
         return tankModel;
+    }
+    public void GetDamage(float damage)
+    {
+        tankModel.Health -= damage;
+        if(tankModel.Health <= 0)
+        {
+            tankView.DestroyObj();
+        }
     }
 }
