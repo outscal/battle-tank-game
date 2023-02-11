@@ -5,7 +5,6 @@ public class BulletController
     private BulletModel bulletModel;
     private BulletView bulletView;
     private Rigidbody rb;
-    public ParticleSystem Explosion;
     private Vector3 spawnposition;
     public BulletController(BulletModel _bulletmodel, BulletView _bulletview, Transform SpawnTransform)
     {
@@ -21,12 +20,6 @@ public class BulletController
     {
         rb.velocity = rb.transform.forward * bulletModel.bulletSpeed;
     }
-    public void Explode()
-    {
-        Explosion = bulletView.GetComponentInChildren<ParticleSystem>();
-        Explosion.transform.SetParent(null);
-        Explosion.Play(); 
-    }
     public BulletModel GetBulletModel()
     {
         return bulletModel;
@@ -41,7 +34,7 @@ public class BulletController
         return damage;
     }
     public void bulletContact()
-    {   Explode();
+    {
         Debug.Log("bulletcollided");
         Collider[] colliders = Physics.OverlapSphere(rb.transform.position, bulletModel.ExplosionRadius, bulletView.TankMask);
         for(int i = 0; i<colliders.Length; i++)

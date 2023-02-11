@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "Enemy Tank Object", menuName = "Objects/New Enemy Tank Object")]
 public class EnemyTankObject : ScriptableObject

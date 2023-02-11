@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemySpawner : Singleton<EnemySpawner>
 {
+    public Transform[] EnemyPatrol;
     public EnemyTankList tankObjectList;
     private Transform spawn;
     private void OnEnable() {
@@ -16,6 +17,6 @@ public class EnemySpawner : Singleton<EnemySpawner>
     private void TankSpawn(int i)
     {
         EnemyModel enemyModel = new EnemyModel(tankObjectList.EnemyTanks[i]);
-        EnemyController tankController = new EnemyController(enemyModel, tankObjectList.EnemyTanks[i].enemyView, spawn);
+        EnemyController tankController = new EnemyController(enemyModel, tankObjectList.EnemyTanks[i].enemyView, spawn, EnemyPatrol);
     }
 }
