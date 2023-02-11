@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyView : MonoBehaviour
+public class EnemyView : MonoBehaviour, IDamagable
 {
     private Rigidbody rb;
     private BoxCollider coll;
@@ -11,7 +11,7 @@ public class EnemyView : MonoBehaviour
     [SerializeField] private LayerMask surroundMask;
     [SerializeField] private LayerMask tankMask;
     private Vector3 cubeSize;
-    private float sphereRadius = 10f;
+    private float sphereRadius = 15f;
     private float maxDistance = 0f;
     private bool PlayerDetected = false;
     public void SetEnemyController(EnemyController _enemyController)
@@ -28,36 +28,20 @@ public class EnemyView : MonoBehaviour
     {
         enemyController.GetDamage(damage);
     }
-    private void Update() {
-        // cubeSize = coll.bounds.size;
-        // if(!Physics.BoxCast(transform.position + new Vector3(0f,0.4f,0f) , cubeSize + new Vector3(0,-0.5f,0f), transform.forward, transform.rotation, 2f))
-        // {
-        //     enemyController.Move();
-        //     Debug.DrawRay(transform.position, transform.forward * 1f, Color.green);
-        // }
-        // else
-        // {
-        //     enemyController.Turn();
-        //     Debug.DrawRay(transform.position, transform.forward * 1f, Color.red);
-        // }
-
+    private void Update() 
+    {
         Collider[] objs =  Physics.OverlapSphere(transform.position,sphereRadius,tankMask);
-        {Debug.Log("Collider detected");
+            Debug.Log("Colliders detected");
             for(int i = 0; i < objs.Length; i++)
             {
                 if(objs[i].GetComponent<TankView>())
                 {
                     PlayerDetected = true;
-                    Debug.Log("tankdetected");
+                    Debug.Log("Player detected");
                     Transform target = objs[i].gameObject.transform;
                     enemyController.MoveToPlayer(target);
                 }
-                else
-                {
-                    PlayerDetected = false;
-                }
             }
-        }
         if(!PlayerDetected)
         {
             enemyController.Move();
@@ -67,9 +51,9 @@ public class EnemyView : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position,sphereRadius);
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(transform.position + new Vector3(0f,0.4f,0f) , cubeSize + new Vector3(0,-0.5f,0f));
+        Gizmos.DrawWireSphere(transform.position,5f);
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(transform.position + new Vector3(0f,0.4f,0f) + transform.forward* 2f, cubeSize + new Vector3(0,-0.5f,0f));
+        Gizmos.DrawWireSphere(transform.position,15f);
     }
     public void DestroyObj()
     {

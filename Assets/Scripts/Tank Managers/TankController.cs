@@ -44,8 +44,7 @@ public class TankController
         if(tankModel.Health <= 0)
         {
             tankView.DestroyObj();
-            DestroySequence startSequence = new DestroySequence();
-            startSequence.PlayerDeath();
+            DestroySequence.Instance.PlayerDeath();
         }
     }
 }

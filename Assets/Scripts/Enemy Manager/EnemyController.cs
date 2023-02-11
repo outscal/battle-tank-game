@@ -7,7 +7,6 @@ public class EnemyController
     private Rigidbody rb;
     private NavMeshAgent enemyTank;
     private Transform[] patrol;
-    private DestroySequence startSequence ;
     public EnemyController(EnemyModel enemymodel, EnemyView enemyview, Transform spawnTransform, Transform[] patrolDestination)
     {
         patrol = patrolDestination;
@@ -22,29 +21,21 @@ public class EnemyController
     {
         if(enemyTank.remainingDistance <= enemyTank.stoppingDistance)
         { 
-            int i = Random.Range(0,patrol.Length);
+            int i = Random.Range(0,patrol.Length-1);
             enemyTank.SetDestination(patrol[i].position);
         }
     }
-    public void Turn()
-    {
-        float turn = 1 * enemyModel.TurnSpeed * Time.deltaTime;
-        Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
-        rb.MoveRotation(rb.rotation * turnRotation);
-    }
     public void MoveToPlayer(Transform target)
     {
-        // float zero = 0;
-        // var step =  enemyModel.speed * Time.deltaTime;
-        // rb.transform.position = Vector3.MoveTowards(rb.transform.position, target.position, step);
         enemyTank.destination = target.position;
-        enemyTank.stoppingDistance = 5f;
+        enemyTank.stoppingDistance = 10f;
         Vector3 newDirection = Vector3.RotateTowards(rb.transform.forward, target.position - rb.transform.position, 0.5f, 0.0f);
         rb.transform.rotation = Quaternion.LookRotation(newDirection);
-        if(enemyTank.remainingDistance <= 5.0f)
+        if(enemyTank.remainingDistance <= enemyTank.stoppingDistance)
+        // if(Vector3.Distance(rb.transform.position, target.transform.position) <= 5f)
         {
-            rb.velocity = Vector3.zero;
-            Fire();
+        //     rb.velocity = Vector3.zero;
+                Fire();
         }
     }
     public EnemyModel GetEnemyModel()
@@ -61,7 +52,8 @@ public class EnemyController
         if(enemyModel.Health <= 0)
         {
             enemyView.DestroyObj();
-            startSequence.PlayerDeath();
+            DestroySequence.Instance.WaveComplete(rb.transform);
+            //startSequence.PlayerDeath();
         }
     }
 }
