@@ -7,7 +7,7 @@ public class TankObject : ScriptableObject
    public TankView tankView;
    public TankType tankType;
    [Header("Speed")]
-   public float moveSpeed;
+   public float Speed;
    public float TurnSpeed;
    [Header("Hitpoints")]
    public int Health;

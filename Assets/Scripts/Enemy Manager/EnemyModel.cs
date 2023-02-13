@@ -3,17 +3,98 @@ using UnityEngine;
 public class EnemyModel
 {
     private EnemyController enemyController;
-    public EnemyType type;
-    public float Health;
-    public float speed;
-    public float TurnSpeed = 15f;
-    public EnemyModel (EnemyTankObject tank)
+    private EnemyTankObject tank;
+    public EnemyModel (EnemyTankObject _tank)
     {
-        Health = tank.Health;
-        speed = tank.moveSpeed;
+        this.tank = _tank;
     }
     public void SetEnemyController(EnemyController _enemyController)
     {
         enemyController = _enemyController;
     }
+    public EnemyType type
+    {
+        get
+        {
+            return tank.EnemyType;
+        }
+    }
+    public float Health
+    {
+        get
+        {
+            return tank.Health;
+        }
+        set
+        {
+            tank.Health = (int)value;
+        }
+    }
+    public float speed
+    {
+        get
+        {
+            return tank.Speed;
+        }
+    }
+    public float DetectionRadius
+    {
+        get
+        {
+            return tank.DetectionRadius;
+        }
+        set
+        {
+            tank.Health = (int)value;
+        }
+    }
+    public float EngageRadius
+    {
+        get
+        {
+            return tank.EngageRadius;
+        }
+    }
+    public float AttackRadius
+    {
+        get
+        {
+            return tank.AttackRadius;
+        }
+    }
+    public Vector3[] patrolPoints
+    {
+        get
+        {
+            return tank.PatrolPoints;
+        }
+    }
+    // public EnemyIdleState IdleState
+    // {
+    //     get
+    //     {
+    //         return tank.IdleState;
+    //     }
+    // }
+    // public EnemyPatrolState PatrolState
+    // {
+    //     get
+    //     {
+    //         return tank.PatrolState;
+    //     }
+    // }
+    // public EnemyChaseState ChaseState
+    // {
+    //     get
+    //     {
+    //         return tank.ChaseState;
+    //     }
+    // }
+    // public EnemyAttackState AttackState
+    // {
+    //     get
+    //     {
+    //         return tank.AttackState;
+    //     }
+    // }
 }

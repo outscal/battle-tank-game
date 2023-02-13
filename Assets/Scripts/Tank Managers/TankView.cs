@@ -29,7 +29,7 @@ public class TankView : MonoBehaviour,IDamagable
 
         if(movement != 0)
         {
-            tankController.Move(movement, tankController.GetTankModel().moveSpeed);
+            tankController.Move(movement, tankController.GetTankModel().Speed);
         }
         if(rotation != 0)
         {
