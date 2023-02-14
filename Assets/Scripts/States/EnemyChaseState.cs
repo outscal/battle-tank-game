@@ -1,80 +1,73 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Tanks.Tank;
 using UnityEngine.AI;
-namespace Tanks.Tank
+
+public class EnemyChaseState : StateInterface<EnemyView>
 {
-    public class EnemyChaseState : EnemyStates
+    
+    private float timeElapsed;
+    private EnemyView enemy;
+    private NavMeshAgent enemyTank;
+    private Vector3 target;
+    private void ObjectInitialization(EnemyView stateObject)
     {
-        
-        private float timeElapsed;
-        public EnemyChaseState (EnemyView _enemy)  : base(_enemy)
+        enemy = stateObject;
+        enemyTank = enemy.GetComponent<NavMeshAgent>();
+    }
+    public void OnEnterState(EnemyView stateObject)
+    {
+        Debug.Log("Entering Chase State");
+        ObjectInitialization(stateObject);
+        Chase();
+    }
+    public void OnExitState(EnemyView stateObject)
+    {
+        //base.OnExitState(EnemyView Object);
+        Debug.Log("Exiting Chase State");
+    }
+    public void Update() 
+    {
+        Vector3 origin = enemy.transform.position;
+        Collider[] Objs = Physics.OverlapSphere(origin, enemy.GetEnemyModel.EngageRadius);
+        for(int i = 0; i < Objs.Length; i++)
         {
-            enemy = _enemy;
-        }
-        public override void OnEnterState()
-        {
-            base.OnEnterState();
-            Debug.Log("Entering Chase State");
-            //enemyTank = enemy.GetComponent<NavMeshAgent>();
-            Chase();
-        }
-        public override void OnExitState()
-        {
-            base.OnExitState();
-            Debug.Log("Exiting Chase State");
-        }
-        public override void Update() 
-        {
-            Vector3 origin = enemy.transform.position;
-            Collider[] Objs = Physics.OverlapSphere(origin, enemy.GetEnemyModel.EngageRadius);
-            for(int i = 0; i < Objs.Length; i++)
+            if(Objs[i].GetComponent<TankView>())
             {
-                if(Objs[i].GetComponent<TankView>())
-                {
-                    target = Objs[i].gameObject.transform.position;
-                }
-            }
-            float targetDistance = Vector3.Distance(enemy.transform.position, target);
-            if(targetDistance <= enemy.GetEnemyModel.AttackRadius)
-            //if(enemyTank.remainingDistance <= enemyTank.stoppingDistance)
-            {
-                AttackState();
-            }
-            //if(targetDistance > enemy.GetEnemyModel.AttackRadius && targetDistance <= enemy.GetEnemyModel.EngageRadius)
-            //if (enemyTank.remainingDistance > enemy.GetEnemyModel.AttackRadius && enemyTank.remainingDistance <= enemy.GetEnemyModel.EngageRadius)
-            //{
-                //Chase();
-            //}
-            if(targetDistance > enemy.GetEnemyModel.EngageRadius)
-            //if (enemyTank.remainingDistance > enemy.GetEnemyModel.EngageRadius)
-            {
-                IdleState();
+                target = Objs[i].gameObject.transform.position;
             }
         }
-        void Chase()//(Transform target)
+        float targetDistance = Vector3.Distance(enemy.transform.position, target);
+        if(targetDistance <= enemy.GetEnemyModel.AttackRadius)
+        //if(enemyTank.remainingDistance <= enemyTank.stoppingDistance)
         {
-            enemyTank.stoppingDistance = enemy.GetEnemyModel.AttackRadius;
-            enemyTank.destination = target;
-            //Vector3 newDirection = Vector3.RotateTowards(enemy.transform.forward, target - enemy.transform.position, 0.5f, 0.0f);
-            //enemy.transform.rotation = Quaternion.LookRotation(newDirection);
+            //AttackState();
+            enemy.stateMachine.ChangeState(new EnemyAttackState());
         }
-        private void IdleState()
+        //if(targetDistance > enemy.GetEnemyModel.AttackRadius && targetDistance <= enemy.GetEnemyModel.EngageRadius)
+        // if (enemyTank.remainingDistance > enemy.GetEnemyModel.AttackRadius && enemyTank.remainingDistance <= enemy.GetEnemyModel.EngageRadius)
+        // {
+        //     //Chase();
+        //     enemy.ChangeState(new EnemyChaseState());
+        // }
+        if(targetDistance > enemy.GetEnemyModel.EngageRadius)
+        //if (enemyTank.remainingDistance > enemy.GetEnemyModel.EngageRadius)
         {
-            enemy.ChangeState(new EnemyIdleState(enemy));
-            nextState = new EnemyIdleState(enemy);
-        }
-        private void AttackState()
-        {
-            enemy.ChangeState(new EnemyAttackState(enemy));
-            nextState = new EnemyAttackState(enemy);
-        }
-        private void ChaseState()
-        {
-            enemy.ChangeState(new EnemyChaseState(enemy));
-            nextState = new EnemyChaseState(enemy);
+            //IdleState();
+            enemy.stateMachine.ChangeState(new EnemyIdleState());
         }
     }
-
+    void Chase()//(Transform target)
+    {
+        Vector3 origin = enemy.transform.position;
+        Collider[] Objs = Physics.OverlapSphere(origin, enemy.GetEnemyModel.EngageRadius);
+        for(int i = 0; i < Objs.Length; i++)
+        {
+            if(Objs[i].GetComponent<TankView>())
+            {
+                target = Objs[i].gameObject.transform.position;
+            }
+        }
+        enemyTank.stoppingDistance = enemy.GetEnemyModel.AttackRadius;
+        enemyTank.destination = target;
+    }
 }
+

@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.AI;
-using Tanks.Tank;
 public class EnemyController
 {
     private EnemyModel enemyModel;

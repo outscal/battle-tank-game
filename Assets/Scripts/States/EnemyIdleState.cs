@@ -1,47 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.AI;
 using UnityEngine;
-using Tanks.Tank;
-namespace Tanks.Tank
+public class EnemyIdleState : StateInterface<EnemyView>
 {
-    public class EnemyIdleState : EnemyStates
+    private float timeElapsed = 0f;
+    private EnemyView enemy;
+    private void ObjectInitialization(EnemyView stateObject)
     {
-        private float timeElapsed = 0f;
-        public EnemyIdleState (EnemyView _enemy) : base(_enemy)
+        enemy = stateObject;
+    }
+    public void OnEnterState(EnemyView stateObject)
+    {
+        Debug.Log("Entering Idle State");
+        ObjectInitialization(stateObject);
+        timeElapsed = 0f;
+    }
+    public void OnExitState(EnemyView stateObject)
+    {
+        Debug.Log("Exiting Idle State");
+    }
+    public void Update()
+    {
+        Debug.Log("Idle State Update Called");
+        timeElapsed += Time.deltaTime;
+        if (timeElapsed >= 1)
         {
-            enemy = _enemy;
-        }
-        public override void OnEnterState()
-        {
-            base.OnEnterState();
-            Debug.Log("Entering Idle State");
-            timeElapsed = 0f;
-        }
-        public override void OnExitState()
-        {
-            base.OnExitState();
-            Debug.Log("Exiting Idle State");
-        }
-        public override void Update() 
-        {
-            Debug.Log("Idle State Update Called");
-            timeElapsed += enemy.timeElapsed;
-            
-            if(timeElapsed >= 1)
-                Debug.Log(timeElapsed);
-                PatrolState();
-        }
-        private void ChaseState()
-        {
-            enemy.ChangeState(new EnemyChaseState(enemy));
-            nextState = new EnemyChaseState(enemy);
-            Event = StateEvent.Exit;
-        }
-        private void PatrolState()
-        {
-            enemy.ChangeState(new EnemyPatrolState(enemy));
-            nextState = new EnemyPatrolState(enemy);
-            Event = StateEvent.Exit;
+            Debug.LogError("Dune "+ enemy.dune);
+            //PatrolState();
+            enemy.stateMachine.ChangeState(new EnemyPatrolState());
         }
     }
 }

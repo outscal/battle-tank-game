@@ -1,61 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.AI;
 using UnityEngine;
-using Tanks.Tank;
-namespace Tanks.Tank
+using UnityEngine.AI;
+public class EnemyPatrolState : StateInterface<EnemyView>
 {
-    public class EnemyPatrolState : EnemyStates
+    private EnemyView enemy;
+    private NavMeshAgent enemyTank;
+    public void OnEnterState(EnemyView stateObject)
     {
-        public EnemyPatrolState (EnemyView _enemy) : base(_enemy)
+        Debug.Log("Entering Patrol State");
+        ObjectInitialization(stateObject);
+        Patrol();
+    }
+    private void ObjectInitialization(EnemyView stateObject)
+    {
+        enemy = stateObject;
+        enemyTank = enemy.GetComponent<NavMeshAgent>();
+    }
+    public void OnExitState(EnemyView stateObject)
+    {
+        Debug.Log("Exiting Patrol State");
+    }
+    public void Update() 
+    {   
+        if(enemyTank.remainingDistance <= enemyTank.stoppingDistance)
         {
-            enemy = _enemy;
+            //IdleState();
+            enemy.stateMachine.ChangeState(new EnemyIdleState());
         }
-        public override void OnEnterState()
+        Vector3 origin = enemy.transform.position;
+        Collider[] Objs = Physics.OverlapSphere(origin, enemy.GetEnemyModel.DetectionRadius);
+        for(int i = 0; i < Objs.Length; i++)
         {
-            base.OnEnterState();
-            Debug.Log("Entering Patrol State");
-            //enemyTank = enemy.GetComponent<NavMeshAgent>();
-            Patrol();
-        }
-        public override void OnExitState()
-        {
-            base.OnExitState();
-            Debug.Log("Exiting Patrol State");
-        }
-        public override void Update() 
-        {   
-            if(enemyTank.remainingDistance <= enemyTank.stoppingDistance)
+            if(Objs[i].GetComponent<TankView>())
             {
-                IdleState();
-            }
-            Vector3 origin = enemy.transform.position;
-            Collider[] Objs = Physics.OverlapSphere(origin, enemy.GetEnemyModel.DetectionRadius);
-            for(int i = 0; i < Objs.Length; i++)
-            {
-                if(Objs[i].GetComponent<TankView>())
-                {
-                    var targetPos = Objs[i].gameObject.transform.position;
-                    target = targetPos;
-                    ChaseState();
-                }
+                enemy.stateMachine.ChangeState(new EnemyChaseState());
             }
         }
-        void Patrol()
-        {
-            enemyTank.stoppingDistance = 0.5f;
-            int i = Random.Range(0, enemy.GetEnemyModel.patrolPoints.Length-1);
-            enemyTank.SetDestination(enemy.GetEnemyModel.patrolPoints[i]);
-        }
-        private void ChaseState()
-        {
-            enemy.ChangeState(new EnemyChaseState(enemy));
-            nextState = new EnemyChaseState(enemy);
-        }
-        private void IdleState()
-        {
-            enemy.ChangeState(new EnemyIdleState(enemy));
-            nextState = new EnemyIdleState(enemy);
-        }
+    }
+    void Patrol()
+    {
+        enemyTank.stoppingDistance = 0.5f;
+        int i = Random.Range(0, enemy.GetEnemyModel.patrolPoints.Length-1);
+        enemyTank.SetDestination(enemy.GetEnemyModel.patrolPoints[i]);
     }
 }

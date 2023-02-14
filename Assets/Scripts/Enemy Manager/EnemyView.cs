@@ -1,22 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Tanks.Tank;
 public class EnemyView : MonoBehaviour, IDamagable
 {
     private Rigidbody rb;
     private BoxCollider coll;
     private EnemyController enemyController;
     public BulletSpawner bulletSpawner;
-    public float timeElapsed;
+    public int dune
+    {
+        get
+        {
+            return 100;
+        }
+    }
     [SerializeField] private LayerMask surroundMask;
     public LayerMask tankMask;
-    private EnemyStates currentState;
-    private void Start() 
+    public StateMachine<EnemyView> stateMachine;
+    private StateInterface<EnemyView> currentState;
+    private void Awake() 
     {
-        currentState = new EnemyIdleState(this);
-        currentState.OnEnterState();
-    } 
+        stateMachine = new StateMachine<EnemyView>(this);
+        currentState = new EnemyIdleState();
+        stateMachine.ChangeState(currentState);
+    }
     public void SetEnemyController(EnemyController _enemyController)
     {
         enemyController = _enemyController;
@@ -31,9 +38,7 @@ public class EnemyView : MonoBehaviour, IDamagable
     }
     private void Update() 
     {
-        
-        timeElapsed = Time.deltaTime;
-        currentState.Update();
+        stateMachine.Update();
     }
     public void GetDamage(float damage)
     {
@@ -51,13 +56,8 @@ public class EnemyView : MonoBehaviour, IDamagable
     {
         Destroy(this.gameObject);
     }
-    public void ChangeState(EnemyStates newState)
-    {
-        if(currentState != null)
-        {
-            currentState.OnExitState();
-        }
-        currentState = newState;
-        currentState.OnEnterState();
-    }
+    // public void ChangeState(StateInterface<EnemyView> newState)
+    // {
+    //     stateMachine.ChangeState(newState);
+    // }
 }
