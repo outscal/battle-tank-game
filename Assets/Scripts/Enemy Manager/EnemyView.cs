@@ -6,7 +6,7 @@ public class EnemyView : MonoBehaviour, IDamagable
     private Rigidbody rb;
     private BoxCollider coll;
     private EnemyController enemyController;
-    public BulletSpawner bulletSpawner;
+    public Transform bulletSpawner;
     public int dune
     {
         get

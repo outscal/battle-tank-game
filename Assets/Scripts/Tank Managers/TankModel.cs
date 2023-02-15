@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class TankModel
 {
-        public float TurnSpeed;
+    public float TurnSpeed;
+    private float health;
     private TankController tankController;
     private TankObject tankObject;
     
@@ -11,6 +12,7 @@ public class TankModel
     {
         this.tankObject = _tankObject;
         TurnSpeed = tankObject.TurnSpeed;
+        health = tankObject.Health;
     }
 
     public void SetTankController(TankController tankcontroller)
@@ -29,11 +31,11 @@ public class TankModel
     {
         get
         {
-            return tankObject.Health;
+            return health;
         }
         set
         {
-            tankObject.Health = (int)value;
+            health =  (int)value;
         }
     }
     public TankType tankType

@@ -24,7 +24,6 @@ public class EnemyIdleState : StateInterface<EnemyView>
         timeElapsed += Time.deltaTime;
         if (timeElapsed >= 1)
         {
-            Debug.LogError("Dune "+ enemy.dune);
             //PatrolState();
             enemy.stateMachine.ChangeState(new EnemyPatrolState());
         }

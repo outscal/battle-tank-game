@@ -4,9 +4,11 @@ public class EnemyModel
 {
     private EnemyController enemyController;
     private EnemyTankObject tank;
+    private float health;
     public EnemyModel (EnemyTankObject _tank)
     {
         this.tank = _tank;
+        health = tank.Health;
     }
     public void SetEnemyController(EnemyController _enemyController)
     {
@@ -23,11 +25,11 @@ public class EnemyModel
     {
         get
         {
-            return tank.Health;
+            return health;
         }
         set
         {
-            tank.Health = (int)value;
+            health = value;
         }
     }
     public float speed
@@ -43,10 +45,7 @@ public class EnemyModel
         {
             return tank.DetectionRadius;
         }
-        set
-        {
-            tank.Health = (int)value;
-        }
+        
     }
     public float EngageRadius
     {

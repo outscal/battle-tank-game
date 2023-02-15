@@ -69,7 +69,7 @@ public class DestroySequence : Singleton<DestroySequence>
             while (temp.transform.childCount != 0)
             {
                 Destroy(temp.transform.GetChild(0).gameObject);
-                yield return new WaitForSeconds(1f);
+                //yield return new WaitForSeconds(1f);
             }
             //levelObjs.RemoveAt(countChild - 1);
             Destroy(temp.gameObject);

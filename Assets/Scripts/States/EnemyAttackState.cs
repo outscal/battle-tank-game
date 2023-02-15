@@ -36,32 +36,28 @@ public class EnemyAttackState : StateInterface<EnemyView>
                 target = Objs[i].gameObject.transform.position;
             }
         }
-
         float targetDistance = Vector3.Distance(enemy.transform.position, target);
-        //if(timeElapsed >= 1 && targetDistance <= enemy.GetEnemyModel.AttackRadius)
-        if(timeElapsed >= 1 && enemyTank.remainingDistance <= enemyTank.stoppingDistance)
+        if(timeElapsed >= 1 && enemyTank.remainingDistance <= enemyTank.stoppingDistance && target != null)
         {
             ShootSequence();
         }
         if(targetDistance > enemy.GetEnemyModel.AttackRadius && targetDistance <= enemy.GetEnemyModel.EngageRadius)
-        //if (enemyTank.remainingDistance > enemyTank.stoppingDistance && enemyTank.remainingDistance <= enemy.GetEnemyModel.EngageRadius)
         {
             Debug.Log("Target Out of Fire Range");
             //ChaseState();
             enemy.stateMachine.ChangeState(new EnemyChaseState());
         }
         if(targetDistance > enemy.GetEnemyModel.EngageRadius)
-        //if (enemyTank.remainingDistance > enemy.GetEnemyModel.EngageRadius)
         {
             Debug.Log("Target Escaped");
             //IdleState();
             enemy.stateMachine.ChangeState(new EnemyIdleState());
         }
-        
     }
     void ShootSequence()
     {
         Debug.LogError("shooting");
+        BulletSpawner.Instance.SpawnBullet(enemy.bulletSpawner.transform);
         timeElapsed = 0;
     }
 }

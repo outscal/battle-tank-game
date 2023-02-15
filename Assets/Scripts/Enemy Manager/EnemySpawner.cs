@@ -7,12 +7,13 @@ public class EnemySpawner : Singleton<EnemySpawner>
     public Transform[] EnemyPatrol;
     public EnemyTankList tankObjectList;
     private Transform spawn;
+    public int maxEnemies;
     private void OnEnable() {
         spawn = this.transform;
     }
     void Start()
     {
-            TankSpawn(0);
+        TankSpawn(0);
     }
     private void TankSpawn(int i)
     {
