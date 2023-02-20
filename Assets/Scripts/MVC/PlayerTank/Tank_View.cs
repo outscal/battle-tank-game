@@ -14,6 +14,9 @@ public class Tank_View : MonoBehaviour
     public Rigidbody rb;
 
     int firedBulletCount = 0;
+
+
+    private ServicePoolBullet servicePoolBullet;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +24,8 @@ public class Tank_View : MonoBehaviour
         cam.transform.SetParent(transform);
         cam.transform.position = new Vector3(0f, 3f, -4f);
         health = tankController.TankHealth();
+        servicePoolBullet = GetComponent<ServicePoolBullet>();
+        tankBulletController = GetComponent<TankBulletController>();
     }
 
     private void Update()
@@ -41,7 +46,10 @@ public class Tank_View : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                TankBulletService.Instance.CreateNewBullet(bulletspawnPos);
+                TankBulletController tankBulletController = TankBulletService.Instance.CreateNewBullet(bulletspawnPos);
+                servicePoolBullet.ReturnItem(tankBulletController);
+
+               // TankBulletService.Instance.CreateNewBullet(bulletspawnPos);
                 firedBulletCount += 1;
                 TankBulletService.Instance?.bulletFiredbyPlayer(firedBulletCount);
             }
