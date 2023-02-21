@@ -6,25 +6,29 @@ public class TankBulletController
     private TankBulletView tankBulletView;
     public TankBUlletType tankBulletType;
     private GameObject bullet;
-    private Transform bulletspwanPos;
+   
 
-    public TankBulletController(TankBulletModel _tankBulletModel, TankBulletView _tankBulletView, Transform spawnPos)
+    public TankBulletController(TankBulletModel _tankBulletModel, TankBulletView _tankBulletView)
     {
         tankBulletModel = _tankBulletModel;
-        bulletspwanPos = spawnPos;
-        tankBulletView = GameObject.Instantiate<TankBulletView>(_tankBulletView, bulletspwanPos.position, bulletspwanPos.rotation);
+    
+        tankBulletView = GameObject.Instantiate<TankBulletView>(_tankBulletView);
         tankBulletView.SetTankBulletController(this);
-        ShootBullet();
     }
 
-    public void ShootBullet()
+    public void ShootBullet(Transform spawnPos)
     {
-        tankBulletView.GetComponent<Rigidbody>().velocity = bulletspwanPos.forward * tankBulletModel.BulletSpeed;
+        tankBulletView.transform.SetPositionAndRotation(spawnPos.position,spawnPos.rotation);
+        tankBulletView.GetComponent<Rigidbody>().velocity = spawnPos.forward * tankBulletModel.BulletSpeed;
     }
 
     public int BulletDamage()
     {
         return tankBulletModel.BulletDamage;
     }
-    
+
+    public void SetVisibilityStatus(bool isVisible)
+    {
+        tankBulletView.SetVisibilityStatus(isVisible);
+    }
 }

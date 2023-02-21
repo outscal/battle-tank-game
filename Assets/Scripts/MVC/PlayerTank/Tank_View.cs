@@ -7,7 +7,6 @@ public class Tank_View : MonoBehaviour
     private float movement;
     private float rotation;
     public Transform bulletspawnPos;
-    TankBulletController tankBulletController;
     public float health;
 
     public TankType tankType;
@@ -15,17 +14,16 @@ public class Tank_View : MonoBehaviour
 
     int firedBulletCount = 0;
 
-
+    [SerializeField]
     private ServicePoolBullet servicePoolBullet;
-    // Start is called before the first frame update
+
+
     void Start()
     {
         GameObject cam = GameObject.Find("Camera");
         cam.transform.SetParent(transform);
         cam.transform.position = new Vector3(0f, 3f, -4f);
         health = tankController.TankHealth();
-        servicePoolBullet = GetComponent<ServicePoolBullet>();
-        tankBulletController = GetComponent<TankBulletController>();
     }
 
     private void Update()
@@ -47,24 +45,26 @@ public class Tank_View : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 TankBulletController tankBulletController = TankBulletService.Instance.CreateNewBullet(bulletspawnPos);
-                servicePoolBullet.ReturnItem(tankBulletController);
-
-               // TankBulletService.Instance.CreateNewBullet(bulletspawnPos);
+                tankBulletController.SetVisibilityStatus(true);
+                StartCoroutine(ReturnBulletWaitTime(tankBulletController));
                 firedBulletCount += 1;
                 TankBulletService.Instance?.bulletFiredbyPlayer(firedBulletCount);
             }
         }
-        //else
-        //{
-        //    StartCoroutine(DestroyEnimies());
-        //}
       
     }
 
-    public void SetTankBUlletController(TankBulletController _tankBulletController)
+    IEnumerator ReturnBulletWaitTime(TankBulletController tankBulletController)
     {
-        tankBulletController = _tankBulletController;
+        yield return new WaitForSeconds(5f);
+        tankBulletController.SetVisibilityStatus(false);
+        TankBulletService.Instance.GetBulletPool().ReturnItem(tankBulletController);
     }
+
+    //public void SetTankBUlletController(TankBulletController _tankBulletController)
+    //{
+    //    tankBulletController = _tankBulletController;
+    //}
 
     private void Movement()
     {
@@ -82,14 +82,7 @@ public class Tank_View : MonoBehaviour
         return rb;
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.GetComponent<TankBulletView>())
-        {
-            tankController.tankmodel.Health = tankController.tankmodel.Health - collision.gameObject.GetComponent<TankBulletView>().GetDamage();
-            Debug.Log("health: " + tankController.tankmodel.Health);
-        } 
-    }
+
 
 
     // will comeback and find best approach for this
@@ -108,6 +101,11 @@ public class Tank_View : MonoBehaviour
     {
         Destroy(GameObject.FindWithTag("Ground"));
         yield return null;
+    }
+
+    public Tank_Ctrl GetTankController()
+    {
+        return tankController;
     }
 }
  

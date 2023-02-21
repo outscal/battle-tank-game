@@ -6,18 +6,18 @@ public class ServicePoolBullet : ServicePool<TankBulletController>
 {
     private TankBulletModel tankBulletModel;
     private TankBulletView tankBulletPrefab;
-    private Transform tankBulletSpawnPos;
 
-    public TankBulletController GetBullet(TankBulletModel tankBulletModel, TankBulletView tankBulletPrefab, Transform tankBulletSpawnPos)
+
+    public TankBulletController GetBullet(TankBulletModel tankBulletModel, TankBulletView tankBulletPrefab)
     {
         this.tankBulletModel = tankBulletModel;
         this.tankBulletPrefab = tankBulletPrefab;
-        this.tankBulletSpawnPos = tankBulletSpawnPos;
+ 
         return GetItem();
     }
     protected override TankBulletController CreateItem()
     {
-        TankBulletController tankBulletController = new TankBulletController(tankBulletModel, tankBulletPrefab, tankBulletSpawnPos);
+        TankBulletController tankBulletController = new TankBulletController(tankBulletModel, tankBulletPrefab);
         return tankBulletController;
     }
 }

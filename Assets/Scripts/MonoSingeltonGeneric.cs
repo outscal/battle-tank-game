@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MonoSingeltonGeneric<T> : MonoBehaviour where T : MonoSingeltonGeneric<T>

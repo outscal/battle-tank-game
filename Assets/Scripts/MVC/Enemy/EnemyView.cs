@@ -14,11 +14,11 @@ public class EnemyView : MonoBehaviour
     private void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-       // enemyController.ChangeState(GetComponent<TankChasingState>());
+       
        
     }
 
-    // Update is called once per frame
+   
     void Update()
     {
         if(enemyController.enemyModel.Health <= 0)
