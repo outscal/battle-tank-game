@@ -10,7 +10,7 @@ public class BulletView : MonoBehaviour
     public Rigidbody rbullet;
     //public MeshRenderer bulletMesh;
     private void Awake() {
-        Debug.Log("Awake");
+        Debug.Log("Awake Bullet");
     }
     public void SetBulletController(BulletController _bulletController)
     {

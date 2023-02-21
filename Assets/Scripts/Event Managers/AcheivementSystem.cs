@@ -1,45 +1,82 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-namespace Observer_Pattern
+using Tank.EventService;
+namespace Tank.EventService
 {
     public class AcheivementSystem : Singleton<AcheivementSystem>
     {
-        public int bonusBulletsFromAchievement1;
-        public int bonusBulletsFromAchievement2;
-        public bool infiniteBulletsAchieved;
-        public int CurrentBullet = 10;
-        public int TotalEnemyDied = 0;
-        public void BulletCount(int enemiesDied)
+        public List<string> Achievements;
+        private void OnEnable()
         {
-            TotalEnemyDied = enemiesDied;
-            Debug.Log("Current Bullet" +CurrentBullet);
-            OnAttach();
+            EventServices.Instance.OnShellFired += BulletShot;
+            EventServices.Instance.OnEnemyDeath += EnemyWave;
         }
-        public void OnAttach()
+
+        private void OnDisable()
         {
-            // Check if the player has reached the first achievement
-            if (TotalEnemyDied == 3 )
+            EventServices.Instance.OnShellFired -= BulletShot;
+            EventServices.Instance.OnEnemyDeath -= EnemyWave;
+        }
+        private void BulletShot(int count)
+        {
+            bool trigger = true;
+            string achievement = "BulletsShot ";
+            switch (count)
             {
-                bonusBulletsFromAchievement1 += 10;
-                Debug.Log("Achievement 1 unlocked! Player received 10 extra bullets.");
+                case 1:
+                    achievement += "1";
+                    break;
+                case 10:
+                    achievement += "10";
+                    break;
+                case 20:
+                    achievement += "20";
+                    break;
+                default:
+                    trigger = false;
+                    break;
             }
-            // Check if the player has reached the second achievement
-            if (TotalEnemyDied == 5 )
+
+            if (trigger)
             {
-                bonusBulletsFromAchievement2 += 50;
-                Debug.Log("Achievement 2 unlocked! Player received 50 extra bullets.");
+                //if (!IsAchiveved(achievement))
+                UIManager.Instance.ShowAchievement(achievement);
             }
-            // Check if the player has reached the infinite bullet achievement
-            if (TotalEnemyDied >= 7)
+        }
+    private bool IsAchiveved(string achevementName)
+        {
+            if (Achievements.Contains(achevementName))
+                return true;
+
+            Achievements.Add(achevementName);
+            return false;
+        }
+        private void EnemyWave(int count)
+        {
+            bool trigger = true;
+            string achievement = "Enemies killed  ";
+            switch (count)
             {
-                infiniteBulletsAchieved = true;
-                Debug.Log("Achievement 3 unlocked! Player has infinite bullets.");
+                case 1:
+                    achievement += "1";
+                    break;
+                case 10:
+                    achievement += "5";
+                    break;
+                case 20:
+                    achievement += "10";
+                    break;
+                default:
+                    trigger = false;
+                    break;
             }
-            if(TotalEnemyDied == EnemySpawner.Instance.maxEnemies)
+            if (trigger)
             {
-                EventManagement.Instance.InvokeOnEnemyDeath();
+                //if (!IsAchiveved(achievement))
+                UIManager.Instance.ShowAchievement(achievement);
             }
         }
     }
-    
 }

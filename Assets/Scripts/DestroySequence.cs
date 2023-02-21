@@ -8,19 +8,6 @@ public class DestroySequence : Singleton<DestroySequence>
     [SerializeField] private GameObject exitPanel;
     [SerializeField] private GameObject cam;
     private bool PlayerWon = false;
-    //private int countChild;
-    //private List<Transform> levelObjs;
-    //private void Start()
-    //{
-    //    countChild = levelArt.transform.childCount;
-    //    if (countChild != 0)
-    //    {
-    //        for(int i = 0; i < countChild - 1; i++)
-    //        {
-    //            levelObjs.Add(levelArt.transform.GetChild(i));
-    //        }
-    //    }
-    //}
     public void PlayerDeath()
     {
         StartCoroutine(CameraView());
@@ -55,7 +42,7 @@ public class DestroySequence : Singleton<DestroySequence>
         while (countEnemy > 0)
         {
             yield return new WaitForSeconds(1f);
-            Destroy(EnemyObjs[countEnemy -= 1].gameObject.transform);
+            Destroy(EnemyObjs[countEnemy -= 1].gameObject);
         }
         StartCoroutine(destroySurrounding());
     }
@@ -69,7 +56,7 @@ public class DestroySequence : Singleton<DestroySequence>
             while (temp.transform.childCount != 0)
             {
                 Destroy(temp.transform.GetChild(0).gameObject);
-                //yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(1f);
             }
             //levelObjs.RemoveAt(countChild - 1);
             Destroy(temp.gameObject);

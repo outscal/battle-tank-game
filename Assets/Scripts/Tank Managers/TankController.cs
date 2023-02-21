@@ -1,11 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using Tank.EventService;
 public class TankController
 {
     private TankModel tankModel;
     private TankView tankView;
     private Rigidbody rb;
     private Button FireButton;
+    int countBullet;
     public TankController(TankModel tankmodel, TankView tankview, Joystick joyStick, Button fireButton)
     {
         FireButton = fireButton.GetComponent<Button>();
@@ -21,6 +24,9 @@ public class TankController
    public void Fire()
     {
         BulletSpawner.Instance.SpawnBullet(tankView.bulletSpawner.transform);
+        Debug.Log("Player Fired");
+        countBullet++;
+        EventManagement.Instance.PlayerShoot(1);
     }
 
     public void Move(float movementDirection, float moveSpeed)

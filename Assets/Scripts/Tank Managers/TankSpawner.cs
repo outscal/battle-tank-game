@@ -9,7 +9,6 @@ public class TankSpawner : Singleton<TankSpawner>
     //public TankView tankView;
     public Joystick joystick;
     public Button fireButton;
-     
     void Start()
     {
             TankSpawn(1);

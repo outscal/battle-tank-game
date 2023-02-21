@@ -1,14 +1,22 @@
 using System;
-public class EventManagement : Singleton<EventManagement>
+namespace Tank.EventService
 {
-    public event Action OnEnemyDeath;
-    public event Action OnPlayerDeath;
-    public void InvokeOnEnemyDeath()
+    public class EventManagement : Singleton<EventManagement>
     {
-        OnEnemyDeath?.Invoke();
-    }
-    public void InvokeOnPlayerDeath()
-    {
-        OnPlayerDeath?.Invoke();
+        public event Action<int> OnEnemyDeath;
+        public event Action OnPlayerDeath;
+        public event Action<int> OnPlayerShoot;
+        public void PlayerShoot(int count)
+        {
+            OnPlayerShoot?.Invoke(count);
+        }
+        public void PlayerDeath()
+        {
+            OnPlayerDeath?.Invoke();
+        }
+        public void EnemyDeath(int count)
+        {
+            OnEnemyDeath?.Invoke(count);
+        }
     }
 }

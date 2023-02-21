@@ -1,40 +1,48 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
-namespace Assets.Scripts.UIManager
+using TMPro;
+using Tank.EventService;
+namespace Tank.EventService
 {
     public class UIManager : Singleton<UIManager>
     {
-        public GameObject lossPanel;
-        public GameObject winPanel;
-        private void Start()
+        [SerializeField] private GameObject AcheivementPanel;
+        [SerializeField] private TextMeshProUGUI bulletCount;
+        private int TotalBulletCount = 10;
+        private void OnEnable()
         {
-            EventManagement.Instance.OnEnemyDeath += ShowDeathScreen;
-            EventManagement.Instance.OnPlayerDeath += ShowPlayerDeath;
+            EventManagement.Instance.OnPlayerShoot += BulletCount;
+            EventManagement.Instance.OnEnemyDeath += EnemyDeath;
+            EventManagement.Instance.OnPlayerDeath += PlayerDeath;
         }
-        private void ShowDeathScreen()
+        public void BulletCount(int count)
         {
-            
-            winPanel.SetActive(true);
+            TotalBulletCount -= count;
+            Debug.Log("Current Bullet" + 1);
+            bulletCount.text = TotalBulletCount+"";
         }
-        private void ShowPlayerDeath() 
+        public void EnemyDeath(int count)
         {
-            lossPanel.SetActive(true);
+            // some enemy wave logic
+            DestroySequence.Instance.WaveComplete(this.transform);
         }
-        public void OnPlayButtonPress()
+        public void PlayerDeath()
         {
-            SceneManager.LoadScene(0);
+            DestroySequence.Instance.PlayerDeath();
         }
-        public void OnRetryButtonPress()
+        public void ShowAchievement(string achievement)
         {
-            SceneManager.LoadScene(0);
+            AcheivementPanel.SetActive(true);
+            AcheivementPanel.GetComponentInChildren<TextMeshProUGUI>().text = achievement;
         }
         private void OnDisable()
         {
-            EventManagement.Instance.OnEnemyDeath-= ShowDeathScreen;
-            EventManagement.Instance.OnPlayerDeath-= ShowPlayerDeath;
-
+            EventManagement.Instance.OnPlayerShoot -= BulletCount;
+            EventManagement.Instance.OnEnemyDeath -= EnemyDeath;
+            EventManagement.Instance.OnPlayerDeath -= PlayerDeath;
         }
     }
+
 }
