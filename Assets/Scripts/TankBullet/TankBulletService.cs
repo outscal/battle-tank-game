@@ -13,7 +13,7 @@ public class TankBulletService : MonoBehaviour
     [SerializeField]
     private ServicePoolBullet servicePoolBullet;
 
-    // Start is called before the first frame update
+
 
     private void Awake()
     {
@@ -37,7 +37,6 @@ public class TankBulletService : MonoBehaviour
     {
         TankBulletScriptableObject tankBulletScriptableObject = tankBUlletConfiguration[0];
         TankBulletModel model = new TankBulletModel(tankBulletScriptableObject);
-        //  TankBulletController bullet = new TankBulletController(model, tankBulletView,spawnpos);
         TankBulletController bullet = servicePoolBullet.GetBullet(model,tankBulletView);
         ShootBullet(bullet, spawnpos);
         return bullet;

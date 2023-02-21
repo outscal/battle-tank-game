@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,9 +12,7 @@ public class EnemyView : MonoBehaviour
 
     private void Start()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
-       
-       
+        navMeshAgent = GetComponent<NavMeshAgent>();  
     }
 
    

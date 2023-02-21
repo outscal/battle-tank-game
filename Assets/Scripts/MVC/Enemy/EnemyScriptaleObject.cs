@@ -12,8 +12,6 @@ public class EnemyScriptaleObject : ScriptableObject
     public float FireRate;
     public Transform Target;
     public int Health;
-    public Transform[] wayPoints;
-   
-    
+    public Transform[] wayPoints; 
 }
 

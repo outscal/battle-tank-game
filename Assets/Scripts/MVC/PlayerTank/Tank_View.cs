@@ -61,11 +61,6 @@ public class Tank_View : MonoBehaviour
         TankBulletService.Instance.GetBulletPool().ReturnItem(tankBulletController);
     }
 
-    //public void SetTankBUlletController(TankBulletController _tankBulletController)
-    //{
-    //    tankBulletController = _tankBulletController;
-    //}
-
     private void Movement()
     {
         movement = Input.GetAxis("Horizontal");
@@ -82,10 +77,6 @@ public class Tank_View : MonoBehaviour
         return rb;
     }
 
-
-
-
-    // will comeback and find best approach for this
 
     IEnumerator DestroyEnimies()
     {

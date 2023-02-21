@@ -21,15 +21,4 @@ public class UIManager : MonoBehaviour
 
 
     public GameObject tenBullets;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

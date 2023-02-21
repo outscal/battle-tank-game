@@ -21,11 +21,4 @@ public class TankChasingState : TankState
         }
         enemyView.enemyController.ChasingPlayer();
     }
-
-    //public override void OnExitState()
-    //{
-    //    base.OnExitState();   
-    //}
-
-
 }
