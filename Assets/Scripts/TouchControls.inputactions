@@ -1,0 +1,79 @@
+{
+    "name": "TouchControls",
+    "maps": [
+        {
+            "name": "Touch",
+            "id": "b6ea59ee-0217-4760-8cd1-a16fac0a2291",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "38d6fc16-1e01-4cbd-bf86-0f5c72f18f73",
+                    "expectedControlType": "Vector3",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Press",
+                    "type": "Button",
+                    "id": "1d085ef1-c213-4441-b9ce-2a8d16d49a30",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "588f0106-48f5-465c-92eb-2b8f946bd0d9",
+                    "path": "<Touchscreen>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c5fc3246-9d29-4941-8a4c-0171b97ed6e2",
+                    "path": "<Touchscreen>/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "test_jump",
+            "id": "5bcc8339-0fa8-4119-9472-fcf857425f9d",
+            "actions": [
+                {
+                    "name": "jump1",
+                    "type": "Button",
+                    "id": "488d7399-5c89-459e-b0be-c9aa7b5535b0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "96942469-2a97-4762-8a4b-6bb34ea77d19",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "jump1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
