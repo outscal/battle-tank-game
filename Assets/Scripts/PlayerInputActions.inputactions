@@ -11,7 +11,8 @@
                     "id": "1c8979f4-4f23-4a22-ace5-5ef2aa8cba5d",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Movement",
@@ -19,7 +20,8 @@
                     "id": "abc325cd-5ece-415d-8680-f130bc993bf0",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -30,6 +32,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "keyboard",
+                    "action": "jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "56cc3678-98ff-4329-8c57-f6b45791c09a",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "gamepad",
                     "action": "jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -101,48 +114,15 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "up",
-                    "id": "681b25f0-c40f-45f9-9d38-260fbb5445c6",
-                    "path": "<Touchscreen>/delta/y",
+                    "name": "",
+                    "id": "899d756f-3978-4809-b572-6d442fd01743",
+                    "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
-                    "groups": "touch",
+                    "groups": "gamepad",
                     "action": "Movement",
                     "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "36bb79dc-823a-4e54-b7c4-ac2336e772a3",
-                    "path": "<Touchscreen>/delta/y",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "touch",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "7881a5e9-2d39-46ec-a057-3311da91f261",
-                    "path": "<Touchscreen>/delta/x",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "touch",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "bb88e12d-614f-4c5b-8700-575792cb2e78",
-                    "path": "<Touchscreen>/delta/x",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "touch",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 }
             ]
         }
@@ -165,17 +145,6 @@
             "devices": [
                 {
                     "devicePath": "<Gamepad>",
-                    "isOptional": false,
-                    "isOR": false
-                }
-            ]
-        },
-        {
-            "name": "touch",
-            "bindingGroup": "touch",
-            "devices": [
-                {
-                    "devicePath": "<Touchscreen>",
                     "isOptional": false,
                     "isOR": false
                 }

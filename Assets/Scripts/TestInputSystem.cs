@@ -7,8 +7,10 @@ public class TestInputSystem : MonoBehaviour
     private PlayerInput playerInput;
     private PlayerInputActions playerInputActions;
 
-    public float speed = 8f;
-    public float degs = 360f;
+    [SerializeField]
+    private float speed = 8f;
+    [SerializeField]
+    private float degs = 360f;
 
     private void Awake()
     {
@@ -19,13 +21,29 @@ public class TestInputSystem : MonoBehaviour
         playerInputActions.Player.Enable();
         playerInputActions.Player.jump.performed += Jump;
 
+        //playerInputActions.Player.Disable();
+        //playerInputActions.Player.jump.PerformInteractiveRebinding()
+        //    .WithControlsExcluding("Mouse")
+        //    .OnComplete(callback =>
+        //    {
+        //        Debug.Log(callback.action.bindings[0].overridePath);
+        //        callback.Dispose();
+        //        playerInputActions.Player.Enable();
+        //    })
+        //    .Start();
+
+    }
+
+    private void Update()
+    {
+
     }
 
     private void FixedUpdate()
     {
-        Vector2 inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
-        Vector3 moveDirection = new Vector3(inputVector.x, 0, inputVector.y).normalized;
-        Debug.Log(moveDirection);
+        Vector2 inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>().normalized;
+        Vector3 moveDirection = new Vector3(inputVector.x, 0, inputVector.y);
+        //Debug.Log(moveDirection);
 
         if (moveDirection != Vector3.zero)
         {
@@ -41,8 +59,6 @@ public class TestInputSystem : MonoBehaviour
     }
 
  
-
-    //using unity events
     public void Jump(InputAction.CallbackContext context)
     {
 
@@ -52,9 +68,4 @@ public class TestInputSystem : MonoBehaviour
         rb.AddForce(Vector3.up * 5f, ForceMode.Impulse);
         }
     }
-
-    //public void Jump(InputAction.CallbackContext context)
-    //{
-    //    Debug.Log(context);
-    //}
 }
