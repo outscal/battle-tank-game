@@ -41,12 +41,12 @@ public class TestInputSystem : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>().normalized;
-        Vector3 moveDirection = new Vector3(inputVector.x, 0, inputVector.y);
-        //Debug.Log(moveDirection);
+        Vector2 inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
 
-        if (moveDirection != Vector3.zero)
+        if (inputVector != Vector2.zero)
         {
+            Vector3 moveDirection = new Vector3(inputVector.x, 0, inputVector.y);
+
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
             targetRotation = Quaternion.RotateTowards(
                 transform.rotation,
