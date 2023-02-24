@@ -10,14 +10,13 @@ namespace Tanks.Service
         public EnemyTankList tankObjectList;
         private Transform spawn;
         private EnemyPool pool;
-        public int enemyWave;
-        private int enemyCount;
-        private int deathCount;
+        public int enemyWave = 1;
+        private int enemyCount = 0;
+        private int deathCount = 0;
         private void OnEnable()
         {
             EventManagement.OnEnemyDeath += EnemyDeaths;
             spawn = this.transform;
-            enemyWave = 1;
         }
         private void OnDisable()
         {
@@ -26,17 +25,14 @@ namespace Tanks.Service
         private void Start()
         {
             pool = this.gameObject.GetComponent<EnemyPool>();
-            Debug.Log("enemyspawner start");
             EnemyWaves(enemyWave);
         }
         private void TankSpawn(int i)
         {
-            Debug.Log("enemyspawner tankspawn");
-            pool.GetTank(tankObjectList.EnemyTanks[0]);
+            pool.GetTank(tankObjectList.EnemyTanks[i]);
         }
         private void EnemyWaves(int currentWave)
         {
-            Debug.Log("enemyspawner enemy wave");
              enemyCount = 1;//increasing enemy by wave number not implemented yet
             switch (currentWave)
             {
@@ -68,10 +64,12 @@ namespace Tanks.Service
         }
         public void EnemyDeaths()
         {
+            deathCount ++;
             if(deathCount == enemyCount)
             {
                 EventManagement.Instance.WaveComplete(enemyWave);
                 EnemyWaves(enemyWave += 1);
+                deathCount = 0;
             }
         }
     }

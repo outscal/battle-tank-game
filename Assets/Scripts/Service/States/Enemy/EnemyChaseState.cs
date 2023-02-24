@@ -15,14 +15,13 @@ public class EnemyChaseState : StateInterface<EnemyView>
     }
     public void OnEnterState(EnemyView stateObject)
     {
-        Debug.Log("Entering Chase State");
         ObjectInitialization(stateObject);
         Chase();
     }
     public void OnExitState(EnemyView stateObject)
     {
-        //base.OnExitState(EnemyView Object);
-        Debug.Log("Exiting Chase State");
+        
+      
     }
     public void Update() 
     {
@@ -37,25 +36,16 @@ public class EnemyChaseState : StateInterface<EnemyView>
         }
         float targetDistance = Vector3.Distance(enemy.transform.position, target);
         if(targetDistance <= enemy.GetEnemyModel.AttackRadius)
-        //if(enemyTank.remainingDistance <= enemyTank.stoppingDistance)
         {
-            //AttackState();
+    
             enemy.stateMachine.ChangeState(new EnemyAttackState());
         }
-        //if(targetDistance > enemy.GetEnemyModel.AttackRadius && targetDistance <= enemy.GetEnemyModel.EngageRadius)
-        // if (enemyTank.remainingDistance > enemy.GetEnemyModel.AttackRadius && enemyTank.remainingDistance <= enemy.GetEnemyModel.EngageRadius)
-        // {
-        //     //Chase();
-        //     enemy.ChangeState(new EnemyChaseState());
-        // }
         if(targetDistance > enemy.GetEnemyModel.EngageRadius)
-        //if (enemyTank.remainingDistance > enemy.GetEnemyModel.EngageRadius)
         {
-            //IdleState();
             enemy.stateMachine.ChangeState(new EnemyIdleState());
         }
     }
-    void Chase()//(Transform target)
+    void Chase()
     {
         Vector3 origin = enemy.transform.position;
         Collider[] Objs = Physics.OverlapSphere(origin, enemy.GetEnemyModel.EngageRadius);

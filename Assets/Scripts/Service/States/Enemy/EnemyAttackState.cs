@@ -1,6 +1,7 @@
 using UnityEngine.AI;
 using UnityEngine;
 using Tanks.Service;
+using Tank.EventService;
 public class EnemyAttackState : StateInterface<EnemyView>
 {
     private float timeElapsed;
@@ -14,20 +15,15 @@ public class EnemyAttackState : StateInterface<EnemyView>
     }
     public void OnEnterState(EnemyView stateObject)
     {
-        //base.OnEnterState();
-        Debug.Log("Entering Attack State");
         ObjectInitialization(stateObject);
         ShootSequence();
     }
     public void OnExitState(EnemyView stateObject)
     {
-        Debug.Log("Exiting Attack State");
     }
     public void Update() 
     {
-        Debug.Log("Update of Attack");
         timeElapsed += Time.deltaTime;
-
         Vector3 origin = enemy.transform.position;
         Collider[] Objs = Physics.OverlapSphere(origin, enemy.GetEnemyModel.EngageRadius);
         for(int i = 0; i < Objs.Length; i++)
@@ -44,20 +40,15 @@ public class EnemyAttackState : StateInterface<EnemyView>
         }
         if(targetDistance > enemy.GetEnemyModel.AttackRadius && targetDistance <= enemy.GetEnemyModel.EngageRadius)
         {
-            Debug.Log("Target Out of Fire Range");
-            //ChaseState();
             enemy.stateMachine.ChangeState(new EnemyChaseState());
         }
         if(targetDistance > enemy.GetEnemyModel.EngageRadius)
         {
-            Debug.Log("Target Escaped");
-            //IdleState();
             enemy.stateMachine.ChangeState(new EnemyIdleState());
         }
     }
     void ShootSequence()
     {
-        Debug.LogError("shooting");
         BulletSpawner.Instance.SpawnBullet(enemy.bulletSpawner.transform);
         timeElapsed = 0;
     }

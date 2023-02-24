@@ -10,21 +10,17 @@ public class EnemyIdleState : StateInterface<EnemyView>
     }
     public void OnEnterState(EnemyView stateObject)
     {
-        Debug.Log("Entering Idle State");
         ObjectInitialization(stateObject);
         timeElapsed = 0f;
     }
     public void OnExitState(EnemyView stateObject)
     {
-        Debug.Log("Exiting Idle State");
     }
     public void Update()
     {
-        Debug.Log("Idle State Update Called");
         timeElapsed += Time.deltaTime;
         if (timeElapsed >= 1)
         {
-            //PatrolState();
             enemy.stateMachine.ChangeState(new EnemyPatrolState());
         }
     }

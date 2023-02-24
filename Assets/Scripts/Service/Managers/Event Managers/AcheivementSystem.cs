@@ -7,6 +7,7 @@ namespace Tank.EventService
 {
     public class AcheivementSystem : Singleton<AcheivementSystem>
     {
+        private int count = 0;
         public List<string> Achievements;
         private void Start()
         {
@@ -20,7 +21,9 @@ namespace Tank.EventService
             EventManagement.OnEnemyDeath -= EnemyWave;
         }
         private void BulletShot()
-        { int count = 0;
+        { 
+            count++;
+            Debug.Log("BulletShot");
             bool trigger = true;
             string achievement = "BulletsShot ";
             switch (count)

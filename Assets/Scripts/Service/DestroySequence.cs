@@ -13,7 +13,7 @@ public class DestroySequence : Singleton<DestroySequence>
         StartCoroutine(CameraView());
         exitPanel.gameObject.SetActive(true);        
     }
-    public void WaveComplete(Transform Player) // level Complition check
+    public void GameComplete(Transform Player) // level Complition check
     {
         Destroy(Player.gameObject, 1f);
         StartCoroutine(CameraView());
@@ -22,6 +22,7 @@ public class DestroySequence : Singleton<DestroySequence>
 
     IEnumerator CameraView()
     {
+        cam.SetActive(true);
         yield return new WaitForSeconds(1f);       
         cam.transform.position = new Vector3(-80f, 50f, -60f);
         cam.transform.rotation = Quaternion.Euler(20f, 50f, 0);
