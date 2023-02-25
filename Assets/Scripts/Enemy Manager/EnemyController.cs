@@ -1,29 +1,42 @@
 using UnityEngine;
-
+using UnityEngine.AI;
 public class EnemyController
 {
     private EnemyModel enemyModel;
     private EnemyView enemyView;
     private Rigidbody rb;
-    
-    public EnemyController(EnemyModel enemymodel, EnemyView enemyview, Transform spawnTransform)
+    private NavMeshAgent enemyTank;
+    private Transform[] patrol;
+    public EnemyController(EnemyModel enemymodel, EnemyView enemyview, Transform spawnTransform, Transform[] patrolDestination)
     {
+        patrol = patrolDestination;
         this.enemyModel = enemymodel;
         enemyView = GameObject.Instantiate<EnemyView>(enemyview, spawnTransform.position,Quaternion.identity);
         rb = enemyView.GetComponent<Rigidbody>();
+        enemyTank = enemyView.GetComponent<NavMeshAgent>();
         this.enemyView.SetEnemyController(this);
         this.enemyModel.SetEnemyController(this);
     }
     public void Move()
     {
-        var moveForward = enemyView.transform.forward * enemyModel.speed * Time.deltaTime;
-        rb.MovePosition(rb.position + moveForward);
+        if(enemyTank.remainingDistance <= enemyTank.stoppingDistance)
+        { 
+            int i = Random.Range(0,patrol.Length-1);
+            enemyTank.SetDestination(patrol[i].position);
+        }
     }
-    public void Turn()
+    public void MoveToPlayer(Transform target)
     {
-        float turn = 1 * enemyModel.TurnSpeed * Time.deltaTime;
-        Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
-        rb.MoveRotation(rb.rotation * turnRotation);
+        enemyTank.destination = target.position;
+        enemyTank.stoppingDistance = 10f;
+        Vector3 newDirection = Vector3.RotateTowards(rb.transform.forward, target.position - rb.transform.position, 0.5f, 0.0f);
+        rb.transform.rotation = Quaternion.LookRotation(newDirection);
+        if(enemyTank.remainingDistance <= enemyTank.stoppingDistance)
+        // if(Vector3.Distance(rb.transform.position, target.transform.position) <= 5f)
+        {
+        //     rb.velocity = Vector3.zero;
+                Fire();
+        }
     }
     public EnemyModel GetEnemyModel()
     {
@@ -38,7 +51,9 @@ public class EnemyController
         enemyModel.Health -= damage;
         if(enemyModel.Health <= 0)
         {
-            //tank destroy
+            enemyView.DestroyObj();
+            DestroySequence.Instance.WaveComplete(rb.transform);
+            //startSequence.PlayerDeath();
         }
     }
 }

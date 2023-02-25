@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class TankView : MonoBehaviour
+public class TankView : MonoBehaviour,IDamagable
 {
     private TankController tankController;
     public BulletSpawner bulletSpawner;

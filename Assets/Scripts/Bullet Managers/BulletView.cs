@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BulletView : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem Explosion;
     private BulletController bulletController;
     public LayerMask TankMask;
     public Rigidbody rbullet;
@@ -17,7 +18,9 @@ public class BulletView : MonoBehaviour
     }
     private void OnCollisionEnter(Collision other) {
         bulletController.bulletContact();
+        Explosion.gameObject.transform.SetParent(null);
+        Explosion.Play();
+        Destroy(Explosion.gameObject, 2f);
         Destroy(gameObject);
-        Destroy( bulletController.Explosion.gameObject, 2f);
     }
 }
