@@ -50,7 +50,7 @@ public class TankController
         if(tankModel.Health <= 0)
         {
             tankView.DestroyObj();
-            EventManagement.Instance.PlayerDeath();
+            EventManagement.Instance.PlayerDeath(); // null refference here
             //DestroySequence.Instance.PlayerDeath();
         }
     }

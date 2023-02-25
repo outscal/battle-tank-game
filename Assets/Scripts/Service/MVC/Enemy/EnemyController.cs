@@ -1,6 +1,7 @@
 using Tanks.ObjectPool;
 using UnityEngine;
 using UnityEngine.AI;
+using Tank.EventService;
 public class EnemyController
 {
     private EnemyModel enemyModel;
@@ -30,6 +31,7 @@ public class EnemyController
     }
     private void OnDisable() {
         EnemyPool.Instance.ReturnItem(this);
+        EventManagement.Instance.EnemyDeath();
     }
     public EnemyModel GetEnemyModel()
     {

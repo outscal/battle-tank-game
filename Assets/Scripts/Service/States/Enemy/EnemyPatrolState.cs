@@ -6,7 +6,6 @@ public class EnemyPatrolState : StateInterface<EnemyView>
     private NavMeshAgent enemyTank;
     public void OnEnterState(EnemyView stateObject)
     {
-        Debug.Log("Entering Patrol State");
         ObjectInitialization(stateObject);
         Patrol();
     }
@@ -17,13 +16,11 @@ public class EnemyPatrolState : StateInterface<EnemyView>
     }
     public void OnExitState(EnemyView stateObject)
     {
-        Debug.Log("Exiting Patrol State");
     }
     public void Update() 
     {   
         if(enemyTank.remainingDistance <= enemyTank.stoppingDistance)
         {
-            //IdleState();
             enemy.stateMachine.ChangeState(new EnemyIdleState());
         }
         Vector3 origin = enemy.transform.position;
