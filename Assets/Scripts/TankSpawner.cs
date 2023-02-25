@@ -12,13 +12,11 @@ public class TankSpawner : Singleton<TankSpawner>
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    private void TankSpawn()
+    private TankController TankSpawn()
     {
         TankModel tankModel = new TankModel(20, 30);
         TankController tankController = new TankController(tankModel, tankView);
+        return tankController;
+
     }
 }
