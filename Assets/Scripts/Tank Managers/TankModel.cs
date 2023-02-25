@@ -3,25 +3,53 @@ using UnityEngine;
 
 public class TankModel
 {
-    private TankController tankController;
-    public float moveSpeed;
     public float TurnSpeed;
-    public float Health;
-    public TankType tankType;
-    public int Damage;
-    public Material color;
-    public TankModel(TankObject tankObject)
+    private float health;
+    private TankController tankController;
+    private TankObject tankObject;
+    
+    public TankModel(TankObject _tankObject)
     {
-        color = tankObject.color;
-        moveSpeed = tankObject.moveSpeed;
+        this.tankObject = _tankObject;
         TurnSpeed = tankObject.TurnSpeed;
-        tankType = tankObject.tankType;
-        Health = tankObject.Health;
-        Damage = tankObject.Damage;
+        health = tankObject.Health;
     }
 
     public void SetTankController(TankController tankcontroller)
     {
         tankController = tankcontroller;
+    }
+    public float Speed
+    {
+        get
+        {
+            return tankObject.Speed;
+        }
+    }
+
+    public float Health
+    {
+        get
+        {
+            return health;
+        }
+        set
+        {
+            health =  (int)value;
+        }
+    }
+    public TankType tankType
+    {
+        get
+        {
+            return tankObject.tankType;
+        }
+    }
+    public Material color
+    {
+        get
+        {
+            return tankObject.color;
+        }
     }
 }

@@ -20,7 +20,7 @@ public class TankController
 
    public void Fire()
     {
-        tankView.bulletSpawner.SpawnBullet(tankView.bulletSpawner.transform);
+        BulletSpawner.Instance.SpawnBullet(tankView.bulletSpawner.transform);
     }
 
     public void Move(float movementDirection, float moveSpeed)

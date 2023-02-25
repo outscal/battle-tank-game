@@ -18,7 +18,7 @@ public class BulletController
     }
     private void Launch()
     {
-        rb.velocity = rb.transform.forward * bulletModel.bulletSpeed;
+        rb.velocity = rb.transform.forward * bulletModel.BulletSpeed;
     }
     public BulletModel GetBulletModel()
     {
@@ -29,7 +29,7 @@ public class BulletController
         Vector3 ExplosionToTarget = targetPosition - rb.transform.position;
         float explosionDistance = ExplosionToTarget.magnitude;
         float relativeDistance = (bulletModel.ExplosionRadius - explosionDistance)/bulletModel.ExplosionRadius;
-        float damage = relativeDistance * bulletModel.bulletDamage;
+        float damage = relativeDistance * bulletModel.Damage;
         damage = Mathf.Max(0f, damage);
         return damage;
     }

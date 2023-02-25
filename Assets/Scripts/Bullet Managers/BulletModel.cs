@@ -4,24 +4,43 @@ using UnityEngine;
 public class BulletModel
 {
     private BulletController bulletController;
-    public float bulletSpeed;
-    public float bulletDamage;
-    public float ExplosionRadius;
-    public float ExplosionForce;
-    public BulletModel(BulletObject bulletInfo)
+    private BulletObject bulletInfo;
+    public BulletModel(BulletObject _bulletInfo)
     {
-        bulletSpeed = bulletInfo.Speed;
-        bulletDamage = bulletInfo.Damage;
-        ExplosionForce = bulletInfo.ExplosionForce;
-        ExplosionRadius = bulletInfo.ExplosionRadius;
-    }
-    public BulletModel(float _bulletSpeed, float _bulletDamage)
-    {
-        bulletSpeed = _bulletSpeed;
-        bulletDamage = _bulletDamage;
+        this.bulletInfo = _bulletInfo;
+
     }
     public void SetBulletController(BulletController _bulletController)
     {
         bulletController = _bulletController;
+    }
+
+    public float ExplosionRadius
+    {
+        get
+        {
+            return bulletInfo.ExplosionRadius;
+        }
+    }
+    public float ExplosionForce
+    {
+        get
+        {
+            return bulletInfo.ExplosionForce;
+        }
+    }
+    public float Damage
+    {
+        get
+        {
+            return bulletInfo.Damage;
+        }
+    }
+    public float BulletSpeed
+    {
+        get
+        {
+            return bulletInfo.Speed;
+        }
     }
 }

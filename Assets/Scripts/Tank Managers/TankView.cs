@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class TankView : MonoBehaviour,IDamagable
 {
     private TankController tankController;
-    public BulletSpawner bulletSpawner;
+    public Transform bulletSpawner;
     private float movement;
     private float rotation;
     public List<Material> colors;
@@ -29,7 +29,7 @@ public class TankView : MonoBehaviour,IDamagable
 
         if(movement != 0)
         {
-            tankController.Move(movement, tankController.GetTankModel().moveSpeed);
+            tankController.Move(movement, tankController.GetTankModel().Speed);
         }
         if(rotation != 0)
         {
