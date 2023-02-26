@@ -1,15 +1,12 @@
-using System;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
     [SerializeField] private InputReader input;
 
-    [SerializeField] private float speed = 10f;
-    [SerializeField] private float degs = 360f;
-    [SerializeField] private float jumpSpeed= 5f;
+    [SerializeField] private int speed;
+    [SerializeField] private int degs;
+    [SerializeField] private int jumpSpeed;
 
     private Vector2 _moveDirection;
     private bool _isJumping;
@@ -51,20 +48,22 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        if(_moveDirection == Vector2.zero)
+        if (_moveDirection == Vector2.zero)
         {
             return;
         }
         else
         {
-        // perform move and turn function from one vector value
+            // perform move and turn function from one vector value
             Vector3 moveDirection = new Vector3(_moveDirection.x, 0, _moveDirection.y);
 
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
-            targetRotation = Quaternion.RotateTowards(
+            targetRotation = Quaternion.RotateTowards
+            (
                 transform.rotation,
-            targetRotation,
-                degs * Time.fixedDeltaTime);
+                targetRotation,
+                degs * Time.fixedDeltaTime
+            );
 
             rb.MovePosition(rb.position + moveDirection * speed * Time.deltaTime);
             rb.MoveRotation(targetRotation);
@@ -73,7 +72,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if(_isJumping)
+        if (_isJumping)
         {
             rb.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
         }

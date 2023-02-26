@@ -8,11 +8,9 @@ public class GenericSingleton<T> : MonoBehaviour where T : GenericSingleton<T>
     {
         if(Instance == null)
         {
-            Debug.Log("One");
             Instance = (T)this;
         } else
         {
-            Debug.Log("Two");
             Destroy(Instance);
         }
     }
