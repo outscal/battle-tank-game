@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/InputSystem/GameInput.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/InputSystem/GameInputMap.inputactions'
 
 using System;
 using System.Collections;
@@ -6,13 +6,13 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public class @GameInput : IInputActionCollection, IDisposable
+public class @GameInputMap : IInputActionCollection, IDisposable
 {
     public InputActionAsset asset { get; }
-    public @GameInput()
+    public @GameInputMap()
     {
         asset = InputActionAsset.FromJson(@"{
-    ""name"": ""GameInput"",
+    ""name"": ""GameInputMap"",
     ""maps"": [
         {
             ""name"": ""Gameplay"",
@@ -259,8 +259,8 @@ public class @GameInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Pause;
     public struct GameplayActions
     {
-        private @GameInput m_Wrapper;
-        public GameplayActions(@GameInput wrapper) { m_Wrapper = wrapper; }
+        private @GameInputMap m_Wrapper;
+        public GameplayActions(@GameInputMap wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Gameplay_Move;
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
@@ -306,8 +306,8 @@ public class @GameInput : IInputActionCollection, IDisposable
     private readonly InputAction m_UI_Resume;
     public struct UIActions
     {
-        private @GameInput m_Wrapper;
-        public UIActions(@GameInput wrapper) { m_Wrapper = wrapper; }
+        private @GameInputMap m_Wrapper;
+        public UIActions(@GameInputMap wrapper) { m_Wrapper = wrapper; }
         public InputAction @Resume => m_Wrapper.m_UI_Resume;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }

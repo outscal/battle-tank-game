@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 // Main Service - create/ instantiate a new tank with tankController component reference
 
 public class TankService : GenericSingleton<TankService>
@@ -37,7 +36,7 @@ public class TankService : GenericSingleton<TankService>
     }
 
     // passes reference of tankController to new created tank movement service
-    public TankController SetTankController()
+    public TankController GetTankController()
     {
         return tankController;
     }
