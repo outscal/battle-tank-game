@@ -1,5 +1,8 @@
 using UnityEngine;
 
+
+// Main Service - create/ instantiate a new tank with tankController component reference
+
 public class TankService : GenericSingleton<TankService>
 {
     [SerializeField] private TankView tankView;
@@ -10,6 +13,12 @@ public class TankService : GenericSingleton<TankService>
     // might not be required in tankService
     private TankController tankController;
     private TankModel tankModel;
+
+    // not needed if not doing anything on awake
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     private void Start()
     {
@@ -27,6 +36,7 @@ public class TankService : GenericSingleton<TankService>
         tankController = new TankController(tankModel, tankView);
     }
 
+    // passes reference of tankController to new created tank movement service
     public TankController SetTankController()
     {
         return tankController;
