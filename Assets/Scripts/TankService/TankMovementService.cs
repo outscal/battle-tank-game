@@ -10,16 +10,28 @@ public class TankMovementService : MonoBehaviour
 
     private void Start()
     {
-        tankController = TankService.Instance.SetTankController();
+        tankController = TankService.Instance.GetTankController();
         SubscribeInputEvents();
         
     }
-   
+
+    private void OnDisable()
+    {
+        UnsubscribeInputEvents();
+    }
+
     private void SubscribeInputEvents()
     {
         input.MoveEvent += HandleMove;
         input.JumpEvent += HandleJump;
         input.JumpCancelledEvent += HandleCancelledJump;
+    }
+
+    private void UnsubscribeInputEvents()
+    {
+        input.MoveEvent -= HandleMove;
+        input.JumpEvent -= HandleJump;
+        input.JumpCancelledEvent -= HandleCancelledJump;
     }
     private void FixedUpdate()
     {

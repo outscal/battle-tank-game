@@ -2,16 +2,28 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[CreateAssetMenu(menuName = "InputReader")]
-public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInput.IUIActions
+/*
+ * Main Function: 
+ * To handle the functions/actions/events sent by interfaces created from GameInput Action Map
+ * as GameInput is inheriting from Game.Input.Interface(s) play mode and pause mode as of now.
+ * it can read the actions called with the context parameter holding the data for the input actions
+ * actions are subscribed inside TankMovementService
+ * 
+ * Action?.Invoke() is null operational check similar to 
+ * if(Action != null)
+ *     Action.Invoke();
+ */
+
+[CreateAssetMenu(menuName = "ScriptableObjects/InputReader", fileName ="InputReader")]
+public class InputReader : ScriptableObject, GameInputMap.IGameplayActions, GameInputMap.IUIActions
 {
-    private GameInput gameInput;
+    private GameInputMap gameInput;
 
     private void OnEnable()
     {
         if(gameInput == null)
         {
-            gameInput = new GameInput();
+            gameInput = new GameInputMap();
             gameInput.Gameplay.SetCallbacks(this);
             gameInput.UI.SetCallbacks(this);
         }
@@ -41,7 +53,6 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        //Debug.Log(message:$"Phase: {context.phase}, Value: {context.ReadValue<Vector2>()}");
         // Sending direct vector2 value for movement displacement vector
         MoveEvent?.Invoke(context.ReadValue<Vector2>());
     }

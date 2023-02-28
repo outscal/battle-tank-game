@@ -10,7 +10,8 @@ public class GenericSingleton<T> : MonoBehaviour where T : GenericSingleton<T>
         if(Instance == null)
         {
             instance = (T)this;
-        } else
+        }
+        else
         {
             Destroy(this);
         }

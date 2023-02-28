@@ -16,23 +16,21 @@ public class TankController
     public void Move(Vector2 _moveDirection)
     {
         Vector3 moveDirection = new Vector3(_moveDirection.x, 0, _moveDirection.y);
-        //tankView.MoveFunction(moveDirection, tankModel.Speed, tankModel.RotateSpeed);
-
 
         Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
         targetRotation = Quaternion.RotateTowards
         (
-        tankView.GetTfRotation(),
+        tankView.GetRotation(),
         targetRotation,
             tankModel.RotateSpeed * Time.fixedDeltaTime
         );
 
         if(rb == null)
         {
-            Debug.Log(rb);
             rb = tankView.GetRigidbody();
         }
-
+        
+        // this can be in tankView will eliminate need to store rigidbody here
         rb.MovePosition(rb.position + moveDirection * tankModel.Speed * Time.deltaTime);
         rb.MoveRotation(targetRotation);
     }
