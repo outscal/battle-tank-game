@@ -15,8 +15,9 @@ public class TankController
 
     public void Move(Vector2 _moveDirection)
     {
-        Vector3 moveDirection = new Vector3(_moveDirection.x, 0, _moveDirection.y);
+        //Vector3 moveDirection = new Vector3(_moveDirection.x, 0, _moveDirection.y);
 
+        Vector3 moveDirection = _moveDirection.vector2ToVector3();
         Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
         targetRotation = Quaternion.RotateTowards
         (
