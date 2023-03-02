@@ -1,10 +1,11 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName ="TankScriptableObject", menuName ="ScriptableObjects/NewTank")]
-public class TankScriptableObjects : ScriptableObject
+public class TankScriptableObject : ScriptableObject
 {
     public TankType tankType;
     public string tankName;
-    public int speed;
-    public int health;
+    public float speed;
+    public float rotateSpeed;
+    public float jumpValue;
 }

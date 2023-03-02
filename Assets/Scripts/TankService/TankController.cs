@@ -12,6 +12,7 @@ public class TankController
     {
         tankModel = _tankModel;
         tankView = GameObject.Instantiate<TankView>(tankPrefab);
+        tankView.SetSpeed(tankModel.Speed);
     }
 
     public void Move(Vector2 _moveDirection)
