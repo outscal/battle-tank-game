@@ -6,21 +6,22 @@ public class TankController
     public TankView tankView { get; }
 
     private Rigidbody rb;
+    private Transform transform;
 
     public TankController(TankModel _tankModel, TankView tankPrefab)
     {
         tankModel = _tankModel;
         tankView = GameObject.Instantiate<TankView>(tankPrefab);
+        tankView.SetSpeed(tankModel.Speed);
     }
 
     public void Move(Vector2 _moveDirection)
     {
-        Vector3 moveDirection = new Vector3(_moveDirection.x, 0, _moveDirection.y);
-
+        Vector3 moveDirection = _moveDirection.vector2ToVector3();
         Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
         targetRotation = Quaternion.RotateTowards
         (
-        tankView.GetRotation(),
+        tankView.transform.localRotation,
         targetRotation,
             tankModel.RotateSpeed * Time.fixedDeltaTime
         );
@@ -30,16 +31,14 @@ public class TankController
             rb = tankView.GetRigidbody();
         }
         
-        // this can be in tankView will eliminate need to store rigidbody here
         rb.MovePosition(rb.position + moveDirection * tankModel.Speed * Time.deltaTime);
         rb.MoveRotation(targetRotation);
     }
-
     public void Jump()
     {
-        if(!rb)
+        if (!rb)
         {
-            rb = tankView.GetRigidbody();
+            rb = tankView.GetComponent<Rigidbody>();
         }
         rb.AddForce(Vector3.up * tankModel.JumpForce, ForceMode.Impulse);
     }

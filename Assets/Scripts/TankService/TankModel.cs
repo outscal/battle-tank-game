@@ -1,15 +1,25 @@
 
 public class TankModel
 {
-    public TankModel(int speed, int rotateSpeed, float jumpForce)
+
+    public TankModel(TankScriptableObject  tankScriptableObject)
     {
+        TankType = tankScriptableObject.tankType;
+        Speed = tankScriptableObject.speed;
+        RotateSpeed = tankScriptableObject.rotateSpeed;
+        JumpForce = tankScriptableObject.jumpValue;
+    }
+    public TankModel(TankType tankType, float speed, float rotateSpeed, float jumpForce)
+    {
+        TankType = tankType;
         Speed = speed;
         RotateSpeed = rotateSpeed;
         JumpForce = jumpForce;
     }
 
     // read-only properties
-    public int Speed { get; }
-    public int RotateSpeed { get; }
+    public TankType TankType { get; }
+    public float Speed { get; }
+    public float RotateSpeed { get; }
     public float JumpForce { get; }
-};
+}; 

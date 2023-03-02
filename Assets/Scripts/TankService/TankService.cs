@@ -5,13 +5,13 @@ using UnityEngine;
 public class TankService : GenericSingleton<TankService>
 {
     [SerializeField] private TankView tankView;
-    [SerializeField] private int _speed;
-    [SerializeField] private int _rotateSpeed;
-    [SerializeField] private float _jumpForce;
+    [SerializeField] private TankType tankType;
+    [SerializeField] private TankScriptableObjectList tankList;
 
     // might not be required in tankService
     private TankController tankController;
     private TankModel tankModel;
+
 
     // not needed if not doing anything on awake
     protected override void Awake()
@@ -26,12 +26,13 @@ public class TankService : GenericSingleton<TankService>
 
     public void StartGame()
     {
-        CreateNewTank();
+        CreateNewTank((int)tankType);
     }
 
-    public void CreateNewTank()
+    public void CreateNewTank(int index)
     {
-        tankModel = new TankModel(_speed, _rotateSpeed, _jumpForce);
+        TankScriptableObject tankScriptableObject =  tankList.tanks[index-1];
+        tankModel = new TankModel(tankScriptableObject);
         tankController = new TankController(tankModel, tankView);
     }
 
