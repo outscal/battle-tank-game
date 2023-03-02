@@ -15,15 +15,15 @@ using UnityEngine.InputSystem;
  */
 
 [CreateAssetMenu(menuName = "ScriptableObjects/InputReader", fileName ="InputReader")]
-public class InputReader : ScriptableObject, GameInputMap.IGameplayActions, GameInputMap.IUIActions
+public class InputReader : ScriptableObject, TankBattle.InputSystem.GameInputMap.IGameplayActions, TankBattle.InputSystem.GameInputMap.IUIActions
 {
-    private GameInputMap gameInput;
+    private TankBattle.InputSystem.GameInputMap gameInput;
 
     private void OnEnable()
     {
         if(gameInput == null)
         {
-            gameInput = new GameInputMap();
+            gameInput = new TankBattle.InputSystem.GameInputMap();
             gameInput.Gameplay.SetCallbacks(this);
             gameInput.UI.SetCallbacks(this);
         }

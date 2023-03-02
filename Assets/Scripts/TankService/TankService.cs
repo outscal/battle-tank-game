@@ -1,44 +1,48 @@
 using UnityEngine;
 
-// Main Service - create/ instantiate a new tank with tankController component reference
-
-public class TankService : GenericSingleton<TankService>
+namespace TankBattle.TankService
 {
-    [SerializeField] private TankView tankView;
-    [SerializeField] private TankType tankType;
-    [SerializeField] private TankScriptableObjectList tankList;
 
-    // might not be required in tankService
-    private TankController tankController;
-    private TankModel tankModel;
+    // Main Service - create/ instantiate a new tank with tankController component reference
 
-
-    // not needed if not doing anything on awake
-    protected override void Awake()
+    public class TankService : GenericSingleton<TankService>
     {
-        base.Awake();
-    }
+        [SerializeField] private PlayerTank.TankView tankView;
+        [SerializeField] private TankType tankType;
+        [SerializeField] private TankScriptableObjectList tankList;
 
-    private void Start()
-    {
-        StartGame();
-    }
+        // might not be required in tankService
+        private PlayerTank.TankController tankController;
+        private PlayerTank.TankModel tankModel;
 
-    public void StartGame()
-    {
-        CreateNewTank((int)tankType);
-    }
 
-    public void CreateNewTank(int index)
-    {
-        TankScriptableObject tankScriptableObject =  tankList.tanks[index-1];
-        tankModel = new TankModel(tankScriptableObject);
-        tankController = new TankController(tankModel, tankView);
-    }
+        // not needed if not doing anything on awake
+        protected override void Awake()
+        {
+            base.Awake();
+        }
 
-    // passes reference of tankController to new created tank movement service
-    public TankController GetTankController()
-    {
-        return tankController;
+        private void Start()
+        {
+            StartGame();
+        }
+
+        public void StartGame()
+        {
+            CreateNewTank((int)tankType);
+        }
+
+        public void CreateNewTank(int index)
+        {
+            TankScriptableObject tankScriptableObject = tankList.tanks[index - 1];
+            tankModel = new PlayerTank.TankModel(tankScriptableObject);
+            tankController = new PlayerTank.TankController(tankModel, tankView);
+        }
+
+        // passes reference of tankController to new created tank movement service
+        public PlayerTank.TankController GetTankController()
+        {
+            return tankController;
+        }
     }
 }

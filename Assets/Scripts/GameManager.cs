@@ -1,27 +1,30 @@
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+namespace TankBattle
 {
-    [SerializeField] private InputReader _input;
-    [SerializeField] private GameObject pauseMenu;
-
-    private bool _isPaused = false;
-
-    private void Start()
+    public class GameManager : MonoBehaviour
     {
-        _input.PauseEvent += HandlePause;
-        _input.ResumeEvent += HandleResume;
-    }
+        [SerializeField] private InputReader _input;
+        [SerializeField] private GameObject pauseMenu;
 
-    private void HandlePause()
-    {
-        Time.timeScale = 0;
-        pauseMenu.SetActive(true);
-    }
+        private bool _isPaused = false;
 
-    private void HandleResume()
-    {
-        Time.timeScale = 1;
-        pauseMenu.SetActive(false);
+        private void Start()
+        {
+            _input.PauseEvent += HandlePause;
+            _input.ResumeEvent += HandleResume;
+        }
+
+        private void HandlePause()
+        {
+            Time.timeScale = 0;
+            pauseMenu.SetActive(true);
+        }
+
+        private void HandleResume()
+        {
+            Time.timeScale = 1;
+            pauseMenu.SetActive(false);
+        }
     }
 }

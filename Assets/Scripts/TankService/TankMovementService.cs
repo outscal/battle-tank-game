@@ -1,72 +1,75 @@
 using UnityEngine;
 
-public class TankMovementService : MonoBehaviour
+namespace TankBattle.TankService.PlayerTank.MoveService
 {
-    [SerializeField] private InputReader input;
-    private TankController tankController;
-
-    private Vector2 _moveDirection;
-    private bool _isJumping;
-
-    private void Start()
+    public class TankMovementService : MonoBehaviour
     {
-        tankController = TankService.Instance.GetTankController();
-        SubscribeInputEvents();
-        
-    }
+        [SerializeField] private InputReader input;
+        private TankController tankController;
 
-    private void OnDisable()
-    {
-        UnsubscribeInputEvents();
-    }
+        private Vector2 _moveDirection;
+        private bool _isJumping;
 
-    private void SubscribeInputEvents()
-    {
-        input.MoveEvent += HandleMove;
-        input.JumpEvent += HandleJump;
-        input.JumpCancelledEvent += HandleCancelledJump;
-    }
-
-    private void UnsubscribeInputEvents()
-    {
-        input.MoveEvent -= HandleMove;
-        input.JumpEvent -= HandleJump;
-        input.JumpCancelledEvent -= HandleCancelledJump;
-    }
-    private void FixedUpdate()
-    {
-        Move();
-        Jump();
-    }
-
-    private void Move()
-    {
-        if (_moveDirection != Vector2.zero)
+        private void Start()
         {
-            tankController.Move(_moveDirection);
-        }
-    }
+            tankController = TankService.Instance.GetTankController();
+            SubscribeInputEvents();
 
-    private void Jump()
-    {
-        if (_isJumping)
+        }
+
+        private void OnDisable()
         {
-            tankController.Jump();
+            UnsubscribeInputEvents();
         }
-    }
 
-    private void HandleCancelledJump()
-    {
-        _isJumping = false;
-    }
+        private void SubscribeInputEvents()
+        {
+            input.MoveEvent += HandleMove;
+            input.JumpEvent += HandleJump;
+            input.JumpCancelledEvent += HandleCancelledJump;
+        }
 
-    private void HandleJump()
-    {
-        _isJumping = true;
-    }
+        private void UnsubscribeInputEvents()
+        {
+            input.MoveEvent -= HandleMove;
+            input.JumpEvent -= HandleJump;
+            input.JumpCancelledEvent -= HandleCancelledJump;
+        }
+        private void FixedUpdate()
+        {
+            Move();
+            Jump();
+        }
 
-    private void HandleMove(Vector2 dir)
-    {
-        _moveDirection = dir;
+        private void Move()
+        {
+            if (_moveDirection != Vector2.zero)
+            {
+                tankController.Move(_moveDirection);
+            }
+        }
+
+        private void Jump()
+        {
+            if (_isJumping)
+            {
+                tankController.Jump();
+            }
+        }
+
+        private void HandleCancelledJump()
+        {
+            _isJumping = false;
+        }
+
+        private void HandleJump()
+        {
+            _isJumping = true;
+        }
+
+        private void HandleMove(Vector2 dir)
+        {
+            _moveDirection = dir;
+        }
     }
 }

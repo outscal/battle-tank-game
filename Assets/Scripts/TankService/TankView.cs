@@ -1,25 +1,28 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-
-public class TankView : MonoBehaviour
+namespace TankBattle.TankService.PlayerTank
 {
-    private Rigidbody rb;
+    [RequireComponent(typeof(Rigidbody))]
 
-    [SerializeField] private float speed;
-
-    private void Awake()
+    public class TankView : MonoBehaviour
     {
-        rb = GetComponent<Rigidbody>();
-    }
+        private Rigidbody rb;
 
-    public void SetSpeed(float _speed)
-    {
-        speed = _speed;
-    }
+        [SerializeField] private float speed;
 
-    public Rigidbody GetRigidbody()
-    {
-        return rb;
+        private void Awake()
+        {
+            rb = GetComponent<Rigidbody>();
+        }
+
+        public void SetSpeed(float _speed)
+        {
+            speed = _speed;
+        }
+
+        public Rigidbody GetRigidbody()
+        {
+            return rb;
+        }
     }
 }
