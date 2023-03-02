@@ -1,45 +1,48 @@
 using UnityEngine;
 
-public class TankController
+namespace TankBattle.TankService.PlayerTank
 {
-    public TankModel tankModel { get; }
-    public TankView tankView { get; }
-
-    private Rigidbody rb;
-    private Transform transform;
-
-    public TankController(TankModel _tankModel, TankView tankPrefab)
+    public class TankController
     {
-        tankModel = _tankModel;
-        tankView = GameObject.Instantiate<TankView>(tankPrefab);
-        tankView.SetSpeed(tankModel.Speed);
-    }
+        public TankModel tankModel { get; }
+        public TankView tankView { get; }
 
-    public void Move(Vector2 _moveDirection)
-    {
-        Vector3 moveDirection = _moveDirection.vector2ToVector3();
-        Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
-        targetRotation = Quaternion.RotateTowards
-        (
-        tankView.transform.localRotation,
-        targetRotation,
-            tankModel.RotateSpeed * Time.fixedDeltaTime
-        );
+        private Rigidbody rb;
+        private Transform transform;
 
-        if(rb == null)
+        public TankController(TankModel _tankModel, TankView tankPrefab)
         {
-            rb = tankView.GetRigidbody();
+            tankModel = _tankModel;
+            tankView = Object.Instantiate(tankPrefab);
+            tankView.SetSpeed(tankModel.Speed);
         }
-        
-        rb.MovePosition(rb.position + moveDirection * tankModel.Speed * Time.deltaTime);
-        rb.MoveRotation(targetRotation);
-    }
-    public void Jump()
-    {
-        if (!rb)
+
+        public void Move(Vector2 _moveDirection)
         {
-            rb = tankView.GetComponent<Rigidbody>();
+            Vector3 moveDirection = _moveDirection.vector2ToVector3();
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+            targetRotation = Quaternion.RotateTowards
+            (
+            tankView.transform.localRotation,
+            targetRotation,
+                tankModel.RotateSpeed * Time.fixedDeltaTime
+            );
+
+            if (rb == null)
+            {
+                rb = tankView.GetRigidbody();
+            }
+
+            rb.MovePosition(rb.position + moveDirection * tankModel.Speed * Time.deltaTime);
+            rb.MoveRotation(targetRotation);
         }
-        rb.AddForce(Vector3.up * tankModel.JumpForce, ForceMode.Impulse);
-    }
-};
+        public void Jump()
+        {
+            if (!rb)
+            {
+                rb = tankView.GetComponent<Rigidbody>();
+            }
+            rb.AddForce(Vector3.up * tankModel.JumpForce, ForceMode.Impulse);
+        }
+    };
+}

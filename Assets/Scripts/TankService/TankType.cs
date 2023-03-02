@@ -1,7 +1,10 @@
-public enum TankType
+namespace TankBattle.TankService
 {
-    None,
-    Red,
-    Green,
-    Blue
+    public enum TankType
+    {
+        None,
+        Red,
+        Green,
+        Blue
+    }
 }

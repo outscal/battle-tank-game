@@ -1,19 +1,22 @@
 using UnityEngine;
 
-public class GenericSingleton<T> : MonoBehaviour where T : GenericSingleton<T>
+namespace TankBattle
 {
-    private static T instance;
-    public static T Instance { get { return instance; } }
-
-    protected virtual void Awake()
+    public class GenericSingleton<T> : MonoBehaviour where T : GenericSingleton<T>
     {
-        if(Instance == null)
+        private static T instance;
+        public static T Instance { get { return instance; } }
+
+        protected virtual void Awake()
         {
-            instance = (T)this;
-        }
-        else
-        {
-            Destroy(this);
+            if (Instance == null)
+            {
+                instance = (T)this;
+            }
+            else
+            {
+                Destroy(this);
+            }
         }
     }
 }
