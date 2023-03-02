@@ -20,8 +20,6 @@ public class EnemyChaseState : StateInterface<EnemyView>
     }
     public void OnExitState(EnemyView stateObject)
     {
-        
-      
     }
     public void Update() 
     {

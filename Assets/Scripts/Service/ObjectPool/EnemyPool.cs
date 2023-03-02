@@ -11,7 +11,6 @@ namespace Tanks.ObjectPool
         private Vector3[] Spawn;
         public EnemyController GetTank(EnemyTankObject enemy)
         {
-            Debug.Log("enemypool getTank");
             enemyModel = new EnemyModel(enemy);
             enemyPrefab = enemy.enemyView;
             Spawn = enemy.PatrolPoints;
@@ -19,7 +18,6 @@ namespace Tanks.ObjectPool
         }
         protected override EnemyController CreateItem()
         {
-            Debug.Log("enemypool createItem");
             EnemyController enemyController = new EnemyController(enemyModel, enemyPrefab, Spawn);
             return enemyController;
         }

@@ -15,6 +15,10 @@ public class TankModel
         health = tankObject.Health;
     }
 
+    public TypeDamagable Type
+    {
+        get{return tankObject.Type;}
+    }
     public void SetTankController(TankController tankcontroller)
     {
         tankController = tankcontroller;

@@ -68,32 +68,12 @@ public class EnemyModel
             return tank.PatrolPoints;
         }
     }
-    // public EnemyIdleState IdleState
-    // {
-    //     get
-    //     {
-    //         return tank.IdleState;
-    //     }
-    // }
-    // public EnemyPatrolState PatrolState
-    // {
-    //     get
-    //     {
-    //         return tank.PatrolState;
-    //     }
-    // }
-    // public EnemyChaseState ChaseState
-    // {
-    //     get
-    //     {
-    //         return tank.ChaseState;
-    //     }
-    // }
-    // public EnemyAttackState AttackState
-    // {
-    //     get
-    //     {
-    //         return tank.AttackState;
-    //     }
-    // }
+    public void RestoreHealth()
+    {
+        health = tank.Health;
+    }
+    public TypeDamagable Type
+    {
+        get{return tank.Type;}
+    }
 }

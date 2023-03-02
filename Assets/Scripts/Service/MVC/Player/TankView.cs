@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class TankView : MonoBehaviour,IDamagable
+public class TankView : MonoBehaviour, IDamagable
 {
     private TankController tankController;
     public Transform bulletSpawner;
@@ -52,12 +52,12 @@ public class TankView : MonoBehaviour,IDamagable
     {
         tankController = tankcontroller;
     }
-    public void GetDamage(float damage)
-    {
-        tankController.GetDamage(damage);
-    }
     public void DestroyObj()
     {
         Destroy(this.gameObject);
+    }
+    public void GetDamage(float damage, TypeDamagable type)
+    {
+       tankController.GetDamage(damage, type);
     }
 }

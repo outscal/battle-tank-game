@@ -3,10 +3,10 @@ namespace Tank.EventService
 {
     public class EventManagement : Singleton<EventManagement>
     {
-        public static event Action OnEnemyDeath;
-        public static event Action OnPlayerDeath;
-        public static event Action OnPlayerShoot;
-        public static event Action<int> OnWaveComplete;
+        public event Action OnEnemyDeath;
+        public event Action OnPlayerDeath;
+        public event Action OnPlayerShoot;
+        public event Action<int> OnWaveComplete;
         public void PlayerShoot()
         {
             OnPlayerShoot?.Invoke();

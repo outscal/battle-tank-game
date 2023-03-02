@@ -4,7 +4,7 @@ using Tanks.ObjectPool;
 using UnityEngine;
 public class BulletSpawner : Singleton<BulletSpawner>
 {
-    public BulletList bulletObjectList;
+    [SerializeField] private BulletList bulletObjectList;
     private Transform spawn;
     private BulletPool bulletPool;
     public BulletView bulletView;
@@ -15,9 +15,9 @@ public class BulletSpawner : Singleton<BulletSpawner>
     private void Update() {
         spawn = this.transform;
     }
-    public void SpawnBullet(Transform bulletTransform)
+    public void SpawnBullet(Transform bulletTransform,TypeDamagable shooter)
     {
-        BulletModel bulletModel = new BulletModel(bulletObjectList.bullets[0]);
-        bulletPool.GetBullet(bulletModel, bulletObjectList.bullets[0].bulletView, bulletTransform);
+        BulletController bullet = bulletPool.GetBullet(bulletObjectList.bullets[0], bulletTransform);
+        bullet.ActivateObject(bulletTransform, shooter);
     }
 }

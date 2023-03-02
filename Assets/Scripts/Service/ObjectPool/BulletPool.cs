@@ -8,18 +8,19 @@ namespace Tanks.ObjectPool
     {
         private BulletView bulletPrefab;
         private BulletModel bulletModel;
+        //private BulletObject bullet;
         private Transform Spawn;
-        public BulletController GetBullet(BulletModel bulletModel, BulletView bulletPrefab, Transform spawn)
+        public BulletController GetBullet(BulletObject bullet, Transform spawn)
         {
-            this.bulletModel = bulletModel;
-            this.bulletPrefab = bulletPrefab;
+            bulletModel = new BulletModel(bullet);
+            this.bulletPrefab = bullet.bulletView;
             Spawn = spawn;
             return GetItem();
         }
         protected override BulletController CreateItem()
         {
-            BulletController enemyController = new BulletController(bulletModel, bulletPrefab, Spawn);
-            return enemyController;
+            BulletController bulletController = new BulletController(bulletModel, bulletPrefab, Spawn);
+            return bulletController;
         }
     }
 }

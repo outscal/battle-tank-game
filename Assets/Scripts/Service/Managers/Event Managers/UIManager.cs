@@ -1,8 +1,7 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using TMPro;
+using System.Threading.Tasks;
 using Tank.EventService;
 
     public class UIManager : Singleton<UIManager>
@@ -14,66 +13,66 @@ using Tank.EventService;
         [SerializeField] private TextMeshProUGUI Kills;
         [SerializeField] private TextMeshProUGUI WaveStatus;
         [SerializeField] private TextMeshProUGUI Achievement;
-        private int TotalBulletCount = 10;
+        [SerializeField] private GameObject GameOverPanel;
+        [SerializeField] private TextMeshProUGUI GameStatus;
+        [SerializeField] private GameObject GamePausePanel;
+        [SerializeField] private int TotalBulletCount = 10;
         private int KillCount = 0;
         private int score = 0;
         private void Start()
         {
             UpdatePanel.SetActive(true);
-            EventManagement.OnPlayerShoot += BulletCount;
-            EventManagement.OnEnemyDeath += EnemyDeath;
-            EventManagement.OnPlayerDeath += PlayerDeath;
-            EventManagement.OnWaveComplete += WaveComplete;
+            EventManagement.Instance.OnPlayerShoot += BulletCount;
+            EventManagement.Instance.OnEnemyDeath += EnemyDeath;
+            EventManagement.Instance.OnPlayerDeath += PlayerDeath;
+            EventManagement.Instance.OnWaveComplete += WaveComplete;
         }
         private void OnDisable()
         {
-            EventManagement.OnPlayerShoot -= BulletCount;
-            EventManagement.OnEnemyDeath -= EnemyDeath;
-            EventManagement.OnPlayerDeath -= PlayerDeath;
-            EventManagement.OnWaveComplete -= WaveComplete;
+            EventManagement.Instance.OnPlayerShoot -= BulletCount;
+            EventManagement.Instance.OnEnemyDeath -= EnemyDeath;
+            EventManagement.Instance.OnPlayerDeath -= PlayerDeath;
+            EventManagement.Instance.OnWaveComplete -= WaveComplete;
         }
         public void BulletCount()
         {
             TotalBulletCount -= 1;
-            Debug.Log("Current Bullet" + 1);
-            Ammo.text = TotalBulletCount+"";
+            Ammo.text = $"Ammo [{TotalBulletCount}]";
         }
         public void EnemyDeath()
         {
             KillCount++;
             score += 50;
-            Score.text = score+"";
-            Kills.text = KillCount+"";
+            Score.text = $"Score: {score}";
+            Kills.text = $"Kill: {KillCount}";
         }
-        public void WaveComplete(int wave)
+        public async void WaveComplete(int wave)
         {
-            //show wave complete panel
             AcheivementPanel.SetActive(true);
-            Achievement.enabled = true;
             WaveStatus.text = wave + " Wave Complete";
-            //yield return new WaitForSeconds(1.0f);
-            
-            Achievement.enabled = false;
-            AcheivementPanel.SetActive(true);
+            await Task.Delay(10);
+            AcheivementPanel.SetActive(false);
             if(wave == 6)
             {
-                //game complete
-                DestroySequence.Instance.GameComplete(this.transform);
+                GameOverPanel.SetActive(true);
+                GameStatus.text = "Level Complete";
             }
 
         }
         public void PlayerDeath()
         {
-            DestroySequence.Instance.PlayerDeath();
+            GameOverPanel.SetActive(true);
+            GameStatus.text = "Game Over";
         }
         public IEnumerator ShowAchievement(string achievement)
         {
             AcheivementPanel.SetActive(true);
             Achievement.enabled = true;
             Achievement.text = achievement;
-            yield return new WaitForSeconds(1.0f);
+            
+            yield return new  WaitForSeconds(2f);
             Achievement.enabled = false;
-            AcheivementPanel.SetActive(true);
+            AcheivementPanel.SetActive(false);
         }
         
     }

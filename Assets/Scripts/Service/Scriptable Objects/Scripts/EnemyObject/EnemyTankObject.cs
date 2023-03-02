@@ -5,6 +5,8 @@ using System.Collections.Generic;
 [CreateAssetMenu(fileName = "Enemy Tank Object", menuName = "Objects/New Enemy Tank Object")]
 public class EnemyTankObject : ScriptableObject
 {
+   [Header("Object Type")]
+   public TypeDamagable Type;
    [Header("Tank Properties")]
    public EnemyView enemyView;
    public EnemyType EnemyType;

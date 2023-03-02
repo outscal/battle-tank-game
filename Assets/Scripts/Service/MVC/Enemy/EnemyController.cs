@@ -2,6 +2,7 @@ using Tanks.ObjectPool;
 using UnityEngine;
 using UnityEngine.AI;
 using Tank.EventService;
+
 public class EnemyController
 {
     private EnemyModel enemyModel;
@@ -19,23 +20,31 @@ public class EnemyController
         this.enemyView.SetEnemyController(this);
         this.enemyModel.SetEnemyController(this);
     }
-    public void GetDamage(float damage)
+    public void GetDamage(float damage, TypeDamagable type)
     {
+        if(enemyModel.Type == type)
+            return;
         enemyModel.Health -= damage;
         if(enemyModel.Health <= 0)
         {
-            enemyView.DestroyObj();
-            //DestroySequence.Instance.WaveComplete(rb.transform);
-            //startSequence.PlayerDeath();
+            DestroyObj();
+            EventManagement.Instance.EnemyDeath();
         }
     }
-    private void OnDisable() {
+    private void DestroyObj() {
         EnemyPool.Instance.ReturnItem(this);
-        EventManagement.Instance.EnemyDeath();
+            enemyView.gameObject.SetActive(false);
     }
     public EnemyModel GetEnemyModel()
     {
         return enemyModel;
     }
-    
+    public void  ActivateEnemy()
+    {
+        var spawn = patrolPoints[Random.Range(0,patrolPoints.Length - 1)]; 
+        enemyView.gameObject.SetActive(true);
+        enemyModel.RestoreHealth();
+//        enemyView.GetComponent<MeshRenderer>().enabled = true;
+        enemyView.gameObject.transform.position = spawn;
+    }
 }

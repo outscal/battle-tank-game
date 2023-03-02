@@ -8,22 +8,22 @@ namespace Tank.EventService
     public class AcheivementSystem : Singleton<AcheivementSystem>
     {
         private int count = 0;
-        public List<string> Achievements;
+        private List<string> Achievements;
         private void Start()
         {
-            EventManagement.OnPlayerShoot += BulletShot;
-            EventManagement.OnEnemyDeath += EnemyWave;
+            Achievements = new List<String>();
+            EventManagement.Instance.OnPlayerShoot += BulletShot;
+            EventManagement.Instance.OnEnemyDeath += EnemyWave;
         }
 
         private void OnDisable()
         {
-            EventManagement.OnPlayerShoot -= BulletShot;
-            EventManagement.OnEnemyDeath -= EnemyWave;
+            EventManagement.Instance.OnPlayerShoot -= BulletShot;
+            EventManagement.Instance.OnEnemyDeath -= EnemyWave;
         }
         private void BulletShot()
         { 
             count++;
-            Debug.Log("BulletShot");
             bool trigger = true;
             string achievement = "BulletsShot ";
             switch (count)
@@ -44,17 +44,16 @@ namespace Tank.EventService
 
             if (trigger)
             {
-                //if (!IsAchiveved(achievement))
-                UIManager.Instance.ShowAchievement(achievement);
+                if (!IsAchiveved(achievement))
+                    StartCoroutine(UIManager.Instance.ShowAchievement(achievement));
             }
         }
     private bool IsAchiveved(string achevementName)
         {
             if (Achievements.Contains(achevementName))
                 return true;
-
             Achievements.Add(achevementName);
-            return false;
+                return false;
         }
         private void EnemyWave()
         {
@@ -78,8 +77,8 @@ namespace Tank.EventService
             }
             if (trigger)
             {
-                //if (!IsAchiveved(achievement))
-                UIManager.Instance.ShowAchievement(achievement);
+                if (!IsAchiveved(achievement))
+                    StartCoroutine(UIManager.Instance.ShowAchievement(achievement));
             }
         }
     }

@@ -33,9 +33,9 @@ public class EnemyView : MonoBehaviour, IDamagable
     {
         stateMachine.Update();
     }
-    public void GetDamage(float damage)
+    public void GetDamage(float damage, TypeDamagable type)
     {
-        enemyController.GetDamage(damage);
+        enemyController.GetDamage(damage,type);
     }
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.blue;
@@ -44,9 +44,5 @@ public class EnemyView : MonoBehaviour, IDamagable
         Gizmos.DrawWireSphere(transform.position, enemyController.GetEnemyModel().EngageRadius);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, enemyController.GetEnemyModel().AttackRadius);
-    }
-    public void DestroyObj()
-    {
-        this.gameObject.SetActive(false);
     }
 }

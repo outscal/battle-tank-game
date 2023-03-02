@@ -31,14 +31,15 @@ public class EnemyAttackState : StateInterface<EnemyView>
             if(Objs[i].GetComponent<TankView>())
             {
                 target = Objs[i].gameObject.transform.position;
+                enemy.transform.LookAt(target);
             }
         }
         float targetDistance = Vector3.Distance(enemy.transform.position, target);
-        if(timeElapsed >= 1 && enemyTank.remainingDistance <= enemyTank.stoppingDistance && target != null)
+        if (timeElapsed >= 1 && enemyTank.remainingDistance <= enemyTank.stoppingDistance && target != null)
         {
             ShootSequence();
         }
-        if(targetDistance > enemy.GetEnemyModel.AttackRadius && targetDistance <= enemy.GetEnemyModel.EngageRadius)
+        if (targetDistance > enemy.GetEnemyModel.AttackRadius && targetDistance <= enemy.GetEnemyModel.EngageRadius)
         {
             enemy.stateMachine.ChangeState(new EnemyChaseState());
         }
@@ -49,7 +50,7 @@ public class EnemyAttackState : StateInterface<EnemyView>
     }
     void ShootSequence()
     {
-        BulletSpawner.Instance.SpawnBullet(enemy.bulletSpawner.transform);
+        BulletSpawner.Instance.SpawnBullet(enemy.bulletSpawner.transform, enemy.GetEnemyModel.Type);
         timeElapsed = 0;
     }
 }

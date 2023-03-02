@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Tanks.ObjectPool;
 using Tank.EventService;
@@ -7,33 +5,32 @@ namespace Tanks.Service
 {
     public class EnemySpawner : Singleton<EnemySpawner>
     {
-        public EnemyTankList tankObjectList;
+        [SerializeField] private EnemyTankList tankObjectList;
         private Transform spawn;
+        private EnemyController enemy;
         private EnemyPool pool;
-        public int enemyWave = 1;
+        private int enemyWave = 1;
         private int enemyCount = 0;
         private int deathCount = 0;
-        private void OnEnable()
-        {
-            EventManagement.OnEnemyDeath += EnemyDeaths;
-            spawn = this.transform;
-        }
         private void OnDisable()
         {
-            EventManagement.OnEnemyDeath -= EnemyDeaths;
+            EventManagement.Instance.OnEnemyDeath -= EnemyDeaths;
         }
         private void Start()
         {
+            EventManagement.Instance.OnEnemyDeath += EnemyDeaths;
+            spawn = this.transform;
             pool = this.gameObject.GetComponent<EnemyPool>();
             EnemyWaves(enemyWave);
         }
         private void TankSpawn(int i)
         {
-            pool.GetTank(tankObjectList.EnemyTanks[i]);
+            enemy = pool.GetTank(tankObjectList.EnemyTanks[i]);
+            enemy.ActivateEnemy();
         }
         private void EnemyWaves(int currentWave)
         {
-             enemyCount = 1;//increasing enemy by wave number not implemented yet
+            enemyCount = 1;//increasing enemy by wave number not implemented yet
             switch (currentWave)
             {
                 case 1:
