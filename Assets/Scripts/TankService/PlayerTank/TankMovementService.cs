@@ -10,11 +10,15 @@ namespace TankBattle.TankService.PlayerTank.MoveService
         private Vector2 _moveDirection;
         private bool _isJumping;
 
+        public void SetController(TankController _tankController)
+        {
+            tankController = _tankController;
+        }
+
         private void Start()
         {
-            tankController = TankService.Instance.GetTankController();
+            tankController = PlayerService.Instance.GetTankController();
             SubscribeInputEvents();
-
         }
 
         private void OnDisable()

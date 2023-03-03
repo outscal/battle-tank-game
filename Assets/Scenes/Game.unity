@@ -436,6 +436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _input: {fileID: 11400000, guid: b96280f9aa7ea8b44ae072cb75c1b577, type: 2}
+  _playerService: {fileID: 0}
   pauseMenu: {fileID: 1940196039}
 --- !u!4 &857646648
 Transform:
@@ -1040,6 +1041,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2052177811}
   - component: {fileID: 2052177810}
+  - component: {fileID: 2052177812}
   m_Layer: 0
   m_Name: TankSpawner
   m_TagString: Untagged
@@ -1061,7 +1063,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tankView: {fileID: 2366483372870643255, guid: de7989b69a0929644991214c180a0ace,
     type: 3}
-  tankType: 3
   tankList: {fileID: 11400000, guid: 9b46aa6a42d02d044850df7103886518, type: 2}
 --- !u!4 &2052177811
 Transform:
@@ -1077,3 +1078,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2052177812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052177809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b264f9265dbb4384fa61314be7d60354, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tankType: 1

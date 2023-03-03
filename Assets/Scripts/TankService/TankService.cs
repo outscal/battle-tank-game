@@ -4,17 +4,18 @@ namespace TankBattle.TankService
 {
 
     // Main Service - create/ instantiate a new tank with tankController component reference
+    // Rename to CreateTankService - 
+    // Namespace: TankBattle.CreateTankService
+
 
     public class TankService : GenericSingleton<TankService>
     {
-        [SerializeField] private PlayerTank.TankView tankView;
-        [SerializeField] private TankType tankType;
-        [SerializeField] private TankScriptableObjectList tankList;
+        [SerializeField] private TankView tankView;
+        [SerializeField] private TankType.TankScriptableObjectList tankList;
 
         // might not be required in tankService
-        private PlayerTank.TankController tankController;
-        private PlayerTank.TankModel tankModel;
-
+        private PlayerTank.MoveService.TankController tankController;
+        private TankModel tankModel;
 
         // not needed if not doing anything on awake
         protected override void Awake()
@@ -22,26 +23,33 @@ namespace TankBattle.TankService
             base.Awake();
         }
 
-        private void Start()
-        {
-            StartGame();
+        private Color getColorValue(int index)
+        {             
+            if (index == (int)TankType.TankType.None)
+            {
+                return Color.black;
+            }
+            if (index == (int)TankType.TankType.Red)
+            {
+                return Color.red;
+            }
+            if (index == (int)TankType.TankType.Green)
+            {
+                return Color.green;
+            }
+            if (index == (int)TankType.TankType.Blue)
+            {
+                return Color.blue;
+            } 
+             return Color.white;
         }
 
-        public void StartGame()
+        public PlayerTank.MoveService.TankController CreateNewPlayerTank(int index)
         {
-            CreateNewTank((int)tankType);
-        }
-
-        public void CreateNewTank(int index)
-        {
-            TankScriptableObject tankScriptableObject = tankList.tanks[index - 1];
-            tankModel = new PlayerTank.TankModel(tankScriptableObject);
-            tankController = new PlayerTank.TankController(tankModel, tankView);
-        }
-
-        // passes reference of tankController to new created tank movement service
-        public PlayerTank.TankController GetTankController()
-        {
+            TankType.TankScriptableObject tankScriptableObject = tankList.tanks[index];
+            tankModel = new TankModel(tankScriptableObject);
+            Color color = getColorValue(index);
+            tankController = new PlayerTank.MoveService.TankController(tankModel, tankView);
             return tankController;
         }
     }

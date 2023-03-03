@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TankBattle.TankService
+namespace TankBattle.TankService.TankType
 {
     [CreateAssetMenu(fileName ="TankScriptableObject", menuName ="ScriptableObjects/NewTank")]
     public class TankScriptableObject : ScriptableObject

@@ -1,26 +1,40 @@
 using UnityEngine;
 
-namespace TankBattle.TankService.PlayerTank
+namespace TankBattle.TankService
 {
     [RequireComponent(typeof(Rigidbody))]
 
+
+    //  Cannot change color in tankService 
+    // might be due to runtime constraints or some shit.
     public class TankView : MonoBehaviour
     {
-        private Rigidbody rb;
 
-        [SerializeField] private float speed;
+        private MeshRenderer[] rendererArray;
+        private Rigidbody rb;
+        private Color color;
 
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
+            
+            rendererArray = GetComponentsInChildren<MeshRenderer>();
         }
 
-        public void SetSpeed(float _speed)
+        public void SetColor(Color _color)
         {
-            speed = _speed;
+            for (int i = 0; i < rendererArray.Length; i++)
+            {
+                rendererArray[i].material.color = color;
+            }
         }
 
-        public Rigidbody GetRigidbody()
+        public void changeColor()
+        {
+
+        }
+
+        public Rigidbody getRigidbody()
         {
             return rb;
         }

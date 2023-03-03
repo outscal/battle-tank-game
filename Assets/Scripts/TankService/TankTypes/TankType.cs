@@ -1,4 +1,4 @@
-namespace TankBattle.TankService
+namespace TankBattle.TankService.TankType
 {
     public enum TankType
     {

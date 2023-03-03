@@ -1,7 +1,7 @@
 using TankBattle.Extensions;
 using UnityEngine;
 
-namespace TankBattle.TankService.PlayerTank
+namespace TankBattle.TankService.PlayerTank.MoveService
 {
     public class TankController
     {
@@ -15,7 +15,6 @@ namespace TankBattle.TankService.PlayerTank
         {
             tankModel = _tankModel;
             tankView = Object.Instantiate(tankPrefab);
-            tankView.SetSpeed(tankModel.Speed);
         }
 
         public void Move(Vector2 _moveDirection)
@@ -31,7 +30,7 @@ namespace TankBattle.TankService.PlayerTank
 
             if (rb == null)
             {
-                rb = tankView.GetRigidbody();
+                rb = tankView.getRigidbody();
             }
 
             rb.MovePosition(rb.position + moveDirection * tankModel.Speed * Time.deltaTime);
