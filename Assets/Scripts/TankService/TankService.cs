@@ -26,10 +26,10 @@ namespace TankBattle.TankService
 
         // temporary function  creating in a new place
 
-        public void CreateEnemyTank()
+        public void CreateEnemyTank(Vector3 spawnPoint)
         {
             TankType.TankScriptableObject tankScriptableObject = tankList.tanks[enemyTankListVal];
-            tankScriptableObject.tankView.transform.SetPositionAndRotation(new Vector3(5, 0, 0), new Quaternion(0,0,0, 1));
+            tankScriptableObject.tankView.transform.position = spawnPoint;
             tankModel = new TankModel(tankScriptableObject);
             tankController = new PlayerTank.MoveService.TankController(tankModel, tankScriptableObject.tankView);
         }
