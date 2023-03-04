@@ -10,8 +10,9 @@ namespace TankBattle.TankService
 
     public class TankService : GenericSingleton<TankService>
     {
-        [SerializeField] private TankView tankView;
         [SerializeField] private TankType.TankScriptableObjectList tankList;
+
+        private int enemyTankListVal = 4;
 
         // might not be required in tankService
         private PlayerTank.MoveService.TankController tankController;
@@ -23,33 +24,21 @@ namespace TankBattle.TankService
             base.Awake();
         }
 
-        private Color getColorValue(int index)
-        {             
-            if (index == (int)TankType.TankType.None)
-            {
-                return Color.black;
-            }
-            if (index == (int)TankType.TankType.Red)
-            {
-                return Color.red;
-            }
-            if (index == (int)TankType.TankType.Green)
-            {
-                return Color.green;
-            }
-            if (index == (int)TankType.TankType.Blue)
-            {
-                return Color.blue;
-            } 
-             return Color.white;
+        // temporary function  creating in a new place
+
+        public void CreateEnemyTank()
+        {
+            TankType.TankScriptableObject tankScriptableObject = tankList.tanks[enemyTankListVal];
+            tankScriptableObject.tankView.transform.SetPositionAndRotation(new Vector3(5, 0, 0), new Quaternion(0,0,0, 1));
+            tankModel = new TankModel(tankScriptableObject);
+            tankController = new PlayerTank.MoveService.TankController(tankModel, tankScriptableObject.tankView);
         }
 
         public PlayerTank.MoveService.TankController CreateNewPlayerTank(int index)
         {
             TankType.TankScriptableObject tankScriptableObject = tankList.tanks[index];
             tankModel = new TankModel(tankScriptableObject);
-            Color color = getColorValue(index);
-            tankController = new PlayerTank.MoveService.TankController(tankModel, tankView);
+            tankController = new PlayerTank.MoveService.TankController(tankModel, tankScriptableObject.tankView);
             return tankController;
         }
     }

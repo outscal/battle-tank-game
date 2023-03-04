@@ -5,21 +5,21 @@ namespace TankBattle.TankService
 
         public TankModel(TankType.TankScriptableObject tankScriptableObject)
         {
-            TankType = tankScriptableObject.tankType;
+            TankTypes = tankScriptableObject.tankType;
             Speed = tankScriptableObject.speed;
             RotateSpeed = tankScriptableObject.rotateSpeed;
             JumpForce = tankScriptableObject.jumpValue;
         }
         public TankModel(TankType.TankType tankType, float speed, float rotateSpeed, float jumpForce)
         {
-            TankType = tankType;
+            TankTypes = tankType;
             Speed = speed;
             RotateSpeed = rotateSpeed;
             JumpForce = jumpForce;
         }
 
         // read-only properties
-        public TankType.TankType TankType { get; }
+        public TankType.TankType TankTypes { get; }
         public float Speed { get; }
         public float RotateSpeed { get; }
         public float JumpForce { get; }

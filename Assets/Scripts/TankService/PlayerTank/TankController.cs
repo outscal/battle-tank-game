@@ -19,7 +19,7 @@ namespace TankBattle.TankService.PlayerTank.MoveService
 
         public void Move(Vector2 _moveDirection)
         {
-            Vector3 moveDirection = _moveDirection.vector2ToVector3();
+            Vector3 moveDirection = _moveDirection.switchYAndZValues();
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
             targetRotation = Quaternion.RotateTowards
             (
