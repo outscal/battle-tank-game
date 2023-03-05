@@ -24,7 +24,7 @@ namespace TankBattle.TankService
             base.Awake();
         }
 
-        // temporary function  creating in a new place
+        // temporary function  creating in a fixed place
 
         public void CreateEnemyTank(Vector3 spawnPoint)
         {
