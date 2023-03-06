@@ -34,6 +34,7 @@ namespace TankBattle.TankService.Bullets
 
                 targetRb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
 
+
                 // need to create a tankHealth script or use it in tankModel
 
                 // take health value from current tank-gameObj - targetRb
@@ -48,7 +49,7 @@ namespace TankBattle.TankService.Bullets
 
             // unparent particle and audio source from shell which will be destroyed
             explosionParticles.transform.parent = null;
-            explosionAudio.transform.parent = null;
+            //explosionAudio.transform.parent = null;
             explosionParticles.Play();
             explosionAudio.Play();
             Destroy(explosionParticles.gameObject, explosionParticles.main.duration);
