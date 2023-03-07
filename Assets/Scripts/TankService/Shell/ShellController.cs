@@ -12,16 +12,18 @@ namespace TankBattle.TankService.Bullets
     public class ShellController : MonoBehaviour
     {
         [SerializeField] private ShellScriptableObject shellScriptableObject;
-
+        [SerializeField] private ParticleSystem explosionParticles;
+        [SerializeField] private AudioSource explosionAudio;
         private ShellModel shellModel;
-        private ParticleSystem explosionParticles;
-        private AudioSource explosionAudio;
+
+        //private ParticleSystem explosionParticles;
+        //private AudioSource explosionAudio;
 
         private void Awake()
         {
             shellModel = new ShellModel(shellScriptableObject);
-            explosionParticles = shellScriptableObject.shellView.GetParticleSystem();
-            explosionAudio = shellScriptableObject.shellView.GetAudioSystem();
+            //explosionParticles = shellScriptableObject.shellView.GetParticleSystem();
+            //explosionAudio = shellScriptableObject.shellView.GetAudioSystem();
         }
 
         // Start is called before the first frame update
@@ -51,7 +53,7 @@ namespace TankBattle.TankService.Bullets
 
         private void destroyBullet()
         {
-            //explosionParticles.transform.parent = null;
+            explosionParticles.transform.parent = null;
 
             explosionParticles.Play();
             explosionAudio.Play();
