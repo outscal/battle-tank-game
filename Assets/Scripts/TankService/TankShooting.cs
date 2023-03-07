@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TankBattle.TankService.Bullets
+namespace TankBattle.TankService.PlayerTank
 {
     public class TankShooting : MonoBehaviour
     {
@@ -11,8 +11,8 @@ namespace TankBattle.TankService.Bullets
         [SerializeField] private AudioSource shootingAudio;
         [SerializeField] private AudioClip chargingClip;
         [SerializeField] private AudioClip fireClip;
-        [SerializeField] private float minLaunchForce = 0f;
-        [SerializeField] private float maxLaunchForce = 15f;
+        [SerializeField] private float minLaunchForce = 15f;
+        [SerializeField] private float maxLaunchForce = 30f;
         [SerializeField] private float maxChargeTime = 0.75f;
 
         private string fireButton = "Fire1";
@@ -66,7 +66,7 @@ namespace TankBattle.TankService.Bullets
         {
             // instantiate and launch bullet/shell
             isFired = true;
-            Rigidbody shellInstance = Instantiate(bulletShell, fireTransform.position, fireTransform.rotation) as Rigidbody;
+            Rigidbody shellInstance = Instantiate(bulletShell, fireTransform.position, fireTransform.rotation);
             shellInstance.velocity = currentLaunchForce * fireTransform.forward;
 
             shootingAudio.clip = fireClip;

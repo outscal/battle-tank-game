@@ -16,7 +16,7 @@ namespace TankBattle.TankService.PlayerTank.MoveService
             tankModel = _tankModel;
             tankView = Object.Instantiate(tankPrefab);
         }
-
+        
         public void Move(Vector2 _moveDirection)
         {
             Vector3 moveDirection = _moveDirection.switchYAndZValues();

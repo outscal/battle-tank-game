@@ -14,9 +14,7 @@ namespace TankBattle.TankService
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
-            
             rendererArray = GetComponentsInChildren<MeshRenderer>();
-
             SetColorOnAllRenderers();
         }
 
