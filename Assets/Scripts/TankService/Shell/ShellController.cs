@@ -1,35 +1,30 @@
 using UnityEngine;
 
-/*
- *  Shell Script Bullet
- *  Handling the logic for a bullets collisions, using overlapSphereNonAlloc to check for colliders with layer mask of tank
- *  Converting to MVC - 
- *  
- */
-
-namespace TankBattle.TankService.Bullets
+namespace TankBattle.Tank.Bullets
 {
     public class ShellController : MonoBehaviour
     {
         [SerializeField] private ShellScriptableObject shellScriptableObject;
-        [SerializeField] private ParticleSystem explosionParticles;
-        [SerializeField] private AudioSource explosionAudio;
-        private ShellModel shellModel;
+        //[SerializeField] private ParticleSystem explosionParticles;
+        //[SerializeField] private AudioSource explosionAudio;
+        public ShellModel shellModel { get; }
+        public ShellView shellView { get; }
 
-        //private ParticleSystem explosionParticles;
-        //private AudioSource explosionAudio;
+        public ShellController(ShellModel _shellModel, ShellView shellViewPrefab)
+        {
+            shellModel = _shellModel;
+            shellView = Instantiate(shellViewPrefab);
+        }
 
         private void Awake()
         {
-            shellModel = new ShellModel(shellScriptableObject);
-            //explosionParticles = shellScriptableObject.shellView.GetParticleSystem();
-            //explosionAudio = shellScriptableObject.shellView.GetAudioSystem();
+
         }
 
         // Start is called before the first frame update
         private void Start()
         {
-            Destroy(gameObject, shellModel.MaxLifeTime);
+            //Destroy(gameObject, shellModel.MaxLifeTime);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -37,24 +32,20 @@ namespace TankBattle.TankService.Bullets
             // main function - find only tank colliders in a sphere area around the shell and give damage
             // according to its distance away from it.
 
-            //Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius, tankMask);
-
-            int maxColliders = 100;
+            // initialize hitColliders using Physics.OverlapSphere
+            int maxColliders = 10;
             Collider[] hitColliders = new Collider[maxColliders];
             int numOfColliders = Physics.OverlapSphereNonAlloc(transform.position, shellModel.ExplosionRadius, hitColliders, shellModel.LayerMask);
 
             checkHitColliders(hitColliders, numOfColliders);
-
-            // unparent particle from shell which will be destroyed
-            // before deleting bullet
-
             destroyBullet();
         }
 
         private void destroyBullet()
         {
+            ParticleSystem explosionParticles = shellScriptableObject.shellView.GetParticleSystem();
+            AudioSource explosionAudio = shellScriptableObject.shellView.GetAudioSystem();
             explosionParticles.transform.parent = null;
-
             explosionParticles.Play();
             explosionAudio.Play();
             Destroy(explosionParticles.gameObject, explosionParticles.main.duration);
@@ -85,8 +76,6 @@ namespace TankBattle.TankService.Bullets
 
         private float CalculateDamage(Vector3 targetPosition)
         {
-            // calculate amount of damage a target should take depending on its position how far away it is from tranform.position of shell/bullet
-            // check without sqrt
             float explosionDistance = Vector3.Distance(targetPosition, transform.position);
             float relativeDistance = (shellModel.ExplosionRadius - explosionDistance) / shellModel.ExplosionRadius;
             float damage = relativeDistance * shellModel.MaxDamage;

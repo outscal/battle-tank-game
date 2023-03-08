@@ -1,12 +1,12 @@
 using UnityEngine;
 
-namespace TankBattle.TankService
+namespace TankBattle.Tank.View
 {
     [RequireComponent(typeof(Rigidbody))]
 
     public class TankView : MonoBehaviour
     {
-        [SerializeField] private Color color;
+        //[SerializeField] private Color color;
 
         private MeshRenderer[] rendererArray;
         private Rigidbody rb;
@@ -15,10 +15,9 @@ namespace TankBattle.TankService
         {
             rb = GetComponent<Rigidbody>();
             rendererArray = GetComponentsInChildren<MeshRenderer>();
-            SetColorOnAllRenderers();
         }
 
-        public void SetColorOnAllRenderers()
+        public void SetColorOnAllRenderers(Color color)
         {
             for (int i = 0; i < rendererArray.Length; i++)
             {

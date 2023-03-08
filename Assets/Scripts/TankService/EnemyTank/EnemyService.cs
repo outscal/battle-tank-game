@@ -1,16 +1,17 @@
 using UnityEngine;
 
-namespace TankBattle.TankService.EnemyService
+namespace TankBattle.Tank.EnemyTank
 {
     public class EnemyService : MonoBehaviour
     {
-        // Start is called before the first frame update
-
+        
         [SerializeField] private Transform spawnPoint;
+
+        private Tank.PlayerTank.MoveController.TankController enemyTankController;
 
         void Start()
         {
-            TankService.Instance.CreateEnemyTank(spawnPoint.position);
+            enemyTankController = Tank.CreateTank.CreateTankService.Instance.CreateEnemyTank(spawnPoint.position);
         }
     }
 }

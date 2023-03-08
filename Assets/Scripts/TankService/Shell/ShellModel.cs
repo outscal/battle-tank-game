@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TankBattle.TankService.Bullets
+namespace TankBattle.Tank.Bullets
 {
     public class ShellModel
     {

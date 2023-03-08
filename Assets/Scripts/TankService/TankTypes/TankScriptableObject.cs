@@ -1,6 +1,7 @@
+using TankBattle.Tank.View;
 using UnityEngine;
 
-namespace TankBattle.TankService.TankType
+namespace TankBattle.Tank.TankTypes
 {
     [CreateAssetMenu(fileName ="TankScriptableObject", menuName ="ScriptableObjects/NewTank")]
     public class TankScriptableObject : ScriptableObject

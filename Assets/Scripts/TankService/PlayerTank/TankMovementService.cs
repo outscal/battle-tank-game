@@ -1,19 +1,14 @@
 using UnityEngine;
 
-namespace TankBattle.TankService.PlayerTank.MoveService
+namespace TankBattle.Tank.PlayerTank
 {
     public class TankMovementService : MonoBehaviour
     {
-        [SerializeField] private InputReader input;
-        private TankController tankController;
+        [SerializeField] private InputSystem.InputReader input;
+        private MoveController.TankController tankController;
 
         private Vector2 _moveDirection;
         private bool _isJumping;
-
-        public void SetController(TankController _tankController)
-        {
-            tankController = _tankController;
-        }
 
         private void Start()
         {
@@ -49,7 +44,7 @@ namespace TankBattle.TankService.PlayerTank.MoveService
         {
             if (_moveDirection != Vector2.zero)
             {
-                tankController.Move(_moveDirection);
+                tankController.MoveRotate(_moveDirection);
             }
         }
 

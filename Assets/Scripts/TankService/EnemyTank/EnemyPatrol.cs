@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace TankBattle.Assets.Scripts.TankService.EnemyTank
+namespace TankBattle.Tank.EnemyTank
 {
     public class EnemyPatrol : MonoBehaviour
     {

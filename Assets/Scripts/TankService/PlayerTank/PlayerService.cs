@@ -1,19 +1,13 @@
 using UnityEngine;
 
-namespace TankBattle.TankService.PlayerTank
+namespace TankBattle.Tank.PlayerTank
 {
-
-    // generic solving problem of assigning correct ref
-    // inside tankMovementService
-
-    // temporary file for creating player tank from
     // Player Service : function 1 : create player tank
+    // function 2 -  give controller ref to playerMove
     public class PlayerService: GenericSingleton<PlayerService>
     {
-        //create a player tank and assign tank controller to tank movement service
-        [SerializeField] private TankType.TankType tankType;
 
-        private MoveService.TankController tankController;
+        private MoveController.TankController tankController;
 
         private void Start()
         {
@@ -22,10 +16,10 @@ namespace TankBattle.TankService.PlayerTank
 
         public void CreateTank()
         {
-            tankController = TankService.Instance.CreateNewPlayerTank((int)tankType);
+            tankController = Tank.CreateTank.CreateTankService.Instance.CreateNewPlayerTank();
         }
 
-        public MoveService.TankController GetTankController()
+        public MoveController.TankController GetTankController()
         {
             return tankController;
         }

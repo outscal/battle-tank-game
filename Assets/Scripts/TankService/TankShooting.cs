@@ -1,11 +1,12 @@
+using TankBattle.Tank.Bullets;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TankBattle.TankService.PlayerTank
+namespace TankBattle.Tank.PlayerTank
 {
     public class TankShooting : MonoBehaviour
     {
-        [SerializeField] private Rigidbody bulletShell;
+        [SerializeField] private ShellScriptableObject shellScriptableObject;
         [SerializeField] private Transform fireTransform;
         [SerializeField] private Slider aimSlider;
         [SerializeField] private AudioSource shootingAudio;
@@ -62,13 +63,19 @@ namespace TankBattle.TankService.PlayerTank
             }
         }
 
+        // fire function goes inside either player service or tank service
         private void Fire()
         {
             // instantiate and launch bullet/shell
             isFired = true;
-            Rigidbody shellInstance = Instantiate(bulletShell, fireTransform.position, fireTransform.rotation);
-            shellInstance.velocity = currentLaunchForce * fireTransform.forward;
 
+            Bullets.ShellModel bulletModel = new Bullets.ShellModel(shellScriptableObject);
+            ShellController bulletShell = new Bullets.ShellController(bulletModel, shellScriptableObject.shellView);
+            Rigidbody shellInstance = bulletShell.shellView.GetRigidbody();
+            //Rigidbody shellInstance = Instantiate(bulletShell, fireTransform.position, fireTransform.rotation);
+
+
+            shellInstance.velocity = currentLaunchForce * fireTransform.forward;
             shootingAudio.clip = fireClip;
             shootingAudio.Play();
             currentLaunchForce = minLaunchForce;

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TankBattle.TankService.Bullets
+namespace TankBattle.Tank.Bullets
 {
     [CreateAssetMenu(fileName ="ShellScriptableObject", menuName ="ScriptableObjects/ShellBullet")]
     public class ShellScriptableObject : ScriptableObject
