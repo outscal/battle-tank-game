@@ -9,7 +9,6 @@ namespace TankBattle.Tank.CreateTank
         [SerializeField] private Color tankColor;
         [SerializeField] private Color enemyTankColor;
 
-        private TankController tankController;
         private Model.TankModel tankModel;
 
         protected override void Awake()
@@ -22,7 +21,7 @@ namespace TankBattle.Tank.CreateTank
             TankTypes.TankScriptableObject tankScriptableObject = tankList.tanks[1];
             tankScriptableObject.tankView.transform.position = spawnPoint;
             tankModel = new Model.TankModel(tankScriptableObject);
-            tankController = new TankController(tankModel, tankScriptableObject.tankView, enemyTankColor);
+            TankController tankController = new TankController(tankModel, tankScriptableObject.tankView, enemyTankColor);
             return tankController;
         }
 
@@ -30,7 +29,7 @@ namespace TankBattle.Tank.CreateTank
         {
             TankTypes.TankScriptableObject tankScriptableObject = tankList.tanks[0];
             tankModel = new Model.TankModel(tankScriptableObject);
-            tankController = new TankController(tankModel, tankScriptableObject.tankView, tankColor);
+            TankController tankController = new TankController(tankModel, tankScriptableObject.tankView, tankColor);
             return tankController;
         }
     }

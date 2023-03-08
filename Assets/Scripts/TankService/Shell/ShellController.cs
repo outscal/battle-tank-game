@@ -2,82 +2,24 @@ using UnityEngine;
 
 namespace TankBattle.Tank.Bullets
 {
-    public class ShellController : MonoBehaviour
+    public class ShellController
     {
-        [SerializeField] private ShellScriptableObject shellScriptableObject;
+        public ShellModel GetShellModel { get; }
+        public ShellView GetShellView { get; }
 
-        public ShellModel shellModel { get; }
-        public ShellView shellView { get; }
-
-        public ShellController(ShellModel _shellModel, ShellView shellViewPrefab)
+        public ShellController(ShellModel _shellModel, ShellView shellViewPrefab, Transform spawnPoint)
         {
-            shellModel = _shellModel;
-            shellView = Instantiate(shellViewPrefab);
+            GetShellModel = _shellModel;
+            GetShellView = Object.Instantiate(shellViewPrefab, spawnPoint.position, spawnPoint.rotation);
         }
 
-        private void Awake()
+        public float CalculateDamage(Vector3 tankPosition, Vector3 impactPosition)
         {
+            float explosionDistance = Vector3.Distance(tankPosition, impactPosition);
 
-        }
+            float relativeDistance = (GetShellModel.ExplosionRadius - explosionDistance) / GetShellModel.ExplosionRadius;
 
-        // Start is called before the first frame update
-        private void Start()
-        {
-            Destroy(gameObject, shellModel.MaxLifeTime);
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            // main function - find only tank colliders in a sphere area around the shell and give damage
-            // according to its distance away from it.
-
-            // initialize hitColliders using Physics.OverlapSphere
-            int maxColliders = 10;
-            Collider[] hitColliders = new Collider[maxColliders];
-            int numOfColliders = Physics.OverlapSphereNonAlloc(transform.position, shellModel.ExplosionRadius, hitColliders, shellModel.LayerMask);
-
-            checkHitColliders(hitColliders, numOfColliders);
-            destroyBullet();
-        }
-
-        private void destroyBullet()
-        {
-            ParticleSystem explosionParticles = shellScriptableObject.shellView.GetParticleSystem();
-            AudioSource explosionAudio = shellScriptableObject.shellView.GetAudioSystem();
-            explosionParticles.transform.parent = null;
-            explosionParticles.Play();
-            explosionAudio.Play();
-            Destroy(explosionParticles.gameObject, explosionParticles.main.duration);
-            Destroy(gameObject);
-        }
-
-        private void checkHitColliders(Collider[] hitColliders, int numOfColliders)
-        {
-            for (int i = 0; i < numOfColliders; i++)
-            {
-                Rigidbody targetRb = hitColliders[i].gameObject.GetComponent<Rigidbody>();
-
-                // go to next collider
-                if (!targetRb) continue;
-
-                targetRb.AddExplosionForce(shellModel.ExplosionForce, transform.position, shellModel.ExplosionRadius);
-
-                // need to create a tankHealth script or use it in tankModel
-                // take health value from current tank-gameObj - targetRb
-                // TankHealth targetHealth = targetRb.GetComponent<TankHealth>();
-                // if(!targetHealth) continue;
-
-                float damage = CalculateDamage(targetRb.position);
-
-                // targetHealth.TakeDamage(damage);
-            }
-        }
-
-        private float CalculateDamage(Vector3 targetPosition)
-        {
-            float explosionDistance = Vector3.Distance(targetPosition, transform.position);
-            float relativeDistance = (shellModel.ExplosionRadius - explosionDistance) / shellModel.ExplosionRadius;
-            float damage = relativeDistance * shellModel.MaxDamage;
+            float damage = relativeDistance * GetShellModel.MaxDamage;
             damage = Mathf.Max(damage, 0f);
             return damage;
         }

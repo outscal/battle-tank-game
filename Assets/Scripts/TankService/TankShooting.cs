@@ -6,7 +6,6 @@ namespace TankBattle.Tank.PlayerTank
 {
     public class TankShooting : MonoBehaviour
     {
-        [SerializeField] private ShellScriptableObject shellScriptableObject;
         [SerializeField] private Transform fireTransform;
         [SerializeField] private Slider aimSlider;
         [SerializeField] private AudioSource shootingAudio;
@@ -16,7 +15,7 @@ namespace TankBattle.Tank.PlayerTank
         [SerializeField] private float maxLaunchForce = 30f;
         [SerializeField] private float maxChargeTime = 0.75f;
 
-        private string fireButton = "Fire1";
+        private readonly string fireButton = "Fire1";
         private float currentLaunchForce;
         private float chargeSpeed;
         private bool isFired;
@@ -63,19 +62,15 @@ namespace TankBattle.Tank.PlayerTank
             }
         }
 
-        // fire function goes inside either player service or tank service
+        // fire function goes should go inside player / tank controller
         private void Fire()
         {
             // instantiate and launch bullet/shell
             isFired = true;
 
-            Bullets.ShellModel bulletModel = new Bullets.ShellModel(shellScriptableObject);
-            ShellController bulletShell = new Bullets.ShellController(bulletModel, shellScriptableObject.shellView);
-            Rigidbody shellInstance = bulletShell.shellView.GetRigidbody();
-            //Rigidbody shellInstance = Instantiate(bulletShell, fireTransform.position, fireTransform.rotation);
+            ShellController bulletShell = CreateShellService.Instance.CreateBulletShell(fireTransform);
 
-
-            shellInstance.velocity = currentLaunchForce * fireTransform.forward;
+            bulletShell.GetShellView.AddVelocity(currentLaunchForce * fireTransform.forward);
             shootingAudio.clip = fireClip;
             shootingAudio.Play();
             currentLaunchForce = minLaunchForce;
