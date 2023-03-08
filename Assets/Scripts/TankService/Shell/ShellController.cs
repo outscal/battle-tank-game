@@ -5,8 +5,7 @@ namespace TankBattle.Tank.Bullets
     public class ShellController : MonoBehaviour
     {
         [SerializeField] private ShellScriptableObject shellScriptableObject;
-        //[SerializeField] private ParticleSystem explosionParticles;
-        //[SerializeField] private AudioSource explosionAudio;
+
         public ShellModel shellModel { get; }
         public ShellView shellView { get; }
 
@@ -24,7 +23,7 @@ namespace TankBattle.Tank.Bullets
         // Start is called before the first frame update
         private void Start()
         {
-            //Destroy(gameObject, shellModel.MaxLifeTime);
+            Destroy(gameObject, shellModel.MaxLifeTime);
         }
 
         private void OnTriggerEnter(Collider other)
