@@ -81,12 +81,12 @@ namespace TankBattle.Tank.Bullets
 
                 // need to create a tankHealth script or use it in tankModel
                 // take health value from current tank-gameObj - targetRb
-                // TankHealth targetHealth = targetRb.GetComponent<TankHealth>();
-                // if(!targetHealth) continue;
+                TankHealth targetHealth = targetRb.GetComponent<TankHealth>();
+                if (!targetHealth) continue;
 
                 float damage = shellController.CalculateDamage(targetRb.position, transform.position);
                 Debug.Log($"Damage: {damage}");
-                // targetHealth.TakeDamage(damage);
+                targetHealth.TakeDamage(damage);
             }
         }
     }
