@@ -62,7 +62,7 @@ namespace TankBattle.Tank.PlayerTank
             }
         }
 
-        // fire function goes should go inside player / tank controller
+        // fire function should go inside player / tank controller
         private void Fire()
         {
             // instantiate and launch bullet/shell

@@ -1,3 +1,4 @@
+using TankBattle.Tank.PlayerTank.MoveController;
 using UnityEngine;
 
 namespace TankBattle.Tank.Bullets
@@ -81,12 +82,12 @@ namespace TankBattle.Tank.Bullets
 
                 // need to create a tankHealth script or use it in tankModel
                 // take health value from current tank-gameObj - targetRb
-                TankHealth targetHealth = targetRb.GetComponent<TankHealth>();
-                if (!targetHealth) continue;
+                View.TankView targetTank = targetRb.GetComponent<View.TankView>();
+                if (targetTank == null) continue;
 
                 float damage = shellController.CalculateDamage(targetRb.position, transform.position);
                 Debug.Log($"Damage: {damage}");
-                targetHealth.TakeDamage(damage);
+                targetTank.TakeDamage(damage);
             }
         }
     }

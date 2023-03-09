@@ -6,14 +6,27 @@ namespace TankBattle.Tank.PlayerTank.MoveController
     public class TankController
     {
         private Rigidbody rb;
+        private float health;
 
-        public TankController(Model.TankModel _tankModel, View.TankView tankPrefab, Color color)
+
+        public TankController(Model.TankModel _tankModel, View.TankView tankPrefab)
         {
             tankModel = _tankModel;
             tankView = Object.Instantiate(tankPrefab);
-            tankView.SetColorOnAllRenderers(color);
+            tankView.SetColorOnAllRenderers(tankModel.GetColor);
+            health = tankModel.GetHealth;
+            tankView.SetHealthFull(health);
         }
-        
+
+        public TankController(Model.TankModel _tankModel, View.TankView tankPrefab, Vector3 spawnPosition)
+        {
+            tankModel = _tankModel;
+            tankView = Object.Instantiate(tankPrefab, spawnPosition, Quaternion.identity);
+            tankView.SetColorOnAllRenderers(tankModel.GetColor);
+            health = tankModel.GetHealth;
+            tankView.SetHealthFull(health);
+        }
+
         public void MoveRotate(Vector2 _moveDirection)
         {
             Vector3 directionVector = _moveDirection.switchYAndZValues();
@@ -52,7 +65,6 @@ namespace TankBattle.Tank.PlayerTank.MoveController
             }
             rb.AddForce(Vector3.up * tankModel.JumpForce * Time.deltaTime, ForceMode.Impulse);
         }
-
 
 
         public Model.TankModel tankModel { get; }
