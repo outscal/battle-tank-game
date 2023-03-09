@@ -4,10 +4,10 @@ namespace TankBattle
 {
     public class GameManager : MonoBehaviour
     {
-        [SerializeField] private InputReader _input;
+        [SerializeField] private Tank.PlayerTank.InputSystem.InputReader _input;
+        [SerializeField] private Tank.PlayerTank.PlayerService playerService;
         [SerializeField] private GameObject pauseMenu;
 
-        private bool _isPaused = false;
 
         private void Start()
         {

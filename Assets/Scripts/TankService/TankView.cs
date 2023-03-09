@@ -1,26 +1,31 @@
 using UnityEngine;
 
-namespace TankBattle.TankService.PlayerTank
+namespace TankBattle.Tank.View
 {
     [RequireComponent(typeof(Rigidbody))]
 
     public class TankView : MonoBehaviour
     {
-        private Rigidbody rb;
+        //[SerializeField] private Color color;
 
-        [SerializeField] private float speed;
+        private MeshRenderer[] rendererArray;
+        private Rigidbody rb;
 
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
+            rendererArray = GetComponentsInChildren<MeshRenderer>();
         }
 
-        public void SetSpeed(float _speed)
+        public void SetColorOnAllRenderers(Color color)
         {
-            speed = _speed;
+            for (int i = 0; i < rendererArray.Length; i++)
+            {
+                rendererArray[i].material.color = color;
+            }
         }
 
-        public Rigidbody GetRigidbody()
+        public Rigidbody getRigidbody()
         {
             return rb;
         }

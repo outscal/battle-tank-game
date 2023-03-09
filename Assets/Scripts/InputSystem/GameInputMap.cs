@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-namespace TankBattle.InputSystem
+namespace TankBattle.Tank.PlayerTank.InputSystem
 {
     public class @GameInputMap : IInputActionCollection, IDisposable
     {
