@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace TankBattle.Tank.Model
 {
     public class TankModel
@@ -8,6 +10,8 @@ namespace TankBattle.Tank.Model
             Speed = tankScriptableObject.speed;
             RotateSpeed = tankScriptableObject.rotateSpeed;
             JumpForce = tankScriptableObject.jumpValue;
+            GetHealth = tankScriptableObject.health;
+            GetColor = tankScriptableObject.tankColor;
         }
 
         // read-only properties
@@ -15,5 +19,7 @@ namespace TankBattle.Tank.Model
         public float Speed { get; }
         public float RotateSpeed { get; }
         public float JumpForce { get; }
-    };
+        public float GetHealth { get; }
+        public Color GetColor { get; }
+    }
 }

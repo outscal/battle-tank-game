@@ -8,9 +8,11 @@ namespace TankBattle.Tank.TankTypes
     {
         public TankView tankView;
         public TankType tankType;
+        public Color tankColor;
         public string tankName;
         public float speed;
         public float rotateSpeed;
         public float jumpValue;
+        public float health;
     }
 }

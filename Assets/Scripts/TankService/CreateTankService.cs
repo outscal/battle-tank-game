@@ -6,9 +6,6 @@ namespace TankBattle.Tank.CreateTank
     public class CreateTankService : GenericSingleton<CreateTankService>
     {
         [SerializeField] private TankTypes.TankScriptableObjectList tankList;
-        [SerializeField] private Color tankColor;
-        [SerializeField] private Color enemyTankColor;
-
         private Model.TankModel tankModel;
 
         protected override void Awake()
@@ -21,7 +18,7 @@ namespace TankBattle.Tank.CreateTank
             TankTypes.TankScriptableObject tankScriptableObject = tankList.tanks[1];
             tankScriptableObject.tankView.transform.position = spawnPoint;
             tankModel = new Model.TankModel(tankScriptableObject);
-            TankController tankController = new TankController(tankModel, tankScriptableObject.tankView, enemyTankColor);
+            TankController tankController = new TankController(tankModel, tankScriptableObject.tankView);
             return tankController;
         }
 
@@ -29,7 +26,15 @@ namespace TankBattle.Tank.CreateTank
         {
             TankTypes.TankScriptableObject tankScriptableObject = tankList.tanks[0];
             tankModel = new Model.TankModel(tankScriptableObject);
-            TankController tankController = new TankController(tankModel, tankScriptableObject.tankView, tankColor);
+            TankController tankController = new TankController(tankModel, tankScriptableObject.tankView);
+            return tankController;
+        }
+
+        public TankController CreateNewPlayerTank(Vector3 SpawnPosition)
+        {
+            TankTypes.TankScriptableObject tankScriptableObject = tankList.tanks[0];
+            tankModel = new Model.TankModel(tankScriptableObject);
+            TankController tankController = new TankController(tankModel, tankScriptableObject.tankView, SpawnPosition);
             return tankController;
         }
     }
