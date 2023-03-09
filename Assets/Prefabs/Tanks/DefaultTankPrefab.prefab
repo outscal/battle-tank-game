@@ -595,6 +595,7 @@ GameObject:
   - component: {fileID: 7124874151064414977}
   - component: {fileID: 7124874151064414990}
   - component: {fileID: 1650589644}
+  - component: {fileID: 6101734078180317526}
   m_Layer: 6
   m_Name: DefaultTankPrefab
   m_TagString: Untagged
@@ -661,6 +662,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 100
+  healthSlider: {fileID: 6160603924571123616}
+  fillImage: {fileID: 7422108767522015977}
+  fullHealthColor: {r: 0, g: 1, b: 0, a: 1}
+  zeroHealthColor: {r: 1, g: 0, b: 0, a: 1}
+  explosionPrefab: {fileID: 151086, guid: ee49a9a8678ecf8468eb488e1ac8d42b, type: 3}
+--- !u!114 &6101734078180317526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7124874151064414987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5185eb07723c86749b97a96f9752821d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   healthSlider: {fileID: 6160603924571123616}
   fillImage: {fileID: 7422108767522015977}
   fullHealthColor: {r: 0, g: 1, b: 0, a: 1}

@@ -51,7 +51,6 @@ namespace TankBattle.Tank
         private void OnDeath()
         {
             isDead = true;
-
             explosionParticles.transform.position = transform.position;
             explosionParticles.gameObject.SetActive(true);
             explosionParticles.Play();

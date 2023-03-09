@@ -69,7 +69,7 @@ namespace TankBattle.Tank.View
             SetHealthUI();
         }
 
-        public void OnDeath()
+        private void OnDeath()
         {
             isDead = true;
             explosionParticles.transform.position = transform.position;
