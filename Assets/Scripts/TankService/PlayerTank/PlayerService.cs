@@ -19,8 +19,8 @@ namespace TankBattle.Tank.PlayerTank
 
         public void CreateTank()
         {
-            tankController = Tank.CreateTank.CreateTankService.Instance.CreateNewPlayerTank();
-            tankController2 = Tank.CreateTank.CreateTankService.Instance.CreateNewPlayerTank(spawnPoint.position);
+            //tankController = Tank.CreateTank.CreateTankService.Instance.CreateNewPlayerTank();
+            tankController = Tank.CreateTank.CreateTankService.Instance.CreateNewPlayerTank(spawnPoint.position);
         }
 
         public MoveController.TankController GetTankController()
