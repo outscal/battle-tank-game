@@ -7,11 +7,12 @@ namespace TankBattle.Tank.EnemyTank
         
         [SerializeField] private Transform spawnPoint;
 
+        private int enemyTankIndex = 1;
         private Tank.PlayerTank.MoveController.TankController enemyTankController;
 
         void Start()
         {
-            enemyTankController = Tank.CreateTank.CreateTankService.Instance.CreateEnemyTank(spawnPoint.position);
+            enemyTankController = CreateTank.CreateTankService.Instance.CreateTank(spawnPoint.position, enemyTankIndex);
         }
     }
 }

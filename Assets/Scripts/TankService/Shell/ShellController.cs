@@ -1,3 +1,4 @@
+using TankBattle.Tank.PlayerTank.MoveController;
 using UnityEngine;
 
 namespace TankBattle.Tank.Bullets
@@ -13,9 +14,37 @@ namespace TankBattle.Tank.Bullets
             GetShellView = Object.Instantiate(shellViewPrefab, spawnPoint.position, spawnPoint.rotation);
         }
 
-        public float CalculateDamage(Vector3 tankPosition, Vector3 impactPosition)
+        public void CheckHitColliders(Collider[] hitColliders, int numOfColliders, Vector3 bulletPosition)
         {
-            float explosionDistance = Vector3.Distance(tankPosition, impactPosition);
+            for (int i = 0; i < numOfColliders; i++)
+            {
+                Rigidbody targetRb = hitColliders[i].gameObject.GetComponent<Rigidbody>();
+
+                // go to next collider
+                if (!targetRb) continue;
+
+                targetRb.AddExplosionForce(CreateShellService.Instance.GetBulletModel.ExplosionForce, bulletPosition, CreateShellService.Instance.GetBulletModel.ExplosionRadius);
+
+                // need to create a tankHealth script or use it in GetTankModel
+                // take health value from current tank-gameObj - targetRb
+                View.TankView targetTankView = targetRb.GetComponent<View.TankView>();
+                TankController targetTank = targetTankView.GetTankController();
+                if (targetTank == null) continue;
+
+                float damage = CalculateDamage(targetTankView.transform.position, bulletPosition);
+                Debug.Log($"Damage: {damage}");
+                targetTank.TakeDamage(damage);
+            }
+        }
+
+        private float CalculateDamage(Vector3 tankPosition, Vector3 impactPosition)
+        {
+            // Slightly less accurate Distance
+            float explosionDistance = (tankPosition - impactPosition).sqrMagnitude;
+            Debug.Log($"Dist1: {explosionDistance}");
+            //float explosionDistance2 = Vector3.Distance(tankPosition, impactPosition);
+            //Debug.Log($"Dist2: {explosionDistance2}");
+
 
             float relativeDistance = (GetShellModel.ExplosionRadius - explosionDistance) / GetShellModel.ExplosionRadius;
 
