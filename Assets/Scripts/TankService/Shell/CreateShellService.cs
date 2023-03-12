@@ -7,12 +7,12 @@ namespace TankBattle.Tank.Bullets
     {
         [SerializeField] private ShellScriptableObject shellScriptableObject;
 
-        private ShellModel bulletModel;
+        public ShellModel GetBulletModel { get; set; }
 
         public ShellController CreateBulletShell(Transform fireTransform)
         {
-            bulletModel = new Bullets.ShellModel(shellScriptableObject);
-            ShellController bulletShell = new Bullets.ShellController(bulletModel, shellScriptableObject.shellView, fireTransform);
+            GetBulletModel = new Bullets.ShellModel(shellScriptableObject);
+            ShellController bulletShell = new Bullets.ShellController(GetBulletModel, shellScriptableObject.shellView, fireTransform);
             bulletShell.GetShellView.SetShellController(bulletShell);
             return bulletShell;
         }

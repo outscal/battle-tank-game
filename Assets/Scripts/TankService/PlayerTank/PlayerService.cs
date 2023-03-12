@@ -6,10 +6,10 @@ namespace TankBattle.Tank.PlayerTank
     // function 2 -  give controller ref to playerMove
     public class PlayerService: GenericSingleton<PlayerService>
     {
-        public Transform spawnPoint;
+        [SerializeField] private Transform spawnPoint;
 
+        private int playerTankIndex = 0;
         private MoveController.TankController tankController;
-        private MoveController.TankController tankController2;
 
 
         private void Start()
@@ -19,8 +19,8 @@ namespace TankBattle.Tank.PlayerTank
 
         public void CreateTank()
         {
-            tankController = Tank.CreateTank.CreateTankService.Instance.CreateNewPlayerTank();
-            tankController2 = Tank.CreateTank.CreateTankService.Instance.CreateNewPlayerTank(spawnPoint.position);
+            //tankController = Tank.CreateTank.CreateTankService.Instance.CreateNewPlayerTank();
+            tankController = Tank.CreateTank.CreateTankService.Instance.CreateTank(spawnPoint.position, playerTankIndex);
         }
 
         public MoveController.TankController GetTankController()

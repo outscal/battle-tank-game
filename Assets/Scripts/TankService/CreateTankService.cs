@@ -8,33 +8,14 @@ namespace TankBattle.Tank.CreateTank
         [SerializeField] private TankTypes.TankScriptableObjectList tankList;
         private Model.TankModel tankModel;
 
-        protected override void Awake()
+        public TankController CreateTank(Vector3 spawnPoint, int tankTypeIndex)
         {
-            base.Awake();
-        }
-
-        public TankController CreateEnemyTank(Vector3 spawnPoint)
-        {
-            TankTypes.TankScriptableObject tankScriptableObject = tankList.tanks[1];
-            tankScriptableObject.tankView.transform.position = spawnPoint;
+            TankTypes.TankScriptableObject tankScriptableObject = tankList.tanks[tankTypeIndex];
             tankModel = new Model.TankModel(tankScriptableObject);
-            TankController tankController = new TankController(tankModel, tankScriptableObject.tankView);
-            return tankController;
-        }
-
-        public TankController CreateNewPlayerTank()
-        {
-            TankTypes.TankScriptableObject tankScriptableObject = tankList.tanks[0];
-            tankModel = new Model.TankModel(tankScriptableObject);
-            TankController tankController = new TankController(tankModel, tankScriptableObject.tankView);
-            return tankController;
-        }
-
-        public TankController CreateNewPlayerTank(Vector3 SpawnPosition)
-        {
-            TankTypes.TankScriptableObject tankScriptableObject = tankList.tanks[0];
-            tankModel = new Model.TankModel(tankScriptableObject);
-            TankController tankController = new TankController(tankModel, tankScriptableObject.tankView, SpawnPosition);
+            TankController tankController = new TankController(tankModel, tankScriptableObject.tankView, spawnPoint);
+            tankController.GetTankView.SetTankController(tankController);
+            tankController.GetTankView.SetMaxHealth(tankModel.GetSetHealth);
+            tankController.GetTankView.SetHealthUI();
             return tankController;
         }
     }

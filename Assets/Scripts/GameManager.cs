@@ -15,6 +15,12 @@ namespace TankBattle
             _input.ResumeEvent += HandleResume;
         }
 
+        private void OnDisable()
+        {
+            _input.PauseEvent -= HandlePause;
+            _input.ResumeEvent -= HandleResume;
+        }
+
         private void HandlePause()
         {
             Time.timeScale = 0;

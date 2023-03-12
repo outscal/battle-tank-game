@@ -5,69 +5,72 @@ namespace TankBattle.Tank.PlayerTank.MoveController
 {
     public class TankController
     {
+        public Model.TankModel GetTankModel { get; }
+        public View.TankView GetTankView { get; }
+
         private Rigidbody rb;
-        private float health;
 
-
-        public TankController(Model.TankModel _tankModel, View.TankView tankPrefab)
+        public TankController(Model.TankModel tankModel, View.TankView tankPrefab, Vector3 spawnPosition)
         {
-            tankModel = _tankModel;
-            tankView = Object.Instantiate(tankPrefab);
-            tankView.SetColorOnAllRenderers(tankModel.GetColor);
-            health = tankModel.GetHealth;
-            tankView.SetHealthFull(health);
+            GetTankModel = tankModel;
+            GetTankView = Object.Instantiate(tankPrefab, spawnPosition, Quaternion.identity);
+            GetTankView.SetColorOnAllRenderers(GetTankModel.GetColor);
+
+            // either assign tankView references here or inside the 
+            // TankBattle.Tank.CreateTank.CreateTankService.Instance.CreateTank method
+
+            //GetTankView.SetTankController(this);
+            //GetTankView.SetMaxHealth(GetTankModel.GetSetHealth);
+            //GetTankView.SetHealthUI();
         }
 
-        public TankController(Model.TankModel _tankModel, View.TankView tankPrefab, Vector3 spawnPosition)
-        {
-            tankModel = _tankModel;
-            tankView = Object.Instantiate(tankPrefab, spawnPosition, Quaternion.identity);
-            tankView.SetColorOnAllRenderers(tankModel.GetColor);
-            health = tankModel.GetHealth;
-            tankView.SetHealthFull(health);
-        }
-
+        //Movement-related logic and jump if needed
         public void MoveRotate(Vector2 _moveDirection)
         {
             Vector3 directionVector = _moveDirection.switchYAndZValues();
             Move(directionVector);
             Rotate(directionVector);
         }
-
         private void Move(Vector3 moveDirection)
         {
             if (!rb)
             {
-                rb = tankView.getRigidbody();
+                rb = GetTankView.getRigidbody();
             }
 
-            rb.MovePosition(rb.position + moveDirection * tankModel.Speed * Time.deltaTime);
+            rb.MovePosition(rb.position + moveDirection * GetTankModel.Speed * Time.deltaTime);
         }
-
         private void Rotate(Vector3 rotateDirection)
         {
             Quaternion targetRotation = Quaternion.LookRotation(rotateDirection, Vector3.up);
             targetRotation = Quaternion.RotateTowards
             (
-                tankView.transform.localRotation,
+                GetTankView.transform.localRotation,
                 targetRotation,
-                tankModel.RotateSpeed * Time.fixedDeltaTime
+                GetTankModel.RotateSpeed * Time.fixedDeltaTime
             );
 
             rb.MoveRotation(targetRotation);
         }
-
         public void Jump()
         {
             if (!rb)
             {
-                rb = tankView.GetComponent<Rigidbody>();
+                rb = GetTankView.GetComponent<Rigidbody>();
             }
-            rb.AddForce(Vector3.up * tankModel.JumpForce * Time.deltaTime, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * GetTankModel.JumpForce * Time.deltaTime, ForceMode.Impulse);
         }
 
+        // health related logic
+        public void TakeDamage(float amount)
+        {
+            GetTankModel.GetSetHealth -= amount;
 
-        public Model.TankModel tankModel { get; }
-        public View.TankView tankView { get; }
+            if(GetTankModel.GetSetHealth < 0f)
+            {
+                GetTankModel.GetSetHealth = 0f;
+            }
+            GetTankView.SetHealthUI();
+        }
     };
 }

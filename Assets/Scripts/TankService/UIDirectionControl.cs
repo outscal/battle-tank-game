@@ -1,12 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace TankBattle.Tank
 {
+    // not exactly sure of function of the relativeRotation here. 
+    // As the HealthSlider is aligned correctly most of the times with its parent tank obj
     public class UIDirectionControl : MonoBehaviour
     {
-        public bool useRelativeRotation = true;
+        private bool useRelativeRotation = true;
 
         private Quaternion relativeRotation;
 

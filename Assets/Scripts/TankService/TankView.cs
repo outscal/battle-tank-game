@@ -1,4 +1,5 @@
 using System;
+using TankBattle.Tank.PlayerTank.MoveController;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +15,7 @@ namespace TankBattle.Tank.View
         [SerializeField] private Color zeroHealthColor = Color.red;
         [SerializeField] private GameObject explosionPrefab;
 
-        private MeshRenderer[] rendererArray;
+        private MeshRenderer[] renderersOnTank;
         private Rigidbody rb;
         private AudioSource explosionAudio;
         private ParticleSystem explosionParticles;
@@ -22,21 +23,31 @@ namespace TankBattle.Tank.View
         private float currentHealth;
         private bool isDead;
 
+        private TankController tankController;
+
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
-            rendererArray = GetComponentsInChildren<MeshRenderer>();
+            renderersOnTank = GetComponentsInChildren<MeshRenderer>();
 
             explosionParticles = Instantiate(explosionPrefab).GetComponent<ParticleSystem>();
             explosionAudio = explosionParticles.GetComponent<AudioSource>();
             explosionParticles.gameObject.SetActive(false);
         }
 
-        public void SetHealthFull(float _maxHealth)
+        public void SetTankController(TankController _tankController)
+        {
+            tankController = _tankController;
+        }
+
+        public TankController GetTankController()
+        {
+            return tankController;
+        }
+
+        public void SetMaxHealth(float _maxHealth)
         {
             maxHealth = _maxHealth;
-            currentHealth = maxHealth;
-            SetHealthUI();
         }
 
         private void OnEnable()
@@ -44,29 +55,17 @@ namespace TankBattle.Tank.View
             isDead = false;
         }
 
-        public void ReduceHealth(float health)
+        public void SetHealthUI()
         {
-            currentHealth = health;
-            SetHealthUI();
-        }
-
-        private void SetHealthUI()
-        {
-            if(currentHealth <= 0f && !isDead)
+            if(tankController.GetTankModel.GetSetHealth <= 0f && !isDead)
             {
                 OnDeath();
             }
             else
             {
-            healthSlider.value = currentHealth;
-            fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, currentHealth / maxHealth);
+            healthSlider.value = tankController.GetTankModel.GetSetHealth;
+            fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, tankController.GetTankModel.GetSetHealth / maxHealth);
             }
-        }
-
-        public void TakeDamage(float amount)
-        {
-            currentHealth -= amount;
-            SetHealthUI();
         }
 
         private void OnDeath()
@@ -81,9 +80,9 @@ namespace TankBattle.Tank.View
 
         public void SetColorOnAllRenderers(Color color)
         {
-            for (int i = 0; i < rendererArray.Length; i++)
+            for (int i = 0; i < renderersOnTank.Length; i++)
             {
-                rendererArray[i].material.color = color;
+                renderersOnTank[i].material.color = color;
             }
         }
 
