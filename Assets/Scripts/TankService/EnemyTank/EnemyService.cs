@@ -8,7 +8,7 @@ namespace TankBattle.Tank.EnemyTank
         [SerializeField] private Transform spawnPoint;
 
         private int enemyTankIndex = 1;
-        private Tank.PlayerTank.MoveController.TankController enemyTankController;
+        private TankController enemyTankController;
 
         void Start()
         {

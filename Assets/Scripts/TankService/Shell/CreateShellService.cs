@@ -11,7 +11,7 @@ namespace TankBattle.Tank.Bullets
 
         public ShellController CreateBulletShell(Transform fireTransform)
         {
-            GetBulletModel = new Bullets.ShellModel(shellScriptableObject);
+            GetBulletModel = new ShellModel(shellScriptableObject);
             ShellController bulletShell = new Bullets.ShellController(GetBulletModel, shellScriptableObject.shellView, fireTransform);
             bulletShell.GetShellView.SetShellController(bulletShell);
             return bulletShell;

@@ -1,30 +1,34 @@
 using TankBattle.Extensions;
 using UnityEngine;
 
-namespace TankBattle.Tank.PlayerTank.MoveController
+namespace TankBattle.Tank
 {
     public class TankController
     {
-        public Model.TankModel GetTankModel { get; }
-        public View.TankView GetTankView { get; }
+        public TankModel GetTankModel { get; }
+        public TankView GetTankView { get; }
 
         private Rigidbody rb;
+        private bool isDead;
 
-        public TankController(Model.TankModel tankModel, View.TankView tankPrefab, Vector3 spawnPosition)
+        public TankController(TankModel tankModel, TankView tankPrefab, Vector3 spawnPosition)
         {
             GetTankModel = tankModel;
             GetTankView = Object.Instantiate(tankPrefab, spawnPosition, Quaternion.identity);
             GetTankView.SetColorOnAllRenderers(GetTankModel.GetColor);
-
+            isDead = false;
             // either assign tankView references here or inside the 
             // TankBattle.Tank.CreateTank.CreateTankService.Instance.CreateTank method
-
+            // after calling this ctor
             //GetTankView.SetTankController(this);
             //GetTankView.SetMaxHealth(GetTankModel.GetSetHealth);
             //GetTankView.SetHealthUI();
+
+            // using this to assign controller ref results in slightly weird/slower/non-uniform movement in game
         }
 
-        //Movement-related logic and jump if needed
+        //Movement-related logic
+        //and jump if needed
         public void MoveRotate(Vector2 _moveDirection)
         {
             Vector3 directionVector = _moveDirection.switchYAndZValues();
@@ -65,12 +69,17 @@ namespace TankBattle.Tank.PlayerTank.MoveController
         public void TakeDamage(float amount)
         {
             GetTankModel.GetSetHealth -= amount;
-
-            if(GetTankModel.GetSetHealth < 0f)
-            {
-                GetTankModel.GetSetHealth = 0f;
-            }
             GetTankView.SetHealthUI();
+            if (GetTankModel.GetSetHealth <= 0f && !isDead)
+            {
+                OnDeath();
+            }
+        }
+
+        private void OnDeath()
+        {
+            isDead = true;
+            GetTankView.OnDeathHandler();
         }
     };
 }

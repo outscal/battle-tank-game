@@ -2,10 +2,10 @@ using UnityEngine;
 
 namespace TankBattle.Tank.PlayerTank
 {
-    public class TankMovementService : MonoBehaviour
+    public class TankMovementController : MonoBehaviour
     {
         [SerializeField] private InputSystem.InputReader input;
-        private MoveController.TankController tankController;
+        private TankController tankController;
 
         private Vector2 _moveDirection;
         private bool _isJumping;
