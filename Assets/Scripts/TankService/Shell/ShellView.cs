@@ -19,7 +19,7 @@ namespace TankBattle.Tank.Bullets
 
         private void Start()
         {
-            Destroy(gameObject, CreateShellService.Instance.GetBulletModel.MaxLifeTime);
+            Destroy(gameObject, shellController.GetShellModel.MaxLifeTime);
         }
 
         public void SetShellController(ShellController _shellController)
@@ -54,7 +54,7 @@ namespace TankBattle.Tank.Bullets
         {
             int maxColliders = 10;
             Collider[] hitColliders = new Collider[maxColliders];
-            int numOfColliders = Physics.OverlapSphereNonAlloc(transform.position, CreateShellService.Instance.GetBulletModel.ExplosionRadius, hitColliders, CreateShellService.Instance.GetBulletModel.LayerMask);
+            int numOfColliders = Physics.OverlapSphereNonAlloc(transform.position, shellController.GetShellModel.ExplosionRadius, hitColliders, shellController.GetShellModel.LayerMask);
 
             shellController.CheckHitColliders(hitColliders, numOfColliders, transform.position);
             DestroyBullet();
