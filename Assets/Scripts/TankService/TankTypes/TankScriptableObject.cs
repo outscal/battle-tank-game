@@ -1,4 +1,3 @@
-using TankBattle.Tank.View;
 using UnityEngine;
 
 namespace TankBattle.Tank.TankTypes

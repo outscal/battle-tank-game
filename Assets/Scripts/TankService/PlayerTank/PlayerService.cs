@@ -9,7 +9,7 @@ namespace TankBattle.Tank.PlayerTank
         [SerializeField] private Transform spawnPoint;
 
         private int playerTankIndex = 0;
-        private MoveController.TankController tankController;
+        private TankController tankController;
 
 
         private void Start()
@@ -19,11 +19,10 @@ namespace TankBattle.Tank.PlayerTank
 
         public void CreateTank()
         {
-            //tankController = Tank.CreateTank.CreateTankService.Instance.CreateNewPlayerTank();
             tankController = Tank.CreateTank.CreateTankService.Instance.CreateTank(spawnPoint.position, playerTankIndex);
         }
 
-        public MoveController.TankController GetTankController()
+        public TankController GetTankController()
         {
             return tankController;
         }

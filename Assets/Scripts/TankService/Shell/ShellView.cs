@@ -1,4 +1,3 @@
-using TankBattle.Tank.PlayerTank.MoveController;
 using UnityEngine;
 
 namespace TankBattle.Tank.Bullets

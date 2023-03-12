@@ -1,9 +1,7 @@
-using System;
-using TankBattle.Tank.PlayerTank.MoveController;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TankBattle.Tank.View
+namespace TankBattle.Tank
 {
     [RequireComponent(typeof(Rigidbody))]
 
@@ -20,8 +18,6 @@ namespace TankBattle.Tank.View
         private AudioSource explosionAudio;
         private ParticleSystem explosionParticles;
         private float maxHealth;
-        private float currentHealth;
-        private bool isDead;
 
         private TankController tankController;
 
@@ -29,7 +25,6 @@ namespace TankBattle.Tank.View
         {
             rb = GetComponent<Rigidbody>();
             renderersOnTank = GetComponentsInChildren<MeshRenderer>();
-
             explosionParticles = Instantiate(explosionPrefab).GetComponent<ParticleSystem>();
             explosionAudio = explosionParticles.GetComponent<AudioSource>();
             explosionParticles.gameObject.SetActive(false);
@@ -50,27 +45,15 @@ namespace TankBattle.Tank.View
             maxHealth = _maxHealth;
         }
 
-        private void OnEnable()
-        {
-            isDead = false;
-        }
 
         public void SetHealthUI()
         {
-            if(tankController.GetTankModel.GetSetHealth <= 0f && !isDead)
-            {
-                OnDeath();
-            }
-            else
-            {
             healthSlider.value = tankController.GetTankModel.GetSetHealth;
             fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, tankController.GetTankModel.GetSetHealth / maxHealth);
-            }
         }
 
-        private void OnDeath()
+        public void OnDeathHandler()
         {
-            isDead = true;
             explosionParticles.transform.position = transform.position;
             explosionParticles.gameObject.SetActive(true);
             explosionParticles.Play();
