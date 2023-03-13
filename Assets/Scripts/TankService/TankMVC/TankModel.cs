@@ -11,7 +11,9 @@ namespace TankBattle.Tank
         public float JumpForce { get; }
         public float GetSetHealth { get; set; }
         public Color GetColor { get; }
-
+        public float minLaunchForce { get; }
+        public float maxLaunchForce { get; }
+        public float maxChargeTime { get; }
 
         public TankModel(TankTypes.TankScriptableObject tankScriptableObject)
         {
@@ -21,6 +23,9 @@ namespace TankBattle.Tank
             JumpForce = tankScriptableObject.jumpValue;
             GetSetHealth = tankScriptableObject.health;
             GetColor = tankScriptableObject.tankColor;
+            minLaunchForce = tankScriptableObject.minLaunchForce;
+            maxLaunchForce = tankScriptableObject.maxLaunchForce;
+            maxChargeTime = tankScriptableObject.maxChargeTime;
         }
     }
 }

@@ -337,7 +337,7 @@ GameObject:
   - component: {fileID: 5113826980177704577}
   - component: {fileID: 6667741800218916572}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: CanvasUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -520,7 +520,6 @@ GameObject:
   - component: {fileID: 7124874151064414990}
   - component: {fileID: 7124874151064414991}
   - component: {fileID: 7858838990188615242}
-  - component: {fileID: 6850720019384687760}
   m_Layer: 6
   m_Name: PlayerTankPrefab
   m_TagString: Untagged
@@ -591,6 +590,12 @@ MonoBehaviour:
   fullHealthColor: {r: 0, g: 1, b: 0, a: 1}
   zeroHealthColor: {r: 1, g: 0, b: 0, a: 1}
   explosionPrefab: {fileID: 151086, guid: ee49a9a8678ecf8468eb488e1ac8d42b, type: 3}
+  fireTransform: {fileID: 5068389142491375151}
+  aimSlider: {fileID: 7782396720770503086}
+  shootingAudio: {fileID: 2035739250329364399, guid: 10b5c859d8d947448af5ab8c67c42eec,
+    type: 3}
+  chargingClip: {fileID: 8300000, guid: c17f124fcdc0f5446a72f793898bd74b, type: 3}
+  fireClip: {fileID: 8300000, guid: 672a9941361ad494a99fba36759eca80, type: 3}
 --- !u!114 &7858838990188615242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -604,27 +609,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 11400000, guid: b96280f9aa7ea8b44ae072cb75c1b577, type: 2}
---- !u!114 &6850720019384687760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7124874151064414987}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16c8295bb3e8f564bbdc3ff058e127e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fireTransform: {fileID: 5068389142491375151}
-  aimSlider: {fileID: 7782396720770503086}
-  shootingAudio: {fileID: 2035739250329364399, guid: 10b5c859d8d947448af5ab8c67c42eec,
-    type: 3}
-  chargingClip: {fileID: 8300000, guid: c17f124fcdc0f5446a72f793898bd74b, type: 3}
-  fireClip: {fileID: 8300000, guid: 672a9941361ad494a99fba36759eca80, type: 3}
-  minLaunchForce: 15
-  maxLaunchForce: 30
-  maxChargeTime: 0.75
 --- !u!1 &7124874151097006996
 GameObject:
   m_ObjectHideFlags: 0

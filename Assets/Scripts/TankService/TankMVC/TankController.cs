@@ -1,4 +1,5 @@
 using TankBattle.Extensions;
+using TankBattle.Tank.Bullets;
 using UnityEngine;
 
 namespace TankBattle.Tank
@@ -11,12 +12,21 @@ namespace TankBattle.Tank
         private Rigidbody rb;
         private bool isDead;
 
+        private float currentLaunchForce;
+        public float CurrentLaunchForce { get => currentLaunchForce; set => currentLaunchForce = value; }
+
+        public float ChargeSpeed { get; }
+        public bool IsFired { get; set; }
+
         public TankController(TankModel tankModel, TankView tankPrefab, Vector3 spawnPosition)
         {
             GetTankModel = tankModel;
             GetTankView = Object.Instantiate(tankPrefab, spawnPosition, Quaternion.identity);
             GetTankView.SetColorOnAllRenderers(GetTankModel.GetColor);
             isDead = false;
+
+            ChargeSpeed = (GetTankModel.maxLaunchForce - GetTankModel.minLaunchForce) / GetTankModel.maxChargeTime;
+
             // either assign tankView references here or inside the 
             // TankBattle.Tank.CreateTank.CreateTankService.Instance.CreateTank method
             // after calling this ctor
@@ -79,7 +89,20 @@ namespace TankBattle.Tank
         private void OnDeath()
         {
             isDead = true;
-            GetTankView.OnDeathHandler();
+            GetTankView.InstantiateOnDeath();
         }
-    };
+
+        // Shooting Related
+
+        public void Fire()
+        {
+            IsFired = true;
+            Transform fireTransform = GetTankView.GetFireTransform();
+            ShellController bullet = CreateShellService.Instance.CreateBulletShell(fireTransform);
+
+            bullet.GetShellView.AddVelocity(currentLaunchForce * fireTransform.forward);
+            GetTankView.PlayFiredSound();
+            currentLaunchForce = GetTankModel.minLaunchForce;
+        }
+    }
 }
