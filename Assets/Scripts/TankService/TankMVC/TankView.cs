@@ -40,7 +40,10 @@ namespace TankBattle.Tank
 
         private void Update()
         {
-            TakeInputPress();
+            if(tankController.GetTankModel.TankTypes == TankType.Player)
+            {
+                TakeInputPress();
+            }
         }
 
         // Getters and Setters
@@ -99,7 +102,8 @@ namespace TankBattle.Tank
 
         // Shooting related UI
         // has to be implemented using the new input system
-        // And removed from TankView as the enemyTank is also created using TankView so both are firing simultaneously 
+
+        // TakeInputPress will be called in update for both enemy and player
 
         private void TakeInputPress()
         {
