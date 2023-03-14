@@ -9,12 +9,14 @@ namespace TankBattle.Tank.Bullets
 
         public ShellModel GetBulletModel { get; set; }
 
-        public ShellController CreateBulletShell(Transform fireTransform)
+        public void CreateBullet(Transform fireTransform, Vector3 velocityVector)
         {
             GetBulletModel = new ShellModel(shellScriptableObject);
             ShellController bulletShell = new ShellController(GetBulletModel, shellScriptableObject.shellView, fireTransform);
             bulletShell.GetShellView.SetShellController(bulletShell);
-            return bulletShell;
+
+            // Fire/Launch bullet
+            bulletShell.GetShellView.AddVelocity(velocityVector);
         }
     }
 }

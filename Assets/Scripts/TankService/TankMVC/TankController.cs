@@ -26,15 +26,6 @@ namespace TankBattle.Tank
             isDead = false;
 
             ChargeSpeed = (GetTankModel.maxLaunchForce - GetTankModel.minLaunchForce) / GetTankModel.maxChargeTime;
-
-            // either assign tankView references here or inside the 
-            // TankBattle.Tank.CreateTank.CreateTankService.Instance.CreateTank method
-            // after calling this ctor
-            //GetTankView.SetTankController(this);
-            //GetTankView.SetMaxHealth(GetTankModel.GetSetHealth);
-            //GetTankView.SetHealthUI();
-
-            // using this to assign controller ref results in slightly weird/slower/non-uniform movement in game
         }
 
         //Movement-related logic
@@ -98,10 +89,13 @@ namespace TankBattle.Tank
         {
             IsFired = true;
             Transform fireTransform = GetTankView.GetFireTransform();
-            ShellController bullet = CreateShellService.Instance.CreateBulletShell(fireTransform);
+            Vector3 bulletSpeed = currentLaunchForce * fireTransform.forward;
+            
+            CreateShellService.Instance.CreateBullet(fireTransform, bulletSpeed);
 
-            bullet.GetShellView.AddVelocity(currentLaunchForce * fireTransform.forward);
             GetTankView.PlayFiredSound();
+
+            // reset currentLaunchForce value
             currentLaunchForce = GetTankModel.minLaunchForce;
         }
     }
