@@ -32,16 +32,6 @@ namespace TankBattle.Tank.Bullets
             return rb;
         }
 
-        public AudioSource GetAudioSystem()
-        {
-            return explosionAudio;
-        }
-
-        public ParticleSystem GetParticleSystem()
-        {
-            return explosionParticles;
-        }
-
         public void AddVelocity(Vector3 velocityVector)
         {
             rb.velocity = velocityVector;
