@@ -31,7 +31,7 @@ namespace TankBattle.Tank.Bullets
                 if (targetTank == null) continue;
 
                 float damage = CalculateDamage(targetTankView.transform.position, bulletPosition);
-                Debug.Log($"Damage: {damage}");
+                //Debug.Log($"Damage: {damage}");
                 targetTank.TakeDamage(damage);
             }
         }
@@ -40,7 +40,7 @@ namespace TankBattle.Tank.Bullets
         {
             // Slightly less accurate Distance
             float explosionDistance = (tankPosition - impactPosition).sqrMagnitude;
-            Debug.Log($"Dist1: {explosionDistance}");
+            //Debug.Log($"Dist1: {explosionDistance}");
             //float explosionDistance2 = Vector3.Distance(tankPosition, impactPosition);
             //Debug.Log($"Dist2: {explosionDistance2}");
 

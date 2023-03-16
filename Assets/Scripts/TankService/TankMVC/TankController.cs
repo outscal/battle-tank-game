@@ -1,5 +1,6 @@
 using TankBattle.Extensions;
 using TankBattle.Tank.Bullets;
+using TankBattle.Tank.PlayerTank;
 using UnityEngine;
 
 namespace TankBattle.Tank
@@ -81,6 +82,11 @@ namespace TankBattle.Tank
         {
             isDead = true;
             GetTankView.InstantiateOnDeath();
+
+            if(GetTankModel.TankTypes == TankType.Player)
+            {
+                DestroyEverything.Instance.RunCoroutine();
+            }
         }
 
         // Shooting Related

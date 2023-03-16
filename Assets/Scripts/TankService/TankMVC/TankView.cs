@@ -90,20 +90,22 @@ namespace TankBattle.Tank
             explosionParticles = Instantiate(explosionPrefab, transform).GetComponent<ParticleSystem>();
             explosionAudio = explosionParticles.GetComponent<AudioSource>();
             OnDeathHandler();
+            
         }
 
         private void OnDeathHandler()
         {
+            explosionParticles.transform.parent = null;
             explosionParticles.Play();
             explosionAudio.Play();
-            gameObject.SetActive(false);
+            Destroy(explosionParticles.gameObject, explosionParticles.main.duration);
+            //gameObject.SetActive(false);
             Destroy(gameObject);
         }
 
         // Shooting related UI
         // has to be implemented using the new input system
-
-        // TakeInputPress will be called in update for both enemy and player
+        
 
         private void TakeInputPress()
         {
