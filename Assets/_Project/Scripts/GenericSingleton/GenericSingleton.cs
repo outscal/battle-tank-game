@@ -12,7 +12,6 @@ public class GenericSingleton<T> : MonoBehaviour where T: GenericSingleton<T> {
 		if(instance == null)
         {
             instance = (T)this;
-            Debug.Log("Singleton");
         }
         else
         {
