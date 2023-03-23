@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TankController {
 
@@ -15,25 +13,19 @@ public class TankController {
         tankView = GameObject.Instantiate<TankView>(_tankView);
 
         rb = tankView.GetRigiBody();
-
-        tankModel.SetTankController(this);
+        
         tankView.SetTankController(this);
     }
 
-    public void Move(float movement, float movementSpeed)
+    public void Move(float movement)
     {
-        rb.velocity = tankView.transform.forward * movement * movementSpeed;
+        rb.velocity = tankView.transform.forward * movement * tankModel.GetMovementSpeed();
     }
 
-    public void Rotate(float rotation, float rotateSpeed)
+    public void Rotate(float rotation)
     {
-        Vector3 vector = new Vector3(0f, rotation * rotateSpeed, 0f);
+        Vector3 vector = new Vector3(0f, rotation * tankModel.GetRotationSpeed(), 0f);     // Rotating full TankBody
         Quaternion deltaRotation = Quaternion.Euler(vector * Time.deltaTime);
         rb.MoveRotation(rb.rotation * deltaRotation);
-    }
-
-    public TankModel GetTankModel()
-    {
-        return tankModel;
     }
 }

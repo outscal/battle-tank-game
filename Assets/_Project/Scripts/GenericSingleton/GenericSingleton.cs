@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GenericSingleton<T> : MonoBehaviour where T: GenericSingleton<T> {
 
@@ -12,6 +10,7 @@ public class GenericSingleton<T> : MonoBehaviour where T: GenericSingleton<T> {
 		if(instance == null)
         {
             instance = (T)this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {

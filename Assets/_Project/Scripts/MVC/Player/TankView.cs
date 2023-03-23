@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TankView : MonoBehaviour {
 
@@ -14,7 +11,7 @@ public class TankView : MonoBehaviour {
 
     private void Start()
     {
-        GameObject cam = GameObject.Find("Main Camera");
+        Camera cam = FindObjectOfType<Camera>();
         cam.transform.SetParent(transform);
     }
 
@@ -23,10 +20,10 @@ public class TankView : MonoBehaviour {
         Movement();
 
         if (movement != 0)
-            tankController.Move(movement, tankController.GetTankModel().GetMovementSpeed());
+            tankController.Move(movement);
 
         if (rotation != 0)
-            tankController.Rotate(rotation, tankController.GetTankModel().GetRotationSpeed());
+            tankController.Rotate(rotation);
     }
 
     private void Movement()
