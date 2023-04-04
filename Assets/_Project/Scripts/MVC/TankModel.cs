@@ -13,6 +13,7 @@ namespace BattleTank.Tank
         public float MovementSpeed { get; private set; }
         public float RotationSpeed { get; private set; }
         public float FireRate { get; private set; }
+        public float TankDestroyTime { get; private set; }
         public Material Material { get; private set; }
 
         public TankModel(TankScriptableObject tankScriptableObject)
@@ -24,6 +25,7 @@ namespace BattleTank.Tank
             MovementSpeed = tankScriptableObject.MovementSpeed;
             RotationSpeed = tankScriptableObject.RotationSpeed;
             FireRate = tankScriptableObject.FireRate;
+            TankDestroyTime = tankScriptableObject.TankDestroyTime;
             Material = tankScriptableObject.Material;
         }
 

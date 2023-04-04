@@ -1,5 +1,6 @@
 ﻿using BattleTank.Interface;
 using BattleTank.Services;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -66,6 +67,14 @@ namespace BattleTank.PlayerTank
         public void DestroyGameObject()
         {
             CameraService.Instance.DetachFromPlayer();
+            ParticleEffectsService.Instance.ShowTankExplosionEffect(gameObject.transform.position);
+            DestructionService.Instance.DestroyEverything();
+            StartCoroutine(DestroyTank());
+        }
+
+        IEnumerator DestroyTank()
+        {
+            yield return new WaitForSeconds(playerTankController.GetTankDestryTime());
             Destroy(gameObject);
         }
 

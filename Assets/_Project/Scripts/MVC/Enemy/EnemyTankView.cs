@@ -1,4 +1,6 @@
 ﻿using BattleTank.Interface;
+using BattleTank.Services;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -37,6 +39,8 @@ namespace BattleTank.EnemyTank
 
             if (agent.isActiveAndEnabled == true && enemyTankController.GetPlayerTank() != null)
             {
+                gameObject.transform.LookAt(enemyTankController.GetPlayerTank());
+
                 if (agent.velocity.magnitude == 0 && agent.remainingDistance < agent.stoppingDistance)
                 {
                     if (Time.time > nextShootTime)
@@ -60,6 +64,14 @@ namespace BattleTank.EnemyTank
 
         public void DestroyGameObject()
         {
+            ParticleEffectsService.Instance.ShowTankExplosionEffect(gameObject.transform.position);
+            enemyTankController.SetIsTankAlive(false);
+            StartCoroutine(DestroyTank());
+        }
+
+        IEnumerator DestroyTank()
+        {
+            yield return new WaitForSeconds(enemyTankController.GetTankDestryTime());
             Destroy(gameObject);
         }
     }

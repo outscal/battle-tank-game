@@ -12,6 +12,7 @@ namespace BattleTank.TankSO
         public float MovementSpeed;
         public float RotationSpeed;
         public float FireRate;
+        public float TankDestroyTime;
         public Material Material;
     }
 }
