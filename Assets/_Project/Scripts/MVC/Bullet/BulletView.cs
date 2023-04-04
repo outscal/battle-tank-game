@@ -1,21 +1,17 @@
-﻿using UnityEngine;
+﻿using BattleTank.Interface;
+using UnityEngine;
 
-namespace BattleTank
+namespace BattleTank.Bullet
 {
     [RequireComponent(typeof(Rigidbody))]
     public class BulletView : MonoBehaviour
     {
         private BulletController bulletController;
-        private Rigidbody rb;
-
-        private void Awake()
-        {
-            rb = GetComponent<Rigidbody>();
-        }
+        [SerializeField] private Rigidbody rigidBody;
         
         public Rigidbody GetRigidBody()
         {
-            return rb;
+            return rigidBody;
         }
 
         public void SetBulletController(BulletController _bulletController)
@@ -27,8 +23,7 @@ namespace BattleTank
         {
             if (other.GetComponent<IDamageable>() != null)
             {
-                IDamageable damageableObject = other.GetComponent<IDamageable>();
-                damageableObject.Damage(bulletController.GetDamage());
+                other.GetComponent<IDamageable>().Damage(bulletController.GetDamageValue());
             }
             DestroyGameObject();
         }

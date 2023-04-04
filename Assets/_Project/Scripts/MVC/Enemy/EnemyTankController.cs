@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using BattleTank.Services;
+using BattleTank.Tank;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace BattleTank
+namespace BattleTank.EnemyTank
 {
     public class EnemyTankController
     {
@@ -9,10 +11,10 @@ namespace BattleTank
         private EnemyTankView enemyTankView;
         private Transform playerTransform;
         
-        public EnemyTankController(TankModel _tankModel, EnemyTankView _enemyTankView, Transform position, Transform _playerTransform)
+        public EnemyTankController(TankModel _tankModel, EnemyTankView _enemyTankView, Transform spawnPosition, Transform _playerTransform)
         {
             tankModel = _tankModel;
-            enemyTankView = GameObject.Instantiate<EnemyTankView>(_enemyTankView, position);
+            enemyTankView = GameObject.Instantiate<EnemyTankView>(_enemyTankView, spawnPosition);
             playerTransform = _playerTransform;
 
             enemyTankView.SetEnemyTankController(this);
@@ -23,11 +25,11 @@ namespace BattleTank
             return playerTransform;
         }
 
-        public void UpdateTankColor(List<MeshRenderer> tankBody)
+        public void UpdateTankColor(List<MeshRenderer> tankRenderer)
         {
-            for (int i = 0; i < tankBody.Count; i++)
+            for (int i = 0; i < tankRenderer.Count; i++)
             {
-                tankBody[i].material = tankModel.material;
+                tankRenderer[i].material = tankModel.Material;
             }
         }
 
@@ -35,8 +37,7 @@ namespace BattleTank
         {
             if(tankModel.GetCurrentHealth() > 0)
             {
-                float remainingHealth = GetCurrentHealth() - damage;
-                tankModel.SetCurrentHealth(remainingHealth);
+                tankModel.SetCurrentHealth(GetCurrentHealth() - damage);
             }
         }
 
@@ -44,26 +45,15 @@ namespace BattleTank
         {
             return tankModel.GetCurrentHealth();
         }
-
-        public int GetNextDestination(int currentDestination, int posLength)
+        
+        public void SpawnBullet(Transform bulletTransform, Quaternion bulletRotation)
         {
-            currentDestination--;
-            if(currentDestination < 0)
-            {
-                currentDestination = posLength--;
-            }
-
-            return currentDestination;
-        }
-
-        public void SpawnBullet(Transform bulletTransform, Quaternion quaternion)
-        {
-            BulletService.Instance.SpawnBullet(tankModel.BulletType, bulletTransform, quaternion);
+            BulletService.Instance.SpawnBullet(tankModel.BulletType, bulletTransform, bulletRotation);
         }
 
         public float GetFireRate()
         {
-            return tankModel.fireRate;
+            return tankModel.FireRate;
         }
     }
 }

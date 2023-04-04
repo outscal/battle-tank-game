@@ -432,11 +432,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb67743d054332648bb3f3681bd7cca7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankBody:
+  tankRenderer:
   - {fileID: 23004576702551678}
   - {fileID: 23167644418428336}
   - {fileID: 23954503915029486}
   - {fileID: 23479822853691570}
+  rigidBody: {fileID: 54203003580165222}
+  agent: {fileID: 195347999341871838}
   bulletTransform: {fileID: 4053391462391056}
 --- !u!195 &195347999341871838
 NavMeshAgent:

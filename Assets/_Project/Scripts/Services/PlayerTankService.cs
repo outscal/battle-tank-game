@@ -1,6 +1,10 @@
-﻿using UnityEngine;
+﻿using BattleTank.GenericSingleton;
+using BattleTank.PlayerTank;
+using BattleTank.Tank;
+using BattleTank.TankSO;
+using UnityEngine;
 
-namespace BattleTank
+namespace BattleTank.Services
 {
     public class PlayerTankService : GenericSingleton<PlayerTankService>
     {
@@ -11,8 +15,8 @@ namespace BattleTank
         
         private void Start()
         {
-            int TankNO = Random.Range(0, tankList.tanks.Length);
-            playerTankController = new PlayerTankController(new TankModel(tankList.tanks[TankNO]), playerTankView, gameObject.transform);   // Creating Tank
+            int TankNO = Random.Range(0, tankList.Tanks.Length);
+            playerTankController = new PlayerTankController(new TankModel(tankList.Tanks[TankNO]), playerTankView, gameObject.transform);
         }
 
         public Transform GetPlayerTank()

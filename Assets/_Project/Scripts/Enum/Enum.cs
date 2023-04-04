@@ -1,4 +1,4 @@
-﻿namespace BattleTank
+﻿namespace BattleTank.Enum
 {
     public enum TankType
     {

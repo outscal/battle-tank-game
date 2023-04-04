@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-namespace BattleTank
+namespace BattleTank.TankSO
 {
     [CreateAssetMenu(fileName = "TankScriptableObjectList", menuName = "ScriptableObjects/TankList")]
     public class TankScriptableObjectList : ScriptableObject
     {
-        public TankScriptableObject[] tanks;
+        public TankScriptableObject[] Tanks;
     }
 }

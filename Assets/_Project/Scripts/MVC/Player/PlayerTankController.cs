@@ -1,24 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using BattleTank.Services;
+using BattleTank.Tank;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace BattleTank
+namespace BattleTank.PlayerTank
 {
     public class PlayerTankController
     {
         private TankModel tankModel;
         private PlayerTankView playerTankView;
-
-        private float currentHealth;
-
-        private Rigidbody rb;
         
-        public PlayerTankController(TankModel _tankModel, PlayerTankView _playerTankView, Transform position)
+        private Rigidbody rigidBody;
+        
+        public PlayerTankController(TankModel _tankModel, PlayerTankView _playerTankView, Transform spawnPosition)
         {
             tankModel = _tankModel;
-            playerTankView = GameObject.Instantiate<PlayerTankView>(_playerTankView, position);
-
-            currentHealth = tankModel.health;
-            rb = playerTankView.GetRigiBody();
+            playerTankView = GameObject.Instantiate<PlayerTankView>(_playerTankView, spawnPosition);
+            
+            rigidBody = playerTankView.GetRigiBody();
 
             playerTankView.SetTankController(this);
         }
@@ -30,40 +29,39 @@ namespace BattleTank
 
         public void Move(float movement)
         {
-            rb.velocity = playerTankView.transform.forward * movement * tankModel.movementSpeed;
+            rigidBody.velocity = playerTankView.transform.forward * movement * tankModel.MovementSpeed;
         }
 
         public void Rotate(float rotation)
         {
-            Vector3 vector = new Vector3(0f, rotation * tankModel.rotationSpeed, 0f);     // Rotating full TankBody
+            Vector3 vector = new Vector3(0f, rotation * tankModel.RotationSpeed, 0f);
             Quaternion deltaRotation = Quaternion.Euler(vector * Time.deltaTime);
-            rb.MoveRotation(rb.rotation * deltaRotation);
+            rigidBody.MoveRotation(rigidBody.rotation * deltaRotation);
         }
 
-        public void UpdateTankColor(List<MeshRenderer> tankBody)
+        public void UpdateTankColor(List<MeshRenderer> tankRenderer)
         {
-            for(int i = 0; i < tankBody.Count; i++)
+            for(int i = 0; i < tankRenderer.Count; i++)
             {
-                tankBody[i].material = tankModel.material;
+                tankRenderer[i].material = tankModel.Material;
             }
         }
 
         public float GetFireRate()
         {
-            return tankModel.fireRate;
+            return tankModel.FireRate;
         }
 
-        public void SpawnBullet(Transform bulletTransform, Quaternion quaternion)
+        public void SpawnBullet(Transform bulletTransform, Quaternion bulletRotation)
         {
-            BulletService.Instance.SpawnBullet(tankModel.BulletType, bulletTransform, quaternion);
+            BulletService.Instance.SpawnBullet(tankModel.BulletType, bulletTransform, bulletRotation);
         }
 
         public void TakeDamage(float damage)
         {
             if (tankModel.GetCurrentHealth() > 0)
             {
-                float remainingHealth = GetCurrentHealth() - damage;
-                tankModel.SetCurrentHealth(remainingHealth);
+                tankModel.SetCurrentHealth(GetCurrentHealth() - damage);
             }
         }
 

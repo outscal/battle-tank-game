@@ -1,4 +1,4 @@
-﻿namespace BattleTank
+﻿namespace BattleTank.Interface
 {
     public interface IDamageable
     {

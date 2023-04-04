@@ -1,12 +1,13 @@
-﻿using UnityEngine;
+﻿using BattleTank.Enum;
+using UnityEngine;
 
-namespace BattleTank
+namespace BattleTank.BulletSO
 {
     [CreateAssetMenu(fileName = "BulletScriptableObject", menuName = "ScriptableObjects/NewBullet")]
     public class BulletScriptableObject : ScriptableObject
     {
         public BulletType BulletType;
-        public float damage;
-        public float speed;
+        public float Damage;
+        public float Speed;
     }
 }

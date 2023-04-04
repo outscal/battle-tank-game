@@ -1,6 +1,10 @@
-﻿using UnityEngine;
+﻿using BattleTank.Bullet;
+using BattleTank.BulletSO;
+using BattleTank.Enum;
+using BattleTank.GenericSingleton;
+using UnityEngine;
 
-namespace BattleTank
+namespace BattleTank.Services
 {
     public class BulletService : GenericSingleton<BulletService>
     {
@@ -9,23 +13,22 @@ namespace BattleTank
 
         [SerializeField] private BulletScriptableObjectList bulletList;
         
-        public void SpawnBullet(BulletType bulletType, Transform transform, Quaternion quaternion)
+        public void SpawnBullet(BulletType bulletType, Transform tankTransform, Quaternion tankRotation)
         {
-            Debug.Log(bulletList.bullets[GetBulletIndex(bulletType)].name);
-            new BulletController(new BulletModel(bulletList.bullets[GetBulletIndex(bulletType)]), bulletView, transform, quaternion);
+            new BulletController(new BulletModel(bulletList.Bullets[GetBulletIndex(bulletType)]), bulletView, tankTransform, tankRotation);
         }
 
         private int GetBulletIndex(BulletType bulletType)
         {
-            int bIndex = 0;
-            for(int i = 0; i < bulletList.bullets.Length; i++)
+            int bulletIndex = 0;
+            for(int i = 0; i < bulletList.Bullets.Length; i++)
             {
-                if(bulletList.bullets[i].BulletType == bulletType)
+                if(bulletList.Bullets[i].BulletType == bulletType)
                 {
-                    bIndex = i;
+                    bulletIndex = i;
                 }
             }
-            return bIndex;
+            return bulletIndex;
         }
     }
 }

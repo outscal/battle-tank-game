@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace BattleTank
+namespace BattleTank.GenericSingleton
 {
     public class GenericSingleton<T> : MonoBehaviour where T : GenericSingleton<T>
     {

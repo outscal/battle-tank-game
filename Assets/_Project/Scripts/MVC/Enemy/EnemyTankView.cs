@@ -1,46 +1,49 @@
-﻿using System.Collections.Generic;
+﻿using BattleTank.Interface;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace BattleTank
+namespace BattleTank.EnemyTank
 {
     [RequireComponent(typeof(Rigidbody), typeof(NavMeshAgent))]
     public class EnemyTankView : MonoBehaviour, IDamageable
     {
         private EnemyTankController enemyTankController;
-        [SerializeField] private List<MeshRenderer> tankBody;
-        private Rigidbody rb;
-        private NavMeshAgent agent;
+        [SerializeField] private List<MeshRenderer> tankRenderer;
+        [SerializeField] private Rigidbody rigidBody;
+        [SerializeField] private NavMeshAgent agent;
         private float nextShootTime;
+        private float additionalAttackTime;
         [SerializeField] private Transform bulletTransform;
-
-        private void Awake()
-        {
-            rb = GetComponent<Rigidbody>();
-            agent = GetComponent<NavMeshAgent>();
-        }
 
         private void Start()
         {
-            enemyTankController.UpdateTankColor(tankBody);
+            enemyTankController.UpdateTankColor(tankRenderer);
             nextShootTime = 0;
+            additionalAttackTime = 2.5f;
         }
 
         private void Update()
         {
-            if(enemyTankController.GetCurrentHealth() <= 0)
+            if (enemyTankController.GetCurrentHealth() <= 0)
             {
                 DestroyGameObject();
             }
 
-            agent.SetDestination(enemyTankController.GetPlayerTank().position);
-
-            if (agent.velocity.magnitude == 0 && agent.remainingDistance < agent.stoppingDistance)
+            if (agent.isActiveAndEnabled == true && enemyTankController.GetPlayerTank() != null)
             {
-                if(Time.time > nextShootTime)
+                agent.SetDestination(enemyTankController.GetPlayerTank().position);
+            }
+
+            if (agent.isActiveAndEnabled == true && enemyTankController.GetPlayerTank() != null)
+            {
+                if (agent.velocity.magnitude == 0 && agent.remainingDistance < agent.stoppingDistance)
                 {
-                    nextShootTime = Time.time + 2.5f / enemyTankController.GetFireRate();
-                    enemyTankController.SpawnBullet(bulletTransform, this.transform.rotation);
+                    if (Time.time > nextShootTime)
+                    {
+                        nextShootTime = Time.time + additionalAttackTime / enemyTankController.GetFireRate();
+                        enemyTankController.SpawnBullet(bulletTransform, gameObject.transform.rotation);
+                    }
                 }
             }
         }
@@ -52,7 +55,6 @@ namespace BattleTank
 
         public void Damage(float damage)
         {
-            Debug.Log("EnemyTankView Damage");
             enemyTankController.TakeDamage(damage);
         }
 

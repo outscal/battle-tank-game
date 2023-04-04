@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using BattleTank.Interface;
+using BattleTank.Services;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace BattleTank
+namespace BattleTank.PlayerTank
 {
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerTankView : MonoBehaviour, IDamageable
@@ -9,24 +11,19 @@ namespace BattleTank
         private PlayerTankController playerTankController;
         private float movement;
         private float rotate;
-        private Rigidbody rb;
-        [SerializeField] private List<MeshRenderer> tankBody;
+        [SerializeField] private Rigidbody rigidBody;
+        [SerializeField] private List<MeshRenderer> tankRenderer;
         private float nextShootTime;
+        private float additionalAttackTime;
         [SerializeField] private Transform bulletTransform;
-
-        private void Awake()
-        {
-            rb = GetComponent<Rigidbody>();
-            nextShootTime = 0.0f;
-        }
-
+        
         private void Start()
         {
-            Camera cam = FindObjectOfType<Camera>();
-            cam.transform.SetParent(transform);
-            cam.transform.position = new Vector3(gameObject.transform.position.x, 3f, -4f);
+            CameraService.Instance.AttachIntoPlayer(gameObject.transform);
+            nextShootTime = 0.0f;
+            additionalAttackTime = 1.5f;
 
-            playerTankController.UpdateTankColor(tankBody);
+            playerTankController.UpdateTankColor(tankRenderer);
         }
 
         private void Update()
@@ -50,8 +47,8 @@ namespace BattleTank
 
             if (Input.GetKeyDown(KeyCode.Space)  && Time.time > nextShootTime)
             {
-                nextShootTime = Time.time + 1.5f / playerTankController.GetFireRate();
-                playerTankController.SpawnBullet(bulletTransform, this.transform.rotation);
+                nextShootTime = Time.time + additionalAttackTime / playerTankController.GetFireRate();
+                playerTankController.SpawnBullet(bulletTransform, gameObject.transform.rotation);
             }
         }
 
@@ -68,6 +65,7 @@ namespace BattleTank
 
         public void DestroyGameObject()
         {
+            CameraService.Instance.DetachFromPlayer();
             Destroy(gameObject);
         }
 
@@ -78,7 +76,7 @@ namespace BattleTank
 
         public Rigidbody GetRigiBody()
         {
-            return rb;
+            return rigidBody;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace BattleTank
+namespace BattleTank.Bullet
 {
     public class BulletController
     {
@@ -8,17 +8,17 @@ namespace BattleTank
         private BulletView bulletView;
         private Vector3 bulletDirection;
         
-        public BulletController(BulletModel _bulletModel, BulletView _bulletView, Transform transform, Quaternion quaternion)
+        public BulletController(BulletModel _bulletModel, BulletView _bulletView, Transform tankTransform, Quaternion tankRotation)
         {
             bulletModel = _bulletModel;
             bulletView = _bulletView;
             
-            SpawnBullet(transform, quaternion);
+            SpawnBullet(tankTransform, tankRotation);
         }
 
-        private void SpawnBullet(Transform transform, Quaternion quaternion)
+        private void SpawnBullet(Transform tankTransform, Quaternion tankRotation)
         {
-            bulletView = GameObject.Instantiate<BulletView>(bulletView, transform.position, quaternion);
+            bulletView = GameObject.Instantiate<BulletView>(bulletView, tankTransform.position, tankRotation);
             bulletView.SetBulletController(this);
 
             FireBullet();
@@ -27,12 +27,12 @@ namespace BattleTank
         private void FireBullet()
         {
             bulletDirection = bulletView.transform.forward;
-            bulletView.GetRigidBody().AddForce(bulletDirection * bulletModel.speed * Time.deltaTime, ForceMode.Impulse);
+            bulletView.GetRigidBody().AddForce(bulletDirection * bulletModel.Speed * Time.deltaTime, ForceMode.Impulse);
         }
 
-        public float GetDamage()
+        public float GetDamageValue()
         {
-            return bulletModel.damage;
+            return bulletModel.Damage;
         }
     }
 }
