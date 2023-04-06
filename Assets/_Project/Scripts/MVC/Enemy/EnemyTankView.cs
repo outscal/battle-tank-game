@@ -25,18 +25,10 @@ namespace BattleTank.EnemyTank
 
         private void Update()
         {
-            if (enemyTankController.GetCurrentHealth() <= 0)
-            {
-                DestroyGameObject();
-            }
-
             if (agent.isActiveAndEnabled == true && enemyTankController.GetPlayerTank() != null)
             {
                 agent.SetDestination(enemyTankController.GetPlayerTank().position);
-            }
 
-            if (agent.isActiveAndEnabled == true && enemyTankController.GetPlayerTank() != null)
-            {
                 if (agent.velocity.magnitude == 0 && agent.remainingDistance < agent.stoppingDistance)
                 {
                     if (Time.time > nextShootTime)

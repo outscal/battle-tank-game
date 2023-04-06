@@ -63,6 +63,11 @@ namespace BattleTank.PlayerTank
             {
                 tankModel.SetCurrentHealth(GetCurrentHealth() - damage);
             }
+
+            if(tankModel.GetCurrentHealth() <= 0)
+            {
+                playerTankView.DestroyGameObject();
+            }
         }
 
         public float GetCurrentHealth()

@@ -39,12 +39,7 @@ namespace BattleTank.PlayerTank
             {
                 playerTankController.Rotate(rotate);
             }
-
-            if(playerTankController.GetCurrentHealth() <= 0)
-            {
-                DestroyGameObject();
-            }
-
+            
             if (Input.GetKeyDown(KeyCode.Space)  && Time.time > nextShootTime)
             {
                 nextShootTime = Time.time + additionalAttackTime / playerTankController.GetFireRate();
