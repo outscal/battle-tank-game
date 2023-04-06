@@ -27,22 +27,14 @@ namespace BattleTank.EnemyTank
 
         private void Update()
         {
-            if (enemyTankController.GetCurrentHealth() <= 0)
-            {
-                DestroyGameObject();
-            }
-
             if (agent.isActiveAndEnabled == true && enemyTankController.GetPlayerTank() != null)
             {
                 agent.SetDestination(enemyTankController.GetPlayerTank().position);
-            }
-
-            if (agent.isActiveAndEnabled == true && enemyTankController.GetPlayerTank() != null)
-            {
-                gameObject.transform.LookAt(enemyTankController.GetPlayerTank());
 
                 if (agent.velocity.magnitude == 0 && agent.remainingDistance < agent.stoppingDistance)
                 {
+                    gameObject.transform.LookAt(enemyTankController.GetPlayerTank());
+
                     if (Time.time > nextShootTime)
                     {
                         nextShootTime = Time.time + additionalAttackTime / enemyTankController.GetFireRate();
