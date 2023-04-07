@@ -13,9 +13,9 @@ namespace BattleTank.Services
 
         [SerializeField] private BulletScriptableObjectList bulletList;
         
-        public void SpawnBullet(BulletType bulletType, Transform tankTransform, Quaternion tankRotation)
+        public void SpawnBullet(BulletType bulletType, Transform bulletTransform, Quaternion tankRotation)
         {
-            new BulletController(new BulletModel(bulletList.Bullets[GetBulletIndex(bulletType)]), bulletView, tankTransform, tankRotation);
+            new BulletController(new BulletModel(bulletList.Bullets[GetBulletIndex(bulletType)]), bulletView, bulletTransform, tankRotation);
         }
 
         private int GetBulletIndex(BulletType bulletType)

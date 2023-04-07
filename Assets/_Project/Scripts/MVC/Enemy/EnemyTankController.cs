@@ -1,4 +1,4 @@
-﻿using BattleTank.Services;
+﻿using BattleTank.StateMachine.EnemyState;
 using BattleTank.Tank;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,17 +9,26 @@ namespace BattleTank.EnemyTank
     {
         private TankModel tankModel;
         private EnemyTankView enemyTankView;
+        private EnemyStateMachine enemyStateMachine;
         private Transform playerTransform;
         private bool isTankAlive;
         
         public EnemyTankController(TankModel _tankModel, EnemyTankView _enemyTankView, Transform spawnPosition, Transform _playerTransform)
         {
             tankModel = _tankModel;
-            enemyTankView = GameObject.Instantiate<EnemyTankView>(_enemyTankView, spawnPosition);
+            enemyTankView = _enemyTankView;
             playerTransform = _playerTransform;
             isTankAlive = true;
 
+            SpawnTank(spawnPosition);
+        }
+
+        private void SpawnTank(Transform spawnPosition)
+        {
+            enemyTankView = GameObject.Instantiate<EnemyTankView>(enemyTankView, spawnPosition);
             enemyTankView.SetEnemyTankController(this);
+            enemyStateMachine = enemyTankView.GetEnemyStateMachine();
+            enemyStateMachine.SetComponentsInEnemyStateMachine(this, enemyTankView, enemyTankView.GetNavMeshAgent(), tankModel.BulletType);
         }
 
         public Transform GetPlayerTank()
@@ -35,6 +44,11 @@ namespace BattleTank.EnemyTank
             }
         }
 
+        public void DestroyTank()
+        {
+            enemyStateMachine.SetState(enemyStateMachine.DeadState);
+        }
+
         public void TakeDamage(float damage)
         {
             if(tankModel.GetCurrentHealth() > 0)
@@ -44,7 +58,7 @@ namespace BattleTank.EnemyTank
 
             if(tankModel.GetCurrentHealth() <= 0)
             {
-                enemyTankView.DestroyGameObject();
+                DestroyTank();
             }
         }
 
@@ -53,22 +67,7 @@ namespace BattleTank.EnemyTank
             return tankModel.GetCurrentHealth();
         }
         
-        public void SpawnBullet(Transform bulletTransform, Quaternion bulletRotation)
-        {
-            BulletService.Instance.SpawnBullet(tankModel.BulletType, bulletTransform, bulletRotation);
-        }
-
-        public float GetFireRate()
-        {
-            return tankModel.FireRate;
-        }
-
-        public void DestroyTank()
-        {
-            enemyTankView.DestroyGameObject();
-        }
-
-        public float GetTankDestryTime()
+        public float GetTankDestroyTime()
         {
             return tankModel.TankDestroyTime;
         }
