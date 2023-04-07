@@ -12,6 +12,7 @@ namespace BattleTank.StateMachine.EnemyState
         private float patrolRange;
         private float chaseRange;
         private float attackRange;
+        private float averageDistance;
 
         private EnemyTankController enemyTankController;
 
@@ -32,6 +33,7 @@ namespace BattleTank.StateMachine.EnemyState
             patrolRange = 300f;
             chaseRange = 23f;
             attackRange = 18f;
+            averageDistance = 30f;
 
             PlayerTransform = PlayerTankService.Instance.GetPlayerTank();
 
@@ -91,7 +93,10 @@ namespace BattleTank.StateMachine.EnemyState
                 if (NavMesh.SamplePosition(randomDirection, out hit, 1, NavMesh.AllAreas))
                 {
                     finalPosition = hit.position;
-                    pointFound = true;
+                    if (Vector3.Distance(EnemyTankView.transform.position, finalPosition) > averageDistance)
+                    {
+                        pointFound = true;
+                    }
                 }
             }
 

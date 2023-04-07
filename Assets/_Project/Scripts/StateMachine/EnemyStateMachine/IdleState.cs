@@ -11,7 +11,7 @@ namespace BattleTank.StateMachine.EnemyState
         public IdleState(EnemyStateMachine _enemyStateMachine) : base(_enemyStateMachine)
         {
             enemyStateMachine = _enemyStateMachine;
-            idleTime = 4f;
+            idleTime = 3f;
         }
 
         public override void OnStateEnter()
