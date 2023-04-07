@@ -44,7 +44,7 @@ namespace BattleTank.EnemyTank
 
             if(tankModel.GetCurrentHealth() <= 0)
             {
-                DestroyTank();
+                enemyTankView.DestroyGameObject();
             }
         }
 
