@@ -10,12 +10,14 @@ namespace BattleTank.EnemyTank
         private TankModel tankModel;
         private EnemyTankView enemyTankView;
         private Transform playerTransform;
+        private bool isTankAlive;
         
         public EnemyTankController(TankModel _tankModel, EnemyTankView _enemyTankView, Transform spawnPosition, Transform _playerTransform)
         {
             tankModel = _tankModel;
             enemyTankView = GameObject.Instantiate<EnemyTankView>(_enemyTankView, spawnPosition);
             playerTransform = _playerTransform;
+            isTankAlive = true;
 
             enemyTankView.SetEnemyTankController(this);
         }
@@ -59,6 +61,26 @@ namespace BattleTank.EnemyTank
         public float GetFireRate()
         {
             return tankModel.FireRate;
+        }
+
+        public void DestroyTank()
+        {
+            enemyTankView.DestroyGameObject();
+        }
+
+        public float GetTankDestryTime()
+        {
+            return tankModel.TankDestroyTime;
+        }
+
+        public void SetIsTankAlive(bool _boolvalue)
+        {
+            isTankAlive = _boolvalue;
+        }
+
+        public bool GetIsTankAlive()
+        {
+            return isTankAlive;
         }
     }
 }

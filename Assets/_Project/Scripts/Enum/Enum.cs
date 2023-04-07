@@ -15,4 +15,10 @@
         Normal,
         Fast
     }
+
+    public enum ExplosionType
+    {
+        TankExplosion,
+        BulletExplosion
+    }
 }

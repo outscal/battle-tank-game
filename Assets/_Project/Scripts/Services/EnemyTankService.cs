@@ -2,6 +2,7 @@
 using BattleTank.GenericSingleton;
 using BattleTank.Tank;
 using BattleTank.TankSO;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace BattleTank.Services
@@ -10,13 +11,25 @@ namespace BattleTank.Services
     {
         [SerializeField] private EnemyTankView enemyTankView;
         private EnemyTankController enemyTankController;
-
         [SerializeField] private TankScriptableObjectList tankList;
+        [SerializeField] private List<GameObject> spawnPositions;
+        private List<EnemyTankController> enemyTankControllersList;
 
         private void Start()
         {
-            int TankNO = Random.Range(0, tankList.Tanks.Length);
-            new EnemyTankController(new TankModel(tankList.Tanks[TankNO]), enemyTankView, gameObject.transform, PlayerTankService.Instance.GetPlayerTank());
+            enemyTankControllersList = new List<EnemyTankController>();
+
+            for (int i = 0; i < spawnPositions.Count; i++)
+            {
+                int TankNO = Random.Range(0, tankList.Tanks.Length);
+                EnemyTankController enemyTankController = new EnemyTankController(new TankModel(tankList.Tanks[TankNO]), enemyTankView, spawnPositions[i].transform, PlayerTankService.Instance.GetPlayerTank());
+                enemyTankControllersList.Add(enemyTankController);
+            }
+        }
+
+        public List<EnemyTankController> GetEnemyTankControllersList()
+        {
+            return enemyTankControllersList;
         }
     }
 }

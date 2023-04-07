@@ -74,5 +74,10 @@ namespace BattleTank.PlayerTank
         {
             return tankModel.GetCurrentHealth();
         }
+
+        public float GetTankDestryTime()
+        {
+            return tankModel.TankDestroyTime;
+        }
     }
 }
