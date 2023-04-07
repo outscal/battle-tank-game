@@ -1,4 +1,5 @@
-﻿using BattleTank.Interface;
+﻿using BattleTank.Enum;
+using BattleTank.Interface;
 using BattleTank.Services;
 using System.Collections;
 using System.Collections.Generic;
@@ -56,7 +57,7 @@ namespace BattleTank.EnemyTank
 
         public void DestroyGameObject()
         {
-            ParticleEffectsService.Instance.ShowTankExplosionEffect(gameObject.transform.position);
+            ParticleEffectsService.Instance.ShowExplosionEffect(ExplosionType.TankExplosion, gameObject.transform.position);
             enemyTankController.SetIsTankAlive(false);
             StartCoroutine(DestroyTank());
         }

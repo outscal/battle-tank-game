@@ -1,4 +1,5 @@
-﻿using BattleTank.GenericSingleton;
+﻿using BattleTank.Enum;
+using BattleTank.GenericSingleton;
 using System.Collections;
 using UnityEngine;
 
@@ -11,20 +12,23 @@ namespace BattleTank.Services
         [SerializeField] private ParticleSystem shellExplosionEffect;
         [SerializeField] private float shellExplosionEffectDuration;
 
-        public void ShowTankExplosionEffect(Vector3 spawnPosition)
+        public void ShowExplosionEffect(ExplosionType explosionType, Vector3 spawnPosition)
         {
-            ParticleSystem tankExplosion = Instantiate(tankExplosionEffect, spawnPosition, Quaternion.identity);
-            tankExplosion.Play();
-            StartCoroutine(DestroyEffect(tankExplosion, tankExplosionEffectDuration));
-        }
+            ParticleSystem explosion = null;
 
-        public void ShowBulletExplosionEffect(Vector3 spawnPosition)
-        {
-            ParticleSystem bulletExplosion = Instantiate(shellExplosionEffect, spawnPosition, Quaternion.identity);
-            bulletExplosion.Play();
-            StartCoroutine(DestroyEffect(bulletExplosion, shellExplosionEffectDuration));
+            if(explosionType == ExplosionType.TankExplosion)
+            {
+                explosion = Instantiate(tankExplosionEffect, spawnPosition, Quaternion.identity);
+            }
+            else if(explosionType == ExplosionType.BulletExplosion)
+            {
+                explosion = Instantiate(shellExplosionEffect, spawnPosition, Quaternion.identity);
+            }
+            
+            explosion.Play();
+            StartCoroutine(DestroyEffect(explosion, tankExplosionEffectDuration));
         }
-
+        
         IEnumerator DestroyEffect(ParticleSystem explosionEffect, float effectDuration)
         {
             yield return new WaitForSeconds(effectDuration);

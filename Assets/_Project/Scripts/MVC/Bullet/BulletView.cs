@@ -1,4 +1,5 @@
-﻿using BattleTank.Interface;
+﻿using BattleTank.Enum;
+using BattleTank.Interface;
 using BattleTank.Services;
 using UnityEngine;
 
@@ -26,7 +27,7 @@ namespace BattleTank.Bullet
             {
                 other.GetComponent<IDamageable>().Damage(bulletController.GetDamageValue());
             }
-            ParticleEffectsService.Instance.ShowBulletExplosionEffect(gameObject.transform.position);
+            ParticleEffectsService.Instance.ShowExplosionEffect(ExplosionType.BulletExplosion, gameObject.transform.position);
             DestroyGameObject();
         }
 
