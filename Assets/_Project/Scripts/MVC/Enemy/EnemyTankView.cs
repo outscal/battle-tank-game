@@ -1,3 +1,4 @@
+using BattleTank.Enum;
 using BattleTank.Interface;
 using BattleTank.StateMachine.EnemyState;
 using System.Collections.Generic;
@@ -40,9 +41,14 @@ namespace BattleTank.EnemyTank
             return enemyStateMachine;
         }
 
-        public void Damage(float damage)
+        public void Damage(TankID shooter, float damage)
         {
-            enemyTankController.TakeDamage(damage);
+            enemyTankController.TakeDamage(shooter, damage);
+        }
+
+        public TankID GetTankID()
+        {
+            return TankID.Enemy;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using BattleTank.Services;
+﻿using BattleTank.Enum;
+using BattleTank.Services;
 using BattleTank.Tank;
 using System.Collections.Generic;
 using UnityEngine;
@@ -54,7 +55,7 @@ namespace BattleTank.PlayerTank
 
         public void SpawnBullet(Transform bulletTransform, Quaternion bulletRotation)
         {
-            BulletService.Instance.SpawnBullet(tankModel.BulletType, bulletTransform, bulletRotation);
+            BulletService.Instance.SpawnBullet(tankModel.BulletType, bulletTransform, bulletRotation, TankID.Player);
         }
 
         public void TakeDamage(float damage)

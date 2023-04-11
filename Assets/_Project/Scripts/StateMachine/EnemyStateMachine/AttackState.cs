@@ -1,4 +1,5 @@
-﻿using BattleTank.Services;
+﻿using BattleTank.Enum;
+using BattleTank.Services;
 using UnityEngine;
 
 namespace BattleTank.StateMachine.EnemyState
@@ -43,7 +44,7 @@ namespace BattleTank.StateMachine.EnemyState
 
         private void SpawnBullet()
         {
-            BulletService.Instance.SpawnBullet(enemyStateMachine.EnemyBulletType, enemyStateMachine.EnemyTankView.GetBulletTransform(), enemyStateMachine.EnemyTankView.transform.rotation);
+            BulletService.Instance.SpawnBullet(enemyStateMachine.EnemyBulletType, enemyStateMachine.EnemyTankView.GetBulletTransform(), enemyStateMachine.EnemyTankView.transform.rotation, TankID.Enemy);
         }
     }
 }

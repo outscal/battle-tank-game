@@ -1,4 +1,6 @@
-﻿using BattleTank.StateMachine.EnemyState;
+﻿using BattleTank.Enum;
+using BattleTank.Services;
+using BattleTank.StateMachine.EnemyState;
 using BattleTank.Tank;
 using System.Collections.Generic;
 using UnityEngine;
@@ -49,7 +51,7 @@ namespace BattleTank.EnemyTank
             enemyStateMachine.SetState(enemyStateMachine.DeadState);
         }
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(TankID shooter, float damage)
         {
             if(tankModel.GetCurrentHealth() > 0)
             {
@@ -59,6 +61,7 @@ namespace BattleTank.EnemyTank
             if(tankModel.GetCurrentHealth() <= 0)
             {
                 DestroyTank();
+                EventService.Instance.OnTankDestroyed(shooter, TankID.Enemy);
             }
         }
 
