@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 54203003580165222}
   - component: {fileID: 65208125816810384}
   - component: {fileID: 195347999341871838}
+  - component: {fileID: 114786379949834100}
   m_Layer: 0
   m_Name: EnemyTank
   m_TagString: Untagged
@@ -148,7 +149,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1780109663955722}
   m_LocalRotation: {x: -0.000000021855694, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.45, z: 1.296}
+  m_LocalPosition: {x: 0, y: 1.45, z: 1.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4778415829072626}
@@ -437,9 +438,20 @@ MonoBehaviour:
   - {fileID: 23167644418428336}
   - {fileID: 23954503915029486}
   - {fileID: 23479822853691570}
-  rigidBody: {fileID: 54203003580165222}
   agent: {fileID: 195347999341871838}
-  bulletTransform: {fileID: 4053391462391056}
+  bulletSpawnPoint: {fileID: 4053391462391056}
+  enemyStateMachine: {fileID: 114786379949834100}
+--- !u!114 &114786379949834100
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1416344779553648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8ba1d8ad99fd4146af559e63355f476, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!195 &195347999341871838
 NavMeshAgent:
   m_ObjectHideFlags: 1
@@ -453,7 +465,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 17.5
+  m_StoppingDistance: 15
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
