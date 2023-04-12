@@ -4,7 +4,7 @@ namespace BattleTank.UI
 {
     public class AchievementUIPanel : MonoBehaviour
     {
-        private Quaternion defaultRotaionAngle;
+        private Quaternion defaultRotationAngle;
         private Quaternion displayRotationAngle;
 
         private bool rotateUIPanelFromLeft;
@@ -21,7 +21,7 @@ namespace BattleTank.UI
             rotateUIPanelFromLeft = false;
             rotateUIPanelToRight = false;
 
-            defaultRotaionAngle = Quaternion.Euler(new Vector3(0, -90, 0));
+            defaultRotationAngle = Quaternion.Euler(new Vector3(0, -90, 0));
             displayRotationAngle = Quaternion.Euler(new Vector3(0, 0, 0));
 
             rotationValue = 1;
@@ -51,7 +51,7 @@ namespace BattleTank.UI
                 if (transform.rotation.eulerAngles.y > rotationLimitToRight)
                 {
                     rotateUIPanelToRight = false;
-                    transform.rotation = defaultRotaionAngle;
+                    transform.rotation = defaultRotationAngle;
                 }
             }
         }
