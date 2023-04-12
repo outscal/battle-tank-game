@@ -1,4 +1,5 @@
 ﻿using BattleTank.GenericSingleton;
+using BattleTank.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,18 +12,21 @@ namespace BattleTank.Services
         [SerializeField] private GameObject achievementPanel;
         [SerializeField] private Text titleText;
         [SerializeField] private Text descriptionText;
+        [SerializeField] private AchievementUIPanel achievementUIPanel;
 
         private Coroutine coroutine;
         private Queue<string> titleQueue;
         private Queue<string> descriptionQueue;
 
         private float achievementPanelDisplayTime;
+        private float coroutineEndTime;
 
         private void Start()
         {
             titleQueue = new Queue<string>();
             descriptionQueue = new Queue<string>();
-            achievementPanelDisplayTime = 2f;
+            achievementPanelDisplayTime = 5f;
+            coroutineEndTime = 2f;
         }
 
         public void DisplayAchievement(string title, string description)
@@ -42,7 +46,12 @@ namespace BattleTank.Services
                 titleText.text = titleQueue.Dequeue();
                 descriptionText.text = descriptionQueue.Dequeue();
                 achievementPanel.SetActive(true);
+                achievementUIPanel.StartIntro(true);
+
                 yield return new WaitForSeconds(achievementPanelDisplayTime);
+                achievementUIPanel.StartOutro(true);
+
+                yield return new WaitForSeconds(coroutineEndTime);
                 achievementPanel.SetActive(false);
             }
             coroutine = null;
