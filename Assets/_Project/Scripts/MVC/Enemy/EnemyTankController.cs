@@ -1,5 +1,6 @@
 ﻿using BattleTank.Enum;
 using BattleTank.Services;
+using BattleTank.Services.ObjectPoolService;
 using BattleTank.StateMachine.EnemyState;
 using BattleTank.Tank;
 using System.Collections.Generic;
@@ -27,8 +28,10 @@ namespace BattleTank.EnemyTank
 
         private void SpawnTank(Transform spawnPosition)
         {
-            enemyTankView = GameObject.Instantiate<EnemyTankView>(enemyTankView, spawnPosition);
+            enemyTankView = EnemyTankPoolService.Instance.GetItem();
             enemyTankView.SetEnemyTankController(this);
+            enemyTankView.transform.position = spawnPosition.position;
+            enemyTankView.gameObject.SetActive(true);
             enemyStateMachine = enemyTankView.GetEnemyStateMachine();
             enemyStateMachine.SetComponentsInEnemyStateMachine(this, enemyTankView, enemyTankView.GetNavMeshAgent(), tankModel.BulletType);
         }

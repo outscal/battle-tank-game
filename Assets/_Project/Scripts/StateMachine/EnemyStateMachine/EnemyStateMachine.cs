@@ -1,6 +1,7 @@
 ﻿using BattleTank.EnemyTank;
 using BattleTank.Enum;
 using BattleTank.Services;
+using BattleTank.Services.ObjectPoolService;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -112,7 +113,7 @@ namespace BattleTank.StateMachine.EnemyState
         IEnumerator DestroyTank()
         {
             yield return new WaitForSeconds(enemyTankController.GetTankDestroyTime());
-            Destroy(gameObject);
+            EnemyTankPoolService.Instance.ReturnItem(EnemyTankView);
         }
     }
 }

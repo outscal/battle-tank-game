@@ -10,7 +10,6 @@ namespace BattleTank.PlayerTank
     {
         private TankModel tankModel;
         private PlayerTankView playerTankView;
-        
         private Rigidbody rigidBody;
         
         public PlayerTankController(TankModel _tankModel, PlayerTankView _playerTankView, Transform spawnPosition)

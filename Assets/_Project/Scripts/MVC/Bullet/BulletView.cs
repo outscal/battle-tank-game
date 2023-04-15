@@ -1,6 +1,7 @@
 ﻿using BattleTank.Enum;
 using BattleTank.Interface;
 using BattleTank.Services;
+using BattleTank.Services.ObjectPoolService;
 using UnityEngine;
 
 namespace BattleTank.Bullet
@@ -21,6 +22,11 @@ namespace BattleTank.Bullet
             bulletController = _bulletController;
         }
 
+        public void SetVelocity(float speed)
+        {
+            rigidBody.velocity = speed * transform.forward;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.GetComponent<IDamageable>() != null)
@@ -34,7 +40,8 @@ namespace BattleTank.Bullet
 
         public void DestroyGameObject()
         {
-            Destroy(gameObject);
+            rigidBody.velocity = Vector3.zero;
+            BulletPoolService.Instance.ReturnItem(this);
         }
     }
 }
