@@ -1,6 +1,7 @@
 using BattleTank.Enum;
 using BattleTank.Interface;
 using BattleTank.StateMachine.EnemyState;
+using BattleTank.UI;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -15,6 +16,7 @@ namespace BattleTank.EnemyTank
         [SerializeField] private NavMeshAgent agent;
         [SerializeField] private Transform bulletSpawnPoint;
         [SerializeField] private EnemyStateMachine enemyStateMachine;
+        [SerializeField] private EnemyHealthUI enemyHealthUI;
 
         private void Start()
         {
@@ -49,6 +51,11 @@ namespace BattleTank.EnemyTank
         public TankID GetTankID()
         {
             return TankID.Enemy;
+        }
+
+        public EnemyHealthUI GetEnemyHealthUI()
+        {
+            return enemyHealthUI;
         }
     }
 }

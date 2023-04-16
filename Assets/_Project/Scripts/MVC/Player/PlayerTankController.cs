@@ -68,6 +68,8 @@ namespace BattleTank.PlayerTank
             {
                 playerTankView.DestroyGameObject();
             }
+            
+            UIService.Instance.PlayerHealthUI.SetHealthBarUI((tankModel.GetCurrentHealth() / tankModel.Health) * 100);
         }
 
         public float GetCurrentHealth()
