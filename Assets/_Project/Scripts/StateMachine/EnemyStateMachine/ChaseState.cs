@@ -1,4 +1,6 @@
-﻿namespace BattleTank.StateMachine.EnemyState
+﻿using BattleTank.Services;
+
+namespace BattleTank.StateMachine.EnemyState
 {
     public class ChaseState : BaseState
     {
@@ -27,6 +29,7 @@
             else
             {
                 stateMachine.SetState(enemyStateMachine.IdleState);
+                EventService.Instance.OnPlayerEscaped();
             }
         }
     }

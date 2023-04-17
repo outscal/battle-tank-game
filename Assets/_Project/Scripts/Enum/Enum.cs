@@ -21,4 +21,10 @@
         TankExplosion,
         BulletExplosion
     }
+
+    public enum TankID
+    {
+        Player,
+        Enemy
+    }
 }

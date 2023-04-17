@@ -25,7 +25,8 @@ namespace BattleTank.Bullet
         {
             if (other.GetComponent<IDamageable>() != null)
             {
-                other.GetComponent<IDamageable>().Damage(bulletController.GetDamageValue());
+                IDamageable damagableObject = other.GetComponent<IDamageable>();
+                damagableObject.Damage(bulletController.GetTankID(), bulletController.GetDamageValue());
             }
             ParticleEffectsService.Instance.ShowExplosionEffect(ExplosionType.BulletExplosion, gameObject.transform.position);
             DestroyGameObject();

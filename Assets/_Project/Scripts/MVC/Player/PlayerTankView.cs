@@ -55,7 +55,7 @@ namespace BattleTank.PlayerTank
             rotate = Input.GetAxisRaw("HorizontalUI");
         }
 
-        public void Damage(float damage)
+        public void Damage(TankID shooter, float damage)
         {
             playerTankController.TakeDamage(damage);
         }
@@ -82,6 +82,11 @@ namespace BattleTank.PlayerTank
         public Rigidbody GetRigiBody()
         {
             return rigidBody;
+        }
+
+        public TankID GetTankID()
+        {
+            return TankID.Player;
         }
     }
 }
