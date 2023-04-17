@@ -1,6 +1,4 @@
-﻿using BattleTank.Enum;
-using BattleTank.Services;
-
+﻿
 namespace BattleTank.StateMachine.EnemyState
 {
     public class DeadState : BaseState

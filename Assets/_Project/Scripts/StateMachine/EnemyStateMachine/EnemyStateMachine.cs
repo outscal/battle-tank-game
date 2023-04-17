@@ -10,10 +10,10 @@ namespace BattleTank.StateMachine.EnemyState
 {
     public class EnemyStateMachine : StateMachine
     {
-        private float patrolRange;
-        private float chaseRange;
-        private float attackRange;
-        private float averageDistance;
+        [SerializeField] private float patrolRange;
+        [SerializeField] private float chaseRange;
+        [SerializeField] private float attackRange;
+        [SerializeField] private float averageDistance;
 
         private EnemyTankController enemyTankController;
 
@@ -28,14 +28,9 @@ namespace BattleTank.StateMachine.EnemyState
         public ChaseState ChaseState { get; private set; }
         public AttackState AttackState { get; private set; }
         public DeadState DeadState { get; private set; }
-
-        private void Start()
+        
+        private void Initialize()
         {
-            patrolRange = 300f;
-            chaseRange = 23f;
-            attackRange = 18f;
-            averageDistance = 30f;
-
             PlayerTransform = PlayerTankService.Instance.GetPlayerTank();
 
             IdleState = new IdleState(this);
@@ -43,7 +38,10 @@ namespace BattleTank.StateMachine.EnemyState
             ChaseState = new ChaseState(this);
             AttackState = new AttackState(this);
             DeadState = new DeadState(this);
+        }
 
+        private void StartStateMachine()
+        {
             SetState(IdleState);
         }
 
@@ -53,6 +51,9 @@ namespace BattleTank.StateMachine.EnemyState
             EnemyTankView = _enemyTankView;
             NavMeshAgent = _navMeshAgent;
             EnemyBulletType = _bulletType;
+
+            Initialize();
+            StartStateMachine();
         }
 
         private void Update()
@@ -115,6 +116,10 @@ namespace BattleTank.StateMachine.EnemyState
         {
             yield return new WaitForSeconds(enemyTankController.GetTankDestroyTime());
             EnemyTankPoolService.Instance.ReturnItem(EnemyTankView);
+            if (PlayerTankService.Instance.GetIsPlayerTankAlive())
+            {
+                EnemyTankService.Instance.SpawnEnemyTanks();
+            }
         }
     }
 }

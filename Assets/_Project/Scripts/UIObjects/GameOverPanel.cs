@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using BattleTank.Services;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace BattleTank.UI
@@ -15,7 +15,7 @@ namespace BattleTank.UI
 
         private void RestartScene()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            GameService.Instance.StartGame();
         }
     }
 }

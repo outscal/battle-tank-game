@@ -17,15 +17,11 @@ namespace BattleTank.EnemyTank
         [SerializeField] private Transform bulletSpawnPoint;
         [SerializeField] private EnemyStateMachine enemyStateMachine;
         [SerializeField] private EnemyHealthUI enemyHealthUI;
-
-        private void Start()
-        {
-            enemyTankController.UpdateTankColor(tankRenderer);
-        }
         
         public void SetEnemyTankController(EnemyTankController _enemyTankController)
         {
             enemyTankController = _enemyTankController;
+            enemyTankController.UpdateTankColor(tankRenderer);
         }
 
         public Transform GetBulletTransform()

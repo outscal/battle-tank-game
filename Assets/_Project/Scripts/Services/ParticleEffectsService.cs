@@ -11,10 +11,10 @@ namespace BattleTank.Services
         [SerializeField] private float tankExplosionEffectDuration;
         [SerializeField] private ParticleSystem shellExplosionEffect;
         [SerializeField] private float shellExplosionEffectDuration;
-        private ParticleSystem explosion;
         
         public void ShowExplosionEffect(ExplosionType explosionType, Vector3 spawnPosition)
         {
+            ParticleSystem explosion = null;
             float effectDuration = 0f;
 
             if(explosionType == ExplosionType.TankExplosion)
@@ -27,23 +27,15 @@ namespace BattleTank.Services
                 explosion = Instantiate(shellExplosionEffect, spawnPosition, Quaternion.identity);
                 effectDuration = shellExplosionEffectDuration;
             }
-            
             explosion.Play();
-            StartCoroutine(DestroyEffect(explosionType, explosion, effectDuration));
+            StartCoroutine(DestroyEffect(explosion, effectDuration));
         }
         
-        IEnumerator DestroyEffect(ExplosionType explosionType, ParticleSystem explosionEffect, float effectDuration)
+        IEnumerator DestroyEffect(ParticleSystem explosion, float effectDuration)
         {
             yield return new WaitForSeconds(effectDuration);
-
-            if(explosionType == ExplosionType.TankExplosion)
-            {
-                Destroy(explosion);
-            }
-            else if(explosionType == ExplosionType.BulletExplosion)
-            {
-                Destroy(explosion);
-            }
+            
+            Destroy(explosion.gameObject);
         }
     }
 }

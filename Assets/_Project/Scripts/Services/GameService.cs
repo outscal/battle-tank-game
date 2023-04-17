@@ -1,10 +1,15 @@
-﻿using UnityEngine;
+﻿using BattleTank.GenericSingleton;
 
 namespace BattleTank.Services
 {
-    public class GameService : MonoBehaviour
+    public class GameService : GenericSingleton<GameService>
     {
-        private void Awake()
+        protected override void Awake()
+        {
+            base.Awake();
+            StartGame();
+        }
+        public void StartGame()
         {
             DestructionService.Instance.LoadEnvironment();
             DestructionService.Instance.SetCoroutineNull();

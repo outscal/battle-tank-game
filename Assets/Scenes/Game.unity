@@ -683,20 +683,20 @@ MonoBehaviour:
   enemyTankView: {fileID: 114148175132503602, guid: 0ec7b9c5a8e94aa4c993e533b79f009d,
     type: 2}
   tankList: {fileID: 11400000, guid: eb55eb58e6a229346a13a9a0c5177e79, type: 2}
-  spawnPositions:
-  - {fileID: 331684852}
-  - {fileID: 1556238110}
-  - {fileID: 245242467}
   colors:
   - tankType: 1
-    backgroundColor: {r: 0.078431375, g: 0.49019608, b: 0.972549, a: 0.49803922}
+    backgroundColor: {r: 0.078431375, g: 0.49019608, b: 0.972549, a: 0.4509804}
     foregroundColor: {r: 0.078431375, g: 0.49019608, b: 0.972549, a: 1}
   - tankType: 2
-    backgroundColor: {r: 0.3882353, g: 0.5882353, b: 0.16470589, a: 0.49803922}
+    backgroundColor: {r: 0.3882353, g: 0.5882353, b: 0.16470589, a: 0.4509804}
     foregroundColor: {r: 0.3882353, g: 0.5882353, b: 0.16470589, a: 1}
   - tankType: 3
-    backgroundColor: {r: 0.654902, g: 0.08627451, b: 0.08627451, a: 0.49803922}
+    backgroundColor: {r: 0.654902, g: 0.08627451, b: 0.08627451, a: 0.4509804}
     foregroundColor: {r: 0.654902, g: 0.08627451, b: 0.08627451, a: 1}
+  spawnRange: 20
+  safeDistance: 30
+  totalEnemyCount: 3
+  currentEnemyCount: 0
 --- !u!4 &523661505
 Transform:
   m_ObjectHideFlags: 0
@@ -2501,15 +2501,14 @@ MonoBehaviour:
   tankList: {fileID: 11400000, guid: eb55eb58e6a229346a13a9a0c5177e79, type: 2}
   colors:
   - tankType: 1
-    backgroundColor: {r: 0.078431375, g: 0.49019608, b: 0.972549, a: 0.49803922}
+    backgroundColor: {r: 0.078431375, g: 0.49019608, b: 0.972549, a: 0.4509804}
     foregroundColor: {r: 0.078431375, g: 0.49019608, b: 0.972549, a: 1}
   - tankType: 2
-    backgroundColor: {r: 0.3882353, g: 0.5882353, b: 0.16470589, a: 0.49803922}
+    backgroundColor: {r: 0.3882353, g: 0.5882353, b: 0.16470589, a: 0.4509804}
     foregroundColor: {r: 0.3882353, g: 0.5882353, b: 0.16470589, a: 1}
   - tankType: 3
-    backgroundColor: {r: 0.654902, g: 0.08627451, b: 0.08627451, a: 0.49803922}
+    backgroundColor: {r: 0.654902, g: 0.08627451, b: 0.08627451, a: 0.4509804}
     foregroundColor: {r: 0.654902, g: 0.08627451, b: 0.08627451, a: 1}
-  gameService: {fileID: 1540068673}
 --- !u!4 &2052149228
 Transform:
   m_ObjectHideFlags: 0

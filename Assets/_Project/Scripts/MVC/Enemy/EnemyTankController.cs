@@ -16,7 +16,7 @@ namespace BattleTank.EnemyTank
         private Transform playerTransform;
         private bool isTankAlive;
         
-        public EnemyTankController(TankModel _tankModel, EnemyTankView _enemyTankView, Transform spawnPosition, Transform _playerTransform, List<ColorType> colors)
+        public EnemyTankController(TankModel _tankModel, EnemyTankView _enemyTankView, Vector3 spawnPosition, Transform _playerTransform, List<ColorType> colors)
         {
             tankModel = _tankModel;
             enemyTankView = _enemyTankView;
@@ -26,15 +26,20 @@ namespace BattleTank.EnemyTank
             SpawnTank(spawnPosition, colors);
         }
 
-        private void SpawnTank(Transform spawnPosition, List<ColorType> colors)
+        private void SpawnTank(Vector3 spawnPosition, List<ColorType> colors)
         {
             enemyTankView = EnemyTankPoolService.Instance.GetItem();
             enemyTankView.SetEnemyTankController(this);
-            enemyTankView.transform.position = spawnPosition.position;
+            enemyTankView.transform.position = spawnPosition;
             enemyTankView.gameObject.SetActive(true);
             enemyStateMachine = enemyTankView.GetEnemyStateMachine();
             enemyStateMachine.SetComponentsInEnemyStateMachine(this, enemyTankView, enemyTankView.GetNavMeshAgent(), tankModel.BulletType);
 
+            UpdateHealthUIColor(colors);
+        }
+
+        private void UpdateHealthUIColor(List<ColorType> colors)
+        {
             for (int i = 0; i < colors.Capacity; i++)
             {
                 if (tankModel.TankType == colors[i].tankType)
@@ -61,6 +66,7 @@ namespace BattleTank.EnemyTank
         public void DestroyTank()
         {
             enemyStateMachine.SetState(enemyStateMachine.DeadState);
+            EnemyTankService.Instance.DecreaseEnemyCount();
         }
 
         public void TakeDamage(TankID shooter, float damage)
