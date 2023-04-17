@@ -15,7 +15,6 @@ namespace BattleTank.StateMachine.EnemyState
         public override void OnStateEnter()
         {
             enemyStateMachine.NavMeshAgent.isStopped = true;
-            ParticleEffectsService.Instance.ShowExplosionEffect(ExplosionType.TankExplosion, enemyStateMachine.EnemyTankView.transform.position);
             enemyStateMachine.DestroyGameObject();
             stateMachine.SetState(null);
         }

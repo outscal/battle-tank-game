@@ -7,13 +7,14 @@ namespace BattleTank.Services
         private void Awake()
         {
             DestructionService.Instance.LoadEnvironment();
-            UIService.Instance.SetStartingDisplayPanel();
             DestructionService.Instance.SetCoroutineNull();
+            UIService.Instance.DeactivateGameOverPanel();
+            UIService.Instance.SetTankSelectionUI();
         }
         
-        private void Start()
+        public void StartLevel()
         {
-            PlayerTankService.Instance.SpawnPlayerTank();
+            UIService.Instance.ActivateStartingUI();
             EnemyTankService.Instance.SpawnEnemyTanks();
         }
     }

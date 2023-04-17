@@ -15,6 +15,7 @@ namespace BattleTank.Services
         [SerializeField] private AchievementUIPanel achievementUIPanel;
         [SerializeField] private GameObject gameOverPanel;
         [SerializeField] private GameObject healthBarPanel;
+        [SerializeField] private GameObject tankSelectionUI;
         public PlayerHealthUI PlayerHealthUI;
 
         private Coroutine coroutine;
@@ -23,7 +24,7 @@ namespace BattleTank.Services
 
         private float achievementPanelDisplayTime;
         private float coroutineEndTime;
-
+        
         private void Start()
         {
             titleQueue = new Queue<string>();
@@ -60,21 +61,34 @@ namespace BattleTank.Services
             coroutine = null;
         }
 
-        public void DisplayGameOverPanel()
+        public void ActivateGameOverPanel()
         {
             gameOverPanel.SetActive(true);
-            healthBarPanel.SetActive(false);
         }
 
-        public void SetStartingDisplayPanel()
+        public void DeactivateGameOverPanel()
         {
             gameOverPanel.SetActive(false);
+        }
+
+        public void ActivateStartingUI()
+        {
             healthBarPanel.SetActive(true);
+        }
+
+        public void DeactivateStartingUI()
+        {
+            healthBarPanel.SetActive(false);
         }
 
         public void SetPlayerHealthUI()
         {
             PlayerHealthUI.SetPlayerHealthValueUI();
+        }
+
+        public void SetTankSelectionUI()
+        {
+            tankSelectionUI.SetActive(true);
         }
     }
 }

@@ -107,6 +107,7 @@ namespace BattleTank.StateMachine.EnemyState
         public void DestroyGameObject()
         {
             enemyTankController.SetIsTankAlive(false);
+            ParticleEffectsService.Instance.ShowExplosionEffect(ExplosionType.TankExplosion, EnemyTankView.transform.position);
             StartCoroutine(DestroyTank());
         }
 

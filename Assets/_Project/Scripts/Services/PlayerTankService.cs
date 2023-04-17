@@ -16,10 +16,19 @@ namespace BattleTank.Services
 
         [SerializeField] private TankScriptableObjectList tankList;
         [SerializeField] private List<ColorType> colors;
-        
-        public void SpawnPlayerTank()
+        [SerializeField] private GameService gameService;
+
+        public void SpawnPlayerTank(TankType tankType)
         {
-            int TankNO = UnityEngine.Random.Range(0, tankList.Tanks.Length);
+            int TankNO = 0;
+
+            for(int i = 0; i < tankList.Tanks.Length; i++)
+            {
+                if(tankList.Tanks[i].TankType == tankType)
+                {
+                    TankNO = i;
+                }
+            }
 
             for (int i = 0; i < colors.Capacity; i++)
             {
@@ -30,6 +39,7 @@ namespace BattleTank.Services
             }
             UIService.Instance.SetPlayerHealthUI();
             playerTankController = new PlayerTankController(new TankModel(tankList.Tanks[TankNO]), playerTankView, gameObject.transform);
+            gameService.StartLevel();
         }
 
         public Transform GetPlayerTank()

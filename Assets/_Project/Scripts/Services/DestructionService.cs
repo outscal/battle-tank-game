@@ -23,6 +23,7 @@ namespace BattleTank.Services
 
             enemyTanks = EnemyTankService.Instance.GetEnemyTankControllersList();
             CameraService.Instance.ZoomOutCamera();
+            UIService.Instance.DeactivateStartingUI();
             destructionCoroutine = StartCoroutine(StartDestruction());
         }
 
@@ -42,7 +43,7 @@ namespace BattleTank.Services
                     continue;
                 }
                 yield return new WaitForSeconds(delayTime);
-                EnemyTankPoolService.Instance.ReturnItem(enemyTanks[i].GetEnemyTankView());
+                enemyTanks[i].DestroyTank();
             }
         }
 
@@ -54,7 +55,7 @@ namespace BattleTank.Services
                 yield return new WaitForSeconds(delayTime);
                 environment.transform.GetChild(i).gameObject.SetActive(false);
             }
-            UIService.Instance.DisplayGameOverPanel();
+            UIService.Instance.ActivateGameOverPanel();
         }
 
         public void LoadEnvironment()

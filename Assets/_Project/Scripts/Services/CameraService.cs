@@ -8,22 +8,20 @@ namespace BattleTank.Services
         [SerializeField] private Camera mainCamera;
         [SerializeField] private Vector3 cameraPositionAtDestruction;
         [SerializeField] private Vector3 newRotationAtDestruction;
+        [SerializeField] private Vector3 cameraPositionAtPlayer;
+        [SerializeField] private Vector3 newRotationAtPlayer;
         private Quaternion cameraRotationAtDestruction;
-        private Vector3 cameraPositionAtStarting;
-        private Vector3 cameraRotationAtStarting;
 
         private void Start()
         {
             cameraRotationAtDestruction = Quaternion.Euler(newRotationAtDestruction);
-            cameraPositionAtStarting = transform.position;
-            cameraRotationAtStarting = transform.rotation.eulerAngles;
         }
 
         public void AttachIntoPlayer(Transform playerTransform)
         {
             mainCamera.transform.SetParent(playerTransform);
-            transform.position = cameraPositionAtStarting;
-            transform.rotation = Quaternion.Euler(cameraRotationAtStarting);
+            transform.position = cameraPositionAtPlayer;
+            transform.rotation = Quaternion.Euler(newRotationAtPlayer);
             mainCamera.transform.position = new Vector3(playerTransform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
         }
 
