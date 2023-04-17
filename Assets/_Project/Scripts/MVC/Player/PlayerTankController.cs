@@ -65,6 +65,12 @@ namespace BattleTank.PlayerTank
             {
                 tankModel.SetCurrentHealth(GetCurrentHealth() - damage);
             }
+            
+            if(((tankModel.GetCurrentHealth() / tankModel.Health) * tankModel.TotalPercentage) <= tankModel.HalfPercentage)
+            {
+                CollectibleService.Instance.LowHealth();
+                playerTankView.SetArrowObjectActive(true);
+            }
 
             if(tankModel.GetCurrentHealth() <= 0)
             {
@@ -72,7 +78,26 @@ namespace BattleTank.PlayerTank
                 isPlayerTankAlive = false;
             }
             
-            UIService.Instance.PlayerHealthUI.SetHealthBarUI((tankModel.GetCurrentHealth() / tankModel.Health) * 100);
+            UIService.Instance.PlayerHealthUI.SetHealthBarUI((tankModel.GetCurrentHealth() / tankModel.Health) * tankModel.TotalPercentage);
+        }
+
+        public void AddAdditionalHealth(float additionalHealthPercentage)
+        {
+            float additionalHealth = (additionalHealthPercentage / tankModel.TotalPercentage) * tankModel.Health;
+            tankModel.SetCurrentHealth(tankModel.GetCurrentHealth() + additionalHealth);
+            
+            if (tankModel.GetCurrentHealth() > tankModel.Health)
+            {
+                tankModel.SetCurrentHealth(tankModel.Health);
+            }
+
+            if (((tankModel.GetCurrentHealth() / tankModel.Health) * tankModel.TotalPercentage) <= tankModel.HalfPercentage)
+            {
+                CollectibleService.Instance.LowHealth();
+                playerTankView.SetArrowObjectActive(true);
+            }
+
+            UIService.Instance.PlayerHealthUI.SetHealthBarUI((tankModel.GetCurrentHealth() / tankModel.Health) * tankModel.TotalPercentage);
         }
 
         public float GetCurrentHealth()
@@ -88,6 +113,11 @@ namespace BattleTank.PlayerTank
         public bool GetIsPlayerTankALive()
         {
             return isPlayerTankAlive;
+        }
+
+        public void SetArrowObjectActive(bool _value)
+        {
+            playerTankView.SetArrowObjectActive(_value);
         }
     }
 }

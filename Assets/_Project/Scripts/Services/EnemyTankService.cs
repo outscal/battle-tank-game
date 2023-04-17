@@ -59,7 +59,7 @@ namespace BattleTank.Services
 
             while (pointFound != true)
             {
-                Vector3 randomDirection = gameObject.transform.position + Random.insideUnitSphere * spawnRange;
+                Vector3 randomDirection = gameObject.transform.position + spawnRange * Random.insideUnitSphere;
 
                 if (NavMesh.SamplePosition(randomDirection, out hit, 1, NavMesh.AllAreas))
                 {

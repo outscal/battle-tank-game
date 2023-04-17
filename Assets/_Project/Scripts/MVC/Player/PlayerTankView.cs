@@ -18,6 +18,8 @@ namespace BattleTank.PlayerTank
         private float nextShootTime;
         private float additionalAttackTime;
         [SerializeField] private Transform bulletTransform;
+        [SerializeField] private GameObject arrowObject;
+        [SerializeField] private float arrowObjectXAxis;
         
         private void Start()
         {
@@ -46,6 +48,12 @@ namespace BattleTank.PlayerTank
             {
                 nextShootTime = Time.time + additionalAttackTime / playerTankController.GetFireRate();
                 playerTankController.SpawnBullet(bulletTransform, transform.rotation);
+            }
+
+            if (arrowObject.activeSelf)
+            {
+                arrowObject.transform.LookAt(CollectibleService.Instance.GetCollectibleObjectTransform());
+                arrowObject.transform.rotation = Quaternion.Euler(new Vector3(arrowObjectXAxis, arrowObject.transform.rotation.eulerAngles.y, arrowObject.transform.rotation.eulerAngles.z));
             }
         }
 
@@ -87,6 +95,16 @@ namespace BattleTank.PlayerTank
         public TankID GetTankID()
         {
             return TankID.Player;
+        }
+
+        public void AddAdditionalHealth(float additionalHealthPercentage)
+        {
+            playerTankController.AddAdditionalHealth(additionalHealthPercentage);
+        }
+
+        public void SetArrowObjectActive(bool _value)
+        {
+            arrowObject.SetActive(_value);
         }
     }
 }

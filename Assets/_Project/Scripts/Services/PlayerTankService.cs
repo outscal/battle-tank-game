@@ -39,6 +39,7 @@ namespace BattleTank.Services
             UIService.Instance.SetPlayerHealthUI();
             playerTankController = new PlayerTankController(new TankModel(tankList.Tanks[TankNO]), playerTankView, gameObject.transform);
             GameService.Instance.StartLevel();
+            CollectibleService.Instance.UpdateCollectibleTankMaterial(tankList.Tanks[TankNO].Material);
         }
 
         public Transform GetPlayerTank()
@@ -49,6 +50,11 @@ namespace BattleTank.Services
         public bool GetIsPlayerTankAlive()
         {
             return playerTankController.GetIsPlayerTankALive();
+        }
+
+        public PlayerTankController GetPlayerTankController()
+        {
+            return playerTankController;
         }
     }
 }

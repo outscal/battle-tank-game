@@ -82,7 +82,7 @@ namespace BattleTank.EnemyTank
                 EventService.Instance.OnTankDestroyed(shooter, TankID.Enemy);
             }
 
-            enemyTankView.GetEnemyHealthUI().SetHealthBarUI((tankModel.GetCurrentHealth() / tankModel.Health) * 100);
+            enemyTankView.GetEnemyHealthUI().SetHealthBarUI((tankModel.GetCurrentHealth() / tankModel.Health) * tankModel.TotalPercentage);
         }
 
         public float GetCurrentHealth()

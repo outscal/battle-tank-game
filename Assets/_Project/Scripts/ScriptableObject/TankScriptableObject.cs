@@ -14,5 +14,7 @@ namespace BattleTank.TankSO
         public float FireRate;
         public float TankDestroyTime;
         public Material Material;
+        public int TotalPercentage;
+        public int HalfPercentage;
     }
 }

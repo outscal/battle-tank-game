@@ -15,6 +15,8 @@ namespace BattleTank.Tank
         public float FireRate { get; private set; }
         public float TankDestroyTime { get; private set; }
         public Material Material { get; private set; }
+        public int TotalPercentage { get; private set; }
+        public int HalfPercentage { get; private set; }
 
         public TankModel(TankScriptableObject tankScriptableObject)
         {
@@ -27,6 +29,8 @@ namespace BattleTank.Tank
             FireRate = tankScriptableObject.FireRate;
             TankDestroyTime = tankScriptableObject.TankDestroyTime;
             Material = tankScriptableObject.Material;
+            TotalPercentage = tankScriptableObject.TotalPercentage;
+            HalfPercentage = tankScriptableObject.HalfPercentage;
         }
 
         public float GetCurrentHealth()
