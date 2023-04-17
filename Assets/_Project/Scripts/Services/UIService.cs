@@ -13,6 +13,8 @@ namespace BattleTank.Services
         [SerializeField] private Text titleText;
         [SerializeField] private Text descriptionText;
         [SerializeField] private AchievementUIPanel achievementUIPanel;
+        [SerializeField] private GameObject gameOverPanel;
+        [SerializeField] private GameObject healthBarPanel;
         public PlayerHealthUI PlayerHealthUI;
 
         private Coroutine coroutine;
@@ -56,6 +58,23 @@ namespace BattleTank.Services
                 achievementPanel.SetActive(false);
             }
             coroutine = null;
+        }
+
+        public void DisplayGameOverPanel()
+        {
+            gameOverPanel.SetActive(true);
+            healthBarPanel.SetActive(false);
+        }
+
+        public void SetStartingDisplayPanel()
+        {
+            gameOverPanel.SetActive(false);
+            healthBarPanel.SetActive(true);
+        }
+
+        public void SetPlayerHealthUI()
+        {
+            PlayerHealthUI.SetPlayerHealthValueUI();
         }
     }
 }

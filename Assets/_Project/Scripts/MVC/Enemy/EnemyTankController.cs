@@ -98,5 +98,10 @@ namespace BattleTank.EnemyTank
         {
             return isTankAlive;
         }
+
+        public EnemyTankView GetEnemyTankView()
+        {
+            return enemyTankView;
+        }
     }
 }

@@ -17,18 +17,18 @@ namespace BattleTank.Services
         [SerializeField] private TankScriptableObjectList tankList;
         [SerializeField] private List<ColorType> colors;
         
-        private void Start()
+        public void SpawnPlayerTank()
         {
             int TankNO = UnityEngine.Random.Range(0, tankList.Tanks.Length);
 
             for (int i = 0; i < colors.Capacity; i++)
             {
-                if(tankList.Tanks[TankNO].TankType == colors[i].tankType)
+                if (tankList.Tanks[TankNO].TankType == colors[i].tankType)
                 {
                     UIService.Instance.PlayerHealthUI.SetUIColor(colors[i].backgroundColor, colors[i].foregroundColor);
                 }
             }
-
+            UIService.Instance.SetPlayerHealthUI();
             playerTankController = new PlayerTankController(new TankModel(tankList.Tanks[TankNO]), playerTankView, gameObject.transform);
         }
 
@@ -37,5 +37,9 @@ namespace BattleTank.Services
             return playerTankController.GetPlayerTransform();
         }
 
+        public bool GetIsPlayerTankAlive()
+        {
+            return playerTankController.GetIsPlayerTankALive();
+        }
     }
 }

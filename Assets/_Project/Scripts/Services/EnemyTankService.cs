@@ -15,15 +15,15 @@ namespace BattleTank.Services
         [SerializeField] private List<GameObject> spawnPositions;
         private List<EnemyTankController> enemyTankControllersList;
         [SerializeField] private List<ColorType> colors;
-
-        private void Start()
+        
+        public void SpawnEnemyTanks()
         {
             enemyTankControllersList = new List<EnemyTankController>();
 
             for (int i = 0; i < spawnPositions.Count; i++)
             {
                 int TankNO = Random.Range(0, tankList.Tanks.Length);
-                
+
                 EnemyTankController enemyTankController = new EnemyTankController(new TankModel(tankList.Tanks[TankNO]), enemyTankView, spawnPositions[i].transform, PlayerTankService.Instance.GetPlayerTank(), colors);
                 enemyTankControllersList.Add(enemyTankController);
             }

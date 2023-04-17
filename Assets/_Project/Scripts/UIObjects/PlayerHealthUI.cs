@@ -10,7 +10,7 @@ namespace BattleTank.UI
         [SerializeField] private Slider healthBar;
         [SerializeField] private int fullValue;
 
-        private void Start()
+        public void SetPlayerHealthValueUI()
         {
             healthBar.value = fullValue;
         }

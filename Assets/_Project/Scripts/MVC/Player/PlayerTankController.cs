@@ -11,6 +11,7 @@ namespace BattleTank.PlayerTank
         private TankModel tankModel;
         private PlayerTankView playerTankView;
         private Rigidbody rigidBody;
+        private bool isPlayerTankAlive;
         
         public PlayerTankController(TankModel _tankModel, PlayerTankView _playerTankView, Transform spawnPosition)
         {
@@ -20,6 +21,7 @@ namespace BattleTank.PlayerTank
             rigidBody = playerTankView.GetRigiBody();
 
             playerTankView.SetTankController(this);
+            isPlayerTankAlive = true;
         }
         
         public Transform GetPlayerTransform()
@@ -67,6 +69,7 @@ namespace BattleTank.PlayerTank
             if(tankModel.GetCurrentHealth() <= 0)
             {
                 playerTankView.DestroyGameObject();
+                isPlayerTankAlive = false;
             }
             
             UIService.Instance.PlayerHealthUI.SetHealthBarUI((tankModel.GetCurrentHealth() / tankModel.Health) * 100);
@@ -80,6 +83,11 @@ namespace BattleTank.PlayerTank
         public float GetTankDestryTime()
         {
             return tankModel.TankDestroyTime;
+        }
+
+        public bool GetIsPlayerTankALive()
+        {
+            return isPlayerTankAlive;
         }
     }
 }

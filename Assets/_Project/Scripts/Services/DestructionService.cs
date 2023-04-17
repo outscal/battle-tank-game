@@ -1,5 +1,6 @@
 ﻿using BattleTank.EnemyTank;
 using BattleTank.GenericSingleton;
+using BattleTank.Services.ObjectPoolService;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,8 +9,8 @@ namespace BattleTank.Services
 {
     public class DestructionService : GenericSingleton<DestructionService>
     {
-        [SerializeField] private Transform environment;
         [SerializeField] private float delayTime;
+        [SerializeField] private GameObject environment;
         private List<EnemyTankController> enemyTanks;
         private Coroutine destructionCoroutine;
 
@@ -41,18 +42,33 @@ namespace BattleTank.Services
                     continue;
                 }
                 yield return new WaitForSeconds(delayTime);
-                enemyTanks[i].DestroyTank();
+                EnemyTankPoolService.Instance.ReturnItem(enemyTanks[i].GetEnemyTankView());
             }
         }
 
         IEnumerator DestroyEnvironment()
         {
-            int n = environment.childCount;
+            int n = environment.transform.childCount;
             for(int i = n-1; i >= 0; i--)
             {
                 yield return new WaitForSeconds(delayTime);
-                Destroy(environment.GetChild(i).gameObject);
+                environment.transform.GetChild(i).gameObject.SetActive(false);
             }
+            UIService.Instance.DisplayGameOverPanel();
+        }
+
+        public void LoadEnvironment()
+        {
+            int n = environment.transform.childCount;
+            for (int i = n-1; i >= 0; i--)
+            {
+                environment.transform.GetChild(i).gameObject.SetActive(true);
+            }
+        }
+
+        public void SetCoroutineNull()
+        {
+            destructionCoroutine = null;
         }
     }
 }
