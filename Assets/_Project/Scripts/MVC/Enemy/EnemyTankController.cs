@@ -28,7 +28,7 @@ namespace BattleTank.EnemyTank
 
         private void SpawnTank(Vector3 spawnPosition, List<ColorType> colors)
         {
-            enemyTankView = EnemyTankPoolService.Instance.GetItem();
+            enemyTankView = EnemyTankService.Instance.GetEnemyTankPoolService().GetItem(ObjectPoolType.EnemyTankPool);
             enemyTankView.SetEnemyTankController(this);
             enemyTankView.transform.position = spawnPosition;
             enemyTankView.gameObject.SetActive(true);

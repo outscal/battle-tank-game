@@ -115,7 +115,7 @@ namespace BattleTank.StateMachine.EnemyState
         IEnumerator DestroyTank()
         {
             yield return new WaitForSeconds(enemyTankController.GetTankDestroyTime());
-            EnemyTankPoolService.Instance.ReturnItem(EnemyTankView);
+            EnemyTankService.Instance.GetEnemyTankPoolService().ReturnItem(ObjectPoolType.EnemyTankPool, EnemyTankView);
             if (PlayerTankService.Instance.GetIsPlayerTankAlive())
             {
                 EnemyTankService.Instance.SpawnEnemyTanks();

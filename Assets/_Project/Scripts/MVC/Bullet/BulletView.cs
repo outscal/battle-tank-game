@@ -41,7 +41,7 @@ namespace BattleTank.Bullet
         public void DestroyGameObject()
         {
             rigidBody.velocity = Vector3.zero;
-            BulletPoolService.Instance.ReturnItem(this);
+            BulletService.Instance.GetBulletPoolService().ReturnItem(ObjectPoolType.BulletPool, this);
         }
     }
 }

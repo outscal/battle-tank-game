@@ -1,5 +1,6 @@
 ﻿using BattleTank.EnemyTank;
 using BattleTank.GenericSingleton;
+using BattleTank.Services.ObjectPoolService;
 using BattleTank.Tank;
 using BattleTank.TankSO;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace BattleTank.Services
 {
     public class EnemyTankService : GenericSingleton<EnemyTankService>
     {
+        [SerializeField] private EnemyTankPoolService enemyTankPoolService;
         [SerializeField] private EnemyTankView enemyTankView;
         private EnemyTankController enemyTankController;
         [SerializeField] private TankScriptableObjectList tankList;
@@ -72,6 +74,11 @@ namespace BattleTank.Services
             }
 
             return finalPosition;
+        }
+
+        public EnemyTankPoolService GetEnemyTankPoolService()
+        {
+            return enemyTankPoolService;
         }
     }
 }

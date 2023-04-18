@@ -114,6 +114,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: f411b43deaf819d43bc713ebbbb5254c, type: 2}
+--- !u!1 &3637516
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 3637517}
+  - component: {fileID: 3637518}
+  m_Layer: 0
+  m_Name: TankParticlePoolService
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3637517
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 3637516}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1587757609}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3637518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 3637516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2bb97534700261458d927897cbdfb8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectPoolType: 3
+  itemPrefab: {fileID: 198686130448621568, guid: 0979e65bc115e384d9e81da80027c889,
+    type: 2}
+  initialPoolSize: 4
 --- !u!1 &112608266
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,6 +724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ab046bcb2bd81347b3d4a6ad9b1efe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyTankPoolService: {fileID: 1547704424}
   enemyTankView: {fileID: 114148175132503602, guid: 0ec7b9c5a8e94aa4c993e533b79f009d,
     type: 2}
   tankList: {fileID: 11400000, guid: eb55eb58e6a229346a13a9a0c5177e79, type: 2}
@@ -753,6 +798,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &778321178
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 778321179}
+  - component: {fileID: 778321180}
+  m_Layer: 0
+  m_Name: BulletParticlePoolService
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &778321179
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 778321178}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1587757609}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &778321180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 778321178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a35b262f1a5d74ab7241e6a72fc8d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectPoolType: 2
+  itemPrefab: {fileID: 198280225213361670, guid: 199ae907a83d6224cb02859bb3d33816,
+    type: 2}
+  initialPoolSize: 8
 --- !u!1001 &797735409
 Prefab:
   m_ObjectHideFlags: 0
@@ -1267,9 +1356,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 146c3d4e222f0ac4fb68c64884882b0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 114850197911243202, guid: 1dc32ff75f3c8514095673fab1d1a56a,
+  objectPoolType: 0
+  itemPrefab: {fileID: 114850197911243202, guid: 1dc32ff75f3c8514095673fab1d1a56a,
     type: 2}
-  poolSize: 8
+  initialPoolSize: 8
 --- !u!1 &1304999364
 GameObject:
   m_ObjectHideFlags: 0
@@ -1940,9 +2030,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc19296211ac584abf5cdb1ac4f4fdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankPrefab: {fileID: 114148175132503602, guid: 0ec7b9c5a8e94aa4c993e533b79f009d,
+  objectPoolType: 1
+  itemPrefab: {fileID: 114148175132503602, guid: 0ec7b9c5a8e94aa4c993e533b79f009d,
     type: 2}
-  poolSize: 3
+  initialPoolSize: 3
 --- !u!1 &1556238110
 GameObject:
   m_ObjectHideFlags: 0
@@ -1998,6 +2089,8 @@ Transform:
   m_Children:
   - {fileID: 1282953012}
   - {fileID: 1547704423}
+  - {fileID: 778321179}
+  - {fileID: 3637517}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2097,12 +2190,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6df00d241668e346aafa77610454780, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankExplosionEffect: {fileID: 198686130448621568, guid: 0979e65bc115e384d9e81da80027c889,
-    type: 2}
   tankExplosionEffectDuration: 1.2
-  shellExplosionEffect: {fileID: 198280225213361670, guid: 199ae907a83d6224cb02859bb3d33816,
-    type: 2}
   shellExplosionEffectDuration: 2
+  bulletParticlePoolService: {fileID: 778321180}
+  tankParticlePoolService: {fileID: 3637518}
 --- !u!4 &1701369199
 Transform:
   m_ObjectHideFlags: 0
@@ -2430,6 +2521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b04705787d87064fb909d62e79c7679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletPoolService: {fileID: 1282953013}
   bulletView: {fileID: 114850197911243202, guid: 1dc32ff75f3c8514095673fab1d1a56a,
     type: 2}
   bulletList: {fileID: 11400000, guid: ad42648542a6c6249b729795657e8ab3, type: 2}

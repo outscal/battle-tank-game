@@ -1,20 +1,23 @@
-﻿using BattleTank.GenericSingleton;
+﻿using BattleTank.Enum;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace BattleTank.GenericObjectPool
 {
-    public class GenericObjectPool<T> : GenericSingleton<GenericObjectPool<T>> where T : Component
+    public class GenericObjectPool<T> : MonoBehaviour where T : Component
     {
-        private Stack<T> itemPool;
-        protected T itemPrefab;
-        protected int initialPoolSize;
+        private Queue<T> itemQueue;
+        private Dictionary<ObjectPoolType, Queue<T>> itemPool;
+        [SerializeField] protected ObjectPoolType objectPoolType;
+        [SerializeField] protected T itemPrefab;
+        [SerializeField] protected int initialPoolSize;
 
         protected virtual void Start()
         {
-            itemPool = new Stack<T>();
-            SetItemPrefab();
-            SetInitialPoolSize();
+            itemPool = new Dictionary<ObjectPoolType, Queue<T>>();
+            itemQueue = new Queue<T>();
+            itemPool.Add(objectPoolType, itemQueue);
+            
             InitializePool();
         }
 
@@ -22,17 +25,22 @@ namespace BattleTank.GenericObjectPool
         {
             for(int i = 0; i < initialPoolSize; i++)
             {
-                ReturnItem(CreateNewItem());
+                ReturnItem(objectPoolType, CreateNewItem());
             }
         }
 
-        public T GetItem()
+        public T GetItem(ObjectPoolType _objectPoolType)
         {
-            if(itemPool.Count == 0)
+            Queue<T> tempQueue = null;
+            if (itemPool.TryGetValue(_objectPoolType, out tempQueue))
             {
-                return CreateNewItem();
+                if(tempQueue.Count == 0)
+                {
+                    return CreateNewItem();
+                }
+                return tempQueue.Dequeue();
             }
-            return itemPool.Pop();
+            return null;
         }
 
         private T CreateNewItem()
@@ -42,13 +50,14 @@ namespace BattleTank.GenericObjectPool
             return item;
         }
 
-        public void ReturnItem(T item)
+        public void ReturnItem(ObjectPoolType _objectPoolType, T item)
         {
+            Queue<T> tempQueue = null;
             item.gameObject.SetActive(false);
-            itemPool.Push(item);
+            if (itemPool.TryGetValue(_objectPoolType, out tempQueue))
+            {
+                tempQueue.Enqueue(item);
+            }
         }
-
-        protected virtual void SetItemPrefab() { }
-        protected virtual void SetInitialPoolSize() { }
     }
 }

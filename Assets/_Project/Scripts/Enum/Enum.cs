@@ -27,4 +27,12 @@
         Player,
         Enemy
     }
+
+    public enum ObjectPoolType
+    {
+        BulletPool,
+        EnemyTankPool,
+        BulletParticlePool,
+        TankParticlePool
+    }
 }

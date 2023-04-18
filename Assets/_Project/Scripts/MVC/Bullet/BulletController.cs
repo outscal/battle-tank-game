@@ -23,7 +23,7 @@ namespace BattleTank.Bullet
 
         private void SpawnBullet(Transform tankTransform, Quaternion tankRotation, TankID tankID)
         {
-            bulletView = BulletPoolService.Instance.GetItem();
+            bulletView = BulletService.Instance.GetBulletPoolService().GetItem(ObjectPoolType.BulletPool);
             bulletView.SetBulletController(this);
             EventService.Instance.OnBulletFired(tankID);
 
