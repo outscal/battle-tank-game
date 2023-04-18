@@ -2,12 +2,14 @@
 using BattleTank.BulletSO;
 using BattleTank.Enum;
 using BattleTank.GenericSingleton;
+using BattleTank.Services.ObjectPoolService;
 using UnityEngine;
 
 namespace BattleTank.Services
 {
     public class BulletService : GenericSingleton<BulletService>
     {
+        [SerializeField] private BulletPoolService bulletPoolService;
         [SerializeField] private BulletView bulletView;
         private BulletController bulletController;
 
@@ -29,6 +31,11 @@ namespace BattleTank.Services
                 }
             }
             return bulletIndex;
+        }
+
+        public BulletPoolService GetBulletPoolService()
+        {
+            return bulletPoolService;
         }
     }
 }

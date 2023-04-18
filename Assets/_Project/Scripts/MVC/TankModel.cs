@@ -13,8 +13,11 @@ namespace BattleTank.Tank
         public float MovementSpeed { get; private set; }
         public float RotationSpeed { get; private set; }
         public float FireRate { get; private set; }
-        public float TankDestroyTime { get; private set; }
         public Material Material { get; private set; }
+        public int TotalPercentage { get; private set; }
+        public int HalfPercentage { get; private set; }
+        public Color BackgroundColor { get; private set; }
+        public Color ForegroundColor { get; private set; }
 
         public TankModel(TankScriptableObject tankScriptableObject)
         {
@@ -25,8 +28,11 @@ namespace BattleTank.Tank
             MovementSpeed = tankScriptableObject.MovementSpeed;
             RotationSpeed = tankScriptableObject.RotationSpeed;
             FireRate = tankScriptableObject.FireRate;
-            TankDestroyTime = tankScriptableObject.TankDestroyTime;
             Material = tankScriptableObject.Material;
+            TotalPercentage = tankScriptableObject.TotalPercentage;
+            HalfPercentage = tankScriptableObject.HalfPercentage;
+            BackgroundColor = tankScriptableObject.BackgroundColor;
+            ForegroundColor = tankScriptableObject.ForegroundColor;
         }
 
         public float GetCurrentHealth()

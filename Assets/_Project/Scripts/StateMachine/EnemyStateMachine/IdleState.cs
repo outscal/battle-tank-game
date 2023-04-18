@@ -4,20 +4,22 @@ namespace BattleTank.StateMachine.EnemyState
 {
     public class IdleState : BaseState
     {
-        private float patrolTime;
         private float idleTime;
+        private float patrolTime;
+        private float defaultPatrolTime;
         private EnemyStateMachine enemyStateMachine;
 
         public IdleState(EnemyStateMachine _enemyStateMachine) : base(_enemyStateMachine)
         {
             enemyStateMachine = _enemyStateMachine;
-            idleTime = 3f;
+            idleTime = enemyStateMachine.GetIdleTime();
+            defaultPatrolTime = enemyStateMachine.GetDefaultPatrolTime();
         }
 
         public override void OnStateEnter()
         {
             enemyStateMachine.NavMeshAgent.isStopped = true;
-            patrolTime = 0f;
+            patrolTime = defaultPatrolTime;
         }
 
         public override void Tick()

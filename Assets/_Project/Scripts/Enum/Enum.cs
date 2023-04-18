@@ -27,4 +27,20 @@
         Player,
         Enemy
     }
+
+    public enum ObjectPoolType
+    {
+        BulletPool,
+        EnemyTankPool,
+        BulletParticlePool,
+        TankParticlePool
+    }
+
+    public enum Sounds
+    {
+        BackgroudMusic,
+        BulletExplosion,
+        BulletFire,
+        TankExplosion
+    }
 }

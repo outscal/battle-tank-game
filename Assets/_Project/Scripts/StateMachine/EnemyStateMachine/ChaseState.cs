@@ -29,7 +29,11 @@ namespace BattleTank.StateMachine.EnemyState
             else
             {
                 stateMachine.SetState(enemyStateMachine.IdleState);
-                EventService.Instance.OnPlayerEscaped();
+
+                if (PlayerTankService.Instance.GetIsPlayerTankAlive())
+                {
+                    EventService.Instance.OnPlayerEscaped();
+                }
             }
         }
     }

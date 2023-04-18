@@ -15,5 +15,6 @@ namespace BattleTank.AchievementSystemSO
         public string Title;
         public string Description;
         public int Target;
+        public int Score;
     }
 }

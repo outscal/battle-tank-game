@@ -6,20 +6,22 @@ namespace BattleTank.StateMachine.EnemyState
 {
     public class AttackState : BaseState
     {
-        private float waitTime;
         private float nextShootTime;
+        private float waitTime;
+        private float defaultWaitTime;
         private EnemyStateMachine enemyStateMachine;
 
         public AttackState(EnemyStateMachine _enemyStateMachine) : base(_enemyStateMachine)
         {
             enemyStateMachine = _enemyStateMachine;
-            nextShootTime = 5f;
+            nextShootTime = enemyStateMachine.GetNextShootTime();
+            defaultWaitTime = enemyStateMachine.GetDefaultWaitTime();
         }
 
         public override void OnStateEnter()
         {
             enemyStateMachine.NavMeshAgent.isStopped = false;
-            waitTime = 0f;
+            waitTime = defaultWaitTime;
         }
 
         public override void Tick()
@@ -27,7 +29,7 @@ namespace BattleTank.StateMachine.EnemyState
             waitTime += Time.deltaTime;
             if(waitTime > nextShootTime)
             {
-                waitTime = 0f;
+                waitTime = defaultWaitTime;
                 SpawnBullet();
             }
 

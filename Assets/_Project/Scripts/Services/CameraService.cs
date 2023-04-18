@@ -6,18 +6,22 @@ namespace BattleTank.Services
     public class CameraService : GenericSingleton<CameraService>
     {
         [SerializeField] private Camera mainCamera;
-        private Vector3 cameraPositionAtDestruction;
+        [SerializeField] private Vector3 cameraPositionAtDestruction;
+        [SerializeField] private Vector3 newRotationAtDestruction;
+        [SerializeField] private Vector3 cameraPositionAtPlayer;
+        [SerializeField] private Vector3 newRotationAtPlayer;
         private Quaternion cameraRotationAtDestruction;
 
         private void Start()
         {
-            cameraPositionAtDestruction = new Vector3(-50, 12, -3);
-            cameraRotationAtDestruction = Quaternion.Euler(new Vector3(40, 90, 0));
+            cameraRotationAtDestruction = Quaternion.Euler(newRotationAtDestruction);
         }
-        
+
         public void AttachIntoPlayer(Transform playerTransform)
         {
             mainCamera.transform.SetParent(playerTransform);
+            transform.position = cameraPositionAtPlayer;
+            transform.rotation = Quaternion.Euler(newRotationAtPlayer);
             mainCamera.transform.position = new Vector3(playerTransform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
         }
 

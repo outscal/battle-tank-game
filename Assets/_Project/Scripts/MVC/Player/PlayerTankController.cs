@@ -11,15 +11,18 @@ namespace BattleTank.PlayerTank
         private TankModel tankModel;
         private PlayerTankView playerTankView;
         private Rigidbody rigidBody;
+        private bool isPlayerTankAlive;
         
         public PlayerTankController(TankModel _tankModel, PlayerTankView _playerTankView, Transform spawnPosition)
         {
             tankModel = _tankModel;
             playerTankView = GameObject.Instantiate<PlayerTankView>(_playerTankView, spawnPosition);
-            
+
+            UIService.Instance.PlayerHealthUI.SetUIColor(tankModel.BackgroundColor, tankModel.ForegroundColor);
             rigidBody = playerTankView.GetRigiBody();
 
             playerTankView.SetTankController(this);
+            isPlayerTankAlive = true;
         }
         
         public Transform GetPlayerTransform()
@@ -63,13 +66,39 @@ namespace BattleTank.PlayerTank
             {
                 tankModel.SetCurrentHealth(GetCurrentHealth() - damage);
             }
+            
+            if(((tankModel.GetCurrentHealth() / tankModel.Health) * tankModel.TotalPercentage) <= tankModel.HalfPercentage)
+            {
+                CollectibleService.Instance.LowHealth();
+                playerTankView.SetArrowObjectActive(true);
+            }
 
             if(tankModel.GetCurrentHealth() <= 0)
             {
                 playerTankView.DestroyGameObject();
+                isPlayerTankAlive = false;
             }
             
-            UIService.Instance.PlayerHealthUI.SetHealthBarUI((tankModel.GetCurrentHealth() / tankModel.Health) * 100);
+            UIService.Instance.PlayerHealthUI.SetHealthBarUI((tankModel.GetCurrentHealth() / tankModel.Health) * tankModel.TotalPercentage);
+        }
+
+        public void AddAdditionalHealth(float additionalHealthPercentage)
+        {
+            float additionalHealth = (additionalHealthPercentage / tankModel.TotalPercentage) * tankModel.Health;
+            tankModel.SetCurrentHealth(tankModel.GetCurrentHealth() + additionalHealth);
+            
+            if (tankModel.GetCurrentHealth() > tankModel.Health)
+            {
+                tankModel.SetCurrentHealth(tankModel.Health);
+            }
+
+            if (((tankModel.GetCurrentHealth() / tankModel.Health) * tankModel.TotalPercentage) <= tankModel.HalfPercentage)
+            {
+                CollectibleService.Instance.LowHealth();
+                playerTankView.SetArrowObjectActive(true);
+            }
+
+            UIService.Instance.PlayerHealthUI.SetHealthBarUI((tankModel.GetCurrentHealth() / tankModel.Health) * tankModel.TotalPercentage);
         }
 
         public float GetCurrentHealth()
@@ -77,9 +106,14 @@ namespace BattleTank.PlayerTank
             return tankModel.GetCurrentHealth();
         }
 
-        public float GetTankDestryTime()
+        public bool GetIsPlayerTankALive()
         {
-            return tankModel.TankDestroyTime;
+            return isPlayerTankAlive;
+        }
+
+        public void SetArrowObjectActive(bool _value)
+        {
+            playerTankView.SetArrowObjectActive(_value);
         }
     }
 }

@@ -493,7 +493,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!65 &65208125816810384
 BoxCollider:
@@ -618,6 +618,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8ba1d8ad99fd4146af559e63355f476, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  patrolRange: 300
+  chaseRange: 23
+  attackRange: 18
+  averageDistance: 30
+  nextShootTime: 5
+  defaultWaitTime: 0
+  idleTime: 3
+  defaultPatrolTime: 0
 --- !u!114 &114969817492016434
 MonoBehaviour:
   m_ObjectHideFlags: 1

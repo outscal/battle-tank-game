@@ -8,8 +8,8 @@ namespace BattleTank.Services
 {
     public class DestructionService : GenericSingleton<DestructionService>
     {
-        [SerializeField] private Transform environment;
         [SerializeField] private float delayTime;
+        [SerializeField] private GameObject environment;
         private List<EnemyTankController> enemyTanks;
         private Coroutine destructionCoroutine;
 
@@ -22,6 +22,8 @@ namespace BattleTank.Services
 
             enemyTanks = EnemyTankService.Instance.GetEnemyTankControllersList();
             CameraService.Instance.ZoomOutCamera();
+            CollectibleService.Instance.DestroyingWorld();
+            UIService.Instance.DeactivateStartingUI();
             destructionCoroutine = StartCoroutine(StartDestruction());
         }
 
@@ -47,12 +49,27 @@ namespace BattleTank.Services
 
         IEnumerator DestroyEnvironment()
         {
-            int n = environment.childCount;
+            int n = environment.transform.childCount;
             for(int i = n-1; i >= 0; i--)
             {
                 yield return new WaitForSeconds(delayTime);
-                Destroy(environment.GetChild(i).gameObject);
+                environment.transform.GetChild(i).gameObject.SetActive(false);
             }
+            UIService.Instance.ActivateGameOverPanel();
+        }
+
+        public void LoadEnvironment()
+        {
+            int n = environment.transform.childCount;
+            for (int i = n-1; i >= 0; i--)
+            {
+                environment.transform.GetChild(i).gameObject.SetActive(true);
+            }
+        }
+
+        public void SetCoroutineNull()
+        {
+            destructionCoroutine = null;
         }
     }
 }

@@ -1,7 +1,4 @@
-﻿using BattleTank.Enum;
-using BattleTank.Services;
-
-namespace BattleTank.StateMachine.EnemyState
+﻿namespace BattleTank.StateMachine.EnemyState
 {
     public class DeadState : BaseState
     {
@@ -15,7 +12,6 @@ namespace BattleTank.StateMachine.EnemyState
         public override void OnStateEnter()
         {
             enemyStateMachine.NavMeshAgent.isStopped = true;
-            ParticleEffectsService.Instance.ShowExplosionEffect(ExplosionType.TankExplosion, enemyStateMachine.EnemyTankView.transform.position);
             enemyStateMachine.DestroyGameObject();
             stateMachine.SetState(null);
         }

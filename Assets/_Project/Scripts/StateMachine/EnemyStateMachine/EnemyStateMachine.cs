@@ -1,8 +1,6 @@
 ﻿using BattleTank.EnemyTank;
 using BattleTank.Enum;
 using BattleTank.Services;
-using BattleTank.Services.ObjectPoolService;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,10 +8,14 @@ namespace BattleTank.StateMachine.EnemyState
 {
     public class EnemyStateMachine : StateMachine
     {
-        private float patrolRange;
-        private float chaseRange;
-        private float attackRange;
-        private float averageDistance;
+        [SerializeField] private float patrolRange;
+        [SerializeField] private float chaseRange;
+        [SerializeField] private float attackRange;
+        [SerializeField] private float averageDistance;
+        [SerializeField] private float nextShootTime;
+        [SerializeField] private float defaultWaitTime;
+        [SerializeField] private float idleTime;
+        [SerializeField] private float defaultPatrolTime;
 
         private EnemyTankController enemyTankController;
 
@@ -28,14 +30,9 @@ namespace BattleTank.StateMachine.EnemyState
         public ChaseState ChaseState { get; private set; }
         public AttackState AttackState { get; private set; }
         public DeadState DeadState { get; private set; }
-
-        private void Start()
+        
+        private void Initialize()
         {
-            patrolRange = 300f;
-            chaseRange = 23f;
-            attackRange = 18f;
-            averageDistance = 30f;
-
             PlayerTransform = PlayerTankService.Instance.GetPlayerTank();
 
             IdleState = new IdleState(this);
@@ -43,7 +40,10 @@ namespace BattleTank.StateMachine.EnemyState
             ChaseState = new ChaseState(this);
             AttackState = new AttackState(this);
             DeadState = new DeadState(this);
+        }
 
+        private void StartStateMachine()
+        {
             SetState(IdleState);
         }
 
@@ -53,6 +53,9 @@ namespace BattleTank.StateMachine.EnemyState
             EnemyTankView = _enemyTankView;
             NavMeshAgent = _navMeshAgent;
             EnemyBulletType = _bulletType;
+
+            Initialize();
+            StartStateMachine();
         }
 
         private void Update()
@@ -107,13 +110,33 @@ namespace BattleTank.StateMachine.EnemyState
         public void DestroyGameObject()
         {
             enemyTankController.SetIsTankAlive(false);
-            StartCoroutine(DestroyTank());
+            ParticleEffectsService.Instance.ShowExplosionEffect(ExplosionType.TankExplosion, EnemyTankView.transform.position);
+            SoundService.Instance.PlayEffects(Sounds.TankExplosion);
+            EnemyTankService.Instance.GetEnemyTankPoolService().ReturnItem(ObjectPoolType.EnemyTankPool, EnemyTankView);
+            if (PlayerTankService.Instance.GetIsPlayerTankAlive())
+            {
+                EnemyTankService.Instance.SpawnEnemyTanks();
+            }
         }
 
-        IEnumerator DestroyTank()
+        public float GetNextShootTime()
         {
-            yield return new WaitForSeconds(enemyTankController.GetTankDestroyTime());
-            EnemyTankPoolService.Instance.ReturnItem(EnemyTankView);
+            return nextShootTime;
+        }
+        
+        public float GetDefaultWaitTime()
+        {
+            return defaultWaitTime;
+        }
+
+        public float GetIdleTime()
+        {
+            return idleTime;
+        }
+
+        public float GetDefaultPatrolTime()
+        {
+            return defaultPatrolTime;
         }
     }
 }

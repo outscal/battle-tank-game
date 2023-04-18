@@ -11,12 +11,7 @@ namespace BattleTank.UI
         [SerializeField] private int fullValue;
         [SerializeField] private float defaultXAxis;
         private Transform playerTransform;
-
-        private void Start()
-        {
-            healthBar.value = fullValue;
-        }
-
+        
         private void Update()
         {
             transform.LookAt(playerTransform);
@@ -27,6 +22,13 @@ namespace BattleTank.UI
         {
             backgroundImage.color = _bgColor;
             foregroundImage.color = _fgColor;
+
+            SetHealthBarValue();
+        }
+
+        private void SetHealthBarValue()
+        {
+            healthBar.value = fullValue;
         }
 
         public void SetHealthBarUI(float _value)
