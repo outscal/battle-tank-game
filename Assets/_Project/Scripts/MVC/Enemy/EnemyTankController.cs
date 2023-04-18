@@ -1,6 +1,5 @@
 ﻿using BattleTank.Enum;
 using BattleTank.Services;
-using BattleTank.Services.ObjectPoolService;
 using BattleTank.StateMachine.EnemyState;
 using BattleTank.Tank;
 using System.Collections.Generic;
@@ -16,17 +15,17 @@ namespace BattleTank.EnemyTank
         private Transform playerTransform;
         private bool isTankAlive;
         
-        public EnemyTankController(TankModel _tankModel, EnemyTankView _enemyTankView, Vector3 spawnPosition, Transform _playerTransform, List<ColorType> colors)
+        public EnemyTankController(TankModel _tankModel, EnemyTankView _enemyTankView, Vector3 spawnPosition, Transform _playerTransform)
         {
             tankModel = _tankModel;
             enemyTankView = _enemyTankView;
             playerTransform = _playerTransform;
             isTankAlive = true;
 
-            SpawnTank(spawnPosition, colors);
+            SpawnTank(spawnPosition);
         }
 
-        private void SpawnTank(Vector3 spawnPosition, List<ColorType> colors)
+        private void SpawnTank(Vector3 spawnPosition)
         {
             enemyTankView = EnemyTankService.Instance.GetEnemyTankPoolService().GetItem(ObjectPoolType.EnemyTankPool);
             enemyTankView.SetEnemyTankController(this);
@@ -35,18 +34,12 @@ namespace BattleTank.EnemyTank
             enemyStateMachine = enemyTankView.GetEnemyStateMachine();
             enemyStateMachine.SetComponentsInEnemyStateMachine(this, enemyTankView, enemyTankView.GetNavMeshAgent(), tankModel.BulletType);
 
-            UpdateHealthUIColor(colors);
+            UpdateHealthUIColor();
         }
 
-        private void UpdateHealthUIColor(List<ColorType> colors)
+        private void UpdateHealthUIColor()
         {
-            for (int i = 0; i < colors.Capacity; i++)
-            {
-                if (tankModel.TankType == colors[i].tankType)
-                {
-                    enemyTankView.GetEnemyHealthUI().SetUIColor(colors[i].backgroundColor, colors[i].foregroundColor);
-                }
-            }
+            enemyTankView.GetEnemyHealthUI().SetUIColor(tankModel.BackgroundColor, tankModel.ForegroundColor);
             enemyTankView.GetEnemyHealthUI().SetPlayerTransform(PlayerTankService.Instance.GetPlayerTank());
         }
 
@@ -88,11 +81,6 @@ namespace BattleTank.EnemyTank
         public float GetCurrentHealth()
         {
             return tankModel.GetCurrentHealth();
-        }
-        
-        public float GetTankDestroyTime()
-        {
-            return tankModel.TankDestroyTime;
         }
 
         public void SetIsTankAlive(bool _boolvalue)

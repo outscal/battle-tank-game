@@ -436,7 +436,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!65 &65184589730167724
 BoxCollider:
@@ -467,6 +467,8 @@ MonoBehaviour:
   - {fileID: 23246382681054980}
   - {fileID: 23641577757722478}
   - {fileID: 23925793885666222}
+  nextShootTime: 0
+  additionalAttackTime: 1.5
   bulletTransform: {fileID: 4906597381592232}
   arrowObject: {fileID: 1243852836149142}
   arrowObjectXAxis: 90

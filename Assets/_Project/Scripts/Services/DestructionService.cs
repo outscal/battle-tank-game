@@ -1,6 +1,5 @@
 ﻿using BattleTank.EnemyTank;
 using BattleTank.GenericSingleton;
-using BattleTank.Services.ObjectPoolService;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +22,7 @@ namespace BattleTank.Services
 
             enemyTanks = EnemyTankService.Instance.GetEnemyTankControllersList();
             CameraService.Instance.ZoomOutCamera();
+            CollectibleService.Instance.DestroyingWorld();
             UIService.Instance.DeactivateStartingUI();
             destructionCoroutine = StartCoroutine(StartDestruction());
         }

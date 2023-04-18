@@ -1,8 +1,6 @@
 ﻿using BattleTank.EnemyTank;
 using BattleTank.Enum;
 using BattleTank.Services;
-using BattleTank.Services.ObjectPoolService;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,6 +12,10 @@ namespace BattleTank.StateMachine.EnemyState
         [SerializeField] private float chaseRange;
         [SerializeField] private float attackRange;
         [SerializeField] private float averageDistance;
+        [SerializeField] private float nextShootTime;
+        [SerializeField] private float defaultWaitTime;
+        [SerializeField] private float idleTime;
+        [SerializeField] private float defaultPatrolTime;
 
         private EnemyTankController enemyTankController;
 
@@ -109,17 +111,32 @@ namespace BattleTank.StateMachine.EnemyState
         {
             enemyTankController.SetIsTankAlive(false);
             ParticleEffectsService.Instance.ShowExplosionEffect(ExplosionType.TankExplosion, EnemyTankView.transform.position);
-            StartCoroutine(DestroyTank());
-        }
-
-        IEnumerator DestroyTank()
-        {
-            yield return new WaitForSeconds(enemyTankController.GetTankDestroyTime());
+            SoundService.Instance.PlayEffects(Sounds.TankExplosion);
             EnemyTankService.Instance.GetEnemyTankPoolService().ReturnItem(ObjectPoolType.EnemyTankPool, EnemyTankView);
             if (PlayerTankService.Instance.GetIsPlayerTankAlive())
             {
                 EnemyTankService.Instance.SpawnEnemyTanks();
             }
+        }
+
+        public float GetNextShootTime()
+        {
+            return nextShootTime;
+        }
+        
+        public float GetDefaultWaitTime()
+        {
+            return defaultWaitTime;
+        }
+
+        public float GetIdleTime()
+        {
+            return idleTime;
+        }
+
+        public float GetDefaultPatrolTime()
+        {
+            return defaultPatrolTime;
         }
     }
 }

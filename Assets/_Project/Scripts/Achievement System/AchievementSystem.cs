@@ -37,6 +37,7 @@ namespace BattleTank.AchievementSystem
         {
             if(shooter == TankID.Player && reciever == TankID.Enemy)
             {
+                ScoreService.Instance.UpdateTankDestroyedScore();
                 UpdateAchievement(tankDestroyedModel);
             }
         }
@@ -59,6 +60,7 @@ namespace BattleTank.AchievementSystem
                     string description = achievementModel.AchievementLevel[currentLevel].Description;
 
                     UIService.Instance.DisplayAchievement(title, description);
+                    ScoreService.Instance.UpdateScore(achievementModel.AchievementLevel[currentLevel].Score);
                     achievementModel.CurrentLevel++;
                 }
             }

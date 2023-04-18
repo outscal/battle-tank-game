@@ -58,5 +58,13 @@ namespace BattleTank.Services
                 collectibleTankGameObject.gameObject.SetActive(true);
             }
         }
+
+        public void DestroyingWorld()
+        {
+            if (collectibleTankGameObject.gameObject.activeSelf)
+            {
+                collectibleTankGameObject.gameObject.SetActive(false);
+            }
+        }
     }
 }

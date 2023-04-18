@@ -17,7 +17,8 @@ namespace BattleTank.PlayerTank
         {
             tankModel = _tankModel;
             playerTankView = GameObject.Instantiate<PlayerTankView>(_playerTankView, spawnPosition);
-            
+
+            UIService.Instance.PlayerHealthUI.SetUIColor(tankModel.BackgroundColor, tankModel.ForegroundColor);
             rigidBody = playerTankView.GetRigiBody();
 
             playerTankView.SetTankController(this);
@@ -103,11 +104,6 @@ namespace BattleTank.PlayerTank
         public float GetCurrentHealth()
         {
             return tankModel.GetCurrentHealth();
-        }
-
-        public float GetTankDestryTime()
-        {
-            return tankModel.TankDestroyTime;
         }
 
         public bool GetIsPlayerTankALive()

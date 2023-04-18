@@ -29,6 +29,7 @@ namespace BattleTank.Services
                 explosion = bulletParticlePoolService.GetItem(ObjectPoolType.BulletParticlePool);
                 effectDuration = shellExplosionEffectDuration;
             }
+
             explosion.transform.position = spawnPosition;
             explosion.gameObject.SetActive(true);
             explosion.Play();

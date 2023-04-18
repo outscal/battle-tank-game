@@ -1,5 +1,4 @@
-﻿
-namespace BattleTank.StateMachine.EnemyState
+﻿namespace BattleTank.StateMachine.EnemyState
 {
     public class DeadState : BaseState
     {

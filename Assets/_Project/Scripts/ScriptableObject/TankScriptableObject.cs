@@ -12,9 +12,10 @@ namespace BattleTank.TankSO
         public float MovementSpeed;
         public float RotationSpeed;
         public float FireRate;
-        public float TankDestroyTime;
         public Material Material;
         public int TotalPercentage;
         public int HalfPercentage;
+        public Color BackgroundColor;
+        public Color ForegroundColor;
     }
 }

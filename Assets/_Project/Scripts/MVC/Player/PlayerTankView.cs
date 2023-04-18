@@ -15,8 +15,8 @@ namespace BattleTank.PlayerTank
         private float rotate;
         [SerializeField] private Rigidbody rigidBody;
         [SerializeField] private List<MeshRenderer> tankRenderer;
-        private float nextShootTime;
-        private float additionalAttackTime;
+        [SerializeField] private float nextShootTime;
+        [SerializeField] private float additionalAttackTime;
         [SerializeField] private Transform bulletTransform;
         [SerializeField] private GameObject arrowObject;
         [SerializeField] private float arrowObjectXAxis;
@@ -24,8 +24,6 @@ namespace BattleTank.PlayerTank
         private void Start()
         {
             CameraService.Instance.AttachIntoPlayer(gameObject.transform);
-            nextShootTime = 0.0f;
-            additionalAttackTime = 1.5f;
 
             playerTankController.UpdateTankColor(tankRenderer);
         }
@@ -33,7 +31,7 @@ namespace BattleTank.PlayerTank
         private void Update()
         {
             Movement();
-
+            
             if (movement != 0)
             {
                 playerTankController.Move(movement);
@@ -72,16 +70,11 @@ namespace BattleTank.PlayerTank
         {
             CameraService.Instance.DetachFromPlayer();
             ParticleEffectsService.Instance.ShowExplosionEffect(ExplosionType.TankExplosion, gameObject.transform.position);
+            SoundService.Instance.PlayEffects(Sounds.TankExplosion);
             DestructionService.Instance.DestroyEverything();
-            StartCoroutine(DestroyTank());
-        }
-
-        IEnumerator DestroyTank()
-        {
-            yield return new WaitForSeconds(playerTankController.GetTankDestryTime());
             Destroy(gameObject);
         }
-
+        
         public void SetTankController(PlayerTankController _playerTankController)
         {
             playerTankController = _playerTankController;

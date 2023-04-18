@@ -1,6 +1,5 @@
 ﻿using BattleTank.Enum;
 using BattleTank.Services;
-using BattleTank.Services.ObjectPoolService;
 using UnityEngine;
 
 namespace BattleTank.Bullet
@@ -23,6 +22,7 @@ namespace BattleTank.Bullet
 
         private void SpawnBullet(Transform tankTransform, Quaternion tankRotation, TankID tankID)
         {
+            SoundService.Instance.PlayEffects(Sounds.BulletFire);
             bulletView = BulletService.Instance.GetBulletPoolService().GetItem(ObjectPoolType.BulletPool);
             bulletView.SetBulletController(this);
             EventService.Instance.OnBulletFired(tankID);

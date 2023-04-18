@@ -7,28 +7,21 @@ namespace BattleTank.UI
         private Quaternion defaultRotationAngle;
         private Quaternion displayRotationAngle;
 
-        private bool rotateUIPanelFromLeft;
-        private bool rotateUIPanelToRight;
+        [SerializeField] private Vector3 newDefaultRotation;
 
-        private int rotationValue;
-        private int rotationSpeed;
+        [SerializeField] private bool rotateUIPanelFromLeft;
+        [SerializeField] private bool rotateUIPanelToRight;
 
-        private float rotationLimitFromLeft;
-        private float rotationLimitToRight;
+        [SerializeField] private int rotationValue;
+        [SerializeField] private int rotationSpeed;
+
+        [SerializeField] private float rotationLimitFromLeft;
+        [SerializeField] private float rotationLimitToRight;
 
         private void Awake()
         {
-            rotateUIPanelFromLeft = false;
-            rotateUIPanelToRight = false;
-
-            defaultRotationAngle = Quaternion.Euler(new Vector3(0, -90, 0));
-            displayRotationAngle = Quaternion.Euler(new Vector3(0, 0, 0));
-
-            rotationValue = 1;
-            rotationSpeed = 3;
-
-            rotationLimitFromLeft = 355f;
-            rotationLimitToRight = 90f;
+            defaultRotationAngle = Quaternion.Euler(newDefaultRotation);
+            displayRotationAngle = Quaternion.Euler(Vector3.zero);
         }
 
         private void Update()

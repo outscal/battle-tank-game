@@ -8,6 +8,7 @@ namespace BattleTank.Services
         {
             base.Awake();
             StartGame();
+            SoundService.Instance.PlayMusic(Enum.Sounds.BackgroudMusic);
         }
         public void StartGame()
         {
@@ -15,6 +16,7 @@ namespace BattleTank.Services
             DestructionService.Instance.SetCoroutineNull();
             UIService.Instance.DeactivateGameOverPanel();
             UIService.Instance.SetTankSelectionUI();
+            ScoreService.Instance.ResetScore();
         }
         
         public void StartLevel()

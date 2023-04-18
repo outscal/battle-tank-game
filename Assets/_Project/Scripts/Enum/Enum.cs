@@ -35,4 +35,12 @@
         BulletParticlePool,
         TankParticlePool
     }
+
+    public enum Sounds
+    {
+        BackgroudMusic,
+        BulletExplosion,
+        BulletFire,
+        TankExplosion
+    }
 }

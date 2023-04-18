@@ -16,7 +16,6 @@ namespace BattleTank.Services
         private EnemyTankController enemyTankController;
         [SerializeField] private TankScriptableObjectList tankList;
         public List<EnemyTankController> enemyTankControllersList { get; private set; }
-        [SerializeField] private List<ColorType> colors;
         [SerializeField] private float spawnRange;
         [SerializeField] private float safeDistance;
         [SerializeField] private int totalEnemyCount;
@@ -33,7 +32,7 @@ namespace BattleTank.Services
             {
                 int TankNO = Random.Range(0, tankList.Tanks.Length);
 
-                EnemyTankController enemyTankController = new EnemyTankController(new TankModel(tankList.Tanks[TankNO]), enemyTankView, GetSpawnPosition(), PlayerTankService.Instance.GetPlayerTank(), colors);
+                EnemyTankController enemyTankController = new EnemyTankController(new TankModel(tankList.Tanks[TankNO]), enemyTankView, GetSpawnPosition(), PlayerTankService.Instance.GetPlayerTank());
                 enemyTankControllersList.Add(enemyTankController);
                 currentEnemyCount++;
             }
