@@ -13,6 +13,7 @@ namespace BattleTank.Services
         [SerializeField] private Text titleText;
         [SerializeField] private Text descriptionText;
         [SerializeField] private AchievementUIPanel achievementUIPanel;
+        public PlayerHealthUI PlayerHealthUI;
 
         private Coroutine coroutine;
         private Queue<string> titleQueue;

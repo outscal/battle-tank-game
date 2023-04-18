@@ -12,7 +12,7 @@ namespace BattleTank.Services
         private BulletController bulletController;
 
         [SerializeField] private BulletScriptableObjectList bulletList;
-        
+
         public void SpawnBullet(BulletType bulletType, Transform bulletTransform, Quaternion tankRotation, TankID tankID)
         {
             new BulletController(new BulletModel(bulletList.Bullets[GetBulletIndex(bulletType)]), bulletView, bulletTransform, tankRotation, tankID);

@@ -10,7 +10,6 @@ namespace BattleTank.PlayerTank
     {
         private TankModel tankModel;
         private PlayerTankView playerTankView;
-        
         private Rigidbody rigidBody;
         
         public PlayerTankController(TankModel _tankModel, PlayerTankView _playerTankView, Transform spawnPosition)
@@ -69,6 +68,8 @@ namespace BattleTank.PlayerTank
             {
                 playerTankView.DestroyGameObject();
             }
+            
+            UIService.Instance.PlayerHealthUI.SetHealthBarUI((tankModel.GetCurrentHealth() / tankModel.Health) * 100);
         }
 
         public float GetCurrentHealth()

@@ -45,7 +45,7 @@ namespace BattleTank.PlayerTank
             if (Input.GetKeyDown(KeyCode.Space)  && Time.time > nextShootTime)
             {
                 nextShootTime = Time.time + additionalAttackTime / playerTankController.GetFireRate();
-                playerTankController.SpawnBullet(bulletTransform, gameObject.transform.rotation);
+                playerTankController.SpawnBullet(bulletTransform, transform.rotation);
             }
         }
 
