@@ -9,16 +9,21 @@ namespace BattleTank.UI
         [SerializeField] private Image foregroundImage;
         [SerializeField] private Slider healthBar;
         [SerializeField] private int fullValue;
+        [SerializeField] private float bgColorTransparencyValue;
 
         public void SetPlayerHealthValueUI()
         {
             healthBar.value = fullValue;
         }
 
-        public void SetUIColor(Color _bgColor, Color _fgColor)
+        public void SetUIColor(Color _color)
         {
-            backgroundImage.color = _bgColor;
-            foregroundImage.color = _fgColor;
+            backgroundImage.color = _color;
+            foregroundImage.color = _color;
+
+            Color bgColor = backgroundImage.color;
+            bgColor.a = bgColorTransparencyValue;
+            backgroundImage.color = bgColor;
         }
 
         public void SetHealthBarUI(float _value)

@@ -15,7 +15,6 @@ namespace BattleTank.TankSO
         public Material Material;
         public int TotalPercentage;
         public int HalfPercentage;
-        public Color BackgroundColor;
-        public Color ForegroundColor;
+        public float DestroyTime;
     }
 }

@@ -39,7 +39,7 @@ namespace BattleTank.EnemyTank
 
         private void UpdateHealthUIColor()
         {
-            enemyTankView.GetEnemyHealthUI().SetUIColor(tankModel.BackgroundColor, tankModel.ForegroundColor);
+            enemyTankView.GetEnemyHealthUI().SetUIColor(tankModel.Material.color);
             enemyTankView.GetEnemyHealthUI().SetPlayerTransform(PlayerTankService.Instance.GetPlayerTank());
         }
 
@@ -59,7 +59,6 @@ namespace BattleTank.EnemyTank
         public void DestroyTank()
         {
             enemyStateMachine.SetState(enemyStateMachine.DeadState);
-            EnemyTankService.Instance.DecreaseEnemyCount();
         }
 
         public void TakeDamage(TankID shooter, float damage)
@@ -96,6 +95,11 @@ namespace BattleTank.EnemyTank
         public EnemyTankView GetEnemyTankView()
         {
             return enemyTankView;
+        }
+
+        public float GetDestroyTime()
+        {
+            return tankModel.DestroyTime;
         }
     }
 }

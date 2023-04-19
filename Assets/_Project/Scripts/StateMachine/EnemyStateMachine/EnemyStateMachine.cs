@@ -1,6 +1,7 @@
 ﻿using BattleTank.EnemyTank;
 using BattleTank.Enum;
 using BattleTank.Services;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -110,8 +111,15 @@ namespace BattleTank.StateMachine.EnemyState
         public void DestroyGameObject()
         {
             enemyTankController.SetIsTankAlive(false);
+            EnemyTankService.Instance.DecreaseEnemyCount();
             ParticleEffectsService.Instance.ShowExplosionEffect(ExplosionType.TankExplosion, EnemyTankView.transform.position);
             SoundService.Instance.PlayEffects(Sounds.TankExplosion);
+            StartCoroutine(DestroyCoroutine());
+        }
+
+        IEnumerator DestroyCoroutine()
+        {
+            yield return new WaitForSeconds(enemyTankController.GetDestroyTime());
             EnemyTankService.Instance.GetEnemyTankPoolService().ReturnItem(ObjectPoolType.EnemyTankPool, EnemyTankView);
             if (PlayerTankService.Instance.GetIsPlayerTankAlive())
             {

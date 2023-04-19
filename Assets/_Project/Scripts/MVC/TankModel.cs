@@ -16,8 +16,7 @@ namespace BattleTank.Tank
         public Material Material { get; private set; }
         public int TotalPercentage { get; private set; }
         public int HalfPercentage { get; private set; }
-        public Color BackgroundColor { get; private set; }
-        public Color ForegroundColor { get; private set; }
+        public float DestroyTime { get; private set; }
 
         public TankModel(TankScriptableObject tankScriptableObject)
         {
@@ -31,8 +30,7 @@ namespace BattleTank.Tank
             Material = tankScriptableObject.Material;
             TotalPercentage = tankScriptableObject.TotalPercentage;
             HalfPercentage = tankScriptableObject.HalfPercentage;
-            BackgroundColor = tankScriptableObject.BackgroundColor;
-            ForegroundColor = tankScriptableObject.ForegroundColor;
+            DestroyTime = tankScriptableObject.DestroyTime;
         }
 
         public float GetCurrentHealth()

@@ -10,6 +10,7 @@ namespace BattleTank.UI
         [SerializeField] private Slider healthBar;
         [SerializeField] private int fullValue;
         [SerializeField] private float defaultXAxis;
+        [SerializeField] private float bgColorTransparencyValue;
         private Transform playerTransform;
         
         private void Update()
@@ -18,10 +19,14 @@ namespace BattleTank.UI
             transform.rotation = Quaternion.Euler(new Vector3(defaultXAxis, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z));
         }
 
-        public void SetUIColor(Color _bgColor, Color _fgColor)
+        public void SetUIColor(Color _color)
         {
-            backgroundImage.color = _bgColor;
-            foregroundImage.color = _fgColor;
+            backgroundImage.color = _color;
+            foregroundImage.color = _color;
+
+            Color bgColor = backgroundImage.color;
+            bgColor.a = bgColorTransparencyValue;
+            backgroundImage.color = bgColor;
 
             SetHealthBarValue();
         }

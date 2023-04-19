@@ -18,7 +18,7 @@ namespace BattleTank.PlayerTank
             tankModel = _tankModel;
             playerTankView = GameObject.Instantiate<PlayerTankView>(_playerTankView, spawnPosition);
 
-            UIService.Instance.PlayerHealthUI.SetUIColor(tankModel.BackgroundColor, tankModel.ForegroundColor);
+            UIService.Instance.PlayerHealthUI.SetUIColor(tankModel.Material.color);
             rigidBody = playerTankView.GetRigiBody();
 
             playerTankView.SetTankController(this);
