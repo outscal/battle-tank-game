@@ -4,47 +4,35 @@ using UnityEngine;
 
 public class TankController
 {
-    public TankController(TankModel tankmodel, TankView tankview)
+    TankModel tankModel;
+    TankView tankView;
+    Rigidbody tankRigidbody;
+    public TankController(TankModel _tankmodel, TankView _tankview)
     {
-        TankModel = tankmodel;
-        TankView = GameObject.Instantiate<TankView>(tankview);
+        tankModel = _tankmodel;
+        tankView = GameObject.Instantiate<TankView>(_tankview);
+        tankRigidbody = tankView.GetRigidbody();
+
+        tankModel.SetTankController(this);
+        tankView.SetTankController(this);
     }
 
-    public TankModel TankModel { get; }
-    public TankView TankView { get; }
-
-    /*Rigidbody rb;
-
-    private float xMove;
-    private float zMove;
-
-    private void Awake()
+    public void Move(float movement, float movementSpeed)
     {
-        //rb = GetComponent<Rigidbody>(); //rb equals the rigidbody on the player
+        //tankRigidbody.velocity = tankView.transform.forward * movement * movementSpeed * Time.deltaTime;
+        Vector3 Movement = tankView.transform.forward * movement * movementSpeed * Time.deltaTime;
+        tankRigidbody.MovePosition(tankRigidbody.position + Movement);
     }
 
-    void Update()
+    public void Turn(float rotation, float rotationSpeed)
     {
-        xMove = Input.GetAxisRaw("Horizontal1");
-        zMove = Input.GetAxisRaw("Vertical1");
-    }
-
-    private void FixedUpdate()
-    {
-        Move();
-        Turn();
-    }
-
-    void Move()
-    {
-        //Vector3 movement = transform.forward * xMove * speed * Time.deltaTime;
-        //rb.MovePosition(rb.position + movement);
-    }
-
-    void Turn()
-    {
-        float turn = zMove * turnSpeed * Time.deltaTime;
+        float turn = rotation * rotationSpeed * Time.deltaTime;
         Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
-        rb.MoveRotation(rb.rotation * turnRotation);
-    }*/
+        tankRigidbody.MoveRotation(tankRigidbody.rotation * turnRotation);
+    }
+
+    public TankModel GetTankModel()
+    {
+        return tankModel;
+    }
 }

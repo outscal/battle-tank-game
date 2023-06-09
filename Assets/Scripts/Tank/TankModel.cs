@@ -6,12 +6,16 @@ public class TankModel
 {
     TankController tankController;
 
-    float speed;
-    float turnSpeed;
+    public float movementSpeed;
+    public float rotationSpeed;
 
-    public TankModel(float Speed, float TurnSpeed)
+    public void SetTankController(TankController tankController)
     {
-        speed = Speed;
-        turnSpeed = TurnSpeed;
+        this.tankController = tankController;
+    }
+    public TankModel(float moveSpeed, float TurnSpeed)
+    {
+        movementSpeed = moveSpeed;
+        rotationSpeed = TurnSpeed;
     }
 }
