@@ -2,19 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class TankController
 {
-    public float speed = 10f; 
-    public float turnSpeed = 180f; 
+    public TankController(TankModel tankmodel, TankView tankview)
+    {
+        TankModel = tankmodel;
+        TankView = GameObject.Instantiate<TankView>(tankview);
+    }
 
-    Rigidbody rb;
+    public TankModel TankModel { get; }
+    public TankView TankView { get; }
+
+    /*Rigidbody rb;
 
     private float xMove;
     private float zMove;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>(); //rb equals the rigidbody on the player
+        //rb = GetComponent<Rigidbody>(); //rb equals the rigidbody on the player
     }
 
     void Update()
@@ -31,8 +37,8 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        Vector3 movement = transform.forward * xMove * speed * Time.deltaTime;
-        rb.MovePosition(rb.position + movement);
+        //Vector3 movement = transform.forward * xMove * speed * Time.deltaTime;
+        //rb.MovePosition(rb.position + movement);
     }
 
     void Turn()
@@ -40,5 +46,5 @@ public class PlayerController : MonoBehaviour
         float turn = zMove * turnSpeed * Time.deltaTime;
         Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
         rb.MoveRotation(rb.rotation * turnRotation);
-    }
+    }*/
 }
