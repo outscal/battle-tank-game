@@ -4,7 +4,7 @@ public class GenericSingleton<T> : MonoBehaviour where T : GenericSingleton<T>
 {
     private static T instance = null;
     public static T Instance { get { return instance; } }
-    private void Awake()
+    protected virtual void Awake()
     {
         if (instance != null)
         {
