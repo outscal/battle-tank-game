@@ -252,10 +252,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CompleteLevelArt
       objectReference: {fileID: 0}
-    - target: {fileID: 1633404186159690, guid: 0aac6aef14f064c3fb626270cff2683b, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4366463266053016, guid: 0aac6aef14f064c3fb626270cff2683b, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -512,6 +508,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1684617001}
   - component: {fileID: 1684617000}
+  - component: {fileID: 1684617002}
   m_Layer: 0
   m_Name: Tank Spwaner
   m_TagString: Untagged
@@ -531,9 +528,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4786e6b8bc9596c4cbcb4fef94fb02d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankView: {fileID: 3439958975763871, guid: b28495956b0002945a5375e507ca472e, type: 3}
-  movementSpeed: 10
+  movementSpeed: 5000
   rotationSpeed: 180
+  ConfigTank:
+  - {fileID: 11400000, guid: 6edd3c123cc693e44916062c1ddb75d4, type: 2}
+  - {fileID: 11400000, guid: b7f5386979d2e974fa75cda77d9b2758, type: 2}
+  - {fileID: 11400000, guid: 54a5341a71179754eae2d01eebb8b8c9, type: 2}
 --- !u!4 &1684617001
 Transform:
   m_ObjectHideFlags: 0
@@ -549,3 +549,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1684617002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684616999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08db0e48df57fdc4a8d695a6ff6fd378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 641514004}

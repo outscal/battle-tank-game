@@ -1,3 +1,4 @@
+using BattleTank.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,15 +6,16 @@ using UnityEngine;
 public class TankView : MonoBehaviour
 {
     TankController tankController;
+    
     [SerializeField] Rigidbody tankRigidbody;
+    public TankType tankType;
 
-    float movement;
-    float rotation;
+    private float movement;
+    private float rotation;
 
     void Start()
     {
-        Debug.Log("Tank view is created");
-        CameraSetup();
+        Debug.Log("Tank view is created : " + tankController.TankView);
     }
 
     void Update()
@@ -22,14 +24,19 @@ public class TankView : MonoBehaviour
 
         if(movement != 0)
         {
-            tankController.Move(movement, tankController.GetTankModel().movementSpeed);
+            tankController.Move(movement, tankController.TankModel.movementSpeed);
         }
+        else
+        {
+            tankRigidbody.velocity = Vector3.zero;
+        }
+        
 
         if(rotation != 0)
         {
-            tankController.Turn(rotation, tankController.GetTankModel().rotationSpeed);
+            tankController.Turn(rotation, tankController.TankModel.rotationSpeed);
         }
-    }
+    } 
 
     public void SetTankController(TankController tankController)
     {
@@ -45,14 +52,5 @@ public class TankView : MonoBehaviour
     public Rigidbody GetRigidbody()
     {
         return tankRigidbody;
-    }
-
-    void CameraSetup()
-    {
-        GameObject cam = GameObject.Find("Main Camera");
-        cam.transform.SetParent(this.transform);
-        cam.transform.position = new Vector3(0f, 8.1f, -13f);
-        cam.transform.eulerAngles = new Vector3(15f,0f,0f);
-    }
-    
+    }  
 }

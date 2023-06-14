@@ -7,6 +7,10 @@ public class TankController
     TankModel tankModel;
     TankView tankView;
     Rigidbody tankRigidbody;
+
+    public TankModel TankModel { get { return tankModel; } }
+
+    public TankView TankView { get { return tankView; } }
     public TankController(TankModel _tankmodel, TankView _tankview)
     {
         tankModel = _tankmodel;
@@ -19,9 +23,10 @@ public class TankController
 
     public void Move(float movement, float movementSpeed)
     {
-        //tankRigidbody.velocity = tankView.transform.forward * movement * movementSpeed * Time.deltaTime;
-        Vector3 Movement = tankView.transform.forward * movement * movementSpeed * Time.deltaTime;
-        tankRigidbody.MovePosition(tankRigidbody.position + Movement);
+        tankRigidbody.velocity = tankView.transform.forward * movement * movementSpeed * Time.deltaTime;
+
+        //Vector3 Movement = tankView.transform.forward * movement * movementSpeed * Time.deltaTime;
+        //tankRigidbody.MovePosition(tankRigidbody.position + Movement);
     }
 
     public void Turn(float rotation, float rotationSpeed)

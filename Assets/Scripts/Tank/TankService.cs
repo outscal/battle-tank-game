@@ -1,17 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
+using BattleTank.camera;
 using UnityEngine;
 
-public class TankService : MonoBehaviour
+namespace BattleTank.Player
 {
-    public TankView tankView;
-
-    [SerializeField] float movementSpeed;
-    [SerializeField] float rotationSpeed;
-    void Start()
+    public class TankService : MonoSingletonGeneric<TankService>
     {
-        TankModel tankModel = new TankModel(movementSpeed, rotationSpeed);
-        TankController tankController = new TankController(tankModel, tankView);
-    }
+        public float movementSpeed;
+        public float rotationSpeed;
 
+        public TankScriptableObject[] ConfigTank;
+
+        void Start()
+        {
+            CreateNewTank();
+        }
+
+        private TankController CreateNewTank()
+        {
+            int pickRandomTank = Random.Range(0, ConfigTank.Length);
+            TankScriptableObject tankScriptableObject = ConfigTank[pickRandomTank];
+
+            TankModel tankModel = new TankModel(tankScriptableObject);
+            
+            //TankModel tankModel = new TankModel(TankType.None, movementSpeed, rotationSpeed, cam);
+            TankController tankController = new TankController(tankModel, tankScriptableObject.TankView);
+
+            return tankController;
+        }
+    }
 }
