@@ -1,6 +1,3 @@
-using BattleTank.camera;
-using UnityEngine;
-
 namespace BattleTank.PlayerTank
 {
     public class TankModel
