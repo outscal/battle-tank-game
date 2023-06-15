@@ -1,14 +1,12 @@
-using BattleTank.camera;
 using UnityEngine;
 
-namespace BattleTank.Player
+namespace BattleTank.PlayerTank
 {
     public class TankService : MonoSingletonGeneric<TankService>
     {
-        public float movementSpeed;
-        public float rotationSpeed;
-
         public TankScriptableObject[] ConfigTank;
+
+        public TankController TankController { get; private set; }
 
         void Start()
         {
@@ -21,11 +19,9 @@ namespace BattleTank.Player
             TankScriptableObject tankScriptableObject = ConfigTank[pickRandomTank];
 
             TankModel tankModel = new TankModel(tankScriptableObject);
-            
-            //TankModel tankModel = new TankModel(TankType.None, movementSpeed, rotationSpeed, cam);
-            TankController tankController = new TankController(tankModel, tankScriptableObject.TankView);
+            TankController = new TankController(tankModel, tankScriptableObject.TankView);
 
-            return tankController;
+            return TankController;
         }
     }
 }

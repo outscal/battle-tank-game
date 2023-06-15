@@ -1,11 +1,15 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "TankScriptableObject", menuName = "ScriptableObject/CreateNewTankScriptableObject")]
-public class TankScriptableObject : ScriptableObject
+namespace BattleTank.PlayerTank
 {
-    public TankType TankType;
-    public string TankName;
-    public int Speed;
-    public int Health;
-    public TankView TankView;
+    [CreateAssetMenu(fileName = "TankScriptableObject", menuName = "ScriptableObject/CreateNewTankScriptableObject")]
+    public class TankScriptableObject : ScriptableObject
+    {
+        public TankType TankType;
+        public string TankName;
+        public int MovementSpeed;
+        public float RotationSpeed;
+        public int Health;
+        public TankView TankView;
+    }
 }
