@@ -7,18 +7,14 @@ namespace BattleTank.EnemyTank
     public class EnemyTankView : MonoBehaviour
     {
         public NavMeshAgent navMeshAgent;
-        public Transform PlayerTransform;
         public LayerMask GroundLayerMask;
         public LayerMask PlayerLayerMask;
-
-        //Patrolling
-        public Vector3 walkPoint;
-        public bool walkPointSet;
-        public float walkPointRange;
 
         //state
         public float sightRange;
         public bool playerInSightRange;
+        public float walkPointRange;
+        public Vector3 WalkPoint;
 
         public EnemyTankController EnemyTankController { get; private set; }
 
@@ -34,7 +30,7 @@ namespace BattleTank.EnemyTank
 
         private void Update()
         {
-            playerInSightRange = Physics.CheckSphere(this.transform.position, sightRange, PlayerLayerMask);
+            playerInSightRange = Physics.CheckSphere(transform.position, sightRange, PlayerLayerMask);
 
             if(!playerInSightRange )
             {
@@ -47,9 +43,30 @@ namespace BattleTank.EnemyTank
             }
         }
 
-        public NavMeshAgent GetMeshAgent()
+        public NavMeshAgent GetNavMeshAgent()
         {
             return navMeshAgent;
+        }
+
+        public float GetWalkPointRange()
+        {
+            return walkPointRange;
+        }
+
+        public Vector3 GetWalkPoint()
+        {
+            return WalkPoint;
+        }
+
+        public void SetWalkPoint(Vector3 value)
+        {
+            WalkPoint = value;
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, sightRange);
         }
     }
 }

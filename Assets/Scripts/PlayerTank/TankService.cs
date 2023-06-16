@@ -21,6 +21,7 @@ namespace BattleTank.PlayerTank
             TankModel tankModel = new TankModel(tankScriptableObject);
             TankController = new TankController(tankModel, tankScriptableObject.TankView);
 
+            Debug.Log(" Tank controller is created " + TankController);
             return TankController;
         }
     }

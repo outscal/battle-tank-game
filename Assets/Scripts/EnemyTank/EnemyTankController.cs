@@ -1,12 +1,12 @@
-﻿using UnityEngine;
+﻿using BattleTank.PlayerTank;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace BattleTank.EnemyTank
 {
-    public class EnemyTankController : MonoBehaviour
+    public class EnemyTankController
     {
         private NavMeshAgent navMeshAgent;
-        private Transform playerTransform;
         public LayerMask GroundLayerMask;
         public LayerMask PlayerLayerMask;
 
@@ -14,10 +14,6 @@ namespace BattleTank.EnemyTank
         private Vector3 walkPoint;
         private bool walkPointSet;
         private float walkPointRange;
-
-        //state
-        private float sightRange;
-        private bool playerInSightRange;
 
         public EnemyTankModel EnemyTankModel { get; private set; }
         public EnemyTankView EnemyTankView { get; private set; }
@@ -27,7 +23,7 @@ namespace BattleTank.EnemyTank
             EnemyTankModel = _enemyTankModel;
             EnemyTankView = GameObject.Instantiate<EnemyTankView>(_enemyTankView);
 
-            navMeshAgent = EnemyTankView.GetMeshAgent();
+            navMeshAgent = EnemyTankView.GetNavMeshAgent();
 
             EnemyTankModel.SetTankController(this);
             EnemyTankView.SetTankController(this);
@@ -38,14 +34,15 @@ namespace BattleTank.EnemyTank
             if(!walkPointSet)
             {
                 SearchWalkPoint();
+                Debug.Log(" Enemy tank patroling");
             }
 
             if(walkPointSet)
             {
-                navMeshAgent.SetDestination(walkPoint);
+                navMeshAgent.SetDestination(EnemyTankView.GetWalkPoint());
             }
 
-            Vector3 distanceToWalkPoint = this.transform.position - walkPoint;
+            Vector3 distanceToWalkPoint = EnemyTankView.transform.position - EnemyTankView.GetWalkPoint();
             
             //walkpoint reached
             if(distanceToWalkPoint.magnitude < 1f)
@@ -53,15 +50,19 @@ namespace BattleTank.EnemyTank
                 walkPointSet = false;
             }
         }
-        
+         
         private void SearchWalkPoint()
         {
-            float randomZ = Random.Range(-walkPointRange, walkPointRange);
-            float randomX = Random.Range(-walkPointRange, walkPointRange);
+            float randomZ = Random.Range(-EnemyTankView.GetWalkPointRange(), EnemyTankView.GetWalkPointRange());
+            float randomX = Random.Range(-EnemyTankView.GetWalkPointRange(), EnemyTankView.GetWalkPointRange());
 
-            walkPoint = new Vector3(this.transform.position.x + randomX, this.transform.position.y + this.transform.position.z + randomZ);
+            walkPoint = new Vector3(EnemyTankView.transform.position.x + randomX, EnemyTankView.transform.position.y, EnemyTankView.transform.position.z + randomZ);
 
-            if (Physics.Raycast(walkPoint, -transform.up, 2f, GroundLayerMask))
+            EnemyTankView.SetWalkPoint(walkPoint); 
+
+            Debug.Log("walkpoint " + walkPoint);
+
+            if (Physics.Raycast(EnemyTankView.GetWalkPoint(), -EnemyTankView.transform.up, 2f, EnemyTankView.GroundLayerMask))
             {
                 walkPointSet = true;
             }
@@ -69,7 +70,7 @@ namespace BattleTank.EnemyTank
 
         public void ChasePlayer()
         {
-            navMeshAgent.SetDestination(playerTransform.position);
+            navMeshAgent.SetDestination(TankService.Instance.TankController.TankView.transform.position);
         }
     }
 }

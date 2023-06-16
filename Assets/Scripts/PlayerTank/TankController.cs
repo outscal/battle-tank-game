@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace BattleTank.PlayerTank
 {
+    [System.Serializable]
     public class TankController
     {
         private Rigidbody tankRigidbody;
