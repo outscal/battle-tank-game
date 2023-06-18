@@ -14,8 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyTankType: 3
   EnemyTankName: Heavy Tank
-  EnemyMovementSpeed: 5000
-  EnemyRotationSpeed: 180
+  WalkPointRange: 15
   EnemyHealth: 200
+  sightRange: 20
+  GroundLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  PlayerLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
   EnemyTankView: {fileID: 6297973504802001282, guid: 8d40d9b3bcd03884e9b84049e407a73a,
     type: 3}

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.Services.Analytics.Internal;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace BattleTank.EnemyTank
@@ -6,15 +7,10 @@ namespace BattleTank.EnemyTank
     [RequireComponent(typeof(NavMeshAgent))]
     public class EnemyTankView : MonoBehaviour
     {
-        public NavMeshAgent navMeshAgent;
-        public LayerMask GroundLayerMask;
-        public LayerMask PlayerLayerMask;
+        public NavMeshAgent NavMeshAgent;
 
         //state
-        public float sightRange;
-        public bool playerInSightRange;
-        public float walkPointRange;
-        public Vector3 WalkPoint;
+        private bool playerInSightRange;
 
         public EnemyTankController EnemyTankController { get; private set; }
 
@@ -25,19 +21,19 @@ namespace BattleTank.EnemyTank
 
         private void Awake()
         {
-            navMeshAgent = GetComponent<NavMeshAgent>();
+            NavMeshAgent = GetComponent<NavMeshAgent>();
         }
 
         private void Update()
         {
-            playerInSightRange = Physics.CheckSphere(transform.position, sightRange, PlayerLayerMask);
+            playerInSightRange = Physics.CheckSphere(transform.position, EnemyTankController.EnemyTankModel.sightRange, EnemyTankController.EnemyTankModel.PlayerLayerMask);
 
-            if(!playerInSightRange )
+            if (!playerInSightRange)
             {
                 EnemyTankController.Patroling();
             }
 
-            if(playerInSightRange )
+            if (playerInSightRange)
             {
                 EnemyTankController.ChasePlayer();
             }
@@ -45,28 +41,13 @@ namespace BattleTank.EnemyTank
 
         public NavMeshAgent GetNavMeshAgent()
         {
-            return navMeshAgent;
-        }
-
-        public float GetWalkPointRange()
-        {
-            return walkPointRange;
-        }
-
-        public Vector3 GetWalkPoint()
-        {
-            return WalkPoint;
-        }
-
-        public void SetWalkPoint(Vector3 value)
-        {
-            WalkPoint = value;
+            return NavMeshAgent;
         }
 
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, sightRange);
+            Gizmos.DrawWireSphere(transform.position, EnemyTankController.EnemyTankModel.sightRange);
         }
     }
 }

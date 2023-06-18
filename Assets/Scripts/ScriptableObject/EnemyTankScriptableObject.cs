@@ -9,9 +9,11 @@ namespace BattleTank.EnemyTank
     {
         public EnemyTankType EnemyTankType;
         public string EnemyTankName;
-        public int EnemyMovementSpeed;
-        public float EnemyRotationSpeed;
+        public float WalkPointRange;
         public int EnemyHealth;
+        public float sightRange;
+        public LayerMask GroundLayerMask;
+        public LayerMask PlayerLayerMask;
         public EnemyTankView EnemyTankView;
     }
 }

@@ -1,10 +1,14 @@
-﻿namespace BattleTank.EnemyTank
+﻿using UnityEngine;
+
+namespace BattleTank.EnemyTank
 {
     public class EnemyTankModel
     {
         public float EnemyHealth;
-        public float EnemyMovementSpeed;
-        public float EnemyRotationSpeed;
+        public float WalkPointRange;
+        public float sightRange;
+        public LayerMask GroundLayerMask;
+        public LayerMask PlayerLayerMask;
         public EnemyTankType EnemyTankType;
 
         public EnemyTankController EnemyTankController { get; private set; }
@@ -18,8 +22,10 @@
         {
             EnemyTankType = enemyTankScriptableObject.EnemyTankType;
             EnemyHealth = enemyTankScriptableObject.EnemyHealth;
-            EnemyMovementSpeed = enemyTankScriptableObject.EnemyMovementSpeed;
-            EnemyRotationSpeed = enemyTankScriptableObject.EnemyRotationSpeed;
+            WalkPointRange = enemyTankScriptableObject.WalkPointRange;
+            sightRange = enemyTankScriptableObject.sightRange;
+            GroundLayerMask = enemyTankScriptableObject.GroundLayerMask;
+            PlayerLayerMask = enemyTankScriptableObject.PlayerLayerMask;
         }
     }
 }
