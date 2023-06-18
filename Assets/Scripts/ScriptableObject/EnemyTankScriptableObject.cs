@@ -1,6 +1,4 @@
-﻿using BattleTank.PlayerTank;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace BattleTank.EnemyTank
 {

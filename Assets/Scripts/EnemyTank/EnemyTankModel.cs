@@ -13,7 +13,7 @@ namespace BattleTank.EnemyTank
 
         public EnemyTankController EnemyTankController { get; private set; }
 
-        public void SetTankController(EnemyTankController enemyTankController)
+        public void SetEnemyTankController(EnemyTankController enemyTankController)
         {
             EnemyTankController = enemyTankController;
         }

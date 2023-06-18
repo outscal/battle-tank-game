@@ -1,5 +1,4 @@
-﻿using Unity.Services.Analytics.Internal;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 namespace BattleTank.EnemyTank
@@ -14,7 +13,7 @@ namespace BattleTank.EnemyTank
 
         public EnemyTankController EnemyTankController { get; private set; }
 
-        public void SetTankController(EnemyTankController enemyTankController)
+        public void SetEnemyTankController(EnemyTankController enemyTankController)
         {
             EnemyTankController = enemyTankController;
         }

@@ -1,5 +1,4 @@
-﻿using BattleTank.PlayerTank;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace BattleTank.EnemyTank
 {
@@ -15,8 +14,6 @@ namespace BattleTank.EnemyTank
         void Start()
         {
             CreateNewTank();
-
-            
         }
 
         private EnemyTankController CreateNewTank()

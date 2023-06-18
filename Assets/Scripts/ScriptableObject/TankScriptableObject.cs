@@ -11,5 +11,6 @@ namespace BattleTank.PlayerTank
         public float RotationSpeed;
         public int Health;
         public TankView TankView;
+        public GameObject AimPoint;
     }
 }

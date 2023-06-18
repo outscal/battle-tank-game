@@ -23,8 +23,8 @@ namespace BattleTank.EnemyTank
 
             navMeshAgent = EnemyTankView.GetNavMeshAgent();
 
-            EnemyTankModel.SetTankController(this);
-            EnemyTankView.SetTankController(this);
+            EnemyTankModel.SetEnemyTankController(this);
+            EnemyTankView.SetEnemyTankController(this);
         }
 
         public void Patroling()
