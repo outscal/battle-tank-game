@@ -7,7 +7,7 @@ public class TankController : MonoBehaviour
     float verticalMove;
     Vector3 direction;
     Rigidbody rb;
-    void Awake()
+    void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
@@ -15,14 +15,17 @@ public class TankController : MonoBehaviour
     {
         horizontalMove = Input.GetAxisRaw("Horizontal1");
         verticalMove = Input.GetAxisRaw("Vertical1");
+        direction = Vector3.forward * verticalMove + Vector3.right * horizontalMove;
+        direction = Quaternion.Euler(0, 60, 0) * direction;
+    }
+    void PlayerMove()
+    {
+        rb.velocity = direction.normalized * speed;
+        transform.LookAt(direction + transform.position);
     }
     void Update()
     {
         PlayerInput();
         PlayerMove();
-    }
-    void PlayerMove()
-    {
-        direction = Vector3.right * horizontalMove + Vector3.forward * verticalMove;
     }
 }
