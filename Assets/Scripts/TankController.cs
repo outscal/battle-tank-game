@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class TankController : MonoBehaviour
 {
     [SerializeField] float speed = 10f;
@@ -7,21 +6,24 @@ public class TankController : MonoBehaviour
     float verticalMove;
     Vector3 direction;
     Rigidbody rb;
+    Quaternion toRotation;
+    [SerializeField] Joystick joystick;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
     void PlayerInput()
     {
-        horizontalMove = Input.GetAxisRaw("Horizontal1");
-        verticalMove = Input.GetAxisRaw("Vertical1");
+        horizontalMove = joystick.Horizontal;
+        verticalMove = joystick.Vertical;
+
         direction = Vector3.forward * verticalMove + Vector3.right * horizontalMove;
         direction = Quaternion.Euler(0, 60, 0) * direction;
     }
     void PlayerMove()
     {
         rb.velocity = direction.normalized * speed;
-        transform.LookAt(direction + transform.position);
+        transform.LookAt(direction.normalized + transform.position);
     }
     void Update()
     {
