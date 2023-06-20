@@ -1,5 +1,6 @@
 using UnityEngine;
-public class TankController : MonoBehaviour
+
+public class TankView : MonoBehaviour
 {
     [SerializeField] float speed = 10f;
     float horizontalMove;
