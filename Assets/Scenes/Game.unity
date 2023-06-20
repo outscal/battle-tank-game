@@ -143,7 +143,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &227353808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,6 +386,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tankPrefab: {fileID: 8500388156683346128, guid: 6381128c9384bfa4b9070ceef9b6c047,
     type: 3}
+  joystick: {fileID: 2110804881}
 --- !u!4 &857600325
 Transform:
   m_ObjectHideFlags: 0
@@ -394,7 +395,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 857600323}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.070098445, y: 1.2109574, z: -0.23246913}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -551,7 +552,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1304999366
 Transform:
   m_ObjectHideFlags: 0
@@ -810,3 +811,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 731514910}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2110804881 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2929252283123773951, guid: aaa2c939c0359ac4dbce3f49e8b90252,
+    type: 3}
+  m_PrefabInstance: {fileID: 731514910}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45977bbae16431c46a013576a1aea384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

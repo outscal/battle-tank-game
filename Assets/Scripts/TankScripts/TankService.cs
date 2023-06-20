@@ -2,12 +2,13 @@ using UnityEngine;
 public class TankService : GenericSingleton<TankService>
 {
     [SerializeField] TankView tankPrefab;
+    [SerializeField] FixedJoystick joystick;
     void Start()
     {
-        CreateNewTank();
+        CreatePlayerTank();
     }
-    public void CreateNewTank()
+    public void CreatePlayerTank()
     {
-        TankController tankController = new TankController(tankPrefab);
+        TankController tankController = new TankController(tankPrefab, joystick, 10, 100);
     }
 }
