@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class TankView : MonoBehaviour
 {
+    TankType tankType;
     TankController tankController;
     float horizontalMove;
     float verticalMove;
@@ -15,6 +16,10 @@ public class TankView : MonoBehaviour
     {
         joystick = _joystick;
     }
+    public void SetTankType(TankType _tankType)
+    {
+        tankType = _tankType;
+    }
     public Rigidbody GetRigidbody()
     {
         return rb;
@@ -26,10 +31,13 @@ public class TankView : MonoBehaviour
     }
     void Update()
     {
-        PlayerInput();
-        if (horizontalMove != 0 || verticalMove != 0)
+        if (tankType == TankType.Player)
         {
-            tankController.MoveTank(horizontalMove, verticalMove);
+            PlayerInput();
+            if (horizontalMove != 0 || verticalMove != 0)
+            {
+                tankController.MoveTank(horizontalMove, verticalMove);
+            }
         }
     }
 }

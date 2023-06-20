@@ -384,9 +384,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeefe18ba5bfd94e9e8c192c329bca7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyCount: 2
   tankPrefab: {fileID: 8500388156683346128, guid: 6381128c9384bfa4b9070ceef9b6c047,
     type: 3}
   joystick: {fileID: 2110804881}
+  mainCamera: {fileID: 1771596988}
 --- !u!4 &857600325
 Transform:
   m_ObjectHideFlags: 0
@@ -782,6 +784,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1771596987}
+  - component: {fileID: 1771596988}
   m_Layer: 0
   m_Name: CameraRig
   m_TagString: Untagged
@@ -805,6 +808,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 40, y: 60, z: 0}
+--- !u!114 &1771596988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771596986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cad8c605be7850747bfd95aafe788b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &2110804880 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252,

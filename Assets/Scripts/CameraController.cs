@@ -2,10 +2,10 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField] Transform player;
-    float hor, vert;
     Vector3 currentPos;
-    void Start()
+    public void SetTankTransform(Transform _transform)
     {
+        player = _transform;
         currentPos = player.position;
     }
     void Update()
