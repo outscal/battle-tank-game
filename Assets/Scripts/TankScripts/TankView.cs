@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class TankView : MonoBehaviour
 {
+    TankController tankController;
     [SerializeField] float speed = 10f;
     float horizontalMove;
     float verticalMove;
@@ -12,6 +13,10 @@ public class TankView : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+    }
+    public void SetTankController(TankController _tankController)
+    {
+        tankController = _tankController;
     }
     void PlayerInput()
     {
