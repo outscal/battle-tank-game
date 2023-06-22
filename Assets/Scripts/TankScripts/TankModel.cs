@@ -1,10 +1,11 @@
 public class TankModel
 {
     private TankController tankController;
-    public TankModel(float _speed, float _health)
+    public TankModel(TankScriptableObject tank)
     {
-        speed = _speed;
-        health = _health;
+        speed = tank.speed;
+        health = tank.health;
+        damage = tank.damage;
     }
     public void SetTankController(TankController _tankController)
     {
@@ -12,4 +13,5 @@ public class TankModel
     }
     public float speed { get; }
     public float health { get; }
+    public float damage { get; }
 }
