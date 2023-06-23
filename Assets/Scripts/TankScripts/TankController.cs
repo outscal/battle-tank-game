@@ -21,10 +21,12 @@ public class TankController
         if (_joystick != null)
             tankView.SetJoystick(_joystick);
         rb = tankView.GetRigidbody();
+        health = tankModel.health;
     }
     public TankModel tankModel { get; }
     public TankView tankView { get; }
     private Rigidbody rb;
+    int health;
     Vector3 direction;
     public void MoveTank(float _horizontalMove, float _verticalMove)
     {
@@ -36,6 +38,18 @@ public class TankController
     }
     public void Shoot(Transform gunTransform)
     {
-        TankService.Instance.ShootBullet(tankModel.bulletType, gunTransform, rb);
+        TankService.Instance.ShootBullet(tankModel.bulletType, gunTransform);
+    }
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        Debug.Log("Taking damage : " + damage + " Current health : " + health);
+        if (health < 0)
+            TankDeath();
+    }
+    void TankDeath()
+    {
+        Debug.Log("Tank is dead! :(");
+        TankService.Instance.DestoryTank(tankView);
     }
 }

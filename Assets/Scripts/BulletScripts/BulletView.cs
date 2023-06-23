@@ -16,4 +16,12 @@ public class BulletView : MonoBehaviour
     {
         return rb;
     }
+    void OnCollisionEnter(Collision col)
+    {
+        bulletController.BulletCollision(col.contacts[0].point);
+    }
+    public int GetBulletDamage()
+    {
+        return bulletController.GetBulletDamage();
+    }
 }

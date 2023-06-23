@@ -45,4 +45,12 @@ public class TankView : MonoBehaviour
             }
         }
     }
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.GetComponent<BulletView>() != null)
+        {
+            BulletView bulletView = col.gameObject.GetComponent<BulletView>();
+            tankController.TakeDamage(col.gameObject.GetComponent<BulletView>().GetBulletDamage());
+        }
+    }
 }

@@ -11,7 +11,7 @@ public class TankModel
     {
         tankController = _tankController;
     }
-    public float speed { get; }
-    public float health { get; }
+    public int speed { get; }
+    public int health { get; }
     public BulletType bulletType { get; }
 }
