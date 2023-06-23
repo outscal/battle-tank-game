@@ -384,9 +384,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeefe18ba5bfd94e9e8c192c329bca7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyCount: 2
-  tankPrefab: {fileID: 8500388156683346128, guid: 6381128c9384bfa4b9070ceef9b6c047,
-    type: 3}
+  playerTankList: {fileID: 11400000, guid: 8e21b4ae36c4fed448252a205e171c03, type: 2}
+  enemyTankList: {fileID: 11400000, guid: d76976251e6361545ada34c6d20bede4, type: 2}
+  enemyCount: 10
   joystick: {fileID: 2110804881}
   mainCamera: {fileID: 1771596988}
 --- !u!4 &857600325
@@ -403,6 +403,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &970179983
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 970179985}
+  - component: {fileID: 970179984}
+  m_Layer: 0
+  m_Name: BulletSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &970179984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970179983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c716c68a76e91af48a99dd7050df90a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletView: {fileID: 8398489244869190324, guid: 76c454c079094e443b21d6c1009d6673,
+    type: 3}
+--- !u!4 &970179985
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970179983}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1158996493
 PrefabInstance:
@@ -820,6 +866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cad8c605be7850747bfd95aafe788b0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!224 &2110804880 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252,
