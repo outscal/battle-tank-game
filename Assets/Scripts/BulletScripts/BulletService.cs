@@ -6,8 +6,8 @@ public enum BulletType
 public class BulletService : GenericSingleton<BulletService>
 {
     [SerializeField] BulletScriptableObjectList bulletList;
-    public void SpawnBullet(BulletType bulletType, Transform _transform)
+    public void SpawnBullet(BulletType bulletType, Transform _transform, Rigidbody _rigidbody)
     {
-        BulletController bulletController = new BulletController(bulletList.bullets[(int)bulletType], _transform);
+        BulletController bulletController = new BulletController(bulletList.bullets[(int)bulletType], _transform, _rigidbody);
     }
 }

@@ -36,6 +36,6 @@ public class TankController
     }
     public void Shoot(Transform gunTransform)
     {
-        TankService.Instance.ShootBullet(BulletType.Assault, gunTransform);
+        TankService.Instance.ShootBullet(tankModel.bulletType, gunTransform, rb);
     }
 }

@@ -5,7 +5,7 @@ public class TankScriptableObject : ScriptableObject
 {
     public int health;
     public int speed;
-    public int damage;
+    public BulletType bulletType;
     public TankView tankView;
 }
 

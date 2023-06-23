@@ -5,7 +5,7 @@ public class TankModel
     {
         speed = tank.speed;
         health = tank.health;
-        damage = tank.damage;
+        bulletType = tank.bulletType;
     }
     public void SetTankController(TankController _tankController)
     {
@@ -13,5 +13,5 @@ public class TankModel
     }
     public float speed { get; }
     public float health { get; }
-    public float damage { get; }
+    public BulletType bulletType { get; }
 }

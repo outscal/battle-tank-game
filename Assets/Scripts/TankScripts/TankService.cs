@@ -26,8 +26,8 @@ public class TankService : GenericSingleton<TankService>
         TankScriptableObject tank = enemyTankList.tanks[index];
         TankController tankController = new TankController(tank, TankType.Enemy, null, null, 10, 4);
     }
-    public void ShootBullet(BulletType bulletType, Transform tankTransform)
+    public void ShootBullet(BulletType bulletType, Transform tankTransform, Rigidbody tankRigidbody)
     {
-        BulletService.Instance.SpawnBullet(bulletType, tankTransform);
+        BulletService.Instance.SpawnBullet(bulletType, tankTransform, tankRigidbody);
     }
 }
