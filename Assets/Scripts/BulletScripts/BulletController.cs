@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class BulletController
 {
-    public BulletController(BulletView bulletView, int _damage, int _speed, Vector3 position)
+    public BulletController(BulletScriptableObject _bullet, Vector3 _position)
     {
-        bulletView = GameObject.Instantiate<BulletView>(bulletView, position, Quaternion.identity);
-        bulletModel = new BulletModel(_damage, _speed);
+        bulletView = GameObject.Instantiate<BulletView>(_bullet.bulletView, _position + new Vector3(0, 1.55f, 0), Quaternion.identity);
+        bulletModel = new BulletModel(_bullet);
 
         bulletView.SetBulletController(this);
         bulletModel.SetBulletController(this);
@@ -17,6 +17,6 @@ public class BulletController
     Rigidbody rb;
     public void Shoot()
     {
-        rb.AddForce(rb.transform.forward * bulletModel.speed, ForceMode.Impulse);
+        rb.AddForce(rb.transform.forward * bulletModel.range, ForceMode.Impulse);
     }
 }
