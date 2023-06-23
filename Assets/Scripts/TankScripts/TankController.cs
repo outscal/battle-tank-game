@@ -5,12 +5,12 @@ public class TankController
     {
         if (_tankType == TankType.Player)
         {
-            tankView = GameObject.Instantiate<TankView>(tank.tankPrefab.GetComponent<TankView>());
+            tankView = GameObject.Instantiate<TankView>(tank.tankView);
             cameraController.SetTankTransform(tankView.transform);
         }
         else
         {
-            tankView = GameObject.Instantiate<TankView>(tank.tankPrefab.GetComponent<TankView>(), new Vector3(Random.Range(-x, x), 0, Random.Range(-z, z)), Quaternion.identity);
+            tankView = GameObject.Instantiate<TankView>(tank.tankView, new Vector3(Random.Range(-x, x), 0, Random.Range(-z, z)), Quaternion.identity);
         }
         tankModel = new TankModel(tank);
 
