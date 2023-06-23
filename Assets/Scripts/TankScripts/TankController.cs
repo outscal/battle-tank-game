@@ -34,4 +34,8 @@ public class TankController
         rb.velocity = direction * tankModel.speed;
         tankView.transform.LookAt(direction.normalized + tankView.transform.position);
     }
+    public void Shoot(Transform gunTransform)
+    {
+        TankService.Instance.ShootBullet(BulletType.Assault, gunTransform);
+    }
 }

@@ -7,6 +7,7 @@ public class TankView : MonoBehaviour
     float horizontalMove;
     float verticalMove;
     [SerializeField] Rigidbody rb;
+    [SerializeField] Transform gun;
     [SerializeField] FixedJoystick joystick;
     public void SetTankController(TankController _tankController)
     {
@@ -34,6 +35,10 @@ public class TankView : MonoBehaviour
         if (tankType == TankType.Player)
         {
             PlayerInput();
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                tankController.Shoot(gun);
+            }
             if (horizontalMove != 0 || verticalMove != 0)
             {
                 tankController.MoveTank(horizontalMove, verticalMove);

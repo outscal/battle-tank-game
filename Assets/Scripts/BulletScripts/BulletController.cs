@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class BulletController
 {
-    public BulletController(BulletScriptableObject _bullet, Vector3 _position)
+    public BulletController(BulletScriptableObject _bullet, Transform _transform)
     {
-        bulletView = GameObject.Instantiate<BulletView>(_bullet.bulletView, _position + new Vector3(0, 1.55f, 0), Quaternion.identity);
+        bulletView = GameObject.Instantiate<BulletView>(_bullet.bulletView, _transform.position, _transform.rotation);
         bulletModel = new BulletModel(_bullet);
 
         bulletView.SetBulletController(this);
