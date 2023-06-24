@@ -3,12 +3,12 @@ using UnityEngine.PostProcessing;
 
 namespace UnityEditor.PostProcessing
 {
-    [CustomPropertyDrawer(typeof(MinAttribute))]
+    [CustomPropertyDrawer(typeof(UnityEngine.MinAttribute))]
     sealed class MinDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            MinAttribute attribute = (MinAttribute)base.attribute;
+            UnityEngine.MinAttribute attribute = (UnityEngine.MinAttribute)base.attribute;
 
             if (property.propertyType == SerializedPropertyType.Integer)
             {
@@ -17,6 +17,7 @@ namespace UnityEditor.PostProcessing
             }
             else if (property.propertyType == SerializedPropertyType.Float)
             {
+
                 float v = EditorGUI.FloatField(position, label, property.floatValue);
                 property.floatValue = Mathf.Max(v, attribute.min);
             }
