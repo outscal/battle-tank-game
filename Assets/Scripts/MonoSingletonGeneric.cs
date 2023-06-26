@@ -9,7 +9,7 @@ public class MonoSingletonGeneric<T> : MonoBehaviour where T : MonoSingletonGene
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = (T)this;
         }
