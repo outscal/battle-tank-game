@@ -8,7 +8,7 @@ public class TankSpawner : MonoSingletonGeneric<TankSpawner>
     // Start is called before the first frame update
     void Start()
     {
-        TankModel model = new();
+        TankModel model = new(20,10);
         TankController controller = new(model, tankView);
     }
 
