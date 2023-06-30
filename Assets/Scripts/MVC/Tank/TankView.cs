@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TankView : MonoBehaviour
 {
+
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Joystick joystick;
     private TankController tankController;
@@ -37,5 +38,18 @@ public class TankView : MonoBehaviour
         return joystick;
     }
 
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 
 }

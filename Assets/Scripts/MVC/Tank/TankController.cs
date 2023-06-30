@@ -1,4 +1,5 @@
 
+
 using UnityEngine;
 
 public class TankController 
@@ -27,5 +28,24 @@ public class TankController
         return tankModel;
     }
 
+
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TankController : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 
 }
