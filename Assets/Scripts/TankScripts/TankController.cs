@@ -1,21 +1,13 @@
 using UnityEngine;
 public class TankController
 {
-    public TankController(TankScriptableObject tank, TankType _tankType, FixedJoystick _joystick = null, CameraController cameraController = null, float x = 0, float z = 0)
+    public TankController(TankScriptableObject tank, FixedJoystick _joystick = null, CameraController cameraController = null)
     {
-        if (_tankType == TankType.Player)
-        {
-            tankView = GameObject.Instantiate<TankView>(tank.tankView);
-            cameraController.SetTankTransform(tankView.transform);
-        }
-        else
-        {
-            tankView = GameObject.Instantiate<TankView>(tank.tankView, new Vector3(Random.Range(-x, x), 0, Random.Range(-z, z)), Quaternion.identity);
-        }
+        tankView = GameObject.Instantiate<TankView>(tank.tankView);
+        cameraController.SetTankTransform(tankView.transform);
         tankModel = new TankModel(tank);
 
         tankView.SetTankController(this);
-        tankView.SetTankType(_tankType);
         tankModel.SetTankController(this);
 
         if (_joystick != null)
