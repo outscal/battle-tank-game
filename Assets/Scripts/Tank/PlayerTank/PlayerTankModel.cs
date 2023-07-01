@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-public class TankModel 
+public class PlayerTankModel 
 {
     public float movementSpeed { get; private set; }
     public float rotationSpeed { get; private set; }
@@ -10,11 +10,11 @@ public class TankModel
 
     private TankScriptableObject tankScriptableObject;
 
-    private TankController tankController;
+    private PlayerTankController tankController;
 
-    public BulletController bulletPrefab;
+    public BulletView bulletPrefab;
 
-    public TankModel(TankScriptableObject tankScriptableObject, BulletController bulletPrefab)
+    public PlayerTankModel(TankScriptableObject tankScriptableObject, BulletView bulletPrefab)
     {
         movementSpeed = tankScriptableObject.movementSpeed;
         rotationSpeed = tankScriptableObject.rotationSpeed;
@@ -24,7 +24,7 @@ public class TankModel
     }
 
 
-    public void SetTankController(TankController _tankController)
+    public void SetTankController(PlayerTankController _tankController)
     {
         tankController = _tankController;
     }

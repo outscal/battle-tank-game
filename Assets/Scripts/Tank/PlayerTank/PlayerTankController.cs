@@ -1,22 +1,22 @@
 
 using UnityEngine;
 
-public class TankController 
+public class PlayerTankController 
 {
 
-    public TankModel tankModel { get; }
-    public TankView tankView { get; }
+    public PlayerTankModel tankModel { get; }
+    public PlayerTankView tankView { get; }
 
     private Rigidbody tankRigidBoy;
 
-    private BulletController bulletPrefab;
+    private BulletView bulletPrefab;
 
     private GameObject bulletShooter;
 
-    public TankController(TankModel _tankModel, TankView _tankView)
+    public PlayerTankController(PlayerTankModel _tankModel, PlayerTankView _tankView)
     {
         tankModel = _tankModel;
-        tankView = GameObject.Instantiate<TankView>(_tankView);
+        tankView = GameObject.Instantiate<PlayerTankView>(_tankView);
         tankModel.SetTankController(this);
         tankView.SetTankController(this);
         this.bulletPrefab = _tankModel.bulletPrefab;
@@ -42,7 +42,7 @@ public class TankController
 
     public void FireBullet(Vector3 pos)
     {
-        BulletController bulletController = GameObject.Instantiate<BulletController>(bulletPrefab, pos, tankView.transform.rotation);
+        BulletView bulletController = GameObject.Instantiate<BulletView>(bulletPrefab, pos, tankView.transform.rotation);
         bulletController.tankView = tankView;
     }
 }

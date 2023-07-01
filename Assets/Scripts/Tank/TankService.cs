@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class TankService : MonoSingletonGeneric<TankService>
 {
-    public TankView tankView;
+    public PlayerTankView tankView;
     [SerializeField]
     private TankScriptableObjectList tankScriptableObjectList;
     [SerializeField]
-    private BulletController bulletPrefab;
+    private BulletView bulletPrefab;
 
     void Start()
     {
-        TankModel model = new(tankScriptableObjectList.tankScriptableObjects[0],bulletPrefab);
-        TankController controller = new(model, tankView);
+        PlayerTankModel model = new(tankScriptableObjectList.tankScriptableObjects[0],bulletPrefab);
+        PlayerTankController controller = new(model, tankView);
     }
 
     
