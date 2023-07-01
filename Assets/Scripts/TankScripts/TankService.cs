@@ -5,6 +5,7 @@ public class TankService : GenericSingleton<TankService>
     [SerializeField] TankScriptableObjectList playerTankList;
     [SerializeField] FixedJoystick joystick;
     [SerializeField] CameraController mainCamera;
+    [SerializeField] ParticleSystem tankExplosion;
     void Start()
     {
         CreatePlayerTank(Random.Range(0, playerTankList.tanks.Length));
@@ -20,12 +21,18 @@ public class TankService : GenericSingleton<TankService>
     }
     public void DestoryTank(TankView tankView)
     {
+        Vector3 pos = tankView.transform.position;
         mainCamera.SetTankTransform(null);
         Destroy(tankView.gameObject);
-        StartCoroutine(DestroyLevel());
+        StartCoroutine(TankExplosion(pos));
+        StartCoroutine(LevelService.Instance.DestroyLevel());
     }
-    IEnumerator DestroyLevel()
+    public IEnumerator TankExplosion(Vector3 tankPos)
     {
-        yield return StartCoroutine(EnemyService.Instance.DestroyAllEnemies());
+        ParticleSystem newTankExplosion = GameObject.Instantiate<ParticleSystem>(tankExplosion, tankPos, Quaternion.identity);
+        newTankExplosion.Play();
+        yield return new WaitForSeconds(2f);
+        Destroy(newTankExplosion.gameObject);
     }
+
 }
