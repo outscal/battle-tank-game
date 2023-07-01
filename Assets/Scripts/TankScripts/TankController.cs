@@ -43,13 +43,11 @@ public class TankController
     public void TakeDamage(int damage)
     {
         health -= damage;
-        Debug.Log("Taking damage : " + damage + " Current health : " + health);
         if (health < 0)
             TankDeath();
     }
     void TankDeath()
     {
-        Debug.Log("Tank is dead! :(");
         TankService.Instance.DestoryTank(tankView);
     }
 }

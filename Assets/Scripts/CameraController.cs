@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
         player = _transform;
         currentPos = player.position;
     }
-    void Update()
+    void LateUpdate()
     {
         transform.position += player.position - currentPos;
         currentPos = player.position;

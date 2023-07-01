@@ -50,7 +50,7 @@ public class TankView : MonoBehaviour
         if (col.gameObject.GetComponent<BulletView>() != null)
         {
             BulletView bulletView = col.gameObject.GetComponent<BulletView>();
-            tankController.TakeDamage(col.gameObject.GetComponent<BulletView>().GetBulletDamage());
+            tankController.TakeDamage(bulletView.GetBulletDamage());
         }
     }
 }

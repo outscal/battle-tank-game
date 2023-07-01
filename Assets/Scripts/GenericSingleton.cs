@@ -9,7 +9,6 @@ public class GenericSingleton<T> : MonoBehaviour where T : GenericSingleton<T>
         if (instance != null)
         {
             Destroy(this.gameObject);
-            return;
         }
         else
         {
