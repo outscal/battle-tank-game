@@ -12,9 +12,9 @@ public class TankModel
 
     private TankController tankController;
 
-    private GameObject bulletPrefab;
+    public BulletController bulletPrefab;
 
-    public TankModel(TankScriptableObject tankScriptableObject, GameObject bulletPrefab)
+    public TankModel(TankScriptableObject tankScriptableObject, BulletController bulletPrefab)
     {
         movementSpeed = tankScriptableObject.movementSpeed;
         rotationSpeed = tankScriptableObject.rotationSpeed;

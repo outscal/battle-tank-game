@@ -8,7 +8,7 @@ public class TankService : MonoSingletonGeneric<TankService>
     [SerializeField]
     private TankScriptableObjectList tankScriptableObjectList;
     [SerializeField]
-    private GameObject bulletPrefab;
+    private BulletController bulletPrefab;
 
     void Start()
     {

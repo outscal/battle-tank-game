@@ -6,7 +6,11 @@ using UnityEngine;
 public class TankView : MonoBehaviour
 {
     private TankController tankController;
+
     private Rigidbody rb;
+
+    public GameObject BulletShooter;
+
 
     public void SetTankController(TankController _tankController)
     {
@@ -23,6 +27,10 @@ public class TankView : MonoBehaviour
     void Update()
     {
         Movement();
+        if(Input.GetMouseButtonDown(0))
+        {
+            tankController.FireBullet(BulletShooter.transform.position);
+        }
     }
 
     private void Movement()
