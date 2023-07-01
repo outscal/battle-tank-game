@@ -12,12 +12,13 @@ public class BulletController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-
+        rb.velocity = speed *  tankView.transform.forward;
     }
+
     // Update is called once per frame
     void Update()
     {
-        rb.velocity = speed * Time.deltaTime * tankView.transform.forward;
+        rb.velocity = speed * Time.deltaTime * transform.forward;
     }
 
     private void OnCollisionEnter(Collision collision)
