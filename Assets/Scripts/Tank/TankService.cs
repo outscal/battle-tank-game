@@ -5,10 +5,14 @@ using UnityEngine;
 public class TankService : MonoSingletonGeneric<TankService>
 {
     public TankView tankView;
-    // Start is called before the first frame update
+    [SerializeField]
+    private TankScriptableObjectList tankScriptableObjectList;
+    [SerializeField]
+    private GameObject bulletPrefab;
+
     void Start()
     {
-        TankModel model = new(20,10);
+        TankModel model = new(tankScriptableObjectList.tankScriptableObjects[0]);
         TankController controller = new(model, tankView);
     }
 

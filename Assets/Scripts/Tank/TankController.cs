@@ -26,7 +26,7 @@ public class TankController
 
     public void MoveTank(float _move)
     {
-        tankRigidBoy.velocity = _move * tankModel.movementSpeed * tankView.transform.forward;
+        tankRigidBoy.velocity = _move * tankModel.movementSpeed * Time.deltaTime * tankView.transform.forward;
     }
 
     public void RotateTank(float _rotation)

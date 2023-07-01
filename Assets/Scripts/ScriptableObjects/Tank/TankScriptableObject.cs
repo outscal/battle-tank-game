@@ -7,7 +7,8 @@ public class TankScriptableObject : ScriptableObject
     public TankTypes tankType;
     public string tankName;
     public float health;
-    public float speed;
+    public float movementSpeed;
+    public float rotationSpeed;
 }
 
 [CreateAssetMenu(fileName = "TankScriptableObjectList", menuName = "ScriptableObject/NewTankList")]
