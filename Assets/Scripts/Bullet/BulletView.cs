@@ -1,25 +1,34 @@
 
+using Newtonsoft.Json.Bson;
 using UnityEngine;
 
 public class BulletView : MonoBehaviour
 {
     public Rigidbody rb;
 
-    public PlayerTankView tankView;
-
-    public float speed;
-
-    public float power;
 
     private BulletController bulletController;
+    
+    public BulletModel bulletModel { get;private set; }
+
+
+    public void SetBullerControler(BulletController bulletController)
+    {
+        this.bulletController = bulletController;
+    }
+
+    
+
     private void Awake()
     {
-        bulletController = new BulletController(this);
         rb = GetComponent<Rigidbody>();
     }
+
     private void Start()
     {
+        Debug.Log(bulletController);
         bulletController.SetInitialVelocity();
+        bulletModel = bulletController.bulletModel;
     }
 
     // Update is called once per frame
@@ -31,5 +40,10 @@ public class BulletView : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        bulletController.RemoveReferenceFromPlayerTankController();
     }
 }

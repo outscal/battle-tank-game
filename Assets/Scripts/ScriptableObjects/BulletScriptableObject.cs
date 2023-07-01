@@ -11,5 +11,5 @@ public class BulletScriptableObject : ScriptableObject
 [CreateAssetMenu(fileName = "BulletScriptableObjectList", menuName = "ScriptableObject/NewBulletList")]
 public class BulletScriptableObjectList : ScriptableObject
 {
-    public BulletScriptableObject[] bulletScriptableObjects;
+    public BulletScriptableObject[] bullets;
 }

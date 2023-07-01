@@ -1,6 +1,7 @@
 
+using System;
 using UnityEngine;
-
+[Serializable]
 public class PlayerTankModel 
 {
     public float movementSpeed { get; private set; }
@@ -8,19 +9,19 @@ public class PlayerTankModel
 
     public float health;
 
-    private TankScriptableObject tankScriptableObject;
 
     private PlayerTankController tankController;
 
+    public BulletScriptableObjectList bulletScriptableObjectList;
     public BulletView bulletPrefab;
 
-    public PlayerTankModel(TankScriptableObject tankScriptableObject, BulletView bulletPrefab)
+    public PlayerTankModel(TankScriptableObject tankScriptableObject)
     {
         movementSpeed = tankScriptableObject.movementSpeed;
         rotationSpeed = tankScriptableObject.rotationSpeed;
         health = tankScriptableObject.health;
-        this.tankScriptableObject = tankScriptableObject;
-        this.bulletPrefab = bulletPrefab;
+        bulletScriptableObjectList = tankScriptableObject.bulletScriptableObjectList;
+        bulletPrefab = tankScriptableObject.bulletPrefab;
     }
 
 

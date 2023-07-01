@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class PlayerTankView : MonoBehaviour
 {
-    private PlayerTankController tankController;
+    public PlayerTankController tankController { get;private set; }
 
     private Rigidbody rb;
 
     public GameObject BulletShooter;
 
+    public PlayerTankModel tankModel;
 
     public void SetTankController(PlayerTankController _tankController)
     {
@@ -23,6 +24,8 @@ public class PlayerTankView : MonoBehaviour
     private void Start()
     {
         tankController.SetRigidBody(rb);
+        tankModel = tankController.tankModel;
+
     }
     void Update()
     {

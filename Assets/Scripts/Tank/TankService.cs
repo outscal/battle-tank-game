@@ -26,7 +26,7 @@ public class TankService : MonoSingletonGeneric<TankService>
 
     private void SpawnPlayerTank()
     {
-        PlayerTankModel model = new(tankScriptableObjectList.tankScriptableObjects[0], bulletPrefab);
+        PlayerTankModel model = new(tankScriptableObjectList.tankScriptableObjects[0]);
         PlayerTankController controller = new(model, playerTankView);
     }
 

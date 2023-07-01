@@ -9,6 +9,8 @@ public class TankScriptableObject : ScriptableObject
     public float health;
     public float movementSpeed;
     public float rotationSpeed;
+    public BulletScriptableObjectList bulletScriptableObjectList;
+    public BulletView bulletPrefab;
 }
 
 [CreateAssetMenu(fileName = "TankScriptableObjectList", menuName = "ScriptableObject/NewTankList")]
