@@ -385,8 +385,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTankList: {fileID: 11400000, guid: 8e21b4ae36c4fed448252a205e171c03, type: 2}
-  enemyTankList: {fileID: 11400000, guid: d76976251e6361545ada34c6d20bede4, type: 2}
-  enemyCount: 5
   joystick: {fileID: 2110804881}
   mainCamera: {fileID: 1771596988}
 --- !u!4 &857600325
@@ -867,6 +865,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+--- !u!1 &2074403555
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2074403557}
+  - component: {fileID: 2074403558}
+  m_Layer: 0
+  m_Name: EnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2074403557
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074403555}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2074403558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074403555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb812dbcb9c26bb4d80b96f6ad2d1779, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyTankList: {fileID: 11400000, guid: 42c4256e00a25044f8f99726708c7b9e, type: 2}
+  enemyCount: 3
 --- !u!224 &2110804880 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252,
