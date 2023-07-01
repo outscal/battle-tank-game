@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankSpawner : MonoSingletonGeneric<TankSpawner>
+public class TankService : MonoSingletonGeneric<TankService>
 {
     public TankView tankView;
     // Start is called before the first frame update
