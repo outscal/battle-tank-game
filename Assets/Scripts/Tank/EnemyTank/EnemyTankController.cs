@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 
 public class EnemyTankController 
@@ -10,7 +11,20 @@ public class EnemyTankController
         this.tankModel = tankModel;
         this.tankView = GameObject.Instantiate<EnemyTankView>(tankView);
         tankModel.SetEnemyTankController(this);
-        tankView.SetEnemyTankController(this);
+        this.tankView.SetEnemyTankController(this);
     }
 
+    public void TakeDamage(float power)
+    {
+        tankModel.health -= power;
+        if(tankModel.health<=0)
+        {
+            TankDestroy();
+        }
+    }
+
+    private void TankDestroy()
+    {
+        GameObject.Destroy(tankView.gameObject);
+    }
 }
