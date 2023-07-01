@@ -12,7 +12,7 @@ public class TankService : MonoSingletonGeneric<TankService>
 
     void Start()
     {
-        TankModel model = new(tankScriptableObjectList.tankScriptableObjects[0]);
+        TankModel model = new(tankScriptableObjectList.tankScriptableObjects[0],bulletPrefab);
         TankController controller = new(model, tankView);
     }
 

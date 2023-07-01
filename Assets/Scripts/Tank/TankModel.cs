@@ -12,17 +12,15 @@ public class TankModel
 
     private TankController tankController;
 
-    public TankModel(TankScriptableObject tankScriptableObject)
+    private GameObject bulletPrefab;
+
+    public TankModel(TankScriptableObject tankScriptableObject, GameObject bulletPrefab)
     {
         movementSpeed = tankScriptableObject.movementSpeed;
         rotationSpeed = tankScriptableObject.rotationSpeed;
         health = tankScriptableObject.health;
         this.tankScriptableObject = tankScriptableObject;
-    }
-    public TankModel(float _movementSpeed, float _rotationSpeed)
-    {
-        movementSpeed = _movementSpeed;
-        rotationSpeed = _rotationSpeed;
+        this.bulletPrefab = bulletPrefab;
     }
 
 
