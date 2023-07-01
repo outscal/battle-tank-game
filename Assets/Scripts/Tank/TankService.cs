@@ -1,10 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TankService : MonoSingletonGeneric<TankService>
 {
-    public PlayerTankView tankView;
+    public PlayerTankView playerTankView;
+    public EnemyTankView enemyTankView;
     [SerializeField]
     private TankScriptableObjectList tankScriptableObjectList;
     [SerializeField]
@@ -12,9 +14,20 @@ public class TankService : MonoSingletonGeneric<TankService>
 
     void Start()
     {
-        PlayerTankModel model = new(tankScriptableObjectList.tankScriptableObjects[0],bulletPrefab);
-        PlayerTankController controller = new(model, tankView);
+        SpawnPlayerTank();
+        SpawnEnemyTank();
     }
 
-    
+    private void SpawnEnemyTank()
+    {
+        EnemyTankModel model = new(tankScriptableObjectList.tankScriptableObjects[0]);
+        EnemyTankController controller = new(model, enemyTankView);
+    }
+
+    private void SpawnPlayerTank()
+    {
+        PlayerTankModel model = new(tankScriptableObjectList.tankScriptableObjects[0], bulletPrefab);
+        PlayerTankController controller = new(model, playerTankView);
+    }
+
 }

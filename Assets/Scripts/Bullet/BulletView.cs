@@ -9,6 +9,8 @@ public class BulletView : MonoBehaviour
 
     public float speed;
 
+    public float power;
+
     private BulletController bulletController;
     private void Awake()
     {
