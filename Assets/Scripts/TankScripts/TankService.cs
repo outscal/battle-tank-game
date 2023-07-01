@@ -19,6 +19,7 @@ public class TankService : GenericSingleton<TankService>
     }
     public void DestoryTank(TankView tankView)
     {
+        mainCamera.SetTankTransform(null);
         Destroy(tankView.gameObject);
     }
 }

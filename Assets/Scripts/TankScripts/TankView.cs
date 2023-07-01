@@ -44,5 +44,10 @@ public class TankView : MonoBehaviour
             BulletView bulletView = col.gameObject.GetComponent<BulletView>();
             tankController.TakeDamage(bulletView.GetBulletDamage());
         }
+        if (col.gameObject.GetComponent<EnemyView>() != null)
+        {
+            EnemyView enemyView = col.gameObject.GetComponent<EnemyView>();
+            tankController.TakeDamage(enemyView.GetEnemyStrength());
+        }
     }
 }

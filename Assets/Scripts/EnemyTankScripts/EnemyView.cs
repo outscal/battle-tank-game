@@ -21,4 +21,8 @@ public class EnemyView : MonoBehaviour
             enemyController.TakeDamage(bulletView.GetBulletDamage());
         }
     }
+    public int GetEnemyStrength()
+    {
+        return enemyController.GetStrength();
+    }
 }

@@ -5,6 +5,7 @@ public class EnemyScriptableObject : ScriptableObject
 {
     public int health;
     public int speed;
+    public int strength;
     public BulletType bulletType;
     public EnemyView enemyView;
 }

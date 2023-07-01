@@ -30,4 +30,8 @@ public class EnemyController
     {
         EnemyService.Instance.DestoryEnemy(enemyView);
     }
+    public int GetStrength()
+    {
+        return enemyModel.strength;
+    }
 }
