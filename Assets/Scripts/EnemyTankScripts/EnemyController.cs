@@ -28,10 +28,14 @@ public class EnemyController
     }
     void TankDeath()
     {
-        EnemyService.Instance.DestoryEnemy(enemyView);
+        EnemyService.Instance.DestoryEnemy(this);
     }
     public int GetStrength()
     {
         return enemyModel.strength;
+    }
+    public Vector3 GetPosition()
+    {
+        return enemyView.transform.position;
     }
 }

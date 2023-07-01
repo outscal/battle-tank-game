@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 public class TankService : GenericSingleton<TankService>
 {
@@ -21,5 +22,10 @@ public class TankService : GenericSingleton<TankService>
     {
         mainCamera.SetTankTransform(null);
         Destroy(tankView.gameObject);
+        StartCoroutine(DestroyLevel());
+    }
+    IEnumerator DestroyLevel()
+    {
+        yield return StartCoroutine(EnemyService.Instance.DestroyAllEnemies());
     }
 }
