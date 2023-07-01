@@ -1,11 +1,11 @@
 public class EnemyModel
 {
     private EnemyController enemyController;
-    public EnemyModel(TankScriptableObject tank)
+    public EnemyModel(EnemyScriptableObject enemy)
     {
-        speed = tank.speed;
-        health = tank.health;
-        bulletType = tank.bulletType;
+        speed = enemy.speed;
+        health = enemy.health;
+        bulletType = enemy.bulletType;
     }
     public void SetEnemyController(EnemyController _enemyController)
     {

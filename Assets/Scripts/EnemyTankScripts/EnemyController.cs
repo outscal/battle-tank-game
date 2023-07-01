@@ -1,10 +1,10 @@
 using UnityEngine;
 public class EnemyController
 {
-    public EnemyController(TankScriptableObject tank, float x = 0, float z = 0)
+    public EnemyController(EnemyScriptableObject enemy, float x = 0, float z = 0)
     {
-        enemyView = GameObject.Instantiate<EnemyView>(tank.tankView, new Vector3(Random.Range(-x, x), 0, Random.Range(-z, z)), Quaternion.identity);
-        enemyModel = new EnemyModel(tank);
+        enemyView = GameObject.Instantiate<EnemyView>(enemy.enemyView, new Vector3(Random.Range(-x, x), 0, Random.Range(-z, z)), Quaternion.identity);
+        enemyModel = new EnemyModel(enemy);
 
         enemyView.SetEnemyController(this);
         enemyModel.SetEnemyController(this);
@@ -18,7 +18,7 @@ public class EnemyController
     int health;
     public void Shoot(Transform gunTransform)
     {
-        TankService.Instance.ShootBullet(enemyModel.bulletType, gunTransform);
+        EnemyService.Instance.ShootBullet(enemyModel.bulletType, gunTransform);
     }
     public void TakeDamage(int damage)
     {
@@ -28,6 +28,6 @@ public class EnemyController
     }
     void TankDeath()
     {
-        TankService.Instance.DestoryTank(enemyView);
+        EnemyService.Instance.DestoryEnemy(enemyView);
     }
 }
