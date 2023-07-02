@@ -19,9 +19,10 @@ public class BulletView : MonoBehaviour
     void OnCollisionEnter(Collision col)
     {
         bulletController.BulletCollision(col.contacts[0].point);
-    }
-    public int GetBulletDamage()
-    {
-        return bulletController.GetBulletDamage();
+        IDamageable target = col.gameObject.GetComponent<IDamageable>();
+        if (target != null)
+        {
+            target.TakeDamage(bulletController.GetBulletDamage());
+        }
     }
 }

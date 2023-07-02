@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TankView : MonoBehaviour
+public class TankView : MonoBehaviour, IDamageable
 {
     TankController tankController;
     float horizontalMove;
@@ -39,15 +39,14 @@ public class TankView : MonoBehaviour
     }
     void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.GetComponent<BulletView>() != null)
-        {
-            BulletView bulletView = col.gameObject.GetComponent<BulletView>();
-            tankController.TakeDamage(bulletView.GetBulletDamage());
-        }
         if (col.gameObject.GetComponent<EnemyView>() != null)
         {
             EnemyView enemyView = col.gameObject.GetComponent<EnemyView>();
             tankController.TakeDamage(enemyView.GetEnemyStrength());
         }
+    }
+    void IDamageable.TakeDamage(int damage)
+    {
+        tankController.TakeDamage(damage);
     }
 }

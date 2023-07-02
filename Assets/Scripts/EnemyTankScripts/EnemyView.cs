@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyView : MonoBehaviour
+public class EnemyView : MonoBehaviour, IDamageable
 {
     EnemyController enemyController;
     [SerializeField] Rigidbody rb;
@@ -13,16 +13,12 @@ public class EnemyView : MonoBehaviour
     {
         return rb;
     }
-    void OnCollisionEnter(Collision col)
-    {
-        if (col.gameObject.GetComponent<BulletView>() != null)
-        {
-            BulletView bulletView = col.gameObject.GetComponent<BulletView>();
-            enemyController.TakeDamage(bulletView.GetBulletDamage());
-        }
-    }
     public int GetEnemyStrength()
     {
         return enemyController.GetStrength();
+    }
+    public void TakeDamage(int damage)
+    {
+        enemyController.TakeDamage(damage);
     }
 }
