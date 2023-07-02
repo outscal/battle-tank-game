@@ -131,6 +131,10 @@ GameObject:
   - component: {fileID: 4057187221585408617}
   - component: {fileID: 2739584781210436408}
   - component: {fileID: 4565729019985822519}
+  - component: {fileID: 943687104395834687}
+  - component: {fileID: 6743863027356365478}
+  - component: {fileID: 77694744121775633}
+  - component: {fileID: 4844113702887758789}
   m_Layer: 0
   m_Name: TankBrown
   m_TagString: Untagged
@@ -198,6 +202,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 2739584781210436408}
   gun: {fileID: 2743634475949390127}
+  enemyAttackState: {fileID: 4844113702887758789}
+  enemyChaseState: {fileID: 77694744121775633}
+  enemyIdleState: {fileID: 943687104395834687}
+  enemyPatrolState: {fileID: 6743863027356365478}
+--- !u!114 &943687104395834687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2463668034771893032}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8abfb4192159694094686839280206a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6743863027356365478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2463668034771893032}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bb31cb138959fc4c8e7e8eb88302766, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &77694744121775633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2463668034771893032}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 272e504541ce9364d91faaf3fa4975a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4844113702887758789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2463668034771893032}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91401209ae3484c4aa9ce1de203f6ae5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2463668034771893034
 GameObject:
   m_ObjectHideFlags: 0
