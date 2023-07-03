@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 6743863027356365478}
   - component: {fileID: 77694744121775633}
   - component: {fileID: 4844113702887758789}
+  - component: {fileID: 7739326980091918607}
   m_Layer: 0
   m_Name: TankBrown
   m_TagString: Untagged
@@ -202,6 +203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 2739584781210436408}
   gun: {fileID: 2743634475949390127}
+  agent: {fileID: 7739326980091918607}
   enemyAttackState: {fileID: 4844113702887758789}
   enemyChaseState: {fileID: 77694744121775633}
   enemyIdleState: {fileID: 943687104395834687}
@@ -254,6 +256,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91401209ae3484c4aa9ce1de203f6ae5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!195 &7739326980091918607
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2463668034771893032}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 200
+  m_StoppingDistance: 2
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &2463668034771893034
 GameObject:
   m_ObjectHideFlags: 0

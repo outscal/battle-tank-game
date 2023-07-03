@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyView : MonoBehaviour, IDamageable
 {
     EnemyController enemyController;
     [SerializeField] Rigidbody rb;
     [SerializeField] Transform gun;
+    [SerializeField] NavMeshAgent agent;
     EnemyState currentState;
     [SerializeField] public EnemyAttackState enemyAttackState;
     [SerializeField] public EnemyChaseState enemyChaseState;
@@ -21,6 +23,10 @@ public class EnemyView : MonoBehaviour, IDamageable
     public Rigidbody GetRigidbody()
     {
         return rb;
+    }
+    public NavMeshAgent GetAgent()
+    {
+        return agent;
     }
     public int GetEnemyStrength()
     {
@@ -39,9 +45,9 @@ public class EnemyView : MonoBehaviour, IDamageable
         currentState = newState;
         currentState.OnStateEnter();
     }
-    public void SetEnemyTargetPosition()
+    public void SetEnemyAgentValues()
     {
-        enemyController.SetTargetPosition();
+        enemyController.SetAgentValues();
     }
     public void EnemyPatrol()
     {
