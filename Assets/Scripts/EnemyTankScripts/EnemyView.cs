@@ -12,7 +12,7 @@ public class EnemyView : MonoBehaviour, IDamageable
     [SerializeField] public EnemyPatrolState enemyPatrolState;
     void Start()
     {
-        ChangeState(enemyPatrolState);
+        ChangeState(enemyIdleState);
     }
     public void SetEnemyController(EnemyController _enemyController)
     {
@@ -38,6 +38,14 @@ public class EnemyView : MonoBehaviour, IDamageable
         }
         currentState = newState;
         currentState.OnStateEnter();
+    }
+    public void SetEnemyTargetPosition()
+    {
+        enemyController.SetTargetPosition();
+    }
+    public void EnemyPatrol()
+    {
+        enemyController.Patrol();
     }
     void Update()
     {

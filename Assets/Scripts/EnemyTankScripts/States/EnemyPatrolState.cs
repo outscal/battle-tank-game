@@ -4,6 +4,7 @@ public class EnemyPatrolState : EnemyState
     public override void OnStateEnter()
     {
         base.OnStateEnter();
+        enemyView.SetEnemyTargetPosition();
         Debug.Log("Enemy patrol start");
     }
     public override void OnStateExit()
@@ -14,6 +15,7 @@ public class EnemyPatrolState : EnemyState
     public override void Tick()
     {
         base.Tick();
+        enemyView.EnemyPatrol();
         if (Input.GetKeyDown(KeyCode.Return))
         {
             enemyView.ChangeState(enemyView.enemyChaseState);

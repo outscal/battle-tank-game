@@ -16,6 +16,9 @@ public class EnemyController
     public EnemyView enemyView { get; }
     private Rigidbody rb;
     int health;
+    int targetIndex;
+    Vector3 targetPoint;
+    Vector3 direction;
     public void Shoot(Transform gunTransform)
     {
         EnemyService.Instance.ShootBullet(enemyModel.bulletType, gunTransform);
@@ -37,5 +40,21 @@ public class EnemyController
     public Vector3 GetPosition()
     {
         return enemyView.transform.position;
+    }
+    public void SetTargetPosition()
+    {
+        targetIndex = EnemyService.Instance.GetRandomPatrolPoint(rb.transform.position);
+        targetPoint = EnemyService.Instance.GetPatrolPosition(targetIndex);
+    }
+    public void Patrol()
+    {
+        if (Vector3.Distance(targetPoint, rb.transform.position) < 2f)
+        {
+            targetIndex = EnemyService.Instance.GetRandomPatrolPoint(targetIndex);
+            targetPoint = EnemyService.Instance.GetPatrolPosition(targetIndex);
+        }
+        direction = (targetPoint - rb.transform.position).normalized;
+        rb.velocity = direction * enemyModel.speed;
+        rb.transform.LookAt(direction + rb.transform.position);
     }
 }
