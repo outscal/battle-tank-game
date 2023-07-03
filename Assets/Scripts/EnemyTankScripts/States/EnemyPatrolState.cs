@@ -4,7 +4,7 @@ public class EnemyPatrolState : EnemyState
     public override void OnStateEnter()
     {
         base.OnStateEnter();
-        enemyView.SetEnemyAgentValues();
+        enemyView.InitializePatrol();
         Debug.Log("Enemy patrol start");
     }
     public override void OnStateExit()

@@ -42,4 +42,8 @@ public class TankController
     {
         TankService.Instance.DestoryTank(tankView);
     }
+    public Transform GetTransform()
+    {
+        return rb.transform;
+    }
 }

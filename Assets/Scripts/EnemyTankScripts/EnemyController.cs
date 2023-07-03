@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 public class EnemyController
 {
-    public EnemyController(EnemyScriptableObject enemy, Vector3 randomPosition)
+    public EnemyController(EnemyScriptableObject enemy, Vector3 randomPosition, Transform playerTransform, float playerDetectionRange)
     {
         enemyView = GameObject.Instantiate<EnemyView>(enemy.enemyView, randomPosition, Quaternion.Euler(0, Random.Range(0, 360), 0));
         enemyModel = new EnemyModel(enemy);
@@ -13,6 +13,8 @@ public class EnemyController
         rb = enemyView.GetRigidbody();
         health = enemyModel.health;
         agent = enemyView.GetAgent();
+        this.playerTransform = playerTransform;
+        this.playerDetectionRange = playerDetectionRange;
     }
     public EnemyModel enemyModel { get; }
     public EnemyView enemyView { get; }
@@ -23,6 +25,9 @@ public class EnemyController
     Vector3 direction;
     NavMeshAgent agent;
     float range = 20f;
+    Transform playerTransform;
+    float playerDetectionRange;
+    float distanceToPlayer;
     public void Shoot(Transform gunTransform)
     {
         EnemyService.Instance.ShootBullet(enemyModel.bulletType, gunTransform);
@@ -45,24 +50,6 @@ public class EnemyController
     {
         return enemyView.transform.position;
     }
-    public void SetTargetPosition()
-    {
-        targetIndex = EnemyService.Instance.GetRandomPatrolPoint(rb.transform.position);
-        targetPoint = EnemyService.Instance.GetPatrolPosition(targetIndex);
-    }
-    /*
-    public void Patrol()
-    {
-        if (Vector3.Distance(targetPoint, rb.transform.position) < 2f)
-        {
-            targetIndex = EnemyService.Instance.GetRandomPatrolPoint(targetIndex);
-            targetPoint = EnemyService.Instance.GetPatrolPosition(targetIndex);
-        }
-        direction = (targetPoint - rb.transform.position).normalized;
-        rb.velocity = direction * enemyModel.speed;
-        rb.transform.LookAt(direction + rb.transform.position);
-    }
-    */
     public void SetAgentValues()
     {
         agent.speed = enemyModel.speed;
@@ -70,6 +57,16 @@ public class EnemyController
     }
     public void Patrol()
     {
+        if (playerTransform == null)
+        {
+            PlayerDied();
+            return;
+        }
+        distanceToPlayer = Vector3.Distance(playerTransform.position, rb.transform.position);
+        if (distanceToPlayer < playerDetectionRange)
+        {
+            enemyView.ChangeState(enemyView.enemyChaseState);
+        }
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
             Vector3 newPoint;
@@ -91,5 +88,30 @@ public class EnemyController
         }
         result = Vector3.zero;
         return false;
+    }
+    public void SetPlayerAsDestination()
+    {
+        agent.SetDestination(playerTransform.position);
+        agent.stoppingDistance = 0f;
+    }
+    public void Chase()
+    {
+        if (playerTransform == null)
+        {
+            PlayerDied();
+            return;
+        }
+        if (agent.remainingDistance > playerDetectionRange + 10f)
+        {
+            enemyView.ChangeState(enemyView.enemyIdleState);
+        }
+        else
+        {
+            agent.SetDestination(playerTransform.position);
+        }
+    }
+    void PlayerDied()
+    {
+        enemyView.ChangeState(enemyView.enemyIdleState);
     }
 }

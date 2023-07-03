@@ -1,10 +1,12 @@
 using UnityEngine;
 public class EnemyIdleState : EnemyState
 {
+    float timeElapsed;
     public override void OnStateEnter()
     {
         base.OnStateEnter();
         Debug.Log("Enemy idle start");
+        timeElapsed = 0f;
     }
     public override void OnStateExit()
     {
@@ -14,7 +16,8 @@ public class EnemyIdleState : EnemyState
     public override void Tick()
     {
         base.Tick();
-        if (Input.GetKeyDown(KeyCode.Return))
+        timeElapsed += Time.deltaTime;
+        if (timeElapsed > 2f)
         {
             enemyView.ChangeState(enemyView.enemyPatrolState);
         }

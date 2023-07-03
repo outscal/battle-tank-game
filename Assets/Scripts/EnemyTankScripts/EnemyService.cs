@@ -8,24 +8,20 @@ public class EnemyService : GenericSingleton<EnemyService>
     [SerializeField] ParticleSystem tankExplosion;
     List<EnemyController> enemies;
     [SerializeField] Transform SpawnPointParent;
-    [SerializeField] Transform PatrolPointParent;
+    [SerializeField] float playerDetectionRange = 10f;
+    Transform playerTransform;
     List<Transform> spawnPoints;
     List<Transform> pointsAlreadySpawned;
-    List<Transform> patrolPoints;
     void Start()
     {
         spawnPoints = new List<Transform>();
         pointsAlreadySpawned = new List<Transform>();
-        patrolPoints = new List<Transform>();
         foreach (Transform item in SpawnPointParent)
         {
             spawnPoints.Add(item);
         }
-        foreach (Transform item in PatrolPointParent)
-        {
-            patrolPoints.Add(item);
-        }
         enemies = new List<EnemyController>();
+        playerTransform = TankService.Instance.GetPlayerTransform();
         StartCoroutine(SpawnEnemyTanks(enemyCount));
     }
     IEnumerator SpawnEnemyTanks(int count)
@@ -43,7 +39,7 @@ public class EnemyService : GenericSingleton<EnemyService>
     public EnemyController CreateEnemyTank(int index, Transform newTransform)
     {
         EnemyScriptableObject enemy = enemyTankList.enemies[index];
-        EnemyController enemyController = new EnemyController(enemy, newTransform.position);
+        EnemyController enemyController = new EnemyController(enemy, newTransform.position, playerTransform, playerDetectionRange);
         return enemyController;
     }
     public void ShootBullet(BulletType bulletType, Transform tankTransform)
@@ -84,29 +80,5 @@ public class EnemyService : GenericSingleton<EnemyService>
         pointsAlreadySpawned.Add(spawnPoints[index]);
         spawnPoints.RemoveAt(index);
         return newTransform;
-    }
-    public int GetRandomPatrolPoint(Vector3 _spawnPoint)
-    {
-        for (int i = 0; i < patrolPoints.Count; i++)
-        {
-            if (Vector3.Distance(patrolPoints[i].position, _spawnPoint) < 10f)
-            {
-                return i;
-            }
-        }
-        Debug.Log("Near patrol point not found!");
-        return -1;
-    }
-    public int GetRandomPatrolPoint(int _targetIndex)
-    {
-        if (_targetIndex >= patrolPoints.Count - 1)
-            _targetIndex = 0;
-        else
-            _targetIndex++;
-        return _targetIndex;
-    }
-    public Vector3 GetPatrolPosition(int index)
-    {
-        return patrolPoints[index].position;
     }
 }

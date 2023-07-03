@@ -45,13 +45,21 @@ public class EnemyView : MonoBehaviour, IDamageable
         currentState = newState;
         currentState.OnStateEnter();
     }
-    public void SetEnemyAgentValues()
+    public void InitializePatrol()
     {
         enemyController.SetAgentValues();
     }
     public void EnemyPatrol()
     {
         enemyController.Patrol();
+    }
+    public void InitializeChase()
+    {
+        enemyController.SetPlayerAsDestination();
+    }
+    public void EnemyChase()
+    {
+        enemyController.Chase();
     }
     void Update()
     {

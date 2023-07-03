@@ -6,6 +6,7 @@ public class TankService : GenericSingleton<TankService>
     [SerializeField] FixedJoystick joystick;
     [SerializeField] CameraController mainCamera;
     [SerializeField] ParticleSystem tankExplosion;
+    TankController tankController;
     void Start()
     {
         CreatePlayerTank(Random.Range(0, playerTankList.tanks.Length));
@@ -13,7 +14,7 @@ public class TankService : GenericSingleton<TankService>
     public void CreatePlayerTank(int index)
     {
         TankScriptableObject tank = playerTankList.tanks[index];
-        TankController tankController = new TankController(tank, joystick, mainCamera);
+        tankController = new TankController(tank, joystick, mainCamera);
     }
     public void ShootBullet(BulletType bulletType, Transform tankTransform)
     {
@@ -34,5 +35,8 @@ public class TankService : GenericSingleton<TankService>
         yield return new WaitForSeconds(2f);
         Destroy(newTankExplosion.gameObject);
     }
-
+    public Transform GetPlayerTransform()
+    {
+        return tankController.GetTransform();
+    }
 }

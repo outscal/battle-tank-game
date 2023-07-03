@@ -5,6 +5,7 @@ public class EnemyChaseState : EnemyState
     {
         base.OnStateEnter();
         Debug.Log("Enemy chase start");
+        enemyView.InitializeChase();
     }
     public override void OnStateExit()
     {
@@ -14,9 +15,6 @@ public class EnemyChaseState : EnemyState
     public override void Tick()
     {
         base.Tick();
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            enemyView.ChangeState(enemyView.enemyAttackState);
-        }
+        enemyView.EnemyChase();
     }
 }
