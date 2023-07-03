@@ -7,19 +7,36 @@ public class EnemyService : GenericSingleton<EnemyService>
     [SerializeField] int enemyCount = 3;
     [SerializeField] ParticleSystem tankExplosion;
     List<EnemyController> enemies;
+    [SerializeField] Transform SpawnPointParent;
+    List<Transform> spawnPoints;
+    List<Transform> pointsAlreadySpawned;
     void Start()
     {
-        enemies = new List<EnemyController>();
-        for (int i = 0; i < enemyCount; i++)
+        spawnPoints = new List<Transform>();
+        pointsAlreadySpawned = new List<Transform>();
+        foreach (Transform item in SpawnPointParent)
         {
-            EnemyController enemyController = CreateEnemyTank(Random.Range(0, enemyTankList.enemies.Length));
+            spawnPoints.Add(item);
+        }
+        enemies = new List<EnemyController>();
+        StartCoroutine(SpawnEnemyTanks(enemyCount));
+    }
+    IEnumerator SpawnEnemyTanks(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            Transform newTransform = GetRandomSpawnPoint();
+            if (newTransform == null)
+                break;
+            EnemyController enemyController = CreateEnemyTank(Random.Range(0, enemyTankList.enemies.Length), newTransform);
             enemies.Add(enemyController);
+            yield return new WaitForSeconds(0.1f);
         }
     }
-    public EnemyController CreateEnemyTank(int index)
+    public EnemyController CreateEnemyTank(int index, Transform newTransform)
     {
         EnemyScriptableObject enemy = enemyTankList.enemies[index];
-        EnemyController enemyController = new EnemyController(enemy, 10, 4);
+        EnemyController enemyController = new EnemyController(enemy, newTransform.position);
         return enemyController;
     }
     public void ShootBullet(BulletType bulletType, Transform tankTransform)
@@ -49,5 +66,16 @@ public class EnemyService : GenericSingleton<EnemyService>
             DestoryEnemy(enemy);
             yield return new WaitForSeconds(2f);
         }
+    }
+    public Transform GetRandomSpawnPoint()
+    {
+        if (spawnPoints.Count == 0)
+            return null;
+        int index = 0;
+        index = Random.Range(0, spawnPoints.Count);
+        Transform newTransform = spawnPoints[index];
+        pointsAlreadySpawned.Add(spawnPoints[index]);
+        spawnPoints.RemoveAt(index);
+        return newTransform;
     }
 }

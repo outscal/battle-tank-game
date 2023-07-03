@@ -1,9 +1,9 @@
 using UnityEngine;
 public class EnemyController
 {
-    public EnemyController(EnemyScriptableObject enemy, float x = 0, float z = 0)
+    public EnemyController(EnemyScriptableObject enemy, Vector3 randomPosition)
     {
-        enemyView = GameObject.Instantiate<EnemyView>(enemy.enemyView, new Vector3(Random.Range(-x, x), 0, Random.Range(-z, z)), Quaternion.identity);
+        enemyView = GameObject.Instantiate<EnemyView>(enemy.enemyView, randomPosition, Quaternion.Euler(0, Random.Range(0, 360), 0));
         enemyModel = new EnemyModel(enemy);
 
         enemyView.SetEnemyController(this);
