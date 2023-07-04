@@ -30,7 +30,6 @@ public class EnemyController
     Transform playerTransform;
     float playerDetectionRange;
     float distanceToPlayer;
-    float shootingRange = 10f;
     float timeSinceShot;
     public void Shoot(Transform gunTransform)
     {
@@ -109,7 +108,7 @@ public class EnemyController
         {
             enemyView.ChangeState(enemyView.enemyIdleState);
         }
-        else if (agent.remainingDistance < shootingRange)
+        else if (agent.remainingDistance < enemyModel.visibilityRange)
         {
             enemyView.ChangeState(enemyView.enemyAttackState);
         }
@@ -134,10 +133,10 @@ public class EnemyController
             PlayerDied();
             return;
         }
-        if (Vector3.Distance(rb.transform.position, playerTransform.position) < shootingRange)
+        if (Vector3.Distance(rb.transform.position, playerTransform.position) < enemyModel.visibilityRange)
         {
             timeSinceShot += Time.deltaTime;
-            if (timeSinceShot > 3f)
+            if (timeSinceShot > (60 / enemyModel.bpm))
             {
                 ShootBullet();
                 timeSinceShot = 0;

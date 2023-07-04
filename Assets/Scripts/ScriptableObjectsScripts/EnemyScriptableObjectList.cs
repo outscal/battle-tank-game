@@ -6,6 +6,8 @@ public class EnemyScriptableObject : ScriptableObject
     public int health;
     public int speed;
     public int strength;
+    public int bpm;
+    public float visibilityRange;
     public BulletType bulletType;
     public EnemyView enemyView;
 }

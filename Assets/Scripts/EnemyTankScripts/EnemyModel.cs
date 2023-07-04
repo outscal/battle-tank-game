@@ -6,6 +6,8 @@ public class EnemyModel
         speed = enemy.speed;
         health = enemy.health;
         strength = enemy.strength;
+        bpm = enemy.bpm;
+        visibilityRange = enemy.visibilityRange;
         bulletType = enemy.bulletType;
     }
     public void SetEnemyController(EnemyController _enemyController)
@@ -15,5 +17,7 @@ public class EnemyModel
     public int speed { get; }
     public int health { get; }
     public int strength { get; }
+    public int bpm { get; }
+    public float visibilityRange { get; }
     public BulletType bulletType { get; }
 }
