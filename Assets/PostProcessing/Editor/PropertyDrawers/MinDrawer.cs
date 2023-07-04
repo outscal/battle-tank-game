@@ -17,6 +17,7 @@ namespace UnityEditor.PostProcessing
             }
             else if (property.propertyType == SerializedPropertyType.Float)
             {
+
                 float v = EditorGUI.FloatField(position, label, property.floatValue);
                 property.floatValue = Mathf.Max(v, attribute.min);
             }
