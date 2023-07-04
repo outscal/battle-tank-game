@@ -7,27 +7,22 @@ public class TankView : MonoBehaviour
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Joystick joystick;
     private TankController tankController;
-    private float speed;
-   
-
-
+    [SerializeField] private float speed = 30F;
     public TankView()
-    {
-        speed = tankController.GetTankModel().moveSpeed;
+    { 
     }
-
     private void FixedUpdate()
-    {
-        tankController.MoveTank(speed);
-       
+    { 
+        rb.velocity = new Vector3(joystick.Horizontal * speed, rb.velocity.y, joystick.Vertical * speed);
+        if(joystick.Horizontal !=0 || joystick.Vertical != 0)
+        {
+           transform.rotation =  Quaternion.LookRotation(rb.velocity);
+        }
     }
-
-
     public void SetTankController(TankController _tankController)
     {
         tankController = _tankController;
     }
-
     public Rigidbody GetRigidbody()
     {
         return rb;
@@ -36,6 +31,4 @@ public class TankView : MonoBehaviour
     {
         return joystick;
     }
-
-
 }

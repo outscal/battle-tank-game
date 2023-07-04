@@ -17,11 +17,7 @@ public class TankController
         tankView.SetTankController(this);
     }
 
-    public void MoveTank(float speed)
-    {
-        Vector3 movement = new Vector3(tankView.GetJoystick().Horizontal, 0f, tankView.GetJoystick().Vertical);
-        rb.velocity = movement * speed;
-    }
+    
     public TankModel GetTankModel()
     {
         return tankModel;
