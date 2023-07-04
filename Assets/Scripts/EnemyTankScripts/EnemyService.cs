@@ -67,7 +67,7 @@ public class EnemyService : GenericSingleton<EnemyService>
         foreach (EnemyController enemy in enemyList)
         {
             DestoryEnemy(enemy);
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
         }
     }
     public Transform GetRandomSpawnPoint()

@@ -24,6 +24,10 @@ public class EnemyView : MonoBehaviour, IDamageable
     {
         return rb;
     }
+    public Transform GetGun()
+    {
+        return gun;
+    }
     public NavMeshAgent GetAgent()
     {
         return agent;
@@ -60,6 +64,14 @@ public class EnemyView : MonoBehaviour, IDamageable
     public void EnemyChase()
     {
         enemyController.Chase();
+    }
+    public void InitializeAttack()
+    {
+        enemyController.SetAttackValues();
+    }
+    public void EnemyAttack()
+    {
+        enemyController.Attack();
     }
     void Update()
     {

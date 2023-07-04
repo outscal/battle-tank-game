@@ -5,12 +5,10 @@ public class EnemyPatrolState : EnemyState
     {
         base.OnStateEnter();
         enemyView.InitializePatrol();
-        Debug.Log("Enemy patrol start");
     }
     public override void OnStateExit()
     {
         base.OnStateExit();
-        Debug.Log("Enemy patrol end");
     }
     public override void Tick()
     {

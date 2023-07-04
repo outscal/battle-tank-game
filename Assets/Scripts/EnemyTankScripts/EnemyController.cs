@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Threading.Tasks;
+
 public class EnemyController
 {
     public EnemyController(EnemyScriptableObject enemy, Vector3 randomPosition, Transform playerTransform, float playerDetectionRange)
@@ -11,6 +13,7 @@ public class EnemyController
         enemyModel.SetEnemyController(this);
 
         rb = enemyView.GetRigidbody();
+        gun = enemyView.GetGun();
         health = enemyModel.health;
         agent = enemyView.GetAgent();
         this.playerTransform = playerTransform;
@@ -20,14 +23,15 @@ public class EnemyController
     public EnemyView enemyView { get; }
     private Rigidbody rb;
     int health;
-    int targetIndex;
-    Vector3 targetPoint;
+    Transform gun;
     Vector3 direction;
     NavMeshAgent agent;
     float range = 20f;
     Transform playerTransform;
     float playerDetectionRange;
     float distanceToPlayer;
+    float shootingRange = 10f;
+    float timeSinceShot;
     public void Shoot(Transform gunTransform)
     {
         EnemyService.Instance.ShootBullet(enemyModel.bulletType, gunTransform);
@@ -105,6 +109,10 @@ public class EnemyController
         {
             enemyView.ChangeState(enemyView.enemyIdleState);
         }
+        else if (agent.remainingDistance < shootingRange)
+        {
+            enemyView.ChangeState(enemyView.enemyAttackState);
+        }
         else
         {
             agent.SetDestination(playerTransform.position);
@@ -113,5 +121,37 @@ public class EnemyController
     void PlayerDied()
     {
         enemyView.ChangeState(enemyView.enemyIdleState);
+    }
+    public void SetAttackValues()
+    {
+        agent.SetDestination(rb.transform.position);
+        timeSinceShot = 0f;
+    }
+    public void Attack()
+    {
+        if (playerTransform == null)
+        {
+            PlayerDied();
+            return;
+        }
+        if (Vector3.Distance(rb.transform.position, playerTransform.position) < shootingRange)
+        {
+            timeSinceShot += Time.deltaTime;
+            if (timeSinceShot > 3f)
+            {
+                ShootBullet();
+                timeSinceShot = 0;
+            }
+            direction = (playerTransform.position - rb.transform.position).normalized;
+            rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Quaternion.LookRotation(direction), 0.2f);
+        }
+        else
+        {
+            enemyView.ChangeState(enemyView.enemyChaseState);
+        }
+    }
+    void ShootBullet()
+    {
+        EnemyService.Instance.ShootBullet(enemyModel.bulletType, gun);
     }
 }
