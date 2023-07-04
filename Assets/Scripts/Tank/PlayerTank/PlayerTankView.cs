@@ -3,12 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankView : MonoBehaviour
+public class PlayerTankView : MonoBehaviour
 {
-    private TankController tankController;
+    public PlayerTankController tankController { get;private set; }
+
     private Rigidbody rb;
 
-    public void SetTankController(TankController _tankController)
+    public GameObject BulletShooter;
+
+    public PlayerTankModel tankModel;
+
+    public void SetTankController(PlayerTankController _tankController)
     {
         tankController = _tankController;
     }
@@ -19,10 +24,16 @@ public class TankView : MonoBehaviour
     private void Start()
     {
         tankController.SetRigidBody(rb);
+        tankModel = tankController.tankModel;
+
     }
     void Update()
     {
         Movement();
+        if(Input.GetMouseButtonDown(0))
+        {
+            tankController.FireBullet(BulletShooter.transform.position);
+        }
     }
 
     private void Movement()
