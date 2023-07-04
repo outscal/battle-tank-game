@@ -13,6 +13,7 @@ public class PlayerTankView : MonoBehaviour
 
     public PlayerTankModel tankModel;
 
+
     public void SetTankController(PlayerTankController _tankController)
     {
         tankController = _tankController;
@@ -25,7 +26,7 @@ public class PlayerTankView : MonoBehaviour
     {
         tankController.SetRigidBody(rb);
         tankModel = tankController.tankModel;
-
+        DestoryEverything.Instance.PlayerTank = this;
     }
     void Update()
     {
@@ -44,5 +45,13 @@ public class PlayerTankView : MonoBehaviour
         float rotation = Input.GetAxisRaw("Horizontal1");
         if (rotation != 0)
             tankController.RotateTank(rotation);
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("EnemyTank"))
+        {
+            DestoryEverything.Instance.PlayerTank = this;
+            DestoryEverything.Instance.Destroy();
+        }
     }
 }
