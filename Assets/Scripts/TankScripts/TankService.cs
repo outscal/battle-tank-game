@@ -9,6 +9,7 @@ public enum TankType
 public class TankService : GenericSingleton<TankService>
 {
     public event Action OnPlayerFiredBullet;
+    public event Action<float> OnDistanceTravelled;
     [SerializeField] TankScriptableObjectList playerTankList;
     [SerializeField] FixedJoystick joystick;
     [SerializeField] CameraController mainCamera;
@@ -48,5 +49,9 @@ public class TankService : GenericSingleton<TankService>
     public Transform GetPlayerTransform()
     {
         return tankController.GetTransform();
+    }
+    public void distanceTravelled(float distance)
+    {
+        OnDistanceTravelled?.Invoke(distance);
     }
 }

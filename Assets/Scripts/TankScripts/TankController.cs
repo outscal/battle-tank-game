@@ -15,12 +15,19 @@ public class TankController
             tankView.SetJoystick(_joystick);
         rb = tankView.GetRigidbody();
         health = tankModel.health;
+        oldPosition = rb.transform.position;
     }
     public TankModel tankModel { get; }
     public TankView tankView { get; }
     private Rigidbody rb;
     int health;
     Vector3 direction;
+    Vector3 oldPosition;
+    float distanceTravelled;
+    float distance;
+    bool TenMeterMark = false;
+    bool FiftyMeterMark = false;
+    bool TwoHundredMeterMark = false;
     public void MoveTank(float _horizontalMove, float _verticalMove)
     {
         direction = Vector3.forward * _verticalMove + Vector3.right * _horizontalMove;
@@ -28,6 +35,29 @@ public class TankController
 
         rb.velocity = direction * tankModel.speed;
         tankView.transform.LookAt(direction.normalized + tankView.transform.position);
+
+        CalculateDistance();
+    }
+    void CalculateDistance()
+    {
+        distance = (rb.transform.position - oldPosition).magnitude;
+        distanceTravelled += distance;
+        oldPosition = rb.transform.position;
+        if (!TenMeterMark && distanceTravelled > 10f)
+        {
+            TankService.Instance.distanceTravelled(10f);
+            TenMeterMark = true;
+        }
+        else if (!FiftyMeterMark && distanceTravelled > 50f)
+        {
+            TankService.Instance.distanceTravelled(50f);
+            FiftyMeterMark = true;
+        }
+        else if (!TwoHundredMeterMark && distanceTravelled > 200f)
+        {
+            TankService.Instance.distanceTravelled(200f);
+            TwoHundredMeterMark = true;
+        }
     }
     public void Shoot(Transform gunTransform)
     {

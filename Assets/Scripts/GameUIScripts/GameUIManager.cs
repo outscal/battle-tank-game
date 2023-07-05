@@ -10,6 +10,7 @@ public class GameUIManager : MonoBehaviour
         bulletCount = 0;
         enemiesDestroyedCount = 0;
         TankService.Instance.OnPlayerFiredBullet += PlayerBulletAchievement;
+        TankService.Instance.OnDistanceTravelled += DistanceTravelledAchievement;
         EnemyService.Instance.OnEnemyDestroy += EnemyDeathAchievement;
     }
     public void PlayerBulletAchievement()
@@ -33,6 +34,10 @@ public class GameUIManager : MonoBehaviour
             case 10: UnlockAchievement("Ten enemies destroyed!"); break;
             default: break;
         }
+    }
+    public void DistanceTravelledAchievement(float distance)
+    {
+        UnlockAchievement($"Distance Travelled {distance}!");
     }
     public void UnlockAchievement(string _achievement)
     {
