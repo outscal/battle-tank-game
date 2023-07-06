@@ -6,9 +6,13 @@ using UnityEngine;
 public class TankService : MonoBehaviour
 {
     [SerializeField] private TankView tankView;
+
     [SerializeField] private TankTypeScriptableObjectList tanklist;
     private TankController tankController;
     
+=======
+    [SerializeField] private float tankSpeed = 15;
+
 
     private void Start()
     {
@@ -17,6 +21,7 @@ public class TankService : MonoBehaviour
 
     private void CreateTank()
     {
+
         tankController = new TankController(new TankModel(TankRandomize()), tankView);
     }
 
@@ -26,5 +31,9 @@ public class TankService : MonoBehaviour
         TankTypeScriptableObject tankTypeScriptableObject = tanklist.list[index];
         
         return tankTypeScriptableObject;
+=======
+        TankModel tankModel = new TankModel(tankSpeed);
+        TankController tankController = new TankController(tankModel, tankView);
+
     }
 }
