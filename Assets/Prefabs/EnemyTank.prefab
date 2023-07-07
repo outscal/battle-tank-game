@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 4856154776405652488}
   - component: {fileID: 4856154775739491937}
   - component: {fileID: 4856154775739491936}
-  - component: {fileID: 4856154775739491943}
+  - component: {fileID: -1924842480735983101}
   m_Layer: 0
   m_Name: EnemyTank
   m_TagString: Untagged
@@ -168,7 +168,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!65 &4856154775739491936
 BoxCollider:
@@ -183,7 +183,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6903844, y: 2.3448112, z: 2.3807688}
   m_Center: {x: -0.007191509, y: 1.1326619, z: -0.07910657}
---- !u!114 &4856154775739491943
+--- !u!114 &-1924842480735983101
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,6 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f1be8d79f2226e4795e7e361b8f4586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 4856154775739491937}
 --- !u!1 &4856154776405944810
 GameObject:
   m_ObjectHideFlags: 0

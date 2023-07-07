@@ -19,8 +19,8 @@ public class TankView : MonoBehaviour
         GameObject gameObject1 = GameObject.Find("Main Camera");
         GameObject cam = gameObject1;
         cam.transform.SetParent(transform);
-        cam.transform.position = new Vector3(0f, 20f, -10);
-        cam.transform.rotation *= Quaternion.Euler(50f, 0f, 0f);
+        cam.transform.position = new Vector3(0f, 12f, -15);
+        cam.transform.rotation *= Quaternion.Euler(40f, 0f, 0f);
 
     }
 
@@ -36,6 +36,10 @@ public class TankView : MonoBehaviour
     public Rigidbody GetRigidbody()
     {
         return rb;
+    }
+    public Transform GetTransform()
+    {
+        return transform;
     }
 
    
