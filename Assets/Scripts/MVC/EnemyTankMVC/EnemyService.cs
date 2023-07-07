@@ -8,7 +8,7 @@ public class EnemyService : MonoBehaviour
 {
     [SerializeField] EnemyView enemyView;
     [SerializeField] TankTypeScriptableObjectList tankList;
-    private EnemyConroller enemyConroller;
+    private EnemyController enemyConroller;
 
     private void Start()
     {
@@ -17,7 +17,7 @@ public class EnemyService : MonoBehaviour
 
     private void SpawnEnemyTank()
     {
-        enemyConroller = new EnemyConroller(new EnemyModel(EnemyTankRandom()), enemyView, this.gameObject.transform);
+        enemyConroller = new EnemyController(new EnemyModel(EnemyTankRandom()), enemyView, this.gameObject.transform);
     }
 
     private TankTypeScriptableObject EnemyTankRandom()

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyModel : MonoBehaviour
 {
-    private EnemyConroller enemyConroller;
+    private EnemyController enemyConroller;
     private TankTypeScriptableObject tankTypeScriptableObject;
 
     public TankType TankType { get; }
@@ -21,7 +21,7 @@ public class EnemyModel : MonoBehaviour
 
     }
 
-    internal void SetEnemyController(EnemyConroller _enemyConroller)
+    internal void SetEnemyController(EnemyController _enemyConroller)
     {
         enemyConroller = _enemyConroller;
     }
