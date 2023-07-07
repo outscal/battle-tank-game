@@ -29,6 +29,6 @@ public class BulletController : MonoBehaviour
     }
     public void ReturnToPool(GameObject Obj)
     {
-        BulletObjecctPool.Instance.ReturnToPool(Obj);
+       // BulletObjecctPool.Instance.ReturnToPool(Obj);
     }
 }
