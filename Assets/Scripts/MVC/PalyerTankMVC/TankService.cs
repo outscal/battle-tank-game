@@ -10,7 +10,7 @@ public class TankService : MonoBehaviour
     [SerializeField] private TankTypeScriptableObjectList tanklist;
     private TankController tankController;
     
-=======
+
     [SerializeField] private float tankSpeed = 15;
 
 
@@ -31,9 +31,6 @@ public class TankService : MonoBehaviour
         TankTypeScriptableObject tankTypeScriptableObject = tanklist.list[index];
         
         return tankTypeScriptableObject;
-=======
-        TankModel tankModel = new TankModel(tankSpeed);
-        TankController tankController = new TankController(tankModel, tankView);
 
     }
 }

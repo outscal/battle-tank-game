@@ -10,9 +10,8 @@ public class GenericSingleTon<T> : MonoBehaviour where T : GenericSingleTon<T>
     protected virtual void Awake()
     {
 
+      
         if(instance == null)
-=======
-        if(instance != null)
         {
             instance = (T)this;
         }

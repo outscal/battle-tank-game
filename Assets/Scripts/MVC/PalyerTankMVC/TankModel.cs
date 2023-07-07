@@ -19,20 +19,7 @@ public class TankModel
         Speed = tankTypeScriptableObject.speed;
         Health = tankTypeScriptableObject.maxhealth;
     }
-    public TankModel(TankType tankType, float speed, int health)
-    {
-        TankType = tankType;
-        Speed = speed;
-        Health = health;
-=======
-    private float speed;
-    public float Speed { get => speed; }
-
-    public TankModel(float _speed)
-    {
-        speed =  _speed;
-
-    }
+ 
 
     public void SetTankController(TankController _tankController)
     {
