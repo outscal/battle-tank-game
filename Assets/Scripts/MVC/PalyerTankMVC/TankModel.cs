@@ -5,6 +5,7 @@ using UnityEngine;
 public class TankModel 
 {
     private TankController tankController;
+
     private TankTypeScriptableObject tankTypeScriptableObject;
 
     public TankType TankType { get; }
@@ -23,6 +24,14 @@ public class TankModel
         TankType = tankType;
         Speed = speed;
         Health = health;
+=======
+    private float speed;
+    public float Speed { get => speed; }
+
+    public TankModel(float _speed)
+    {
+        speed =  _speed;
+
     }
 
     public void SetTankController(TankController _tankController)

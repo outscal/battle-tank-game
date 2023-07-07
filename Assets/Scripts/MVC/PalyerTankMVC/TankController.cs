@@ -6,19 +6,30 @@ public class TankController
 {
     private TankModel tankModel;
     private TankView tankView;
+
     private Vector3 movementDirection;
    
+=======
+    private float tankSpeed;
+    private Rigidbody rb;
+
    
 
     public TankController(TankModel _tankModel, TankView _tankView)
     {
         tankModel = _tankModel;
         tankView = GameObject.Instantiate<TankView>(_tankView);
+
        
+=======
+        tankSpeed = tankModel.Speed;
+        rb = tankView.GetRigidbody();
+
 
         tankView.SetTankController(this);
         tankModel.SetTankController(this);
     }
+
 
     public void TankMove()
     {
@@ -41,6 +52,8 @@ public class TankController
             tankView.transform.forward = movementDirection;
         }
     }
+=======
+
     public TankModel GetModel()
     {
         return tankModel;
