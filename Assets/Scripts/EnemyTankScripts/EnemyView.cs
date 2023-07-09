@@ -44,6 +44,10 @@ public class EnemyView : MonoBehaviour, IDamageable
     {
         return enemyController.GetDetectionRange();
     }
+    public float GetEnemySpeed()
+    {
+        return enemyController.GetSpeed();
+    }
     public void TakeDamage(int damage)
     {
         enemyController.TakeDamage(damage);
@@ -60,14 +64,6 @@ public class EnemyView : MonoBehaviour, IDamageable
         }
         currentState = newState;
         currentState.OnStateEnter();
-    }
-    public void InitializePatrol()
-    {
-        enemyController.SetAgentValues();
-    }
-    public void EnemyPatrol()
-    {
-        enemyController.Patrol();
     }
     public void InitializeAttack()
     {
