@@ -34,6 +34,7 @@ public class TankService : GenericSingleton<TankService>
         newTankExplosion.Play();
         yield return new WaitForSeconds(2f);
         Destroy(newTankExplosion.gameObject);
+        yield return new WaitForSeconds(2f);
     }
     public Transform GetPlayerTransform()
     {
