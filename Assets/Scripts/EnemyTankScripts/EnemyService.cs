@@ -53,12 +53,12 @@ public class EnemyService : GenericSingleton<EnemyService>
             return Vector3.zero;
 
         int spawnPointIndex = Random.Range(0, spawnPoints.Count);
-        Transform newTransform = spawnPoints[spawnPointIndex];
+        Transform newSpawnPoint = spawnPoints[spawnPointIndex];
 
-        pointsAlreadySpawned.Add(spawnPoints[spawnPointIndex]);
+        pointsAlreadySpawned.Add(newSpawnPoint);
         spawnPoints.RemoveAt(spawnPointIndex);
 
-        return newTransform.position;
+        return newSpawnPoint.position;
     }
 
     public int GetRandomEnemyType()
@@ -68,8 +68,8 @@ public class EnemyService : GenericSingleton<EnemyService>
 
     public EnemyController CreateEnemyTank(int enemyTypeIndex, Vector3 newPosition)
     {
-        EnemyScriptableObject enemy = enemyTankList.enemies[enemyTypeIndex];
-        EnemyController enemyController = new EnemyController(enemy, newPosition, playerTransform);
+        EnemyScriptableObject enemyData = enemyTankList.enemies[enemyTypeIndex];
+        EnemyController enemyController = new EnemyController(enemyData, newPosition, playerTransform);
 
         return enemyController;
     }

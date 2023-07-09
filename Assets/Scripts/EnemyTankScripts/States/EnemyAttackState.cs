@@ -7,9 +7,10 @@ public class EnemyAttackState : EnemyState
     private Rigidbody rb;
     private NavMeshAgent agent;
     private Vector3 tankLookDirection;
+
     private float distanceToPlayer;
     private float timeSinceShot;
-    private float rotationSpeed = 0.5f;
+    private float rotationSpeed;
 
     public override void OnStateEnter()
     {

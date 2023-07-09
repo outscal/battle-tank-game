@@ -5,6 +5,7 @@ public class EnemyChaseState : EnemyState
 {
     private Transform playerTransform;
     private NavMeshAgent agent;
+
     private float playerDetectionRange;
 
     public override void OnStateEnter()

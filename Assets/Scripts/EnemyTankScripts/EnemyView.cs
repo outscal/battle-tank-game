@@ -9,6 +9,7 @@ public class EnemyView : MonoBehaviour, IDamageable
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Transform gun;
     [SerializeField] private NavMeshAgent agent;
+
     [SerializeField] public EnemyAttackState enemyAttackState;
     [SerializeField] public EnemyChaseState enemyChaseState;
     [SerializeField] public EnemyIdleState enemyIdleState;

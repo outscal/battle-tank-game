@@ -6,6 +6,7 @@ public class EnemyPatrolState : EnemyState
     private Rigidbody rb;
     private NavMeshAgent agent;
     private Transform playerTransform;
+
     private float distanceToPlayer;
 
     [SerializeField] private float randomPointRange = 10f;

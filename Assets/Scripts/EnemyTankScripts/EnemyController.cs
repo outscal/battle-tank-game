@@ -8,10 +8,10 @@ public class EnemyController
     private Transform playerTransform;
     private int health;
 
-    public EnemyController(EnemyScriptableObject enemy, Vector3 randomPosition, Transform playerTransform)
+    public EnemyController(EnemyScriptableObject enemyData, Vector3 randomPosition, Transform playerTransform)
     {
-        enemyView = GameObject.Instantiate<EnemyView>(enemy.enemyView, randomPosition, Quaternion.Euler(0, Random.Range(0, 360), 0));
-        enemyModel = new EnemyModel(enemy);
+        enemyView = GameObject.Instantiate<EnemyView>(enemyData.enemyView, randomPosition, Quaternion.Euler(0, Random.Range(0, 360), 0));
+        enemyModel = new EnemyModel(enemyData);
 
         enemyView.SetEnemyController(this);
         enemyModel.SetEnemyController(this);

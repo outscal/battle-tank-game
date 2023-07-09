@@ -6,6 +6,7 @@ public class EnemyIdleState : EnemyState
     private Rigidbody rb;
     private NavMeshAgent agent;
     private Transform playerTransform;
+
     private float timeElapsed;
     private float distanceToPlayer;
 

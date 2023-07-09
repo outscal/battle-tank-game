@@ -1,6 +1,16 @@
 public class EnemyModel
 {
     private EnemyController enemyController;
+
+    public int health { get; }
+    public int speed { get; }
+    public float rotationSpeed { get; }
+    public int strength { get; }
+    public int bpm { get; }
+    public float visibilityRange { get; }
+    public float detectionRange { get; }
+    public BulletType bulletType { get; }
+
     public EnemyModel(EnemyScriptableObject enemy)
     {
         health = enemy.health;
@@ -12,16 +22,9 @@ public class EnemyModel
         detectionRange = enemy.detectionRange;
         bulletType = enemy.bulletType;
     }
+
     public void SetEnemyController(EnemyController _enemyController)
     {
         enemyController = _enemyController;
     }
-    public int health { get; }
-    public int speed { get; }
-    public float rotationSpeed { get; }
-    public int strength { get; }
-    public int bpm { get; }
-    public float visibilityRange { get; }
-    public float detectionRange { get; }
-    public BulletType bulletType { get; }
 }
