@@ -8,7 +8,6 @@ public class EnemyService : GenericSingleton<EnemyService>
     [SerializeField] ParticleSystem tankExplosion;
     List<EnemyController> enemies;
     [SerializeField] Transform SpawnPointParent;
-    [SerializeField] float playerDetectionRange = 10f;
     Transform playerTransform;
     List<Transform> spawnPoints;
     List<Transform> pointsAlreadySpawned;
@@ -39,7 +38,7 @@ public class EnemyService : GenericSingleton<EnemyService>
     public EnemyController CreateEnemyTank(int index, Transform newTransform)
     {
         EnemyScriptableObject enemy = enemyTankList.enemies[index];
-        EnemyController enemyController = new EnemyController(enemy, newTransform.position, playerTransform, playerDetectionRange);
+        EnemyController enemyController = new EnemyController(enemy, newTransform.position, playerTransform);
         return enemyController;
     }
     public void ShootBullet(BulletType bulletType, Transform tankTransform)

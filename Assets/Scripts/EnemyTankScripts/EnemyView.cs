@@ -62,7 +62,7 @@ public class EnemyView : MonoBehaviour, IDamageable
     }
     public void EnemyShootBullet()
     {
-        enemyController.ShootBullet();
+        enemyController.Shoot(gun);
     }
     public Transform GetPlayerTransform()
     {

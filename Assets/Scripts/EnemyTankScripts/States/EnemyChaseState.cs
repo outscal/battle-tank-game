@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.AI;
+
 public class EnemyChaseState : EnemyState
 {
     private Transform playerTransform;
     private NavMeshAgent agent;
     private float playerDetectionRange;
+
     public override void OnStateEnter()
     {
         base.OnStateEnter();
@@ -15,23 +17,28 @@ public class EnemyChaseState : EnemyState
         agent.SetDestination(playerTransform.position);
         agent.stoppingDistance = 0f;
     }
+
     public override void OnStateExit()
     {
         base.OnStateExit();
     }
+
     public override void Tick()
     {
         base.Tick();
-        Chase();
-    }
-    public void Chase()
-    {
+
         if (playerTransform == null)
         {
             enemyView.ChangeState(enemyView.enemyIdleState);
             return;
         }
-        if (agent.remainingDistance > playerDetectionRange + 10f)
+
+        Chase();
+    }
+
+    public void Chase()
+    {
+        if (agent.remainingDistance > playerDetectionRange)
         {
             enemyView.ChangeState(enemyView.enemyIdleState);
         }
