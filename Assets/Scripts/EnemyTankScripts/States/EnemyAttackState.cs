@@ -15,13 +15,13 @@ public class EnemyAttackState : EnemyState
     {
         base.OnStateEnter();
 
-        playerTransform = enemyView.GetPlayerTransform();
-        rb = enemyView.GetRigidbody();
         agent = enemyView.GetAgent();
+        rb = enemyView.GetRigidbody();
+        playerTransform = enemyView.GetPlayerTransform();
         rotationSpeed = enemyView.GetEnemyRotationSpeed();
-        Debug.Log(rotationSpeed);
 
-        agent.SetDestination(rb.transform.position);
+        agent.ResetPath();
+        rb.velocity = Vector3.zero;
         timeSinceShot = 0f;
     }
 

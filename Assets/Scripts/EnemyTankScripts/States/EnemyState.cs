@@ -4,19 +4,21 @@ using UnityEngine;
 public class EnemyState : MonoBehaviour
 {
     protected EnemyView enemyView;
-    void Awake()
+
+    private void Awake()
     {
         enemyView = GetComponent<EnemyView>();
     }
+
     public virtual void OnStateEnter()
     {
         this.enabled = true;
     }
+
     public virtual void OnStateExit()
     {
         this.enabled = false;
     }
-    public virtual void Tick()
-    {
-    }
+
+    public virtual void Tick() { }
 }

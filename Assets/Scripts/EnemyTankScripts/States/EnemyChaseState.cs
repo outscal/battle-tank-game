@@ -15,7 +15,6 @@ public class EnemyChaseState : EnemyState
         playerDetectionRange = enemyView.GetEnemyDetectionRange();
 
         agent.SetDestination(playerTransform.position);
-        agent.stoppingDistance = 0f;
     }
 
     public override void OnStateExit()

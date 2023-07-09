@@ -3,9 +3,9 @@ using UnityEngine.AI;
 
 public class EnemyPatrolState : EnemyState
 {
-    private Transform playerTransform;
     private Rigidbody rb;
     private NavMeshAgent agent;
+    private Transform playerTransform;
     private float distanceToPlayer;
 
     [SerializeField] private float randomPointRange = 10f;
@@ -18,9 +18,6 @@ public class EnemyPatrolState : EnemyState
         playerTransform = enemyView.GetPlayerTransform();
         rb = enemyView.GetRigidbody();
         agent = enemyView.GetAgent();
-
-        agent.speed = enemyView.GetEnemySpeed();
-        agent.stoppingDistance = 2f;
     }
 
     public override void OnStateExit()
@@ -37,35 +34,34 @@ public class EnemyPatrolState : EnemyState
 
     private void Patrol()
     {
-        if (playerTransform == null)
+        if (playerTransform != null)
         {
-            enemyView.ChangeState(enemyView.enemyIdleState);
-            return;
-        }
+            distanceToPlayer = Vector3.Distance(playerTransform.position, rb.transform.position);
 
-        distanceToPlayer = Vector3.Distance(playerTransform.position, rb.transform.position);
-        if (distanceToPlayer < enemyView.GetEnemyDetectionRange())
-        {
-            enemyView.ChangeState(enemyView.enemyChaseState);
-            return;
+            if (distanceToPlayer < enemyView.GetEnemyDetectionRange())
+            {
+                enemyView.ChangeState(enemyView.enemyChaseState);
+                return;
+            }
         }
 
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
-            Vector3 newPoint;
-            if (RandomPoint(rb.transform.position, randomPointRange, out newPoint))
+            Vector3 newPosition;
+
+            if (RandomPosition(rb.transform.position, randomPointRange, out newPosition))
             {
-                agent.destination = newPoint;
+                agent.destination = newPosition;
             }
         }
     }
 
-    private bool RandomPoint(Vector3 center, float range, out Vector3 result)
+    private bool RandomPosition(Vector3 center, float range, out Vector3 result)
     {
-        Vector3 randomPoint = center + Random.insideUnitSphere * range;
+        Vector3 randomPosition = center + Random.insideUnitSphere * range;
         NavMeshHit hit;
 
-        if (NavMesh.SamplePosition(randomPoint, out hit, navmeshPointRange, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(randomPosition, out hit, navmeshPointRange, NavMesh.AllAreas))
         {
             result = hit.position;
             return true;

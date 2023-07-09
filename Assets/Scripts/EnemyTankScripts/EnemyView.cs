@@ -16,6 +16,9 @@ public class EnemyView : MonoBehaviour, IDamageable
 
     void Start()
     {
+        agent.speed = GetEnemySpeed();
+        agent.stoppingDistance = 1f;
+
         ChangeState(enemyIdleState);
     }
 
