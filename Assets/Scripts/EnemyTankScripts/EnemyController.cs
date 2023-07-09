@@ -1,9 +1,21 @@
 using UnityEngine;
 using UnityEngine.AI;
-using System.Threading.Tasks;
 
 public class EnemyController
 {
+    public EnemyModel enemyModel { get; }
+    public EnemyView enemyView { get; }
+    private Rigidbody rb;
+    private Transform playerTransform;
+    private Transform gun;
+    private Vector3 direction;
+    private NavMeshAgent agent;
+    private int health;
+    private float range = 20f;
+    private float playerDetectionRange;
+    private float distanceToPlayer;
+    private float timeSinceShot;
+
     public EnemyController(EnemyScriptableObject enemy, Vector3 randomPosition, Transform playerTransform, float playerDetectionRange)
     {
         enemyView = GameObject.Instantiate<EnemyView>(enemy.enemyView, randomPosition, Quaternion.Euler(0, Random.Range(0, 360), 0));
@@ -19,18 +31,7 @@ public class EnemyController
         this.playerTransform = playerTransform;
         this.playerDetectionRange = playerDetectionRange;
     }
-    public EnemyModel enemyModel { get; }
-    public EnemyView enemyView { get; }
-    private Rigidbody rb;
-    int health;
-    Transform gun;
-    Vector3 direction;
-    NavMeshAgent agent;
-    float range = 20f;
-    Transform playerTransform;
-    float playerDetectionRange;
-    float distanceToPlayer;
-    float timeSinceShot;
+
     public void Shoot(Transform gunTransform)
     {
         EnemyService.Instance.ShootBullet(enemyModel.bulletType, gunTransform);
@@ -49,9 +50,21 @@ public class EnemyController
     {
         return enemyModel.strength;
     }
+    public float GetVisibilityRange()
+    {
+        return enemyModel.visibilityRange;
+    }
+    public float GetDetectionRange()
+    {
+        return enemyModel.detectionRange;
+    }
     public Vector3 GetPosition()
     {
         return enemyView.transform.position;
+    }
+    public Transform GetPlayerTransform()
+    {
+        return playerTransform;
     }
     public void SetAgentValues()
     {
@@ -91,31 +104,6 @@ public class EnemyController
         }
         result = Vector3.zero;
         return false;
-    }
-    public void SetPlayerAsDestination()
-    {
-        agent.SetDestination(playerTransform.position);
-        agent.stoppingDistance = 0f;
-    }
-    public void Chase()
-    {
-        if (playerTransform == null)
-        {
-            PlayerDied();
-            return;
-        }
-        if (agent.remainingDistance > playerDetectionRange + 10f)
-        {
-            enemyView.ChangeState(enemyView.enemyIdleState);
-        }
-        else if (agent.remainingDistance < enemyModel.visibilityRange)
-        {
-            enemyView.ChangeState(enemyView.enemyAttackState);
-        }
-        else
-        {
-            agent.SetDestination(playerTransform.position);
-        }
     }
     void PlayerDied()
     {

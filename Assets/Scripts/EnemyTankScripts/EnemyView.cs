@@ -36,9 +36,21 @@ public class EnemyView : MonoBehaviour, IDamageable
     {
         return enemyController.GetStrength();
     }
+    public float GetEnemyVisibilityRange()
+    {
+        return enemyController.GetVisibilityRange();
+    }
+    public float GetEnemyDetectionRange()
+    {
+        return enemyController.GetDetectionRange();
+    }
     public void TakeDamage(int damage)
     {
         enemyController.TakeDamage(damage);
+    }
+    public Transform GetPlayerTransform()
+    {
+        return enemyController.GetPlayerTransform();
     }
     public void ChangeState(EnemyState newState)
     {
@@ -56,14 +68,6 @@ public class EnemyView : MonoBehaviour, IDamageable
     public void EnemyPatrol()
     {
         enemyController.Patrol();
-    }
-    public void InitializeChase()
-    {
-        enemyController.SetPlayerAsDestination();
-    }
-    public void EnemyChase()
-    {
-        enemyController.Chase();
     }
     public void InitializeAttack()
     {
