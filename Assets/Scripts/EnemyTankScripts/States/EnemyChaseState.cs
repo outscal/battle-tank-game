@@ -1,54 +1,57 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyChaseState : EnemyState
+namespace BattleTank.Enemy
 {
-    private Transform playerTransform;
-    private NavMeshAgent agent;
-
-    private float playerDetectionRange;
-
-    public override void OnStateEnter()
+    public class EnemyChaseState : EnemyState
     {
-        base.OnStateEnter();
-        playerTransform = enemyView.GetPlayerTransform();
-        agent = enemyView.GetAgent();
-        playerDetectionRange = enemyView.GetEnemyDetectionRange();
+        private Transform playerTransform;
+        private NavMeshAgent agent;
 
-        agent.SetDestination(playerTransform.position);
-    }
+        private float playerDetectionRange;
 
-    public override void OnStateExit()
-    {
-        base.OnStateExit();
-    }
-
-    public override void Tick()
-    {
-        base.Tick();
-
-        if (playerTransform == null)
+        public override void OnStateEnter()
         {
-            enemyView.ChangeState(enemyView.enemyIdleState);
-            return;
-        }
+            base.OnStateEnter();
+            playerTransform = enemyView.GetPlayerTransform();
+            agent = enemyView.GetAgent();
+            playerDetectionRange = enemyView.GetEnemyDetectionRange();
 
-        Chase();
-    }
-
-    public void Chase()
-    {
-        if (agent.remainingDistance > playerDetectionRange)
-        {
-            enemyView.ChangeState(enemyView.enemyIdleState);
-        }
-        else if (agent.remainingDistance < enemyView.GetEnemyVisibilityRange())
-        {
-            enemyView.ChangeState(enemyView.enemyAttackState);
-        }
-        else
-        {
             agent.SetDestination(playerTransform.position);
+        }
+
+        public override void OnStateExit()
+        {
+            base.OnStateExit();
+        }
+
+        public override void Tick()
+        {
+            base.Tick();
+
+            if (playerTransform == null)
+            {
+                enemyView.ChangeState(enemyView.enemyIdleState);
+                return;
+            }
+
+            Chase();
+        }
+
+        public void Chase()
+        {
+            if (agent.remainingDistance > playerDetectionRange)
+            {
+                enemyView.ChangeState(enemyView.enemyIdleState);
+            }
+            else if (agent.remainingDistance < enemyView.GetEnemyVisibilityRange())
+            {
+                enemyView.ChangeState(enemyView.enemyAttackState);
+            }
+            else
+            {
+                agent.SetDestination(playerTransform.position);
+            }
         }
     }
 }

@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using BattleTank.Enemy;
 [CreateAssetMenu(fileName = "EnemyScriptableObject", menuName = "ScriptableObjects/NewEnemyTank")]
 public class EnemyScriptableObject : ScriptableObject
 {

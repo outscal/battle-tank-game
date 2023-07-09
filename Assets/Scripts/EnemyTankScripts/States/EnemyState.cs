@@ -1,24 +1,27 @@
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyView))]
-public class EnemyState : MonoBehaviour
+namespace BattleTank.Enemy
 {
-    protected EnemyView enemyView;
-
-    private void Awake()
+    [RequireComponent(typeof(EnemyView))]
+    public class EnemyState : MonoBehaviour
     {
-        enemyView = GetComponent<EnemyView>();
-    }
+        protected EnemyView enemyView;
 
-    public virtual void OnStateEnter()
-    {
-        this.enabled = true;
-    }
+        private void Awake()
+        {
+            enemyView = GetComponent<EnemyView>();
+        }
 
-    public virtual void OnStateExit()
-    {
-        this.enabled = false;
-    }
+        public virtual void OnStateEnter()
+        {
+            this.enabled = true;
+        }
 
-    public virtual void Tick() { }
+        public virtual void OnStateExit()
+        {
+            this.enabled = false;
+        }
+
+        public virtual void Tick() { }
+    }
 }

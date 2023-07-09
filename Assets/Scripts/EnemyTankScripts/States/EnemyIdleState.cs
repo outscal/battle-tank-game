@@ -1,72 +1,75 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyIdleState : EnemyState
+namespace BattleTank.Enemy
 {
-    private Rigidbody rb;
-    private NavMeshAgent agent;
-    private Transform playerTransform;
-
-    private float timeElapsed;
-    private float distanceToPlayer;
-
-    [SerializeField] private float timeToWait = 2f;
-
-    public override void OnStateEnter()
+    public class EnemyIdleState : EnemyState
     {
-        base.OnStateEnter();
+        private Rigidbody rb;
+        private NavMeshAgent agent;
+        private Transform playerTransform;
 
-        timeElapsed = 0f;
-        rb = enemyView.GetRigidbody();
-        playerTransform = enemyView.GetPlayerTransform();
-    }
+        private float timeElapsed;
+        private float distanceToPlayer;
 
-    public override void OnStateExit()
-    {
-        base.OnStateExit();
-    }
+        [SerializeField] private float timeToWait = 2f;
 
-    public override void Tick()
-    {
-        base.Tick();
-
-        if (playerTransform)
-            CheckForChaseOrAttack();
-
-        if (IdleTimeLimitReached())
-            enemyView.ChangeState(enemyView.enemyPatrolState);
-    }
-
-    private void CheckForChaseOrAttack()
-    {
-        distanceToPlayer = Vector3.Distance(playerTransform.position, rb.transform.position);
-
-        if (distanceToPlayer < enemyView.GetEnemyDetectionRange())
+        public override void OnStateEnter()
         {
-            enemyView.ChangeState(enemyView.enemyChaseState);
-            return;
-        }
-        else if (distanceToPlayer < enemyView.GetEnemyVisibilityRange())
-        {
-            enemyView.ChangeState(enemyView.enemyAttackState);
-            return;
-        }
-    }
+            base.OnStateEnter();
 
-    private bool IdleTimeLimitReached()
-    {
-        if (playerTransform == null)
-        {
-
+            timeElapsed = 0f;
+            rb = enemyView.GetRigidbody();
+            playerTransform = enemyView.GetPlayerTransform();
         }
 
+        public override void OnStateExit()
+        {
+            base.OnStateExit();
+        }
+
+        public override void Tick()
+        {
+            base.Tick();
+
+            if (playerTransform)
+                CheckForChaseOrAttack();
+
+            if (IdleTimeLimitReached())
+                enemyView.ChangeState(enemyView.enemyPatrolState);
+        }
+
+        private void CheckForChaseOrAttack()
+        {
+            distanceToPlayer = Vector3.Distance(playerTransform.position, rb.transform.position);
+
+            if (distanceToPlayer < enemyView.GetEnemyDetectionRange())
+            {
+                enemyView.ChangeState(enemyView.enemyChaseState);
+                return;
+            }
+            else if (distanceToPlayer < enemyView.GetEnemyVisibilityRange())
+            {
+                enemyView.ChangeState(enemyView.enemyAttackState);
+                return;
+            }
+        }
+
+        private bool IdleTimeLimitReached()
+        {
+            if (playerTransform == null)
+            {
+
+            }
 
 
-        timeElapsed += Time.deltaTime;
 
-        if (timeElapsed > timeToWait)
-            return true;
-        else
-            return false;
+            timeElapsed += Time.deltaTime;
+
+            if (timeElapsed > timeToWait)
+                return true;
+            else
+                return false;
+        }
     }
 }

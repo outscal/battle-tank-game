@@ -1,34 +1,41 @@
 using System.Collections;
 using UnityEngine;
-public class CameraController : MonoBehaviour
+
+namespace BattleTank.PlayerCamera
 {
-    [SerializeField] Transform player;
-    [SerializeField] Camera mainCamera;
-    [SerializeField] float zoomOutSpeed = 0.05f;
-    [SerializeField] float offsetLevel = 0.01f;
-    Vector3 currentPos;
-    public void SetTankTransform(Transform _transform)
+    public class CameraController : MonoBehaviour
     {
-        player = _transform;
-        if (player != null)
+        private Transform player;
+        private Vector3 currentPos;
+
+        [SerializeField] private Camera mainCamera;
+        [SerializeField] private float maxCameraSize = 19f;
+        [SerializeField] private float zoomOutSpeed = 0.05f;
+        [SerializeField] private float offsetLevel = 0.01f;
+
+        public void SetTankTransform(Transform _transform)
         {
-            currentPos = player.position;
+            player = _transform;
+            if (player != null)
+                currentPos = player.position;
         }
-    }
-    void LateUpdate()
-    {
-        if (player != null)
+
+        private void LateUpdate()
         {
-            transform.position += player.position - currentPos;
-            currentPos = player.position;
+            if (player != null)
+            {
+                transform.position += player.position - currentPos;
+                currentPos = player.position;
+            }
         }
-    }
-    public IEnumerator ZoomOut()
-    {
-        while (mainCamera.orthographicSize < 19)
+
+        public IEnumerator ZoomOut()
         {
-            mainCamera.orthographicSize += offsetLevel;
-            yield return new WaitForSeconds(zoomOutSpeed);
+            while (mainCamera.orthographicSize < maxCameraSize)
+            {
+                mainCamera.orthographicSize += offsetLevel;
+                yield return new WaitForSeconds(zoomOutSpeed);
+            }
         }
     }
 }
