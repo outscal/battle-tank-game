@@ -3,8 +3,9 @@ public class EnemyModel
     private EnemyController enemyController;
     public EnemyModel(EnemyScriptableObject enemy)
     {
-        speed = enemy.speed;
         health = enemy.health;
+        speed = enemy.speed;
+        rotationSpeed = enemy.speed / 100f;
         strength = enemy.strength;
         bpm = enemy.bpm;
         visibilityRange = enemy.visibilityRange;
@@ -15,8 +16,9 @@ public class EnemyModel
     {
         enemyController = _enemyController;
     }
-    public int speed { get; }
     public int health { get; }
+    public int speed { get; }
+    public float rotationSpeed { get; }
     public int strength { get; }
     public int bpm { get; }
     public float visibilityRange { get; }

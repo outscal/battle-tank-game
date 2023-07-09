@@ -57,9 +57,17 @@ public class EnemyController
     {
         return enemyModel.detectionRange;
     }
+    public float GetBulletsPerMinute()
+    {
+        return enemyModel.bpm;
+    }
     public float GetSpeed()
     {
         return enemyModel.speed;
+    }
+    public float GetRotationSpeed()
+    {
+        return enemyModel.rotationSpeed;
     }
     public Vector3 GetPosition()
     {
@@ -69,44 +77,7 @@ public class EnemyController
     {
         return playerTransform;
     }
-    public void SetAgentValues()
-    {
-        agent.speed = enemyModel.speed;
-        agent.stoppingDistance = 2f;
-    }
-    void PlayerDied()
-    {
-        enemyView.ChangeState(enemyView.enemyIdleState);
-    }
-    public void SetAttackValues()
-    {
-        agent.SetDestination(rb.transform.position);
-        timeSinceShot = 0f;
-    }
-    public void Attack()
-    {
-        if (playerTransform == null)
-        {
-            PlayerDied();
-            return;
-        }
-        if (Vector3.Distance(rb.transform.position, playerTransform.position) < enemyModel.visibilityRange)
-        {
-            timeSinceShot += Time.deltaTime;
-            if (timeSinceShot > (60 / enemyModel.bpm))
-            {
-                ShootBullet();
-                timeSinceShot = 0;
-            }
-            direction = (playerTransform.position - rb.transform.position).normalized;
-            rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Quaternion.LookRotation(direction), 0.2f);
-        }
-        else
-        {
-            enemyView.ChangeState(enemyView.enemyChaseState);
-        }
-    }
-    void ShootBullet()
+    public void ShootBullet()
     {
         EnemyService.Instance.ShootBullet(enemyModel.bulletType, gun);
     }

@@ -5,6 +5,7 @@ public class EnemyScriptableObject : ScriptableObject
 {
     public int health;
     public int speed;
+    public float rotationSpeed;
     public int strength;
     public int bpm;
     public float visibilityRange;

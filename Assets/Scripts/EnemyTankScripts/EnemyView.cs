@@ -44,13 +44,25 @@ public class EnemyView : MonoBehaviour, IDamageable
     {
         return enemyController.GetDetectionRange();
     }
+    public float GetEnemyBPM()
+    {
+        return enemyController.GetBulletsPerMinute();
+    }
     public float GetEnemySpeed()
     {
         return enemyController.GetSpeed();
     }
+    public float GetEnemyRotationSpeed()
+    {
+        return enemyController.GetRotationSpeed();
+    }
     public void TakeDamage(int damage)
     {
         enemyController.TakeDamage(damage);
+    }
+    public void EnemyShootBullet()
+    {
+        enemyController.ShootBullet();
     }
     public Transform GetPlayerTransform()
     {
@@ -64,14 +76,6 @@ public class EnemyView : MonoBehaviour, IDamageable
         }
         currentState = newState;
         currentState.OnStateEnter();
-    }
-    public void InitializeAttack()
-    {
-        enemyController.SetAttackValues();
-    }
-    public void EnemyAttack()
-    {
-        enemyController.Attack();
     }
     void Update()
     {

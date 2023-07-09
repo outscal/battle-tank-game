@@ -1,23 +1,37 @@
 using UnityEngine;
+
 public class EnemyIdleState : EnemyState
 {
-    float timeElapsed;
+    private float timeElapsed;
+
+    [SerializeField] private float timeToWait = 2f;
+
     public override void OnStateEnter()
     {
         base.OnStateEnter();
         timeElapsed = 0f;
     }
+
     public override void OnStateExit()
     {
         base.OnStateExit();
     }
+
     public override void Tick()
     {
         base.Tick();
-        timeElapsed += Time.deltaTime;
-        if (timeElapsed > 2f)
-        {
+
+        if (IdleTimeLimitReached())
             enemyView.ChangeState(enemyView.enemyPatrolState);
-        }
+    }
+
+    private bool IdleTimeLimitReached()
+    {
+        timeElapsed += Time.deltaTime;
+
+        if (timeElapsed > timeToWait)
+            return true;
+        else
+            return false;
     }
 }
