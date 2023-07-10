@@ -18,8 +18,6 @@ namespace BattleTank.Enemy
         [SerializeField] private Transform SpawnPointParent;
         [SerializeField] private int enemyCount = 3;
 
-        public event Action OnEnemyDestroy;
-
         private void Start()
         {
             enemies = new List<EnemyController>();
@@ -87,8 +85,6 @@ namespace BattleTank.Enemy
         public void DestoryEnemy(EnemyController _enemyController)
         {
             Vector3 pos = _enemyController.GetPosition();
-
-            OnEnemyDestroy?.Invoke();
 
             GameObject.Destroy(_enemyController.enemyView.gameObject);
             enemies.Remove(_enemyController);

@@ -9,9 +9,9 @@ public class GameUIManager : MonoBehaviour
     {
         bulletCount = 0;
         enemiesDestroyedCount = 0;
-        TankService.Instance.OnPlayerFiredBullet += PlayerBulletAchievement;
-        TankService.Instance.OnDistanceTravelled += DistanceTravelledAchievement;
-        EnemyService.Instance.OnEnemyDestroy += EnemyDeathAchievement;
+        EventService.Instance.OnPlayerFiredBullet += PlayerBulletAchievement;
+        EventService.Instance.OnDistanceTravelled += DistanceTravelledAchievement;
+        EventService.Instance.OnEnemyDestroy += EnemyDeathAchievement;
     }
     public void PlayerBulletAchievement()
     {
@@ -49,7 +49,8 @@ public class GameUIManager : MonoBehaviour
     }
     void OnDestroy()
     {
-        TankService.Instance.OnPlayerFiredBullet -= PlayerBulletAchievement;
-        EnemyService.Instance.OnEnemyDestroy -= EnemyDeathAchievement;
+        EventService.Instance.OnPlayerFiredBullet -= PlayerBulletAchievement;
+        EventService.Instance.OnDistanceTravelled -= DistanceTravelledAchievement;
+        EventService.Instance.OnEnemyDestroy -= EnemyDeathAchievement;
     }
 }

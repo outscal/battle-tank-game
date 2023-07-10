@@ -8,8 +8,6 @@ public enum TankType
 }
 public class TankService : GenericSingleton<TankService>
 {
-    public event Action OnPlayerFiredBullet;
-    public event Action<float> OnDistanceTravelled;
     [SerializeField] TankScriptableObjectList playerTankList;
     [SerializeField] FixedJoystick joystick;
     [SerializeField] CameraController mainCamera;
@@ -27,7 +25,7 @@ public class TankService : GenericSingleton<TankService>
     }
     public void ShootBullet(BulletType bulletType, Transform tankTransform)
     {
-        OnPlayerFiredBullet?.Invoke();
+        EventService.Instance.InvokePlayerFiredBullet();
         BulletService.Instance.SpawnBullet(bulletType, tankTransform, tankType);
     }
     public void DestoryTank(TankView tankView)
@@ -52,6 +50,6 @@ public class TankService : GenericSingleton<TankService>
     }
     public void distanceTravelled(float distance)
     {
-        OnDistanceTravelled?.Invoke(distance);
+        EventService.Instance.InvokeDistanceTravelled(distance);
     }
 }
