@@ -13,7 +13,12 @@ public class BulletModel
     {
         bulletController = _bulletController;
     }
+    public void SetTankType(TankType _tankType)
+    {
+        tankType = _tankType;
+    }
     public int damage { get; }
     public int range { get; }
     public int roundsPerMinute { get; }
+    public TankType tankType { private set; get; }
 }

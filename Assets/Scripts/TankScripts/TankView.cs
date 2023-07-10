@@ -6,6 +6,7 @@ public class TankView : MonoBehaviour, IDamageable
     TankController tankController;
     float horizontalMove;
     float verticalMove;
+    TankType tankType;
     [SerializeField] Rigidbody rb;
     [SerializeField] Transform gun;
     [SerializeField] FixedJoystick joystick;
@@ -46,8 +47,9 @@ public class TankView : MonoBehaviour, IDamageable
             tankController.TakeDamage(enemyView.GetEnemyStrength());
         }
     }
-    void IDamageable.TakeDamage(int damage)
+    void IDamageable.TakeDamage(int damage, TankType tankType)
     {
-        tankController.TakeDamage(damage);
+        if (tankType == TankType.Enemy)
+            tankController.TakeDamage(damage);
     }
 }

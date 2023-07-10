@@ -1,6 +1,10 @@
 using System.Collections;
 using UnityEngine;
 using BattleTank.PlayerCamera;
+public enum TankType
+{
+    Player, Enemy
+}
 public class TankService : GenericSingleton<TankService>
 {
     [SerializeField] TankScriptableObjectList playerTankList;
@@ -8,6 +12,7 @@ public class TankService : GenericSingleton<TankService>
     [SerializeField] CameraController mainCamera;
     [SerializeField] ParticleSystem tankExplosion;
     TankController tankController;
+    TankType tankType = TankType.Player;
     void Start()
     {
         CreatePlayerTank(Random.Range(0, playerTankList.tanks.Length));
@@ -19,7 +24,7 @@ public class TankService : GenericSingleton<TankService>
     }
     public void ShootBullet(BulletType bulletType, Transform tankTransform)
     {
-        BulletService.Instance.SpawnBullet(bulletType, tankTransform);
+        BulletService.Instance.SpawnBullet(bulletType, tankTransform, tankType);
     }
     public void DestoryTank(TankView tankView)
     {

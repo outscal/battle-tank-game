@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BulletController
 {
-    public BulletController(BulletScriptableObject _bullet, Transform _transform)
+    public BulletController(BulletScriptableObject _bullet, Transform _transform, TankType tankType)
     {
         bulletView = GameObject.Instantiate<BulletView>(_bullet.bulletView, _transform.position, _transform.rotation);
         bulletModel = new BulletModel(_bullet);
@@ -11,6 +11,7 @@ public class BulletController
         bulletModel.SetBulletController(this);
 
         rb = bulletView.GetRigidbody();
+        bulletModel.SetTankType(tankType);
     }
     private BulletModel bulletModel;
     private BulletView bulletView;
@@ -26,5 +27,9 @@ public class BulletController
     public int GetBulletDamage()
     {
         return bulletModel.damage;
+    }
+    public TankType GetTankType()
+    {
+        return bulletModel.tankType;
     }
 }

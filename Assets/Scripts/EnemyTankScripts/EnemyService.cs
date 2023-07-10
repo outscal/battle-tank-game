@@ -78,14 +78,14 @@ namespace BattleTank.Enemy
 
         public void ShootBullet(BulletType bulletType, Transform gunTransform)
         {
-            BulletService.Instance.SpawnBullet(bulletType, gunTransform);
+            BulletService.Instance.SpawnBullet(bulletType, gunTransform, TankType.Enemy);
         }
 
         public void DestoryEnemy(EnemyController _enemyController)
         {
             Vector3 pos = _enemyController.GetPosition();
 
-            Destroy(_enemyController.enemyView.gameObject);
+            GameObject.Destroy(_enemyController.enemyView.gameObject);
             enemies.Remove(_enemyController);
             StartCoroutine(TankExplosion(pos));
         }

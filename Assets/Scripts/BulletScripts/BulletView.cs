@@ -12,6 +12,10 @@ public class BulletView : MonoBehaviour
     {
         bulletController = _bulletController;
     }
+    public TankType GetTankType()
+    {
+        return bulletController.GetTankType();
+    }
     public Rigidbody GetRigidbody()
     {
         return rb;
@@ -22,7 +26,7 @@ public class BulletView : MonoBehaviour
         IDamageable target = col.gameObject.GetComponent<IDamageable>();
         if (target != null)
         {
-            target.TakeDamage(bulletController.GetBulletDamage());
+            target.TakeDamage(bulletController.GetBulletDamage(), bulletController.GetTankType());
         }
     }
 }

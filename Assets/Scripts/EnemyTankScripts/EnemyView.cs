@@ -70,9 +70,10 @@ namespace BattleTank.Enemy
             return enemyController.GetRotationSpeed();
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(int damage, TankType tankType)
         {
-            enemyController.TakeDamage(damage);
+            if (tankType == TankType.Player)
+                enemyController.TakeDamage(damage);
         }
 
         public void EnemyShootBullet()
