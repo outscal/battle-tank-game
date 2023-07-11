@@ -1,19 +1,23 @@
 using UnityEngine;
 
-public class GenericSingleton<T> : MonoBehaviour where T : GenericSingleton<T>
+namespace BattleTank.Generics
 {
-    private static T instance = null;
-    public static T Instance { get { return instance; } }
-    protected virtual void Awake()
+    public class GenericSingleton<T> : MonoBehaviour where T : GenericSingleton<T>
     {
-        if (instance != null)
+        private static T instance = null;
+        public static T Instance { get { return instance; } }
+
+        protected virtual void Awake()
         {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            instance = (T)this;
-            DontDestroyOnLoad(this.gameObject);
+            if (instance != null)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                instance = (T)this;
+                DontDestroyOnLoad(this.gameObject);
+            }
         }
     }
 }

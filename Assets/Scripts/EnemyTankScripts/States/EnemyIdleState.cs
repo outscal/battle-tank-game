@@ -57,13 +57,6 @@ namespace BattleTank.Enemy
 
         private bool IdleTimeLimitReached()
         {
-            if (playerTransform == null)
-            {
-
-            }
-
-
-
             timeElapsed += Time.deltaTime;
 
             if (timeElapsed > timeToWait)

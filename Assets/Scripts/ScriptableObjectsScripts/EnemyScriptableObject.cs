@@ -1,18 +1,21 @@
 using BattleTank.Enemy;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EnemyScriptableObject", menuName = "ScriptableObjects/NewEnemyTank")]
-public class EnemyScriptableObject : ScriptableObject
+namespace BattleTank.ScriptableObjects
 {
-    public int health;
-    public int speed;
-    public int strength;
-    public int bpm;
+    [CreateAssetMenu(fileName = "EnemyScriptableObject", menuName = "ScriptableObjects/NewEnemyTank")]
+    public class EnemyScriptableObject : ScriptableObject
+    {
+        public int health;
+        public int speed;
+        public int strength;
+        public int bpm;
 
-    public float rotationSpeed;
-    public float visibilityRange;
-    public float detectionRange;
+        public float rotationSpeed;
+        public float visibilityRange;
+        public float detectionRange;
 
-    public BulletType bulletType;
-    public EnemyView enemyView;
+        public BulletType bulletType;
+        public EnemyView enemyView;
+    }
 }

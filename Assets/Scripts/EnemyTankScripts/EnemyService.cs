@@ -1,7 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BattleTank.Generics;
+using BattleTank.ScriptableObjects;
+using BattleTank.PlayerTank;
+using BattleTank.Bullet;
 
 namespace BattleTank.Enemy
 {
@@ -9,6 +12,7 @@ namespace BattleTank.Enemy
     {
         private int maxEnemyCount = 10;
         private Transform playerTransform;
+
         private List<EnemyController> enemies;
         private List<Transform> spawnPoints;
         private List<Transform> pointsAlreadySpawned;

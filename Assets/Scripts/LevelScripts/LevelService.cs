@@ -1,45 +1,60 @@
 using System.Collections;
 using UnityEngine;
+using BattleTank.Generics;
 using BattleTank.Enemy;
 using BattleTank.PlayerCamera;
 
-public class LevelService : GenericSingleton<LevelService>
+namespace BattleTank.Level
 {
-    [SerializeField] GameObject[] entities;
-    [SerializeField] ParticleSystem explosionEffect;
-    [SerializeField] CameraController cameraController;
-    public IEnumerator DestroyLevel()
+    public class LevelService : GenericSingleton<LevelService>
     {
-        StartCoroutine(cameraController.ZoomOut());
-        yield return StartCoroutine(EnemyService.Instance.DestroyAllEnemies());
-        yield return StartCoroutine(DestroyEnvironment());
-    }
-    public IEnumerator DestroyEnvironment()
-    {
-        foreach (GameObject item in entities)
+        [SerializeField] private GameObject[] entities;
+        [SerializeField] private ParticleSystem explosionEffect;
+        [SerializeField] private CameraController cameraController;
+
+        public IEnumerator DestroyLevel()
         {
-            yield return StartCoroutine(DestroyEntity(item));
+            StartCoroutine(cameraController.ZoomOut());
+
+            yield return StartCoroutine(EnemyService.Instance.DestroyAllEnemies());
+            yield return StartCoroutine(DestroyEnvironment());
         }
-    }
-    IEnumerator DestroyEntity(GameObject entity)
-    {
-        foreach (Transform item in entity.GetComponentsInChildren<Transform>())
+
+        public IEnumerator DestroyEnvironment()
         {
-            if (item == entity.transform)
-                continue;
-            if (item.childCount != 0)
-                continue;
-            Vector3 pos = item.position;
-            Destroy(item.gameObject);
-            StartCoroutine(ExplosionEffect(pos));
-            yield return new WaitForSeconds(0.5f);
+            foreach (GameObject item in entities)
+            {
+                yield return StartCoroutine(DestroyEntity(item));
+            }
         }
-    }
-    public IEnumerator ExplosionEffect(Vector3 pos)
-    {
-        ParticleSystem particleSystem = GameObject.Instantiate<ParticleSystem>(explosionEffect, pos, Quaternion.identity);
-        particleSystem.Play();
-        yield return new WaitForSeconds(2f);
-        Destroy(particleSystem.gameObject);
+
+        IEnumerator DestroyEntity(GameObject entity)
+        {
+            foreach (Transform item in entity.GetComponentsInChildren<Transform>())
+            {
+                if (item == entity.transform)
+                    continue;
+
+                if (item.childCount != 0)
+                    continue;
+
+                Vector3 pos = item.position;
+
+                Destroy(item.gameObject);
+                StartCoroutine(ExplosionEffect(pos));
+
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
+
+        public IEnumerator ExplosionEffect(Vector3 pos)
+        {
+            ParticleSystem particleSystem = GameObject.Instantiate<ParticleSystem>(explosionEffect, pos, Quaternion.identity);
+
+            particleSystem.Play();
+            yield return new WaitForSeconds(2f);
+
+            Destroy(particleSystem.gameObject);
+        }
     }
 }

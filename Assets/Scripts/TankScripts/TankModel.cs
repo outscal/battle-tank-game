@@ -1,17 +1,27 @@
-public class TankModel
+using BattleTank.ScriptableObjects;
+
+namespace BattleTank.PlayerTank
 {
-    private TankController tankController;
-    public TankModel(TankScriptableObject tank)
+    public class TankModel
     {
-        speed = tank.speed;
-        health = tank.health;
-        bulletType = tank.bulletType;
+        private TankController tankController;
+
+        public int speed { get; }
+        public int health { get; }
+
+        public BulletType bulletType { get; }
+
+        public TankModel(TankScriptableObject tank)
+        {
+            speed = tank.speed;
+            health = tank.health;
+
+            bulletType = tank.bulletType;
+        }
+
+        public void SetTankController(TankController _tankController)
+        {
+            tankController = _tankController;
+        }
     }
-    public void SetTankController(TankController _tankController)
-    {
-        tankController = _tankController;
-    }
-    public int speed { get; }
-    public int health { get; }
-    public BulletType bulletType { get; }
 }

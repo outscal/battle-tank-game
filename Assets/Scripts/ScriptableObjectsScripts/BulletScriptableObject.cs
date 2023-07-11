@@ -1,10 +1,14 @@
 using UnityEngine;
+using BattleTank.Bullet;
 
-[CreateAssetMenu(fileName = "BulletScriptableObject", menuName = "ScriptableObjects/NewBullet")]
-public class BulletScriptableObject : ScriptableObject
+namespace BattleTank.ScriptableObjects
 {
-    public int damage;
-    public int range;
+    [CreateAssetMenu(fileName = "BulletScriptableObject", menuName = "ScriptableObjects/NewBullet")]
+    public class BulletScriptableObject : ScriptableObject
+    {
+        public int damage;
+        public int range;
 
-    public BulletView bulletView;
+        public BulletView bulletView;
+    }
 }

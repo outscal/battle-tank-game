@@ -1,32 +1,42 @@
 using UnityEngine;
 
-public class BulletView : MonoBehaviour
+namespace BattleTank.Bullet
 {
-    BulletController bulletController;
-    [SerializeField] Rigidbody rb;
-    void Start()
+    public class BulletView : MonoBehaviour
     {
-        bulletController.Shoot();
-    }
-    public void SetBulletController(BulletController _bulletController)
-    {
-        bulletController = _bulletController;
-    }
-    public TankType GetTankType()
-    {
-        return bulletController.GetTankType();
-    }
-    public Rigidbody GetRigidbody()
-    {
-        return rb;
-    }
-    void OnCollisionEnter(Collision col)
-    {
-        bulletController.BulletCollision(col.contacts[0].point);
-        IDamageable target = col.gameObject.GetComponent<IDamageable>();
-        if (target != null)
+        private BulletController bulletController;
+
+        [SerializeField] Rigidbody rb;
+
+        void Start()
         {
-            target.TakeDamage(bulletController.GetBulletDamage(), bulletController.GetTankType());
+            bulletController.Shoot();
+        }
+
+        public void SetBulletController(BulletController _bulletController)
+        {
+            bulletController = _bulletController;
+        }
+
+        public TankType GetTankType()
+        {
+            return bulletController.GetTankType();
+        }
+
+        public Rigidbody GetRigidbody()
+        {
+            return rb;
+        }
+
+        void OnCollisionEnter(Collision col)
+        {
+            bulletController.BulletCollision(col.contacts[0].point);
+
+            IDamageable target = col.gameObject.GetComponent<IDamageable>();
+            if (target != null)
+            {
+                target.TakeDamage(bulletController.GetBulletDamage(), bulletController.GetTankType());
+            }
         }
     }
 }
