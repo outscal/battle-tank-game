@@ -4,34 +4,42 @@ using UnityEngine;
 
 public class EnemyController
 {
-    private EnemyView enemyView;
-    private EnemyModel enemyModel;
-    
-    private object transform;
-
-    public EnemyController(EnemyModel _enemyModel, EnemyView _enemyView , Transform SpawntheEnemy)
+    public EnemyController(EnemyScriptableObject enemy, float x = 0, float z = 0)
     {
-        enemyModel = _enemyModel;
-        enemyView = GameObject.Instantiate<EnemyView>(_enemyView,SpawntheEnemy);
+        enemyView = GameObject.Instantiate<EnemyView>(enemy.enemyView, new Vector3(Random.Range(-x, x), 0, Random.Range(-z, z)), Quaternion.identity);
+        enemyModel = new EnemyModel(enemy);
+
         enemyView.SetEnemyController(this);
         enemyModel.SetEnemyController(this);
+
+        rb = enemyView.GetRigidbody();
+        health = enemyModel.health;
     }
-
-    public void MoveTowardsPlayer(Transform playerTransform)
+    public EnemyModel enemyModel { get; }
+    public EnemyView enemyView { get; }
+    private Rigidbody rb;
+    int health;
+    public void Shoot(Transform gunTransform)
     {
-                // Calculate the direction towards the player
-                Vector3 direction = (playerTransform.position - enemyView.transform.position).normalized;
-
-                // Move the enemy towards the player
-                enemyView.GetRigidbody().MovePosition(enemyView.transform.position + direction * enemyModel.Speed * Time.deltaTime);
-
-                // Rotate the enemy to face the player
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                enemyView.GetRigidbody().MoveRotation(targetRotation);
+        EnemyService.Instance.ShootBullet(enemyModel.bulletType, gunTransform);
     }
-    public void Fire()
+    public void TakeDamage(int damage)
     {
-        
+        health -= damage;
+        if (health < 0)
+            TankDeath();
+    }
+    void TankDeath()
+    {
+        EnemyService.Instance.DestoryEnemy(this);
+    }
+    public int GetStrength()
+    {
+        return enemyModel.strength;
+    }
+    public Vector3 GetPosition()
+    {
+        return enemyView.transform.position;
     }
 
 }

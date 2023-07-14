@@ -7,6 +7,7 @@ public class TankTypeScriptableObject : ScriptableObject
 {
     [Header("Proprties")]
     public TankType tankType;
+    public BulletType bulletType;
     public int maxhealth;
 
     [Header("Movement")]

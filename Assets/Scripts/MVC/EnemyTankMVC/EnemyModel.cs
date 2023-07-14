@@ -3,26 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyModel : MonoBehaviour
+public class EnemyModel 
 {
-    private EnemyController enemyConroller;
-    private TankTypeScriptableObject tankTypeScriptableObject;
-
-    public TankType TankType { get; }
-    public float Speed { get; }
-    public int Health { get; }
-
-    public EnemyModel(TankTypeScriptableObject _tankTypeScriptableObject)
+    private EnemyController enemyController;
+    public EnemyModel(EnemyScriptableObject enemy)
     {
-        tankTypeScriptableObject = _tankTypeScriptableObject;
-        TankType = tankTypeScriptableObject.tankType;
-        Speed = tankTypeScriptableObject.speed;
-        Health = tankTypeScriptableObject.maxhealth;
-
+        speed = enemy.speed;
+        health = enemy.health;
+        strength = enemy.strength;
+        bulletType = enemy.bulletType;
     }
-
-    internal void SetEnemyController(EnemyController _enemyConroller)
+    public void SetEnemyController(EnemyController _enemyController)
     {
-        enemyConroller = _enemyConroller;
+        enemyController = _enemyController;
     }
+    public int speed { get; }
+    public int health { get; }
+    public int strength { get; }
+    public BulletType bulletType { get; }
 }
