@@ -5,24 +5,23 @@ using UnityEngine;
 
 public class EnemyView : MonoBehaviour
 {
-    [SerializeField] private Rigidbody rb;
-    private EnemyController enemyConroller;
-    private TankView tankTransform;
-    void Start()
+    private EnemyController enemyController;
+    [SerializeField] Rigidbody rb;
+    [SerializeField] Transform gun;
+    public void SetEnemyController(EnemyController _enemyController)
     {
-        
+        enemyController = _enemyController;
     }
-
-    // Update is called once per frame
-   // void Update() => enemyConroller.MoveTowardsPlayer(tankTransform.GetTransform());
-
-    internal void SetEnemyController(EnemyController _enemyConroller)
-    {
-        enemyConroller = _enemyConroller;
-    }
-    
     public Rigidbody GetRigidbody()
     {
         return rb;
+    }
+    public int GetEnemyStrength()
+    {
+        return enemyController.GetStrength();
+    }
+    public void TakeDamage(int damage)
+    {
+        enemyController.TakeDamage(damage);
     }
 }

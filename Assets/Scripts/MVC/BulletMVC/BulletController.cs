@@ -2,21 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletController : MonoBehaviour
+public class BulletController 
 {
     private BulletView bulletView;
     private BulletModel bulletModel;
+    private ParticleSystem Sellexposions;
+    private Rigidbody rb;
 
 
-    public BulletController(BulletModel _BulletModel, BulletView _BulletView)
+    public BulletController(BulletModel _BulletModel, BulletView _BulletView, Transform GunSpawn)
     {
         bulletModel = _BulletModel;
-        bulletView = GameObject.Instantiate<BulletView>(_BulletView);
+        bulletView = GameObject.Instantiate<BulletView>(_BulletView,GunSpawn.position, GunSpawn.rotation);
         GameObject gameObject = bulletView.GetParticalEffect();
         gameObject = GameObject.Instantiate(bulletModel.Partical);
 
         bulletView.SetBulletController(this);
         bulletModel.SetBulletController(this);
+        rb = bulletView.GetRigidbody();
     }
     public void IsSetActive(bool isActive)
     {
@@ -24,11 +27,15 @@ public class BulletController : MonoBehaviour
     }
     public void ShootBullet(Transform bulletSpawnPoint)
     {
-        bulletView.transform.SetPositionAndRotation(bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-        bulletView.GetRigidbody().AddForce(bulletView.transform.forward * bulletModel.Speed * Time.deltaTime, ForceMode.Force);
+        //bulletView.transform.SetPositionAndRotation(bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        rb.AddForce(rb.transform.forward * bulletModel.Speed,ForceMode.Force);
     }
-    public void ReturnToPool(GameObject Obj)
+    public void ReturnBulletToPool()
     {
-       // BulletObjecctPool.Instance.ReturnToPool(Obj);
+        bulletView.GetComponent<MeshRenderer>().enabled = true;
+        IsSetActive(false);     
+        BulletService.Instance.poolService.ReturnItem(this);
+        bulletView.GetParticalEffect().SetActive(false);
+        Sellexposions.Stop(true);
     }
 }

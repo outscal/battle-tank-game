@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,8 +13,7 @@ public class TankController
 
     private float tankSpeed;
     private Rigidbody rb;
-
-   
+    private int health;
 
     public TankController(TankModel _tankModel, TankView _tankView)
     {
@@ -30,6 +30,19 @@ public class TankController
         tankModel.SetTankController(this);
     }
 
+    public Transform GetBulletSpwanTransfrom() => tankView.GetBulletSpawnPoint();
+    private void ChangeTankColour()
+    {
+        for (int i = 0; i < tankView.GetTankBody().childCount; i++)
+        {
+            tankView.GetTankBody().GetChild(i).GetComponent<MeshRenderer>().material = tankModel.tankMaterial;
+        }
+    }
+
+    public void Shoot(Transform gunTrasform)
+    {
+        TankService.Instance.ShootBullet(tankModel._bulletType, gunTrasform);
+    }
 
     public void TankMove()
     {
@@ -53,8 +66,21 @@ public class TankController
         }
     }
 
+    internal void TakeDamage(int damage)
+    {
+        health -= damage;
+        if(health <= 0 )
+        {
+            TankDeath();
+        }
+    }
 
-    public TankModel GetModel()
+    private void TankDeath()
+    {
+        TankService.Instance.DestoryTank(tankView);
+    }
+
+    private  TankModel GetModel()
     {
         return tankModel;
     }

@@ -52,9 +52,9 @@ public class GenericPoolService<T> : GenericSingleTon<GenericPoolService<T>>wher
 		return null as T;
 	}
 
-	private class PooledItems<T>
+	protected class PooledItems<P>
 	{
-		public T item;
+		public P item;
 		public bool isUsed;
 	}
 }

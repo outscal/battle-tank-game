@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BulletView : MonoBehaviour
 {
-    private Rigidbody bulletrb;
+    [SerializeField]private Rigidbody bulletrb;
     private BulletController bulletController1;
     private  GameObject particalEffect;
     public Rigidbody GetRigidbody() => bulletrb;
@@ -20,5 +20,11 @@ public class BulletView : MonoBehaviour
     {
         this.gameObject.SetActive(isActive);
     }
-   
+   /* private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "BulletDestroyer")
+        {
+            bulletController1.ReturnBulletToPool();
+        }
+    }*/
 }

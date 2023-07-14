@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletPoolService : GenericPoolService<BulletController>
 {
     private BulletView bulletView;
-
+    
     public BulletController GetBullet(BulletView _bulletView)
     {
         bulletView = _bulletView;
@@ -15,7 +15,7 @@ public class BulletPoolService : GenericPoolService<BulletController>
     protected override BulletController CreateItem()
     {
         BulletService.Instance.BulletRandomizer();
-        BulletController bullet = new BulletController(new BulletModel(BulletService.Instance.BulletRandomizer()), bulletView);
+        BulletController bullet = new BulletController(new BulletModel(BulletService.Instance.BulletRandomizer()), bulletView,TankService.Instance.GetbulletTransform());
         return bullet;
     }
 }

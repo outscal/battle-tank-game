@@ -3,25 +3,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletModel : MonoBehaviour
+public class BulletModel
 {
     private BulletScriptableObject bulletSO;
     public GameObject Partical { get; }
     public float Speed { get; }
     public float Damage { get; }
 
-    private float lifetime;
+   public float lifetime;
+    private BulletController bulletController1;
+    public int shostOfBullet;
     public BulletModel(BulletScriptableObject _bulletSO)
     {
-        Speed = bulletSO.Speed;
-        Damage = bulletSO.Damage;
-        lifetime = bulletSO.Lifetime;
-        shostOfBullet = bulletSO.ShotsFired;
-        Partical = bulletSO.ParticalEffect;
+        bulletSO = _bulletSO;
+        Speed = _bulletSO.Speed;
+        Damage = _bulletSO.Damage;
+        lifetime = _bulletSO.Lifetime;
+        shostOfBullet =_bulletSO.ShotsFired;
+        Partical = _bulletSO.ParticalEffect;
+
 
     }
-    private BulletController bulletController1;
-    private int shostOfBullet;
+    
 
   
 
