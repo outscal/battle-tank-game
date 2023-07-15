@@ -7,7 +7,7 @@ using UnityEngine.PlayerLoop;
 public class TankService : MonoSingletonGeneric<TankService>
 {
     public PlayerTankView playerTankView;
-    public TankScriptableObjectList tankScriptableObjectList;
+    public PlayerTankScriptableObject tankScriptableObject;
     [SerializeField]
     private BulletView bulletPrefab;
     [SerializeField]
@@ -23,7 +23,7 @@ public class TankService : MonoSingletonGeneric<TankService>
 
     private void SpawnPlayerTank()
     {
-        PlayerTankModel model = new(tankScriptableObjectList.tankScriptableObjects[0]);
+        PlayerTankModel model = new(tankScriptableObject);
         PlayerTankController controller = new(model, playerTankView,transform.position);
         PlayerTank = controller.tankView;
         enemyTank.SetPlayerTank();

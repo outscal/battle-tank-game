@@ -16,7 +16,9 @@ public class EnemyTankView : MonoBehaviour
 
     public List<GameObject> PetrolPoints;
 
-    public EnemyTankController enemyTankController { get; private set; }
+    public EnemyTankController EnemyTankController { get; private set; }
+    public EnemyTankScriptableObject EnemyTankScriptableObject;
+
 
     public float chaseRadius = 10f;
 
@@ -29,8 +31,8 @@ public class EnemyTankView : MonoBehaviour
     private void Start()
     {
 
-        EnemyTankModel model = new(TankService.Instance.tankScriptableObjectList.tankScriptableObjects[0]);
-        enemyTankController = new(model, this);
+        EnemyTankModel model = new(EnemyTankScriptableObject);
+        EnemyTankController = new(model, this);
 
         DestoryEverything.Instance.EnemyTanks.Add(this);
         ChangeState(startState);
@@ -42,7 +44,7 @@ public class EnemyTankView : MonoBehaviour
     }
     private void Update()
     {
-        enemyTankController.ChangeStateBasedOnPlayer();
+        EnemyTankController.ChangeStateBasedOnPlayer();
     }
     public void ChangeState(EnemyTankState state)
     {
@@ -58,7 +60,7 @@ public class EnemyTankView : MonoBehaviour
         BulletView bulletView = collision.gameObject.GetComponent<BulletView>();
         if (bulletView == null)
             return;
-        enemyTankController.TakeDamage(bulletView.bulletModel.power);
+        EnemyTankController.TakeDamage(bulletView.bulletModel.power);
 
     }
 }

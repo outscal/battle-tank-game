@@ -14,7 +14,7 @@ public class EnemyTankState : MonoBehaviour
     }
     private void Start()
     {
-        tankController = tankView.enemyTankController;
+        tankController = tankView.EnemyTankController;
     }
     public virtual void OnStateEnter() 
     { 
