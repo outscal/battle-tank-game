@@ -26,13 +26,5 @@ public class EnemyTankController
         GameObject.Destroy(tankView.gameObject);
     }
 
-    public void ChangeState(EnemyTankState state)
-    {
-        if (tankView.currentState != null)
-        {
-            tankView.currentState.OnStateExit();
-        }
-        tankView.currentState = state;
-        tankView.currentState.OnStateEnter();
-    }
+    
 }

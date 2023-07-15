@@ -35,7 +35,7 @@ public class EnemyTankPetrolState : EnemyTankState
         nextPetrolPointIndex++;
         if (nextPetrolPointIndex == tankView.PetrolPoints.Count)
             nextPetrolPointIndex = 0;
-
+        tankView.ChangeState(tankView.idleState);
     }
     public override void OnStateExit()
     {
