@@ -6,27 +6,21 @@ using UnityEngine;
 public class TankService : MonoSingletonGeneric<TankService>
 {
     public PlayerTankView playerTankView;
-    public EnemyTankView enemyTankView;
     public TankScriptableObjectList tankScriptableObjectList;
     [SerializeField]
     private BulletView bulletPrefab;
 
     void Start()
     {
-        //SpawnPlayerTank();
-        //SpawnEnemyTank();
+        SpawnPlayerTank();
     }
 
-    private void SpawnEnemyTank()
-    {
-        EnemyTankModel model = new(tankScriptableObjectList.tankScriptableObjects[0]);
-        EnemyTankController controller = new(model, enemyTankView);
-    }
+   
 
     private void SpawnPlayerTank()
     {
         PlayerTankModel model = new(tankScriptableObjectList.tankScriptableObjects[0]);
-        PlayerTankController controller = new(model, playerTankView);
+        PlayerTankController controller = new(model, playerTankView,transform.position);
     }
 
 }

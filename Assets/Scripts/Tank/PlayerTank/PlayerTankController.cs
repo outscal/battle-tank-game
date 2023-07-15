@@ -17,10 +17,10 @@ public class PlayerTankController
 
     public List<BulletController> bulletControllers = new();
 
-    public PlayerTankController(PlayerTankModel _tankModel, PlayerTankView _tankView)
+    public PlayerTankController(PlayerTankModel _tankModel, PlayerTankView _tankView, Vector3 pos)
     {
         tankModel = _tankModel;
-        tankView = GameObject.Instantiate<PlayerTankView>(_tankView);
+        tankView = GameObject.Instantiate<PlayerTankView>(_tankView,pos,_tankView.transform.rotation);
         tankModel.SetTankController(this);
         tankView.SetTankController(this);
         bulletPrefab = _tankModel.bulletPrefab;
