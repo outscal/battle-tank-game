@@ -45,6 +45,8 @@ public class EnemyTankView : MonoBehaviour
             ChangeState(chaseState);
         else if (distanceToPlayer <= fightRadius)
             ChangeState(fightState);
+        else if (currentState != petrolState)
+            ChangeState(petrolState);
     }
     public void ChangeState(EnemyTankState state)
     {
