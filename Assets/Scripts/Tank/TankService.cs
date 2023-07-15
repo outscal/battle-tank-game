@@ -7,8 +7,7 @@ public class TankService : MonoSingletonGeneric<TankService>
 {
     public PlayerTankView playerTankView;
     public EnemyTankView enemyTankView;
-    [SerializeField]
-    private TankScriptableObjectList tankScriptableObjectList;
+    public TankScriptableObjectList tankScriptableObjectList;
     [SerializeField]
     private BulletView bulletPrefab;
 

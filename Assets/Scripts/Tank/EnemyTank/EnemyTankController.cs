@@ -9,9 +9,7 @@ public class EnemyTankController
     public EnemyTankController(EnemyTankModel tankModel, EnemyTankView tankView)
     {
         this.tankModel = tankModel;
-        this.tankView = GameObject.Instantiate<EnemyTankView>(tankView);
-        tankModel.SetEnemyTankController(this);
-        this.tankView.SetEnemyTankController(this);
+        this.tankView = tankView;
     }
 
     public void TakeDamage(float power)

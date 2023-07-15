@@ -15,14 +15,17 @@ public class EnemyTankView : MonoBehaviour
     public List<GameObject> PetrolPoints;
 
     private EnemyTankController enemyTankController;
+
+
+
     private void Start()
     {
+
+        EnemyTankModel model = new(TankService.Instance.tankScriptableObjectList.tankScriptableObjects[0]);
+        enemyTankController = new(model, this);
+
         DestoryEverything.Instance.EnemyTanks.Add(this);
         enemyTankController.ChangeState(startState);
-    }
-    public void SetEnemyTankController(EnemyTankController tankController)
-    {
-        enemyTankController = tankController;
     }
     private void OnCollisionEnter(Collision collision)
     {
