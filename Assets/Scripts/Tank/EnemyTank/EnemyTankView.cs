@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyTankView : MonoBehaviour
@@ -10,6 +11,8 @@ public class EnemyTankView : MonoBehaviour
 
     public EnemyTankState startState;
     public EnemyTankState currentState;
+
+    public List<GameObject> PetrolPoints;
 
     private EnemyTankController enemyTankController;
     private void Start()

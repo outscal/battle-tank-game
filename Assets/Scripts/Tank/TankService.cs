@@ -14,8 +14,8 @@ public class TankService : MonoSingletonGeneric<TankService>
 
     void Start()
     {
-        SpawnPlayerTank();
-        SpawnEnemyTank();
+        //SpawnPlayerTank();
+        //SpawnEnemyTank();
     }
 
     private void SpawnEnemyTank()
