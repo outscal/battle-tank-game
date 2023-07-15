@@ -25,11 +25,9 @@ public class EnemyTankPetrolState : EnemyTankState
         petrolPointPos = tankView.PetrolPoints[nextPetrolPointIndex].transform.position;
         if (Vector3.Distance(transform.position, petrolPointPos) >= 1f)
         {
-            direction = petrolPointPos - transform.position;
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+            Quaternion targetRotation = tankController.RotateTank(petrolPointPos);
             if (Quaternion.Angle(transform.rotation, targetRotation) < 0.5f)
-                transform.position = Vector3.MoveTowards(transform.position, petrolPointPos, movementSpeed * Time.deltaTime);
+                tankController.MoveTank(petrolPointPos);
             return;
         }
         nextPetrolPointIndex++;

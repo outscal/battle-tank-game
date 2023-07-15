@@ -37,5 +37,16 @@ public class EnemyTankController
         GameObject.Destroy(tankView.gameObject);
     }
 
-    
+    public Quaternion RotateTank(Vector3 targetPos)
+    {
+        Vector3 direction = targetPos - tankView.transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        tankView.transform.rotation = Quaternion.Lerp(tankView.transform.rotation, targetRotation, Time.deltaTime * tankView.rotationSpeed);
+        return targetRotation;
+    }
+
+    public void MoveTank(Vector3 targetPos)
+    {
+        tankView.transform.position = Vector3.MoveTowards(tankView.transform.position, targetPos, tankView.movementSpeed * Time.deltaTime);
+    }
 }

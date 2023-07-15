@@ -16,11 +16,16 @@ public class EnemyTankView : MonoBehaviour
 
     public List<GameObject> PetrolPoints;
 
-    private EnemyTankController enemyTankController;
+    public EnemyTankController enemyTankController { get; private set; }
 
     public float chaseRadius = 10f;
 
     public float fightRadius = 5f;
+
+    public float rotationSpeed = 5f;
+
+    public float movementSpeed = 2f;
+
     private void Start()
     {
 
