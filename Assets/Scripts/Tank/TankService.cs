@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class TankService : MonoSingletonGeneric<TankService>
 {
@@ -9,6 +10,8 @@ public class TankService : MonoSingletonGeneric<TankService>
     public TankScriptableObjectList tankScriptableObjectList;
     [SerializeField]
     private BulletView bulletPrefab;
+
+    public PlayerTankView PlayerTank { get;private set; }
 
     void Start()
     {
@@ -21,6 +24,7 @@ public class TankService : MonoSingletonGeneric<TankService>
     {
         PlayerTankModel model = new(tankScriptableObjectList.tankScriptableObjects[0]);
         PlayerTankController controller = new(model, playerTankView,transform.position);
+        PlayerTank = controller.tankView;
     }
 
 }
