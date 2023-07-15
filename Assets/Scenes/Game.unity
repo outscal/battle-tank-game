@@ -132,6 +132,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7422630307607879301, guid: a6fa920999ab7634faa93f06e7fbd728,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3990278369365467499, guid: a6fa920999ab7634faa93f06e7fbd728,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -2910846745365926477, guid: a6fa920999ab7634faa93f06e7fbd728,
         type: 3}
       propertyPath: PetrolPoints.Array.size
@@ -152,6 +162,11 @@ PrefabInstance:
       propertyPath: PetrolPoints.Array.data[2]
       value: 
       objectReference: {fileID: 402263600}
+    - target: {fileID: 2921159067155442147, guid: a6fa920999ab7634faa93f06e7fbd728,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4654800875616741745, guid: a6fa920999ab7634faa93f06e7fbd728,
         type: 3}
       propertyPath: m_RootOrder
@@ -212,6 +227,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTank
       objectReference: {fileID: 0}
+    - target: {fileID: 4918637946182312907, guid: a6fa920999ab7634faa93f06e7fbd728,
+        type: 3}
+      propertyPath: speed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918637946182312907, guid: a6fa920999ab7634faa93f06e7fbd728,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918637946182312907, guid: a6fa920999ab7634faa93f06e7fbd728,
+        type: 3}
+      propertyPath: movementSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918637946182312907, guid: a6fa920999ab7634faa93f06e7fbd728,
+        type: 3}
+      propertyPath: rotationSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918637946182312907, guid: a6fa920999ab7634faa93f06e7fbd728,
+        type: 3}
+      propertyPath: nextPetrolPointIndex
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -259,7 +299,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 387472934}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.94, y: -13.38, z: 0}
+  m_LocalPosition: {x: -10.04, y: 0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -290,7 +330,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 402263600}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.58, y: -13.38, z: -3.32}
+  m_LocalPosition: {x: 0, y: 0.050000012, z: -7.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -456,7 +496,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 954840590}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26.16, y: -13.38, z: 0}
+  m_LocalPosition: {x: 8.96, y: 0.050000012, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -957,7 +997,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1809978609}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.591946, y: 13.694327, z: 0.3033049}
+  m_LocalPosition: {x: 0, y: 0.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

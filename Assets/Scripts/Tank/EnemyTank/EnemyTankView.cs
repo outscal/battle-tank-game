@@ -25,7 +25,7 @@ public class EnemyTankView : MonoBehaviour
         enemyTankController = new(model, this);
 
         DestoryEverything.Instance.EnemyTanks.Add(this);
-        enemyTankController.ChangeState(startState);
+        enemyTankController.ChangeState(petrolState);
     }
     private void OnCollisionEnter(Collision collision)
     {
