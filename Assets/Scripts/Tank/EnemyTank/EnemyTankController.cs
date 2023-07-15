@@ -21,6 +21,17 @@ public class EnemyTankController
         }
     }
 
+    public void ChangeStateBasedOnPlayer()
+    {
+        float distanceToPlayer = Vector3.Distance(tankView.transform.position, tankView.PlayerTank.transform.position);
+        if (distanceToPlayer > tankView.fightRadius && distanceToPlayer <= tankView.chaseRadius && tankView.currentState!=tankView.chaseState)
+            tankView.ChangeState(tankView.chaseState);
+        else if (distanceToPlayer <= tankView.fightRadius && tankView.currentState != tankView.fightState)
+            tankView.ChangeState(tankView.fightState);
+        else if (distanceToPlayer > tankView.chaseRadius &&tankView.currentState != tankView.petrolState)
+            tankView.ChangeState(tankView.petrolState);
+    }
+
     private void TankDestroy()
     {
         GameObject.Destroy(tankView.gameObject);

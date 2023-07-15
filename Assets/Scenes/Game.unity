@@ -288,7 +288,7 @@ GameObject:
   - component: {fileID: 1037242701}
   - component: {fileID: 1037242700}
   m_Layer: 0
-  m_Name: TankSpawner
+  m_Name: TankService
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -312,6 +312,7 @@ MonoBehaviour:
     type: 2}
   bulletPrefab: {fileID: 2620607270427515276, guid: 792c8058b93082042a7825c0918de96e,
     type: 3}
+  enemyTank: {fileID: 6312525291582352936}
 --- !u!4 &1037242701
 Transform:
   m_ObjectHideFlags: 0
@@ -751,6 +752,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1158996493}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6312525291582352936 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 118224262780722179, guid: a6fa920999ab7634faa93f06e7fbd728,
+    type: 3}
+  m_PrefabInstance: {fileID: 6751388937888270335}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56294afa68d67744bab631a4f1a8e5ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6751388937888270335
 PrefabInstance:
   m_ObjectHideFlags: 0

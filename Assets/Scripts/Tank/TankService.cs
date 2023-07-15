@@ -10,7 +10,8 @@ public class TankService : MonoSingletonGeneric<TankService>
     public TankScriptableObjectList tankScriptableObjectList;
     [SerializeField]
     private BulletView bulletPrefab;
-
+    [SerializeField]
+    private EnemyTankView enemyTank;
     public PlayerTankView PlayerTank { get;private set; }
 
     void Start()
@@ -25,6 +26,7 @@ public class TankService : MonoSingletonGeneric<TankService>
         PlayerTankModel model = new(tankScriptableObjectList.tankScriptableObjects[0]);
         PlayerTankController controller = new(model, playerTankView,transform.position);
         PlayerTank = controller.tankView;
+        enemyTank.SetPlayerTank();
     }
 
 }

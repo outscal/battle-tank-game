@@ -18,9 +18,9 @@ public class EnemyTankView : MonoBehaviour
 
     private EnemyTankController enemyTankController;
 
-    private float chaseRadius = 10f;
+    public float chaseRadius = 10f;
 
-    private float fightRadius = 5f;
+    public float fightRadius = 5f;
     private void Start()
     {
 
@@ -28,25 +28,16 @@ public class EnemyTankView : MonoBehaviour
         enemyTankController = new(model, this);
 
         DestoryEverything.Instance.EnemyTanks.Add(this);
-        PlayerTank = TankService.Instance.PlayerTank;
         ChangeState(startState);
+    }
+
+    public void SetPlayerTank()
+    {
+        PlayerTank = TankService.Instance.PlayerTank;
     }
     private void Update()
     {
-        if (PlayerTank == null)
-        {
-            Debug.Log("No Player Tank");
-            PlayerTank = TankService.Instance.PlayerTank;
-            return;
-
-        }
-        float distanceToPlayer = Vector3.Distance(transform.position, PlayerTank.transform.position);
-        if (distanceToPlayer > fightRadius && distanceToPlayer <= chaseRadius)
-            ChangeState(chaseState);
-        else if (distanceToPlayer <= fightRadius)
-            ChangeState(fightState);
-        else if (currentState != petrolState)
-            ChangeState(petrolState);
+        enemyTankController.ChangeStateBasedOnPlayer();
     }
     public void ChangeState(EnemyTankState state)
     {
