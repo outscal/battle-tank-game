@@ -20,6 +20,6 @@ public class PlayerTankScriptableObjectList : ScriptableObject
 public enum PlayerTankTypes
 {
     Null,
-    Flash,
-    Hulk
+    Fast,
+    Powerfull
 }
