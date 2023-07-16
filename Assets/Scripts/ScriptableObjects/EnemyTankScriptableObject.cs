@@ -15,12 +15,6 @@ public class EnemyTankScriptableObject : ScriptableObject
     public float BulletPower;
 }
 
-
-[CreateAssetMenu(fileName = "EnemyTankScriptableObjecList", menuName = "ScriptableObject/NewEnemyTankList")]
-public class EnemyTankScriptableObjectList : ScriptableObject
-{
-    public List<EnemyTankScriptableObject> EnemyTankScriptableObjects;
-}
 public enum EnemyTankType
 {
     Null,

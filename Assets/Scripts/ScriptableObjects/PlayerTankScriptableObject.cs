@@ -11,11 +11,6 @@ public class PlayerTankScriptableObject : ScriptableObject
     public float RotationSpeed;
 }
 
-[CreateAssetMenu(fileName = "PlayerTankScriptableObjectList", menuName = "ScriptableObject/NewPlayerTankList")]
-public class PlayerTankScriptableObjectList : ScriptableObject
-{
-    public PlayerTankScriptableObject[] PlayerTankScriptableObjects;
-}
 
 public enum PlayerTankTypes
 {

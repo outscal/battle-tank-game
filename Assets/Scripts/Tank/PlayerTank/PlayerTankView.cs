@@ -33,7 +33,7 @@ public class PlayerTankView : MonoBehaviour
         Movement();
         if(Input.GetMouseButtonDown(0))
         {
-            tankController.FireBullet(BulletShooter.transform.position);
+            //tankController.FireBullet(BulletShooter.transform.position);
         }
     }
 
