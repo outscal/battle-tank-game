@@ -9,14 +9,16 @@ public class GenericSingleton<T> : MonoBehaviour where T : GenericSingleton<T>
     {
         if(instance != null)
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
         else
         {
             instance = (T)this;
-            DontDestroyOnLoad(this);
+            DontDestroyOnLoad(gameObject);
         }
-
+    }
+    protected virtual void Start()
+    {
         Debug.Log("Made from Generic Singleton!");
     }
 }

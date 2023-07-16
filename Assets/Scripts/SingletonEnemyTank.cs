@@ -6,8 +6,12 @@ public class SingletonEnemyTank : GenericSingleton<SingletonEnemyTank>
     protected override void Awake()
     {
         base.Awake();
-        InitializeEnemyTank();
 
+    }
+    protected override void Start()
+    {
+        base.Start();
+        InitializeEnemyTank();
     }
 
     private void InitializeEnemyTank()
