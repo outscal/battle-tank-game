@@ -8,7 +8,10 @@ public class BulletController
     private BulletModel bulletModel;
     private ParticleSystem Sellexposions;
     private Rigidbody rb;
+
     private int Speed = 3000;
+=======
+
 
 
     public BulletController(BulletModel _BulletModel, BulletView _BulletView, Transform GunSpawn)
@@ -28,10 +31,15 @@ public class BulletController
     }
     public void ShootBullet(Transform bulletSpawnPoint)
     {
+
         rb.transform.position = bulletSpawnPoint.position;
         rb.transform.rotation = bulletSpawnPoint.rotation;
         rb.AddForce(rb.transform.forward * bulletModel.Speed, ForceMode.Force);
         
+=======
+        //bulletView.transform.SetPositionAndRotation(bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        rb.AddForce(rb.transform.forward * bulletModel.Speed,ForceMode.Force);
+
     }
     public void ReturnBulletToPool()
     {

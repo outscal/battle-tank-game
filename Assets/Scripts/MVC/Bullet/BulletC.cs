@@ -19,7 +19,11 @@ public class BulletC
     Rigidbody rb;
     public void Shoot()
     {
+
         rb.AddForce(rb.transform.forward * bulletModel.range *Time.deltaTime, ForceMode.Impulse);
+=======
+        rb.AddForce(rb.transform.forward * bulletModel.range, ForceMode.Impulse);
+
     }
     public void BulletCollision(Vector3 position)
     {

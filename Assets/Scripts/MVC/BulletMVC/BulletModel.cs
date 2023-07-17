@@ -7,10 +7,17 @@ public class BulletModel
 {
     private BulletScriptableObject bulletSO;
     public GameObject Partical { get; }
+
     public int Speed { get; }
     public int Damage { get; }
 
    public int  lifetime;
+=======
+    public float Speed { get; }
+    public float Damage { get; }
+
+   public float lifetime;
+
     private BulletController bulletController1;
     public int shostOfBullet;
     public BulletModel(BulletScriptableObject _bulletSO)
