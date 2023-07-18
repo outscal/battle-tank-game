@@ -28,6 +28,8 @@ public class EnemyTankView : MonoBehaviour
 
     public float movementSpeed = 2f;
 
+    public GameObject BulletShooter;
+
     private void Start()
     {
 
