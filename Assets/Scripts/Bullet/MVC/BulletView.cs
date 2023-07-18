@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class BulletView : MonoBehaviour
 {
-    public Rigidbody rb;
+    public Rigidbody Rb;
 
 
     private BulletController bulletController;
     
-    public BulletModel bulletModel { get;private set; }
+    public BulletModel BulletModel { get;private set; }
 
 
     public void SetBullerControler(BulletController bulletController)
@@ -21,14 +21,12 @@ public class BulletView : MonoBehaviour
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        Rb = GetComponent<Rigidbody>();
     }
 
     private void Start()
     {
-        Debug.Log(bulletController);
-        bulletController.SetInitialVelocity();
-        bulletModel = bulletController.bulletModel;
+        BulletModel = bulletController.BulletModel;
     }
 
     // Update is called once per frame
@@ -42,8 +40,5 @@ public class BulletView : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnDestroy()
-    {
-        bulletController.RemoveReferenceFromPlayerTankController();
-    }
+    
 }

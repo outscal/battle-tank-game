@@ -9,20 +9,12 @@ public class EnemyTankChaseState : EnemyTankState
     {
         base.OnStateEnter();
         playerTank = tankView.PlayerTank;
-        Debug.Log("Entered Chase");
     }
 
     private void Update()
     {
-        Vector3 playerPos = playerTank.transform.position;
-        Debug.Log(playerPos);
-        if (Vector3.Distance(transform.position,playerPos)>=tankView.fightRadius) 
-        {
-            Vector3 direction = playerPos - transform.position;
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
-            transform.position = Vector3.MoveTowards(transform.position, playerPos, 2f * Time.deltaTime);
-        }
+        tankController.RotateTank(playerTank.transform.position);
+        tankController.MoveTank(playerTank.transform.position);
     }
     public override void OnStateExit()
     {
