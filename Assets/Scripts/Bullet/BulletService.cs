@@ -7,10 +7,10 @@ public class BulletService : MonoSingletonGeneric<BulletService>
     private BulletView bulletPrefab;
 
     [SerializeField]
-    private BulletScriptableObject bulletScriptableObject;
-    public void GenerateBullet(PlayerTankView tankView,Vector3 pos)
+    private BulletScriptableObjectList bulletScriptableObjectList;
+    public void GenerateBullet(Vector3 pos,Quaternion rotation)
     {
-        BulletModel bulletModel = new(bulletScriptableObject);
-        BulletController bulletController = new(bulletModel, bulletPrefab, pos, tankView.transform.rotation);
+        BulletModel bulletModel = new(bulletScriptableObjectList.bullets[0]);
+        BulletController bulletController = new(bulletModel, bulletPrefab, pos, rotation);
     }
 }

@@ -25,7 +25,7 @@ public class TankService : MonoSingletonGeneric<TankService>
     {
         PlayerTankModel model = new(playerTankScriptableObject);
         PlayerTankController controller = new(model, playerTankView,transform.position);
-        PlayerTank = controller.tankView;
+        PlayerTank = controller.TankView;
         enemyTank.SetPlayerTank();
     }
 
