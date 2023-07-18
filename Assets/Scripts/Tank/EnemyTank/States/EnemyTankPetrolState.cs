@@ -1,19 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyTankPetrolState : EnemyTankState
 {
-    [SerializeField]
-    private float movementSpeed;
-    [SerializeField]
-    private float rotationSpeed;
+   
     [SerializeField]
     private int nextPetrolPointIndex = 1;
 
     private Vector3 petrolPointPos;
-
-    private Vector3 direction;
+        
 
 
     public override void OnStateEnter()
