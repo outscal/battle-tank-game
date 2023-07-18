@@ -60,7 +60,7 @@ public class EnemyTankView : MonoBehaviour
         BulletView bulletView = collision.gameObject.GetComponent<BulletView>();
         if (bulletView == null)
             return;
-        EnemyTankController.TakeDamage(bulletView.bulletModel.power);
+        EnemyTankController.TakeDamage(bulletView.BulletModel.power);
 
     }
 }

@@ -8,8 +8,3 @@ public class BulletScriptableObject : ScriptableObject
     public float power;
 }
 
-[CreateAssetMenu(fileName = "BulletScriptableObjectList", menuName = "ScriptableObject/NewBulletList")]
-public class BulletScriptableObjectList : ScriptableObject
-{
-    public BulletScriptableObject[] bullets;
-}

@@ -11,11 +11,7 @@ public class PlayerTankController
 
     private Rigidbody tankRigidBoy;
 
-    private BulletView bulletPrefab;
 
-    private GameObject bulletShooter;
-
-    public List<BulletController> bulletControllers = new();
 
     public PlayerTankController(PlayerTankModel _tankModel, PlayerTankView _tankView, Vector3 pos)
     {
@@ -23,8 +19,6 @@ public class PlayerTankController
         tankView = GameObject.Instantiate<PlayerTankView>(_tankView,pos,_tankView.transform.rotation);
         tankModel.SetTankController(this);
         tankView.SetTankController(this);
-        bulletPrefab = _tankModel.bulletPrefab;
-        bulletShooter = _tankView.BulletShooter;
     }
 
     public void SetRigidBody(Rigidbody rb)
@@ -46,14 +40,7 @@ public class PlayerTankController
 
     public void FireBullet(Vector3 pos)
     {
-        BulletModel bulletModel = new(tankModel.bulletScriptableObjectList.bullets[0],tankView);
-        BulletController bulletController = new(bulletModel, bulletPrefab, pos, tankView.transform.rotation);
-        bulletControllers.Add(bulletController);
-        Debug.Log(bulletControllers);
+        BulletService.Instance.GenerateBullet(tankView,pos);
     }
 
-    public void RemoveBullet(BulletController bulletController)
-    {
-        bulletControllers.Remove(bulletController);
-    }
 }

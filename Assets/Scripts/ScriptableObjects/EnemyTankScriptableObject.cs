@@ -12,7 +12,6 @@ public class EnemyTankScriptableObject : ScriptableObject
     public float RotationSpeed;
     public float ChaseRadius;
     public float FighthRadius;
-    public float BulletPower;
 }
 
 public enum EnemyTankType

@@ -12,9 +12,6 @@ public class PlayerTankModel
 
     private PlayerTankController tankController;
 
-    public BulletScriptableObjectList bulletScriptableObjectList;
-    public BulletView bulletPrefab;
-
     public PlayerTankModel(PlayerTankScriptableObject tankScriptableObject)
     {
         MovementSpeed = tankScriptableObject.MovementSpeed;
