@@ -25,7 +25,7 @@ public class PlayerTankView : MonoBehaviour
     private void Start()
     {
         tankController.SetRigidBody(rb);
-        tankModel = tankController.tankModel;
+        tankModel = tankController.TankModel;
         DestoryEverything.Instance.PlayerTank = this;
     }
     void Update()

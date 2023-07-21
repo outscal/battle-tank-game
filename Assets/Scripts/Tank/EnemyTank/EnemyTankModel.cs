@@ -8,20 +8,15 @@ public class EnemyTankModel
 
     public float health;
 
-    public TankTypes type { get; private set; }
+    public EnemyTankType type;
 
-    private EnemyTankController tankController;
 
-    public EnemyTankModel(TankScriptableObject tankScriptableObject)
+    public EnemyTankModel(EnemyTankScriptableObject tankScriptableObject)
     {
-        movementSpeed = tankScriptableObject.movementSpeed;
-        rotationSpeed = tankScriptableObject.rotationSpeed;
-        health = tankScriptableObject.health;
-        type = tankScriptableObject.tankType;
-    }
-    public void SetEnemyTankController(EnemyTankController tankController)
-    {
-        this.tankController = tankController;
+        movementSpeed = tankScriptableObject.MovementSpeed;
+        rotationSpeed = tankScriptableObject.RotationSpeed;
+        health = tankScriptableObject.Health;
+        type = tankScriptableObject.TankType;
     }
 
 }

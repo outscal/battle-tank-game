@@ -2,32 +2,31 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class TankService : MonoSingletonGeneric<TankService>
 {
     public PlayerTankView playerTankView;
-    public EnemyTankView enemyTankView;
-    [SerializeField]
-    private TankScriptableObjectList tankScriptableObjectList;
+    public PlayerTankScriptableObject playerTankScriptableObject;
     [SerializeField]
     private BulletView bulletPrefab;
+    [SerializeField]
+    private EnemyTankView enemyTank;
+    public PlayerTankView PlayerTank { get;private set; }
 
     void Start()
     {
         SpawnPlayerTank();
-        SpawnEnemyTank();
     }
 
-    private void SpawnEnemyTank()
-    {
-        EnemyTankModel model = new(tankScriptableObjectList.tankScriptableObjects[0]);
-        EnemyTankController controller = new(model, enemyTankView);
-    }
+   
 
     private void SpawnPlayerTank()
     {
-        PlayerTankModel model = new(tankScriptableObjectList.tankScriptableObjects[0]);
-        PlayerTankController controller = new(model, playerTankView);
+        PlayerTankModel model = new(playerTankScriptableObject);
+        PlayerTankController controller = new(model, playerTankView,transform.position);
+        PlayerTank = controller.TankView;
+        enemyTank.SetPlayerTank();
     }
 
 }
