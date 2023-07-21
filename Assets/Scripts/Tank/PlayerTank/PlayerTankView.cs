@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerTankView : MonoBehaviour
 {
-    public PlayerTankController tankController { get;private set; }
+    public PlayerTankController TankController { get;private set; }
 
     private Rigidbody rb;
 
@@ -14,9 +14,9 @@ public class PlayerTankView : MonoBehaviour
     public PlayerTankModel tankModel;
 
 
-    public void SetTankController(PlayerTankController _tankController)
+    public void SetTankController(PlayerTankController tankController)
     {
-        tankController = _tankController;
+        TankController = tankController;
     }
     private void Awake()
     {
@@ -24,8 +24,8 @@ public class PlayerTankView : MonoBehaviour
     }
     private void Start()
     {
-        tankController.SetRigidBody(rb);
-        tankModel = tankController.TankModel;
+        TankController.SetRigidBody(rb);
+        tankModel = TankController.TankModel;
         DestoryEverything.Instance.PlayerTank = this;
     }
     void Update()
@@ -33,7 +33,7 @@ public class PlayerTankView : MonoBehaviour
         Movement();
         if(Input.GetMouseButtonDown(0))
         {
-            tankController.FireBullet(BulletShooter.transform.position);
+            TankController.FireBullet(BulletShooter.transform.position);
         }
     }
 
@@ -41,17 +41,22 @@ public class PlayerTankView : MonoBehaviour
     {
         float move = Input.GetAxis("Vertical1");
         if (move != 0)
-            tankController.MoveTank(move);
+            TankController.MoveTank(move);
         float rotation = Input.GetAxisRaw("Horizontal1");
         if (rotation != 0)
-            tankController.RotateTank(rotation);
+            TankController.RotateTank(rotation);
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("EnemyTank"))
+        if (collision.gameObject.GetComponent<EnemyTankView>())
         {
-            DestoryEverything.Instance.PlayerTank = this;
-            DestoryEverything.Instance.Destroy();
+            TankController.PlayerDead();
+        }
+        else if (collision.gameObject.GetComponent<BulletView>())
+        {
+            TankController.TakeDamage(collision.gameObject.GetComponent<BulletView>());
         }
     }
+
+    
 }

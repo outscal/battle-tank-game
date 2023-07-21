@@ -7,21 +7,13 @@ public class PlayerTankModel
     public float MovementSpeed { get; private set; }
     public float RotationSpeed { get; private set; }
 
-    public float health;
-
-
-    private PlayerTankController tankController;
+    public float Health;
 
     public PlayerTankModel(PlayerTankScriptableObject tankScriptableObject)
     {
         MovementSpeed = tankScriptableObject.MovementSpeed;
         RotationSpeed = tankScriptableObject.RotationSpeed;
-        health = tankScriptableObject.Health;
+        Health = tankScriptableObject.Health;
     }
 
-
-    public void SetTankController(PlayerTankController tankController)
-    {
-        this.tankController = tankController;
-    }
 }

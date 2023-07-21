@@ -5,6 +5,6 @@ using UnityEngine;
 public class BulletScriptableObject : ScriptableObject
 {
     public float speed;
-    public float power;
+    public int power;
 }
 

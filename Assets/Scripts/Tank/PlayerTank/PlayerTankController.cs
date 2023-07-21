@@ -17,7 +17,7 @@ public class PlayerTankController
     {
         TankModel = _tankModel;
         TankView = GameObject.Instantiate<PlayerTankView>(_tankView,pos,_tankView.transform.rotation);
-        TankModel.SetTankController(this);
+        
         TankView.SetTankController(this);
     }
 
@@ -38,6 +38,19 @@ public class PlayerTankController
         tankRigidBoy.MoveRotation(tankRigidBoy.rotation * deltaRotaion);
     }
 
+    public void TakeDamage(BulletView bullet)
+    {
+        TankModel.Health -= bullet.BulletModel.Power;
+        if (TankModel.Health <= 0)
+        {
+            PlayerDead();
+        }
+    }
+    public void PlayerDead()
+    {
+        DestoryEverything.Instance.PlayerTank = TankView;
+        DestoryEverything.Instance.Destroy();
+    }
     public void FireBullet(Vector3 pos)
     {
         BulletService.Instance.GenerateBullet(pos,TankView.transform.rotation);

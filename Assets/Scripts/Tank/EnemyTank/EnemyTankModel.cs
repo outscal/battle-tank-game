@@ -3,20 +3,26 @@ using UnityEngine;
 
 public class EnemyTankModel
 {
-    public float movementSpeed { get; private set; }
-    public float rotationSpeed { get; private set; }
+    public float MovementSpeed { get; private set; }
+    public float RotationSpeed { get; private set; }
 
-    public float health;
+    public float ChaseRadius;
 
-    public EnemyTankType type;
+    public float FightRadius;
+
+    public int Health;
+
+    public EnemyTankType Type;
 
 
     public EnemyTankModel(EnemyTankScriptableObject tankScriptableObject)
     {
-        movementSpeed = tankScriptableObject.MovementSpeed;
-        rotationSpeed = tankScriptableObject.RotationSpeed;
-        health = tankScriptableObject.Health;
-        type = tankScriptableObject.TankType;
+        MovementSpeed = tankScriptableObject.MovementSpeed;
+        RotationSpeed = tankScriptableObject.RotationSpeed;
+        Health = tankScriptableObject.Health;
+        Type = tankScriptableObject.TankType;
+        ChaseRadius = tankScriptableObject.ChaseRadius;
+        FightRadius = tankScriptableObject.FightRadius;
     }
 
 }

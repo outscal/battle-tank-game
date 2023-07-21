@@ -12,10 +12,10 @@ public class EnemyTankController
         this.tankView = tankView;
     }
 
-    public void TakeDamage(float power)
+    public void TakeDamage(int power)
     {
-        tankModel.health -= power;
-        if(tankModel.health<=0)
+        tankModel.Health -= power;
+        if(tankModel.Health<=0)
         {
             TankDestroy();
         }
@@ -24,11 +24,11 @@ public class EnemyTankController
     public void ChangeStateBasedOnPlayer()
     {
         float distanceToPlayer = Vector3.Distance(tankView.transform.position, tankView.PlayerTank.transform.position);
-        if (distanceToPlayer > tankView.fightRadius && distanceToPlayer <= tankView.chaseRadius && tankView.currentState!=tankView.chaseState)
+        if (distanceToPlayer > tankModel.FightRadius && distanceToPlayer <= tankModel.ChaseRadius && tankView.currentState!=tankView.chaseState)
             tankView.ChangeState(tankView.chaseState);
-        else if (distanceToPlayer <= tankView.fightRadius && tankView.currentState != tankView.fightState)
+        else if (distanceToPlayer <= tankModel.FightRadius && tankView.currentState != tankView.fightState)
             tankView.ChangeState(tankView.fightState);
-        else if (distanceToPlayer > tankView.chaseRadius &&tankView.currentState != tankView.petrolState)
+        else if (distanceToPlayer > tankModel.ChaseRadius &&tankView.currentState != tankView.petrolState)
             tankView.ChangeState(tankView.petrolState);
     }
 
@@ -41,12 +41,12 @@ public class EnemyTankController
     {
         Vector3 direction = targetPos - tankView.transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(direction);
-        tankView.transform.rotation = Quaternion.Lerp(tankView.transform.rotation, targetRotation, Time.deltaTime * tankView.rotationSpeed);
+        tankView.transform.rotation = Quaternion.Lerp(tankView.transform.rotation, targetRotation, Time.deltaTime * tankModel.RotationSpeed);
         return targetRotation;
     }
 
     public void MoveTank(Vector3 targetPos)
     {
-        tankView.transform.position = Vector3.MoveTowards(tankView.transform.position, targetPos, tankView.movementSpeed * Time.deltaTime);
+        tankView.transform.position = Vector3.MoveTowards(tankView.transform.position, targetPos, tankModel.MovementSpeed * Time.deltaTime);
     }
 }

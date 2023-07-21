@@ -15,7 +15,7 @@ public class BulletController
 
     public void MoveForword()
     {
-        bulletView.Rb.velocity = BulletModel.speed * Time.deltaTime * bulletView.transform.forward;
+        bulletView.Rb.velocity = BulletModel.Speed * Time.deltaTime * bulletView.transform.forward;
 
     }
 

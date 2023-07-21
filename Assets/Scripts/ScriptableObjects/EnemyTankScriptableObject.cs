@@ -7,11 +7,11 @@ public class EnemyTankScriptableObject : ScriptableObject
 {
     public EnemyTankType TankType;
     public string TankName;
-    public float Health;
+    public int Health;
     public float MovementSpeed;
     public float RotationSpeed;
     public float ChaseRadius;
-    public float FighthRadius;
+    public float FightRadius;
 }
 
 public enum EnemyTankType
