@@ -12,11 +12,7 @@ public class UIService : GenericSingleTon<UIService>
     public void ShootBullet()
     {
         bullet_count++;
-        BulletService.Instance.onBulletFired?.Invoke(bullet_count);
+       // BulletService.Instance.onBulletFired?.Invoke(bullet_count);
         BulletService.Instance.BulletShootByTank(TankService.Instance.GetbulletTransform());
     }
-
-    
-   
-
 }

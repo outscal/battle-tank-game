@@ -5,13 +5,11 @@ using UnityEngine;
 public class BulletPoolService : GenericPoolService<BulletController>
 {
     private BulletView bulletView;
-    
     public BulletController GetBullet(BulletView _bulletView)
     {
         bulletView = _bulletView;
         return GetItem();
     }
-
     protected override BulletController CreateItem()
     {
         BulletService.Instance.BulletRandomizer();

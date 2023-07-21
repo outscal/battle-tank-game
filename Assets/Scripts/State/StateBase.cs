@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BattleTank
 {
-	public class StateBaseClass
+	public class StateBase
 	{
 		public enum STATE { IDLE, PATROL, CHASE, ATTACK }
 
@@ -12,12 +12,12 @@ namespace BattleTank
 
 		protected STATE stateName;
 		protected EVENT currentStage;
-		protected StateBaseClass nextState;
+		protected StateBase nextState;
 		protected List<Transform> patrollingPoints;
 		protected EnemyController enemyController;
 		protected NavMeshAgent agent;
 
-		public StateBaseClass(EnemyController _enemyController)
+		public StateBase(EnemyController _enemyController)
 		{
 			enemyController = _enemyController;
 			//agent = enemyController.GetNavmeshAgent();
@@ -39,7 +39,7 @@ namespace BattleTank
 			currentStage = EVENT.EXIT;
 		}
 
-		public StateBaseClass Processing()
+		public StateBase Processing()
 		{
 			if (currentStage == EVENT.ENTER) { OnEnter(); }
 			if (currentStage == EVENT.UPDATE) { OnUpdate(); }

@@ -18,7 +18,7 @@ public class BulletVi : MonoBehaviour
     {
         return rb;
     }
-   /* void OnCollisionEnter(Collision col)
+    /*void OnCollisionEnter(Collision col)
     {
         bulletController.BulletCollision(col.contacts[0].point);
         IDamageable target = col.gameObject.GetComponent<IDamageable>();

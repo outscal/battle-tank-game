@@ -16,9 +16,17 @@ public class EnemyController
         health = enemyModel.health;
     }
     public EnemyModel enemyModel { get; }
+
+    internal object GetAgent()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public EnemyView enemyView { get; }
     private Rigidbody rb;
     int health;
+    internal object spawnPoint;
+
     public void Shoot(Transform gunTransform)
     {
         EnemyService.Instance.ShootBullet(enemyModel.bulletType, gunTransform);
