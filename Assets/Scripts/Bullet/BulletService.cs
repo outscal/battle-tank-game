@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 
 public class BulletService : MonoSingletonGeneric<BulletService> 
@@ -8,6 +9,8 @@ public class BulletService : MonoSingletonGeneric<BulletService>
 
     [SerializeField]
     private BulletScriptableObjectList bulletScriptableObjectList;
+
+    public Action OnPlayerBulletFire;
     public void GenerateBullet(Vector3 pos,Quaternion rotation)
     {
         BulletModel bulletModel = new(bulletScriptableObjectList.bullets[0]);

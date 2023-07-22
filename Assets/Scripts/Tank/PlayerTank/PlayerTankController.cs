@@ -5,7 +5,6 @@ using UnityEngine;
 [Serializable]
 public class PlayerTankController 
 {
-
     public PlayerTankModel TankModel { get; }
     public PlayerTankView TankView { get; }
 
@@ -54,6 +53,7 @@ public class PlayerTankController
     public void FireBullet(Vector3 pos)
     {
         BulletService.Instance.GenerateBullet(pos,TankView.transform.rotation);
+        BulletService.Instance.OnPlayerBulletFire?.Invoke();
     }
 
 }
