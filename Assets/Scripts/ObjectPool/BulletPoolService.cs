@@ -1,3 +1,4 @@
+using UnityEngine;
 
 public class BulletPoolService : PoolService<BulletController>
 {
@@ -10,5 +11,10 @@ public class BulletPoolService : PoolService<BulletController>
     {
         BulletController bulletControler = new(BulletService.Instance.BulletModel, BulletService.Instance.BulletPrefab);
         return bulletControler;
+    }
+    public override void ReturnItem(BulletController bulletController)
+    {
+        base.ReturnItem(bulletController);
+        bulletController.BulletView.gameObject.SetActive(false);
     }
 }

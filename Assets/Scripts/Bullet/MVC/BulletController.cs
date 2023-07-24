@@ -30,6 +30,5 @@ public class BulletController
     public void ReturnBulletToPoll()
     {
         BulletPoolService.Instance.ReturnItem(this);
-        BulletView.gameObject.SetActive(false);
     }
 }
