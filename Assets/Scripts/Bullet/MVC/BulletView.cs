@@ -37,7 +37,7 @@ public class BulletView : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        bulletController.ReturnBulletToPoll();
+        BulletService.Instance.DeleteBullet(bulletController);
     }
 
     

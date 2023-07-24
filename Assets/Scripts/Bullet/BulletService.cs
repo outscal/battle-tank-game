@@ -27,4 +27,9 @@ public class BulletService : MonoSingletonGeneric<BulletService>
         bulletController.SetRotation(rotation);
         bulletController.BulletView.gameObject.SetActive(true);
     }
+
+    public void DeleteBullet(BulletController bulletController)
+    {
+        bulletPool.ReturnItem(bulletController);
+    }
 }
