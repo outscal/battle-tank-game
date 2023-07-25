@@ -4,18 +4,26 @@ using UnityEngine;
 
 public class BulletController 
 {
-    private BulletView bulletView;
+    public BulletView BulletView { get; private set; }
     public BulletModel BulletModel { get; private set; }
-    public BulletController(BulletModel bulletModel,BulletView bulletView,Vector3 pos,Quaternion rotation)
+    public BulletController(BulletModel bulletModel,BulletView bulletView)
     {
         this.BulletModel = bulletModel;
-        this.bulletView = GameObject.Instantiate<BulletView>(bulletView, pos, rotation);
-        this.bulletView.SetBullerControler(this);
+        this.BulletView = GameObject.Instantiate<BulletView>(bulletView);
+        this.BulletView.SetBullerControler(this);
     }
 
+    public void SetPosition(Vector3 pos)
+    {
+        BulletView.transform.position = pos;
+    }
+    public void SetRotation(Quaternion rotation)
+    {
+        BulletView.transform.rotation = rotation;
+    }
     public void MoveForword()
     {
-        bulletView.Rb.velocity = BulletModel.Speed * Time.deltaTime * bulletView.transform.forward;
+        BulletView.Rb.velocity = BulletModel.Speed * Time.deltaTime * BulletView.transform.forward;
 
     }
 
