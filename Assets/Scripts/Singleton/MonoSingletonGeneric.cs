@@ -13,6 +13,7 @@ public class MonoSingletonGeneric<T> : MonoBehaviour where T : MonoSingletonGene
         if (instance == null)
         {
             instance = (T)this;
+            DontDestroyOnLoad(instance);
         }
         else
         {
