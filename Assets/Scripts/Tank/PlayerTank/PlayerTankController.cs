@@ -48,7 +48,7 @@ public class PlayerTankController
     public void PlayerDead()
     {
         DestoryEverything.Instance.PlayerTank = TankView;
-        DestoryEverything.Instance.Destroy();
+        DestoryEverything.Instance.DestroyEverythingInGame();
     }
     public void FireBullet(Vector3 pos)
     {

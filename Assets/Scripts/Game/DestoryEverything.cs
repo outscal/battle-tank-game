@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -13,26 +14,27 @@ public class DestoryEverything : MonoSingletonGeneric<DestoryEverything>
 
 
 
-    public async void Destroy()
+    public async void DestroyEverythingInGame()
     {
         await Task.Delay(500);
-        Destroy(PlayerTank.gameObject);
-        ParticleSystem explosion = Instantiate<ParticleSystem>(TankExplosion, PlayerTank.transform.position, TankExplosion.transform.rotation);
-        explosion.Play();
-        await Task.Delay(timeForTankExplosion);
-        Destroy(explosion.gameObject);
+        DestroyGameObject(PlayerTank.gameObject);
         foreach (EnemyTankView EnemyTank in EnemyTanks)
         {
-            Destroy(EnemyTank.gameObject);
-            explosion = Instantiate<ParticleSystem>(TankExplosion, EnemyTank.transform.position, TankExplosion.transform.rotation);
-            explosion.Play();
-            await Task.Delay(timeForTankExplosion);
-            Destroy(explosion.gameObject);
+            DestroyGameObject(EnemyTank.gameObject);
         }
         foreach(GameObject item in EnviromentItems)
         {
             Destroy(item);
             await Task.Delay(1000);
         }
+    }
+
+    private async void DestroyGameObject(GameObject gameObject)
+    {
+        Destroy(gameObject);
+        ParticleSystem explosion = Instantiate<ParticleSystem>(TankExplosion, gameObject.transform.position, TankExplosion.transform.rotation);
+        explosion.Play();
+        await Task.Delay(timeForTankExplosion);
+        Destroy(explosion.gameObject);
     }
 }
