@@ -41,14 +41,7 @@ public class PoolService<T> : SingletonGeneric<PoolService<T>> where T : class
 
     public virtual void ReturnItem(T item)
     {
-        Debug.Log(item);
-        Debug.Log("Pooled Item : " + pooledItems.Count);
         PooledItem<T> usedItem = pooledItems.Find(x => x.Item.Equals(item));
-        if (usedItem == null)
-        {
-            Debug.Log("Return item null");
-            return;
-        }
         usedItem.IsUsed = false;
     }
 

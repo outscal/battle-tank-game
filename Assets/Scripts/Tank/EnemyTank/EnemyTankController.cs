@@ -24,11 +24,17 @@ public class EnemyTankController
     public void ChangeStateBasedOnPlayer()
     {
         float distanceToPlayer = Vector3.Distance(tankView.transform.position, tankView.PlayerTank.transform.position);
-        if (distanceToPlayer > tankModel.FightRadius && distanceToPlayer <= tankModel.ChaseRadius && tankView.currentState!=tankView.chaseState)
+        if (distanceToPlayer > tankModel.FightRadius && distanceToPlayer <= tankModel.ChaseRadius && tankView.currentState != tankView.chaseState)
+        {
+            if(tankView.currentState == tankView.fightState)
+            {
+                EventService.Instance.OnPlayerEscapeFromChasingTank?.Invoke();
+            }
             tankView.ChangeState(tankView.chaseState);
+        }
         else if (distanceToPlayer <= tankModel.FightRadius && tankView.currentState != tankView.fightState)
             tankView.ChangeState(tankView.fightState);
-        else if (distanceToPlayer > tankModel.ChaseRadius &&tankView.currentState != tankView.petrolState)
+        else if (distanceToPlayer > tankModel.ChaseRadius && tankView.currentState != tankView.petrolState)
             tankView.ChangeState(tankView.petrolState);
     }
 
