@@ -5,27 +5,23 @@ using UnityEngine;
 
 public class TankService : GenericSingleton<TankService> 
 {
-    [SerializeField] private TankView prefabTank;
-    [SerializeField] private int TotalTanks;
+    [SerializeField] private TankView playerTank;
+    public Follower playerTankFollower;
+    public TankController playerTankController;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        StartGAme();
-    }
+    private void Start() => StartGame();
 
-    void StartGAme()
+    public TankView getPlayerTankView() => playerTank;
+    void StartGame()
     {
-        for(int i=0; i< TotalTanks; i++)
-        {
-            CreateNewTank();
-        }
+         playerTankController = CreateNewTank();
     }
     private TankController CreateNewTank()
     {
 
         TankModel tankModel = new TankModel(10, 100f);
-        TankController tankController = new TankController(tankModel, prefabTank);
+        TankController tankController = new TankController(tankModel, playerTank);
         return tankController;
     }
 
