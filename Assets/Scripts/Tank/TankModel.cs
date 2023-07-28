@@ -6,15 +6,20 @@ using UnityEngine;
 public class TankModel
 {
     private TankController tankController ;
-    public TankModel(int speed, float health)
+    public Transform shootertransform;
+    public int defaultSpeed;
+    public int speed;
+    public float health;
+    public BulletType bulletType;
+    public TankModel(int _speed, float _health, BulletType _bulletType)
     {
-        Speed = speed;
-        Health = health;
-        
+        defaultSpeed = _speed;
+        health = _health;
+        speed = defaultSpeed;
+        bulletType = _bulletType;
     }
 
-    public int Speed;
-    public float Health;
+    
 
     public void getTankController(TankController _tankController)
     {
