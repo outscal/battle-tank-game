@@ -9,14 +9,12 @@ public class Tank<T> : MonoBehaviour where T : Tank<T>
     {
         if (instance != null)
         {
-            Debug.Log("Tank:Awake():: {DESTROYING DUPLICATE INSTANCE}");
             Destroy(gameObject);
         }
         else
         {
             instance = (T)this;
             DontDestroyOnLoad(gameObject);
-            Debug.Log("Tank:Awake():: {STARTED}");
         }
     }
 }
