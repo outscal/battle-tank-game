@@ -1,0 +1,15 @@
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "EnemyTankScriptableObject", menuName = "ScriptableObjects/Tank/Enemy")]
+public class EnemyTankScriptableObject : TankScriptableObject
+{
+    [SerializeField]
+    EnemyTankView enemyTankViewPrefab;
+    public EnemyTankView EnemyTankViewPrefab { get { return enemyTankViewPrefab; } }
+
+    [SerializeField]
+    short spawnChance;
+    public short SpawnChance { get { return spawnChance; } }
+
+    protected new TankCategory tankCategory = TankCategory.Enemy;
+}

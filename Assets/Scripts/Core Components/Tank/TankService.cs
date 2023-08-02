@@ -4,16 +4,10 @@ using UnityEngine;
 public class TankService<T> : MonoBehaviour where T : TankService<T>
 {
     [SerializeField]
-    protected float tankSpeed = 3f;
-
-    [SerializeField]
-    protected float tankHealth = 100f;
+    TankScriptableObject tankScriptableObject;
 
     protected static T instance;
     public static T Instance { get { return instance; } }
-
-    protected TankModel TankModel;
-    protected TankController TankController;
 
     [SerializeField]
     protected TankView TankViewPrefab;
@@ -34,7 +28,8 @@ public class TankService<T> : MonoBehaviour where T : TankService<T>
 
     protected virtual void Initialize()
     {
-        TankModel = new TankModel(tankSpeed, tankHealth);
-        TankController = new TankController(TankModel, TankViewPrefab);
+        TankModel tankModel = new TankModel(tankScriptableObject.Speed, tankScriptableObject.Health, tankScriptableObject.Damage, tankScriptableObject.Damage);
+
+        TankController tankController = new TankController(tankModel, TankViewPrefab);
     }
 }
