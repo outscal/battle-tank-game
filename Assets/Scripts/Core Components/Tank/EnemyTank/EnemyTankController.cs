@@ -7,7 +7,7 @@ public class EnemyTankController : TankController
     EnemyTankModel EnemyTankModel;
     EnemyTankView EnemyTankView;
 
-    public EnemyTankController(EnemyTankModel _enemyTankModel, EnemyTankView _enemyTankViewPrefab) : base(_enemyTankModel, _enemyTankViewPrefab)
+    public EnemyTankController(EnemyTankModel enemyTankModel, EnemyTankView enemyTankViewPrefab) : base(enemyTankModel, enemyTankViewPrefab)
     {
 
         EnemyTankModel = (EnemyTankModel)TankModel;
@@ -18,18 +18,10 @@ public class EnemyTankController : TankController
 
     public void FixedUpdate()
     {
-        float horizontal = UnityEngine.Random.Range(.01f, 2f);
-        horizontal = horizontal >= .2f || horizontal <= -.2f ? horizontal : 0;
-        float vertical = UnityEngine.Random.Range(.01f, 2f);
-        vertical = vertical >= .2f || vertical <= -.2f ? vertical : 0;
+        float horizontal = UnityEngine.Random.Range(-1f, 1f);
+        float vertical = UnityEngine.Random.Range(-1f, 1f);
 
-        Vector3 position = EnemyTankView.Position;
-        position.x += horizontal * EnemyTankModel.Speed * Time.fixedDeltaTime;
-        position.z += vertical * EnemyTankModel.Speed * Time.fixedDeltaTime;
-
-        Vector3 rotation = new Vector3(horizontal, position.y, vertical);
-
-        EnemyTankView.Rotation = Quaternion.LookRotation(rotation);
-        EnemyTankView.Position = position;
+        if (horizontal >= .2f || horizontal <= -.2f || vertical >= .2f || vertical <= -.2f)
+            handleMovement(horizontal, vertical, Time.fixedDeltaTime);
     }
 }

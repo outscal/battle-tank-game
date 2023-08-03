@@ -1,13 +1,16 @@
 using UnityEngine;
 
-// [RequireComponent(Rigidbody)]
-public class TankView : MonoBehaviour
+[RequireComponent(typeof(Rigidbody))]
+public class BulletView : MonoBehaviour
 {
+    public BulletController BulletController { set; get; }
+
     public Vector3 Position { get; set; }
     public Vector3 LocalScale { get; set; }
     public Quaternion Rotation { get; set; }
-
     public bool ApplyTranform { get; set; }
+
+    public Rigidbody Rigidbody { get; private set; }
 
     protected virtual void Awake()
     {
@@ -15,6 +18,8 @@ public class TankView : MonoBehaviour
         Rotation = transform.rotation;
         LocalScale = transform.localScale;
         ApplyTranform = false;
+
+        Rigidbody = gameObject.GetComponent<Rigidbody>();
     }
 
     protected virtual void Update() { }
@@ -31,4 +36,9 @@ public class TankView : MonoBehaviour
     }
 
     protected virtual void FixedUpdate() { }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
+    }
 }

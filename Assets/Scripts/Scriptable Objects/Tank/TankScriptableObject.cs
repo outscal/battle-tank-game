@@ -17,6 +17,11 @@ public class TankScriptableObject : ScriptableObject
     string tankName;
     public string TankName { get { return tankName; } }
 
+    [SerializeField]
+    BulletScriptableObject bulletScriptableObject;
+    public BulletScriptableObject BulletScriptableObject { get { return bulletScriptableObject; } }
+
     protected TankCategory tankCategory;
     public TankCategory TankCategory { get { return tankCategory; } }
+
 }

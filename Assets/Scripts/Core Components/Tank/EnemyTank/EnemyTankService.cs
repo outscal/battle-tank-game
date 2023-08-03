@@ -15,6 +15,8 @@ public class EnemyTankService : TankService<EnemyTankService>
         for (int i = 0; i < spawnCount; i++)
         {
             EnemyTankScriptableObject enemyTankScriptableObject = Spawn();
+            if (enemyTankScriptableObject == null)
+                continue;
 
             EnemyTankModel enemyTankModel = new EnemyTankModel(enemyTankScriptableObject);
 
@@ -25,8 +27,37 @@ public class EnemyTankService : TankService<EnemyTankService>
 
     EnemyTankScriptableObject Spawn()
     {
-        int index = (int)UnityEngine.Random.Range(0f, enemyTankScriptableObjectList.enemyTankList.Length - 1);
+        int index = GetRadomIndexBasedOnSpawnChance();
+
+        if (index < 0)
+            return null;
 
         return enemyTankScriptableObjectList.enemyTankList[index];
+    }
+
+    int GetRadomIndexBasedOnSpawnChance()
+    {
+        int min = int.MaxValue, max = int.MinValue;
+        foreach (EnemyTankScriptableObject enemyTankScriptableObject in enemyTankScriptableObjectList.enemyTankList)
+        {
+            min = Mathf.Min(min, enemyTankScriptableObject.SpawnChance);
+            max = Mathf.Max(max, enemyTankScriptableObject.SpawnChance);
+        }
+
+        float random = UnityEngine.Random.Range(max, min - 1);
+        float diff = int.MaxValue;
+        int index = -1;
+        for (int i = 0; i < enemyTankScriptableObjectList.enemyTankList.Length; i++)
+        {
+            EnemyTankScriptableObject enemyTankScriptableObject = enemyTankScriptableObjectList.enemyTankList[i];
+            float _diff = Mathf.Abs(random - enemyTankScriptableObject.SpawnChance);
+            if (_diff < diff)
+            {
+                diff = _diff;
+                index = i;
+            }
+        }
+
+        return index;
     }
 }

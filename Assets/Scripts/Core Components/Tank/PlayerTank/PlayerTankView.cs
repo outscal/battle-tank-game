@@ -11,4 +11,12 @@ public class PlayerTankView : TankView
         if (PlayerTankController != null)
             PlayerTankController.Update();
     }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+
+        if (PlayerTankController != null)
+            PlayerTankController.FixedUpdate();
+    }
 }

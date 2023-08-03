@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerTankController : TankController
 {
@@ -7,11 +8,17 @@ public class PlayerTankController : TankController
     PlayerTankModel PlayerTankModel;
     PlayerTankView PlayerTankView;
 
-    Joystick joystick;
+    BulletScriptableObject BulletScriptableObject;
 
-    public PlayerTankController(PlayerTankModel _playerTankModel, PlayerTankView _playerTankViewPrefab, Joystick _joystick) : base(_playerTankModel, _playerTankViewPrefab)
+    Joystick joystick;
+    Button shootButton;
+
+    bool triggerShoot;
+
+    public PlayerTankController(PlayerTankModel playerTankModel, PlayerTankScriptableObject playerTankScriptableObject, Joystick _joystick, Button _shootButton) : base(playerTankModel, playerTankScriptableObject.PlayerTankViewPrefab)
     {
         joystick = _joystick;
+        shootButton = _shootButton;
 
         PlayerTankModel = (PlayerTankModel)TankModel;
         PlayerTankView = (PlayerTankView)TankView;
@@ -20,22 +27,46 @@ public class PlayerTankController : TankController
 
         if (joystick == null)
             throw new NullReferenceException("joystick object isn't available");
+        if (_shootButton == null)
+            throw new NullReferenceException("shootButton object isn't available");
+
+        BulletScriptableObject = playerTankScriptableObject.BulletScriptableObject;
+        if (BulletScriptableObject == null)
+            throw new NullReferenceException("BulletScriptableObject object isn't available");
+
+        triggerShoot = false;
+        shootButton.onClick.AddListener(ShootButtonAction);
     }
 
     public void Update()
     {
         float horizontal = joystick.Horizontal;
-        horizontal = horizontal >= .2f || horizontal <= -.2f ? horizontal : 0;
         float vertical = joystick.Vertical;
-        vertical = vertical >= .2f || vertical <= -.2f ? vertical : 0;
 
-        Vector3 position = PlayerTankView.Position;
-        position.x += horizontal * PlayerTankModel.Speed * Time.fixedDeltaTime;
-        position.z += vertical * PlayerTankModel.Speed * Time.fixedDeltaTime;
+        if (horizontal >= .2f || horizontal <= -.2f || vertical >= .2f || vertical <= -.2f)
+            handleMovement(horizontal, vertical, Time.deltaTime);
+    }
 
-        Vector3 rotation = new Vector3(horizontal, position.y, vertical);
+    public void FixedUpdate()
+    {
+        if (triggerShoot)
+        {
+            shoot();
 
-        PlayerTankView.Rotation = Quaternion.LookRotation(rotation);
-        PlayerTankView.Position = position;
+            triggerShoot = false;
+        }
+    }
+
+    void ShootButtonAction()
+    {
+        triggerShoot = true;
+    }
+
+    protected override void shoot()
+    {
+        BulletModel bulletModel = new BulletModel(BulletScriptableObject);
+        BulletController bulletController = new BulletController(bulletModel, BulletScriptableObject.BulletViewPrefab);
+
+        bulletController.SetDirection(PlayerTankView.Position, PlayerTankView.Rotation, PlayerTankView.LocalScale);
     }
 }

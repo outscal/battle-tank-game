@@ -8,6 +8,7 @@ public class EnemyTankScriptableObject : TankScriptableObject
     public EnemyTankView EnemyTankViewPrefab { get { return enemyTankViewPrefab; } }
 
     [SerializeField]
+    [Range(0, 100)]
     short spawnChance;
     public short SpawnChance { get { return spawnChance; } }
 
