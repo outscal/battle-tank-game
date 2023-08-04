@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class EnemyTankController : TankController
 {
     public EnemyTankController(TankModel _tankModel, TankView _tankview) : base(_tankModel, _tankview) { }

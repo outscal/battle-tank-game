@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName ="TankType",menuName ="Tanks/Tank Type")]
+[CreateAssetMenu(fileName ="TankType",menuName ="Tanks/Tank Type"),Serializable]
 public class TankType : ScriptableObject
 {
     public string tankName;

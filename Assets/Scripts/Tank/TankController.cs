@@ -1,11 +1,17 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using Random = UnityEngine.Random;
+
 
 public class TankController
 {
     public TankModel tankModel { get; }
     public TankView tankView { get; }
+
     public TankController(TankModel _tankModel, TankView _prefabTankView)
     {
         tankModel = _tankModel;
@@ -35,6 +41,13 @@ public class TankController
             GameObject.Destroy(tankView.gameObject);
         }
     }
+
+    public virtual void DestroyTank()
+    {
+        tankModel.died = true;
+        tankView.startDestroyCoroutine(0.2f);
+    }
+
 }
 
 

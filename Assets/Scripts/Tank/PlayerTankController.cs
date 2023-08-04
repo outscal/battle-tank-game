@@ -41,5 +41,12 @@ public class PlayerTankController: TankController
         tankView.gameObject.transform.rotation = Quaternion.Slerp(tankView.gameObject.transform.rotation, lookRotation, 0.1f * direction.magnitude);
     }
 
+    public override void DestroyTank()
+    {
+        tankModel.died = true;
+        tankView.startDestroyCoroutine(0f);
+        TankService.Instance.destroyAllTanks();
+    }
+
 
 }

@@ -14,35 +14,44 @@ public class InputController : MonoBehaviour
     [SerializeField] private Button Shoot;
     bool accelerated;
     bool stopped;
+    private PlayerTankController playerTank;
 
     // Update is called once per frame
     private void Start()
     {
         Shoot.onClick.AddListener(shootBullet);
+        playerTank = TankService.Instance.playerTankController;
     }
     void Update()
     {
-        accelerated = getButtonState(Accelerator);
-        stopped = getButtonState(Reverse);
-        if (accelerated)
-        {
-            TankService.Instance.playerTankController.moveWithVelocity(Direction.front);
-        }
-        if(stopped)
-        {
-            TankService.Instance.playerTankController.Move(Direction.back);
-        }
+        if(!playerTank.tankModel.died) {
+            accelerated = getButtonState(Accelerator);
+            stopped = getButtonState(Reverse);
+            if (accelerated)
+            {
+                playerTank.moveWithVelocity(Direction.front);
+            }
+            else if (stopped)
+            {
+                playerTank.Move(Direction.back);
+            }
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                playerTank.DestroyTank();
+            }
 
-        if(joystick.Direction.magnitude > 0)
-        {
-            TankService.Instance.playerTankController.RotateToDirection(joystick.Direction);
+            if (joystick.Direction.magnitude > 0)
+            {
+                playerTank.RotateToDirection(joystick.Direction);
+            }
         }
+       
     }
 
     private void shootBullet()
     {
         Debug.Log("bullet launched");
-        TankService.Instance.playerTankController.Fire();
+        playerTank.Fire();
     }
 
     private bool getButtonState(Button button)

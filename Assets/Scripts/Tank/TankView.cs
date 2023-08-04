@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshCollider),typeof(Rigidbody))]
@@ -8,6 +9,7 @@ public class TankView : MonoBehaviour
     public TankController tankController;
     [SerializeField] private GameObject shooter;
     public Rigidbody tankRb;
+    public Coroutine destroyThis;
 
     private void Awake()
     {
@@ -41,5 +43,25 @@ public class TankView : MonoBehaviour
         {
             tankController.onBulletHit();
         }
+    }
+
+    public void startDestroyCoroutine(float seconds)
+    {
+        if(destroyThis!=null)
+        {
+            StopCoroutine(destroyThis);
+            destroyThis = null;
+        }
+        destroyThis = StartCoroutine(destroy(seconds));
+    }
+    private IEnumerator destroy(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 };

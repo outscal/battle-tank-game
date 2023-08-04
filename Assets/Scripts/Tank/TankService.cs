@@ -8,10 +8,11 @@ using Random = UnityEngine.Random;
 public class TankService : GenericSingleton<TankService> 
 {
     private TankType playerTank;
-     private List<TankType> EnemyTanks = new List<TankType>();
+    [SerializeField] private List<TankType> EnemyTanks = new List<TankType>();
     [SerializeField] int enemyTankCount;
-    private List<EnemyTankController> EnemyTanksControllers = new List<EnemyTankController>();
+    [SerializeField] private List<EnemyTankController> EnemyTanksControllers = new List<EnemyTankController>();
     [SerializeField] private TankTypes tanks;
+    public Coroutine destroyAll;
 
     public Follower playerTankFollower;
     public PlayerTankController playerTankController;
@@ -32,6 +33,24 @@ public class TankService : GenericSingleton<TankService>
     {
         BulletService.Instance.FireBullet(_bulletTyoe, _launch);
     }
+
+    public void destroyAllTanks()
+    {
+        destroyAll = StartCoroutine(destroyAllEnemies());
+        GameManager.Instance.destroyWorld();
+    }
+
+    private IEnumerator destroyAllEnemies()
+    {
+        foreach (TankController tank in EnemyTanksControllers)
+        {
+            tank.DestroyTank();
+            yield return tank.tankView.destroyThis;
+        }
+        EnemyTanksControllers.Clear();
+        EnemyTanks.Clear();
+    }
+
     private TankType chooseRandomTank()
     {
         int n = Random.Range(0, tanks.Types.Count);
