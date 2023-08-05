@@ -18,13 +18,4 @@ public class BulletModel
 
         UseGravity = bulletScriptableObject.UseGravity;
     }
-
-    public BulletModel()
-    {
-        Speed = 0f;
-        Damage = 0f;
-        MaxCollisions = 0f;
-        LifeTime = 0f;
-        Bounciness = 0f;
-    }
 }

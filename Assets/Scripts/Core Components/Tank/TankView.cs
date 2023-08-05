@@ -8,6 +8,8 @@ public class TankView : MonoBehaviour
     Transform bulletSpawnPosition;
     public Transform BulletSpawnPosition { get { return bulletSpawnPosition; } }
 
+    public TankController TankController { get; set; }
+
     public Vector3 Position { get; set; }
     public Vector3 LocalScale { get; set; }
     public Quaternion Rotation { get; set; }

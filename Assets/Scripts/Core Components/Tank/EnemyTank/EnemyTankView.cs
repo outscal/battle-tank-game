@@ -11,4 +11,10 @@ public class EnemyTankView : TankView
         if (EnemyTankController != null)
             EnemyTankController.FixedUpdate();
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (EnemyTankController != null)
+            EnemyTankController.OnCollisionEnter(collision);
+    }
 }

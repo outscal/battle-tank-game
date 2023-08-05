@@ -6,6 +6,4 @@ public class BulletScriptableObject : AmmoScriptableObject
     [SerializeField]
     BulletView bulletViewPrefab;
     public BulletView BulletViewPrefab { get { return bulletViewPrefab; } }
-
-    protected new AmmoType ammoType = AmmoType.Bullet;
 }

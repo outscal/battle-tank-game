@@ -18,6 +18,7 @@ public class AmmoScriptableObject : ScriptableObject
     string ammoName;
     public string BulletName { get { return ammoName; } }
 
+    [SerializeField]
     protected AmmoType ammoType;
     public AmmoType AmmoType { get { return ammoType; } }
 }

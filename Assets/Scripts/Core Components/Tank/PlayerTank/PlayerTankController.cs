@@ -30,6 +30,7 @@ public class PlayerTankController : TankController
         TankView = (TankView)PlayerTankView;
 
         PlayerTankView.PlayerTankController = this;
+        TankView.TankController = (TankController)this;
 
         triggerShoot = false;
         shootButton.onClick.AddListener(ShootButtonAction);

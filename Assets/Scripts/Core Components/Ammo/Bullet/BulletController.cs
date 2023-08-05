@@ -2,22 +2,22 @@ using UnityEngine;
 
 public class BulletController
 {
-    TankController parentTankContoller;
+    TankController ParentTankContoller;
 
-    Transform spawnPoint;
+    Transform SpawnPoint;
 
     public BulletModel BulletModel { get; }
     public BulletView BulletView { get; }
 
     float timeLeft, collisions;
 
-    public BulletController(BulletScriptableObject bulletScriptableObject, TankController _parentTankContoller, Transform _spawnPoint)
+    public BulletController(BulletScriptableObject bulletScriptableObject, TankController parentTankContoller, Transform spawnPoint)
     {
-        parentTankContoller = _parentTankContoller;
-        spawnPoint = _spawnPoint;
+        ParentTankContoller = parentTankContoller;
+        SpawnPoint = spawnPoint;
 
         BulletModel = new BulletModel(bulletScriptableObject);
-        BulletView = GameObject.Instantiate<BulletView>(bulletScriptableObject.BulletViewPrefab, spawnPoint.position, Quaternion.identity);
+        BulletView = GameObject.Instantiate<BulletView>(bulletScriptableObject.BulletViewPrefab, SpawnPoint.position, Quaternion.identity);
 
         PhysicMaterial physicMaterial = new PhysicMaterial();
         physicMaterial.bounciness = BulletModel.Bounciness;
@@ -32,7 +32,8 @@ public class BulletController
 
         timeLeft = BulletModel.LifeTime;
         collisions = BulletModel.MaxCollisions;
-        spawnPoint = _spawnPoint;
+
+        Debug.Log("Here");
 
         handleFireMovement();
     }
@@ -52,11 +53,12 @@ public class BulletController
 
     void handleFireMovement()
     {
-        Vector3 direction = spawnPoint.forward * BulletModel.Speed;
+        Vector3 direction = SpawnPoint.forward * BulletModel.Speed;
         Debug.Log(direction);
 
         BulletView.gameObject.transform.forward = direction.normalized;
         BulletView.RigidbodyComponent.AddForce(direction.normalized, ForceMode.Impulse);
+        BulletView.RigidbodyComponent.velocity = direction.normalized;
     }
 
     public float GetDamage()
