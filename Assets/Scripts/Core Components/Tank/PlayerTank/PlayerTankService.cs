@@ -5,21 +5,19 @@ public class PlayerTankService : TankService<PlayerTankService>
 {
 
     [SerializeField]
-    PlayerTankScriptableObject playerTankScriptableObject;
+    PlayerTankScriptableObject PlayerTankScriptableObject;
 
     [SerializeField]
-    Joystick joystick;
+    Joystick Joystick;
 
     [SerializeField]
-    Button shootButton;
+    Button ShootButton;
 
     protected override void Initialize()
     {
-        if (playerTankScriptableObject == null)
-            return;
-
-        PlayerTankModel playerTankModel = new PlayerTankModel(playerTankScriptableObject);
-
-        PlayerTankController playerTankController = new PlayerTankController(playerTankModel, playerTankScriptableObject, joystick, shootButton);
+        if (PlayerTankScriptableObject != null)
+        {
+            new PlayerTankController(PlayerTankScriptableObject, Joystick, ShootButton);
+        }
     }
 }

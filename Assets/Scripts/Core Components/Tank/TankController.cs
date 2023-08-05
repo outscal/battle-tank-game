@@ -2,16 +2,15 @@ using UnityEngine;
 
 public class TankController
 {
-    public TankModel TankModel { get; }
-    public TankView TankView { get; }
+    public TankModel TankModel { get; protected set; }
+    public TankView TankView { get; protected set; }
 
-    public TankController(TankModel tankModel, TankView tankViewPrefab)
+    public TankController(TankScriptableObject tankScriptableObject)
     {
-        TankModel = tankModel;
-        TankView = GameObject.Instantiate<TankView>(tankViewPrefab);
+        // Override this constuctor is approriate derived class
     }
 
-    protected virtual void handleMovement(float horizontal, float vertical, float timeVariance)
+    protected void HandleMovement(float horizontal, float vertical, float timeVariance)
     {
         Vector3 position = TankView.Position;
         position.x += horizontal * TankModel.Speed * timeVariance;
@@ -24,8 +23,25 @@ public class TankController
         TankView.ApplyTranform = true;
     }
 
-    protected virtual void shoot()
+    protected void Shoot()
     {
+        AmmoScriptableObject ammoScriptableObject = TankModel.AmmoScriptableObject;
 
+        switch (ammoScriptableObject.AmmoType)
+        {
+            case AmmoType.Bullet:
+                new BulletController((BulletScriptableObject)ammoScriptableObject, this, TankView.BulletSpawnPosition);
+                break;
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        TankModel.CurrentHealth -= damage;
+
+        if (TankModel.CurrentHealth <= 0)
+        {
+            TankModel.IsAlive = false;
+        }
     }
 }

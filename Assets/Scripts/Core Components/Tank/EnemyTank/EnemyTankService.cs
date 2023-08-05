@@ -18,9 +18,7 @@ public class EnemyTankService : TankService<EnemyTankService>
             if (enemyTankScriptableObject == null)
                 continue;
 
-            EnemyTankModel enemyTankModel = new EnemyTankModel(enemyTankScriptableObject);
-
-            TankController tankController = new EnemyTankController(enemyTankModel, enemyTankScriptableObject.EnemyTankViewPrefab);
+            new EnemyTankController(enemyTankScriptableObject);
         }
 
     }

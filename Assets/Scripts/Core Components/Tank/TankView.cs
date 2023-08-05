@@ -3,6 +3,11 @@ using UnityEngine;
 // [RequireComponent(Rigidbody)]
 public class TankView : MonoBehaviour
 {
+
+    [SerializeField]
+    Transform bulletSpawnPosition;
+    public Transform BulletSpawnPosition { get { return bulletSpawnPosition; } }
+
     public Vector3 Position { get; set; }
     public Vector3 LocalScale { get; set; }
     public Quaternion Rotation { get; set; }

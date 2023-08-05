@@ -7,11 +7,14 @@ public class EnemyTankController : TankController
     EnemyTankModel EnemyTankModel;
     EnemyTankView EnemyTankView;
 
-    public EnemyTankController(EnemyTankModel enemyTankModel, EnemyTankView enemyTankViewPrefab) : base(enemyTankModel, enemyTankViewPrefab)
+    public EnemyTankController(EnemyTankScriptableObject enemyTankScriptableObject) : base((TankScriptableObject)enemyTankScriptableObject)
     {
 
-        EnemyTankModel = (EnemyTankModel)TankModel;
-        EnemyTankView = (EnemyTankView)TankView;
+        EnemyTankModel = new EnemyTankModel(enemyTankScriptableObject);
+        TankModel = (TankModel)EnemyTankModel;
+
+        EnemyTankView = GameObject.Instantiate<EnemyTankView>(EnemyTankModel.EnemyTankViewPrefab);
+        TankView = (TankView)EnemyTankView;
 
         EnemyTankView.EnemyTankController = this;
     }
@@ -22,6 +25,6 @@ public class EnemyTankController : TankController
         float vertical = UnityEngine.Random.Range(-1f, 1f);
 
         if (horizontal >= .2f || horizontal <= -.2f || vertical >= .2f || vertical <= -.2f)
-            handleMovement(horizontal, vertical, Time.fixedDeltaTime);
+            HandleMovement(horizontal, vertical, Time.fixedDeltaTime);
     }
 }

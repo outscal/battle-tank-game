@@ -10,11 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75e796a27d742af46804940bbbed2e5a, type: 3}
-  m_Name: Grenade
+  m_Name: BulletScriptableObject
   m_EditorClassIdentifier: 
-  speed: 2
-  damage: 5
-  bulletType: 2
-  bulletName: Grenade
-  bulletViewPrefab: {fileID: -5024535578633715936, guid: 968965679dd7f41418fb76e175e91b91,
+  speed: 10
+  damage: 2
+  maxCollisions: 1
+  lifeTime: 10
+  bounciness: 1
+  useGravity: 0
+  ammoName: General
+  bulletViewPrefab: {fileID: 4050570271987683687, guid: cfc16dcf40bf35b41baad8504755fcc5,
     type: 3}
