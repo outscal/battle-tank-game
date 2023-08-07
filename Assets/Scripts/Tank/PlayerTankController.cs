@@ -8,17 +8,6 @@ public class PlayerTankController: TankController
         TankService.Instance.playerTankFollower.AddFollower(tankView);
     }
 
-    public void Fire()
-    {
-        // Vector3 bulletPosition = tankView.gameObject.transform.position + 3 * tankView.gameObject.transform.forward.normalized + 3 * Vector3.up;
-        // Quaternion bulletRotation = tankView.gameObject.transform.rotation;
-        Vector3 bulletPosition = tankModel.shootertransform.position;
-        Quaternion bulletRotation = tankModel.shootertransform.transform.rotation;
-        TransformSet reqBulletTransform = new TransformSet(bulletPosition,bulletRotation,tankView.tankRb.velocity);
-        
-        TankService.Instance.ServiceLaunchBullet(tankModel.bulletType, reqBulletTransform);
-    }
-
     public void Move(Direction direction)
     {
         tankView.gameObject.GetComponent<Rigidbody>().MovePosition(tankView.gameObject.transform.position + tankView.gameObject.transform.forward * (int)direction * tankModel.speed * Time.deltaTime);

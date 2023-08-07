@@ -25,7 +25,6 @@ public class BulletController
         bulletView.bulletRb.velocity= Vector3.zero;
         bulletView.gameObject.transform.position = Vector3.zero;
         bulletModel.fired = false;
-        Debug.Log("bullet destroyed");
     }
     private void prepareBullet(TransformSet _bulletTransform)
     {

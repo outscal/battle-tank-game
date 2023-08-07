@@ -11,7 +11,6 @@ public class TankType : ScriptableObject
     public int health;
     public TankView tankview;
     public BulletType bulletType;
-
     
 }
 

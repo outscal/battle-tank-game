@@ -44,8 +44,16 @@ public class TankService : GenericSingleton<TankService>
     {
         foreach (TankController tank in EnemyTanksControllers)
         {
-            tank.DestroyTank();
-            yield return tank.tankView.destroyThis;
+            if (tank != null)
+            {
+                tank.DestroyTank();
+                yield return tank.tankView.destroyThis;
+            }
+            else
+            {
+                yield return null;
+            }
+            
         }
         EnemyTanksControllers.Clear();
         EnemyTanks.Clear();

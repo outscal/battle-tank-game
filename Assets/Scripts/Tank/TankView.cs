@@ -10,6 +10,7 @@ public class TankView : MonoBehaviour
     [SerializeField] private GameObject shooter;
     public Rigidbody tankRb;
     public Coroutine destroyThis;
+    public Coroutine firing;
 
     private void Awake()
     {
@@ -33,7 +34,7 @@ public class TankView : MonoBehaviour
 
     private void Update()
     {
-        tankController.UpdateAutoControls();
+        tankController.UpdateTank();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -54,14 +55,34 @@ public class TankView : MonoBehaviour
         }
         destroyThis = StartCoroutine(destroy(seconds));
     }
+
+    public void fireCoroutine(float seconds, bool _fire)
+    {
+        if (firing != null)
+        {
+            Debug.Log("firing coroutine stoppped");
+            StopCoroutine(firing);
+            firing = null;
+        }
+        firing = StartCoroutine(fireEnumerator(seconds, _fire));
+    }
+    private IEnumerator fireEnumerator(float seconds, bool fire)
+    {
+        while (fire)
+        {
+            tankController.Fire();
+            yield return new WaitForSeconds(seconds);
+        }
+        StopCoroutine(firing);
+    }
+    public void StopFiring()
+    {
+        StopCoroutine(firing);
+    }
+
     private IEnumerator destroy(float seconds)
     {
         yield return new WaitForSeconds(seconds);
         Destroy(gameObject);
-    }
-
-    private void OnDestroy()
-    {
-        StopAllCoroutines();
     }
 };

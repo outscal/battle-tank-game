@@ -6,30 +6,61 @@ using UnityEngine;
 [Serializable]
 public class EnemyTankController : TankController
 {
-    public EnemyTankController(TankModel _tankModel, TankView _tankview) : base(_tankModel, _tankview) { }
-
-    public override void UpdateAutoControls()
+    public EnemyTankController(TankModel _tankModel, TankView _tankview) : base(_tankModel, _tankview) 
     {
-        moveForward();
-        throwRay();
+
+        tankModel.currentState = new StatePatrolling(this);
+    }
+   
+    public override void UpdateTank()
+    {
+        tankModel.currentState.onTick();
     }
 
     public override void UpdateCollisionControls()
     {
-        moveOpposite();
+        tankModel.currentState.onCollision();
     }
 
+    public void changeState(TankState _tanksState)
+    {
+        if(_tanksState != null)
+        {
+            tankModel.currentState = _tanksState;
+            tankModel.currentState.onStateEnter();
+        }
+        else
+        {
+            tankModel.currentState = _tanksState;
+            tankModel.currentState.onStateEnter();
+
+        }
+    }
     public void moveForward()
     {
         tankView.gameObject.transform.position += tankView.gameObject.transform.forward  * tankModel.speed * Time.deltaTime;
     }
-    public void moveOpposite ()
+    public void shiftDirectionSlow ()
     {
         //Quaternion rotateTowards = Quaternion.LookRotation(-1 * tankView.gameObject.transform.forward, Vector3.up);
         //Quaternion newQ = Quaternion.Euler(0, 90, 0);
         Quaternion newQ = Quaternion.Euler(tankView.gameObject.transform.rotation.eulerAngles+new Vector3(0,10,0));
         tankView.gameObject.transform.rotation = Quaternion.Lerp(tankView.gameObject.transform.rotation, newQ, 0.1f);
     }
+
+    public float distanceBtwPlayer()
+    {
+        TankView player = TankService.Instance.playerTankController.tankView;
+        if (player != null)
+        {
+            Vector3 selfPosition = tankView.gameObject.transform.position;
+            Vector3 targetPosition = player.gameObject.transform.position;
+            return Vector3.Distance(selfPosition, targetPosition);
+        }
+        return 100f;
+        
+    }
+
     public void throwRay()
     {
         Ray ememyRay = new Ray(tankView.gameObject.transform.position,tankView.gameObject.transform.forward);
@@ -38,9 +69,20 @@ public class EnemyTankController : TankController
             if (raycastHit.distance < 3f)
             {
                 tankModel.speed = 0;
-                moveOpposite();
+                shiftDirectionSlow();
             }
             else tankModel.speed = tankModel.defaultSpeed;
         }
     }
+
+    public void lookAtPlayer()
+    {
+        TankView player = TankService.Instance.playerTankController.tankView;
+        if (player != null)
+        {
+            tankView.gameObject.transform.LookAt(player.gameObject.transform.position);
+        }
+    }
+
+
 };

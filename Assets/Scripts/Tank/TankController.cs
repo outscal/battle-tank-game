@@ -25,7 +25,7 @@ public class TankController
         return new Vector3(Random.Range(0, 30), 1f, Random.Range(0, 30));
     }
 
-    public virtual void UpdateAutoControls()
+    public virtual void UpdateTank()
     {
 
     }
@@ -33,20 +33,49 @@ public class TankController
     {
 
     }
-    public virtual void onBulletHit()
+    public void onBulletHit()
     {
         tankModel.health -= 20;
         if (tankModel.health < 0)
         {
-            GameObject.Destroy(tankView.gameObject);
+            DestroyTank();
         }
     }
 
     public virtual void DestroyTank()
     {
         tankModel.died = true;
-        tankView.startDestroyCoroutine(0.2f);
+        if(tankView!= null)
+        {
+            tankView.startDestroyCoroutine(0.2f);
+        }
+        
     }
+
+    public void Fire()
+    {
+        Vector3 bulletPosition = tankModel.shootertransform.position;
+        Quaternion bulletRotation = tankModel.shootertransform.transform.rotation;
+        TransformSet reqBulletTransform = new TransformSet(bulletPosition, bulletRotation, tankView.tankRb.velocity);
+
+        TankService.Instance.ServiceLaunchBullet(tankModel.bulletType, reqBulletTransform);
+    }
+
+    public void fireAfterCooldown()
+    {
+        tankView.fireCoroutine(1f,tankModel.firing);
+    }
+
+    public void toggleAutoFiring()
+    {
+        tankModel.firing = !tankModel.firing;
+    }
+
+    public void stopFiring()
+    {
+        tankView.StopFiring();
+    }
+
 
 }
 

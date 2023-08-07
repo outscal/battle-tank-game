@@ -13,6 +13,18 @@ public class TankModel
     public float health;
     public BulletType bulletType;
     public bool died;
+    public TankState currentState;
+    public bool firing = false;
+
+    public TankModel(int _speed, float _health, BulletType _bulletType, TankState _defaultState)
+    {
+        defaultSpeed = _speed;
+        health = _health;
+        speed = defaultSpeed;
+        bulletType = _bulletType;
+        died = false;
+        currentState = _defaultState;
+    }
     public TankModel(int _speed, float _health, BulletType _bulletType)
     {
         defaultSpeed = _speed;
@@ -22,7 +34,7 @@ public class TankModel
         died = false;
     }
 
-    
+
 
     public void getTankController(TankController _tankController)
     {
