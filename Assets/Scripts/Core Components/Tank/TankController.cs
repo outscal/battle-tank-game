@@ -5,9 +5,18 @@ public class TankController
     public TankModel TankModel { get; protected set; }
     public TankView TankView { get; protected set; }
 
+    protected float horizontal, vertical;
+
     public TankController(TankScriptableObject tankScriptableObject)
     {
         // Override this constuctor is approriate derived class
+    }
+
+    public virtual void Update()
+    {
+        // movement senstivity threshold
+        if (horizontal >= .2f || horizontal <= -.2f || vertical >= .2f || vertical <= -.2f)
+            HandleMovement(horizontal, vertical, Time.deltaTime);
     }
 
     protected void HandleMovement(float horizontal, float vertical, float timeVariance)
@@ -38,6 +47,9 @@ public class TankController
     public void TakeDamage(float damage)
     {
         TankModel.CurrentHealth -= damage;
+
+        Debug.Log("Damage: " + damage);
+        Debug.Log("Tank Health: " + TankModel.CurrentHealth);
 
         if (TankModel.CurrentHealth <= 0)
         {

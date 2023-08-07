@@ -12,6 +12,7 @@ public class TankModel
     public AmmoScriptableObject AmmoScriptableObject { get; private set; }
 
     public float CurrentHealth { get; set; }
+    public float TimeLeftForNextShot { get; set; }
     public bool IsAlive { get; set; }
 
     public TankModel(TankScriptableObject tankScriptableObject)
@@ -26,5 +27,9 @@ public class TankModel
         Damage = tankScriptableObject.Damage;
 
         AmmoScriptableObject = tankScriptableObject.AmmoScriptableObject;
+
+        CurrentHealth = tankScriptableObject.Health;
+        TimeLeftForNextShot = tankScriptableObject.FireRate;
+        IsAlive = CurrentHealth > 0;
     }
 }

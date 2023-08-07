@@ -4,6 +4,14 @@ public class EnemyTankView : TankView
 {
     public EnemyTankController EnemyTankController { get; set; }
 
+    protected override void Update()
+    {
+        base.Update();
+
+        if (EnemyTankController != null)
+            EnemyTankController.Update();
+    }
+
     protected override void FixedUpdate()
     {
         base.FixedUpdate();

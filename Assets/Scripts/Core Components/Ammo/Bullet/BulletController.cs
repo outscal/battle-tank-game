@@ -33,8 +33,6 @@ public class BulletController
         timeLeft = BulletModel.LifeTime;
         collisions = BulletModel.MaxCollisions;
 
-        Debug.Log("Here");
-
         handleFireMovement();
     }
 
@@ -46,15 +44,26 @@ public class BulletController
             BulletView.Destroy();
     }
 
-    public void OnCollisionEnter(Collision collision)
+    public void OnCollisionEnter(EnemyTankController enemyTankController)
     {
-        collisions--;
+        if (enemyTankController != ParentTankContoller)
+        {
+            enemyTankController.TakeDamage(GetDamage());
+            collisions--;
+        }
+    }
+    public void OnCollisionEnter(PlayerTankController playerTankController)
+    {
+        if (playerTankController != ParentTankContoller)
+        {
+            playerTankController.TakeDamage(GetDamage());
+            collisions--;
+        }
     }
 
     void handleFireMovement()
     {
         Vector3 direction = SpawnPoint.forward * BulletModel.Speed;
-        Debug.Log(direction);
 
         BulletView.gameObject.transform.forward = direction.normalized;
         BulletView.RigidbodyComponent.AddForce(direction.normalized, ForceMode.Impulse);
@@ -63,6 +72,6 @@ public class BulletController
 
     public float GetDamage()
     {
-        return BulletModel.Damage;
+        return BulletModel.Damage * ParentTankContoller.TankModel.Damage;
     }
 }

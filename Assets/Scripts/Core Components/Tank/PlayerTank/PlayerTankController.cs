@@ -36,21 +36,25 @@ public class PlayerTankController : TankController
         shootButton.onClick.AddListener(ShootButtonAction);
     }
 
-    public void Update()
+    public override void Update()
     {
-        float horizontal = joystick.Horizontal;
-        float vertical = joystick.Vertical;
+        horizontal = joystick.Horizontal;
+        vertical = joystick.Vertical;
 
-        // increasing joystick senstivity
-        if (horizontal >= .2f || horizontal <= -.2f || vertical >= .2f || vertical <= -.2f)
-            HandleMovement(horizontal, vertical, Time.deltaTime);
+        base.Update();
     }
 
     public void FixedUpdate()
     {
+        PlayerTankModel.TimeLeftForNextShot -= Time.fixedDeltaTime;
+
         if (triggerShoot)
         {
-            Shoot();
+            if (PlayerTankModel.TimeLeftForNextShot <= 0)
+            {
+                PlayerTankModel.TimeLeftForNextShot = PlayerTankModel.FireRate;
+                Shoot();
+            }
             triggerShoot = false;
         }
     }

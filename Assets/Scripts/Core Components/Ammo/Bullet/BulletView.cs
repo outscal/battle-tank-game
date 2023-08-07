@@ -52,17 +52,20 @@ public class BulletView : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject);
+        if (BulletController == null)
+            return;
 
-        if (BulletController != null)
+        EnemyTankView enemyTankView = collision.gameObject.GetComponent<EnemyTankView>();
+        PlayerTankView playerTankView = collision.gameObject.GetComponent<PlayerTankView>();
+
+        if (enemyTankView != null)
         {
-            BulletController.OnCollisionEnter(collision);
+            BulletController.OnCollisionEnter(enemyTankView.EnemyTankController);
+        }
+        else if (playerTankView != null)
+        {
+            BulletController.OnCollisionEnter(playerTankView.PlayerTankController);
         }
 
-        TankView tankView = collision.gameObject.GetComponent<TankView>();
-        if (tankView != null)
-        {
-            tankView.TankController.TakeDamage(BulletController.GetDamage());
-        }
     }
 }
