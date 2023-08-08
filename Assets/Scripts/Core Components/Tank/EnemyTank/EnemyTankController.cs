@@ -6,6 +6,7 @@ public class EnemyTankController : TankController
 
     EnemyTankModel EnemyTankModel;
     EnemyTankView EnemyTankView;
+    EnemyTankState EnemyTankState;
 
     float nextDirectionUpdateInterval;
 
@@ -26,6 +27,8 @@ public class EnemyTankController : TankController
         nextDirectionUpdateInterval = UnityEngine.Random.Range(EnemyTankModel.SpawnChance / 2, EnemyTankModel.SpawnChance + 1);
 
         triggerShoot = false;
+
+        SetState(EnemyTankStates.Idle);
     }
 
     public override void Update()
@@ -65,6 +68,28 @@ public class EnemyTankController : TankController
     public void OnCollisionEnter(Collision collision)
     {
         ResetDirection();
+    }
+
+    public void SetState(EnemyTankStates state)
+    {
+        if (state == EnemyTankModel.CurrentState)
+            return;
+
+        switch (state)
+        {
+            case EnemyTankStates.Idle:
+                EnemyTankState = new EnemyTankStateIdle(this);
+                break;
+            case EnemyTankStates.Patrol:
+                EnemyTankState = new EnemyTankStatePatrol(this);
+                break;
+            case EnemyTankStates.Chase:
+                EnemyTankState = new EnemyTankStateChase(this);
+                break;
+            case EnemyTankStates.Attack:
+                EnemyTankState = new EnemyTankStateAttack(this);
+                break;
+        }
     }
 
     void ResetDirection()
