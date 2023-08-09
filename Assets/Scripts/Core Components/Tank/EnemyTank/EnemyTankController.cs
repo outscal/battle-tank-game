@@ -12,7 +12,8 @@ public class EnemyTankController : TankController
 
     Dictionary<EnemyTankStates, EnemyTankState> EnemyTankStatesObjects;
 
-    bool triggerShoot;
+    public float Horizontal { get { return horizontal; } }
+    public float Vertical { get { return vertical; } }
 
     public EnemyTankController(EnemyTankScriptableObject enemyTankScriptableObject) : base((TankScriptableObject)enemyTankScriptableObject)
     {
@@ -25,8 +26,6 @@ public class EnemyTankController : TankController
 
         EnemyTankView.EnemyTankController = this;
         TankView.TankController = (TankController)this;
-
-        triggerShoot = false;
 
         // Initialize the dictionary and populate it with state objects
         EnemyTankStatesObjects = new Dictionary<EnemyTankStates, EnemyTankState>
@@ -50,8 +49,6 @@ public class EnemyTankController : TankController
 
         if (EnemyTankState != null)
             EnemyTankState.Tick();
-
-        base.Update();
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -63,22 +60,22 @@ public class EnemyTankController : TankController
     {
         if (state == EnemyTankModel.CurrentState)
             return;
-
-        switch (state)
-        {
-            case EnemyTankStates.Idle:
-                ((EnemyTankStateIdle)EnemyTankState).OnStateExit();
-                break;
-            case EnemyTankStates.Patrol:
-                ((EnemyTankStatePatrol)EnemyTankState).OnStateExit();
-                break;
-            case EnemyTankStates.Chase:
-                ((EnemyTankStateChase)EnemyTankState).OnStateExit();
-                break;
-            case EnemyTankStates.Attack:
-                ((EnemyTankStateAttack)EnemyTankState).OnStateExit();
-                break;
-        }
+        if (EnemyTankState != null)
+            switch (EnemyTankModel.CurrentState)
+            {
+                case EnemyTankStates.Idle:
+                    ((EnemyTankStateIdle)EnemyTankState).OnStateExit();
+                    break;
+                case EnemyTankStates.Patrol:
+                    ((EnemyTankStatePatrol)EnemyTankState).OnStateExit();
+                    break;
+                case EnemyTankStates.Chase:
+                    ((EnemyTankStateChase)EnemyTankState).OnStateExit();
+                    break;
+                case EnemyTankStates.Attack:
+                    ((EnemyTankStateAttack)EnemyTankState).OnStateExit();
+                    break;
+            }
 
         EnemyTankState = EnemyTankStatesObjects[state];
 

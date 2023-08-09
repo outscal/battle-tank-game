@@ -2,12 +2,8 @@ using UnityEngine;
 
 class EnemyTankStateAttack : EnemyTankState
 {
-    EnemyTankView EnemyTankView;
 
-    public EnemyTankStateAttack(EnemyTankController enemyTankController) : base(enemyTankController)
-    {
-        EnemyTankView = enemyTankController.EnemyTankView;
-    }
+    public EnemyTankStateAttack(EnemyTankController enemyTankController) : base(enemyTankController) { }
 
     public override void OnStateEnter()
     {
@@ -29,6 +25,5 @@ class EnemyTankStateAttack : EnemyTankState
             EnemyTankModel.TimeLeftForNextShot = EnemyTankModel.FireRate;
             EnemyTankController.Shoot();
         }
-        EnemyTankController.SetState(EnemyTankStates.Chase);
     }
 }
