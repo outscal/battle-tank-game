@@ -13,9 +13,9 @@ public class GameController<T> : MonoBehaviour where T:GameController<T>
        
     }
 
-    public void Awake()
+    public virtual void Awake()
     {
-
+        print("Base class..");
         if (Instance == null)
         {
             instance = (T) this;
