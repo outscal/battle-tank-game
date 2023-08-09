@@ -15,6 +15,8 @@ public class PlayerTankController : TankController
     bool triggerShoot;
     bool DestroyFlag;
 
+    public GameObject GroundGameObject, LevelArtGameObject;
+
     public PlayerTankController(PlayerTankScriptableObject playerTankScriptableObject, Joystick _joystick, Button _shootButton) : base((TankScriptableObject)playerTankScriptableObject)
     {
         if (_joystick == null)
@@ -78,12 +80,52 @@ public class PlayerTankController : TankController
         triggerShoot = true;
     }
 
-    public IEnumerator Destroyer()
+    public IEnumerator DestroyGround()
+    {
+        // Wait 1 second before destorying
+        yield return new WaitForSeconds(1f);
+
+        if (GroundGameObject == null)
+            yield return null;
+
+        foreach (Transform childTransform in GroundGameObject.transform)
+        {
+            GameObject.Destroy(childTransform.gameObject);
+
+            // Wait 0.5 seconds after destorying
+            yield return new WaitForSeconds(.5f);
+        }
+
+        yield return DestroyLevelArt();
+    }
+
+    public IEnumerator DestroyLevelArt()
+    {
+        // Wait 1 second before destorying
+        yield return new WaitForSeconds(1f);
+
+        if (LevelArtGameObject == null)
+            yield return null;
+
+        foreach (Transform childTransform in LevelArtGameObject.transform)
+        {
+            GameObject.Destroy(childTransform.gameObject);
+
+            // Wait 0.5 seconds after destorying
+            yield return new WaitForSeconds(.5f);
+        }
+
+        yield return DestroyPlayer();
+    }
+
+    public IEnumerator DestroyEnemies()
     {
         // Wait 1 second before destorying
         yield return new WaitForSeconds(1f);
 
         // Get Enemy Tanks in the scene
+        // Currently enemies werent created under a parent gameObject 
+        // So using object based search instead of string based tag search
         EnemyTankView[] EnemyTanks = GameObject.FindObjectsOfType<EnemyTankView>();
         foreach (EnemyTankView EnemyTank in EnemyTanks)
         {
@@ -93,43 +135,13 @@ public class PlayerTankController : TankController
             yield return new WaitForSeconds(.5f);
         }
 
-        // Wait 3 seconds before continue destorying
-        yield return new WaitForSeconds(3f);
+        yield return DestroyGround();
+    }
 
-        // Find all GameObjects in the scene
-        GameObject[] allObjectsInScene = GameObject.FindObjectsOfType<GameObject>();
-
-        int layerMask = 1 << LayerMask.NameToLayer("Ground");
-        foreach (GameObject gameObject in allObjectsInScene)
-        {
-            if ((layerMask & 1 << gameObject.layer) != 0)
-            {
-                GameObject.Destroy(gameObject);
-
-                // Wait 0.5 seconds after destorying
-                yield return new WaitForSeconds(.5f);
-            }
-        }
-
-        // Wait 3 seconds before continue destorying
-        yield return new WaitForSeconds(3f);
-
-        allObjectsInScene = GameObject.FindObjectsOfType<GameObject>();
-
-        layerMask = 1 << LayerMask.NameToLayer("LevelArt");
-        foreach (GameObject gameObject in allObjectsInScene)
-        {
-            if ((layerMask & 1 << gameObject.layer) != 0)
-            {
-                GameObject.Destroy(gameObject);
-
-                // Wait 0.5 seconds after destorying
-                yield return new WaitForSeconds(.5f);
-            }
-        }
-
-        // Wait 3 seconds before continue destorying
-        yield return new WaitForSeconds(3f);
+    public IEnumerator DestroyPlayer()
+    {
+        // Wait 1 second before destorying
+        yield return new WaitForSeconds(1f);
 
         // Finally Destory the Player
         GameObject.Destroy(PlayerTankView.gameObject);

@@ -32,6 +32,6 @@ public class PlayerTankView : TankView
             }
         }
 
-        StartCoroutine(PlayerTankController.Destroyer());
+        StartCoroutine(PlayerTankController.DestroyEnemies());
     }
 }
