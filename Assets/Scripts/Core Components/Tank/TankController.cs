@@ -32,7 +32,7 @@ public class TankController
         TankView.ApplyTranform = true;
     }
 
-    protected void Shoot()
+    public void Shoot()
     {
         AmmoScriptableObject ammoScriptableObject = TankModel.AmmoScriptableObject;
 

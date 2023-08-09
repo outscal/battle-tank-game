@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// [RequireComponent(Rigidbody)]
+[RequireComponent(typeof(Rigidbody))]
 public class TankView : MonoBehaviour
 {
 

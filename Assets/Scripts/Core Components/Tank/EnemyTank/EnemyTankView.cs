@@ -12,14 +12,6 @@ public class EnemyTankView : TankView
             EnemyTankController.Update();
     }
 
-    protected override void FixedUpdate()
-    {
-        base.FixedUpdate();
-
-        if (EnemyTankController != null)
-            EnemyTankController.FixedUpdate();
-    }
-
     void OnCollisionEnter(Collision collision)
     {
         if (EnemyTankController != null)
