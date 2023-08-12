@@ -22,6 +22,12 @@ public class EnemyTankController : TankController
         tankModel.currentState.onCollision();
     }
 
+    public override void DestroyTank()
+    {
+        if(TankService.Instance.playerTankController!=null) TankService.Instance.killIncrementer();
+        base.DestroyTank();
+    }
+
     public void changeState(TankState _tanksState)
     {
         if(_tanksState != null)
@@ -50,11 +56,11 @@ public class EnemyTankController : TankController
 
     public float distanceBtwPlayer()
     {
-        TankView player = TankService.Instance.playerTankController.tankView;
+        TankController player = TankService.Instance.playerTankController;
         if (player != null)
         {
             Vector3 selfPosition = tankView.gameObject.transform.position;
-            Vector3 targetPosition = player.gameObject.transform.position;
+            Vector3 targetPosition = player.tankView.gameObject.transform.position;
             return Vector3.Distance(selfPosition, targetPosition);
         }
         return 100f;
@@ -77,12 +83,12 @@ public class EnemyTankController : TankController
 
     public void lookAtPlayer()
     {
-        TankView player = TankService.Instance.playerTankController.tankView;
+        TankController player = TankService.Instance.playerTankController;
         if (player != null)
         {
-            tankView.gameObject.transform.LookAt(player.gameObject.transform.position);
+            tankView.gameObject.transform.LookAt(player.tankView.gameObject.transform.position);
         }
     }
 
 
-};
+}

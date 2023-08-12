@@ -11,6 +11,8 @@ public class TankView : MonoBehaviour
     public Rigidbody tankRb;
     public Coroutine destroyThis;
     public Coroutine firing;
+    public int checker = 0;
+    public float distanceCovered = 0;
 
     private void Awake()
     {
@@ -35,6 +37,7 @@ public class TankView : MonoBehaviour
     private void Update()
     {
         tankController.UpdateTank();
+        distanceCovered = tankController.tankModel.distanceCovered;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -77,12 +80,14 @@ public class TankView : MonoBehaviour
     }
     public void StopFiring()
     {
-        StopCoroutine(firing);
+        if (firing != null) StopCoroutine(firing);
     }
 
     private IEnumerator destroy(float seconds)
     {
         yield return new WaitForSeconds(seconds);
+        tankController.destroyTankDatas();
+        tankController = null;
         Destroy(gameObject);
     }
 };

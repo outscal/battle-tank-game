@@ -13,16 +13,19 @@ public class TankService : GenericSingleton<TankService>
     [SerializeField] private List<EnemyTankController> EnemyTanksControllers = new List<EnemyTankController>();
     [SerializeField] private TankTypes tanks;
     public Coroutine destroyAll;
+    public int destroyedEnemyTanks = 0;
 
     public Follower playerTankFollower;
     public PlayerTankController playerTankController;
 
+    public event Action<int> distanceMilestoneCover;
+    public event Action<int> killCounter;
     protected override void Start()
     {
         StartGame();
     }
 
-    public TankView getPlayerTankView() => playerTank.tankview;
+    //public TankView getPlayerTankView() => playerTank.tankview;
     void StartGame()
     {
         playerTankController = CreatePlayerTank();
@@ -82,6 +85,17 @@ public class TankService : GenericSingleton<TankService>
             EnemyTankController tankController = new EnemyTankController(tankModel, EnemyTanks[i].tankview);
             EnemyTanksControllers.Add(tankController);
         }
+    }
+
+    public void checkDistanceAcheivement(int distance)
+    {
+        distanceMilestoneCover?.Invoke(distance);
+    }
+
+    public void killIncrementer()
+    {
+        destroyedEnemyTanks++;
+        killCounter?.Invoke(destroyedEnemyTanks);
     }
 
 }

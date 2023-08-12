@@ -24,7 +24,7 @@ public class InputController : MonoBehaviour
     }
     void Update()
     {
-        if(!playerTank.tankModel.died) {
+        if(playerTank != null) {
             accelerated = getButtonState(Accelerator);
             stopped = getButtonState(Reverse);
             if (accelerated)
@@ -33,7 +33,7 @@ public class InputController : MonoBehaviour
             }
             else if (stopped)
             {
-                playerTank.Move(Direction.back);
+                playerTank.moveWithVelocity(Direction.back);
             }
             if (Input.GetKeyDown(KeyCode.X))
             {

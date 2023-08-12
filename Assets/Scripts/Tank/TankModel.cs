@@ -15,6 +15,7 @@ public class TankModel
     public bool died;
     public TankState currentState;
     public bool firing = false;
+    public float distanceCovered;
 
     public TankModel(int _speed, float _health, BulletType _bulletType, TankState _defaultState)
     {

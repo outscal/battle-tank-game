@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 
 public class TankController
 {
-    public TankModel tankModel { get; }
+    public TankModel tankModel { get; private set; }
     public TankView tankView { get; }
 
     public TankController(TankModel _tankModel, TankView _prefabTankView)
@@ -18,6 +18,16 @@ public class TankController
         tankView = GameObject.Instantiate<TankView>(_prefabTankView,getRandPosInWorld(),Quaternion.identity);
         tankModel.getTankController(this);
         tankView.getTankController(this);
+    }
+
+    public TankModel GetTankModel()
+    {
+        return tankModel;
+    }
+
+    public void destroyTankDatas()
+    {
+        tankModel = null;
     }
 
     private Vector3 getRandPosInWorld()
@@ -33,7 +43,7 @@ public class TankController
     {
 
     }
-    public void onBulletHit()
+    public virtual void onBulletHit()
     {
         tankModel.health -= 20;
         if (tankModel.health < 0)
@@ -76,7 +86,7 @@ public class TankController
         tankView.StopFiring();
     }
 
-
+    
 }
 
 

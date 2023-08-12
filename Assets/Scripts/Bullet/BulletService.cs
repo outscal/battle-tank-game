@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +7,8 @@ public class BulletService : GenericSingleton<BulletService>
 {
     Queue<BulletController> bulletControllers = new Queue<BulletController>();
 
-
+    public event Action<int> bulletfire;
+    private int bulletsFired = 0;
     public void FireBullet(BulletType bulletType, TransformSet bulletTransform)
     {
         if(bulletControllers.Count <= 0|| bulletControllers.Peek().bulletModel.fired == true)
@@ -19,6 +21,8 @@ public class BulletService : GenericSingleton<BulletService>
             bulletControllers.Enqueue(firedBullet);
             firedBullet.onFire(bulletTransform);
         }
+        bulletsFired++;
+        bulletfire?.Invoke(bulletsFired);
     }
 
     private void createBullet(BulletType _bulletType, TransformSet _bulletTransform)
