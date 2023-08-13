@@ -23,7 +23,7 @@ namespace BattleTank
         public EnemyController CreateEnemyTank(int index)
         {
             EnemyScriptableObject enemy = enemyTankList.enemies[index];
-            EnemyController enemyController = new EnemyController(enemy, 10, 4);
+            EnemyController enemyController = new EnemyController(enemy, 50, -10);
             return enemyController;
         }
         public void ShootBullet( Transform tankTransform)
@@ -34,8 +34,9 @@ namespace BattleTank
         {
             Vector3 pos = _enemyController.GetPosition();
             Destroy(_enemyController.enemyView.gameObject);
-            enemies.Remove(_enemyController);
             StartCoroutine(TankExplosion(pos));
+            enemies.Remove(_enemyController);
+          
         }
         public IEnumerator TankExplosion(Vector3 tankPos)
         {

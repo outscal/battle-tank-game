@@ -21,12 +21,12 @@ namespace BattleTank
         {
             this.gameObject.SetActive(isActive);
         }
-        /* private void OnCollisionEnter(Collision collision)
+        private void OnCollisionEnter(Collision collision)
          {
-             if (collision.gameObject.tag == "BulletDestroyer")
+            if (collision.gameObject.GetComponent<MeshRenderer>()) ;
              {
                  bulletController1.ReturnBulletToPool();
              }
-         }*/
+         }
     }
 }

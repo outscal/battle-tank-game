@@ -28,13 +28,20 @@ namespace BattleTank
 		protected StateBase nextState;
 		protected EnemyController enemy;
 		protected Transform player;
+		protected NavMeshAgent agent;
 
 		public StateBase(EnemyController enemy)
 		{
 			this.enemy = enemy;
 			stage = EVENT.ENTER;
-			if (TankService.Instance.tankView != null)
+			if (TankService.Instance.tankView == null)
+            {
+				return;
+            }
+            else {
 				player = TankService.Instance.tankView.transform;
+			}
+				
 		}
 
 		public virtual void Enter() { stage = EVENT.UPDATE; }

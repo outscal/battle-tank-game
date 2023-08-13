@@ -27,15 +27,19 @@ namespace BattleTank
         {
             rb.transform.position = bulletSpawnPoint.position;
             rb.transform.rotation = bulletSpawnPoint.rotation;
-            rb.AddForce(rb.transform.forward * bulletModel.Speed, ForceMode.Force);
+            rb.AddForce(rb.transform.forward * bulletModel.Speed, ForceMode.VelocityChange);
         }
         public void ReturnBulletToPool()
         {
             bulletView.GetComponent<MeshRenderer>().enabled = true;
             IsSetActive(false);
             BulletService.Instance.poolService.ReturnItem(this);
-            bulletView.GetParticalEffect().SetActive(false);
-            Sellexposions.Stop(true);
+
+            if (Sellexposions != null)
+            {
+                Sellexposions.gameObject.SetActive(false);
+                Sellexposions.Stop(true);
+            }
         }
     }
 }

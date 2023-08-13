@@ -11,6 +11,7 @@ namespace BattleTank
         [SerializeField] private ParticleSystem tankExplosion;
         [SerializeField] private CameraController mainCamera;
         private TankController tankController;
+        public Vector3 GetPlayerTransform() => tankView.transform.position;
         public Transform GetbulletTransform() => tankController.GetBulletSpwanTransfrom();
         private void Start()
         {
@@ -33,9 +34,10 @@ namespace BattleTank
         public void DestoryTank(TankView tankView)
         {
             Vector3 pos = tankView.transform.position;
-            mainCamera.SetTankTransform(null);
-            Destroy(tankView.gameObject);
+           // mainCamera.SetTankTransform(null);
             StartCoroutine(TankExplosion(pos));
+            Destroy(tankView.gameObject);
+            GameManager.Instance.GameOver();
             //StartCoroutine(LevelService.Instance.DestroyLevel());
         }
         public IEnumerator TankExplosion(Vector3 tankPos)

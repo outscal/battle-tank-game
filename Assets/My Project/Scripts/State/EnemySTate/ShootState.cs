@@ -7,75 +7,30 @@ namespace BattleTank
 {
     public class ShootState : StateBase
     {
-		private float fireRate = 1.5f;
-		private float maxBulletVelocity;
-		private float bulletVelocityFactor;
-		private float timer;
-
-		public ShootState(EnemyController enemy) : base(enemy)
+		private float shootCooldown;
+		public ShootState(EnemyController _enemyController) : base(_enemyController)
 		{
-			timer = 0;
-			enemy.GetEnemyAgent().isStopped = true;
-			maxBulletVelocity = 20f;
+			name = STATE.SHOOT;
 		}
 		public override void Enter()
 		{
+			//agent.isStopped = true;
 			base.Enter();
 		}
-
 		public override void Update()
 		{
-			if (player == null)
+			if (!enemy.IsPlayerInShootRange())
 			{
-				MoveToIdleState();
+				EnterPatrolState();
 				return;
 			}
-			if (GetPlayerDistance() > 15)
-			{
-				nextState = new ChasingState(enemy);
-				stage = EVENT.EXIT;
-			}
-			else
-			{
-				Shooting(GetPlayerDistance());
-			}
+			enemy.ShootingPlayerTank();
 		}
 
-		private float GetPlayerDistance()
+		private void EnterPatrolState()
 		{
-			return Vector3.Distance(
-				enemy.GetPosition(), player.position);
-		}
-
-		private void MoveToIdleState()
-		{
-			nextState = new Idle(enemy);
+			nextState = new PatrolingState(enemy);
 			stage = EVENT.EXIT;
-			return;
-		}
-
-		private void Shooting(float distance)
-		{
-			timer += Time.deltaTime;
-			enemy.GetEnemyAgent().transform.LookAt(player.position);
-			if (timer >= fireRate)
-			{
-				enemy.Shoot(enemy.enemyView.GetGun());
-				timer = 0;
-			}
-		}
-
-		/*private float CalculateVelocityFactor(float distance)
-		{
-			float bulletVelocity = CalculateVelocity(distance);
-			bulletVelocityFactor = bulletVelocity / maxBulletVelocity;
-			Debug.Log("FireFactor " + bulletVelocity);
-			return bulletVelocityFactor;
-		}*/
-		public override void Exit()
-		{
-			enemy.GetEnemyAgent().isStopped = false;
-			base.Exit();
 		}
 	}
 }

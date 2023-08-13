@@ -1,28 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BattleTank;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] Transform player;
+   
+    private Transform playertransform;
     [SerializeField] Camera mainCamera;
     [SerializeField] float zoomOutSpeed = 0.05f;
     [SerializeField] float offsetLevel = 0.01f;
     Vector3 currentPos;
-    public void SetTankTransform(Transform _transform)
+    private void Start()
     {
-        player = _transform;
-        if (player != null)
+        playertransform = gameObject.transform.Find("Player");
+        if (playertransform == null)
         {
-            currentPos = player.position;
+            Debug.Log("Player Not Found");
+        }
+        else
+        {
+            Debug.LogError("Player Found");
+        }
+       
+    }
+
+   public void SetTankTransform(Transform _transform)
+    {
+        playertransform = _transform;
+        if (playertransform != null)
+        {
+            currentPos = playertransform.position;
         }
     }
     void LateUpdate()
     {
-        if (player != null)
+        if (playertransform != null)
         {
-            transform.position += player.position - currentPos;
-            currentPos = player.position;
+            transform.position += playertransform.position - currentPos;
+            currentPos = playertransform.position;
         }
     }
     public IEnumerator ZoomOut()

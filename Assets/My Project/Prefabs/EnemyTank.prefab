@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 4856154776405652480}
   - component: {fileID: 4856154776402785370}
   - component: {fileID: 4856154776403752602}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TankTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &4856154776405652480
 Transform:
@@ -93,12 +93,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4856154776405652484}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TankRenderers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &4856154776405652484
 Transform:
@@ -132,12 +132,13 @@ GameObject:
   - component: {fileID: 4856154775739491936}
   - component: {fileID: -1924842480735983101}
   - component: {fileID: -1822426440067812051}
-  m_Layer: 0
+  - component: {fileID: 8852233525343287911}
+  m_Layer: 3
   m_Name: EnemyTank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &4856154776405652488
 Transform:
@@ -169,8 +170,8 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
+  m_Interpolate: 1
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!65 &4856154775739491936
 BoxCollider:
@@ -192,11 +193,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4856154776405944808}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f1be8d79f2226e4795e7e361b8f4586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agent: {fileID: -1822426440067812051}
   rb: {fileID: 4856154775739491937}
   gun: {fileID: 5284469474788679697}
 --- !u!195 &-1822426440067812051
@@ -209,7 +211,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 6
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -221,6 +223,21 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &8852233525343287911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4856154776405944808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e27fa09b46a8ef4c97c79ef13a62fcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chaseDistance: 10
+  shootDistance: 5
+  gun: {fileID: 5284469474788679697}
 --- !u!1 &4856154776405944810
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,12 +249,12 @@ GameObject:
   - component: {fileID: 4856154776405652490}
   - component: {fileID: 4856154776402785368}
   - component: {fileID: 4856154776403752600}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TankChassis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &4856154776405652490
 Transform:
@@ -317,12 +334,12 @@ GameObject:
   - component: {fileID: 4856154776405652492}
   - component: {fileID: 4856154776402785374}
   - component: {fileID: 4856154776403752606}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TankTracksLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &4856154776405652492
 Transform:
@@ -401,12 +418,12 @@ GameObject:
   - component: {fileID: 4856154776405652494}
   - component: {fileID: 4856154776402785360}
   - component: {fileID: 4856154776403752592}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TankTracksRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &4856154776405652494
 Transform:
@@ -483,12 +500,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5284469474788679697}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &5284469474788679697
 Transform:

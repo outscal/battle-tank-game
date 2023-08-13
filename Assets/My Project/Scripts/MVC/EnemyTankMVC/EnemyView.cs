@@ -8,10 +8,21 @@ namespace BattleTank
     public class EnemyView : MonoBehaviour
     {
         private EnemyController enemyController;
+       
         [SerializeField]
         private NavMeshAgent agent;
         [SerializeField] Rigidbody rb;
         [SerializeField] Transform gun;
+
+        private void Start()
+        {
+         
+            agent = GetComponent<NavMeshAgent>();
+        }
+        private void Update()
+        {
+            enemyController.MoveAITank();
+        }
         public void SetEnemyController(EnemyController _enemyController)
         {
             enemyController = _enemyController;
@@ -22,7 +33,7 @@ namespace BattleTank
         }
         public int GetEnemyStrength()
         {
-            return enemyController.GetStrength();
+            return enemyController.GetStrenth();
         }
         public void TakeDamage(int damage)
         {
@@ -32,7 +43,7 @@ namespace BattleTank
         {
             return agent;
         }
-        public Transform GetGun()
+        public Transform GetGunPosition()
         {
             return gun;
         }

@@ -24,10 +24,10 @@ namespace BattleTank
 				return;
 			}
 
-			enemy.GetEnemyAgent().SetDestination(player.position);
+			enemy.GetEnemyAgent().SetDestination(TankService.Instance.tankView.transform.position);
 
 			float distance = Vector3.Distance(
-				enemy.GetPosition(), player.position);
+				enemy.GetPosition(), TankService.Instance.tankView.transform.position);
 
 			if (distance > 20)
 			{
