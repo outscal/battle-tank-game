@@ -2,38 +2,51 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankController : MonoBehaviour
+public class TankController
 {
-    public float speed = 10.0f;
-    public float rotationSpeed = 100.0f;
+    private TankModel tankModel;
+    private TankView tankView;
 
-    void Update()
-    {
-        //For PC
-        float translation = Input.GetAxis("Vertical1")*speed;
-        float rotation = Input.GetAxis("Horizontal1")*rotationSpeed;
+    public GameObject target;
+    public GameObject parent;   
+    float speed = 15;
+    bool canShoot = true;
 
-         
+    private Rigidbody rb;
+    private Rigidbody shell;
 
-        translation *= Time.deltaTime;
-        rotation *= Time.deltaTime;
-
-        transform.Translate(0,0,translation);
-
-        transform.Rotate(0,rotation,0);  
+    public TankController(TankModel _tankModel, TankView _tankView){
+        tankModel = _tankModel;
+        tankView = GameObject.Instantiate<TankView>(_tankView);
+        rb = tankView.GetRigidBody();
+        tankModel.SetTankController(this);
+        tankView.SetTankController(this);
     }
 
-     //  For Joystic
-    // void Update(){
-   
-    //     float translation = Input.GetAxis("Vertical1")*speed;
-    //     float rotation = Input.GetAxis("Horizontal1")*rotationSpeed;
+    public void Move(float movement){
+        rb.velocity = tankView.transform.forward*movement*tankModel.Speed;
+    }
 
-    //     translation *= Time.deltaTime;
-    //     rotation *= Time.deltaTime;
+    public void Rotate(float rotate, float rotateSpeed){
+        Vector3 vector = new Vector3(0f, rotate*rotateSpeed,0f);
+        Quaternion deltaRotation = Quaternion.Euler(vector*Time.deltaTime);
+        rb.MoveRotation(rb.rotation*deltaRotation);
+    }
 
-    //     transform.Translate(0,0,translation);
+    void CanShootAgain()
+    {
+        canShoot = true;
+    }
 
-    //     transform.Rotate(0,rotation,0);  
+    // public void Fire()
+    // {
+    //     if(canShoot)
+    //     {
+    //         // GameObject _shell = tankView.ShootBullet();
+    //         shell = tankView.GetBulletRigidBody();
+    //         shell.velocity   =  speed*tankView.transform.forward;
+    //         canShoot=false;
+    //         tankView.Invoke("CanShootAgain", 0.2f);
+    //     }
     // }
 }
