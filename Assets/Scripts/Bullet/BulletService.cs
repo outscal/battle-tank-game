@@ -6,12 +6,22 @@ using UnityEngine;
 public class BulletService : GenericSingleton<BulletService> 
 {
     Queue<BulletController> bulletControllers = new Queue<BulletController>();
+    BulletPool bulletPool;
+    public TankController tc;
 
     public event Action<int> bulletfire;
     private int bulletsFired = 0;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        bulletPool= GetComponent<BulletPool>();
+    }
     public void FireBullet(BulletType bulletType, TransformSet bulletTransform)
     {
-        if(bulletControllers.Count <= 0|| bulletControllers.Peek().bulletModel.fired == true)
+        bulletPool.createBullet(bulletType,bulletTransform).onFire(bulletTransform);
+        ////////
+        /*if(bulletControllers.Count <= 0|| bulletControllers.Peek().bulletModel.fired == true)
         {
             createBullet(bulletType, bulletTransform);
         }
@@ -20,16 +30,21 @@ public class BulletService : GenericSingleton<BulletService>
             BulletController firedBullet = bulletControllers.Dequeue();
             bulletControllers.Enqueue(firedBullet);
             firedBullet.onFire(bulletTransform);
-        }
+        }*/
         bulletsFired++;
         bulletfire?.Invoke(bulletsFired);
     }
 
-    private void createBullet(BulletType _bulletType, TransformSet _bulletTransform)
+    public void returnBullet( BulletController bullet)
+    {
+        bulletPool.retrieveItem( bullet);
+    }
+    public BulletController createBullet(BulletType _bulletType, TransformSet _bulletTransform)
     {
         BulletModel bulletModel = new BulletModel(_bulletType.speed, _bulletTransform);
         BulletController bulletController = new BulletController(bulletModel, _bulletType.bulletView);
-        bulletControllers.Enqueue(bulletController);
+        return bulletController;
+        //bulletControllers.Enqueue(bulletController);
     }
  
 }

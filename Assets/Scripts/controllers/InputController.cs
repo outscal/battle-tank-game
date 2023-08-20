@@ -50,7 +50,7 @@ public class InputController : MonoBehaviour
 
     private void shootBullet()
     {
-        Debug.Log("bullet launched");
+        //Debug.Log("bullet launched");
         playerTank.Fire();
     }
 

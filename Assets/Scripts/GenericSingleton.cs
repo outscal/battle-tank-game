@@ -1,6 +1,8 @@
 
+using System;
 using UnityEngine;
 
+[Serializable]
 public class GenericSingleton<T> : MonoBehaviour where T : GenericSingleton<T>
 {
     private static T instance;
@@ -19,6 +21,6 @@ public class GenericSingleton<T> : MonoBehaviour where T : GenericSingleton<T>
     }
     protected virtual void Start()
     {
-        Debug.Log("Made from Generic Singleton!");
+        //Debug.Log("Made from Generic Singleton!");
     }
 }

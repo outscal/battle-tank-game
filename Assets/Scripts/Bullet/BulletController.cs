@@ -21,6 +21,7 @@ public class BulletController
     }
     public void onHit()
     {
+        BulletService.Instance.returnBullet( this);
         bulletView.gameObject.SetActive(false);
         bulletView.bulletRb.velocity= Vector3.zero;
         bulletView.gameObject.transform.position = Vector3.zero;
