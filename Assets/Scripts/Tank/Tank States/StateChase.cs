@@ -25,7 +25,7 @@ public class StateChase : TankState
         float reqDistance = tankController.distanceBtwPlayer();
         if (reqDistance > 10)
         {
-            nextTankState = new StateIdle(tankController);
+            nextTankState = new StatePatrolling(tankController);
             onStateExit();
         }
         if (reqDistance <= 5)

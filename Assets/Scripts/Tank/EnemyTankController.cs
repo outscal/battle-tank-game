@@ -24,8 +24,8 @@ public class EnemyTankController : TankController
 
     public override void DestroyTank()
     {
-        if(TankService.Instance.playerTankController!=null) TankService.Instance.killIncrementer();
         base.DestroyTank();
+        if (TankService.Instance.playerTankController!=null) TankService.Instance.killIncrementer();
     }
 
     public void changeState(TankState _tanksState)
@@ -86,9 +86,17 @@ public class EnemyTankController : TankController
         TankController player = TankService.Instance.playerTankController;
         if (player != null)
         {
+            /*float angleToLook = Vector3.Angle(tankView.gameObject.transform.forward.normalized, (tankView.gameObject.transform.position - player.tankView.gameObject.transform.position).normalized);
+            Quaternion lookingRotation = Quaternion.AngleAxis(360-angleToLook, Vector3.up);
+            tankView.gameObject.transform.rotation = Quaternion.Lerp(tankView.gameObject.transform.rotation, lookingRotation, 0.1f);*/
             tankView.gameObject.transform.LookAt(player.tankView.gameObject.transform.position);
         }
     }
 
+    public override void onBulletHit()
+    {
+        base.onBulletHit();
+
+    }
 
 }

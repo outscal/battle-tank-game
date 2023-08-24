@@ -13,7 +13,7 @@ public class BulletView : MonoBehaviour, IgetController
         gameObject.GetComponent<MeshCollider>().convex = true;
         bulletRb = gameObject.GetComponent<Rigidbody>();
     }
-    public void getTankController(BulletController _bulletController)
+    public void getBulletController(BulletController _bulletController)
     {
         bulletController = _bulletController;
     }

@@ -29,9 +29,9 @@ public class StatePatrolling : TankState
     {
         tankController.moveForward();
         tankController.throwRay();
-        if (tankController.distanceBtwPlayer() <= 5)
+        if (tankController.distanceBtwPlayer() <= 10)
         {
-            nextTankState = new StateAttack(tankController);
+            nextTankState = new StateChase(tankController);
             onStateExit();
         }
     }

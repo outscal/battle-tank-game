@@ -25,10 +25,7 @@ public class TankController
         return tankModel;
     }
 
-    public void destroyTankDatas()
-    {
-        tankModel = null;
-    }
+    
 
     private Vector3 getRandPosInWorld()
     {
@@ -60,6 +57,11 @@ public class TankController
             tankView.startDestroyCoroutine(0.2f);
         }
         
+    }
+
+    public void destroyTankDatas()
+    {
+        tankModel = null;
     }
 
     public void Fire()

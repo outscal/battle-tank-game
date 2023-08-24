@@ -33,6 +33,7 @@ public class PlayerTankController: TankController
 
     public override void DestroyTank()
     {
+        TankService.Instance.gameOverProcess();
         TankService.Instance.playerTankController = null;
         tankModel.died = true;
         tankView.startDestroyCoroutine(0f);

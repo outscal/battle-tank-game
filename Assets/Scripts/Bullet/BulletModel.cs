@@ -13,7 +13,7 @@ public class BulletModel : IgetController
         bulletTransform = _bulletTransform;
     }
 
-    public void getTankController(BulletController _bulletController)
+    public void getBulletController(BulletController _bulletController)
     {
         bulletController = _bulletController;
     }

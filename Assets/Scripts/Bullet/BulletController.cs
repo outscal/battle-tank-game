@@ -9,9 +9,9 @@ public class BulletController
     public BulletController(BulletModel _bulletModel, BulletView _bulletView) 
     {
         bulletModel= _bulletModel;
-        bulletModel.getTankController(this);
+        bulletModel.getBulletController(this);
         bulletView = GameObject.Instantiate<BulletView>(_bulletView,_bulletModel.bulletTransform.position, bulletModel.bulletTransform.rotation);
-        bulletView.getTankController(this);
+        bulletView.getBulletController(this);
         onFire(_bulletModel.bulletTransform);
     }
     public void onFire(TransformSet _bulletTransform)
@@ -45,6 +45,6 @@ public class BulletController
 
 public interface IgetController
 {
-    public void getTankController(BulletController bulletController);
+    public void getBulletController(BulletController bulletController);
 }
 

@@ -59,6 +59,16 @@ public class TankView : MonoBehaviour
         destroyThis = StartCoroutine(destroy(seconds));
     }
 
+    private IEnumerator destroy(float seconds)
+    {
+        //gameObject.GetComponent<MeshRenderer>().enabled = false;
+        yield return new WaitForSeconds(seconds);
+        tankController.destroyTankDatas();
+        tankController = null;
+        Destroy(gameObject);
+
+    }
+
     public void fireCoroutine(float seconds, bool _fire)
     {
         if (firing != null)
@@ -83,11 +93,5 @@ public class TankView : MonoBehaviour
         if (firing != null) StopCoroutine(firing);
     }
 
-    private IEnumerator destroy(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        tankController.destroyTankDatas();
-        tankController = null;
-        Destroy(gameObject);
-    }
+    
 };
