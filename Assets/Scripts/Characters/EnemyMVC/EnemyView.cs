@@ -8,19 +8,26 @@ public class EnemyView : MonoBehaviour
 {
     public NavMeshAgent agent;
     public float range; //radius of sphere
-
+    public new ParticleSystem particleSystem;
+    [SerializeField]
+    private float PSDelay;
     public Transform centrePoint; //centre of the area the agent wants to move around in
     //instead of centrePoint you can set it as the transform of the agent if you don't care about a specific area
 
     void Start()
     {
+        EnemyisMoving = true;
         agent = GetComponent<NavMeshAgent>();
     }
 
 
     void Update()
     {
-        Patrol();
+        if (EnemyisMoving)
+        {
+            Patrol();
+        }
+        
     }
     bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {
@@ -39,13 +46,21 @@ public class EnemyView : MonoBehaviour
         return false;
     }
     private EnemyController _EnemyController;
-        public void SetEnemyController(EnemyController enemyController)
+
+    public bool EnemyisMoving { get; private set; }
+
+    public void SetEnemyController(EnemyController enemyController)
         {
             _EnemyController = enemyController;
         }
 
-    public void Death()
+    public IEnumerator Death()
     {
+        particleSystem.Play();
+        agent.SetDestination(transform.position);
+        EnemyisMoving = false;
+        yield return new WaitForSeconds(PSDelay);
+        //particle effect
         Destroy(this.gameObject);
     }
     public void Patrol()
