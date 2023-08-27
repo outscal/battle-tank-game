@@ -14,7 +14,9 @@ public class EnemyView : MonoBehaviour
     [SerializeField]
     private float PSDelay;
     private float playerSqrDistance;
+    [SerializeField]
     private float chaseSqrRadius = 900f;
+    [SerializeField]
     private float attackSqrRadius = 100f;
     public Transform centrePoint; //centre of the area the agent wants to move around in
     //instead of centrePoint you can set it as the transform of the agent if you don't care about a specific area
@@ -145,5 +147,13 @@ public class EnemyView : MonoBehaviour
     public void shoot()
     {
        bulletServices.Shoot(shootPoint,this.gameObject);
+    }
+
+    public void Chase(Vector3 playerPos,float speed)
+    {
+        Vector3 enemypos=transform.position;
+        Vector3 newEnemyPos = Vector3.MoveTowards(enemypos, playerPos, speed * Time.deltaTime);
+        transform.LookAt(playerPos);
+        transform.position = newEnemyPos;
     }
 }
