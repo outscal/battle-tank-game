@@ -18,7 +18,6 @@ public class CoRoutine : MonoBehaviour
        yield return StartCoroutine(DestroyEnemies(Delay));
     
     }
-
     private IEnumerator DestroyFloor()
     {
         foreach (var gameobject in floor)
@@ -28,11 +27,6 @@ public class CoRoutine : MonoBehaviour
             yield return new WaitForSeconds(destroyDelay);
         }
         yield return null;
-    }
-    private IEnumerator CoroutineNormal()
-    {
-        Debug.Log("gameobject");
-        yield return null;  
     }
     private IEnumerator DestroyEnemies(float Delay) 
     {
