@@ -12,6 +12,8 @@ public class EnemyServices : MonoBehaviour
     private EnemyController controller;
     [SerializeField]
     private List<GameObject> enemies;
+    [SerializeField]
+    private BulletServices bulletServices;
     private void Start()
     {
         CreateEnemy();
@@ -31,6 +33,7 @@ public class EnemyServices : MonoBehaviour
         EnemyScriptableObject Enemy = EnemyList.EnemyObjects[0];
         EnemyModel enemyModel = new EnemyModel(Enemy);
         controller = new EnemyController(enemyModel, Enemy,pos,enemies);
+
     }
     public IEnumerator KillAllEnemies()
     {

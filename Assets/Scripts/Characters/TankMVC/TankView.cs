@@ -63,8 +63,13 @@ public class TankView : MonoBehaviour
         throw new NotImplementedException();
     }
 
-    internal void SetBulletService(BulletServices _bulletservices)
+    public void SetBulletService(BulletServices _bulletservices)
     {
         bulletServices = _bulletservices;
+    }
+
+    public static void Patrol()
+    {
+        throw new NotImplementedException();
     }
 }
