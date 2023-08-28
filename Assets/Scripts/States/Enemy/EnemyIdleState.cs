@@ -1,17 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using Tanks.tank;
 using UnityEngine;
 
 public class EnemyIdleState : EnemyStates
 {
-    private EnemyView enemyView;
-    private EnemyController enemyController;
-    public EnemyIdleState()
-    {
-        this.enemyController = _EnemyController;
-        this.enemyView =_EnemyView;
-    }
+
     public override void OnEnterState()
     {
 
@@ -22,7 +15,7 @@ public class EnemyIdleState : EnemyStates
     }
     public override void OnUpdateState()
     {
-        _EnemyController.Patrol();
+       // _EnemyController.Idle();
     }
     public override Enemystate GetState()
     {

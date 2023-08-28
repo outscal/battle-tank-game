@@ -32,7 +32,8 @@ public class EnemyServices : MonoBehaviour
     {
         EnemyScriptableObject Enemy = EnemyList.EnemyObjects[0];
         EnemyModel enemyModel = new EnemyModel(Enemy);
-        controller = new EnemyController(enemyModel, Enemy,pos,enemies);
+        controller = new EnemyController(enemyModel, Enemy,pos,enemies,bulletServices);
+
 
     }
     public IEnumerator KillAllEnemies()

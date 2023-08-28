@@ -1,28 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.Diagnostics;
 using Tanks.tank;
 using UnityEngine;
 
 public class EnemyPatrolling : EnemyStates
 {
-    private EnemyView enemyView;
-    private EnemyController enemyController;
-    public EnemyPatrolling()
-    {
-        this.enemyController = _EnemyController;
-        this.enemyView = _EnemyView;
-    }
+
     public override void OnEnterState()
     {
-
+        base.OnEnterState();
+        UnityEngine.Debug.Log("Patrolling Enter");
     }
     public override void OnExitState() 
     {
-    
+        
     }
     public override void OnUpdateState()
     {
-        _EnemyController.Patrol();
+        UnityEngine.Debug.Log("Patrolling Update");
+        _EnemyView.Patrol();
     }
     public override Enemystate GetState()
     {

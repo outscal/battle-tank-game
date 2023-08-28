@@ -4886,6 +4886,37 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &7420405981412525620
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7126236635593233707}
+  m_Layer: 0
+  m_Name: ShootPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7126236635593233707
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7420405981412525620}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 303621164748724792}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3874436503336550209
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4986,6 +5017,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7423268055617244539, guid: fd85e2ad94966684a8baad91730b08d3,
         type: 3}
+      propertyPath: shootPoint
+      value: 
+      objectReference: {fileID: 7126236635593233707}
+    - target: {fileID: 7423268055617244539, guid: fd85e2ad94966684a8baad91730b08d3,
+        type: 3}
       propertyPath: centrePoint
       value: 
       objectReference: {fileID: 303621164748724792}
@@ -5002,6 +5038,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1340466101027508140}
+    - targetCorrespondingSourceObject: {fileID: 3599060754030732665, guid: fd85e2ad94966684a8baad91730b08d3,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7126236635593233707}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3599060754030573721, guid: fd85e2ad94966684a8baad91730b08d3,
         type: 3}
@@ -5014,7 +5054,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3599060754030573721, guid: fd85e2ad94966684a8baad91730b08d3,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: -6581108626225308374}
+      addedObject: {fileID: 3694815249163047322}
+    - targetCorrespondingSourceObject: {fileID: 3599060754030573721, guid: fd85e2ad94966684a8baad91730b08d3,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6446180459551066316}
+    - targetCorrespondingSourceObject: {fileID: 3599060754030573721, guid: fd85e2ad94966684a8baad91730b08d3,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1445625019013034564}
   m_SourcePrefab: {fileID: 100100000, guid: fd85e2ad94966684a8baad91730b08d3, type: 3}
 --- !u!4 &303621164748724792 stripped
 Transform:
@@ -5071,18 +5119,41 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &-6581108626225308374
+--- !u!114 &3694815249163047322
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 303621164748818392}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91d2192b03f541e4db7af279990c63c6, type: 3}
+  m_Script: {fileID: 11500000, guid: 254146a12dbfe8747bca02344ad9a4ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 955284362850083924}
-  range: 5
-  centrePoint: {fileID: 0}
+--- !u!114 &6446180459551066316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303621164748818392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da2617a91ae476a419c603fd76b7a653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1445625019013034564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303621164748818392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04db482177c0f6d46bb1ae76438782c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timer: 0
+  delay: 1.5

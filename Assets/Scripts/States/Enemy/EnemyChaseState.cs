@@ -1,20 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using Tanks.tank;
 using UnityEngine;
 
+
 public class EnemyChaseState : EnemyStates
 {
-    private EnemyView enemyView;
-    private EnemyController enemyController;
-    public EnemyChaseState()
-    {
-        this.enemyController = _EnemyController;
-        this.enemyView = _EnemyView;
-    }
+
     public override void OnEnterState()
     {
-
+        UnityEngine.Debug.Log("Chase Enter");
     }
     public override void OnExitState()
     {
@@ -22,7 +15,7 @@ public class EnemyChaseState : EnemyStates
     }
     public override void OnUpdateState()
     {
-        _EnemyController.Chase();
+        _EnemyView.Chase();
     }
     public override Enemystate GetState()
     {

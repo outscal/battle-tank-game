@@ -1,5 +1,6 @@
 ﻿public enum Enemystate
 {
+    None,
     IdleState,
     PatrolState,
     ChaseState,

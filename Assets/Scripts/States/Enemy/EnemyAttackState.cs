@@ -1,20 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using Tanks.tank;
 using UnityEngine;
 
 public class EnemyAttackState : EnemyStates
 {
-    private EnemyView enemyView;
-    private EnemyController enemyController;
-    public EnemyAttackState()
-    {
-        this.enemyController = _EnemyController;
-        this.enemyView = _EnemyView;
-    }
+
+    [SerializeField]
+    private float timer;
+    [SerializeField]
+    private float delay;
+
     public override void OnEnterState()
     {
-
+        UnityEngine.Debug.Log("Attacking Enter");
+        timer = 0f;
     }
     public override void OnExitState()
     {
@@ -22,7 +21,7 @@ public class EnemyAttackState : EnemyStates
     }
     public override void OnUpdateState()
     {
-
+      timer= _EnemyView.Attack(timer,delay);
     }
     public override Enemystate GetState()
     {

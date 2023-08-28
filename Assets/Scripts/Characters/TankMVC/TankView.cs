@@ -60,7 +60,7 @@ public class TankView : MonoBehaviour
     public void TakeDamageview(int Damage)
     {
         playerController.TakeDamage(Damage);
-        throw new NotImplementedException();
+        
     }
 
     public void SetBulletService(BulletServices _bulletservices)
@@ -68,8 +68,5 @@ public class TankView : MonoBehaviour
         bulletServices = _bulletservices;
     }
 
-    public static void Patrol()
-    {
-        throw new NotImplementedException();
-    }
+
 }
