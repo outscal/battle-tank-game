@@ -14,6 +14,7 @@ public class TankController
 
     private Rigidbody rb;
     private Rigidbody shell;
+    public float H;
 
     public TankController(TankModel _tankModel, TankView _tankView){
         tankModel = _tankModel;
@@ -21,10 +22,12 @@ public class TankController
         rb = tankView.GetRigidBody();
         tankModel.SetTankController(this);
         tankView.SetTankController(this);
+        H = tankModel.Health;
     }
 
     public void Move(float movement){
         rb.velocity = tankView.transform.forward*movement*tankModel.Speed;
+        
     }
 
     public void Rotate(float rotate, float rotateSpeed){

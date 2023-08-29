@@ -22,8 +22,8 @@ public class TankModel
 
     }
 
-    public void SetHealth(int num){
-        Health = num;
+    public float getHealth(){
+        return Health;
     }
 
     public void SetTankController(TankController _tankController){

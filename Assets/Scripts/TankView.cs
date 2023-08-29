@@ -12,10 +12,10 @@ public class TankView : MonoBehaviour
     private float rotation;
     public GameObject ShellPrefab;
     public GameObject ShellSpawnpos;
+    // GameManager gameManager;
     float speed = 15;
     // float turnSpeed = 2;
     bool canShoot = true;
-
     public Rigidbody rb;
     public Rigidbody shell;
 
@@ -35,11 +35,13 @@ public class TankView : MonoBehaviour
             Fire(ShellPrefab,ShellSpawnpos);
         }
 
+        
     }
 
     void CanShootAgain()
     {
         canShoot = true;
+
     }
 
     public void Fire( GameObject _ShellPrefab, GameObject _ShellSpawnpos)
@@ -47,6 +49,7 @@ public class TankView : MonoBehaviour
         Debug.Log("Outside");
         if(canShoot)
         {
+            
             Debug.Log("Inside");
             GameObject shell = Instantiate(_ShellPrefab, _ShellSpawnpos.transform.position, _ShellSpawnpos.transform.rotation);
             shell.GetComponent<Rigidbody>().velocity   =  speed*this.transform.forward;
