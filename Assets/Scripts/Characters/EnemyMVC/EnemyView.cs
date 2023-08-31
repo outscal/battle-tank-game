@@ -8,6 +8,7 @@ using UnityEngine.AI;
 
 public class EnemyView : MonoBehaviour
 {
+    public EnemyController _EnemyController { get; private set; }
     public NavMeshAgent agent;
     public float range; //radius of sphere
     public new ParticleSystem particleSystem;
@@ -35,7 +36,7 @@ public class EnemyView : MonoBehaviour
     private EnemyAttackState attackState;
     [SerializeField]
     private EnemyChaseState chaseState;
-    private EnemyController _EnemyController;
+    
     public Transform shootPoint;
 
     [SerializeField]
@@ -47,8 +48,6 @@ public class EnemyView : MonoBehaviour
     }
     private void Init()
     {
-        //speed=_EnemyController.GetSpeed();
-        //idleState = GetComponent<EnemyIdleState>();
         patrolState = GetComponent<EnemyPatrolling>();
         attackState = GetComponent<EnemyAttackState>();
         chaseState = GetComponent<EnemyChaseState>();
@@ -107,8 +106,9 @@ public class EnemyView : MonoBehaviour
 
     public void SetEnemyController(EnemyController enemyController)
         {
-            _EnemyController = enemyController;
+        _EnemyController = enemyController;
         speed=_EnemyController.GetSpeed();
+        Debug.Log("EnemyController-EnemyView Connection Established" + _EnemyController.ToString());
         }
     public bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {
@@ -187,7 +187,7 @@ public class EnemyView : MonoBehaviour
 
     public float Attack(float timer, float delay)
     {
-        //return _EnemyController.Attack(timer, delay);
+
         Vector3 playerPos = player.transform.position;
         this.transform.LookAt(playerPos);
         if (timer > delay)

@@ -46,6 +46,7 @@ public class TankController
         if (health == 0)
         {
             Death();
+            PlayerView.death();
         }
     }
 

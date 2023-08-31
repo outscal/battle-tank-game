@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TankView : MonoBehaviour
 {
-    
+    public static event Action<int> AchevementsUnlock;
     [SerializeField] private Rigidbody playerRigidBody;
     [SerializeField] private ParticleSystem tankExplosion;
     [SerializeField] private Transform shootPoint;
@@ -43,9 +43,18 @@ public class TankView : MonoBehaviour
         {
             bulletServices.Shoot(shootPoint,this.gameObject);
             bulletCount++;
-
+            checkAchevement();
         }
     }
+
+    private void checkAchevement()
+    {
+        if(bulletCount == 10||bulletCount==25 || bulletCount == 50)
+        {
+            AchevementsUnlock?.Invoke(bulletCount);
+        }
+    }
+
     private void FixedUpdate()
     {
         playerController.Move(verticalInput);
@@ -68,5 +77,8 @@ public class TankView : MonoBehaviour
         bulletServices = _bulletservices;
     }
 
-
+    public void death()
+    {
+        Debug.Log("Player is Dead_view");
+    }
 }
