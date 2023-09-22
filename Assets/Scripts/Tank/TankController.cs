@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class TankController
 {
-    public TankController(TankModel tankModel, TankView tankPrefab)
+    public TankController(TankModel tankModel, TankView tankView)
     {
         TankModel = tankModel;
-        TankView = GameObject.Instantiate<TankView>(tankPrefab);
-        Debug.Log("tank controller created the tank view.", TankView);
+        TankView = GameObject.Instantiate<TankView>(tankView);    
     }
 
     public TankModel TankModel { get; }
