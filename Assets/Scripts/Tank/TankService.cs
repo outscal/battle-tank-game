@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankService : MonoBehaviour
+public class TankService : SingletonGeneric<TankService>
 {
     [SerializeField] private TankScriptableObjectList tankScriptableObjectList;
 
