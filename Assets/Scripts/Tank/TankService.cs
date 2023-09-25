@@ -19,10 +19,9 @@ public class TankService : SingletonGeneric<TankService>
     {
         int randomNumber = (int)Random.Range(0, tankScriptableObjectList.tanks.Length);
         TankScriptableObject tankObject = tankScriptableObjectList.tanks[randomNumber];
-        Debug.Log(randomNumber);
         Debug.Log("Created tank of type: " + tankObject.name);
-        TankModel model = new TankModel(tankObject);
-        TankController tank = new TankController(model, tankObject.tankView);
+        TankModel model = new(tankObject);
+        TankController tank = new(model, tankObject.tankView);
         return tank;
     }
 }

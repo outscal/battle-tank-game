@@ -12,6 +12,7 @@ public class SingletonGeneric<T> : MonoBehaviour where T : SingletonGeneric<T>
         if (instance == null)
         {
             instance = (T)this;
+            DontDestroyOnLoad(instance);
         }
         else
         {
