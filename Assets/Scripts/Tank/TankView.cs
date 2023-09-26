@@ -6,6 +6,7 @@ using UnityEngine.PlayerLoop;
 public class TankView : MonoBehaviour
 {
     private TankController tankController { get; set; }
+    [SerializeField] private ShellService shellService;
     private void Start()
     {
         Debug.Log("Tank view created!");
@@ -47,5 +48,15 @@ public class TankView : MonoBehaviour
     public void SetTankController(TankController _tankController)
     {
         tankController = _tankController;
+    }
+
+    public ShellService GetShellService()
+    {
+        return shellService;
+    }
+
+    public void Shoot()
+    {
+        tankController.ShootShell(shellService);
     }
 }

@@ -4,15 +4,34 @@ using UnityEngine;
 
 public class ShellView : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private ShellController ShellController { get; set; }
+    public void SetShellController(ShellController shellController)
     {
+        ShellController = shellController;
+    }
+
+    public Rigidbody GetRigidbody() 
+    {
+        return GetComponent<Rigidbody>();
+    }
+
+    private void Start()
+    {
+        //GetComponent<Rigidbody>();
+       
+        if (ShellController != null)
+        {
+            ShellController.Shot();
+        }
+        else
+        {
+            return;
+        }
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        Destroy(gameObject, 5f);
     }
 }

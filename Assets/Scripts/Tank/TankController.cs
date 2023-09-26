@@ -14,10 +14,12 @@ public class TankController
     private float tank_TurnInputValue;
     private const string tank_MovementAxisName = "Vertical1";
     private const string tank_TurnAxisName = "Horizontal1";
+    private float nextFireTime = 0f;
 
     //PUBLIC VALUES
     public bool tank_IsMoving = false;
-    public bool tank_IsTurning = false;    
+    public bool tank_IsTurning = false;
+    public float fireRate = 0.1f;
 
     //--------------------FUNCTIONS-------------------------
     //PRIVATE FUNCTIONS
@@ -45,6 +47,8 @@ public class TankController
         tank_IsMoving = Mathf.Abs(tank_MovementInputValue) > 0.1f;
         tank_IsTurning = Mathf.Abs(tank_TurnInputValue) > 0.1f;
 
+        if(Input.GetMouseButton(0) && Time.time >= nextFireTime) { TankView.Shoot(); nextFireTime = Time.time + fireRate; }
+
         EngineAudio();
     }
     public TankController(TankModel tankModel, TankView tankView)
@@ -67,5 +71,10 @@ public class TankController
         float turn = TankModel.tank_TurnSpeed * tank_TurnInputValue * Time.deltaTime;
         Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
         tank_Rigidbody.MoveRotation(tank_Rigidbody.rotation * turnRotation);
+    }
+
+    public void ShootShell(ShellService shellService)
+    {
+        shellService.SpawnShell(shellService.transform);
     }
 }
