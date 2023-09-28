@@ -9,4 +9,5 @@ public class EnemyScriptableObject : ScriptableObject
     public float health;
     public float damage;
     public EnemyView enemyView;
+    public GameObject enemyExplosion;
 }

@@ -7,13 +7,18 @@ public class EnemyController
 
     private Vector3 GetRandomSpawnPosition()
     {
-        float randomX = Random.Range(-20,20);
-        float randomZ = Random.Range(-20,20);
+        float randomX = Random.Range(-10,10);
+        float randomZ = Random.Range(-10,10);
         return new Vector3(randomX, 0f, randomZ);
     }
     public EnemyController(EnemyModel enemyModel, EnemyView enemyView)
     {
         EnemyModel = enemyModel;
         EnemyView = GameObject.Instantiate<EnemyView>(enemyView, GetRandomSpawnPosition(), Quaternion.identity);
+        EnemyView.SetEnemyController(this);
+    }
+    public EnemyModel GetEnemyModel()
+    {
+        return EnemyModel;
     }
 }

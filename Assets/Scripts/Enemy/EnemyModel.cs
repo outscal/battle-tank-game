@@ -9,6 +9,7 @@ public class EnemyModel
     public float enemy_Health { get; private set; }
     public float enemy_Damage { get; private set; }
     public EnemyTypes enemy_Type { get; private set; }
+    public GameObject Explosion { get; set; }
 
     public EnemyModel(EnemyScriptableObject enemyScriptableObject)
     {
@@ -17,5 +18,6 @@ public class EnemyModel
         enemy_Health = enemyScriptableObject.health;
         enemy_Damage = enemyScriptableObject.damage;
         enemy_Type = enemyScriptableObject.type;
+        Explosion = enemyScriptableObject.enemyExplosion;
     }
 }
