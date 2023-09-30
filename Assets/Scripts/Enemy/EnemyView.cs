@@ -8,6 +8,7 @@ public class EnemyView : MonoBehaviour
     private void Start()
     {
         Debug.Log("Enemy view created!");
+        AssetManager.Instance.AddEnemyView(this);
     }
 
     public void SetEnemyController(EnemyController _enemyController)
@@ -19,14 +20,15 @@ public class EnemyView : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<ShellView>())
         {
-            DestroyTank();
+            DestroyEnemy();
         }
     }
 
-    public void DestroyTank()
+    public void DestroyEnemy()
     {
         GameObject explosion = Instantiate(EnemyController.GetEnemyModel().Explosion, gameObject.transform.position, Quaternion.identity);
         Destroy(explosion, 1.5f);
+        AssetManager.Instance.RemoveEnemyView(this);
         Destroy(gameObject);
     }
 }

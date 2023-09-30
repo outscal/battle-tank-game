@@ -18,20 +18,14 @@ public class ShellView : MonoBehaviour
     private void Start()
     {
         //GetComponent<Rigidbody>();
-       
         if (ShellController != null)
         {
             ShellController.Shot();
+            Destroy(gameObject, 5f);
         }
         else
         {
             return;
-        }
-        
-    }
-
-    private void Update()
-    {
-        Destroy(gameObject, 5f);
+        }   
     }
 }

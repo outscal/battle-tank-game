@@ -8,13 +8,9 @@ public class TankService : SingletonGeneric<TankService>
 
     private void Start()
     {
-        StartGame();
-    }
-
-    public void StartGame()
-    {
         CreateNewTank();
     }
+
     private TankController CreateNewTank()
     {
         int randomNumber = (int)Random.Range(0, tankScriptableObjectList.tanks.Length);

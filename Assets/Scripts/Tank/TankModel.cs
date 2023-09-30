@@ -9,6 +9,7 @@ public class TankModel
     public float tank_Health { get; private set; }
     public float tank_Damage { get; private set; }
     public TankTypes tank_Type { get; private set; }
+    public GameObject Explosion { get; set; }
 
     public TankModel(TankScriptableObject tankScriptableObject)
     {
@@ -17,5 +18,6 @@ public class TankModel
         tank_Health = tankScriptableObject.health;
         tank_Damage = tankScriptableObject.damage;
         tank_Type = tankScriptableObject.type;
+        Explosion = tankScriptableObject.tankExplosion;
     }
 }

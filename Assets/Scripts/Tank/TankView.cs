@@ -7,16 +7,14 @@ public class TankView : MonoBehaviour
 {
     private TankController tankController { get; set; }
     [SerializeField] private ShellService shellService;
-    [SerializeField] private ExplodeLevel explode;
 
     //--------------------FUNCTIONS-------------------------
     //PRIVATE FUNCTIONS
     private void Start()
     {
-        explode = GameObject.FindGameObjectWithTag("Explode").GetComponent<ExplodeLevel>();
         Debug.Log("Tank view created!");
+        AssetManager.Instance.SetTankView(this);
         tankController.Initialize();
-
     }
 
     private void Update()
@@ -49,9 +47,13 @@ public class TankView : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.GetComponent<EnemyView>())
+        if (collision.gameObject.GetComponent<EnemyView>())
         {
-            StartCoroutine(explode.DestroyLevel());
+            GameObject explosion = Instantiate(tankController.GetTankModel().Explosion, gameObject.transform.position, Quaternion.identity);
+            Destroy(explosion, 1.5f);
+
+            if (AssetManager.Instance)
+                StartCoroutine(AssetManager.Instance.ClearLevel());
         }
     }
 

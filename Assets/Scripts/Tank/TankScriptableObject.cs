@@ -9,4 +9,5 @@ public class TankScriptableObject : ScriptableObject
     public float health;
     public float damage;
     public TankView tankView;
+    public GameObject tankExplosion;
 }

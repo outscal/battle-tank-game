@@ -77,4 +77,9 @@ public class TankController
     {
         shellService.SpawnShell(shellService.transform);
     }
+
+    public TankModel GetTankModel()
+    {
+        return TankModel;
+    }
 }
