@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
-public class TankView : MonoBehaviour
+public class TankView : MonoBehaviour, IDamagable
 {
-    private TankController tankController { get; set; }
-    [SerializeField] private ShellService shellService;
+    public float GetHealth { get { return TankController.GetTankModel().Health; } }
+    public float GetMaxHealth { get { return TankController.GetTankModel().MaxHealth; } }
+    public float GetDamage { get { return TankController.GetTankModel().Damage; } }
+    private TankController TankController { get; set; }
 
     //--------------------FUNCTIONS-------------------------
     //PRIVATE FUNCTIONS
@@ -14,20 +13,20 @@ public class TankView : MonoBehaviour
     {
         Debug.Log("Tank view created!");
         AssetManager.Instance.SetTankView(this);
-        tankController.Initialize();
+        TankController.Initialize();
     }
 
     private void Update()
     {
-        tankController.Simulate();
+        TankController.Simulate();
     }
 
     private void FixedUpdate()
     {
-        if (tankController != null)
+        if (TankController != null)
         {
-            if (tankController.tank_IsTurning) { tankController.Turn(); }
-            else if (tankController.tank_IsMoving) { tankController.Move(); }
+            if (TankController.tank_IsTurning) { TankController.Turn(); }
+            if (TankController.tank_IsMoving) { TankController.Move(); }
         }
         else
         {
@@ -45,19 +44,6 @@ public class TankView : MonoBehaviour
         GetRigidBody().isKinematic = true;
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.GetComponent<EnemyView>())
-        {
-            GameObject explosion = Instantiate(tankController.GetTankModel().Explosion, gameObject.transform.position, Quaternion.identity);
-            Destroy(explosion, 1.5f);
-
-            if (AssetManager.Instance)
-                StartCoroutine(AssetManager.Instance.ClearLevel());
-        }
-    }
-
-
     //PUBLIC FUNCTIONS
     public Rigidbody GetRigidBody()
     {
@@ -66,16 +52,26 @@ public class TankView : MonoBehaviour
 
     public void SetTankController(TankController _tankController)
     {
-        tankController = _tankController;
+        TankController = _tankController;
     }
 
-    public ShellService GetShellService()
+    public void DestroyTank()
     {
-        return shellService;
+        TankController.DestroyTank();
     }
 
     public void Shoot()
     {
-        tankController.ShootShell(shellService);
+        TankController.ShootShell();
+    }
+
+    public bool TakeDamage(float damage)
+    {
+        return TankController.TakeDamage(damage);
+    }
+
+    public bool GiveDamage(IDamagable damagable)
+    {
+        return TankController.GiveDamage(damagable);
     }
 }

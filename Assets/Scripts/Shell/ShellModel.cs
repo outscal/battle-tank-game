@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class ShellModel
 {
-    public float shell_Speed { get; private set; }
-    public float shell_Damage { get; private set; }
-    public ShellTypes shell_Type { get; private set; }
+    public float Speed { get; private set; }
+    public float Damage { get; private set; }
+    public ShellTypes Type { get; private set; }
 
-    public ShellModel(ShellScriptableObject shellScriptableObject)
+    public ShellModel(ShellScriptableObject shellScriptableObject, float damage = 0f)
     {
-        shell_Speed = shellScriptableObject.speed;
-        shell_Damage = shellScriptableObject.damage;
-        shell_Type = shellScriptableObject.type;
+        Speed = shellScriptableObject.speed;
+        Damage = damage == 0f ? shellScriptableObject.damage : damage;
+        Type = shellScriptableObject.type;
     }
 
 }

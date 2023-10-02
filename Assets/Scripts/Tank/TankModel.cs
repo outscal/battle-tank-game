@@ -4,20 +4,23 @@ using UnityEngine;
 
 public class TankModel
 {
-    public float tank_Speed { get; private set; }
-    public float tank_TurnSpeed { get; private set; }
-    public float tank_Health { get; private set; }
-    public float tank_Damage { get; private set; }
-    public TankTypes tank_Type { get; private set; }
+    public float Speed { get; private set; }
+    public float TurnSpeed { get; private set; }
+    public float MaxHealth { get; private set; }
+    public float Health { get; set; }
+    public float Damage { get; private set; }
+    public LayerMask ShellLayer { get; private set; }
+    public TankTypes Type { get; private set; }
     public GameObject Explosion { get; set; }
 
     public TankModel(TankScriptableObject tankScriptableObject)
     {
-        tank_Speed = tankScriptableObject.speed;
-        tank_TurnSpeed = tankScriptableObject.turnSpeed;
-        tank_Health = tankScriptableObject.health;
-        tank_Damage = tankScriptableObject.damage;
-        tank_Type = tankScriptableObject.type;
+        Speed = tankScriptableObject.speed;
+        TurnSpeed = tankScriptableObject.turnSpeed;
+        Health = MaxHealth = tankScriptableObject.health;
+        Damage = tankScriptableObject.damage;
+        ShellLayer = tankScriptableObject.shellLayer;
+        Type = tankScriptableObject.type;
         Explosion = tankScriptableObject.tankExplosion;
     }
 }

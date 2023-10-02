@@ -60,22 +60,56 @@ public class TankController
         SetDefaultMoveAndTurnValues();
     }
 
+    /// <summary>
+    /// Returns true if damage taken.
+    /// </summary>
+    /// <param name="damage"></param>
+    /// <returns></returns>
+    public bool TakeDamage(float damage)
+    {
+        if(TankModel.Health <= 0) return false;
+
+        TankModel.Health = (int)Mathf.Clamp(TankModel.Health - damage, 0, TankModel.MaxHealth);
+
+        if (TankModel.Health == 0 && AssetManager.Instance)
+            AssetManager.Instance.ClearLevel();
+
+        return true;
+    }
+
+    /// <summary>
+    /// Returns true if damage applied.
+    /// </summary>
+    /// <param name="damagable"></param>
+    /// <returns></returns>
+    public bool GiveDamage(IDamagable damagable)
+    {
+        return damagable.TakeDamage(TankModel.Damage);
+    }
+
+    public void DestroyTank()
+    {
+        GameObject explosion = GameObject.Instantiate(TankModel.Explosion, TankView.transform.position, Quaternion.identity);
+        GameObject.Destroy(explosion, 1.5f);
+        GameObject.Destroy(TankView.gameObject);
+    }
+
     public void Move()
     {
-        Vector3 movement = TankModel.tank_Speed * tank_MovementInputValue * Time.deltaTime * TankView.transform.forward;
+        Vector3 movement = TankModel.Speed * tank_MovementInputValue * Time.deltaTime * TankView.transform.forward;
         tank_Rigidbody.MovePosition(tank_Rigidbody.position + movement);
     }
 
     public void Turn()
     {
-        float turn = TankModel.tank_TurnSpeed * tank_TurnInputValue * Time.deltaTime;
+        float turn = TankModel.TurnSpeed * tank_TurnInputValue * Time.deltaTime;
         Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
         tank_Rigidbody.MoveRotation(tank_Rigidbody.rotation * turnRotation);
     }
 
-    public void ShootShell(ShellService shellService)
+    public void ShootShell()
     {
-        shellService.SpawnShell(shellService.transform);
+        AssetManager.Instance.ShellService.SpawnShell(TankView.transform, TankModel.ShellLayer, TankModel.Damage);
     }
 
     public TankModel GetTankModel()

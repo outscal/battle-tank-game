@@ -17,7 +17,6 @@ public class ShellView : MonoBehaviour
 
     private void Start()
     {
-        //GetComponent<Rigidbody>();
         if (ShellController != null)
         {
             ShellController.Shot();
@@ -27,5 +26,15 @@ public class ShellView : MonoBehaviour
         {
             return;
         }   
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        IDamagable damagable;
+        if ((damagable = collision.gameObject.GetComponent<IDamagable>()) != null)
+        {
+            // Apply appropriate damage to the damagable.
+            damagable.TakeDamage(ShellController.GetShellModel().Damage);
+        }
     }
 }

@@ -13,7 +13,7 @@ public class EnemyService : SingletonGeneric<EnemyService>
         for (int i = 0; i < numberOfEnemies; i++)
         {
             CreateNewEnemy();
-        }       
+        }
     }
     private EnemyController CreateNewEnemy()
     {

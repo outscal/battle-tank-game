@@ -8,6 +8,7 @@ public class TankScriptableObject : ScriptableObject
     public float turnSpeed;
     public float health;
     public float damage;
+    public LayerMask shellLayer;
     public TankView tankView;
     public GameObject tankExplosion;
 }
