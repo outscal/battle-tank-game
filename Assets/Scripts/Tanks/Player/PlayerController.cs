@@ -6,16 +6,6 @@ namespace BattleTank
 {
     public class PlayerController : MonoBehaviour
     {
-      
-
-
-
-
-
-
-
-
-
 
     }
 }
