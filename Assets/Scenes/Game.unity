@@ -171,6 +171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tankView: {fileID: 1573261260387010865, guid: 12007c33ea4e57748a22d318275ca097,
     type: 3}
+  tankList: {fileID: 11400000, guid: e65b3c32468937a49ac743d1441debe9, type: 2}
 --- !u!1 &312507970
 GameObject:
   m_ObjectHideFlags: 0
@@ -1191,18 +1192,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
---- !u!114 &1918307688 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2929252283123773951, guid: aaa2c939c0359ac4dbce3f49e8b90252,
-    type: 3}
-  m_PrefabInstance: {fileID: 1918307687}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45977bbae16431c46a013576a1aea384, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &1918307689 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252,
@@ -1313,9 +1302,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerTank
       objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: _joystick
-      value: 
-      objectReference: {fileID: 1918307688}
+    - target: {fileID: 1683113236925236644, guid: 12007c33ea4e57748a22d318275ca097,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12007c33ea4e57748a22d318275ca097, type: 3}
