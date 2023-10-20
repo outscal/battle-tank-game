@@ -20,7 +20,7 @@ public class TankService : MonoBehaviour
             CreateNewTank(i);
         }
     }
-
+     
     private TankController CreateNewTank(int index)
     {
         //TankScriptableObject tankScriptableObject = tankConfiguration[2];

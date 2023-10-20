@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BattleTank
 {
-    public class GameManager : MonoBehaviour
+    public class EnemyIdleState : MonoBehaviour
     {
 
     }
