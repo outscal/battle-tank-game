@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 namespace BattleTank
 {
-    public class ServicesEvent : SIngleton<ServicesEvents>
+    public class ServicesEvent : Singleton<ServicesEvents>
     {
         public event Action OnPlayerDeath;
 

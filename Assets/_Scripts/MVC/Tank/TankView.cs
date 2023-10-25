@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,6 +48,16 @@ namespace BattleTank
         private void Initalise(TankController tankController)
         {
             this.tankController = tankController;
+        }
+
+        internal void Enabled()
+        {
+            gameObject.SetActive(true);
+        }
+
+        internal void Disabled()
+        {
+            gameObject.SetActive(false);
         }
 
         internal void ChangeColor(Color color)

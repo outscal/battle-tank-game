@@ -1,6 +1,6 @@
 ﻿namespace BattleTank
 {
-    public class SIngleton<T>
+    public class Singleton<T>
     {
     }
 }

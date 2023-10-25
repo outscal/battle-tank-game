@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace BattleTank
 {
@@ -16,6 +17,7 @@ namespace BattleTank
             //TankView = go.GetComponent<TankView>();
             Debug.Log("Tank View Created", TankView);
 
+          
         }
 
         public void ApplyDamage(BulletType bulletType, int damage)
@@ -29,7 +31,15 @@ namespace BattleTank
                 TankModel.Health -= damage;
                 Debug.Log("Player took Damage :" + TankModel.Health);
             }
+        }
 
+        public void Disable()
+        {
+            TankView.Disabled();
+        }
+        public void Enable()
+        {
+            TankView.Enabled();
         }
 
         public TankModel TankModel { get; }
