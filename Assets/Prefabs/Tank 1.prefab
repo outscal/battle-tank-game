@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 4714112234542474715}
   - component: {fileID: 7584764474682570893}
   - component: {fileID: 333702835704653124}
+  - component: {fileID: 1787659838190526148}
   m_Layer: 0
   m_Name: TankChassis
   m_TagString: Untagged
@@ -253,6 +254,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1787659838190526148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2869815663700660208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47071caedc6cf61489b2b840fa1f8066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigidBody: {fileID: 0}
+  childs:
+  - {fileID: 333702835704653124}
+  - {fileID: 5477447341527236604}
+  - {fileID: 641451578409299320}
+  - {fileID: 3981217080210254663}
 --- !u!1 &5377233216257810988
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,6 +355,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 3924904612707653809}
+  childs: []
 --- !u!54 &3924904612707653809
 Rigidbody:
   m_ObjectHideFlags: 0
