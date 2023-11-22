@@ -38,23 +38,3 @@ public class GenericSingleton<T> : MonoBehaviour where T :GenericSingleton<T>
         }
     }
 }
-
-// public class PlayerTank : GenericSingleton<PlayerTank>
-// {
- 
-// }
-
-// public class EnemyTank : GenericSingleton<EnemyTank>
-// {
-  
-// }
-
-// public class Player_Tank : MonoBehaviour
-// {
-  
-// }
-
-// public class Enemy_Tank : MonoBehaviour
-// {
-
-// }
